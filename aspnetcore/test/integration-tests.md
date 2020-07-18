@@ -5,7 +5,7 @@ description: Přečtěte si, jak testy integrace zajišťují, aby komponenty ap
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/20/2020
+ms.date: 07/14/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/integration-tests
-ms.openlocfilehash: 6e4a0065486f6d9d6744dcd21de10ec76782f210
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: c050665f630c0973abe6c9d08a4652597441639f
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405871"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445278"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -49,7 +49,7 @@ Testy integrace vyhodnocují komponenty aplikace na širší úrovni než [testy
 
 Tyto širší testy se používají k testování infrastruktury a celé architektury aplikace, často včetně následujících komponent:
 
-* Databáze
+* databáze
 * Systém souborů
 * Síťová zařízení
 * Kanál požadavků a odpovědí
@@ -114,7 +114,7 @@ Testovací projekt musí:
 * Odkázat na balíček [Microsoft. AspNetCore. Mvc. testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing) .
 * Zadejte webovou sadu SDK v souboru projektu ( `<Project Sdk="Microsoft.NET.Sdk.Web">` ).
 
-Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte soubor *Tests/RazorPagesProject. Tests/RazorPagesProject. Tests. csproj* . Ukázková aplikace používá [xUnit](https://xunit.github.io/) test Framework a knihovnu analyzátoru [AngleSharp](https://anglesharp.github.io/) , takže ukázková aplikace také odkazuje na:
+Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte soubor *Tests/ Razor PagesProject. Tests/ Razor PagesProject. Tests. csproj* . Ukázková aplikace používá [xUnit](https://xunit.github.io/) test Framework a knihovnu analyzátoru [AngleSharp](https://anglesharp.github.io/) , takže ukázková aplikace také odkazuje na:
 
 * [xUnit](https://www.nuget.org/packages/xunit)
 * [xUnit. Runner. VisualStudio](https://www.nuget.org/packages/xunit.runner.visualstudio)
@@ -216,7 +216,7 @@ Vzhledem k tomu, že jiný test ve `IndexPageTests` třídě provádí operaci, 
 
 Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) , který je k dispozici při vytváření `HttpClient` instancí.
 
-| Možnost | Description | Výchozí |
+| Možnost | Popis | Výchozí |
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
@@ -310,7 +310,7 @@ Testovací aplikace může <xref:Microsoft.AspNetCore.Authentication.Authenticat
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet4&highlight=11-18)]
 
-`TestAuthHandler`Je volána k ověření uživatele, když je schéma ověřování nastaveno na místo, `Test` kde `AddAuthentication` je zaregistrováno pro `ConfigureTestServices` :
+`TestAuthHandler`Je volána k ověření uživatele, pokud je schéma ověřování nastaveno na umístění, `Test` kde `AddAuthentication` je zaregistrováno pro `ConfigureTestServices` . Je důležité, `Test` aby schéma odpovídalo schématu, které vaše aplikace očekává. V opačném případě ověřování nebude fungovat.
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet3&highlight=7-12)]
 
@@ -361,12 +361,12 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 
 [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Aplikace | Adresář projektu | Description |
+| Aplikace | Adresář projektu | Popis |
 | --- | ----------------- | ----------- |
-| Aplikace zprávy (SUT) | *src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
-| Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
+| Aplikace zprávy (SUT) | *src/ Razor PagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
+| Testovací aplikace | *testuje/ Razor PagesProject. Tests* | Slouží k integraci testu SUT. |
 
-Testy lze spustit pomocí vestavěných funkcí testu integrovaného vývojového prostředí (IDE), jako je například [Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazový řádek, spusťte následující příkaz v příkazovém řádku v adresáři *Tests/RazorPagesProject. Tests* :
+Testy lze spustit pomocí vestavěných funkcí testu integrovaného vývojového prostředí (IDE), jako je například [Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazový řádek, spusťte následující příkaz v příkazovém řádku v adresáři *Tests/ Razor PagesProject. Tests* :
 
 ```console
 dotnet test
@@ -389,9 +389,9 @@ I když aplikace nepoužívá vzor úložiště a není efektivním příkladem 
 
 ### <a name="test-app-organization"></a>Organizace testovací aplikace
 
-Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject. Tests* .
+Testovací aplikace je Konzolová aplikace v adresáři *Tests/ Razor PagesProject. Tests* .
 
-| Testovací adresář aplikace | Description |
+| Testovací adresář aplikace | Popis |
 | ------------------ | ----------- |
 | *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
 | *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |
@@ -437,7 +437,7 @@ Testy integrace vyhodnocují komponenty aplikace na širší úrovni než [testy
 
 Tyto širší testy se používají k testování infrastruktury a celé architektury aplikace, často včetně následujících komponent:
 
-* Databáze
+* databáze
 * Systém souborů
 * Síťová zařízení
 * Kanál požadavků a odpovědí
@@ -504,7 +504,7 @@ Testovací projekt musí:
   * [Microsoft. AspNetCore. Mvc. testování](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/)
 * Zadejte webovou sadu SDK v souboru projektu ( `<Project Sdk="Microsoft.NET.Sdk.Web">` ). Webová sada SDK se vyžaduje při odkazování na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
-Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte soubor *Tests/RazorPagesProject. Tests/RazorPagesProject. Tests. csproj* . Ukázková aplikace používá [xUnit](https://xunit.github.io/) test Framework a knihovnu analyzátoru [AngleSharp](https://anglesharp.github.io/) , takže ukázková aplikace také odkazuje na:
+Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte soubor *Tests/ Razor PagesProject. Tests/ Razor PagesProject. Tests. csproj* . Ukázková aplikace používá [xUnit](https://xunit.github.io/) test Framework a knihovnu analyzátoru [AngleSharp](https://anglesharp.github.io/) , takže ukázková aplikace také odkazuje na:
 
 * [xUnit](https://www.nuget.org/packages/xunit/)
 * [xUnit. Runner. VisualStudio](https://www.nuget.org/packages/xunit.runner.visualstudio/)
@@ -579,7 +579,7 @@ Vzhledem k tomu, že jiný test ve `IndexPageTests` třídě provádí operaci, 
 
 Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) , který je k dispozici při vytváření `HttpClient` instancí.
 
-| Možnost | Description | Výchozí |
+| Možnost | Popis | Výchozí |
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
@@ -752,12 +752,12 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 
 [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Aplikace | Adresář projektu | Description |
+| Aplikace | Adresář projektu | Popis |
 | --- | ----------------- | ----------- |
-| Aplikace zprávy (SUT) | *src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
-| Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
+| Aplikace zprávy (SUT) | *src/ Razor PagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
+| Testovací aplikace | *testuje/ Razor PagesProject. Tests* | Slouží k integraci testu SUT. |
 
-Testy lze spustit pomocí vestavěných funkcí testu integrovaného vývojového prostředí (IDE), jako je například [Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazový řádek, spusťte následující příkaz v příkazovém řádku v adresáři *Tests/RazorPagesProject. Tests* :
+Testy lze spustit pomocí vestavěných funkcí testu integrovaného vývojového prostředí (IDE), jako je například [Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazový řádek, spusťte následující příkaz v příkazovém řádku v adresáři *Tests/ Razor PagesProject. Tests* :
 
 ```dotnetcli
 dotnet test
@@ -780,9 +780,9 @@ I když aplikace nepoužívá vzor úložiště a není efektivním příkladem 
 
 ### <a name="test-app-organization"></a>Organizace testovací aplikace
 
-Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject. Tests* .
+Testovací aplikace je Konzolová aplikace v adresáři *Tests/ Razor PagesProject. Tests* .
 
-| Testovací adresář aplikace | Description |
+| Testovací adresář aplikace | Popis |
 | ------------------ | ----------- |
 | *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
 | *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |

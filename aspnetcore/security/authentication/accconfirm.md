@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: bf599487fdc3e574f72f1a3d35278cc9c2ce7513
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1156ddd2921afbfeccaf077ca29d267f8b1e844a
+ms.sourcegitcommit: 3544941682869734ea0113e24e02ed0ec9e1a9ec
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404649"
+ms.lasthandoff: 07/18/2020
+ms.locfileid: "86464550"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -27,20 +27,14 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Ponant](https://github.com
 V tomto kurzu se dozvíte, jak vytvořit aplikaci ASP.NET Core s potvrzením e-mailu a resetováním hesla. Tento **kurz není** úvodním tématem. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/razor-pages/razor-pages-start)
-* [Ověřování](xref:security/authentication/identity)
+* [Authentication](xref:security/authentication/identity)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
 <!-- see C:/Dropbox/wrk/Code/SendGridConsole/Program.cs -->
 
-::: moniker range="<= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
 
-V [tomto souboru PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) se zobrazí verze ASP.NET Core 1,1.
-
-::: moniker-end
-
-::: moniker range="> aspnetcore-2.2"
-
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [.NET Core 3,0 SDK nebo novější](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
@@ -73,7 +67,7 @@ Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázc
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Například:
+Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
 
 ```dotnetcli
 dotnet user-secrets set SendGridUser RickAndMSFT
@@ -109,7 +103,7 @@ V konzole správce balíčků zadejte následující příkaz:
 Install-Package SendGrid
 ```
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Z konzoly zadejte následující příkaz:
 
@@ -135,6 +129,16 @@ Do `ConfigureServices` metody v souboru *Startup.cs* přidejte následující k�
 * Zaregistrujte `AuthMessageSenderOptions` instanci konfigurace.
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Startup.cs?name=snippet1&highlight=11-15)]
+
+## <a name="scaffold-registerconfirmation"></a>RegisterConfirmation uživatelského rozhraní
+
+Postupujte podle pokynů pro [generování Identity uživatelského rozhraní](xref:security/authentication/scaffold-identity) a uživatelského rozhraní `RegisterConfirmation` .
+
+<!-- .NET 5 fixes this, see
+https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Identity/Pages/V4/Account/RegisterConfirmation.cshtml.cs#L74-L77
+-->
+
+[!INCLUDE[](~/includes/disableVer.md)]
 
 ## <a name="register-confirm-email-and-reset-password"></a>Registrace, potvrzení e-mailu a resetování hesla
 
@@ -225,9 +229,9 @@ Povolení potvrzení účtu na webu s uživateli zamkne všechny existující u�
 
 ::: moniker-end
 
-::: moniker range="> aspnetcore-2.0 < aspnetcore-3.0"
+::: moniker range="< aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [.NET Core 2,2 SDK nebo novější](https://dotnet.microsoft.com/download/dotnet-core)
 
@@ -244,8 +248,10 @@ dotnet aspnet-codegenerator identity -dc WebPWrecover.Data.ApplicationDbContext 
 dotnet ef database drop -f
 dotnet ef database update
 dotnet run
-
 ```
+
+> [!NOTE]
+> Pokud <xref:Microsoft.AspNetCore.Identity.PasswordOptions> jsou nakonfigurovány v `Startup.ConfigureServices` , může být pro [ `[StringLength]` ](xref:System.ComponentModel.DataAnnotations.StringLengthAttribute) `Password` vlastnost v generovaných stránkách vyžadována konfigurace atributu Identity . `InputModel` `Password` Vlastnost se nachází v `Areas/Identity/Pages/Account/Register.cshtml.cs` souboru po vygenerování uživatelského rozhraní Identity .
 
 ## <a name="test-new-user-registration"></a>Otestovat registraci nových uživatelů
 
@@ -281,7 +287,7 @@ Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázc
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Například:
+Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
 
 ```console
 C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT
@@ -315,7 +321,7 @@ V konzole správce balíčků zadejte následující příkaz:
 Install-Package SendGrid
 ```
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Z konzoly zadejte následující příkaz:
 

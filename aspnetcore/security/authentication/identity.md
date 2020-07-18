@@ -3,7 +3,7 @@ title: Úvod do Identity ASP.NET Core
 author: rick-anderson
 description: Použijte Identity s aplikací ASP.NET Core. Přečtěte si, jak nastavit požadavky na heslo (RequireDigit, RequiredLength, RequiredUniqueChars a další).
 ms.author: riande
-ms.date: 01/15/2020
+ms.date: 7/15/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: 6ac565bfa4862168fa143417ab5a81c51b620f16
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: dd3296db568700a363c427398f02239846a46ada
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212448"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445425"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>Úvod do Identity ASP.NET Core
 
@@ -37,7 +37,7 @@ Uživatelé můžou vytvořit účet s přihlašovacími informacemi uloženými
 
 Identityje obvykle nakonfigurovaný pomocí SQL Server databáze pro ukládání uživatelských jmen, hesel a profilů. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
 
-V tomto tématu se dozvíte, jak používat Identity k registraci, přihlášení a odhlášení uživatele. Poznámka: šablony považují uživatelské jméno a e-mail za stejné pro uživatele. Podrobnější pokyny k vytváření aplikací, které používají Identity , najdete v části Další kroky na konci tohoto článku.
+V tomto tématu se dozvíte, jak používat Identity k registraci, přihlášení a odhlášení uživatele. Poznámka: šablony považují uživatelské jméno a e-mail za stejné pro uživatele. Podrobnější pokyny k vytváření aplikací, které používají Identity , najdete v části [Další kroky](#next).
 
 [Platforma Microsoft Identity](/azure/active-directory/develop/) je:
 
@@ -61,7 +61,7 @@ Vytvořte ASP.NET Core projekt webové aplikace s jednotlivými uživatelskými 
 * Vyberte **webovou aplikaci**ASP.NET Core a pak vyberte **změnit ověřování**.
 * Vyberte **jednotlivé uživatelské účty** a klikněte na **OK**.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -75,7 +75,7 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-Vygenerovaný projekt poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Zde je příklad:
+Vygenerovaný projekt poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Příklad:
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -91,7 +91,7 @@ Spusťte následující příkaz v konzole správce balíčků (PMC):
 
 `PM> Update-Database`
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Migrace nejsou v tomto kroku nutné při použití SQLite.
 
@@ -117,7 +117,7 @@ Spusťte aplikaci a zaregistrujte uživatele. V závislosti na velikosti obrazov
 
 Služby jsou přidány do `ConfigureServices` . Typický vzor je zavolat všechny `Add{Service}` metody a pak zavolat všechny `services.Configure{Service}` metody.
 
-[!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configureservices&highlight=10-99)]
+[!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configureservices&highlight=11-99)]
 
 Předchozí zvýrazněný kód nakonfiguruje Identity s výchozími hodnotami možností. Služby jsou zpřístupněny aplikaci prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
 
@@ -129,19 +129,19 @@ Aplikace generovaná šablonou nepoužívá [autorizaci](xref:security/authoriza
 
 Další informace o systémech `IdentityOptions` a `Startup` najdete v tématu <xref:Microsoft.AspNetCore.Identity.IdentityOptions> a [spuštění aplikace](xref:fundamentals/startup).
 
-## <a name="scaffold-register-login-and-logout"></a>Registrace, přihlášení a odhlášení uživatelského rozhraní
+## <a name="scaffold-register-login-logout-and-registerconfirmation"></a>Registr, přihlášení, odhlášení a RegisterConfirmation uživatelského rozhraní
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Přidejte soubory registru, přihlášení a odhlášení. Použijte [identitu uživatelského rozhraní do Razor projektu s pokyny pro autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
+Přidejte `Register` soubory, `Login` , `LogOut` a `RegisterConfirmation` . Použijte [identitu uživatelského rozhraní do Razor projektu s pokyny pro autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste vytvořili projekt s názvem **WebApp1**, spusťte následující příkazy. Jinak použijte správný obor názvů pro `ApplicationDbContext` :
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
-dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout"
+dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation"
 ```
 
 PowerShell používá jako oddělovač příkazů středník. Při použití prostředí PowerShell, oddělte středníky v seznamu souborů nebo vložte seznam souborů do dvojitých uvozovek, jak ukazuje předchozí příklad.
@@ -152,13 +152,14 @@ Další informace o generování uživatelského rozhraní Identity najdete v t�
 
 ### <a name="examine-register"></a>Ověřit registraci
 
-Když uživatel klikne na odkaz **zaregistrovat** , `RegisterModel.OnPostAsync` je akce vyvolána. Uživatel je vytvořen pomocí [CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_) na `_userManager` objekt:
+Když uživatel klikne na **Register** stránce na tlačítko registrace `Register` , vyvolá se `RegisterModel.OnPostAsync` akce. Uživatel je vytvořen pomocí [CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_) na `_userManager` objekt:
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=9)]
 
-Pokud byl uživatel vytvořen úspěšně, uživatel je přihlášen voláním `_signInManager.SignInAsync` .
-
-Postup, jak zabránit okamžitému přihlášení při registraci, najdete v tématu [potvrzení účtu](xref:security/authentication/accconfirm#prevent-login-at-registration) .
+<!-- .NET 5 fixes this, see
+https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Identity/Pages/V4/Account/RegisterConfirmation.cshtml.cs#L74-L77
+-->
+[!INCLUDE[](~/includes/disableVer.md)]
 
 ### <a name="log-in"></a>Přihlášení
 
@@ -242,6 +243,8 @@ Chcete-li zabránit publikování statických Identity prostředků (šablon sty
 </Target>
 ```
 
+<a name="next"></a>
+
 ## <a name="next-steps"></a>Další kroky
 
 * [IdentityZdrojový kód ASP.NET Core](https://github.com/dotnet/aspnetcore/tree/master/src/Identity)
@@ -292,7 +295,7 @@ Vytvořte ASP.NET Core projekt webové aplikace s jednotlivými uživatelskými 
 * Vyberte **webovou aplikaci**ASP.NET Core a pak vyberte **změnit ověřování**.
 * Vyberte **jednotlivé uživatelské účty** a klikněte na **OK**.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -300,7 +303,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-Vygenerovaný projekt poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Zde je příklad:
+Vygenerovaný projekt poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Příklad:
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -318,7 +321,7 @@ Spusťte následující příkaz v konzole správce balíčků (PMC):
 Update-Database
 ```
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet ef database update
@@ -356,7 +359,7 @@ Použijte [identitu uživatelského rozhraní do Razor projektu s pokyny pro aut
 
 Přidejte soubory registru, přihlášení a odhlášení.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste vytvořili projekt s názvem **WebApp1**, spusťte následující příkazy. Jinak použijte správný obor názvů pro `ApplicationDbContext` :
 

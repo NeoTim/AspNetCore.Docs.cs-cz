@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/dependency-injection
-ms.openlocfilehash: e88a471a35e1c2be5f77407a6c594cd6a97e1737
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 07fe7d4b64c84956be44e7d3ac0b1d8687b085c6
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944364"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445161"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>BlazorVkládání závislostí ASP.NET Core
 
@@ -37,9 +37,9 @@ DI je technika přístupu ke službám nakonfigurovaným v centrálním umístě
 
 Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 
-| Služba | Doba platnosti | Description |
+| Služba | Doba platnosti | Popis |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | Dočasný | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance <xref:System.Net.Http.HttpClient> v Blazor WebAssembly aplikaci používá prohlížeč pro zpracování provozu http na pozadí.<br><br>Blazor Serverve výchozím nastavení neobsahují aplikace <xref:System.Net.Http.HttpClient> nakonfigurované jako služby. Poskytněte <xref:System.Net.Http.HttpClient> Blazor Server aplikaci.<br><br>Další informace naleznete v tématu <xref:blazor/call-web-api>. |
+| <xref:System.Net.Http.HttpClient> | Obor | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance <xref:System.Net.Http.HttpClient> v Blazor WebAssembly aplikaci používá prohlížeč pro zpracování provozu http na pozadí.<br><br>Blazor Serverve výchozím nastavení neobsahují aplikace <xref:System.Net.Http.HttpClient> nakonfigurované jako služby. Poskytněte <xref:System.Net.Http.HttpClient> Blazor Server aplikaci.<br><br>Další informace naleznete v tématu <xref:blazor/call-web-api>. |
 | <xref:Microsoft.JSInterop.IJSRuntime> | Singleton ( Blazor WebAssembly )<br>S vymezeným oborem ( Blazor Server ) | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/call-javascript-from-dotnet>. |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager> | Singleton ( Blazor WebAssembly )<br>S vymezeným oborem ( Blazor Server ) | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/fundamentals/routing#uri-and-navigation-state-helpers). |
 
@@ -66,8 +66,11 @@ public class Program
         builder.Services.AddSingleton<IMyDependency, MyDependency>();
         builder.RootComponents.Add<App>("app");
         
-        builder.Services.AddTransient(sp => 
-            new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+        builder.Services.AddScoped(sp => 
+            new HttpClient
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+            });
 
         await builder.Build().RunAsync();
     }
@@ -85,8 +88,11 @@ public class Program
         builder.Services.AddSingleton<WeatherService>();
         builder.RootComponents.Add<App>("app");
         
-        builder.Services.AddTransient(sp => 
-            new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+        builder.Services.AddScoped(sp => 
+            new HttpClient
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+            });
 
         var host = builder.Build();
 
@@ -109,8 +115,11 @@ public class Program
         builder.Services.AddSingleton<WeatherService>();
         builder.RootComponents.Add<App>("app");
         
-        builder.Services.AddTransient(sp => 
-            new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+        builder.Services.AddScoped(sp => 
+            new HttpClient
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+            });
 
         var host = builder.Build();
 
@@ -151,7 +160,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Služby je možné konfigurovat s životností, která jsou uvedená v následující tabulce.
 
-| Doba platnosti | Description |
+| Doba platnosti | Popis |
 | -------- | ----------- |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor WebAssemblyaplikace momentálně neobsahují koncept DI oborů. `Scoped`– registrované služby se chovají jako `Singleton` služby. Nicméně Blazor Server model hostování podporuje `Scoped` dobu života. V Blazor Server aplikacích je vymezená registrace služby vymezená na *připojení*. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI vytvoří *jednu instanci* služby. Všechny součásti, které vyžadují `Singleton` službu, obdrží instanci stejné služby. |

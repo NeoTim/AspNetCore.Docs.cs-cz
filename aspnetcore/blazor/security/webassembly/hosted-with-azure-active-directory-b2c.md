@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: b9125526db9a7484aca50f2ffa6175fd99b11453
-ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.openlocfilehash: 40ec40423de82926bd861ef352546b3dfe63dae0
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2020
-ms.locfileid: "86147761"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445252"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core s využitím Azure Active Directory B2C
 
@@ -96,7 +96,7 @@ V **oprávněních rozhraní API**:
 1. Otevřete seznam **rozhraní API** .
 1. Povolte přístup k rozhraní API (například `API.Access` ).
 1. Vyberte **Přidat oprávnění**.
-1. Klikněte na tlačítko **udělení souhlasu správce pro {Name}** . Výběrem **Ano** potvrďte.
+1. Klikněte na tlačítko **udělení souhlasu správce pro {Name}** . Akci potvrďte výběrem **Ano**.
 
 V **Home**  >  **Azure AD B2C**  >  **toky pro uživatele**doma:
 
@@ -266,7 +266,7 @@ builder.Services.AddHttpClient("{APP ASSEMBLY}.ServerAPI", client =>
     client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
-builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
+builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("{APP ASSEMBLY}.ServerAPI"));
 ```
 

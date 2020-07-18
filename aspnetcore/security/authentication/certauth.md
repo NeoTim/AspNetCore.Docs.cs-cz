@@ -4,7 +4,7 @@ author: blowdart
 description: Přečtěte si, jak nakonfigurovat ověřování certifikátů v ASP.NET Core pro IIS a HTTP.sys.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
-ms.date: 01/02/2020
+ms.date: 07/16/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 493046e288c6b1ccd8e41f15a8e6e532a10a4adc
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2c58a274e8de0b1205b223287b7690b1d5caed23
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403193"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445122"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
@@ -40,11 +40,38 @@ Alternativou k ověřování certifikátů v prostředích, kde se používají 
 
 Získejte certifikát HTTPS, použijte ho a [nakonfigurujte server](#configure-your-server-to-require-certificates) tak, aby vyžadoval certifikáty.
 
-Do webové aplikace přidejte odkaz na `Microsoft.AspNetCore.Authentication.Certificate` balíček. Potom v `Startup.ConfigureServices` metodě zavolejte `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` s vašimi možnostmi a poskytněte delegátovi, `OnCertificateValidated` aby provedl dodatečné ověřování klientského certifikátu odeslaného pomocí požadavků. Zapněte tyto informace do `ClaimsPrincipal` a nastavte ji na `context.Principal` vlastnost.
+Do webové aplikace přidejte odkaz na balíček [Microsoft. AspNetCore. Authentication. Certificate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Certificate) . Potom v `Startup.ConfigureServices` metodě zavolejte `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` s vašimi možnostmi a poskytněte delegátovi, `OnCertificateValidated` aby provedl dodatečné ověřování klientského certifikátu odeslaného pomocí požadavků. Zapněte tyto informace do `ClaimsPrincipal` a nastavte ji na `context.Principal` vlastnost.
 
 Pokud se ověření nepovede, vrátí tato obslužná rutina `403 (Forbidden)` odpověď místo `401 (Unauthorized)` toho, jak byste mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
 
-Přidejte také `app.UseAuthentication();` do `Startup.Configure` metody. V opačném případě nebude `HttpContext.User` nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Například:
+Přidejte také `app.UseAuthentication();` do `Startup.Configure` metody. V opačném případě nebude `HttpContext.User` nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Příklad:
+
+::: moniker range=">= aspnetcore-5.0"
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddAuthentication(
+        CertificateAuthenticationDefaults.AuthenticationScheme)
+        .AddCertificate()
+        // Adding an ICertificateValidationCache results in certificate auth caching the results.
+        // The default implementation uses a memory cache.
+        .AddCertificateCache();
+
+    // All other service configuration
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    app.UseAuthentication();
+
+    // All other app configuration
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -52,16 +79,19 @@ public void ConfigureServices(IServiceCollection services)
     services.AddAuthentication(
         CertificateAuthenticationDefaults.AuthenticationScheme)
         .AddCertificate();
-    // All the other service configuration.
+
+    // All other service configuration
 }
 
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
     app.UseAuthentication();
 
-    // All the other app configuration.
+    // All other app configuration
 }
 ```
+
+::: moniker-end
 
 Předchozí příklad ukazuje výchozí způsob, jak přidat ověřování certifikátu. Obslužná rutina vytvoří objekt zabezpečení uživatele pomocí vlastností Common Certificate.
 
@@ -343,7 +373,7 @@ namespace AspNetCoreCertificateAuthApi
 
 #### <a name="implement-an-httpclient-using-a-certificate-and-the-httpclienthandler"></a>Implementace HttpClient pomocí certifikátu a HttpClientHandler
 
-HttpClientHandler lze přidat přímo v konstruktoru třídy HttpClient. Při vytváření instancí HttpClient byste měli věnovat pozornost. HttpClient pak certifikát odešle spolu s každou žádostí.
+`HttpClientHandler`Lze přidat přímo v konstruktoru `HttpClient` třídy. Při vytváření instancí nástroje byste měli věnovat pozornost `HttpClient` . `HttpClient`Pak certifikát odešle spolu s každou žádostí.
 
 ```csharp
 private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
@@ -372,7 +402,7 @@ private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
 
 #### <a name="implement-an-httpclient-using-a-certificate-and-a-named-httpclient-from-ihttpclientfactory"></a>Implementace HttpClient pomocí certifikátu a pojmenovaného HttpClient z IHttpClientFactory 
 
-V následujícím příkladu se klientský certifikát přidá do HttpClientHandler pomocí vlastnosti vlastnost ClientCertificates z obslužné rutiny. Tato obslužná rutina se pak dá použít v pojmenované instanci HttpClient pomocí metody ConfigurePrimaryHttpMessageHandler. Toto je instalační program ve třídě Startup v metodě ConfigureServices.
+V následujícím příkladu je klientský certifikát přidán do a `HttpClientHandler` pomocí `ClientCertificates` vlastnosti z obslužné rutiny. Tato obslužná rutina se pak dá použít v pojmenované instanci `HttpClient` pomocí `ConfigurePrimaryHttpMessageHandler` metody. Toto nastavení se provádí v nástroji `Startup.ConfigureServices` :
 
 ```csharp
 var clientCertificate = 
@@ -387,7 +417,7 @@ services.AddHttpClient("namedClient", c =>
 }).ConfigurePrimaryHttpMessageHandler(() => handler);
 ```
 
-IHttpClientFactory se pak může použít k získání pojmenované instance s obslužnou rutinou a certifikátem. Metoda CreateClient s názvem klienta definovaného ve spouštěcí třídě slouží k získání instance. Požadavek HTTP lze odeslat pomocí klienta podle potřeby.
+`IHttpClientFactory`Lze pak použít k získání pojmenované instance s obslužnou rutinou a certifikátem. `CreateClient`Metoda s názvem klienta definovaného ve `Startup` třídě slouží k získání instance. Požadavek HTTP lze odeslat pomocí klienta podle potřeby.
 
 ```csharp
 private readonly IHttpClientFactory _clientFactory;
@@ -562,12 +592,43 @@ namespace AspNetCoreCertificateAuthApi
 
 <a name="occ"></a>
 
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="certificate-validation-caching"></a>Mezipaměť ověření certifikátu
+
+ASP.NET Core 5,0 a novější verze podporují možnost Povolit ukládání výsledků ověření do mezipaměti. Ukládání do mezipaměti výrazně zvyšuje výkon ověřování certifikátem, protože ověřování je náročná operace.
+
+Ve výchozím nastavení ověřování pomocí certifikátu zakáže ukládání do mezipaměti. Pokud chcete povolit ukládání do mezipaměti, zavolejte `AddCertificateCache` na `Startup.ConfigureServices` :
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddAuthentication(
+        CertificateAuthenticationDefaults.AuthenticationScheme)
+            .AddCertificate()
+            .AddCertificateCache(options =>
+            {
+                options.CacheSize = 1024;
+                options.CacheEntryExpiration = TimeSpan.FromMinutes(2);
+            });
+}
+```
+
+Výchozí implementace ukládání do mezipaměti ukládá výsledky do paměti. Můžete poskytnout vlastní mezipaměť implementací `ICertificateValidationCache` a registrací pomocí injektáže závislosti. Například `services.AddSingleton<ICertificateValidationCache, YourCache>()`.
+
+::: moniker-end
+
 ## <a name="optional-client-certificates"></a>Volitelné klientské certifikáty
 
 V této části najdete informace o aplikacích, které musí chránit podmnožinu aplikace pomocí certifikátu. Například Razor Stránka nebo kontrolér v aplikaci může vyžadovat klientské certifikáty. V takovém případě se zobrazí výzvy jako klientské certifikáty:
   
 * Funkce TLS, nikoli funkce HTTP.
-* Jsou vyjednány po připojení a musí se vyjednávat na začátku připojení, než budou k dispozici všechna data HTTP. Na začátku připojení je známo pouze Indikace názvu serveru (SNI) &dagger; . Certifikáty klienta a serveru se vyjednávají před prvním požadavkem na připojení a požadavky obecně nepůjde znovu vyjednávat. Nové vyjednávání je v HTTP/2 zakázané.
+* Jsou vyjednány po připojení a musí se vyjednávat na začátku připojení, než budou k dispozici všechna data HTTP. Na začátku připojení je známo pouze Indikace názvu serveru (SNI) &dagger; . Certifikáty klienta a serveru se vyjednávají před prvním požadavkem na připojení a požadavky obecně není možné znovu vyjednávat.
+
+Nové vyjednávání protokolu TLS bylo staré způsob implementace volitelných klientských certifikátů. Už to nedoporučujeme, protože:
+- V HTTP/1.1 by nové vyjednávání během žádosti POST mohlo způsobit zablokování, kde text žádosti vyplnil okno TCP a pakety opětovného vyjednávání nejde přijmout.
+- HTTP/2 [explicitně zakazuje](https://tools.ietf.org/html/rfc7540#section-9.2.1) opakované vyjednávání.
+- Protokol TLS 1,3 [odebral](https://tools.ietf.org/html/rfc8740#section-1) podporu pro opětovné vyjednávání.
 
 ASP.NET Core 5 Preview 4 a novější přináší pohodlnější podporu pro volitelné klientské certifikáty. Další informace najdete v [ukázce volitelných certifikátů](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample).
 
@@ -575,7 +636,7 @@ Následující přístup podporuje volitelné klientské certifikáty:
 
 * Nastavte vazbu pro doménu a subdoménu:
   * Například nastavte vazby v `contoso.com` a `myClient.contoso.com` . `contoso.com`Hostitel nevyžaduje klientský certifikát `myClient.contoso.com` , ale má.
-  * Další informace naleznete v tématu:
+  * Další informace najdete tady:
     * [Kestrel](/fundamentals/servers/kestrel):
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>

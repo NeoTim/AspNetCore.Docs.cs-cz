@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 65095f3990c72224d95f1f5fe46d320ab8f12040
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 17ada36c40997353528f922bece5acc34ce760d2
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404831"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445382"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Řešení potíží s ASP.NET Core v Azure App Service a IIS
 
@@ -63,7 +63,7 @@ K této chybě obvykle dochází v důsledku poškozeného nasazení v hostitels
 * Procesu nasazení se nepodařilo přesunout všechny soubory a složky aplikace do složky pro nasazení v hostitelském systému.
 * V nasazení chybí soubor *web.config* , nebo je obsah souboru *web.config* poškozený.
 
-Proveďte následující kroky:
+Proveďte tyto kroky:
 
 1. Odstraňte všechny soubory a složky ze složky pro nasazení v hostitelském systému.
 1. Znovu nasaďte obsah složky pro *publikování* aplikace do hostitelského systému pomocí běžné metody nasazení, jako je například Visual Studio, PowerShell nebo ruční nasazení:
@@ -74,7 +74,7 @@ Proveďte následující kroky:
 
 Další informace o rozložení publikované aplikace ASP.NET Core najdete v tématu <xref:host-and-deploy/directory-structure> . Další informace o souboru *web.config* naleznete v tématu <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig> .
 
-### <a name="500-internal-server-error"></a>500 – Interní chyba serveru
+### <a name="500-internal-server-error"></a>500 – Vnitřní chyba serveru
 
 Aplikace se spustí, ale chyba brání serveru v splnění žádosti.
 
@@ -299,34 +299,24 @@ Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán d
 
 ### <a name="aspnet-core-module-stdout-log-azure-app-service"></a>Protokol stdout v modulu ASP.NET Core (Azure App Service)
 
-Protokol stdout modulu ASP.NET Coree často zaznamenává užitečné chybové zprávy, které se nenašly v protokolu událostí aplikace. Postup povolení a zobrazení protokolů stdout:
-
-1. Přejděte do okna **diagnostikovat a řešit problémy** v Azure Portal.
-1. V části **Vybrat kategorii problému**vyberte tlačítko pro **webovou aplikaci** .
-1. V části **navrhovaná řešení** > **povolte přesměrování protokolu stdout**a výběrem tlačítka **otevřete konzolu Kudu a upravte Web.Config**.
-1. V konzole pro **diagnostiku**Kudu otevřete složky v lokalitě s cestou **site**  >  **wwwroot**. Posuňte se dolů, aby se soubor *web.config* v dolní části seznamu.
-1. Klikněte na ikonu tužky vedle *web.config* souboru.
-1. Nastavte **stdoutLogEnabled** na `true` a změňte cestu **stdoutLogFile** na: `\\?\%home%\LogFiles\stdout` .
-1. Výběrem **Uložit** Uložte aktualizovaný soubor *web.config* .
-1. Vytvořte žádost do aplikace.
-1. Vraťte se na Azure Portal. V oblasti **vývojové nástroje** vyberte okno **Pokročilé nástroje** . Vyberte tlačítko **Přejít &rarr; ** . Konzola Kudu se otevře v novém okně nebo záložce prohlížeče.
-1. Pomocí navigačního panelu v horní části stránky otevřete **konzolu ladění** a vyberte **cmd**.
-1. Vyberte složku **soubory protokolů** .
-1. Zkontrolujte **upravený** sloupec a vyberte ikonu tužky a upravte protokol stdout s nejnovějším datem úpravy.
-1. Po otevření souboru protokolu se zobrazí chyba.
-
-Zakázat protokolování stdout při odstraňování potíží:
-
-1. V **diagnostické konzole**Kudu se vraťte do umístění **site**  >  **wwwroot** lokality a odhalte tak soubor *web.config* . Znovu otevřete soubor **web.config** tím, že vyberete ikonu tužky.
-1. Nastavte **stdoutLogEnabled** na `false` .
-1. Vyberte **Uložit** a soubor uložte.
-
-Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.
-
 > [!WARNING]
 > Nepovedlo se zakázat protokol stdout, což může způsobit selhání aplikace nebo serveru. Velikost souboru protokolu ani počet vytvořených souborů protokolu nijak neomezuje. K řešení problémů se spouštěním aplikací použijte pouze protokolování STDOUT.
 >
 > Pro obecné protokolování v aplikaci ASP.NET Core po spuštění použijte knihovnu protokolování, která omezuje velikost souboru protokolu a otočí protokoly. Další informace najdete v tématu [Zprostředkovatelé protokolování třetích stran](xref:fundamentals/logging/index#third-party-logging-providers).
+
+Protokol stdout modulu ASP.NET Coree často zaznamenává užitečné chybové zprávy, které se nenašly v protokolu událostí aplikace. Postup povolení a zobrazení protokolů stdout:
+
+1. Na webu Azure Portal přejděte do webové aplikace.
+1. V okně **App Service** do vyhledávacího pole zadejte **Kudu** .
+1. Vyberte **Rozšířené nástroje** > **Přejít**.
+1. Vyberte **ladit konzolu > cmd**.
+1. Přejít na *Web/wwwroot*
+1. Vyberte ikonu tužky a upravte soubor *web.config* .
+1. V `<aspNetCore />` elementu nastavte `stdoutLogEnabled="true"` a vyberte **Uložit**.
+
+Zakažte protokolování stdout, když se dokončí odstraňování potíží nastavením `stdoutLogEnabled="false"` .
+
+Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.
 
 ### <a name="aspnet-core-module-debug-log-azure-app-service"></a>Protokol ladění modulu ASP.NET Core (Azure App Service)
 
@@ -638,7 +628,7 @@ K této chybě obvykle dochází v důsledku poškozeného nasazení v hostitels
 * Procesu nasazení se nepodařilo přesunout všechny soubory a složky aplikace do složky pro nasazení v hostitelském systému.
 * V nasazení chybí soubor *web.config* , nebo je obsah souboru *web.config* poškozený.
 
-Proveďte následující kroky:
+Proveďte tyto kroky:
 
 1. Odstraňte všechny soubory a složky ze složky pro nasazení v hostitelském systému.
 1. Znovu nasaďte obsah složky pro *publikování* aplikace do hostitelského systému pomocí běžné metody nasazení, jako je například Visual Studio, PowerShell nebo ruční nasazení:
@@ -649,7 +639,7 @@ Proveďte následující kroky:
 
 Další informace o rozložení publikované aplikace ASP.NET Core najdete v tématu <xref:host-and-deploy/directory-structure> . Další informace o souboru *web.config* naleznete v tématu <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig> .
 
-### <a name="500-internal-server-error"></a>500 – Interní chyba serveru
+### <a name="500-internal-server-error"></a>500 – Vnitřní chyba serveru
 
 Aplikace se spustí, ale chyba brání serveru v splnění žádosti.
 
@@ -1131,7 +1121,7 @@ K této chybě obvykle dochází v důsledku poškozeného nasazení v hostitels
 * Procesu nasazení se nepodařilo přesunout všechny soubory a složky aplikace do složky pro nasazení v hostitelském systému.
 * V nasazení chybí soubor *web.config* , nebo je obsah souboru *web.config* poškozený.
 
-Proveďte následující kroky:
+Proveďte tyto kroky:
 
 1. Odstraňte všechny soubory a složky ze složky pro nasazení v hostitelském systému.
 1. Znovu nasaďte obsah složky pro *publikování* aplikace do hostitelského systému pomocí běžné metody nasazení, jako je například Visual Studio, PowerShell nebo ruční nasazení:
@@ -1142,7 +1132,7 @@ Proveďte následující kroky:
 
 Další informace o rozložení publikované aplikace ASP.NET Core najdete v tématu <xref:host-and-deploy/directory-structure> . Další informace o souboru *web.config* naleznete v tématu <xref:host-and-deploy/aspnet-core-module#configuration-with-webconfig> .
 
-### <a name="500-internal-server-error"></a>500 – Interní chyba serveru
+### <a name="500-internal-server-error"></a>500 – Vnitřní chyba serveru
 
 Aplikace se spustí, ale chyba brání serveru v splnění žádosti.
 

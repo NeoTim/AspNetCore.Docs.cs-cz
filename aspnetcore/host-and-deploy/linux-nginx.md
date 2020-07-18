@@ -5,7 +5,7 @@ description: Naučte se, jak nastavit Nginx jako reverzní proxy na Ubuntu 16,04
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/10/2020
+ms.date: 07/09/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: c936ff9a7aadd21ce99a0c37184ae8cf911c3070
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8038c63200c7c9aaadb9e0e7a68ae315ff620197
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403973"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445291"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -40,7 +40,7 @@ Tato příručka:
 * Zajistí, aby se webová aplikace spouštěla při spuštění jako démon.
 * Nakonfiguruje Nástroj pro správu procesů, který vám může pomáhat s restartováním webové aplikace.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 1. Přístup k serveru Ubuntu 16,04 se standardním uživatelským účtem s oprávněním sudo.
 1. Nainstalujte modul runtime .NET Core na server.
@@ -395,6 +395,9 @@ Přidejte konfigurační soubor */etc/Nginx/proxy.conf* :
 Upravte konfigurační soubor */etc/Nginx/Nginx.conf* . Příklad obsahuje i `http` `server` oddíly v jednom konfiguračním souboru.
 
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
+
+> [!NOTE]
+> Blazor WebAssemblyaplikace vyžadují větší `burst` hodnotu parametru, aby vyhovovala většímu počtu požadavků, které aplikace vytvořila. Další informace naleznete v tématu <xref:blazor/host-and-deploy/webassembly#nginx>.
 
 #### <a name="secure-nginx-from-clickjacking"></a>Zabezpečení Nginx z clickjacking
 

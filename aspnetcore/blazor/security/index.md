@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: e905f08f867b73fc37d5fed7138256ac89811312
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 85446ac18608b39c469da766e1a9f2e92a1f5e11
+ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402400"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86445109"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor ověřování a autorizace
 
@@ -40,7 +40,7 @@ Blazor WebAssemblyaplikace běží na klientovi. Autorizace se používá *jenom
 > [!NOTE]
 > <xref:Microsoft.AspNetCore.Identity.SignInManager%601>a <xref:Microsoft.AspNetCore.Identity.UserManager%601> nejsou podporovány v Razor součástech.
 
-## <a name="authentication"></a>Ověřování
+## <a name="authentication"></a>Authentication
 
 Blazorpoužívá k vytvoření identity uživatele existující mechanismy ověřování ASP.NET Core. Přesný mechanismus závisí na tom, jak Blazor je aplikace hostována, Blazor WebAssembly nebo Blazor Server .
 
@@ -320,7 +320,7 @@ Pokud <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView.Roles> <
 
 Blazorumožňuje, aby byl stav ověřování určován *asynchronně*. Primární scénář pro tento přístup je v Blazor WebAssembly aplikacích, které vytvářejí požadavek na externí koncový bod pro ověřování.
 
-V průběhu ověřování ve <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> výchozím nastavení nezobrazí žádný obsah. Chcete-li zobrazit obsah, když dojde k ověřování, použijte `<Authorizing>` element:
+V průběhu ověřování ve <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> výchozím nastavení nezobrazí žádný obsah. Chcete-li zobrazit obsah, pokud dojde k ověřování, použijte `<Authorizing>` značku:
 
 ```razor
 <AuthorizeView>
@@ -413,7 +413,7 @@ Ve výchozí Blazor Server šabloně projektu `App` součást ( `App.razor` ) uk
 
 Obsah `<NotFound>` `<NotAuthorized>` značek, a `<Authorizing>` může obsahovat libovolné položky, jako jsou například jiné interaktivní komponenty.
 
-Pokud `<NotAuthorized>` není element zadán, <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> používá následující záložní zprávu:
+Pokud `<NotAuthorized>` není značka zadána, <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> používá následující záložní zprávu:
 
 ```html
 Not authorized.
