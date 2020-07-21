@@ -6,19 +6,19 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 2/25/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- ':::no-loc(Blazor):::'
+- ':::no-loc(Blazor Server):::'
+- ':::no-loc(Blazor WebAssembly):::'
+- ':::no-loc(Identity):::'
+- ":::no-loc(Let's Encrypt):::"
+- ':::no-loc(Razor):::'
+- ':::no-loc(SignalR):::'
 uid: tutorials/first-web-api
 ms.openlocfilehash: 79f36168d0430ceee3794cfb5a4e29f3671ac73f
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
+ms.lasthandoff: 07/21/2020
 ms.locfileid: "86212617"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
@@ -46,11 +46,11 @@ V tomto kurzu se vytvoří následující rozhraní API:
 
 |Rozhraní API | Popis | Text požadavku | Text odpovědi |
 |--- | ---- | ---- | ---- |
-|`GET /api/TodoItems` | Získat všechny položky úkolů | Žádná | Pole položek úkolů|
-|`GET /api/TodoItems/{id}` | Získat položku podle ID | Žádná | Položka úkolů|
+|`GET /api/TodoItems` | Získat všechny položky úkolů | Žádné | Pole položek úkolů|
+|`GET /api/TodoItems/{id}` | Získat položku podle ID | Žádné | Položka úkolů|
 |`POST /api/TodoItems` | Přidat novou položku | Položka úkolů | Položka úkolů |
-|`PUT /api/TodoItems/{id}` | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádná |
-|`DELETE /api/TodoItems/{id}` &nbsp; &nbsp; | Odstranění položky &nbsp;&nbsp; | Žádná | Žádná|
+|`PUT /api/TodoItems/{id}` | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádné |
+|`DELETE /api/TodoItems/{id}` &nbsp; &nbsp; | Odstranění položky &nbsp;&nbsp; | Žádné | Žádné|
 
 V následujícím diagramu vidíte návrh aplikace.
 
@@ -358,7 +358,7 @@ V tomto kurzu se používá post k testování webového rozhraní API.
     }
     ```
 
-* Vyberte **Odeslat**.
+* Vyberte **Poslat**.
 
   ![Poslat pomocí žádosti o vytvoření](first-web-api/_static/3/create.png)
 
@@ -371,7 +371,7 @@ V tomto kurzu se používá post k testování webového rozhraní API.
 
 * Nastavte metodu, která má být ZÍSKÁNa.
 * Vložte identifikátor URI (například `https://localhost:5001/api/TodoItems/1` ).
-* Vyberte **Odeslat**.
+* Vyberte **Poslat**.
 
 ## <a name="examine-the-get-methods"></a>Projděte si metody GET.
 
@@ -380,7 +380,7 @@ Tyto metody implementují dva koncové body GET:
 * `GET /api/TodoItems`
 * `GET /api/TodoItems/{id}`
 
-Otestujte aplikaci voláním dvou koncových bodů z prohlížeče nebo po odeslání. Zde je příklad:
+Otestujte aplikaci voláním dvou koncových bodů z prohlížeče nebo po odeslání. Příklad:
 
 * `https://localhost:5001/api/TodoItems`
 * `https://localhost:5001/api/TodoItems/1`
@@ -401,9 +401,9 @@ Odpověď podobná následující je vytvořena voláním metody `GetTodoItems` 
 
 * Vytvoří novou žádost.
 * Nastavte metodu HTTP na **Get**.
-* Nastavte adresu URL požadavku na `https://localhost:<port>/api/TodoItems` . Například `https://localhost:5001/api/TodoItems`.
+* Nastavte adresu URL požadavku na `https://localhost:<port>/api/TodoItems` . Například, `https://localhost:5001/api/TodoItems`.
 * Nastavte v příspěvku **dva zobrazení podokna** .
-* Vyberte **Odeslat**.
+* Vyberte **Poslat**.
 
 Tato aplikace používá databázi v paměti. Pokud se aplikace zastaví a spustí, předchozí požadavek GET nebude vracet žádná data. Pokud se nevrátí žádná data, [odešlete](#post) data do aplikace.
 
@@ -433,7 +433,7 @@ Návratový typ `GetTodoItems` `GetTodoItem` metod a je [ActionResult \<T> typ](
 
 ## <a name="the-puttodoitem-method"></a>Metoda PutTodoItem
 
-Projděte si `PutTodoItem` metodu:
+Prohlédněte si metodu `PutTodoItem`:
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Update)]
 
@@ -461,7 +461,7 @@ Na následujícím obrázku je znázorněná aktualizace po odeslání:
 
 ## <a name="the-deletetodoitem-method"></a>Metoda DeleteTodoItem
 
-Projděte si `DeleteTodoItem` metodu:
+Prohlédněte si metodu `DeleteTodoItem`:
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Delete)]
 
@@ -471,7 +471,7 @@ Odstranění položky úkolů pomocí metody post:
 
 * Nastavte metodu na `DELETE` .
 * Nastavte identifikátor URI objektu, který má být odstraněn (například `https://localhost:5001/api/TodoItems/1` ).
-* Vyberte **Odeslat**.
+* Vyberte **Poslat**.
 
 <a name="over-post"></a>
 
@@ -532,11 +532,11 @@ V tomto kurzu se vytvoří následující rozhraní API:
 
 |Rozhraní API | Popis | Text požadavku | Text odpovědi |
 |--- | ---- | ---- | ---- |
-|ZÍSKAT/api/TodoItems | Získat všechny položky úkolů | Žádná | Pole položek úkolů|
-|ZÍSKAT/api/TodoItems/{id} | Získat položku podle ID | Žádná | Položka úkolů|
+|ZÍSKAT/api/TodoItems | Získat všechny položky úkolů | Žádné | Pole položek úkolů|
+|ZÍSKAT/api/TodoItems/{id} | Získat položku podle ID | Žádné | Položka úkolů|
 |PŘÍSPĚVEK/api/TodoItems | Přidat novou položku | Položka úkolů | Položka úkolů |
-|Vložit/api/TodoItems/{id} | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádná |
-|Odstranit/api/TodoItems/{id} &nbsp;&nbsp; | Odstranění položky &nbsp;&nbsp; | Žádná | Žádná|
+|Vložit/api/TodoItems/{id} | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádné |
+|Odstranit/api/TodoItems/{id} &nbsp;&nbsp; | Odstranění položky &nbsp;&nbsp; | Žádné | Žádné|
 
 V následujícím diagramu vidíte návrh aplikace.
 
@@ -737,7 +737,7 @@ Tyto metody implementují dva koncové body GET:
 
 Pokud je pořád spuštěná, zastavte aplikaci. Pak ji znovu spusťte, aby obsahovala nejnovější změny.
 
-Otestujte aplikaci voláním dvou koncových bodů z prohlížeče. Zde je příklad:
+Otestujte aplikaci voláním dvou koncových bodů z prohlížeče. Příklad:
 
 * `https://localhost:<port>/api/todo`
 * `https://localhost:<port>/api/todo/1`
@@ -802,9 +802,9 @@ V tomto kurzu se používá post k testování webového rozhraní API.
 
 * Vytvoří novou žádost.
   * Nastavte metodu HTTP na **Get**.
-  * Nastavte adresu URL požadavku na `https://localhost:<port>/api/todo` . Například `https://localhost:5001/api/todo`.
+  * Nastavte adresu URL požadavku na `https://localhost:<port>/api/todo` . Například, `https://localhost:5001/api/todo`.
 * Nastavte v příspěvku **dva zobrazení podokna** .
-* Vyberte **Odeslat**.
+* Vyberte **Poslat**.
 
 ![Odeslání pomocí žádosti Get](first-web-api/_static/2pv.png)
 
@@ -840,7 +840,7 @@ Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](/dotnet/ap
     }
     ```
 
-* Vyberte **Odeslat**.
+* Vyberte **Poslat**.
 
   ![Poslat pomocí žádosti o vytvoření](first-web-api/_static/create.png)
 
@@ -855,7 +855,7 @@ Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](/dotnet/ap
 
 * Nastavte metodu, která má být ZÍSKÁNa.
 * Vložte identifikátor URI (například `https://localhost:5001/api/Todo/2` ).
-* Vyberte **Odeslat**.
+* Vyberte **Poslat**.
 
 ## <a name="add-a-puttodoitem-method"></a>Přidat metodu PutTodoItem
 
@@ -899,7 +899,7 @@ Odstranění položky úkolů pomocí metody post:
 
 * Nastavte metodu na `DELETE` .
 * Nastavte identifikátor URI objektu, který má být odstraněn (například `https://localhost:5001/api/todo/1` ).
-* Vyberte **Odeslat**.
+* Vyberte **Poslat**.
 
 Ukázková aplikace umožňuje odstranit všechny položky. Když je však poslední položka odstraněna, vytvoří se nový konstruktor třídy modelu při příštím volání rozhraní API.
 
@@ -917,7 +917,7 @@ Do adresáře *wwwroot* přidejte soubor HTML s názvem *index.html* . Nahraďte
 
 [!code-html[](first-web-api/samples/2.2/TodoApi/wwwroot/index.html)]
 
-Do adresáře *wwwroot* přidejte soubor JavaScriptu s názvem *site.js* . Nahraďte jeho obsah následujícím kódem:
+Do adresáře *wwwroot* přidejte soubor JavaScriptu s názvem *site.js* . Jeho obsah nahraďte následujícím kódem.
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_SiteJs)]
 
@@ -958,13 +958,13 @@ Odstranění položky úkolů je provedeno nastavením `type` při volání AJAX
 
 ## <a name="add-authentication-support-to-a-web-api"></a>Přidání podpory ověřování do webového rozhraní API
 
-[!INCLUDE[](~/includes/IdentityServer4.md)]
+[!INCLUDE[](~/includes/:::no-loc(Identity):::Server4.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 [Zobrazit nebo stáhnout vzorový kód pro tento kurz](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples). Viz [Jak stáhnout](xref:index#how-to-download-a-sample).
 
-Další informace najdete v následujících materiálech:
+Další informace naleznete v následujících zdrojích:
 
 * <xref:web-api/index>
 * <xref:tutorials/web-api-help-pages-using-swagger>

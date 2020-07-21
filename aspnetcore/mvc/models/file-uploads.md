@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 055dc7295aad67f92fe5f4e8271a1543262257b5
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 720da8a8fe22f0e1911fd554c094661b4465a335
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404597"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86568831"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -72,7 +72,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* Databáze
+* databáze
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -191,7 +191,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Například:
+* Použijte `XMLHttpRequest`. Příklad:
 
   ```javascript
   <script>
@@ -237,7 +237,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Ověřování](#validation)
+> * [Ověření](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
@@ -408,7 +408,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Ověřování](#validation)
+> * [Ověření](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
@@ -424,7 +424,7 @@ Počáteční odpověď stránky načte formulář a uloží token proti paděl�
 
 V ukázkové aplikaci a používá `GenerateAntiforgeryTokenCookieAttribute` se `DisableFormValueModelBindingAttribute` jako filtr pro modelové aplikace stránky `/StreamedSingleFileUploadDb` a `/StreamedSingleFileUploadPhysical` v `Startup.ConfigureServices` [ Razor konvencích použití stránek](xref:razor-pages/razor-pages-conventions):
 
-[!code-csharp[](file-uploads/samples/3.x/SampleApp/Startup.cs?name=snippet_AddRazorPages&highlight=8-11,17-20)]
+[!code-csharp[](file-uploads/samples/3.x/SampleApp/Startup.cs?name=snippet_AddRazorPages&highlight=7-10,16-19)]
 
 Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou svázané z formuláře, se nezobrazují (budou pokračovat v práci s dotazem, trasou a hlavičkou). Metoda Action pracuje přímo s `Request` vlastností. `MultipartReader`Slouží ke čtení jednotlivých oddílů. Data klíč/hodnota jsou uložena v `KeyValueAccumulator` . Po načtení oddílů s více částmi se obsah `KeyValueAccumulator` používá pro svázání dat formuláře s typem modelu.
 
@@ -464,7 +464,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -621,18 +621,17 @@ public void ConfigureServices(IServiceCollection services)
 V Razor aplikaci Pages použijte filtr s [konvencí](xref:razor-pages/razor-pages-conventions) v nástroji `Startup.ConfigureServices` :
 
 ```csharp
-services.AddRazorPages()
-    .AddRazorPagesOptions(options =>
-    {
-        options.Conventions
-            .AddPageApplicationModelConvention("/FileUploadPage",
-                model.Filters.Add(
-                    new RequestFormLimitsAttribute()
-                    {
-                        // Set the limit to 256 MB
-                        MultipartBodyLengthLimit = 268435456
-                    });
-    });
+services.AddRazorPages(options =>
+{
+    options.Conventions
+        .AddPageApplicationModelConvention("/FileUploadPage",
+            model.Filters.Add(
+                new RequestFormLimitsAttribute()
+                {
+                    // Set the limit to 256 MB
+                    MultipartBodyLengthLimit = 268435456
+                });
+});
 ```
 
 V Razor aplikaci Pages nebo aplikaci MVC použijte filtr na model stránky nebo metodu akce:
@@ -669,18 +668,17 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 V Razor aplikaci Pages použijte filtr s [konvencí](xref:razor-pages/razor-pages-conventions) v nástroji `Startup.ConfigureServices` :
 
 ```csharp
-services.AddRazorPages()
-    .AddRazorPagesOptions(options =>
-    {
-        options.Conventions
-            .AddPageApplicationModelConvention("/FileUploadPage",
-                model =>
-                {
-                    // Handle requests up to 50 MB
-                    model.Filters.Add(
-                        new RequestSizeLimitAttribute(52428800));
-                });
-    });
+services.AddRazorPages(options =>
+{
+    options.Conventions
+        .AddPageApplicationModelConvention("/FileUploadPage",
+            model =>
+            {
+                // Handle requests up to 50 MB
+                model.Filters.Add(
+                    new RequestSizeLimitAttribute(52428800));
+            });
+});
 ```
 
 V Razor aplikaci Pages nebo aplikaci MVC použijte filtr na třídu obslužné rutiny stránky nebo na metodu akce:
@@ -801,7 +799,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* Databáze
+* databáze
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -920,7 +918,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Například:
+* Použijte `XMLHttpRequest`. Příklad:
 
   ```javascript
   <script>
@@ -966,7 +964,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Ověřování](#validation)
+> * [Ověření](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
@@ -1137,7 +1135,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Ověřování](#validation)
+> * [Ověření](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
@@ -1193,7 +1191,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };

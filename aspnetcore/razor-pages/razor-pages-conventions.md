@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: 308ca4401289a55e5dba8d61de50644cb2a53433
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3cb83d8cfd058c4d0a93ece9a4f19b6407dac384
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405247"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86568857"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>RazorSměrování stránek a konvence aplikací v ASP.NET Core
 
@@ -42,28 +42,27 @@ Existují vyhrazená slova, která nelze použít jako segmenty směrování neb
 | [Konvence akcí při směrování stránky](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidejte šablonu směrování do stránek ve složce a na jednu stránku. |
 | [Konvence akcí modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (filtrovat třídu, lambda výraz nebo objekt pro vytváření filtru)</li></ul> | Umožňuje přidat záhlaví na stránky ve složce, přidat záhlaví na jednu stránku a nakonfigurovat [objekt pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) tak, aby přidal hlavičku na stránky aplikace. |
 
-RazorKonvence stránek jsou přidány a nakonfigurovány pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> metody rozšíření pro <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> kolekci služeb ve `Startup` třídě. Následující příklady konvence jsou vysvětleny dále v tomto tématu:
+RazorKonvence stránek jsou konfigurovány pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddRazorPages%2A> přetížení, které konfiguruje <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions> v `Startup.ConfigureServices` . Následující příklady konvence jsou vysvětleny dále v tomto tématu:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddRazorPages()
-        .AddRazorPagesOptions(options =>
-        {
-            options.Conventions.Add( ... );
-            options.Conventions.AddFolderRouteModelConvention(
-                "/OtherPages", model => { ... });
-            options.Conventions.AddPageRouteModelConvention(
-                "/About", model => { ... });
-            options.Conventions.AddPageRoute(
-                "/Contact", "TheContactPage/{text?}");
-            options.Conventions.AddFolderApplicationModelConvention(
-                "/OtherPages", model => { ... });
-            options.Conventions.AddPageApplicationModelConvention(
-                "/About", model => { ... });
-            options.Conventions.ConfigureFilter(model => { ... });
-            options.Conventions.ConfigureFilter( ... );
-        });
+    services.AddRazorPages(options =>
+    {
+        options.Conventions.Add( ... );
+        options.Conventions.AddFolderRouteModelConvention(
+            "/OtherPages", model => { ... });
+        options.Conventions.AddPageRouteModelConvention(
+            "/About", model => { ... });
+        options.Conventions.AddPageRoute(
+            "/Contact", "TheContactPage/{text?}");
+        options.Conventions.AddFolderApplicationModelConvention(
+            "/OtherPages", model => { ... });
+        options.Conventions.AddPageApplicationModelConvention(
+            "/About", model => { ... });
+        options.Conventions.ConfigureFilter(model => { ... });
+        options.Conventions.ConfigureFilter( ... );
+    });
 }
 ```
 
@@ -107,7 +106,7 @@ Ukázková aplikace přidá `{globalTemplate?}` šablonu směrování na všechn
 
 Pokud je to možné, nenastavte `Order` , které výsledky mají `Order = 0` . Pro výběr správné trasy se spoléhá na směrování.
 
-RazorMožnosti stránek, jako je například přidání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> , jsou přidány při přidání MVC do kolekce služby v nástroji `Startup.ConfigureServices` . Příklad najdete v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
+RazorMožnosti stránek, jako je například přidání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> , jsou přidány při Razor Přidání stránek do kolekce služeb v nástroji `Startup.ConfigureServices` . Příklad najdete v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -192,13 +191,12 @@ Trasy stránky generované ASP.NET Core lze přizpůsobit pomocí transformátor
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddRazorPages()
-        .AddRazorPagesOptions(options =>
-        {
-            options.Conventions.Add(
-                new PageRouteTransformerConvention(
-                    new SlugifyParameterTransformer()));
-        });
+    services.AddRazorPages(options =>
+    {
+        options.Conventions.Add(
+            new PageRouteTransformerConvention(
+                new SlugifyParameterTransformer()));
+    });
 }
 ```
 
@@ -846,7 +844,7 @@ Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte
 
 Filtr stránky ( <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> ) je filtr, který se vztahuje na Razor stránky. Další informace najdete v tématu [metody filtrování pro Razor stránky](xref:razor-pages/filter).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:security/authorization/razor-pages-authorization>
 * <xref:mvc/controllers/areas#areas-with-razor-pages>

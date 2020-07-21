@@ -5,7 +5,7 @@ description: Naučte se zabezpečit Blazor aplikace WebAssemlby jako aplikace s 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/01/2020
+ms.date: 07/16/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: 0ff580dd7cbefdfe3121b30490f99e0235d93bc3
-ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
+ms.openlocfilehash: fbb3f6d254e6d294edc7af59d7980a1d67e4a801
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2020
-ms.locfileid: "86176145"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86568805"
 ---
 # <a name="secure-aspnet-core-blazor-webassembly"></a>ASP.NET Core zabezpečeníBlazor WebAssembly
 
@@ -73,6 +73,22 @@ Další informace a příklady naleznete v tématu <xref:blazor/security/webasse
 V Blazor WebAssembly aplikacích lze kontroly autorizace obejít, protože všechny kódy na straně klienta mohou být změněny uživateli. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
 
 **Na serveru vždy provádějte kontroly autorizace v libovolném koncovém bodu rozhraní API, ke kterému přistupovala aplikace na straně klienta.**
+
+## <a name="require-authorization-for-the-entire-app"></a>Vyžadovat autorizaci pro celou aplikaci
+
+Použijte pro každou komponentu aplikace [ `[Authorize]` atribut](xref:blazor/security/index#authorize-attribute) ([dokumentaci k rozhraní API](xref:System.Web.Mvc.AuthorizeAttribute)) Razor pomocí jednoho z následujících přístupů:
+
+* Použijte [`@attribute`](xref:mvc/views/razor#attribute) v souboru direktivu `_Imports.razor` :
+
+  ```razor
+  @using Microsoft.AspNetCore.Authorization
+  @attribute [Authorize]
+  ```
+
+* Přidejte atribut do každé Razor součásti ve `Pages` složce.
+
+> [!NOTE]
+> Nastavení <xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.FallbackPolicy?displayProperty=nameWithType> na zásadu se nepodporuje <xref:Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder.RequireAuthenticatedUser%2A> . **not**
 
 ## <a name="refresh-tokens"></a>Aktualizovat tokeny
 

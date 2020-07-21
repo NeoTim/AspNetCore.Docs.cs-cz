@@ -5,7 +5,7 @@ description: Seznamte se se základy vytváření webového rozhraní API v ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/02/2020
+ms.date: 07/20/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/index
-ms.openlocfilehash: 7c9762d23ff612155846357bfadeaaad492c7299
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 98fb8c0a26f5f8e7ce5f07066f2f36e748ab2398
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404727"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86568740"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytváření webových rozhraní API pomocí ASP.NET Core
 
@@ -98,16 +98,12 @@ Seznam, který obsahuje dostupné atributy, najdete v tématu <xref:Microsoft.As
 
 ::: moniker-end
 
-::: moniker range="= aspnetcore-2.1"
-
 * [Požadavek na směrování atributu](#attribute-routing-requirement)
 * [Automatické odpovědi HTTP 400](#automatic-http-400-responses)
 * [Odvození zdrojového parametru vazby](#binding-source-parameter-inference)
 * [Multipart/form-odvození požadavku na data](#multipartform-data-request-inference)
 
 Tyto funkce vyžadují [kompatibilitu verze](xref:mvc/compatibility-version) 2,1 nebo novější.
-
-::: moniker-end
 
 ### <a name="attribute-on-specific-controllers"></a>Atribut na určitých řadičích
 
@@ -164,7 +160,7 @@ namespace WebApiSample
 
 ## <a name="attribute-routing-requirement"></a>Požadavek na směrování atributu
 
-`[ApiController]`Atribut dělá směrování požadavku. Například:
+`[ApiController]`Atribut dělá směrování požadavku. Příklad:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -232,9 +228,11 @@ V případě kompatibility verze 2,2 nebo novější je výchozí typ odpovědi 
 
 ::: moniker-end
 
+Chcete-li zajistit konzistenci automatických a vlastních odpovědí, zavolejte <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem%2A> metodu místo <xref:System.Web.Http.ApiController.BadRequest%2A> . `ValidationProblem`Vrátí <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> objekt a také automatickou odpověď.
+
 ### <a name="log-automatic-400-responses"></a>Protokolovat automatické odpovědi 400
 
-Přečtěte si, [Jak protokolovat automatické odpovědi 400 na chyby ověření modelu (ASPNET/AspNetCore.Docs #12157)](https://github.com/dotnet/AspNetCore.Docs/issues/12157).
+Přečtěte si, [Jak protokolovat automatické odpovědi 400 pro chyby ověření modelu (dotnet/AspNetCore.Docs # 12157)](https://github.com/dotnet/AspNetCore.Docs/issues/12157).
 
 ### <a name="disable-automatic-400-response"></a>Zakázat automatickou odpověď 400
 
@@ -377,7 +375,7 @@ V akci kontroleru zvažte následující kód:
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
 
-`NotFound`Metoda vytvoří stavový kód HTTP 404 s `ProblemDetails` tělem. Například:
+`NotFound`Metoda vytvoří stavový kód HTTP 404 s `ProblemDetails` tělem. Příklad:
 
 ```json
 {
@@ -430,7 +428,7 @@ V předchozím kódu `ConsumesController` je nakonfigurováno pro zpracování p
 
 `[Consumes]`Atribut se aplikuje na obě akce. `PostJson`Akce zpracovává požadavky odeslané s `Content-Type` hlavičkou `application/json` . `PostForm`Akce zpracovává požadavky odeslané s `Content-Type` hlavičkou `application/x-www-form-urlencoded` . 
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:web-api/action-return-types>
 * <xref:web-api/handle-errors>

@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/razor-pages-authorization
-ms.openlocfilehash: 0492dd3d9b2aee7e844e944bea96259c3ddf18d0
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0f4022e46993c6a957d3d0c133b3db56fa650edc
+ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408718"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86568818"
 ---
 # <a name="razor-pages-authorization-conventions-in-aspnet-core"></a>RazorAutorizační konvence stránek v ASP.NET Core
 
@@ -34,9 +34,9 @@ Ukázková aplikace používá [ověřování souborem cookie bez Identity ASP.N
 
 ## <a name="require-authorization-to-access-a-page"></a>Vyžadovat autorizaci pro přístup ke stránce
 
-K <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> Přidání <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> na stránku na zadané cestě použijte konvenci pomocí nástroje:
+K <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizePage*> Přidání <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> na stránku na zadané cestě použijte konvenci:
 
-[!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=2,4)]
+[!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=3)]
 
 Zadaná cesta je cesta k modulu zobrazení, která je Razor relativní cestou ke kořenu stránek bez přípony a obsahuje pouze lomítka.
 
@@ -51,9 +51,9 @@ options.Conventions.AuthorizePage("/Contact", "AtLeast21");
 
 ## <a name="require-authorization-to-access-a-folder-of-pages"></a>Vyžadovat autorizaci pro přístup ke složce stránek
 
-Použijte <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> konvenci pomocí nástroje <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> a přidejte <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> do všech stránek ve složce v zadané cestě:
+Pomocí <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeFolder*> konvence přidejte <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> do všech stránek ve složce v zadané cestě:
 
-[!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=2,5)]
+[!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=4)]
 
 Zadaná cesta je cesta k modulu zobrazení, což je Razor relativní cesta ke kořeni stránek.
 
@@ -65,7 +65,7 @@ options.Conventions.AuthorizeFolder("/Private", "AtLeast21");
 
 ## <a name="require-authorization-to-access-an-area-page"></a>Vyžadovat autorizaci pro přístup na stránku oblasti
 
-Použijte <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> konvenci pomocí nástroje <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> a přidejte <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> na stránku oblasti v zadané cestě:
+Pomocí <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaPage*> konvence přidejte <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> na stránku oblasti v zadané cestě:
 
 ```csharp
 options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts");
@@ -81,7 +81,7 @@ options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts", "AtLeast21
 
 ## <a name="require-authorization-to-access-a-folder-of-areas"></a>Vyžadovat autorizaci pro přístup ke složce oblastí
 
-Použijte <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> konvenci pomocí nástroje <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> a přidejte <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> do všech oblastí ve složce v zadané cestě:
+K <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AuthorizeAreaFolder*> Přidání <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> do všech oblastí ve složce v zadané cestě použijte konvenci:
 
 ```csharp
 options.Conventions.AuthorizeAreaFolder("Identity", "/Manage");
@@ -97,17 +97,17 @@ options.Conventions.AuthorizeAreaFolder("Identity", "/Manage", "AtLeast21");
 
 ## <a name="allow-anonymous-access-to-a-page"></a>Povolení anonymního přístupu na stránku
 
-K <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> Přidání <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> na stránku na zadané cestě použijte konvenci pomocí nástroje:
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToPage*> <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> K přidání na stránku na zadané cestě použijte konvenci:
 
-[!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=2,6)]
+[!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=5)]
 
 Zadaná cesta je cesta k modulu zobrazení, která je Razor relativní cestou ke kořenu stránek bez přípony a obsahuje pouze lomítka.
 
 ## <a name="allow-anonymous-access-to-a-folder-of-pages"></a>Povolení anonymního přístupu ke složce stránek
 
-Použijte <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> konvenci pomocí nástroje <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> a přidejte <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> do všech stránek ve složce v zadané cestě:
+Pomocí <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AllowAnonymousToFolder*> konvence přidejte <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> do všech stránek ve složce v zadané cestě:
 
-[!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=2,7)]
+[!code-csharp[](razor-pages-authorization/samples/3.x/AuthorizationSample/Startup.cs?name=snippet1&highlight=6)]
 
 Zadaná cesta je cesta k modulu zobrazení, což je Razor relativní cesta ke kořeni stránek.
 
@@ -241,7 +241,7 @@ Zpětný chod ale není platný. Nemůžete deklarovat složku stránek pro anon
 
 Požadavek na autorizaci na soukromé stránce se nezdařil. Pokud <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> jsou a aplikovány na stránku, má <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> přednost a řídí přístup.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>
