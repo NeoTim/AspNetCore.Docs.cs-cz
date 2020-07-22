@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: 0f2741a78b58d7380fcbe84e97f5a08ef291c27b
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 896eed0e55986678b6bb86638ca92b04a77b4fef
+ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944511"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86869936"
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor datové vazby
 
@@ -167,7 +167,7 @@ Následující podřízená komponenta ( `ChildComponent` ) má `Year` parametr 
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.EventCallback%601>je vysvětleno v tématu <xref:blazor/components/event-handling#eventcallback> .
+<xref:Microsoft.AspNetCore.Components.EventCallback%601>Jako název parametru komponenty následovaný `Changed` příponou ( `{PARAMETER NAME}Changed` ) v předchozím příkladu musí být pojmenovaná `YearChanged` . Další informace o <xref:Microsoft.AspNetCore.Components.EventCallback%601> naleznete v tématu <xref:blazor/components/event-handling#eventcallback> .
 
 Následující nadřazená komponenta používá:
 
@@ -365,7 +365,7 @@ Password:
 }
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Vazba na přepínače ve formuláři](xref:blazor/forms-validation#radio-buttons)
 * [Vazba `<select>` možností elementu na hodnoty objektu C# `null` ve formuláři](xref:blazor/forms-validation#binding-select-element-options-to-c-object-null-values)

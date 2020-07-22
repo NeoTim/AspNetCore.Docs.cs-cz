@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: 0141ad2df5216183424980a6ca50bf6bcd64ade5
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 96d24940af6c591e3c02bfa26ed9d7d6ea60d27d
+ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86213061"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86869975"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -83,6 +83,8 @@ Filtry podporují synchronní i asynchronní implementace prostřednictvím růz
 Synchronní filtry spouštějí kód před a po fázi zřetězení. Například <xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuting*> je volána před voláním metody Action. <xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuted*>je volána po návratu metody Action.
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Filters/MySampleActionFilter.cs?name=snippet_ActionFilter)]
+
+V předchozím kódu je [MyDebug](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/filters/3.1sample/FiltersSample/Helper/MyDebug.cs) funkcí nástroje v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/filters/3.1sample/FiltersSample/Helper/MyDebug.cs).
 
 Asynchronní filtry definují `On-Stage-ExecutionAsync` metodu. Například <xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecutionAsync*> :
 
@@ -212,6 +214,8 @@ Například v ukázce ke stažení `MySampleActionFilter` se použije globálně
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/TestController.cs?name=snippet)]
 
+[!INCLUDE[](~/includes/MyDisplayRouteInfo.md)]
+
 <!-- test via  webBuilder.UseStartup<Startup>(); -->
 
 Navigace pro `https://localhost:5001/Test2/FilterTest2` spustí následující kód:
@@ -284,7 +288,7 @@ Proto `AddHeader` Filtr pro akci nikdy neběží `SomeResource` . Toto chování
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 Filtry lze přidat podle typu nebo podle instance. Pokud je přidána instance, bude tato instance použita pro každý požadavek. Pokud je přidán typ, je aktivován typ. Filtr aktivovaný typu znamená:
 
@@ -816,7 +820,7 @@ Proto `AddHeader` Filtr pro akci nikdy neběží `SomeResource` . Toto chování
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 Filtry lze přidat podle typu nebo podle instance. Pokud je přidána instance, bude tato instance použita pro každý požadavek. Pokud je přidán typ, je aktivován typ. Filtr aktivovaný typu znamená:
 
