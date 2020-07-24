@@ -1,35 +1,29 @@
 ---
 title: Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
 author: rick-anderson
-description: Naučte se vytvářet Razor aplikace stránek s uživatelskými daty chráněnými autorizací. Zahrnuje protokol HTTPS, ověřování, zabezpečení ASP.NET Core Identity .
+description: 'Naučte se vytvářet ASP.NET Core webové aplikace s uživatelskými daty chráněnými autorizací. Zahrnuje protokol HTTPS, ověřování, zabezpečení ASP.NET Core :::no-loc(Identity)::: .'
 ms.author: riande
-ms.date: 12/18/2018
+ms.date: 7/18/2020
 ms.custom: mvc, seodec18
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- ':::no-loc(Blazor):::'
+- ':::no-loc(Blazor Server):::'
+- ':::no-loc(Blazor WebAssembly):::'
+- ':::no-loc(Identity):::'
+- ":::no-loc(Let's Encrypt):::"
+- ':::no-loc(Razor):::'
+- ':::no-loc(SignalR):::'
 uid: security/authorization/secure-data
-ms.openlocfilehash: f50015af864a4a62abd5e2eab508aac915cb6370
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 7d4c10fa0b1c569179fc3e0a518917ec0185c51f
+ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404714"
+ms.lasthandoff: 07/24/2020
+ms.locfileid: "87160273"
 ---
-# <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
+# <a name="create-an-aspnet-core-web-app-with-user-data-protected-by-authorization"></a>Vytvoření webové aplikace v ASP.NET Core s uživatelskými daty chráněnými autorizací
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Jan Audette](https://twitter.com/joeaudette)
-
-::: moniker range="<= aspnetcore-1.1"
-
-Podívejte se na [Tento PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) pro ASP.NET Core verzi MVC. Verze tohoto kurzu ASP.NET Core 1,1 je v [této](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data) složce. Ukázka 1,1 ASP.NET Core je v [ukázkách](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2).
-
-::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
@@ -77,12 +71,12 @@ Ukázka obsahuje následující obslužné rutiny autorizace:
 * `ContactManagerAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty.
 * `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Tento kurz je pokročilý. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
-* [Ověřování](xref:security/authentication/identity)
+* [Authentication](xref:security/authentication/identity)
 * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
 * [Autorizace](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
@@ -103,11 +97,11 @@ V následujících částech najdete všechny hlavní kroky k vytvoření aplika
 
 ### <a name="tie-the-contact-data-to-the-user"></a>Spojit kontaktní údaje s uživatelem
 
-Pomocí [Identity](xref:security/authentication/identity) ID uživatele ASP.NET zajistěte, aby mohli uživatelé upravovat data, ale ne jiná data uživatelů. Přidejte `OwnerID` a `ContactStatus` do `Contact` modelu:
+Pomocí [:::no-loc(Identity):::](xref:security/authentication/identity) ID uživatele ASP.NET zajistěte, aby mohli uživatelé upravovat data, ale ne jiná data uživatelů. Přidejte `OwnerID` a `ContactStatus` do `Contact` modelu:
 
 [!code-csharp[](secure-data/samples/final3/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID`je ID uživatele z `AspNetUser` tabulky v [Identity](xref:security/authentication/identity) databázi. `Status`Pole určuje, jestli je kontakt viditelný pro obecné uživatele.
+`OwnerID`je ID uživatele z `AspNetUser` tabulky v [:::no-loc(Identity):::](xref:security/authentication/identity) databázi. `Status`Pole určuje, jestli je kontakt viditelný pro obecné uživatele.
 
 Vytvořte novou migraci a aktualizujte databázi:
 
@@ -116,21 +110,39 @@ dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>Přidat služby rolí doIdentity
+### <a name="add-role-services-to-no-locidentity"></a>Přidat služby rolí do:::no-loc(Identity):::
 
-Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:
+Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_:::no-loc(Identity):::_:::no-loc(Identity):::Builder_AddRoles__1) pro přidání služeb role:
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet2&highlight=9)]
 
+<a name="rau"></a>
+
 ### <a name="require-authenticated-users"></a>Vyžadovat ověřené uživatele
 
-Nastavte výchozí zásadu ověřování tak, aby vyžadovala ověření uživatelů:
+Nastavte zásady nouzového ověřování tak, aby vyžadovaly ověření uživatelů:
 
-[!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=15-99)] 
+[!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=13-99)]
 
- Ověřování můžete na Razor úrovni stránky, řadiče nebo akce pomocí atributu odsouhlasit `[AllowAnonymous]` . Nastavení výchozích zásad ověřování, aby vyžadovaly ověření uživatelů, chrání nově přidané Razor stránky a řadiče. Pokud je ve výchozím nastavení vyžadováno ověřování, je bezpečnější než spoléhání na nové řadiče a Razor stránky pro zahrnutí `[Authorize]` atributu.
+Předchozí zvýrazněný kód nastaví [zásady nouzového ověřování](xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.FallbackPolicy). Zásada záložního ověřování vyžaduje, aby ***Všichni*** uživatelé byli ověřeni, s výjimkou :::no-loc(Razor)::: stránek, řadičů nebo metod akcí s atributem ověřování. Například :::no-loc(Razor)::: stránky, řadiče nebo metody akcí pomocí `[AllowAnonymous]` nebo `[Authorize(PolicyName="MyPolicy")]` použijte použitý atribut ověřování, nikoli zásady nouzového ověřování.
 
-Přidejte [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) na stránky rejstřík a soukromí, aby anonymní uživatelé mohli získat informace o lokalitě před jejich registrací.
+Zásady nouzového ověřování:
+
+* Se použije u všech požadavků, které explicitně neurčují zásady ověřování. V případě požadavků poskytovaných směrováním koncových bodů by to zahrnovalo koncový bod, který nespecifikuje autorizační atribut. Pro požadavky poskytované jiným middlewarem middleware po autorizačním middlewaru, jako jsou třeba [statické soubory](xref:fundamentals/static-files), by se tato zásada použila u všech požadavků.
+
+Nastavení zásady nouzového ověřování, aby vyžadovala ověření uživatelů, chrání nově přidané :::no-loc(Razor)::: stránky a řadiče. Pokud je ve výchozím nastavení vyžadováno ověřování, je bezpečnější než spoléhání na nové řadiče a :::no-loc(Razor)::: stránky pro zahrnutí `[Authorize]` atributu.
+
+<xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions>Třída také obsahuje <xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.DefaultPolicy?displayProperty=nameWithType> . `DefaultPolicy`Je zásada použitá u `[Authorize]` atributu, pokud není zadána žádná zásada. `[Authorize]`neobsahuje pojmenovanou zásadu (na rozdíl od) `[Authorize(PolicyName="MyPolicy")]` .
+
+Další informace o zásadách najdete v tématu <xref:security/authorization/policies> .
+
+Alternativní způsob, jakým se pro řadiče a :::no-loc(Razor)::: stránky MVC vyžaduje ověření všech uživatelů, je přidání autorizačního filtru:
+
+[!code-csharp[](secure-data/samples/final3/Startup2.cs?name=snippet&highlight=14-99)]
+
+Předchozí kód používá filtr autorizace a nastavení záložní Zásady používá směrování koncového bodu. Nastavení záložní zásady je upřednostňovaným způsobem, jak vyžadovat ověření všech uživatelů.
+
+Přidat [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) na `Index` stránky a `Privacy` , aby anonymní uživatelé mohli získat informace o lokalitě před jejich registrací:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Index.cshtml.cs?highlight=1,7)]
 
@@ -187,7 +199,7 @@ Aplikace umožňuje vlastníkům kontaktů upravit/odstranit/vytvořit vlastní 
 
 ## <a name="register-the-authorization-handlers"></a>Registrace obslužných rutin autorizace
 
-Služby používající Entity Framework Core musí být registrovány pro [vkládání závislostí](xref:fundamentals/dependency-injection) pomocí [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). Rozhraní `ContactIsOwnerAuthorizationHandler` používá ASP.NET Core [Identity](xref:security/authentication/identity) , které je postavené na Entity Framework Core. Zaregistrujte obslužné rutiny u kolekce služeb, aby byly k dispozici pro `ContactsController` [vkládání závislostí](xref:fundamentals/dependency-injection). Přidejte následující kód na konec `ConfigureServices` :
+Služby používající Entity Framework Core musí být registrovány pro [vkládání závislostí](xref:fundamentals/dependency-injection) pomocí [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). Rozhraní `ContactIsOwnerAuthorizationHandler` používá ASP.NET Core [:::no-loc(Identity):::](xref:security/authentication/identity) , které je postavené na Entity Framework Core. Zaregistrujte obslužné rutiny u kolekce služeb, aby byly k dispozici pro `ContactsController` [vkládání závislostí](xref:fundamentals/dependency-injection). Přidejte následující kód na konec `ConfigureServices` :
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet_defaultPolicy&highlight=23-99)]
 
@@ -195,7 +207,7 @@ Služby používající Entity Framework Core musí být registrovány pro [vkl�
 
 ## <a name="support-authorization"></a>Autorizace podpory
 
-V této části aktualizujete Razor stránky a přidáte třídu požadavků na operace.
+V této části aktualizujete :::no-loc(Razor)::: stránky a přidáte třídu požadavků na operace.
 
 ### <a name="review-the-contact-operations-requirements-class"></a>Kontrola třídy požadavků na operace kontaktů
 
@@ -203,16 +215,16 @@ Zkontrolujte `ContactOperations` třídu. Tato třída obsahuje požadavky, kter
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Vytvoření základní třídy pro Razor stránky kontaktů
+### <a name="create-a-base-class-for-the-contacts-no-locrazor-pages"></a>Vytvoření základní třídy pro :::no-loc(Razor)::: stránky kontaktů
 
-Vytvořte základní třídu, která obsahuje služby používané na Razor stránkách kontaktů. Základní třída umístí inicializační kód do jednoho umístění:
+Vytvořte základní třídu, která obsahuje služby používané na :::no-loc(Razor)::: stránkách kontaktů. Základní třída umístí inicializační kód do jednoho umístění:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/DI_BasePageModel.cs)]
 
 Předcházející kód:
 
 * Přidá `IAuthorizationService` službu pro přístup k obslužným rutinám autorizace.
-* Přidá Identity `UserManager` službu.
+* Přidá :::no-loc(Identity)::: `UserManager` službu.
 * Přidejte `ApplicationDbContext` .
 
 ### <a name="update-the-createmodel"></a>Aktualizace CreateModel
@@ -261,7 +273,7 @@ Aktualizujte odkazy pro **Úpravy** a **odstranění** na *stránkách/kontakty/
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> Skrytím odkazů uživatelů, kteří nemají oprávnění ke změně dat, nebude aplikace zabezpečená. Skrytím odkazů je aplikace uživatelsky přívětivější zobrazením pouze platných odkazů. Uživatelé mohou napadení vygenerovaných adres URL vyvolávat a vyvolat operace úpravy a odstranění na data, která nevlastní. RazorStránka nebo kontroler musí vymáhat kontroly přístupu pro zabezpečení dat.
+> Skrytím odkazů uživatelů, kteří nemají oprávnění ke změně dat, nebude aplikace zabezpečená. Skrytím odkazů je aplikace uživatelsky přívětivější zobrazením pouze platných odkazů. Uživatelé mohou napadení vygenerovaných adres URL vyvolávat a vyvolat operace úpravy a odstranění na data, která nevlastní. :::no-loc(Razor):::Stránka nebo kontroler musí vymáhat kontroly přístupu pro zabezpečení dat.
 
 ### <a name="update-details"></a>Aktualizovat podrobnosti
 
@@ -284,7 +296,7 @@ Informace o [tomto problému najdete zde](https://github.com/dotnet/AspNetCore.D
 
 ## <a name="differences-between-challenge-and-forbid"></a>Rozdíly mezi výzvou a zakazující
 
-Tato aplikace nastaví výchozí zásadu, která bude [vyžadovat ověřené uživatele](#require-authenticated-users). Následující kód povoluje anonymní uživatele. Anonymní uživatelé mají povoleno zobrazovat rozdíly mezi výzvou a zakázáním.
+Tato aplikace nastaví výchozí zásadu, která bude [vyžadovat ověřené uživatele](#rau). Následující kód povoluje anonymní uživatele. Anonymní uživatelé mají povoleno zobrazovat rozdíly mezi výzvou a zakázáním.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Details2.cshtml.cs?name=snippet)]
 
@@ -326,7 +338,7 @@ V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstraně
 
 ## <a name="create-the-starter-app"></a>Vytvoření úvodní aplikace
 
-* Vytvoření Razor aplikace Pages s názvem "ContactManager"
+* Vytvoření :::no-loc(Razor)::: aplikace Pages s názvem "ContactManager"
   * Vytvořte aplikaci pomocí **individuálních uživatelských účtů**.
   * Pojmenujte ho "ContactManager", aby se obor názvů shodoval s oborem názvů použitým v ukázce.
   * `-uld`Určuje LocalDB místo SQLite.
@@ -413,12 +425,12 @@ Ukázka obsahuje následující obslužné rutiny autorizace:
 * `ContactManagerAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty.
 * `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Tento kurz je pokročilý. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
-* [Ověřování](xref:security/authentication/identity)
+* [Authentication](xref:security/authentication/identity)
 * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
 * [Autorizace](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
@@ -439,11 +451,11 @@ V následujících částech najdete všechny hlavní kroky k vytvoření aplika
 
 ### <a name="tie-the-contact-data-to-the-user"></a>Spojit kontaktní údaje s uživatelem
 
-Pomocí [Identity](xref:security/authentication/identity) ID uživatele ASP.NET zajistěte, aby mohli uživatelé upravovat data, ale ne jiná data uživatelů. Přidejte `OwnerID` a `ContactStatus` do `Contact` modelu:
+Pomocí [:::no-loc(Identity):::](xref:security/authentication/identity) ID uživatele ASP.NET zajistěte, aby mohli uživatelé upravovat data, ale ne jiná data uživatelů. Přidejte `OwnerID` a `ContactStatus` do `Contact` modelu:
 
 [!code-csharp[](secure-data/samples/final2.1/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID`je ID uživatele z `AspNetUser` tabulky v [Identity](xref:security/authentication/identity) databázi. `Status`Pole určuje, jestli je kontakt viditelný pro obecné uživatele.
+`OwnerID`je ID uživatele z `AspNetUser` tabulky v [:::no-loc(Identity):::](xref:security/authentication/identity) databázi. `Status`Pole určuje, jestli je kontakt viditelný pro obecné uživatele.
 
 Vytvořte novou migraci a aktualizujte databázi:
 
@@ -452,11 +464,11 @@ dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>Přidat služby rolí doIdentity
+### <a name="add-role-services-to-no-locidentity"></a>Přidat služby rolí do:::no-loc(Identity):::
 
-Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:
+Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_:::no-loc(Identity):::_:::no-loc(Identity):::Builder_AddRoles__1) pro přidání služeb role:
 
-[!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet2&highlight=12)]
+[!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet2&highlight=11)]
 
 ### <a name="require-authenticated-users"></a>Vyžadovat ověřené uživatele
 
@@ -464,7 +476,7 @@ Nastavte výchozí zásadu ověřování tak, aby vyžadovala ověření uživat
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet&highlight=17-99)] 
 
- Ověřování můžete na Razor úrovni stránky, řadiče nebo akce pomocí atributu odsouhlasit `[AllowAnonymous]` . Nastavení výchozích zásad ověřování, aby vyžadovaly ověření uživatelů, chrání nově přidané Razor stránky a řadiče. Pokud je ve výchozím nastavení vyžadováno ověřování, je bezpečnější než spoléhání na nové řadiče a Razor stránky pro zahrnutí `[Authorize]` atributu.
+ Ověřování můžete na :::no-loc(Razor)::: úrovni stránky, řadiče nebo akce pomocí atributu odsouhlasit `[AllowAnonymous]` . Nastavení výchozích zásad ověřování, aby vyžadovaly ověření uživatelů, chrání nově přidané :::no-loc(Razor)::: stránky a řadiče. Pokud je ve výchozím nastavení vyžadováno ověřování, je bezpečnější než spoléhání na nové řadiče a :::no-loc(Razor)::: stránky pro zahrnutí `[Authorize]` atributu.
 
 Přidejte [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) na stránky rejstřík, o a kontakt, aby anonymní uživatelé mohli získat informace o lokalitě před jejich registrací.
 
@@ -523,7 +535,7 @@ Aplikace umožňuje vlastníkům kontaktů upravit/odstranit/vytvořit vlastní 
 
 ## <a name="register-the-authorization-handlers"></a>Registrace obslužných rutin autorizace
 
-Služby používající Entity Framework Core musí být registrovány pro [vkládání závislostí](xref:fundamentals/dependency-injection) pomocí [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). Rozhraní `ContactIsOwnerAuthorizationHandler` používá ASP.NET Core [Identity](xref:security/authentication/identity) , které je postavené na Entity Framework Core. Zaregistrujte obslužné rutiny u kolekce služeb, aby byly k dispozici pro `ContactsController` [vkládání závislostí](xref:fundamentals/dependency-injection). Přidejte následující kód na konec `ConfigureServices` :
+Služby používající Entity Framework Core musí být registrovány pro [vkládání závislostí](xref:fundamentals/dependency-injection) pomocí [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). Rozhraní `ContactIsOwnerAuthorizationHandler` používá ASP.NET Core [:::no-loc(Identity):::](xref:security/authentication/identity) , které je postavené na Entity Framework Core. Zaregistrujte obslužné rutiny u kolekce služeb, aby byly k dispozici pro `ContactsController` [vkládání závislostí](xref:fundamentals/dependency-injection). Přidejte následující kód na konec `ConfigureServices` :
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet_defaultPolicy&highlight=27-99)]
 
@@ -531,7 +543,7 @@ Služby používající Entity Framework Core musí být registrovány pro [vkl�
 
 ## <a name="support-authorization"></a>Autorizace podpory
 
-V této části aktualizujete Razor stránky a přidáte třídu požadavků na operace.
+V této části aktualizujete :::no-loc(Razor)::: stránky a přidáte třídu požadavků na operace.
 
 ### <a name="review-the-contact-operations-requirements-class"></a>Kontrola třídy požadavků na operace kontaktů
 
@@ -539,16 +551,16 @@ Zkontrolujte `ContactOperations` třídu. Tato třída obsahuje požadavky, kter
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Vytvoření základní třídy pro Razor stránky kontaktů
+### <a name="create-a-base-class-for-the-contacts-no-locrazor-pages"></a>Vytvoření základní třídy pro :::no-loc(Razor)::: stránky kontaktů
 
-Vytvořte základní třídu, která obsahuje služby používané na Razor stránkách kontaktů. Základní třída umístí inicializační kód do jednoho umístění:
+Vytvořte základní třídu, která obsahuje služby používané na :::no-loc(Razor)::: stránkách kontaktů. Základní třída umístí inicializační kód do jednoho umístění:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/DI_BasePageModel.cs)]
 
 Předcházející kód:
 
 * Přidá `IAuthorizationService` službu pro přístup k obslužným rutinám autorizace.
-* Přidá Identity `UserManager` službu.
+* Přidá :::no-loc(Identity)::: `UserManager` službu.
 * Přidejte `ApplicationDbContext` .
 
 ### <a name="update-the-createmodel"></a>Aktualizace CreateModel
@@ -597,7 +609,7 @@ Aktualizujte odkazy pro **Úpravy** a **odstranění** na *stránkách/kontakty/
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> Skrytím odkazů uživatelů, kteří nemají oprávnění ke změně dat, nebude aplikace zabezpečená. Skrytím odkazů je aplikace uživatelsky přívětivější zobrazením pouze platných odkazů. Uživatelé mohou napadení vygenerovaných adres URL vyvolávat a vyvolat operace úpravy a odstranění na data, která nevlastní. RazorStránka nebo kontroler musí vymáhat kontroly přístupu pro zabezpečení dat.
+> Skrytím odkazů uživatelů, kteří nemají oprávnění ke změně dat, nebude aplikace zabezpečená. Skrytím odkazů je aplikace uživatelsky přívětivější zobrazením pouze platných odkazů. Uživatelé mohou napadení vygenerovaných adres URL vyvolávat a vyvolat operace úpravy a odstranění na data, která nevlastní. :::no-loc(Razor):::Stránka nebo kontroler musí vymáhat kontroly přístupu pro zabezpečení dat.
 
 ### <a name="update-details"></a>Aktualizovat podrobnosti
 
@@ -653,7 +665,7 @@ V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstraně
 
 ## <a name="create-the-starter-app"></a>Vytvoření úvodní aplikace
 
-* Vytvoření Razor aplikace Pages s názvem "ContactManager"
+* Vytvoření :::no-loc(Razor)::: aplikace Pages s názvem "ContactManager"
   * Vytvořte aplikaci pomocí **individuálních uživatelských účtů**.
   * Pojmenujte ho "ContactManager", aby se obor názvů shodoval s oborem názvů použitým v ukázce.
   * `-uld`Určuje LocalDB místo SQLite.
@@ -698,7 +710,7 @@ Otestujte, že aplikace dosazený databázi. Pokud je ve službě Contact DB ně
 
 <a name="secure-data-add-resources-label"></a>
 
-### <a name="additional-resources"></a>Další zdroje
+### <a name="additional-resources"></a>Další zdroje informací
 
 * [Vytvoření webové aplikace .NET Core využívající SQL Database ve službě Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
 * [ASP.NET Core autorizačního prostředí](https://github.com/blowdart/AspNetAuthorizationWorkshop). Tato laboratoř obsahuje další podrobnosti o funkcích zabezpečení, které jsou představené v tomto kurzu.

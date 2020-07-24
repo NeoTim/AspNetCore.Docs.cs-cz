@@ -1,32 +1,32 @@
 ---
-title: ASP.NET Core laděníBlazor WebAssembly
+title: 'ASP.NET Core ladění:::no-loc(Blazor WebAssembly):::'
 author: guardrex
-description: Naučte se ladit Blazor aplikace.
+description: 'Naučte se ladit :::no-loc(Blazor)::: aplikace.'
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/15/2020
 no-loc:
-- Blazor
-- Blazor Server
-- Blazor WebAssembly
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
+- ':::no-loc(Blazor):::'
+- ':::no-loc(Blazor Server):::'
+- ':::no-loc(Blazor WebAssembly):::'
+- ':::no-loc(Identity):::'
+- ":::no-loc(Let's Encrypt):::"
+- ':::no-loc(Razor):::'
+- ':::no-loc(SignalR):::'
 uid: blazor/debug
-ms.openlocfilehash: 828fb0ce5101407b6f40195138d59c335eec389f
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: 14943b9f7847ac9144addfdf16a003f6fc8c340c
+ms.sourcegitcommit: cc845634a490c49ff869c89b6e422b6d65d0e886
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407668"
+ms.lasthandoff: 07/24/2020
+ms.locfileid: "87159700"
 ---
-# <a name="debug-aspnet-core-blazor-webassembly"></a>ASP.NET Core laděníBlazor WebAssembly
+# <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core ladění:::no-loc(Blazor WebAssembly):::
 
 [Daniel Skořepa](https://github.com/danroth27)
 
-Blazor WebAssemblyaplikace se dají ladit pomocí vývojářských nástrojů pro vývoj v prohlížečích založených na chromu (Edge/Chrome). Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
+:::no-loc(Blazor WebAssembly):::aplikace se dají ladit pomocí vývojářských nástrojů pro vývoj v prohlížečích založených na chromu (Edge/Chrome). Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
 
 K dispozici jsou tyto scénáře:
 
@@ -44,7 +44,7 @@ Teď *nemůžete*:
 
 V nadcházejících vydáních budeme dál zlepšovat možnosti ladění.
 
-## <a name="prerequisites"></a>Požadované součásti
+## <a name="prerequisites"></a>Předpoklady
 
 Ladění vyžaduje některý z následujících prohlížečů:
 
@@ -53,7 +53,7 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>Povolit ladění pro Visual Studio a Visual Studio Code
 
-Chcete-li povolit ladění pro existující Blazor WebAssembly aplikaci, aktualizujte `launchSettings.json` soubor v spouštěném projektu tak, aby do `inspectUri` každého spouštěcího profilu zahrnoval následující vlastnost:
+Chcete-li povolit ladění pro existující :::no-loc(Blazor WebAssembly)::: aplikaci, aktualizujte `launchSettings.json` soubor v spouštěném projektu tak, aby do `inspectUri` každého spouštěcího profilu zahrnoval následující vlastnost:
 
 ```json
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
@@ -65,16 +65,16 @@ Po aktualizaci `launchSettings.json` by měl soubor vypadat podobně jako v nás
 
 `inspectUri`Vlastnost:
 
-* Umožňuje rozhraní IDE zjistit, že aplikace je Blazor WebAssembly aplikace.
-* Dá pokyn k tomu, aby se infrastruktura ladění skriptů připojovala k prohlížeči prostřednictvím Blazor ladicího proxy serveru.
+* Umožňuje rozhraní IDE zjistit, že aplikace je :::no-loc(Blazor WebAssembly)::: aplikace.
+* Dá pokyn k tomu, aby se infrastruktura ladění skriptů připojovala k prohlížeči prostřednictvím :::no-loc(Blazor)::: ladicího proxy serveru.
 
 Zástupný text pro protokol WebSockets ( `wsProtocol` ), hostitele ( `url.hostname` ), port ( `url.port` ) a identifikátor URI pro inspektor v spuštěném prohlížeči ( `browserInspectUri` ) jsou poskytovány rozhraním.
 
 ## <a name="visual-studio"></a>Visual Studio
 
-Ladění Blazor WebAssembly aplikace v aplikaci Visual Studio:
+Ladění :::no-loc(Blazor WebAssembly)::: aplikace v aplikaci Visual Studio:
 
-1. Vytvořte novou ASP.NET Core hostovanou Blazor WebAssembly aplikaci.
+1. Vytvořte novou ASP.NET Core hostovanou :::no-loc(Blazor WebAssembly)::: aplikaci.
 1. Stisknutím klávesy <kbd>F5</kbd> spusťte aplikaci v ladicím programu.
 1. Nastavte zarážku v `Pages/Counter.razor` `IncrementCount` metodě.
 1. Přejděte na **`Counter`** kartu a vyberte tlačítko, kde se má zarážka opakovat:
@@ -87,7 +87,7 @@ Ladění Blazor WebAssembly aplikace v aplikaci Visual Studio:
 
 1. Pokračujte v provádění stisknutím klávesy <kbd>F5</kbd> .
 
-Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
+Při ladění :::no-loc(Blazor WebAssembly)::: aplikace můžete také ladit kód serveru:
 
 1. Nastavte zarážku na `Pages/FetchData.razor` stránce v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> .
 1. Nastavte zarážku v `WeatherForecastController` `Get` metodě Action.
@@ -105,11 +105,9 @@ Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
 
 ## <a name="visual-studio-code"></a>Visual Studio Code
 
-Informace o instalaci Visual Studio Code pro Blazor vývoj aplikací najdete v tématu <xref:blazor/tooling> .
+### <a name="debug-standalone-no-locblazor-webassembly"></a>Samostatně ladit:::no-loc(Blazor WebAssembly):::
 
-### <a name="debug-standalone-blazor-webassembly"></a>Samostatně laditBlazor WebAssembly
-
-1. Otevřete samostatnou Blazor WebAssembly aplikaci v vs Code.
+1. Otevřete samostatnou :::no-loc(Blazor WebAssembly)::: aplikaci v vs Code.
 
    Pokud se zobrazí následující oznámení, že pro povolení ladění je potřeba další nastavení:
    
@@ -121,7 +119,7 @@ Informace o instalaci Visual Studio Code pro Blazor vývoj aplikací najdete v t
 
 1. Spusťte ladění pomocí klávesových zkratek <kbd>F5</kbd> nebo položky nabídky.
 
-1. Po zobrazení výzvy vyberte možnost ** Blazor WebAssembly ladění** pro spuštění ladění.
+1. Po zobrazení výzvy vyberte možnost ** :::no-loc(Blazor WebAssembly)::: ladění** pro spuštění ladění.
 
    ![Seznam dostupných možností ladění](index/_static/blazor-vscode-debugtypes.png)
 
@@ -131,9 +129,9 @@ Informace o instalaci Visual Studio Code pro Blazor vývoj aplikací najdete v t
 
    ![Čítač ladění v VS Code](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
 
-### <a name="debug-hosted-blazor-webassembly"></a>Ladění je hostovanéBlazor WebAssembly
+### <a name="debug-hosted-no-locblazor-webassembly"></a>Ladění je hostované:::no-loc(Blazor WebAssembly):::
 
-1. Otevřete Blazor WebAssembly složku řešení hostované aplikace v vs Code.
+1. Otevřete :::no-loc(Blazor WebAssembly)::: složku řešení hostované aplikace v vs Code.
 
 1. Pokud pro projekt neexistuje konfigurační sada pro spuštění, zobrazí se následující oznámení. Vyberte **Ano**.
 
@@ -145,13 +143,13 @@ Informace o instalaci Visual Studio Code pro Blazor vývoj aplikací najdete v t
 
 ### <a name="attach-to-an-existing-debugging-session"></a>Připojit k existující relaci ladění
 
-Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte `launch.json` soubor s následující konfigurací:
+Pokud se chcete připojit ke spuštěné :::no-loc(Blazor)::: aplikaci, vytvořte `launch.json` soubor s následující konfigurací:
 
 ```json
 {
   "type": "blazorwasm",
   "request": "attach",
-  "name": "Attach to Existing Blazor WebAssembly Application"
+  "name": "Attach to Existing :::no-loc(Blazor WebAssembly)::: Application"
 }
 ```
 
@@ -164,11 +162,11 @@ Pro `blazorwasm` typ ladění () jsou podporovány následující možnosti konf
 
 | Možnost    | Popis |
 | --------- | ----------- |
-| `request` | Pomocí `launch` můžete spustit a připojit relaci ladění k Blazor WebAssembly aplikaci nebo `attach` připojit relaci ladění k již spuštěné aplikaci. |
+| `request` | Pomocí `launch` můžete spustit a připojit relaci ladění k :::no-loc(Blazor WebAssembly)::: aplikaci nebo `attach` připojit relaci ladění k již spuštěné aplikaci. |
 | `url`     | Adresa URL, která se má otevřít v prohlížeči při ladění. Výchozí hodnota je `https://localhost:5001` . |
 | `browser` | Prohlížeč, který se má spustit pro relaci ladění. Nastavte na `edge` nebo `chrome`. Výchozí hodnota je `chrome` . |
 | `trace`   | Slouží ke generování protokolů z ladicího programu JS. Nastavte na `true` Generovat protokoly. |
-| `hosted`  | Musí být nastavené na hodnotu `true` při spuštění a ladění hostované Blazor WebAssembly aplikace. |
+| `hosted`  | Musí být nastavené na hodnotu `true` při spuštění a ladění hostované :::no-loc(Blazor WebAssembly)::: aplikace. |
 | `webRoot` | Určuje absolutní cestu webového serveru. By měla být nastavena, pokud je aplikace obsluhována z dílčího směrování. |
 | `timeout` | Počet milisekund, po které se má čekat na připojení relace ladění Výchozí hodnota je 30 000 milisekund (30 sekund). |
 | `program` | Odkaz na spustitelný soubor pro spuštění serveru hostované aplikace. Musí být nastaven `hosted` , pokud je `true` . |
@@ -177,7 +175,7 @@ Pro `blazorwasm` typ ladění () jsou podporovány následující možnosti konf
 
 ### <a name="example-launch-configurations"></a>Příklad konfigurací spuštění
 
-#### <a name="launch-and-debug-a-standalone-blazor-webassembly-app"></a>Spuštění a ladění samostatné Blazor WebAssembly aplikace
+#### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a>Spuštění a ladění samostatné :::no-loc(Blazor WebAssembly)::: aplikace
 
 ```json
 {
@@ -198,13 +196,13 @@ Pro `blazorwasm` typ ladění () jsou podporovány následující možnosti konf
 }
 ```
 
-#### <a name="launch-and-debug-a-hosted-blazor-webassembly-app-with-microsoft-edge"></a>Spuštění a ladění hostované Blazor WebAssembly aplikace pomocí Microsoft Edge
+#### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a>Spuštění a ladění hostované :::no-loc(Blazor WebAssembly)::: aplikace pomocí Microsoft Edge
 
 Konfigurace prohlížeče je ve výchozím nastavení Google Chrome. Při použití Microsoft Edge pro ladění nastavte `browser` na `edge` . Pokud chcete používat Google Chrome, buď nenastavujte `browser` možnost, nebo nastavte hodnotu možnosti na `chrome` .
 
 ```json
 {
-  "name": "Launch and Debug Hosted Blazor WebAssembly App",
+  "name": "Launch and Debug Hosted :::no-loc(Blazor WebAssembly)::: App",
   "type": "blazorwasm",
   "request": "launch",
   "hosted": true,
@@ -232,11 +230,11 @@ V předchozím příkladu `MyHostedApp.Server.dll` je sestavení *serverové* ap
 
 1. V kódu komponenty ( `.razor` soubory) a souborech kódu jazyka C# ( `.cs` ) jsou zarážky, které jste nastavili, zasaženy při spuštění kódu. Po stisknutí zarážky se provede krok (<kbd>F10</kbd>) prostřednictvím kódu nebo obnovení kódu (<kbd>F8</kbd>) normálně.
 
-Blazorposkytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Když se stiskne klávesová zkratka ladění, navede Blazor devtools Chrome na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
+:::no-loc(Blazor):::poskytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Když se stiskne klávesová zkratka ladění, navede :::no-loc(Blazor)::: devtools Chrome na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
 
 ## <a name="browser-source-maps"></a>Mapy zdroje prohlížeče
 
-Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zkompilované soubory zpátky na původní zdrojové soubory a často se používají pro ladění na straně klienta. V Blazor současné době ale nemapuje C# přímo na JavaScript/WASM. Místo toho Blazor provede výklad il v prohlížeči, takže zdrojové mapy nejsou relevantní.
+Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zkompilované soubory zpátky na původní zdrojové soubory a často se používají pro ladění na straně klienta. V :::no-loc(Blazor)::: současné době ale nemapuje C# přímo na JavaScript/WASM. Místo toho :::no-loc(Blazor)::: provede výklad il v prohlížeči, takže zdrojové mapy nejsou relevantní.
 
 ## <a name="troubleshoot"></a>Řešení potíží
 

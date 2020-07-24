@@ -1,0 +1,1 @@
+Informace o tom, jak globálně vyžadovat ověření všech uživatelů, najdete v tématu [vyžadování ověřených uživatelů](xref:security/authorization/secure-data#rau).

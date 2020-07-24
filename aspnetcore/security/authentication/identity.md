@@ -13,12 +13,12 @@ no-loc:
 - ':::no-loc(Razor):::'
 - ':::no-loc(SignalR):::'
 uid: security/authentication/identity
-ms.openlocfilehash: dd3296db568700a363c427398f02239846a46ada
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: 25070e90050db9dca8b003ae782662811096526a
+ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86445425"
+ms.lasthandoff: 07/24/2020
+ms.locfileid: "87160308"
 ---
 # <a name="introduction-to-no-locidentity-on-aspnet-core"></a>Úvod do :::no-loc(Identity)::: ASP.NET Core
 
@@ -32,6 +32,8 @@ ASP.NET Core :::no-loc(Identity)::: :
 * Spravuje uživatele, hesla, data profilu, role, deklarace identity, tokeny, potvrzení e-mailu a další.
 
 Uživatelé můžou vytvořit účet s přihlašovacími informacemi uloženými v :::no-loc(Identity)::: nebo můžou použít externího poskytovatele přihlášení. Mezi podporované externí zprostředkovatelé přihlášení patří [Facebook, Google, účet Microsoft a Twitter](xref:security/authentication/social/index).
+
+[!INCLUDE[](~/includes/requireAuth.md)]
 
 [ :::no-loc(Identity)::: Zdrojový kód](https://github.com/dotnet/AspNetCore/tree/master/src/:::no-loc(Identity):::) je k dispozici na GitHubu. [Generování :::no-loc(Identity)::: uživatelského rozhraní](xref:security/authentication/scaffold-identity) a zobrazit generované soubory pro kontrolu interakce šablony s :::no-loc(Identity)::: .
 
@@ -61,7 +63,7 @@ Vytvořte ASP.NET Core projekt webové aplikace s jednotlivými uživatelskými 
 * Vyberte **webovou aplikaci**ASP.NET Core a pak vyberte **změnit ověřování**.
 * Vyberte **jednotlivé uživatelské účty** a klikněte na **OK**.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -91,7 +93,7 @@ Spusťte následující příkaz v konzole správce balíčků (PMC):
 
 `PM> Update-Database`
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Migrace nejsou v tomto kroku nutné při použití SQLite.
 
@@ -135,7 +137,7 @@ Další informace o systémech `:::no-loc(Identity):::Options` a `Startup` najde
 
 Přidejte `Register` soubory, `Login` , `LogOut` a `RegisterConfirmation` . Použijte [identitu uživatelského rozhraní do :::no-loc(Razor)::: projektu s pokyny pro autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste vytvořili projekt s názvem **WebApp1**, spusťte následující příkazy. Jinak použijte správný obor názvů pro `ApplicationDbContext` :
 
@@ -295,7 +297,7 @@ Vytvořte ASP.NET Core projekt webové aplikace s jednotlivými uživatelskými 
 * Vyberte **webovou aplikaci**ASP.NET Core a pak vyberte **změnit ověřování**.
 * Vyberte **jednotlivé uživatelské účty** a klikněte na **OK**.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -321,7 +323,7 @@ Spusťte následující příkaz v konzole správce balíčků (PMC):
 Update-Database
 ```
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet ef database update
@@ -359,7 +361,7 @@ Použijte [identitu uživatelského rozhraní do :::no-loc(Razor)::: projektu s 
 
 Přidejte soubory registru, přihlášení a odhlášení.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste vytvořili projekt s názvem **WebApp1**, spusťte následující příkazy. Jinak použijte správný obor názvů pro `ApplicationDbContext` :
 

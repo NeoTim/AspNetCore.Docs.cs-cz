@@ -9,7 +9,7 @@
 >
 > Oprava pro tuto chybu je obsažená v [sadě .NET Core 3.1.301 SDK a novější](https://dotnet.microsoft.com/download/dotnet-core/3.1). Následující kód nastaví interní přepínač, který vyřeší tuto chybu:
 >
->```
+>```csharp
 >public static void Main(string[] args)
 >{
 >    AppContext.SetSwitch("Microsoft.AspNetCore.Routing.UseCorrectCatchAllBehavior", 
