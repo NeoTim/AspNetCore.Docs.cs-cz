@@ -6,13 +6,13 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 07/23/2020
 no-loc:
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: client-side/bundling-and-minification
 ms.openlocfilehash: 5db6ab3d790257c677c0a4ed7e605eb39c2982ed
 ms.sourcegitcommit: cc845634a490c49ff869c89b6e422b6d65d0e886
@@ -71,19 +71,19 @@ Prohlížeče jsou poměrně podrobné, s ohledem na hlavičky požadavků HTTP.
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a>Výběr strategie sdružování a minifikace
 
-:::no-loc(Razor):::Šablony projektů MVC a stránky poskytují řešení pro sdružování a minifikace, které se skládají z konfiguračního souboru JSON. Nástroje třetích stran, jako je třeba Spouštěč úloh [grunt](xref:client-side/using-grunt) , provádějí stejné úlohy s větší složitou složitostí. Nástroj třetí strany je skvěle vhodný, když váš vývojový pracovní postup vyžaduje zpracování mimo sdružování a minifikace, jako &mdash; je linting a optimalizace obrázků. Když použijete sdružování a minifikace v době návrhu, vytvoří se soubory minifikovaného před nasazením aplikace. Sdružování a minifikace před nasazením přináší výhodu omezeného zatížení serveru. Je ale důležité pochopit, že sdružování v době návrhu a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.
+RazorŠablony projektů MVC a stránky poskytují řešení pro sdružování a minifikace, které se skládají z konfiguračního souboru JSON. Nástroje třetích stran, jako je třeba Spouštěč úloh [grunt](xref:client-side/using-grunt) , provádějí stejné úlohy s větší složitou složitostí. Nástroj třetí strany je skvěle vhodný, když váš vývojový pracovní postup vyžaduje zpracování mimo sdružování a minifikace, jako &mdash; je linting a optimalizace obrázků. Když použijete sdružování a minifikace v době návrhu, vytvoří se soubory minifikovaného před nasazením aplikace. Sdružování a minifikace před nasazením přináší výhodu omezeného zatížení serveru. Je ale důležité pochopit, že sdružování v době návrhu a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.
 
 ## <a name="configure-bundling-and-minification"></a>Konfigurace sdružování a minifikace
 
 ::: moniker range="<= aspnetcore-2.0"
 
-V ASP.NET Core 2,0 nebo starších verzích :::no-loc(Razor)::: představují šablony projektů MVC a pages *bundleconfig.jsv* konfiguračním souboru, který definuje možnosti pro jednotlivé sady prostředků:
+V ASP.NET Core 2,0 nebo starších verzích Razor představují šablony projektů MVC a pages *bundleconfig.jsv* konfiguračním souboru, který definuje možnosti pro jednotlivé sady prostředků:
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-V ASP.NET Core 2,1 nebo novějším přidejte nový soubor JSON s názvem *bundleconfig.js*do :::no-loc(Razor)::: kořenového adresáře projektu MVC nebo Pages. Do tohoto souboru vložte následující JSON jako výchozí bod:
+V ASP.NET Core 2,1 nebo novějším přidejte nový soubor JSON s názvem *bundleconfig.js*do Razor kořenového adresáře projektu MVC nebo Pages. Do tohoto souboru vložte následující JSON jako výchozí bod:
 
 ::: moniker-end
 

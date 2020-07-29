@@ -6,13 +6,13 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authorization/policies
 ms.openlocfilehash: 668c68bc328860ef17e1f2df09103fca07733ef7
 ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
@@ -109,7 +109,7 @@ public void ConfigureServices(IServiceCollection services)
 
 
     services.AddControllersWithViews();
-    services.Add:::no-loc(Razor):::Pages();
+    services.AddRazorPages();
 }
 ```
 
@@ -117,21 +117,21 @@ Použijte <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> nebo `
 
 ## <a name="apply-policies-to-mvc-controllers"></a>Použití zásad u řadičů MVC
 
-Pokud používáte :::no-loc(Razor)::: stránky, přečtěte si téma [použití zásad na :::no-loc(Razor)::: stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.
+Pokud používáte Razor stránky, přečtěte si téma [použití zásad na Razor stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.
 
 Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
-## <a name="apply-policies-to-no-locrazor-pages"></a>Použít zásady na :::no-loc(Razor)::: stránky
+## <a name="apply-policies-to-no-locrazor-pages"></a>Použít zásady na Razor stránky
 
-Zásady se aplikují na :::no-loc(Razor)::: stránky pomocí `[Authorize]` atributu s názvem zásady. Příklad:
+Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
-Zásady nelze ***použít*** na :::no-loc(Razor)::: úrovni obslužné rutiny stránky, musejí být aplikovány na stránku.
+Zásady nelze ***použít*** na Razor úrovni obslužné rutiny stránky, musejí být aplikovány na stránku.
 
-Zásady lze použít na :::no-loc(Razor)::: stránky pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).
+Zásady lze použít na Razor stránky pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).
 
 ## <a name="requirements"></a>Požadavky
 
@@ -225,7 +225,7 @@ Například předchozí `BadgeEntryHandler` může být přepsána následujíc�
 
 ## <a name="access-mvc-request-context-in-handlers"></a>Přístup k kontextu požadavku MVC v obslužných rutinách
 
-`HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte. Rozhraní, jako je MVC, nebo :::no-loc(SignalR)::: jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.
+`HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte. Rozhraní, jako je MVC, nebo SignalR jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.
 
 Při použití směrování koncových bodů se autorizaci obvykle zpracovává pomocí middleware autorizace. V tomto případě `Resource` je vlastnost instancí třídy <xref:Microsoft.AspNetCore.Http.Endpoint> . Koncový bod se dá použít k testování základního prostředku, ke kterému se právě směrujete. Příklad:
 
@@ -239,7 +239,7 @@ if (context.Resource is Endpoint endpoint)
 
 Koncový bod neposkytuje přístup k aktuálnímu `HttpContext` . Při použití směrování koncových bodů použijte `IHttpContextAcessor` pro přístup k `HttpContext` obslužné rutině autorizace. Další informace naleznete v tématu [použití vlastnosti HttpContext z vlastních komponent](xref:fundamentals/httpcontext#use-httpcontext-from-custom-components).
 
-V případě tradičního směrování nebo když k autorizaci dojde jako součást autorizačního filtru MVC, hodnota `Resource` je <xref:Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext> instance. Tato vlastnost poskytuje přístup k `HttpContext` , `RouteData` a vše ostatní poskytované MVC a :::no-loc(Razor)::: stránkami.
+V případě tradičního směrování nebo když k autorizaci dojde jako součást autorizačního filtru MVC, hodnota `Resource` je <xref:Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext> instance. Tato vlastnost poskytuje přístup k `HttpContext` , `RouteData` a vše ostatní poskytované MVC a Razor stránkami.
 
 Použití `Resource` vlastnosti je specifické pro rozhraní. Použití informací v této `Resource` vlastnosti omezuje vaše zásady autorizace na konkrétní architektury. Vlastnost byste měli přetypovat `Resource` pomocí `is` klíčového slova a pak potvrdit, že přetypování bylo úspěšné, aby `InvalidCastException` při spuštění v jiných rozhraních nedošlo k chybě kódu.
 
@@ -353,19 +353,19 @@ Použijte <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> nebo `
 
 ## <a name="apply-policies-to-mvc-controllers"></a>Použití zásad u řadičů MVC
 
-Pokud používáte :::no-loc(Razor)::: stránky, přečtěte si téma [použití zásad na :::no-loc(Razor)::: stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.
+Pokud používáte Razor stránky, přečtěte si téma [použití zásad na Razor stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.
 
 Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
-## <a name="apply-policies-to-no-locrazor-pages"></a>Použít zásady na :::no-loc(Razor)::: stránky
+## <a name="apply-policies-to-no-locrazor-pages"></a>Použít zásady na Razor stránky
 
-Zásady se aplikují na :::no-loc(Razor)::: stránky pomocí `[Authorize]` atributu s názvem zásady. Příklad:
+Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
-Zásady se dají na stránkách použít taky :::no-loc(Razor)::: pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).
+Zásady se dají na stránkách použít taky Razor pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).
 
 ## <a name="requirements"></a>Požadavky
 
@@ -459,9 +459,9 @@ Například předchozí `BadgeEntryHandler` může být přepsána následujíc�
 
 ## <a name="access-mvc-request-context-in-handlers"></a>Přístup k kontextu požadavku MVC v obslužných rutinách
 
-`HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte. Rozhraní, jako je MVC, nebo :::no-loc(SignalR)::: jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.
+`HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte. Rozhraní, jako je MVC, nebo SignalR jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.
 
-MVC například projde instanci [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) ve `Resource` Vlastnosti. Tato vlastnost poskytuje přístup k `HttpContext` , `RouteData` a vše ostatní poskytované MVC a :::no-loc(Razor)::: stránkami.
+MVC například projde instanci [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) ve `Resource` Vlastnosti. Tato vlastnost poskytuje přístup k `HttpContext` , `RouteData` a vše ostatní poskytované MVC a Razor stránkami.
 
 Použití `Resource` vlastnosti je specifické pro rozhraní. Použití informací v této `Resource` vlastnosti omezuje vaše zásady autorizace na konkrétní architektury. Vlastnost byste měli přetypovat `Resource` pomocí `is` klíčového slova a pak potvrdit, že přetypování bylo úspěšné, aby `InvalidCastException` při spuštění v jiných rozhraních nedošlo k chybě kódu.
 

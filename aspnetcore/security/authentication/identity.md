@@ -1,17 +1,17 @@
 ---
-title: 'Úvod do :::no-loc(Identity)::: ASP.NET Core'
+title: Úvod do Identity ASP.NET Core
 author: rick-anderson
-description: 'Použijte :::no-loc(Identity)::: s aplikací ASP.NET Core. Přečtěte si, jak nastavit požadavky na heslo (RequireDigit, RequiredLength, RequiredUniqueChars a další).'
+description: Použijte Identity s aplikací ASP.NET Core. Přečtěte si, jak nastavit požadavky na heslo (RequireDigit, RequiredLength, RequiredUniqueChars a další).
 ms.author: riande
 ms.date: 7/15/2020
 no-loc:
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/identity
 ms.openlocfilehash: 25070e90050db9dca8b003ae782662811096526a
 ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
@@ -20,33 +20,33 @@ ms.contentlocale: cs-CZ
 ms.lasthandoff: 07/24/2020
 ms.locfileid: "87160308"
 ---
-# <a name="introduction-to-no-locidentity-on-aspnet-core"></a>Úvod do :::no-loc(Identity)::: ASP.NET Core
+# <a name="introduction-to-no-locidentity-on-aspnet-core"></a>Úvod do Identity ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core :::no-loc(Identity)::: :
+ASP.NET Core Identity :
 
 * Je rozhraní API, které podporuje funkce přihlášení uživatelského rozhraní (UI).
 * Spravuje uživatele, hesla, data profilu, role, deklarace identity, tokeny, potvrzení e-mailu a další.
 
-Uživatelé můžou vytvořit účet s přihlašovacími informacemi uloženými v :::no-loc(Identity)::: nebo můžou použít externího poskytovatele přihlášení. Mezi podporované externí zprostředkovatelé přihlášení patří [Facebook, Google, účet Microsoft a Twitter](xref:security/authentication/social/index).
+Uživatelé můžou vytvořit účet s přihlašovacími informacemi uloženými v Identity nebo můžou použít externího poskytovatele přihlášení. Mezi podporované externí zprostředkovatelé přihlášení patří [Facebook, Google, účet Microsoft a Twitter](xref:security/authentication/social/index).
 
 [!INCLUDE[](~/includes/requireAuth.md)]
 
-[ :::no-loc(Identity)::: Zdrojový kód](https://github.com/dotnet/AspNetCore/tree/master/src/:::no-loc(Identity):::) je k dispozici na GitHubu. [Generování :::no-loc(Identity)::: uživatelského rozhraní](xref:security/authentication/scaffold-identity) a zobrazit generované soubory pro kontrolu interakce šablony s :::no-loc(Identity)::: .
+[ Identity Zdrojový kód](https://github.com/dotnet/AspNetCore/tree/master/src/Identity) je k dispozici na GitHubu. [Generování Identity uživatelského rozhraní](xref:security/authentication/scaffold-identity) a zobrazit generované soubory pro kontrolu interakce šablony s Identity .
 
-:::no-loc(Identity):::je obvykle nakonfigurovaný pomocí SQL Server databáze pro ukládání uživatelských jmen, hesel a profilů. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
+Identityje obvykle nakonfigurovaný pomocí SQL Server databáze pro ukládání uživatelských jmen, hesel a profilů. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
 
-V tomto tématu se dozvíte, jak používat :::no-loc(Identity)::: k registraci, přihlášení a odhlášení uživatele. Poznámka: šablony považují uživatelské jméno a e-mail za stejné pro uživatele. Podrobnější pokyny k vytváření aplikací, které používají :::no-loc(Identity)::: , najdete v části [Další kroky](#next).
+V tomto tématu se dozvíte, jak používat Identity k registraci, přihlášení a odhlášení uživatele. Poznámka: šablony považují uživatelské jméno a e-mail za stejné pro uživatele. Podrobnější pokyny k vytváření aplikací, které používají Identity , najdete v části [Další kroky](#next).
 
 [Platforma Microsoft Identity](/azure/active-directory/develop/) je:
 
 * Vývoj platformy pro vývojáře Azure Active Directory (Azure AD).
-* Nesouvisí s ASP.NET Core :::no-loc(Identity)::: .
+* Nesouvisí s ASP.NET Core Identity .
 
-[!INCLUDE[](~/includes/:::no-loc(Identity):::Server4.md)]
+[!INCLUDE[](~/includes/IdentityServer4.md)]
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample) ([Jak stáhnout)](xref:index#how-to-download-a-sample)).
 
@@ -69,7 +69,7 @@ Vytvořte ASP.NET Core projekt webové aplikace s jednotlivými uživatelskými 
 dotnet new webapp --auth Individual -o WebApp1
 ```
 
-Předchozí příkaz vytvoří :::no-loc(Razor)::: webovou aplikaci pomocí sqlite. Pokud chcete vytvořit webovou aplikaci pomocí LocalDB, spusťte následující příkaz:
+Předchozí příkaz vytvoří Razor webovou aplikaci pomocí sqlite. Pokud chcete vytvořit webovou aplikaci pomocí LocalDB, spusťte následující příkaz:
 
 ```dotnetcli
 dotnet new webapp --auth Individual -uld -o WebApp1
@@ -77,11 +77,11 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-Vygenerovaný projekt poskytuje [ASP.NET Core :::no-loc(Identity)::: ](xref:security/authentication/identity) jako [ :::no-loc(Razor)::: knihovnu tříd](xref:razor-pages/ui-class). :::no-loc(Identity)::: :::no-loc(Razor)::: Knihovna tříd zpřístupňuje koncové body s `:::no-loc(Identity):::` oblastí. Příklad:
+Vygenerovaný projekt poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Příklad:
 
-* /:::no-loc(Identity):::/Account/Login
-* /:::no-loc(Identity):::/Account/Logout
-* /:::no-loc(Identity):::/Account/Manage
+* /Identity/Account/Login
+* /Identity/Account/Logout
+* /Identity/Account/Manage
 
 ### <a name="apply-migrations"></a>Použít migrace
 
@@ -115,27 +115,27 @@ Spusťte aplikaci a zaregistrujte uživatele. V závislosti na velikosti obrazov
 
 <a name="pw"></a>
 
-### <a name="configure-no-locidentity-services"></a>Konfigurace :::no-loc(Identity)::: služeb
+### <a name="configure-no-locidentity-services"></a>Konfigurace Identity služeb
 
 Služby jsou přidány do `ConfigureServices` . Typický vzor je zavolat všechny `Add{Service}` metody a pak zavolat všechny `services.Configure{Service}` metody.
 
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configureservices&highlight=11-99)]
 
-Předchozí zvýrazněný kód nakonfiguruje :::no-loc(Identity)::: s výchozími hodnotami možností. Služby jsou zpřístupněny aplikaci prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
+Předchozí zvýrazněný kód nakonfiguruje Identity s výchozími hodnotami možností. Služby jsou zpřístupněny aplikaci prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
 
-:::no-loc(Identity):::je povoleno voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> . `UseAuthentication`přidá [middleware](xref:fundamentals/middleware/index) ověřování do kanálu požadavků.
+Identityje povoleno voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> . `UseAuthentication`přidá [middleware](xref:fundamentals/middleware/index) ověřování do kanálu požadavků.
 
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configure&highlight=19)]
 
 Aplikace generovaná šablonou nepoužívá [autorizaci](xref:security/authorization/secure-data). `app.UseAuthorization`je součástí, abyste zajistili, že je přidaný do správného pořadí, aby aplikace přidala autorizaci. `UseRouting`, `UseAuthentication` , `UseAuthorization` , a `UseEndpoints` musí být volány v pořadí uvedeném v předchozím kódu.
 
-Další informace o systémech `:::no-loc(Identity):::Options` a `Startup` najdete v tématu <xref:Microsoft.AspNetCore.:::no-loc(Identity):::.:::no-loc(Identity):::Options> a [spuštění aplikace](xref:fundamentals/startup).
+Další informace o systémech `IdentityOptions` a `Startup` najdete v tématu <xref:Microsoft.AspNetCore.Identity.IdentityOptions> a [spuštění aplikace](xref:fundamentals/startup).
 
 ## <a name="scaffold-register-login-logout-and-registerconfirmation"></a>Registr, přihlášení, odhlášení a RegisterConfirmation uživatelského rozhraní
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Přidejte `Register` soubory, `Login` , `LogOut` a `RegisterConfirmation` . Použijte [identitu uživatelského rozhraní do :::no-loc(Razor)::: projektu s pokyny pro autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
+Přidejte `Register` soubory, `Login` , `LogOut` a `RegisterConfirmation` . Použijte [identitu uživatelského rozhraní do Razor projektu s pokyny pro autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -148,18 +148,18 @@ dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --fil
 
 PowerShell používá jako oddělovač příkazů středník. Při použití prostředí PowerShell, oddělte středníky v seznamu souborů nebo vložte seznam souborů do dvojitých uvozovek, jak ukazuje předchozí příklad.
 
-Další informace o generování uživatelského rozhraní :::no-loc(Identity)::: najdete v tématu [Identita uživatelského rozhraní do :::no-loc(Razor)::: projektu s autorizací](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization).
+Další informace o generování uživatelského rozhraní Identity najdete v tématu [Identita uživatelského rozhraní do Razor projektu s autorizací](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization).
 
 ---
 
 ### <a name="examine-register"></a>Ověřit registraci
 
-Když uživatel klikne na **Register** stránce na tlačítko registrace `Register` , vyvolá se `RegisterModel.OnPostAsync` akce. Uživatel je vytvořen pomocí [CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_:::no-loc(Identity):::_UserManager_1_CreateAsync__0_System_String_) na `_userManager` objekt:
+Když uživatel klikne na **Register** stránce na tlačítko registrace `Register` , vyvolá se `RegisterModel.OnPostAsync` akce. Uživatel je vytvořen pomocí [CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_) na `_userManager` objekt:
 
-[!code-csharp[](identity/sample/WebApp3/Areas/:::no-loc(Identity):::/Pages/Account/Register.cshtml.cs?name=snippet&highlight=9)]
+[!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=9)]
 
 <!-- .NET 5 fixes this, see
-https://github.com/dotnet/aspnetcore/blob/master/src/:::no-loc(Identity):::/UI/src/Areas/:::no-loc(Identity):::/Pages/V4/Account/RegisterConfirmation.cshtml.cs#L74-L77
+https://github.com/dotnet/aspnetcore/blob/master/src/Identity/UI/src/Areas/Identity/Pages/V4/Account/RegisterConfirmation.cshtml.cs#L74-L77
 -->
 [!INCLUDE[](~/includes/disableVer.md)]
 
@@ -172,7 +172,7 @@ Přihlašovací formulář se zobrazí v těchto případech:
 
 Při odeslání formuláře na přihlašovací stránce se `OnPostAsync` zavolá akce. `PasswordSignInAsync`je volána u `_signInManager` objektu.
 
-[!code-csharp[](identity/sample/WebApp3/Areas/:::no-loc(Identity):::/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
+[!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
 Informace o tom, jak provádět autorizační rozhodnutí, najdete v tématu <xref:security/authorization/introduction> .
 
@@ -180,67 +180,67 @@ Informace o tom, jak provádět autorizační rozhodnutí, najdete v tématu <xr
 
 Odkaz **odhlášení** vyvolá `LogoutModel.OnPost` akci. 
 
-[!code-csharp[](identity/sample/WebApp3/Areas/:::no-loc(Identity):::/Pages/Account/Logout.cshtml.cs?highlight=36)]
+[!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Logout.cshtml.cs?highlight=36)]
 
 V předchozím kódu `return RedirectToPage();` musí být kód přesměrování, aby prohlížeč prováděl novou žádost a identita pro uživatele byla aktualizována.
 
-[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_:::no-loc(Identity):::_SignInManager_1_SignOutAsync) vymaže deklarace identity uživatele uložené v souboru cookie.
+[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync) vymaže deklarace identity uživatele uložené v souboru cookie.
 
 Příspěvek je zadán ve *stránkách/Shared/_LoginPartial. cshtml*:
 
 [!code-cshtml[](identity/sample/WebApp3/Pages/Shared/_LoginPartial.cshtml?highlight=15)]
 
-## <a name="test-no-locidentity"></a>Napaden:::no-loc(Identity):::
+## <a name="test-no-locidentity"></a>NapadenIdentity
 
-Výchozí šablony webového projektu umožňují anonymní přístup k domovské stránce. Chcete-li otestovat :::no-loc(Identity)::: , přidejte [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) :
+Výchozí šablony webového projektu umožňují anonymní přístup k domovské stránce. Chcete-li otestovat Identity , přidejte [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) :
 
 [!code-csharp[](identity/sample/WebApp3/Pages/Privacy.cshtml.cs?highlight=7)]
 
 Pokud jste přihlášeni, odhlaste se. Spusťte aplikaci a vyberte odkaz na **ochranu osobních údajů** . Budete přesměrováni na přihlašovací stránku.
 
-### <a name="explore-no-locidentity"></a>Okno:::no-loc(Identity):::
+### <a name="explore-no-locidentity"></a>OknoIdentity
 
-Podrobněji prozkoumat :::no-loc(Identity)::: :
+Podrobněji prozkoumat Identity :
 
 * [Vytvořit úplný zdroj uživatelského rozhraní identity](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * Projděte si zdroj každé stránky a proveďte krok pomocí ladicího programu.
 
-## <a name="no-locidentity-components"></a>:::no-loc(Identity):::Konstrukční
+## <a name="no-locidentity-components"></a>IdentityKonstrukční
 
-Všechny :::no-loc(Identity)::: balíčky NuGet závislé na rozhraních jsou součástí [ASP.NET Core sdílené rozhraní](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework).
+Všechny Identity balíčky NuGet závislé na rozhraních jsou součástí [ASP.NET Core sdílené rozhraní](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework).
 
-Primární balíček pro :::no-loc(Identity)::: je [Microsoft. AspNetCore :::no-loc(Identity)::: .](https://www.nuget.org/packages/Microsoft.AspNetCore.:::no-loc(Identity):::/). Tento balíček obsahuje základní sadu rozhraní pro ASP.NET Core :::no-loc(Identity)::: a je součástí nástroje `Microsoft.AspNetCore.:::no-loc(Identity):::.EntityFrameworkCore` .
+Primární balíček pro Identity je [Microsoft. AspNetCore Identity .](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/). Tento balíček obsahuje základní sadu rozhraní pro ASP.NET Core Identity a je součástí nástroje `Microsoft.AspNetCore.Identity.EntityFrameworkCore` .
 
-## <a name="migrating-to-aspnet-core-no-locidentity"></a>Migrace na ASP.NET Core:::no-loc(Identity):::
+## <a name="migrating-to-aspnet-core-no-locidentity"></a>Migrace na ASP.NET CoreIdentity
 
-Další informace a pokyny k migraci stávajícího :::no-loc(Identity)::: úložiště najdete v tématu [migrace ověřování a :::no-loc(Identity)::: ](xref:migration/identity).
+Další informace a pokyny k migraci stávajícího Identity úložiště najdete v tématu [migrace ověřování a Identity ](xref:migration/identity).
 
 ## <a name="setting-password-strength"></a>Nastavení síly hesla
 
 V části [Konfigurace](#pw) najdete ukázku, která nastavuje minimální požadavky na heslo.
 
-## <a name="adddefaultno-locidentity-and-addno-locidentity"></a>AddDefault :::no-loc(Identity)::: a přidat:::no-loc(Identity):::
+## <a name="adddefaultno-locidentity-and-addno-locidentity"></a>AddDefault Identity a přidatIdentity
 
-<xref:Microsoft.Extensions.DependencyInjection.:::no-loc(Identity):::ServiceCollectionUIExtensions.AddDefault:::no-loc(Identity):::*>Služba WAS byla představena v ASP.NET Core 2,1. Volání `AddDefault:::no-loc(Identity):::` je podobné volání následujícího:
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*>Služba WAS byla představena v ASP.NET Core 2,1. Volání `AddDefaultIdentity` je podobné volání následujícího:
 
-* <xref:Microsoft.Extensions.DependencyInjection.:::no-loc(Identity):::ServiceCollectionExtensions.Add:::no-loc(Identity):::*>
-* <xref:Microsoft.AspNetCore.:::no-loc(Identity):::.:::no-loc(Identity):::BuilderUIExtensions.AddDefaultUI*>
-* <xref:Microsoft.AspNetCore.:::no-loc(Identity):::.:::no-loc(Identity):::BuilderExtensions.AddDefaultTokenProviders*>
+* <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity*>
+* <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
+* <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-Další informace najdete v tématu [AddDefault :::no-loc(Identity)::: source](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/:::no-loc(Identity):::/UI/src/:::no-loc(Identity):::ServiceCollectionUIExtensions.cs#L47-L63) .
+Další informace najdete v tématu [AddDefault Identity source](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63) .
 
-## <a name="prevent-publish-of-static-no-locidentity-assets"></a>Zabránit publikování statických :::no-loc(Identity)::: prostředků
+## <a name="prevent-publish-of-static-no-locidentity-assets"></a>Zabránit publikování statických Identity prostředků
 
-Chcete-li zabránit publikování statických :::no-loc(Identity)::: prostředků (šablon stylů a souborů JavaScriptu pro :::no-loc(Identity)::: uživatelské rozhraní) do kořenového adresáře webu, přidejte následující `ResolveStaticWebAssetsInputsDependsOn` vlastnost a `Remove:::no-loc(Identity):::Assets` cíl do souboru projektu aplikace:
+Chcete-li zabránit publikování statických Identity prostředků (šablon stylů a souborů JavaScriptu pro Identity uživatelské rozhraní) do kořenového adresáře webu, přidejte následující `ResolveStaticWebAssetsInputsDependsOn` vlastnost a `RemoveIdentityAssets` cíl do souboru projektu aplikace:
 
 ```xml
 <PropertyGroup>
-  <ResolveStaticWebAssetsInputsDependsOn>Remove:::no-loc(Identity):::Assets</ResolveStaticWebAssetsInputsDependsOn>
+  <ResolveStaticWebAssetsInputsDependsOn>RemoveIdentityAssets</ResolveStaticWebAssetsInputsDependsOn>
 </PropertyGroup>
 
-<Target Name="Remove:::no-loc(Identity):::Assets">
+<Target Name="RemoveIdentityAssets">
   <ItemGroup>
-    <StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.:::no-loc(Identity):::.UI'" />
+    <StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'" />
   </ItemGroup>
 </Target>
 ```
@@ -249,9 +249,9 @@ Chcete-li zabránit publikování statických :::no-loc(Identity)::: prostředk�
 
 ## <a name="next-steps"></a>Další kroky
 
-* [:::no-loc(Identity):::Zdrojový kód ASP.NET Core](https://github.com/dotnet/aspnetcore/tree/master/src/:::no-loc(Identity):::)
-* Informace o konfiguraci pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) :::no-loc(Identity)::: .
-* [Konfigurace:::no-loc(Identity):::](xref:security/authentication/identity-configuration)
+* [IdentityZdrojový kód ASP.NET Core](https://github.com/dotnet/aspnetcore/tree/master/src/Identity)
+* Informace o konfiguraci pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity .
+* [KonfiguraceIdentity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>
@@ -266,25 +266,25 @@ Chcete-li zabránit publikování statických :::no-loc(Identity)::: prostředk�
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core :::no-loc(Identity)::: je systém členství, který do ASP.NET Core aplikací přidává funkce přihlášení. Uživatelé můžou vytvořit účet s přihlašovacími informacemi uloženými v :::no-loc(Identity)::: nebo můžou použít externího poskytovatele přihlášení. Mezi podporované externí zprostředkovatelé přihlášení patří [Facebook, Google, účet Microsoft a Twitter](xref:security/authentication/social/index).
+ASP.NET Core Identity je systém členství, který do ASP.NET Core aplikací přidává funkce přihlášení. Uživatelé můžou vytvořit účet s přihlašovacími informacemi uloženými v Identity nebo můžou použít externího poskytovatele přihlášení. Mezi podporované externí zprostředkovatelé přihlášení patří [Facebook, Google, účet Microsoft a Twitter](xref:security/authentication/social/index).
 
-:::no-loc(Identity):::dá se nakonfigurovat pomocí SQL Server databáze, aby se ukládala uživatelská jména, hesla a data profilu. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
+Identitydá se nakonfigurovat pomocí SQL Server databáze, aby se ukládala uživatelská jména, hesla a data profilu. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-:::no-loc(Identity):::DemoComplete/) ([Jak stáhnout)](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/) ([Jak stáhnout)](xref:index#how-to-download-a-sample)).
 
-V tomto tématu se dozvíte, jak používat :::no-loc(Identity)::: k registraci, přihlášení a odhlášení uživatele. Podrobnější pokyny k vytváření aplikací, které používají :::no-loc(Identity)::: , najdete v části Další kroky na konci tohoto článku.
+V tomto tématu se dozvíte, jak používat Identity k registraci, přihlášení a odhlášení uživatele. Podrobnější pokyny k vytváření aplikací, které používají Identity , najdete v části Další kroky na konci tohoto článku.
 
 <a name="adi"></a>
 
-## <a name="adddefaultno-locidentity-and-addno-locidentity"></a>AddDefault :::no-loc(Identity)::: a přidat:::no-loc(Identity):::
+## <a name="adddefaultno-locidentity-and-addno-locidentity"></a>AddDefault Identity a přidatIdentity
 
-<xref:Microsoft.Extensions.DependencyInjection.:::no-loc(Identity):::ServiceCollectionUIExtensions.AddDefault:::no-loc(Identity):::*>Služba WAS byla představena v ASP.NET Core 2,1. Volání `AddDefault:::no-loc(Identity):::` je podobné volání následujícího:
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*>Služba WAS byla představena v ASP.NET Core 2,1. Volání `AddDefaultIdentity` je podobné volání následujícího:
 
-* <xref:Microsoft.Extensions.DependencyInjection.:::no-loc(Identity):::ServiceCollectionExtensions.Add:::no-loc(Identity):::*>
-* <xref:Microsoft.AspNetCore.:::no-loc(Identity):::.:::no-loc(Identity):::BuilderUIExtensions.AddDefaultUI*>
-* <xref:Microsoft.AspNetCore.:::no-loc(Identity):::.:::no-loc(Identity):::BuilderExtensions.AddDefaultTokenProviders*>
+* <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity*>
+* <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
+* <xref:Microsoft.AspNetCore.Identity.IdentityBuilderExtensions.AddDefaultTokenProviders*>
 
-Další informace najdete v tématu [AddDefault :::no-loc(Identity)::: source](https://github.com/dotnet/AspNetCore/blob/release/2.1/src/:::no-loc(Identity):::/UI/src/:::no-loc(Identity):::ServiceCollectionUIExtensions.cs#L47-L63) .
+Další informace najdete v tématu [AddDefault Identity source](https://github.com/dotnet/AspNetCore/blob/release/2.1/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63) .
 
 ## <a name="create-a-web-app-with-authentication"></a>Vytvoření webové aplikace s ověřováním
 
@@ -305,11 +305,11 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-Vygenerovaný projekt poskytuje [ASP.NET Core :::no-loc(Identity)::: ](xref:security/authentication/identity) jako [ :::no-loc(Razor)::: knihovnu tříd](xref:razor-pages/ui-class). :::no-loc(Identity)::: :::no-loc(Razor)::: Knihovna tříd zpřístupňuje koncové body s `:::no-loc(Identity):::` oblastí. Příklad:
+Vygenerovaný projekt poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Příklad:
 
-* /:::no-loc(Identity):::/Account/Login
-* /:::no-loc(Identity):::/Account/Logout
-* /:::no-loc(Identity):::/Account/Manage
+* /Identity/Account/Login
+* /Identity/Account/Logout
+* /Identity/Account/Manage
 
 ### <a name="apply-migrations"></a>Použít migrace
 
@@ -339,23 +339,23 @@ Spusťte aplikaci a zaregistrujte uživatele. V závislosti na velikosti obrazov
 
 <a name="pw"></a>
 
-### <a name="configure-no-locidentity-services"></a>Konfigurace :::no-loc(Identity)::: služeb
+### <a name="configure-no-locidentity-services"></a>Konfigurace Identity služeb
 
 Služby jsou přidány do `ConfigureServices` . Typický vzor je zavolat všechny `Add{Service}` metody a pak zavolat všechny `services.Configure{Service}` metody.
 
 [!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configureservices)]
 
-Předchozí kód nakonfiguruje :::no-loc(Identity)::: s výchozími hodnotami možností. Služby jsou zpřístupněny aplikaci prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
+Předchozí kód nakonfiguruje Identity s výchozími hodnotami možností. Služby jsou zpřístupněny aplikaci prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
 
-:::no-loc(Identity):::je povolen voláním [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_). `UseAuthentication`přidá [middleware](xref:fundamentals/middleware/index) ověřování do kanálu požadavků.
+Identityje povolen voláním [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_). `UseAuthentication`přidá [middleware](xref:fundamentals/middleware/index) ověřování do kanálu požadavků.
 
 [!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configure&highlight=18)]
 
-Další informace naleznete v tématu [ :::no-loc(Identity)::: třídy možností](/dotnet/api/microsoft.aspnetcore.identity.identityoptions) a [spuštění aplikace](xref:fundamentals/startup).
+Další informace naleznete v tématu [ Identity třídy možností](/dotnet/api/microsoft.aspnetcore.identity.identityoptions) a [spuštění aplikace](xref:fundamentals/startup).
 
 ## <a name="scaffold-register-login-and-logout"></a>Registrace, přihlášení a odhlášení uživatelského rozhraní
 
-Použijte [identitu uživatelského rozhraní do :::no-loc(Razor)::: projektu s pokyny pro autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
+Použijte [identitu uživatelského rozhraní do Razor projektu s pokyny pro autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -376,9 +376,9 @@ PowerShell používá jako oddělovač příkazů středník. Při použití pro
 
 ### <a name="examine-register"></a>Ověřit registraci
 
-Když uživatel klikne na odkaz **zaregistrovat** , `RegisterModel.OnPostAsync` je akce vyvolána. Uživatel je vytvořen pomocí [CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_:::no-loc(Identity):::_UserManager_1_CreateAsync__0_System_String_) na `_userManager` objekt:
+Když uživatel klikne na odkaz **zaregistrovat** , `RegisterModel.OnPostAsync` je akce vyvolána. Uživatel je vytvořen pomocí [CreateAsync](/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#Microsoft_AspNetCore_Identity_UserManager_1_CreateAsync__0_System_String_) na `_userManager` objekt:
 
-[!code-csharp[](identity/sample/WebApp1/Areas/:::no-loc(Identity):::/Pages/Account/Register.cshtml.cs?name=snippet&highlight=7)]
+[!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=7)]
 
 Pokud byl uživatel vytvořen úspěšně, uživatel je přihlášen voláním `_signInManager.SignInAsync` .
 
@@ -393,7 +393,7 @@ Přihlašovací formulář se zobrazí v těchto případech:
 
 Při odeslání formuláře na přihlašovací stránce se `OnPostAsync` zavolá akce. `PasswordSignInAsync`je volána u `_signInManager` objektu.
 
-[!code-csharp[](identity/sample/WebApp1/Areas/:::no-loc(Identity):::/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
+[!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
 Informace o tom, jak provádět autorizační rozhodnutí, najdete v tématu <xref:security/authorization/introduction> .
 
@@ -401,38 +401,38 @@ Informace o tom, jak provádět autorizační rozhodnutí, najdete v tématu <xr
 
 Odkaz **odhlášení** vyvolá `LogoutModel.OnPost` akci. 
 
-[!code-csharp[](identity/sample/WebApp1/Areas/:::no-loc(Identity):::/Pages/Account/Logout.cshtml.cs)]
+[!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Logout.cshtml.cs)]
 
-[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_:::no-loc(Identity):::_SignInManager_1_SignOutAsync) vymaže deklarace identity uživatele uložené v souboru cookie.
+[SignOutAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync#Microsoft_AspNetCore_Identity_SignInManager_1_SignOutAsync) vymaže deklarace identity uživatele uložené v souboru cookie.
 
 Příspěvek je zadán ve *stránkách/Shared/_LoginPartial. cshtml*:
 
 [!code-cshtml[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 
-## <a name="test-no-locidentity"></a>Napaden:::no-loc(Identity):::
+## <a name="test-no-locidentity"></a>NapadenIdentity
 
-Výchozí šablony webového projektu umožňují anonymní přístup k domovské stránce. Chcete-li otestovat :::no-loc(Identity)::: , přidejte [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) na stránku soukromí.
+Výchozí šablony webového projektu umožňují anonymní přístup k domovské stránce. Chcete-li otestovat Identity , přidejte [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) na stránku soukromí.
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Privacy.cshtml.cs?highlight=7)]
 
 Pokud jste přihlášeni, odhlaste se. Spusťte aplikaci a vyberte odkaz na **ochranu osobních údajů** . Budete přesměrováni na přihlašovací stránku.
 
-### <a name="explore-no-locidentity"></a>Okno:::no-loc(Identity):::
+### <a name="explore-no-locidentity"></a>OknoIdentity
 
-Podrobněji prozkoumat :::no-loc(Identity)::: :
+Podrobněji prozkoumat Identity :
 
 * [Vytvořit úplný zdroj uživatelského rozhraní identity](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * Projděte si zdroj každé stránky a proveďte krok pomocí ladicího programu.
 
-## <a name="no-locidentity-components"></a>:::no-loc(Identity):::Konstrukční
+## <a name="no-locidentity-components"></a>IdentityKonstrukční
 
-Všechny :::no-loc(Identity)::: závislé balíčky NuGet jsou součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
+Všechny Identity závislé balíčky NuGet jsou součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
-Primární balíček pro :::no-loc(Identity)::: je [Microsoft. AspNetCore :::no-loc(Identity)::: .](https://www.nuget.org/packages/Microsoft.AspNetCore.:::no-loc(Identity):::/). Tento balíček obsahuje základní sadu rozhraní pro ASP.NET Core :::no-loc(Identity)::: a je součástí nástroje `Microsoft.AspNetCore.:::no-loc(Identity):::.EntityFrameworkCore` .
+Primární balíček pro Identity je [Microsoft. AspNetCore Identity .](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/). Tento balíček obsahuje základní sadu rozhraní pro ASP.NET Core Identity a je součástí nástroje `Microsoft.AspNetCore.Identity.EntityFrameworkCore` .
 
-## <a name="migrating-to-aspnet-core-no-locidentity"></a>Migrace na ASP.NET Core:::no-loc(Identity):::
+## <a name="migrating-to-aspnet-core-no-locidentity"></a>Migrace na ASP.NET CoreIdentity
 
-Další informace a pokyny k migraci stávajícího :::no-loc(Identity)::: úložiště najdete v tématu [migrace ověřování a :::no-loc(Identity)::: ](xref:migration/identity).
+Další informace a pokyny k migraci stávajícího Identity úložiště najdete v tématu [migrace ověřování a Identity ](xref:migration/identity).
 
 ## <a name="setting-password-strength"></a>Nastavení síly hesla
 
@@ -440,8 +440,8 @@ V části [Konfigurace](#pw) najdete ukázku, která nastavuje minimální poža
 
 ## <a name="next-steps"></a>Další kroky
 
-* Informace o konfiguraci pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) :::no-loc(Identity)::: .
-* [Konfigurace:::no-loc(Identity):::](xref:security/authentication/identity-configuration)
+* Informace o konfiguraci pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity .
+* [KonfiguraceIdentity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>
