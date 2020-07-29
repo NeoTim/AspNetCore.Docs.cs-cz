@@ -6,13 +6,13 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authorization/policies
 ms.openlocfilehash: 668c68bc328860ef17e1f2df09103fca07733ef7
 ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
@@ -109,7 +109,7 @@ public void ConfigureServices(IServiceCollection services)
 
 
     services.AddControllersWithViews();
-    services.Add:::no-loc(Razor):::Pages();
+    services.AddRazorPages();
 }
 ```
 
@@ -117,21 +117,21 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="apply-policies-to-mvc-controllers"></a><span data-ttu-id="85061-120">Použití zásad u řadičů MVC</span><span class="sxs-lookup"><span data-stu-id="85061-120">Apply policies to MVC controllers</span></span>
 
-<span data-ttu-id="85061-121">Pokud používáte :::no-loc(Razor)::: stránky, přečtěte si téma [použití zásad na :::no-loc(Razor)::: stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.</span><span class="sxs-lookup"><span data-stu-id="85061-121">If you're using :::no-loc(Razor)::: Pages, see [Apply policies to :::no-loc(Razor)::: Pages](#apply-policies-to-razor-pages) in this document.</span></span>
+<span data-ttu-id="85061-121">Pokud používáte Razor stránky, přečtěte si téma [použití zásad na Razor stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.</span><span class="sxs-lookup"><span data-stu-id="85061-121">If you're using Razor Pages, see [Apply policies to Razor Pages](#apply-policies-to-razor-pages) in this document.</span></span>
 
 <span data-ttu-id="85061-122">Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady.</span><span class="sxs-lookup"><span data-stu-id="85061-122">Policies are applied to controllers by using the `[Authorize]` attribute with the policy name.</span></span> <span data-ttu-id="85061-123">Příklad:</span><span class="sxs-lookup"><span data-stu-id="85061-123">For example:</span></span>
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
-## <a name="apply-policies-to-no-locrazor-pages"></a><span data-ttu-id="85061-124">Použít zásady na :::no-loc(Razor)::: stránky</span><span class="sxs-lookup"><span data-stu-id="85061-124">Apply policies to :::no-loc(Razor)::: Pages</span></span>
+## <a name="apply-policies-to-no-locrazor-pages"></a><span data-ttu-id="85061-124">Použít zásady na Razor stránky</span><span class="sxs-lookup"><span data-stu-id="85061-124">Apply policies to Razor Pages</span></span>
 
-<span data-ttu-id="85061-125">Zásady se aplikují na :::no-loc(Razor)::: stránky pomocí `[Authorize]` atributu s názvem zásady.</span><span class="sxs-lookup"><span data-stu-id="85061-125">Policies are applied to :::no-loc(Razor)::: Pages by using the `[Authorize]` attribute with the policy name.</span></span> <span data-ttu-id="85061-126">Příklad:</span><span class="sxs-lookup"><span data-stu-id="85061-126">For example:</span></span>
+<span data-ttu-id="85061-125">Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady.</span><span class="sxs-lookup"><span data-stu-id="85061-125">Policies are applied to Razor Pages by using the `[Authorize]` attribute with the policy name.</span></span> <span data-ttu-id="85061-126">Příklad:</span><span class="sxs-lookup"><span data-stu-id="85061-126">For example:</span></span>
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
-<span data-ttu-id="85061-127">Zásady nelze ***použít*** na :::no-loc(Razor)::: úrovni obslužné rutiny stránky, musejí být aplikovány na stránku.</span><span class="sxs-lookup"><span data-stu-id="85061-127">Policies can ***not*** be applied at the :::no-loc(Razor)::: Page handler level, they must be applied to the Page.</span></span>
+<span data-ttu-id="85061-127">Zásady nelze ***použít*** na Razor úrovni obslužné rutiny stránky, musejí být aplikovány na stránku.</span><span class="sxs-lookup"><span data-stu-id="85061-127">Policies can ***not*** be applied at the Razor Page handler level, they must be applied to the Page.</span></span>
 
-<span data-ttu-id="85061-128">Zásady lze použít na :::no-loc(Razor)::: stránky pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).</span><span class="sxs-lookup"><span data-stu-id="85061-128">Policies can be applied to :::no-loc(Razor)::: Pages by using an [authorization convention](xref:security/authorization/razor-pages-authorization).</span></span>
+<span data-ttu-id="85061-128">Zásady lze použít na Razor stránky pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).</span><span class="sxs-lookup"><span data-stu-id="85061-128">Policies can be applied to Razor Pages by using an [authorization convention](xref:security/authorization/razor-pages-authorization).</span></span>
 
 ## <a name="requirements"></a><span data-ttu-id="85061-129">Požadavky</span><span class="sxs-lookup"><span data-stu-id="85061-129">Requirements</span></span>
 
@@ -225,7 +225,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="access-mvc-request-context-in-handlers"></a><span data-ttu-id="85061-185">Přístup k kontextu požadavku MVC v obslužných rutinách</span><span class="sxs-lookup"><span data-stu-id="85061-185">Access MVC request context in handlers</span></span>
 
-<span data-ttu-id="85061-186">`HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte.</span><span class="sxs-lookup"><span data-stu-id="85061-186">The `HandleRequirementAsync` method you implement in an authorization handler has two parameters: an `AuthorizationHandlerContext` and the `TRequirement` you are handling.</span></span> <span data-ttu-id="85061-187">Rozhraní, jako je MVC, nebo :::no-loc(SignalR)::: jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.</span><span class="sxs-lookup"><span data-stu-id="85061-187">Frameworks such as MVC or :::no-loc(SignalR)::: are free to add any object to the `Resource` property on the `AuthorizationHandlerContext` to pass extra information.</span></span>
+<span data-ttu-id="85061-186">`HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte.</span><span class="sxs-lookup"><span data-stu-id="85061-186">The `HandleRequirementAsync` method you implement in an authorization handler has two parameters: an `AuthorizationHandlerContext` and the `TRequirement` you are handling.</span></span> <span data-ttu-id="85061-187">Rozhraní, jako je MVC, nebo SignalR jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.</span><span class="sxs-lookup"><span data-stu-id="85061-187">Frameworks such as MVC or SignalR are free to add any object to the `Resource` property on the `AuthorizationHandlerContext` to pass extra information.</span></span>
 
 <span data-ttu-id="85061-188">Při použití směrování koncových bodů se autorizaci obvykle zpracovává pomocí middleware autorizace.</span><span class="sxs-lookup"><span data-stu-id="85061-188">When using endpoint routing, authorization is typically handled by the Authorization Middleware.</span></span> <span data-ttu-id="85061-189">V tomto případě `Resource` je vlastnost instancí třídy <xref:Microsoft.AspNetCore.Http.Endpoint> .</span><span class="sxs-lookup"><span data-stu-id="85061-189">In this case, the `Resource` property is an instance of <xref:Microsoft.AspNetCore.Http.Endpoint>.</span></span> <span data-ttu-id="85061-190">Koncový bod se dá použít k testování základního prostředku, ke kterému se právě směrujete.</span><span class="sxs-lookup"><span data-stu-id="85061-190">The endpoint can be used to probe the underlying resource to which you're routing.</span></span> <span data-ttu-id="85061-191">Příklad:</span><span class="sxs-lookup"><span data-stu-id="85061-191">For example:</span></span>
 
@@ -239,7 +239,7 @@ if (context.Resource is Endpoint endpoint)
 
 <span data-ttu-id="85061-192">Koncový bod neposkytuje přístup k aktuálnímu `HttpContext` .</span><span class="sxs-lookup"><span data-stu-id="85061-192">The endpoint doesn't provide access to the current `HttpContext`.</span></span> <span data-ttu-id="85061-193">Při použití směrování koncových bodů použijte `IHttpContextAcessor` pro přístup k `HttpContext` obslužné rutině autorizace.</span><span class="sxs-lookup"><span data-stu-id="85061-193">When using endpoint routing, use `IHttpContextAcessor` to access `HttpContext` inside of an authorization handler.</span></span> <span data-ttu-id="85061-194">Další informace naleznete v tématu [použití vlastnosti HttpContext z vlastních komponent](xref:fundamentals/httpcontext#use-httpcontext-from-custom-components).</span><span class="sxs-lookup"><span data-stu-id="85061-194">For more information, see [Use HttpContext from custom components](xref:fundamentals/httpcontext#use-httpcontext-from-custom-components).</span></span>
 
-<span data-ttu-id="85061-195">V případě tradičního směrování nebo když k autorizaci dojde jako součást autorizačního filtru MVC, hodnota `Resource` je <xref:Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext> instance.</span><span class="sxs-lookup"><span data-stu-id="85061-195">With traditional routing, or when authorization happens as part of MVC's authorization filter, the value of `Resource` is an <xref:Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext> instance.</span></span> <span data-ttu-id="85061-196">Tato vlastnost poskytuje přístup k `HttpContext` , `RouteData` a vše ostatní poskytované MVC a :::no-loc(Razor)::: stránkami.</span><span class="sxs-lookup"><span data-stu-id="85061-196">This property provides access to `HttpContext`, `RouteData`, and everything else provided by MVC and :::no-loc(Razor)::: Pages.</span></span>
+<span data-ttu-id="85061-195">V případě tradičního směrování nebo když k autorizaci dojde jako součást autorizačního filtru MVC, hodnota `Resource` je <xref:Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext> instance.</span><span class="sxs-lookup"><span data-stu-id="85061-195">With traditional routing, or when authorization happens as part of MVC's authorization filter, the value of `Resource` is an <xref:Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext> instance.</span></span> <span data-ttu-id="85061-196">Tato vlastnost poskytuje přístup k `HttpContext` , `RouteData` a vše ostatní poskytované MVC a Razor stránkami.</span><span class="sxs-lookup"><span data-stu-id="85061-196">This property provides access to `HttpContext`, `RouteData`, and everything else provided by MVC and Razor Pages.</span></span>
 
 <span data-ttu-id="85061-197">Použití `Resource` vlastnosti je specifické pro rozhraní.</span><span class="sxs-lookup"><span data-stu-id="85061-197">The use of the `Resource` property is framework specific.</span></span> <span data-ttu-id="85061-198">Použití informací v této `Resource` vlastnosti omezuje vaše zásady autorizace na konkrétní architektury.</span><span class="sxs-lookup"><span data-stu-id="85061-198">Using information in the `Resource` property limits your authorization policies to particular frameworks.</span></span> <span data-ttu-id="85061-199">Vlastnost byste měli přetypovat `Resource` pomocí `is` klíčového slova a pak potvrdit, že přetypování bylo úspěšné, aby `InvalidCastException` při spuštění v jiných rozhraních nedošlo k chybě kódu.</span><span class="sxs-lookup"><span data-stu-id="85061-199">You should cast the `Resource` property using the `is` keyword, and then confirm the cast has succeeded to ensure your code doesn't crash with an `InvalidCastException` when run on other frameworks:</span></span>
 
@@ -353,19 +353,19 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="apply-policies-to-mvc-controllers"></a><span data-ttu-id="85061-217">Použití zásad u řadičů MVC</span><span class="sxs-lookup"><span data-stu-id="85061-217">Apply policies to MVC controllers</span></span>
 
-<span data-ttu-id="85061-218">Pokud používáte :::no-loc(Razor)::: stránky, přečtěte si téma [použití zásad na :::no-loc(Razor)::: stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.</span><span class="sxs-lookup"><span data-stu-id="85061-218">If you're using :::no-loc(Razor)::: Pages, see [Apply policies to :::no-loc(Razor)::: Pages](#apply-policies-to-razor-pages) in this document.</span></span>
+<span data-ttu-id="85061-218">Pokud používáte Razor stránky, přečtěte si téma [použití zásad na Razor stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.</span><span class="sxs-lookup"><span data-stu-id="85061-218">If you're using Razor Pages, see [Apply policies to Razor Pages](#apply-policies-to-razor-pages) in this document.</span></span>
 
 <span data-ttu-id="85061-219">Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady.</span><span class="sxs-lookup"><span data-stu-id="85061-219">Policies are applied to controllers by using the `[Authorize]` attribute with the policy name.</span></span> <span data-ttu-id="85061-220">Příklad:</span><span class="sxs-lookup"><span data-stu-id="85061-220">For example:</span></span>
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
-## <a name="apply-policies-to-no-locrazor-pages"></a><span data-ttu-id="85061-221">Použít zásady na :::no-loc(Razor)::: stránky</span><span class="sxs-lookup"><span data-stu-id="85061-221">Apply policies to :::no-loc(Razor)::: Pages</span></span>
+## <a name="apply-policies-to-no-locrazor-pages"></a><span data-ttu-id="85061-221">Použít zásady na Razor stránky</span><span class="sxs-lookup"><span data-stu-id="85061-221">Apply policies to Razor Pages</span></span>
 
-<span data-ttu-id="85061-222">Zásady se aplikují na :::no-loc(Razor)::: stránky pomocí `[Authorize]` atributu s názvem zásady.</span><span class="sxs-lookup"><span data-stu-id="85061-222">Policies are applied to :::no-loc(Razor)::: Pages by using the `[Authorize]` attribute with the policy name.</span></span> <span data-ttu-id="85061-223">Příklad:</span><span class="sxs-lookup"><span data-stu-id="85061-223">For example:</span></span>
+<span data-ttu-id="85061-222">Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady.</span><span class="sxs-lookup"><span data-stu-id="85061-222">Policies are applied to Razor Pages by using the `[Authorize]` attribute with the policy name.</span></span> <span data-ttu-id="85061-223">Příklad:</span><span class="sxs-lookup"><span data-stu-id="85061-223">For example:</span></span>
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
-<span data-ttu-id="85061-224">Zásady se dají na stránkách použít taky :::no-loc(Razor)::: pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).</span><span class="sxs-lookup"><span data-stu-id="85061-224">Policies can also be applied to :::no-loc(Razor)::: Pages by using an [authorization convention](xref:security/authorization/razor-pages-authorization).</span></span>
+<span data-ttu-id="85061-224">Zásady se dají na stránkách použít taky Razor pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).</span><span class="sxs-lookup"><span data-stu-id="85061-224">Policies can also be applied to Razor Pages by using an [authorization convention](xref:security/authorization/razor-pages-authorization).</span></span>
 
 ## <a name="requirements"></a><span data-ttu-id="85061-225">Požadavky</span><span class="sxs-lookup"><span data-stu-id="85061-225">Requirements</span></span>
 
@@ -459,9 +459,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="access-mvc-request-context-in-handlers"></a><span data-ttu-id="85061-281">Přístup k kontextu požadavku MVC v obslužných rutinách</span><span class="sxs-lookup"><span data-stu-id="85061-281">Access MVC request context in handlers</span></span>
 
-<span data-ttu-id="85061-282">`HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte.</span><span class="sxs-lookup"><span data-stu-id="85061-282">The `HandleRequirementAsync` method you implement in an authorization handler has two parameters: an `AuthorizationHandlerContext` and the `TRequirement` you are handling.</span></span> <span data-ttu-id="85061-283">Rozhraní, jako je MVC, nebo :::no-loc(SignalR)::: jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.</span><span class="sxs-lookup"><span data-stu-id="85061-283">Frameworks such as MVC or :::no-loc(SignalR)::: are free to add any object to the `Resource` property on the `AuthorizationHandlerContext` to pass extra information.</span></span>
+<span data-ttu-id="85061-282">`HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte.</span><span class="sxs-lookup"><span data-stu-id="85061-282">The `HandleRequirementAsync` method you implement in an authorization handler has two parameters: an `AuthorizationHandlerContext` and the `TRequirement` you are handling.</span></span> <span data-ttu-id="85061-283">Rozhraní, jako je MVC, nebo SignalR jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.</span><span class="sxs-lookup"><span data-stu-id="85061-283">Frameworks such as MVC or SignalR are free to add any object to the `Resource` property on the `AuthorizationHandlerContext` to pass extra information.</span></span>
 
-<span data-ttu-id="85061-284">MVC například projde instanci [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) ve `Resource` Vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="85061-284">For example, MVC passes an instance of [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) in the `Resource` property.</span></span> <span data-ttu-id="85061-285">Tato vlastnost poskytuje přístup k `HttpContext` , `RouteData` a vše ostatní poskytované MVC a :::no-loc(Razor)::: stránkami.</span><span class="sxs-lookup"><span data-stu-id="85061-285">This property provides access to `HttpContext`, `RouteData`, and everything else provided by MVC and :::no-loc(Razor)::: Pages.</span></span>
+<span data-ttu-id="85061-284">MVC například projde instanci [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) ve `Resource` Vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="85061-284">For example, MVC passes an instance of [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) in the `Resource` property.</span></span> <span data-ttu-id="85061-285">Tato vlastnost poskytuje přístup k `HttpContext` , `RouteData` a vše ostatní poskytované MVC a Razor stránkami.</span><span class="sxs-lookup"><span data-stu-id="85061-285">This property provides access to `HttpContext`, `RouteData`, and everything else provided by MVC and Razor Pages.</span></span>
 
 <span data-ttu-id="85061-286">Použití `Resource` vlastnosti je specifické pro rozhraní.</span><span class="sxs-lookup"><span data-stu-id="85061-286">The use of the `Resource` property is framework specific.</span></span> <span data-ttu-id="85061-287">Použití informací v této `Resource` vlastnosti omezuje vaše zásady autorizace na konkrétní architektury.</span><span class="sxs-lookup"><span data-stu-id="85061-287">Using information in the `Resource` property limits your authorization policies to particular frameworks.</span></span> <span data-ttu-id="85061-288">Vlastnost byste měli přetypovat `Resource` pomocí `is` klíčového slova a pak potvrdit, že přetypování bylo úspěšné, aby `InvalidCastException` při spuštění v jiných rozhraních nedošlo k chybě kódu.</span><span class="sxs-lookup"><span data-stu-id="85061-288">You should cast the `Resource` property using the `is` keyword, and then confirm the cast has succeeded to ensure your code doesn't crash with an `InvalidCastException` when run on other frameworks:</span></span>
 

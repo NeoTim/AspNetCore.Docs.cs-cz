@@ -1,19 +1,19 @@
 ---
-title: 'ASP.NET Core ladění:::no-loc(Blazor WebAssembly):::'
+title: ASP.NET Core laděníBlazor WebAssembly
 author: guardrex
-description: 'Naučte se ladit :::no-loc(Blazor)::: aplikace.'
+description: Naučte se ladit Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/15/2020
 no-loc:
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: blazor/debug
 ms.openlocfilehash: 14943b9f7847ac9144addfdf16a003f6fc8c340c
 ms.sourcegitcommit: cc845634a490c49ff869c89b6e422b6d65d0e886
@@ -22,11 +22,11 @@ ms.contentlocale: cs-CZ
 ms.lasthandoff: 07/24/2020
 ms.locfileid: "87159700"
 ---
-# <a name="debug-aspnet-core-no-locblazor-webassembly"></a><span data-ttu-id="7f848-103">ASP.NET Core ladění:::no-loc(Blazor WebAssembly):::</span><span class="sxs-lookup"><span data-stu-id="7f848-103">Debug ASP.NET Core :::no-loc(Blazor WebAssembly):::</span></span>
+# <a name="debug-aspnet-core-no-locblazor-webassembly"></a><span data-ttu-id="7f848-103">ASP.NET Core laděníBlazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="7f848-103">Debug ASP.NET Core Blazor WebAssembly</span></span>
 
 [<span data-ttu-id="7f848-104">Daniel Skořepa</span><span class="sxs-lookup"><span data-stu-id="7f848-104">Daniel Roth</span></span>](https://github.com/danroth27)
 
-<span data-ttu-id="7f848-105">:::no-loc(Blazor WebAssembly):::aplikace se dají ladit pomocí vývojářských nástrojů pro vývoj v prohlížečích založených na chromu (Edge/Chrome).</span><span class="sxs-lookup"><span data-stu-id="7f848-105">:::no-loc(Blazor WebAssembly)::: apps can be debugged using the browser dev tools in Chromium-based browsers (Edge/Chrome).</span></span> <span data-ttu-id="7f848-106">Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="7f848-106">Alternatively, you can debug your app using Visual Studio or Visual Studio Code.</span></span>
+<span data-ttu-id="7f848-105">Blazor WebAssemblyaplikace se dají ladit pomocí vývojářských nástrojů pro vývoj v prohlížečích založených na chromu (Edge/Chrome).</span><span class="sxs-lookup"><span data-stu-id="7f848-105">Blazor WebAssembly apps can be debugged using the browser dev tools in Chromium-based browsers (Edge/Chrome).</span></span> <span data-ttu-id="7f848-106">Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="7f848-106">Alternatively, you can debug your app using Visual Studio or Visual Studio Code.</span></span>
 
 <span data-ttu-id="7f848-107">K dispozici jsou tyto scénáře:</span><span class="sxs-lookup"><span data-stu-id="7f848-107">Available scenarios include:</span></span>
 
@@ -53,7 +53,7 @@ ms.locfileid: "87159700"
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a><span data-ttu-id="7f848-122">Povolit ladění pro Visual Studio a Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7f848-122">Enable debugging for Visual Studio and Visual Studio Code</span></span>
 
-<span data-ttu-id="7f848-123">Chcete-li povolit ladění pro existující :::no-loc(Blazor WebAssembly)::: aplikaci, aktualizujte `launchSettings.json` soubor v spouštěném projektu tak, aby do `inspectUri` každého spouštěcího profilu zahrnoval následující vlastnost:</span><span class="sxs-lookup"><span data-stu-id="7f848-123">To enable debugging for an existing :::no-loc(Blazor WebAssembly)::: app, update the `launchSettings.json` file in the startup project to include the following `inspectUri` property in each launch profile:</span></span>
+<span data-ttu-id="7f848-123">Chcete-li povolit ladění pro existující Blazor WebAssembly aplikaci, aktualizujte `launchSettings.json` soubor v spouštěném projektu tak, aby do `inspectUri` každého spouštěcího profilu zahrnoval následující vlastnost:</span><span class="sxs-lookup"><span data-stu-id="7f848-123">To enable debugging for an existing Blazor WebAssembly app, update the `launchSettings.json` file in the startup project to include the following `inspectUri` property in each launch profile:</span></span>
 
 ```json
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
@@ -65,16 +65,16 @@ ms.locfileid: "87159700"
 
 <span data-ttu-id="7f848-125">`inspectUri`Vlastnost:</span><span class="sxs-lookup"><span data-stu-id="7f848-125">The `inspectUri` property:</span></span>
 
-* <span data-ttu-id="7f848-126">Umožňuje rozhraní IDE zjistit, že aplikace je :::no-loc(Blazor WebAssembly)::: aplikace.</span><span class="sxs-lookup"><span data-stu-id="7f848-126">Enables the IDE to detect that the app is a :::no-loc(Blazor WebAssembly)::: app.</span></span>
-* <span data-ttu-id="7f848-127">Dá pokyn k tomu, aby se infrastruktura ladění skriptů připojovala k prohlížeči prostřednictvím :::no-loc(Blazor)::: ladicího proxy serveru.</span><span class="sxs-lookup"><span data-stu-id="7f848-127">Instructs the script debugging infrastructure to connect to the browser through :::no-loc(Blazor):::'s debugging proxy.</span></span>
+* <span data-ttu-id="7f848-126">Umožňuje rozhraní IDE zjistit, že aplikace je Blazor WebAssembly aplikace.</span><span class="sxs-lookup"><span data-stu-id="7f848-126">Enables the IDE to detect that the app is a Blazor WebAssembly app.</span></span>
+* <span data-ttu-id="7f848-127">Dá pokyn k tomu, aby se infrastruktura ladění skriptů připojovala k prohlížeči prostřednictvím Blazor ladicího proxy serveru.</span><span class="sxs-lookup"><span data-stu-id="7f848-127">Instructs the script debugging infrastructure to connect to the browser through Blazor's debugging proxy.</span></span>
 
 <span data-ttu-id="7f848-128">Zástupný text pro protokol WebSockets ( `wsProtocol` ), hostitele ( `url.hostname` ), port ( `url.port` ) a identifikátor URI pro inspektor v spuštěném prohlížeči ( `browserInspectUri` ) jsou poskytovány rozhraním.</span><span class="sxs-lookup"><span data-stu-id="7f848-128">The placeholder values for the WebSockets protocol (`wsProtocol`), host (`url.hostname`), port (`url.port`), and inspector URI on the launched browser (`browserInspectUri`) are provided by the framework.</span></span>
 
 ## <a name="visual-studio"></a><span data-ttu-id="7f848-129">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7f848-129">Visual Studio</span></span>
 
-<span data-ttu-id="7f848-130">Ladění :::no-loc(Blazor WebAssembly)::: aplikace v aplikaci Visual Studio:</span><span class="sxs-lookup"><span data-stu-id="7f848-130">To debug a :::no-loc(Blazor WebAssembly)::: app in Visual Studio:</span></span>
+<span data-ttu-id="7f848-130">Ladění Blazor WebAssembly aplikace v aplikaci Visual Studio:</span><span class="sxs-lookup"><span data-stu-id="7f848-130">To debug a Blazor WebAssembly app in Visual Studio:</span></span>
 
-1. <span data-ttu-id="7f848-131">Vytvořte novou ASP.NET Core hostovanou :::no-loc(Blazor WebAssembly)::: aplikaci.</span><span class="sxs-lookup"><span data-stu-id="7f848-131">Create a new ASP.NET Core hosted :::no-loc(Blazor WebAssembly)::: app.</span></span>
+1. <span data-ttu-id="7f848-131">Vytvořte novou ASP.NET Core hostovanou Blazor WebAssembly aplikaci.</span><span class="sxs-lookup"><span data-stu-id="7f848-131">Create a new ASP.NET Core hosted Blazor WebAssembly app.</span></span>
 1. <span data-ttu-id="7f848-132">Stisknutím klávesy <kbd>F5</kbd> spusťte aplikaci v ladicím programu.</span><span class="sxs-lookup"><span data-stu-id="7f848-132">Press <kbd>F5</kbd> to run the app in the debugger.</span></span>
 1. <span data-ttu-id="7f848-133">Nastavte zarážku v `Pages/Counter.razor` `IncrementCount` metodě.</span><span class="sxs-lookup"><span data-stu-id="7f848-133">Set a breakpoint in `Pages/Counter.razor` in the `IncrementCount` method.</span></span>
 1. <span data-ttu-id="7f848-134">Přejděte na **`Counter`** kartu a vyberte tlačítko, kde se má zarážka opakovat:</span><span class="sxs-lookup"><span data-stu-id="7f848-134">Browse to the **`Counter`** tab and select the button to hit the breakpoint:</span></span>
@@ -87,7 +87,7 @@ ms.locfileid: "87159700"
 
 1. <span data-ttu-id="7f848-138">Pokračujte v provádění stisknutím klávesy <kbd>F5</kbd> .</span><span class="sxs-lookup"><span data-stu-id="7f848-138">Press <kbd>F5</kbd> to continue execution.</span></span>
 
-<span data-ttu-id="7f848-139">Při ladění :::no-loc(Blazor WebAssembly)::: aplikace můžete také ladit kód serveru:</span><span class="sxs-lookup"><span data-stu-id="7f848-139">While debugging your :::no-loc(Blazor WebAssembly)::: app, you can also debug your server code:</span></span>
+<span data-ttu-id="7f848-139">Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:</span><span class="sxs-lookup"><span data-stu-id="7f848-139">While debugging your Blazor WebAssembly app, you can also debug your server code:</span></span>
 
 1. <span data-ttu-id="7f848-140">Nastavte zarážku na `Pages/FetchData.razor` stránce v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> .</span><span class="sxs-lookup"><span data-stu-id="7f848-140">Set a breakpoint in the `Pages/FetchData.razor` page in <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>.</span></span>
 1. <span data-ttu-id="7f848-141">Nastavte zarážku v `WeatherForecastController` `Get` metodě Action.</span><span class="sxs-lookup"><span data-stu-id="7f848-141">Set a breakpoint in the `WeatherForecastController` in the `Get` action method.</span></span>
@@ -105,9 +105,9 @@ ms.locfileid: "87159700"
 
 ## <a name="visual-studio-code"></a><span data-ttu-id="7f848-147">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7f848-147">Visual Studio Code</span></span>
 
-### <a name="debug-standalone-no-locblazor-webassembly"></a><span data-ttu-id="7f848-148">Samostatně ladit:::no-loc(Blazor WebAssembly):::</span><span class="sxs-lookup"><span data-stu-id="7f848-148">Debug standalone :::no-loc(Blazor WebAssembly):::</span></span>
+### <a name="debug-standalone-no-locblazor-webassembly"></a><span data-ttu-id="7f848-148">Samostatně laditBlazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="7f848-148">Debug standalone Blazor WebAssembly</span></span>
 
-1. <span data-ttu-id="7f848-149">Otevřete samostatnou :::no-loc(Blazor WebAssembly)::: aplikaci v vs Code.</span><span class="sxs-lookup"><span data-stu-id="7f848-149">Open the standalone :::no-loc(Blazor WebAssembly)::: app in VS Code.</span></span>
+1. <span data-ttu-id="7f848-149">Otevřete samostatnou Blazor WebAssembly aplikaci v vs Code.</span><span class="sxs-lookup"><span data-stu-id="7f848-149">Open the standalone Blazor WebAssembly app in VS Code.</span></span>
 
    <span data-ttu-id="7f848-150">Pokud se zobrazí následující oznámení, že pro povolení ladění je potřeba další nastavení:</span><span class="sxs-lookup"><span data-stu-id="7f848-150">If you receive the following notification that additional setup is required to enable debugging:</span></span>
    
@@ -119,7 +119,7 @@ ms.locfileid: "87159700"
 
 1. <span data-ttu-id="7f848-155">Spusťte ladění pomocí klávesových zkratek <kbd>F5</kbd> nebo položky nabídky.</span><span class="sxs-lookup"><span data-stu-id="7f848-155">Start debugging using the <kbd>F5</kbd> keyboard shortcut or the menu item.</span></span>
 
-1. <span data-ttu-id="7f848-156">Po zobrazení výzvy vyberte možnost \*\* :::no-loc(Blazor WebAssembly)::: ladění\*\* pro spuštění ladění.</span><span class="sxs-lookup"><span data-stu-id="7f848-156">When prompted, select the **:::no-loc(Blazor WebAssembly)::: Debug** option to start debugging.</span></span>
+1. <span data-ttu-id="7f848-156">Po zobrazení výzvy vyberte možnost \*\* Blazor WebAssembly ladění\*\* pro spuštění ladění.</span><span class="sxs-lookup"><span data-stu-id="7f848-156">When prompted, select the **Blazor WebAssembly Debug** option to start debugging.</span></span>
 
    ![Seznam dostupných možností ladění](index/_static/blazor-vscode-debugtypes.png)
 
@@ -129,9 +129,9 @@ ms.locfileid: "87159700"
 
    ![Čítač ladění v VS Code](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
 
-### <a name="debug-hosted-no-locblazor-webassembly"></a><span data-ttu-id="7f848-161">Ladění je hostované:::no-loc(Blazor WebAssembly):::</span><span class="sxs-lookup"><span data-stu-id="7f848-161">Debug hosted :::no-loc(Blazor WebAssembly):::</span></span>
+### <a name="debug-hosted-no-locblazor-webassembly"></a><span data-ttu-id="7f848-161">Ladění je hostovanéBlazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="7f848-161">Debug hosted Blazor WebAssembly</span></span>
 
-1. <span data-ttu-id="7f848-162">Otevřete :::no-loc(Blazor WebAssembly)::: složku řešení hostované aplikace v vs Code.</span><span class="sxs-lookup"><span data-stu-id="7f848-162">Open the hosted :::no-loc(Blazor WebAssembly)::: app's solution folder in VS Code.</span></span>
+1. <span data-ttu-id="7f848-162">Otevřete Blazor WebAssembly složku řešení hostované aplikace v vs Code.</span><span class="sxs-lookup"><span data-stu-id="7f848-162">Open the hosted Blazor WebAssembly app's solution folder in VS Code.</span></span>
 
 1. <span data-ttu-id="7f848-163">Pokud pro projekt neexistuje konfigurační sada pro spuštění, zobrazí se následující oznámení.</span><span class="sxs-lookup"><span data-stu-id="7f848-163">If there's no launch configuration set for the project, the following notification appears.</span></span> <span data-ttu-id="7f848-164">Vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="7f848-164">Select **Yes**.</span></span>
 
@@ -143,13 +143,13 @@ ms.locfileid: "87159700"
 
 ### <a name="attach-to-an-existing-debugging-session"></a><span data-ttu-id="7f848-168">Připojit k existující relaci ladění</span><span class="sxs-lookup"><span data-stu-id="7f848-168">Attach to an existing debugging session</span></span>
 
-<span data-ttu-id="7f848-169">Pokud se chcete připojit ke spuštěné :::no-loc(Blazor)::: aplikaci, vytvořte `launch.json` soubor s následující konfigurací:</span><span class="sxs-lookup"><span data-stu-id="7f848-169">To attach to a running :::no-loc(Blazor)::: app, create a `launch.json` file with the following configuration:</span></span>
+<span data-ttu-id="7f848-169">Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte `launch.json` soubor s následující konfigurací:</span><span class="sxs-lookup"><span data-stu-id="7f848-169">To attach to a running Blazor app, create a `launch.json` file with the following configuration:</span></span>
 
 ```json
 {
   "type": "blazorwasm",
   "request": "attach",
-  "name": "Attach to Existing :::no-loc(Blazor WebAssembly)::: Application"
+  "name": "Attach to Existing Blazor WebAssembly Application"
 }
 ```
 
@@ -162,11 +162,11 @@ ms.locfileid: "87159700"
 
 | <span data-ttu-id="7f848-174">Možnost</span><span class="sxs-lookup"><span data-stu-id="7f848-174">Option</span></span>    | <span data-ttu-id="7f848-175">Popis</span><span class="sxs-lookup"><span data-stu-id="7f848-175">Description</span></span> |
 | --------- | ----------- |
-| `request` | <span data-ttu-id="7f848-176">Pomocí `launch` můžete spustit a připojit relaci ladění k :::no-loc(Blazor WebAssembly)::: aplikaci nebo `attach` připojit relaci ladění k již spuštěné aplikaci.</span><span class="sxs-lookup"><span data-stu-id="7f848-176">Use `launch` to launch and attach a debugging session to a :::no-loc(Blazor WebAssembly)::: app or `attach` to attach a debugging session to an already-running app.</span></span> |
+| `request` | <span data-ttu-id="7f848-176">Pomocí `launch` můžete spustit a připojit relaci ladění k Blazor WebAssembly aplikaci nebo `attach` připojit relaci ladění k již spuštěné aplikaci.</span><span class="sxs-lookup"><span data-stu-id="7f848-176">Use `launch` to launch and attach a debugging session to a Blazor WebAssembly app or `attach` to attach a debugging session to an already-running app.</span></span> |
 | `url`     | <span data-ttu-id="7f848-177">Adresa URL, která se má otevřít v prohlížeči při ladění.</span><span class="sxs-lookup"><span data-stu-id="7f848-177">The URL to open in the browser when debugging.</span></span> <span data-ttu-id="7f848-178">Výchozí hodnota je `https://localhost:5001` .</span><span class="sxs-lookup"><span data-stu-id="7f848-178">Defaults to `https://localhost:5001`.</span></span> |
 | `browser` | <span data-ttu-id="7f848-179">Prohlížeč, který se má spustit pro relaci ladění.</span><span class="sxs-lookup"><span data-stu-id="7f848-179">The browser to launch for the debugging session.</span></span> <span data-ttu-id="7f848-180">Nastavte na `edge` nebo `chrome`.</span><span class="sxs-lookup"><span data-stu-id="7f848-180">Set to `edge` or `chrome`.</span></span> <span data-ttu-id="7f848-181">Výchozí hodnota je `chrome` .</span><span class="sxs-lookup"><span data-stu-id="7f848-181">Defaults to `chrome`.</span></span> |
 | `trace`   | <span data-ttu-id="7f848-182">Slouží ke generování protokolů z ladicího programu JS.</span><span class="sxs-lookup"><span data-stu-id="7f848-182">Used to generate logs from the JS debugger.</span></span> <span data-ttu-id="7f848-183">Nastavte na `true` Generovat protokoly.</span><span class="sxs-lookup"><span data-stu-id="7f848-183">Set to `true` to generate logs.</span></span> |
-| `hosted`  | <span data-ttu-id="7f848-184">Musí být nastavené na hodnotu `true` při spuštění a ladění hostované :::no-loc(Blazor WebAssembly)::: aplikace.</span><span class="sxs-lookup"><span data-stu-id="7f848-184">Must be set to `true` if launching and debugging a hosted :::no-loc(Blazor WebAssembly)::: app.</span></span> |
+| `hosted`  | <span data-ttu-id="7f848-184">Musí být nastavené na hodnotu `true` při spuštění a ladění hostované Blazor WebAssembly aplikace.</span><span class="sxs-lookup"><span data-stu-id="7f848-184">Must be set to `true` if launching and debugging a hosted Blazor WebAssembly app.</span></span> |
 | `webRoot` | <span data-ttu-id="7f848-185">Určuje absolutní cestu webového serveru.</span><span class="sxs-lookup"><span data-stu-id="7f848-185">Specifies the absolute path of the web server.</span></span> <span data-ttu-id="7f848-186">By měla být nastavena, pokud je aplikace obsluhována z dílčího směrování.</span><span class="sxs-lookup"><span data-stu-id="7f848-186">Should be set if an app is served from a sub-route.</span></span> |
 | `timeout` | <span data-ttu-id="7f848-187">Počet milisekund, po které se má čekat na připojení relace ladění</span><span class="sxs-lookup"><span data-stu-id="7f848-187">The number of milliseconds to wait for the debugging session to attach.</span></span> <span data-ttu-id="7f848-188">Výchozí hodnota je 30 000 milisekund (30 sekund).</span><span class="sxs-lookup"><span data-stu-id="7f848-188">Defaults to 30,000 milliseconds (30 seconds).</span></span> |
 | `program` | <span data-ttu-id="7f848-189">Odkaz na spustitelný soubor pro spuštění serveru hostované aplikace.</span><span class="sxs-lookup"><span data-stu-id="7f848-189">A reference to the executable to run the server of the hosted app.</span></span> <span data-ttu-id="7f848-190">Musí být nastaven `hosted` , pokud je `true` .</span><span class="sxs-lookup"><span data-stu-id="7f848-190">Must be set if `hosted` is `true`.</span></span> |
@@ -175,7 +175,7 @@ ms.locfileid: "87159700"
 
 ### <a name="example-launch-configurations"></a><span data-ttu-id="7f848-195">Příklad konfigurací spuštění</span><span class="sxs-lookup"><span data-stu-id="7f848-195">Example launch configurations</span></span>
 
-#### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a><span data-ttu-id="7f848-196">Spuštění a ladění samostatné :::no-loc(Blazor WebAssembly)::: aplikace</span><span class="sxs-lookup"><span data-stu-id="7f848-196">Launch and debug a standalone :::no-loc(Blazor WebAssembly)::: app</span></span>
+#### <a name="launch-and-debug-a-standalone-no-locblazor-webassembly-app"></a><span data-ttu-id="7f848-196">Spuštění a ladění samostatné Blazor WebAssembly aplikace</span><span class="sxs-lookup"><span data-stu-id="7f848-196">Launch and debug a standalone Blazor WebAssembly app</span></span>
 
 ```json
 {
@@ -196,13 +196,13 @@ ms.locfileid: "87159700"
 }
 ```
 
-#### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a><span data-ttu-id="7f848-198">Spuštění a ladění hostované :::no-loc(Blazor WebAssembly)::: aplikace pomocí Microsoft Edge</span><span class="sxs-lookup"><span data-stu-id="7f848-198">Launch and debug a hosted :::no-loc(Blazor WebAssembly)::: app with Microsoft Edge</span></span>
+#### <a name="launch-and-debug-a-hosted-no-locblazor-webassembly-app-with-microsoft-edge"></a><span data-ttu-id="7f848-198">Spuštění a ladění hostované Blazor WebAssembly aplikace pomocí Microsoft Edge</span><span class="sxs-lookup"><span data-stu-id="7f848-198">Launch and debug a hosted Blazor WebAssembly app with Microsoft Edge</span></span>
 
 <span data-ttu-id="7f848-199">Konfigurace prohlížeče je ve výchozím nastavení Google Chrome.</span><span class="sxs-lookup"><span data-stu-id="7f848-199">Browser configuration defaults to Google Chrome.</span></span> <span data-ttu-id="7f848-200">Při použití Microsoft Edge pro ladění nastavte `browser` na `edge` .</span><span class="sxs-lookup"><span data-stu-id="7f848-200">When using Microsoft Edge for debugging, set `browser` to `edge`.</span></span> <span data-ttu-id="7f848-201">Pokud chcete používat Google Chrome, buď nenastavujte `browser` možnost, nebo nastavte hodnotu možnosti na `chrome` .</span><span class="sxs-lookup"><span data-stu-id="7f848-201">To use Google Chrome, either don't set the `browser` option or set the option's value to `chrome`.</span></span>
 
 ```json
 {
-  "name": "Launch and Debug Hosted :::no-loc(Blazor WebAssembly)::: App",
+  "name": "Launch and Debug Hosted Blazor WebAssembly App",
   "type": "blazorwasm",
   "request": "launch",
   "hosted": true,
@@ -230,11 +230,11 @@ ms.locfileid: "87159700"
 
 1. <span data-ttu-id="7f848-214">V kódu komponenty ( `.razor` soubory) a souborech kódu jazyka C# ( `.cs` ) jsou zarážky, které jste nastavili, zasaženy při spuštění kódu.</span><span class="sxs-lookup"><span data-stu-id="7f848-214">In component code (`.razor` files) and C# code files (`.cs`), breakpoints that you set are hit when code executes.</span></span> <span data-ttu-id="7f848-215">Po stisknutí zarážky se provede krok (<kbd>F10</kbd>) prostřednictvím kódu nebo obnovení kódu (<kbd>F8</kbd>) normálně.</span><span class="sxs-lookup"><span data-stu-id="7f848-215">After a breakpoint is hit, single-step (<kbd>F10</kbd>) through the code or resume (<kbd>F8</kbd>) code execution normally.</span></span>
 
-<span data-ttu-id="7f848-216">:::no-loc(Blazor):::poskytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť.</span><span class="sxs-lookup"><span data-stu-id="7f848-216">:::no-loc(Blazor)::: provides a debugging proxy that implements the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) and augments the protocol with .NET-specific information.</span></span> <span data-ttu-id="7f848-217">Když se stiskne klávesová zkratka ladění, navede :::no-loc(Blazor)::: devtools Chrome na proxy serveru.</span><span class="sxs-lookup"><span data-stu-id="7f848-217">When debugging keyboard shortcut is pressed, :::no-loc(Blazor)::: points the Chrome DevTools at the proxy.</span></span> <span data-ttu-id="7f848-218">Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).</span><span class="sxs-lookup"><span data-stu-id="7f848-218">The proxy connects to the browser window you're seeking to debug (hence the need to enable remote debugging).</span></span>
+<span data-ttu-id="7f848-216">Blazorposkytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť.</span><span class="sxs-lookup"><span data-stu-id="7f848-216">Blazor provides a debugging proxy that implements the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) and augments the protocol with .NET-specific information.</span></span> <span data-ttu-id="7f848-217">Když se stiskne klávesová zkratka ladění, navede Blazor devtools Chrome na proxy serveru.</span><span class="sxs-lookup"><span data-stu-id="7f848-217">When debugging keyboard shortcut is pressed, Blazor points the Chrome DevTools at the proxy.</span></span> <span data-ttu-id="7f848-218">Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).</span><span class="sxs-lookup"><span data-stu-id="7f848-218">The proxy connects to the browser window you're seeking to debug (hence the need to enable remote debugging).</span></span>
 
 ## <a name="browser-source-maps"></a><span data-ttu-id="7f848-219">Mapy zdroje prohlížeče</span><span class="sxs-lookup"><span data-stu-id="7f848-219">Browser source maps</span></span>
 
-<span data-ttu-id="7f848-220">Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zkompilované soubory zpátky na původní zdrojové soubory a často se používají pro ladění na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="7f848-220">Browser source maps allow the browser to map compiled files back to their original source files and are commonly used for client-side debugging.</span></span> <span data-ttu-id="7f848-221">V :::no-loc(Blazor)::: současné době ale nemapuje C# přímo na JavaScript/WASM.</span><span class="sxs-lookup"><span data-stu-id="7f848-221">However, :::no-loc(Blazor)::: doesn't currently map C# directly to JavaScript/WASM.</span></span> <span data-ttu-id="7f848-222">Místo toho :::no-loc(Blazor)::: provede výklad il v prohlížeči, takže zdrojové mapy nejsou relevantní.</span><span class="sxs-lookup"><span data-stu-id="7f848-222">Instead, :::no-loc(Blazor)::: does IL interpretation within the browser, so source maps aren't relevant.</span></span>
+<span data-ttu-id="7f848-220">Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zkompilované soubory zpátky na původní zdrojové soubory a často se používají pro ladění na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="7f848-220">Browser source maps allow the browser to map compiled files back to their original source files and are commonly used for client-side debugging.</span></span> <span data-ttu-id="7f848-221">V Blazor současné době ale nemapuje C# přímo na JavaScript/WASM.</span><span class="sxs-lookup"><span data-stu-id="7f848-221">However, Blazor doesn't currently map C# directly to JavaScript/WASM.</span></span> <span data-ttu-id="7f848-222">Místo toho Blazor provede výklad il v prohlížeči, takže zdrojové mapy nejsou relevantní.</span><span class="sxs-lookup"><span data-stu-id="7f848-222">Instead, Blazor does IL interpretation within the browser, so source maps aren't relevant.</span></span>
 
 ## <a name="troubleshoot"></a><span data-ttu-id="7f848-223">Řešení potíží</span><span class="sxs-lookup"><span data-stu-id="7f848-223">Troubleshoot</span></span>
 

@@ -6,13 +6,13 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 07/23/2020
 no-loc:
-- ':::no-loc(Blazor):::'
-- ':::no-loc(Blazor Server):::'
-- ':::no-loc(Blazor WebAssembly):::'
-- ':::no-loc(Identity):::'
-- ":::no-loc(Let's Encrypt):::"
-- ':::no-loc(Razor):::'
-- ':::no-loc(SignalR):::'
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: client-side/bundling-and-minification
 ms.openlocfilehash: 5db6ab3d790257c677c0a4ed7e605eb39c2982ed
 ms.sourcegitcommit: cc845634a490c49ff869c89b6e422b6d65d0e886
@@ -71,19 +71,19 @@ ms.locfileid: "87159720"
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a><span data-ttu-id="3e2f6-151">Výběr strategie sdružování a minifikace</span><span class="sxs-lookup"><span data-stu-id="3e2f6-151">Choose a bundling and minification strategy</span></span>
 
-<span data-ttu-id="3e2f6-152">:::no-loc(Razor):::Šablony projektů MVC a stránky poskytují řešení pro sdružování a minifikace, které se skládají z konfiguračního souboru JSON.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-152">The MVC and :::no-loc(Razor)::: Pages project templates provide a solution for bundling and minification consisting of a JSON configuration file.</span></span> <span data-ttu-id="3e2f6-153">Nástroje třetích stran, jako je třeba Spouštěč úloh [grunt](xref:client-side/using-grunt) , provádějí stejné úlohy s větší složitou složitostí.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-153">Third-party tools, such as the [Grunt](xref:client-side/using-grunt) task runner, accomplish the same tasks with a bit more complexity.</span></span> <span data-ttu-id="3e2f6-154">Nástroj třetí strany je skvěle vhodný, když váš vývojový pracovní postup vyžaduje zpracování mimo sdružování a minifikace, jako &mdash; je linting a optimalizace obrázků.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-154">A third-party tool is a great fit when your development workflow requires processing beyond bundling and minification&mdash;such as linting and image optimization.</span></span> <span data-ttu-id="3e2f6-155">Když použijete sdružování a minifikace v době návrhu, vytvoří se soubory minifikovaného před nasazením aplikace.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-155">By using design-time bundling and minification, the minified files are created prior to the app's deployment.</span></span> <span data-ttu-id="3e2f6-156">Sdružování a minifikace před nasazením přináší výhodu omezeného zatížení serveru.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-156">Bundling and minifying before deployment provides the advantage of reduced server load.</span></span> <span data-ttu-id="3e2f6-157">Je ale důležité pochopit, že sdružování v době návrhu a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-157">However, it's important to recognize that design-time bundling and minification increases build complexity and only works with static files.</span></span>
+<span data-ttu-id="3e2f6-152">RazorŠablony projektů MVC a stránky poskytují řešení pro sdružování a minifikace, které se skládají z konfiguračního souboru JSON.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-152">The MVC and Razor Pages project templates provide a solution for bundling and minification consisting of a JSON configuration file.</span></span> <span data-ttu-id="3e2f6-153">Nástroje třetích stran, jako je třeba Spouštěč úloh [grunt](xref:client-side/using-grunt) , provádějí stejné úlohy s větší složitou složitostí.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-153">Third-party tools, such as the [Grunt](xref:client-side/using-grunt) task runner, accomplish the same tasks with a bit more complexity.</span></span> <span data-ttu-id="3e2f6-154">Nástroj třetí strany je skvěle vhodný, když váš vývojový pracovní postup vyžaduje zpracování mimo sdružování a minifikace, jako &mdash; je linting a optimalizace obrázků.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-154">A third-party tool is a great fit when your development workflow requires processing beyond bundling and minification&mdash;such as linting and image optimization.</span></span> <span data-ttu-id="3e2f6-155">Když použijete sdružování a minifikace v době návrhu, vytvoří se soubory minifikovaného před nasazením aplikace.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-155">By using design-time bundling and minification, the minified files are created prior to the app's deployment.</span></span> <span data-ttu-id="3e2f6-156">Sdružování a minifikace před nasazením přináší výhodu omezeného zatížení serveru.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-156">Bundling and minifying before deployment provides the advantage of reduced server load.</span></span> <span data-ttu-id="3e2f6-157">Je ale důležité pochopit, že sdružování v době návrhu a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-157">However, it's important to recognize that design-time bundling and minification increases build complexity and only works with static files.</span></span>
 
 ## <a name="configure-bundling-and-minification"></a><span data-ttu-id="3e2f6-158">Konfigurace sdružování a minifikace</span><span class="sxs-lookup"><span data-stu-id="3e2f6-158">Configure bundling and minification</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
-<span data-ttu-id="3e2f6-159">V ASP.NET Core 2,0 nebo starších verzích :::no-loc(Razor)::: představují šablony projektů MVC a pages *bundleconfig.jsv* konfiguračním souboru, který definuje možnosti pro jednotlivé sady prostředků:</span><span class="sxs-lookup"><span data-stu-id="3e2f6-159">In ASP.NET Core 2.0 or earlier, the MVC and :::no-loc(Razor)::: Pages project templates provide a *bundleconfig.json* configuration file that defines the options for each bundle:</span></span>
+<span data-ttu-id="3e2f6-159">V ASP.NET Core 2,0 nebo starších verzích Razor představují šablony projektů MVC a pages *bundleconfig.jsv* konfiguračním souboru, který definuje možnosti pro jednotlivé sady prostředků:</span><span class="sxs-lookup"><span data-stu-id="3e2f6-159">In ASP.NET Core 2.0 or earlier, the MVC and Razor Pages project templates provide a *bundleconfig.json* configuration file that defines the options for each bundle:</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="3e2f6-160">V ASP.NET Core 2,1 nebo novějším přidejte nový soubor JSON s názvem *bundleconfig.js*do :::no-loc(Razor)::: kořenového adresáře projektu MVC nebo Pages.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-160">In ASP.NET Core 2.1 or later, add a new JSON file, named *bundleconfig.json*, to the MVC or :::no-loc(Razor)::: Pages project root.</span></span> <span data-ttu-id="3e2f6-161">Do tohoto souboru vložte následující JSON jako výchozí bod:</span><span class="sxs-lookup"><span data-stu-id="3e2f6-161">Include the following JSON in that file as a starting point:</span></span>
+<span data-ttu-id="3e2f6-160">V ASP.NET Core 2,1 nebo novějším přidejte nový soubor JSON s názvem *bundleconfig.js*do Razor kořenového adresáře projektu MVC nebo Pages.</span><span class="sxs-lookup"><span data-stu-id="3e2f6-160">In ASP.NET Core 2.1 or later, add a new JSON file, named *bundleconfig.json*, to the MVC or Razor Pages project root.</span></span> <span data-ttu-id="3e2f6-161">Do tohoto souboru vložte následující JSON jako výchozí bod:</span><span class="sxs-lookup"><span data-stu-id="3e2f6-161">Include the following JSON in that file as a starting point:</span></span>
 
 ::: moniker-end
 
