@@ -15,10 +15,10 @@ no-loc:
 - SignalR
 uid: tutorials/first-web-api
 ms.openlocfilehash: 2383934070a65b8131e890a170186b736d3fcec0
-ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/21/2020
+ms.lasthandoff: 07/28/2020
 ms.locfileid: "86869988"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
@@ -264,7 +264,7 @@ Aktualizujte *Startup.cs* o následující zvýrazněný kód:
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Startup.cs?highlight=7-8,23-24&name=snippet_all)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Odebere nepoužívané `using` deklarace.
 * Přidá kontext databáze do kontejneru DI.
@@ -281,7 +281,7 @@ Předchozí kód:
 
   * V **třídě modelu**vyberte **TodoItem (TodoApi. Models)** .
   * Ve **třídě Context data**vyberte **TodoContext (TodoApi. Models)** .
-  * Vyberte **Přidat**.
+  * Vyberte možnost **Přidat**.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -690,7 +690,7 @@ Aktualizujte *Startup.cs* o následující zvýrazněný kód:
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup1.cs?highlight=5,8,25-26&name=snippet_all)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Odebere nepoužívané `using` deklarace.
 * Přidá kontext databáze do kontejneru DI.
@@ -717,7 +717,7 @@ Předchozí kód:
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController2.cs?name=snippet_todo1)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Definuje třídu kontroleru rozhraní API bez metod.
 * Označí třídu [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) atributem. Tento atribut označuje, že kontroler reaguje na požadavky webového rozhraní API. Informace o konkrétním chování, které atribut povoluje, naleznete v tématu <xref:web-api/index> .

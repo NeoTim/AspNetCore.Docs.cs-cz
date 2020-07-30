@@ -5,7 +5,7 @@ description: Naučte se ladit Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/15/2020
+ms.date: 07/27/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 14943b9f7847ac9144addfdf16a003f6fc8c340c
-ms.sourcegitcommit: cc845634a490c49ff869c89b6e422b6d65d0e886
+ms.openlocfilehash: b4199c3a99af5875c5d9a87f29f7c7e2758ffd71
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2020
-ms.locfileid: "87159700"
+ms.lasthandoff: 07/28/2020
+ms.locfileid: "87303557"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core laděníBlazor WebAssembly
 
@@ -44,7 +44,7 @@ Teď *nemůžete*:
 
 V nadcházejících vydáních budeme dál zlepšovat možnosti ladění.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Ladění vyžaduje některý z následujících prohlížečů:
 
@@ -109,13 +109,15 @@ Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
 
 1. Otevřete samostatnou Blazor WebAssembly aplikaci v vs Code.
 
-   Pokud se zobrazí následující oznámení, že pro povolení ladění je potřeba další nastavení:
+   Může se zobrazit následující oznámení, že pro povolení ladění je potřeba další nastavení:
    
-   * Potvrďte, že máte nainstalované správné rozšíření.
-   * Potvrďte, že je povolené ladění v jazyce JavaScript verze Preview.
-   * Znovu načtěte okno.
-
    ![Vyžaduje se další instalace.](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
+   
+   Pokud obdržíte oznámení:
+
+   * Potvrďte, že je nainstalovaná nejnovější [rozšíření C# pro Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) . Pokud chcete zkontrolovat nainstalovaná rozšíření, **View**otevřete  >  **rozšíření** zobrazení z řádku nabídek nebo vyberte ikonu **rozšíření** na postranním panelu **aktivita** .
+   * Potvrďte, že je povolené ladění v jazyce JavaScript verze Preview. Otevřete nastavení z řádku nabídek (**File**  >  **Preferences**  >  **Nastavení**předvoleb souborů). Hledání pomocí klíčových slov `debug preview` . Ve výsledcích hledání potvrďte, že je zaškrtnuto políčko pro **ladění > JavaScript: použít verzi Preview** .
+   * Znovu načtěte okno.
 
 1. Spusťte ladění pomocí klávesových zkratek <kbd>F5</kbd> nebo položky nabídky.
 
