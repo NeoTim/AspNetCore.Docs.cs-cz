@@ -1,255 +1,239 @@
 ---
 title: Používání více prostředí v ASP.NET Core
 author: rick-anderson
-description: Přečtěte si, jak řídit chování aplikací ve více prostředích v ASP.NET základních aplikacích.
+description: Naučte se řídit chování aplikace v různých prostředích aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/17/2019
+ms.date: 7/1/2020
+no-loc:
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/environments
-ms.openlocfilehash: b0218b2c77c283c0849dca9491046534b88c5a77
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 977d222ed61fa914bd4ffb70e192ef19d4da5c33
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78656217"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "87330616"
 ---
-# <a name="use-multiple-environments-in-aspnet-core"></a><span data-ttu-id="2636e-103">Používání více prostředí v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="2636e-103">Use multiple environments in ASP.NET Core</span></span>
+# <a name="use-multiple-environments-in-aspnet-core"></a><span data-ttu-id="73481-103">Používání více prostředí v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="73481-103">Use multiple environments in ASP.NET Core</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="2636e-104">Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="2636e-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="73481-104">Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Kirka Larkin](https://twitter.com/serpent5)</span><span class="sxs-lookup"><span data-stu-id="73481-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Kirk Larkin](https://twitter.com/serpent5)</span></span>
 
-<span data-ttu-id="2636e-105">ASP.NET Core konfiguruje chování aplikací na základě runtime prostředí pomocí proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-105">ASP.NET Core configures app behavior based on the runtime environment using an environment variable.</span></span>
+<span data-ttu-id="73481-105">ASP.NET Core konfiguruje chování aplikace na základě běhového prostředí pomocí proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-105">ASP.NET Core configures app behavior based on the runtime environment using an environment variable.</span></span>
 
-<span data-ttu-id="2636e-106">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) [(jak stáhnout)](xref:index#how-to-download-a-sample)</span><span class="sxs-lookup"><span data-stu-id="2636e-106">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="73481-106">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="73481-106">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="environments"></a><span data-ttu-id="2636e-107">Prostředí</span><span class="sxs-lookup"><span data-stu-id="2636e-107">Environments</span></span>
+## <a name="environments"></a><span data-ttu-id="73481-107">Prostředí</span><span class="sxs-lookup"><span data-stu-id="73481-107">Environments</span></span>
 
-<span data-ttu-id="2636e-108">ASP.NET Core přečte `ASPNETCORE_ENVIRONMENT` proměnnou prostředí při spuštění aplikace a uloží hodnotu do [iWebHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName).</span><span class="sxs-lookup"><span data-stu-id="2636e-108">ASP.NET Core reads the environment variable `ASPNETCORE_ENVIRONMENT` at app startup and stores the value in [IWebHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName).</span></span> <span data-ttu-id="2636e-109">`ASPNETCORE_ENVIRONMENT`lze nastavit na libovolnou hodnotu, ale rámci jsou uvedeny tři hodnoty:</span><span class="sxs-lookup"><span data-stu-id="2636e-109">`ASPNETCORE_ENVIRONMENT` can be set to any value, but three values are provided by the framework:</span></span>
+<span data-ttu-id="73481-108">Pro určení běhového prostředí ASP.NET Core čtení z následujících proměnných prostředí:</span><span class="sxs-lookup"><span data-stu-id="73481-108">To determine the runtime environment, ASP.NET Core reads from the following environment variables:</span></span>
 
-* <xref:Microsoft.Extensions.Hosting.Environments.Development>
+1. [<span data-ttu-id="73481-109">DOTNET_ENVIRONMENT</span><span class="sxs-lookup"><span data-stu-id="73481-109">DOTNET_ENVIRONMENT</span></span>](xref:fundamentals/configuration/index#default-host-configuration)
+1. <span data-ttu-id="73481-110">`ASPNETCORE_ENVIRONMENT`Kdy <xref:Microsoft.Extensions.Hosting.GenericHostBuilderExtensions.ConfigureWebHostDefaults*> je volána metoda.</span><span class="sxs-lookup"><span data-stu-id="73481-110">`ASPNETCORE_ENVIRONMENT` when <xref:Microsoft.Extensions.Hosting.GenericHostBuilderExtensions.ConfigureWebHostDefaults*> is called.</span></span> <span data-ttu-id="73481-111">Výchozí ASP.NET Core volání šablon webové aplikace `ConfigureWebHostDefaults` .</span><span class="sxs-lookup"><span data-stu-id="73481-111">The default ASP.NET Core web app templates call `ConfigureWebHostDefaults`.</span></span> <span data-ttu-id="73481-112">`ASPNETCORE_ENVIRONMENT`Hodnota Přepisuje `DOTNET_ENVIRONMENT` .</span><span class="sxs-lookup"><span data-stu-id="73481-112">The `ASPNETCORE_ENVIRONMENT` value overrides `DOTNET_ENVIRONMENT`.</span></span>
+
+<span data-ttu-id="73481-113">`IHostEnvironment.EnvironmentName`lze nastavit na libovolnou hodnotu, ale následující hodnoty jsou poskytovány rozhraním:</span><span class="sxs-lookup"><span data-stu-id="73481-113">`IHostEnvironment.EnvironmentName` can be set to any value, but the following values are provided by the framework:</span></span>
+
+* <span data-ttu-id="73481-114"><xref:Microsoft.Extensions.Hosting.Environments.Development>: [launchSettings.jsv](#lsj) sadě souborů na `ASPNETCORE_ENVIRONMENT` `Development` místním počítači.</span><span class="sxs-lookup"><span data-stu-id="73481-114"><xref:Microsoft.Extensions.Hosting.Environments.Development> : The [launchSettings.json](#lsj) file sets `ASPNETCORE_ENVIRONMENT` to `Development` on the local machine.</span></span>
 * <xref:Microsoft.Extensions.Hosting.Environments.Staging>
-* <span data-ttu-id="2636e-110"><xref:Microsoft.Extensions.Hosting.Environments.Production>(výchozí)</span><span class="sxs-lookup"><span data-stu-id="2636e-110"><xref:Microsoft.Extensions.Hosting.Environments.Production> (default)</span></span>
+* <span data-ttu-id="73481-115"><xref:Microsoft.Extensions.Hosting.Environments.Production>: Výchozí nastavení `DOTNET_ENVIRONMENT` , pokud a nebylo `ASPNETCORE_ENVIRONMENT` nastaveno.</span><span class="sxs-lookup"><span data-stu-id="73481-115"><xref:Microsoft.Extensions.Hosting.Environments.Production> : The default if `DOTNET_ENVIRONMENT` and `ASPNETCORE_ENVIRONMENT` have not been set.</span></span>
 
-[!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet)]
+<span data-ttu-id="73481-116">Následující kód:</span><span class="sxs-lookup"><span data-stu-id="73481-116">The following code:</span></span>
 
-<span data-ttu-id="2636e-111">Předcházející kód:</span><span class="sxs-lookup"><span data-stu-id="2636e-111">The preceding code:</span></span>
+* <span data-ttu-id="73481-117">Volá [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) , pokud `ASPNETCORE_ENVIRONMENT` je nastaven na `Development` .</span><span class="sxs-lookup"><span data-stu-id="73481-117">Calls [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) when `ASPNETCORE_ENVIRONMENT` is set to `Development`.</span></span>
+* <span data-ttu-id="73481-118">Volá [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) , pokud je hodnota `ASPNETCORE_ENVIRONMENT` nastavena na `Staging` , `Production` nebo `Staging_2` .</span><span class="sxs-lookup"><span data-stu-id="73481-118">Calls [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) when the value of `ASPNETCORE_ENVIRONMENT` is set to `Staging`, `Production`, or  `Staging_2`.</span></span>
+* <span data-ttu-id="73481-119">Vloží <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do `Startup.Configure` .</span><span class="sxs-lookup"><span data-stu-id="73481-119">Injects <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> into `Startup.Configure`.</span></span> <span data-ttu-id="73481-120">Tento přístup je užitečný, když aplikace vyžaduje úpravu jenom `Startup.Configure` pro několik prostředí s minimálními rozdíly v kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-120">This approach is useful when the app only requires adjusting `Startup.Configure` for a few environments with minimal code differences per environment.</span></span>
+* <span data-ttu-id="73481-121">Se podobá kódu generovanému šablonami ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="73481-121">Is similar to the code generated by the ASP.NET Core templates.</span></span>
 
-* <span data-ttu-id="2636e-112">Volání [UseDeveloperExceptionPage,](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) `ASPNETCORE_ENVIRONMENT` pokud `Development`je nastavena na .</span><span class="sxs-lookup"><span data-stu-id="2636e-112">Calls [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) when `ASPNETCORE_ENVIRONMENT` is set to `Development`.</span></span>
-* <span data-ttu-id="2636e-113">Volá [UseExceptionHandler,](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) pokud `ASPNETCORE_ENVIRONMENT` je nastavena hodnota jedné z následujících možností:</span><span class="sxs-lookup"><span data-stu-id="2636e-113">Calls [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) when the value of `ASPNETCORE_ENVIRONMENT` is set one of the following:</span></span>
+[!code-csharp[](environments/3.1sample/EnvironmentsSample/Startup.cs?name=snippet)]
 
-  * `Staging`
-  * `Production`
-  * `Staging_2`
-
-<span data-ttu-id="2636e-114">Pomocník [značky prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) používá `IHostingEnvironment.EnvironmentName` hodnotu zahrnout nebo vyloučit značky v prvku:</span><span class="sxs-lookup"><span data-stu-id="2636e-114">The [Environment Tag Helper](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) uses the value of `IHostingEnvironment.EnvironmentName` to include or exclude markup in the element:</span></span>
+<span data-ttu-id="73481-122">[Pomocná značka prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) používá hodnotu [IHostEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName) pro zahrnutí nebo vyloučení značek v elementu:</span><span class="sxs-lookup"><span data-stu-id="73481-122">The [Environment Tag Helper](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) uses the value of [IHostEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName) to include or exclude markup in the element:</span></span>
 
 [!code-cshtml[](environments/sample-snapshot/EnvironmentsSample/Pages/About.cshtml)]
 
-<span data-ttu-id="2636e-115">Ve Windows a macOS nerozlišují proměnné a hodnoty prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-115">On Windows and macOS, environment variables and values aren't case sensitive.</span></span> <span data-ttu-id="2636e-116">Proměnné a hodnoty prostředí Linuxu jsou ve výchozím nastavení **rozlišovány malá a velká písmena.**</span><span class="sxs-lookup"><span data-stu-id="2636e-116">Linux environment variables and values are **case sensitive** by default.</span></span>
+<span data-ttu-id="73481-123">[Stránka about](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample/EnvironmentsSample/Pages/About.cshtml) z [ukázkového kódu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample) obsahuje předchozí kód a zobrazuje hodnotu `IWebHostEnvironment.EnvironmentName` .</span><span class="sxs-lookup"><span data-stu-id="73481-123">The [About page](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample/EnvironmentsSample/Pages/About.cshtml) from the [sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample) includes the preceding markup and displays the value of `IWebHostEnvironment.EnvironmentName`.</span></span>
 
-### <a name="development"></a><span data-ttu-id="2636e-117">Vývoj</span><span class="sxs-lookup"><span data-stu-id="2636e-117">Development</span></span>
+<span data-ttu-id="73481-124">V systému Windows a macOS se v proměnných a hodnotách prostředí nerozlišují velká a malá písmena.</span><span class="sxs-lookup"><span data-stu-id="73481-124">On Windows and macOS, environment variables and values aren't case-sensitive.</span></span> <span data-ttu-id="73481-125">Ve výchozím nastavení se v proměnných a hodnotách prostředí Linux rozlišují **velká a malá písmena** .</span><span class="sxs-lookup"><span data-stu-id="73481-125">Linux environment variables and values are **case-sensitive** by default.</span></span>
 
-<span data-ttu-id="2636e-118">Vývojové prostředí může povolit funkce, které by neměly být vystaveny v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-118">The development environment can enable features that shouldn't be exposed in production.</span></span> <span data-ttu-id="2636e-119">Například ASP.NET základní šablony umožňují [stránku výjimky pro vývojáře](xref:fundamentals/error-handling#developer-exception-page) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-119">For example, the ASP.NET Core templates enable the [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page) in the development environment.</span></span>
+### <a name="create-environmentssample"></a><span data-ttu-id="73481-126">Vytvořit EnvironmentsSample</span><span class="sxs-lookup"><span data-stu-id="73481-126">Create EnvironmentsSample</span></span>
 
-<span data-ttu-id="2636e-120">Prostředí pro vývoj místního počítače lze nastavit v souboru *Properties\launchSettings.json* projektu.</span><span class="sxs-lookup"><span data-stu-id="2636e-120">The environment for local machine development can be set in the *Properties\launchSettings.json* file of the project.</span></span> <span data-ttu-id="2636e-121">Hodnoty prostředí nastavené v *launchSettings.json* přepíší hodnoty nastavené v systémovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-121">Environment values set in *launchSettings.json* override values set in the system environment.</span></span>
+<span data-ttu-id="73481-127">[Vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample) použitý v tomto dokumentu je založen na Razor projektu stránky s názvem *EnvironmentsSample*.</span><span class="sxs-lookup"><span data-stu-id="73481-127">The [sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample) used in this document is based on a Razor Pages project named *EnvironmentsSample*.</span></span>
 
-<span data-ttu-id="2636e-122">Následující JSON zobrazuje tři profily ze souboru *launchSettings.json:*</span><span class="sxs-lookup"><span data-stu-id="2636e-122">The following JSON shows three profiles from a *launchSettings.json* file:</span></span>
-
-```json
-{
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:54339/",
-      "sslPort": 0
-    }
-  },
-  "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_My_Environment": "1",
-        "ASPNETCORE_DETAILEDERRORS": "1",
-        "ASPNETCORE_ENVIRONMENT": "Staging"
-      }
-    },
-    "EnvironmentsSample": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Staging"
-      },
-      "applicationUrl": "http://localhost:54340/"
-    },
-    "Kestrel Staging": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_My_Environment": "1",
-        "ASPNETCORE_DETAILEDERRORS": "1",
-        "ASPNETCORE_ENVIRONMENT": "Staging"
-      },
-      "applicationUrl": "http://localhost:51997/"
-    }
-  }
-}
-```
-
-> [!NOTE]
-> <span data-ttu-id="2636e-123">Vlastnost `applicationUrl` v *launchSettings.json* můžete zadat seznam adres URL serveru.</span><span class="sxs-lookup"><span data-stu-id="2636e-123">The `applicationUrl` property in *launchSettings.json* can specify a list of server URLs.</span></span> <span data-ttu-id="2636e-124">Použijte středník mezi adresami URL v seznamu:</span><span class="sxs-lookup"><span data-stu-id="2636e-124">Use a semicolon between the URLs in the list:</span></span>
->
-> ```json
-> "EnvironmentsSample": {
->    "commandName": "Project",
->    "launchBrowser": true,
->    "applicationUrl": "https://localhost:5001;http://localhost:5000",
->    "environmentVariables": {
->      "ASPNETCORE_ENVIRONMENT": "Development"
->    }
-> }
-> ```
-
-<span data-ttu-id="2636e-125">Při spuštění aplikace s [dotnet spustit](/dotnet/core/tools/dotnet-run), `"commandName": "Project"` první profil s se používá.</span><span class="sxs-lookup"><span data-stu-id="2636e-125">When the app is launched with [dotnet run](/dotnet/core/tools/dotnet-run), the first profile with `"commandName": "Project"` is used.</span></span> <span data-ttu-id="2636e-126">Hodnota `commandName` určuje webový server, který má být spuštěn.</span><span class="sxs-lookup"><span data-stu-id="2636e-126">The value of `commandName` specifies the web server to launch.</span></span> <span data-ttu-id="2636e-127">`commandName`může být některý z následujících:</span><span class="sxs-lookup"><span data-stu-id="2636e-127">`commandName` can be any one of the following:</span></span>
-
-* `IISExpress`
-* `IIS`
-* <span data-ttu-id="2636e-128">`Project`(který spouští Kestrel)</span><span class="sxs-lookup"><span data-stu-id="2636e-128">`Project` (which launches Kestrel)</span></span>
-
-<span data-ttu-id="2636e-129">Při spuštění aplikace s [dotnet spustit](/dotnet/core/tools/dotnet-run):</span><span class="sxs-lookup"><span data-stu-id="2636e-129">When an app is launched with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
-
-* <span data-ttu-id="2636e-130">*launchSettings.json* je přečten, pokud je k dispozici.</span><span class="sxs-lookup"><span data-stu-id="2636e-130">*launchSettings.json* is read if available.</span></span> <span data-ttu-id="2636e-131">`environmentVariables`nastavení v *launchSettings.json* přepsat proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-131">`environmentVariables` settings in *launchSettings.json* override environment variables.</span></span>
-* <span data-ttu-id="2636e-132">Zobrazí se hostitelské prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-132">The hosting environment is displayed.</span></span>
-
-<span data-ttu-id="2636e-133">Následující výstup ukazuje aplikaci spuštěnou [s dotnet run](/dotnet/core/tools/dotnet-run):</span><span class="sxs-lookup"><span data-stu-id="2636e-133">The following output shows an app started with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
+<span data-ttu-id="73481-128">Následující kód vytvoří a spustí webovou aplikaci s názvem *EnvironmentsSample*:</span><span class="sxs-lookup"><span data-stu-id="73481-128">The following code creates and runs a web app named *EnvironmentsSample*:</span></span>
 
 ```bash
-PS C:\Websites\EnvironmentsSample> dotnet run
-Using launch settings from C:\Websites\EnvironmentsSample\Properties\launchSettings.json...
-Hosting environment: Staging
-Content root path: C:\Websites\EnvironmentsSample
-Now listening on: http://localhost:54340
-Application started. Press Ctrl+C to shut down.
+dotnet new webapp -o EnvironmentsSample
+cd EnvironmentsSample
+dotnet run --verbosity normal
 ```
 
-<span data-ttu-id="2636e-134">Karta **Ladění** vlastností projektu sady Visual Studio poskytuje grafické uživatelské rozhraní pro úpravu souboru *launchSettings.json:*</span><span class="sxs-lookup"><span data-stu-id="2636e-134">The Visual Studio project properties **Debug** tab provides a GUI to edit the *launchSettings.json* file:</span></span>
+<span data-ttu-id="73481-129">Po spuštění aplikace se zobrazí některé z následujících výstupů:</span><span class="sxs-lookup"><span data-stu-id="73481-129">When the app runs, it displays some of the following output:</span></span>
 
-![Vlastnosti projektu Nastavení proměnných prostředí](environments/_static/project-properties-debug.png)
+```bash
+Using launch settings from c:\tmp\EnvironmentsSample\Properties\launchSettings.json
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: https://localhost:5001
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: c:\tmp\EnvironmentsSample
+```
 
-<span data-ttu-id="2636e-136">Změny provedené v profilech projektu se nemusí projevit, dokud nebude webový server restartován.</span><span class="sxs-lookup"><span data-stu-id="2636e-136">Changes made to project profiles may not take effect until the web server is restarted.</span></span> <span data-ttu-id="2636e-137">Kestrel musí být restartován předtím, než může rozpoznat změny provedené v jeho prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-137">Kestrel must be restarted before it can detect changes made to its environment.</span></span>
+<a name="lsj"></a>
+
+### <a name="development-and-launchsettingsjson"></a><span data-ttu-id="73481-130">Vývoj a launchSettings.jsna</span><span class="sxs-lookup"><span data-stu-id="73481-130">Development and launchSettings.json</span></span>
+
+<span data-ttu-id="73481-131">Vývojové prostředí může povolit funkce, které by se neměly zveřejnit v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-131">The development environment can enable features that shouldn't be exposed in production.</span></span> <span data-ttu-id="73481-132">Například šablony ASP.NET Core umožňují [stránku s výjimkou vývojáře](xref:fundamentals/error-handling#developer-exception-page) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-132">For example, the ASP.NET Core templates enable the [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page) in the development environment.</span></span>
+
+<span data-ttu-id="73481-133">Prostředí pro vývoj místních počítačů lze nastavit v *Properties\launchSettings.jsv* souboru projektu.</span><span class="sxs-lookup"><span data-stu-id="73481-133">The environment for local machine development can be set in the *Properties\launchSettings.json* file of the project.</span></span> <span data-ttu-id="73481-134">Hodnoty prostředí nastavené v *launchSettings.jspři* přepisování hodnot nastavených v prostředí systému.</span><span class="sxs-lookup"><span data-stu-id="73481-134">Environment values set in *launchSettings.json* override values set in the system environment.</span></span>
+
+<span data-ttu-id="73481-135">*launchSettings.jsv* souboru:</span><span class="sxs-lookup"><span data-stu-id="73481-135">The *launchSettings.json* file:</span></span>
+
+* <span data-ttu-id="73481-136">Se používá pouze v místním vývojovém počítači.</span><span class="sxs-lookup"><span data-stu-id="73481-136">Is only used on the local development machine.</span></span>
+* <span data-ttu-id="73481-137">Není nasazen.</span><span class="sxs-lookup"><span data-stu-id="73481-137">Is not deployed.</span></span>
+* <span data-ttu-id="73481-138">obsahuje nastavení profilu.</span><span class="sxs-lookup"><span data-stu-id="73481-138">contains profile settings.</span></span>
+
+<span data-ttu-id="73481-139">Následující JSON zobrazuje *launchSettings.jsv* souboru pro ASP.NET Core webový projekt s názvem *EnvironmentsSample* vytvořený v aplikaci Visual Studio nebo `dotnet new` :</span><span class="sxs-lookup"><span data-stu-id="73481-139">The following JSON shows the *launchSettings.json* file for an ASP.NET Core web projected named *EnvironmentsSample* created with Visual Studio or `dotnet new`:</span></span>
+
+[!code-json[](environments/3.1sample/EnvironmentsSample/Properties/launchSettingsCopy.json)]
+
+<span data-ttu-id="73481-140">Předchozí kód obsahuje dva profily:</span><span class="sxs-lookup"><span data-stu-id="73481-140">The preceding markup contains two profiles:</span></span>
+
+* <span data-ttu-id="73481-141">`IIS Express`: Výchozí profil, který se používá při spuštění aplikace ze sady Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="73481-141">`IIS Express`: The default profile used when launching the app from Visual Studio.</span></span> <span data-ttu-id="73481-142">`"commandName"`Klíč má hodnotu `"IISExpress"` , proto je [IISExpress](/iis/extensions/introduction-to-iis-express/iis-express-overview) webovým serverem.</span><span class="sxs-lookup"><span data-stu-id="73481-142">The `"commandName"` key has the value `"IISExpress"`, therefore, [IISExpress](/iis/extensions/introduction-to-iis-express/iis-express-overview) is the web server.</span></span> <span data-ttu-id="73481-143">Můžete nastavit profil spuštění na projekt nebo jakýkoli jiný profil, který je součástí.</span><span class="sxs-lookup"><span data-stu-id="73481-143">You can set the launch profile to the project or any other profile included.</span></span> <span data-ttu-id="73481-144">Například na následujícím obrázku vyberte název projektu, který spustí [webový server Kestrel](xref:fundamentals/servers/kestrel).</span><span class="sxs-lookup"><span data-stu-id="73481-144">For example, in the image below, selecting the project name launches the [Kestrel web server](xref:fundamentals/servers/kestrel).</span></span>
+
+  ![IIS Express spustit v nabídce](environments/_static/iisx2.png)
+* <span data-ttu-id="73481-146">`EnvironmentsSample`: Název profilu je název projektu.</span><span class="sxs-lookup"><span data-stu-id="73481-146">`EnvironmentsSample`: The profile name is the project name.</span></span> <span data-ttu-id="73481-147">Tento profil se ve výchozím nastavení používá při spouštění aplikace pomocí `dotnet run` .</span><span class="sxs-lookup"><span data-stu-id="73481-147">This profile is used by default when launching the app with `dotnet run`.</span></span>  <span data-ttu-id="73481-148">`"commandName"`Klíč má hodnotu `"Project"` , proto je spuštěn [webový server Kestrel](xref:fundamentals/servers/kestrel) .</span><span class="sxs-lookup"><span data-stu-id="73481-148">The `"commandName"` key has the value `"Project"`, therefore, the [Kestrel web server](xref:fundamentals/servers/kestrel) is launched.</span></span>
+
+<span data-ttu-id="73481-149">Hodnota `commandName` může určovat webový server, který se má spustit.</span><span class="sxs-lookup"><span data-stu-id="73481-149">The value of `commandName` can specify the web server to launch.</span></span> <span data-ttu-id="73481-150">`commandName`může to být jedna z následujících:</span><span class="sxs-lookup"><span data-stu-id="73481-150">`commandName` can be any one of the following:</span></span>
+
+* <span data-ttu-id="73481-151">`IISExpress`: Spustí IIS Express.</span><span class="sxs-lookup"><span data-stu-id="73481-151">`IISExpress` : Launches IIS Express.</span></span>
+* <span data-ttu-id="73481-152">`IIS`: Nebyl spuštěn žádný webový server.</span><span class="sxs-lookup"><span data-stu-id="73481-152">`IIS` : No web server launched.</span></span> <span data-ttu-id="73481-153">Očekává se, že služba IIS bude k dispozici.</span><span class="sxs-lookup"><span data-stu-id="73481-153">IIS is expected to be available.</span></span>
+* <span data-ttu-id="73481-154">`Project`: Spustí Kestrel.</span><span class="sxs-lookup"><span data-stu-id="73481-154">`Project` : Launches Kestrel.</span></span>
+
+<span data-ttu-id="73481-155">Karta **ladění** vlastností projektu sady Visual Studio poskytuje grafické uživatelské rozhraní pro úpravu *launchSettings.jsv* souboru.</span><span class="sxs-lookup"><span data-stu-id="73481-155">The Visual Studio project properties **Debug** tab provides a GUI to edit the *launchSettings.json* file.</span></span> <span data-ttu-id="73481-156">Změny provedené v profilech projektu se neprojeví, dokud se webový server nerestartuje.</span><span class="sxs-lookup"><span data-stu-id="73481-156">Changes made to project profiles may not take effect until the web server is restarted.</span></span> <span data-ttu-id="73481-157">Kestrel se musí restartovat, aby bylo možné zjistit změny provedené ve svém prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-157">Kestrel must be restarted before it can detect changes made to its environment.</span></span>
+
+![Vlastnosti projektu nastavení proměnných prostředí](environments/_static/project-properties-debug.png)
+
+<span data-ttu-id="73481-159">Následující *launchSettings.js* souboru obsahuje několik profilů:</span><span class="sxs-lookup"><span data-stu-id="73481-159">The following *launchSettings.json* file contains multiple profiles:</span></span>
+
+[!code-json[](environments/3.1sample/EnvironmentsSample/Properties/launchSettings.json)]
+
+<span data-ttu-id="73481-160">Můžete vybrat profily:</span><span class="sxs-lookup"><span data-stu-id="73481-160">Profiles can be selected:</span></span>
+
+* <span data-ttu-id="73481-161">Z uživatelského rozhraní sady Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="73481-161">From the Visual Studio UI.</span></span>
+* <span data-ttu-id="73481-162">Pomocí [`dotnet run`](/dotnet/core/tools/dotnet-run) příkazu v příkazovém prostředí s `--launch-profile` možností nastavenou na název profilu.</span><span class="sxs-lookup"><span data-stu-id="73481-162">Using the [`dotnet run`](/dotnet/core/tools/dotnet-run) command in a command shell with the `--launch-profile` option set to the profile's name.</span></span> <span data-ttu-id="73481-163">*Tento přístup podporuje jenom Kestrel profily.*</span><span class="sxs-lookup"><span data-stu-id="73481-163">*This approach only supports Kestrel profiles.*</span></span>
+
+  ```dotnetcli
+  dotnet run --launch-profile "SampleApp"
+  ```
 
 > [!WARNING]
-> <span data-ttu-id="2636e-138">*launchSettings.json* by neměl ukládat tajné klíče.</span><span class="sxs-lookup"><span data-stu-id="2636e-138">*launchSettings.json* shouldn't store secrets.</span></span> <span data-ttu-id="2636e-139">[Nástroj Správce tajných barev](xref:security/app-secrets) lze použít k ukládání tajných kódů pro místní vývoj.</span><span class="sxs-lookup"><span data-stu-id="2636e-139">The [Secret Manager tool](xref:security/app-secrets) can be used to store secrets for local development.</span></span>
+> <span data-ttu-id="73481-164">*launchSettings.js* by neměl ukládat tajné klíče.</span><span class="sxs-lookup"><span data-stu-id="73481-164">*launchSettings.json* shouldn't store secrets.</span></span> <span data-ttu-id="73481-165">[Nástroj Správce tajných](xref:security/app-secrets) klíčů je možné použít k ukládání tajných kódů pro místní vývoj.</span><span class="sxs-lookup"><span data-stu-id="73481-165">The [Secret Manager tool](xref:security/app-secrets) can be used to store secrets for local development.</span></span>
 
-<span data-ttu-id="2636e-140">Při použití [kódu sady Visual Studio](https://code.visualstudio.com/)lze proměnné prostředí nastavit v souboru *.vscode/launch.json.*</span><span class="sxs-lookup"><span data-stu-id="2636e-140">When using [Visual Studio Code](https://code.visualstudio.com/), environment variables can be set in the *.vscode/launch.json* file.</span></span> <span data-ttu-id="2636e-141">Následující příklad nastaví `Development`prostředí na :</span><span class="sxs-lookup"><span data-stu-id="2636e-141">The following example sets the environment to `Development`:</span></span>
+<span data-ttu-id="73481-166">Při použití [Visual Studio Code](https://code.visualstudio.com/)lze proměnné prostředí nastavit v souboru *. VSCode/launch.js* .</span><span class="sxs-lookup"><span data-stu-id="73481-166">When using [Visual Studio Code](https://code.visualstudio.com/), environment variables can be set in the *.vscode/launch.json* file.</span></span> <span data-ttu-id="73481-167">Následující příklad nastaví několik [hodnot konfigurace hostitele proměnné prostředí](xref:fundamentals/host/web-host#host-configuration-values):</span><span class="sxs-lookup"><span data-stu-id="73481-167">The following example sets several [Host configuration values environment variables](xref:fundamentals/host/web-host#host-configuration-values):</span></span>
 
-```json
-{
-   "version": "0.2.0",
-   "configurations": [
-        {
-            "name": ".NET Core Launch (web)",
+[!code-json[](environments/3.1sample/EnvironmentsSample/.vscode/launch.json?range=4-10,32-38)]
 
-            ... additional VS Code configuration settings ...
+<span data-ttu-id="73481-168">Soubor *. VSCode/launch.js* je používán pouze Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="73481-168">The *.vscode/launch.json* file is only used by Visual Studio Code.</span></span>
 
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            }
-        }
-    ]
-}
-```
+### <a name="production"></a><span data-ttu-id="73481-169">Produkce</span><span class="sxs-lookup"><span data-stu-id="73481-169">Production</span></span>
 
-<span data-ttu-id="2636e-142">Soubor *.vscode/launch.json* v projektu se nečte při `dotnet run` spuštění aplikace stejným způsobem jako *Vlastnosti/launchSettings.json*.</span><span class="sxs-lookup"><span data-stu-id="2636e-142">A *.vscode/launch.json* file in the project isn't read when starting the app with `dotnet run` in the same way as *Properties/launchSettings.json*.</span></span> <span data-ttu-id="2636e-143">Při spouštění aplikace ve vývoji, která nemá soubor *launchSettings.json,* nastavte prostředí s proměnnou `dotnet run` prostředí nebo argument příkazového řádku na příkaz.</span><span class="sxs-lookup"><span data-stu-id="2636e-143">When launching an app in development that doesn't have a *launchSettings.json* file, either set the environment with an environment variable or a command-line argument to the `dotnet run` command.</span></span>
+<span data-ttu-id="73481-170">Provozní prostředí by mělo být nakonfigurované tak, aby maximalizovalo zabezpečení, [výkon](xref:performance/performance-best-practices)a odolnost aplikací.</span><span class="sxs-lookup"><span data-stu-id="73481-170">The production environment should be configured to maximize security, [performance](xref:performance/performance-best-practices), and application robustness.</span></span> <span data-ttu-id="73481-171">Mezi běžná nastavení, která se liší od vývoje, patří:</span><span class="sxs-lookup"><span data-stu-id="73481-171">Some common settings that differ from development include:</span></span>
 
-### <a name="production"></a><span data-ttu-id="2636e-144">Výroba</span><span class="sxs-lookup"><span data-stu-id="2636e-144">Production</span></span>
+* <span data-ttu-id="73481-172">[Ukládání do mezipaměti](xref:performance/caching/memory).</span><span class="sxs-lookup"><span data-stu-id="73481-172">[Caching](xref:performance/caching/memory).</span></span>
+* <span data-ttu-id="73481-173">Prostředky na straně klienta jsou seskupené, minifikovaného a potenciálně poskytované z CDN.</span><span class="sxs-lookup"><span data-stu-id="73481-173">Client-side resources are bundled, minified, and potentially served from a CDN.</span></span>
+* <span data-ttu-id="73481-174">Chybové stránky diagnostiky jsou zakázané.</span><span class="sxs-lookup"><span data-stu-id="73481-174">Diagnostic error pages disabled.</span></span>
+* <span data-ttu-id="73481-175">Jsou povoleny popisné chybové stránky.</span><span class="sxs-lookup"><span data-stu-id="73481-175">Friendly error pages enabled.</span></span>
+* <span data-ttu-id="73481-176">[Protokolování](xref:fundamentals/logging/index) a sledování výroby je povolené.</span><span class="sxs-lookup"><span data-stu-id="73481-176">Production [logging](xref:fundamentals/logging/index) and monitoring enabled.</span></span> <span data-ttu-id="73481-177">Například pomocí [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span><span class="sxs-lookup"><span data-stu-id="73481-177">For example, using [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span></span>
 
-<span data-ttu-id="2636e-145">Produkční prostředí by mělo být nakonfigurováno tak, aby maximalizovalo zabezpečení, výkon a robustnost aplikací.</span><span class="sxs-lookup"><span data-stu-id="2636e-145">The production environment should be configured to maximize security, performance, and app robustness.</span></span> <span data-ttu-id="2636e-146">Některá běžná nastavení, která se liší od vývoje, zahrnují:</span><span class="sxs-lookup"><span data-stu-id="2636e-146">Some common settings that differ from development include:</span></span>
+## <a name="set-the-environment"></a><span data-ttu-id="73481-178">Nastavení prostředí</span><span class="sxs-lookup"><span data-stu-id="73481-178">Set the environment</span></span>
 
-* <span data-ttu-id="2636e-147">Mezipaměti.</span><span class="sxs-lookup"><span data-stu-id="2636e-147">Caching.</span></span>
-* <span data-ttu-id="2636e-148">Prostředky na straně klienta jsou sdružené, minifikovány a potenciálně obsluhovány z cdn.</span><span class="sxs-lookup"><span data-stu-id="2636e-148">Client-side resources are bundled, minified, and potentially served from a CDN.</span></span>
-* <span data-ttu-id="2636e-149">Diagnostické chybové stránky jsou zakázány.</span><span class="sxs-lookup"><span data-stu-id="2636e-149">Diagnostic error pages disabled.</span></span>
-* <span data-ttu-id="2636e-150">Jsou povoleny popisné chybové stránky.</span><span class="sxs-lookup"><span data-stu-id="2636e-150">Friendly error pages enabled.</span></span>
-* <span data-ttu-id="2636e-151">Povoleno protokolování a monitorování výroby.</span><span class="sxs-lookup"><span data-stu-id="2636e-151">Production logging and monitoring enabled.</span></span> <span data-ttu-id="2636e-152">Například [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span><span class="sxs-lookup"><span data-stu-id="2636e-152">For example, [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span></span>
+<span data-ttu-id="73481-179">Je často užitečné nastavit konkrétní prostředí pro testování pomocí proměnné prostředí nebo nastavení platformy.</span><span class="sxs-lookup"><span data-stu-id="73481-179">It's often useful to set a specific environment for testing with an environment variable or platform setting.</span></span> <span data-ttu-id="73481-180">Pokud prostředí není nastavené, nastaví se jako výchozí `Production` , což zakáže většinu funkcí ladění.</span><span class="sxs-lookup"><span data-stu-id="73481-180">If the environment isn't set, it defaults to `Production`, which disables most debugging features.</span></span> <span data-ttu-id="73481-181">Metoda nastavení prostředí závisí na operačním systému.</span><span class="sxs-lookup"><span data-stu-id="73481-181">The method for setting the environment depends on the operating system.</span></span>
 
-## <a name="set-the-environment"></a><span data-ttu-id="2636e-153">Nastavení prostředí</span><span class="sxs-lookup"><span data-stu-id="2636e-153">Set the environment</span></span>
+<span data-ttu-id="73481-182">Po sestavení hostitele určuje poslední nastavení prostředí načtené aplikací prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="73481-182">When the host is built, the last environment setting read by the app determines the app's environment.</span></span> <span data-ttu-id="73481-183">Prostředí aplikace se nedá změnit, když je aplikace spuštěná.</span><span class="sxs-lookup"><span data-stu-id="73481-183">The app's environment can't be changed while the app is running.</span></span>
 
-<span data-ttu-id="2636e-154">Často je užitečné nastavit konkrétní prostředí pro testování s proměnnou prostředí nebo nastavení platformy.</span><span class="sxs-lookup"><span data-stu-id="2636e-154">It's often useful to set a specific environment for testing with an environment variable or platform setting.</span></span> <span data-ttu-id="2636e-155">Pokud prostředí není nastaveno, je `Production`výchozí na , který zakáže většinu funkcí ladění.</span><span class="sxs-lookup"><span data-stu-id="2636e-155">If the environment isn't set, it defaults to `Production`, which disables most debugging features.</span></span> <span data-ttu-id="2636e-156">Způsob nastavení prostředí závisí na operačním systému.</span><span class="sxs-lookup"><span data-stu-id="2636e-156">The method for setting the environment depends on the operating system.</span></span>
+<span data-ttu-id="73481-184">[Stránka about](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample/EnvironmentsSample/Pages/About.cshtml) z [ukázkového kódu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample) zobrazí hodnotu `IWebHostEnvironment.EnvironmentName` .</span><span class="sxs-lookup"><span data-stu-id="73481-184">The [About page](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample/EnvironmentsSample/Pages/About.cshtml) from the [sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/3.1sample) displays the value of `IWebHostEnvironment.EnvironmentName`.</span></span>
 
-<span data-ttu-id="2636e-157">Při vytváření hostitele určuje prostředí aplikace poslední nastavení prostředí přečtené aplikací.</span><span class="sxs-lookup"><span data-stu-id="2636e-157">When the host is built, the last environment setting read by the app determines the app's environment.</span></span> <span data-ttu-id="2636e-158">Prostředí aplikace nelze změnit, když je aplikace spuštěná.</span><span class="sxs-lookup"><span data-stu-id="2636e-158">The app's environment can't be changed while the app is running.</span></span>
+### <a name="azure-app-service"></a><span data-ttu-id="73481-185">Azure App Service</span><span class="sxs-lookup"><span data-stu-id="73481-185">Azure App Service</span></span>
 
-### <a name="environment-variable-or-platform-setting"></a><span data-ttu-id="2636e-159">Nastavení proměnné prostředí nebo platformy</span><span class="sxs-lookup"><span data-stu-id="2636e-159">Environment variable or platform setting</span></span>
+<span data-ttu-id="73481-186">Pokud chcete nastavit prostředí v [Azure App Service](https://azure.microsoft.com/services/app-service/), proveďte následující kroky:</span><span class="sxs-lookup"><span data-stu-id="73481-186">To set the environment in [Azure App Service](https://azure.microsoft.com/services/app-service/), perform the following steps:</span></span>
 
-#### <a name="azure-app-service"></a><span data-ttu-id="2636e-160">Azure App Service</span><span class="sxs-lookup"><span data-stu-id="2636e-160">Azure App Service</span></span>
+1. <span data-ttu-id="73481-187">Vyberte aplikaci z okna **App Services** .</span><span class="sxs-lookup"><span data-stu-id="73481-187">Select the app from the **App Services** blade.</span></span>
+1. <span data-ttu-id="73481-188">Ve skupině **Nastavení** vyberte okno **Konfigurace** .</span><span class="sxs-lookup"><span data-stu-id="73481-188">In the **Settings** group, select the **Configuration** blade.</span></span>
+1. <span data-ttu-id="73481-189">Na kartě **nastavení aplikace** vyberte možnost **nové nastavení aplikace**.</span><span class="sxs-lookup"><span data-stu-id="73481-189">In the **Application settings** tab, select **New application setting**.</span></span>
+1. <span data-ttu-id="73481-190">V okně **Přidat nebo upravit nastavení aplikace** zadejte `ASPNETCORE_ENVIRONMENT` **název**.</span><span class="sxs-lookup"><span data-stu-id="73481-190">In the **Add/Edit application setting** window, provide `ASPNETCORE_ENVIRONMENT` for the **Name**.</span></span> <span data-ttu-id="73481-191">V poli **hodnota**zadejte prostředí (například `Staging` ).</span><span class="sxs-lookup"><span data-stu-id="73481-191">For **Value**, provide the environment (for example, `Staging`).</span></span>
+1. <span data-ttu-id="73481-192">Zaškrtněte políčko **nastavení slotu nasazení** , pokud chcete, aby nastavení prostředí zůstalo v aktuální pozici, když jsou sloty nasazení prohozeny.</span><span class="sxs-lookup"><span data-stu-id="73481-192">Select the **Deployment slot setting** check box if you wish the environment setting to remain with the current slot when deployment slots are swapped.</span></span> <span data-ttu-id="73481-193">Další informace najdete v tématu [Nastavení přípravného prostředí v Azure App Service](/azure/app-service/web-sites-staged-publishing) v dokumentaci k Azure.</span><span class="sxs-lookup"><span data-stu-id="73481-193">For more information, see [Set up staging environments in Azure App Service](/azure/app-service/web-sites-staged-publishing) in the Azure documentation.</span></span>
+1. <span data-ttu-id="73481-194">Výběrem **OK** zavřete okno **Přidat/upravit nastavení aplikace** .</span><span class="sxs-lookup"><span data-stu-id="73481-194">Select **OK** to close the **Add/Edit application setting** window.</span></span>
+1. <span data-ttu-id="73481-195">V horní části okna **Konfigurace** vyberte **Uložit** .</span><span class="sxs-lookup"><span data-stu-id="73481-195">Select **Save** at the top of the **Configuration** blade.</span></span>
 
-<span data-ttu-id="2636e-161">Chcete-li nastavit prostředí ve [službě Azure App Service](https://azure.microsoft.com/services/app-service/), proveďte následující kroky:</span><span class="sxs-lookup"><span data-stu-id="2636e-161">To set the environment in [Azure App Service](https://azure.microsoft.com/services/app-service/), perform the following steps:</span></span>
+<span data-ttu-id="73481-196">Azure App Service automaticky restartuje aplikaci po přidání, změně nebo odstranění nastavení aplikace v Azure Portal.</span><span class="sxs-lookup"><span data-stu-id="73481-196">Azure App Service automatically restarts the app after an app setting is added, changed, or deleted in the Azure portal.</span></span>
 
-1. <span data-ttu-id="2636e-162">Vyberte aplikaci z okna **Služby aplikací.**</span><span class="sxs-lookup"><span data-stu-id="2636e-162">Select the app from the **App Services** blade.</span></span>
-1. <span data-ttu-id="2636e-163">Ve skupině **Nastavení** vyberte okno **Konfigurace.**</span><span class="sxs-lookup"><span data-stu-id="2636e-163">In the **Settings** group, select the **Configuration** blade.</span></span>
-1. <span data-ttu-id="2636e-164">Na kartě **Nastavení aplikace** vyberte Nastavení **nové aplikace**.</span><span class="sxs-lookup"><span data-stu-id="2636e-164">In the **Application settings** tab, select **New application setting**.</span></span>
-1. <span data-ttu-id="2636e-165">V okně Nastavení aplikace Přidat `ASPNETCORE_ENVIRONMENT` nebo **upravit** zadejte **název**.</span><span class="sxs-lookup"><span data-stu-id="2636e-165">In the **Add/Edit application setting** window, provide `ASPNETCORE_ENVIRONMENT` for the **Name**.</span></span> <span data-ttu-id="2636e-166">Pro **hodnotu**zadejte prostředí `Staging`(například).</span><span class="sxs-lookup"><span data-stu-id="2636e-166">For **Value**, provide the environment (for example, `Staging`).</span></span>
-1. <span data-ttu-id="2636e-167">Pokud chcete, aby nastavení prostředí zůstalo s aktuální mašleí při výměně slotů nasazení, zaškrtněte políčko **Nastavení patice nasazení.**</span><span class="sxs-lookup"><span data-stu-id="2636e-167">Select the **Deployment slot setting** check box if you wish the environment setting to remain with the current slot when deployment slots are swapped.</span></span> <span data-ttu-id="2636e-168">Další informace najdete v tématu [Nastavení pracovních prostředí ve službě Azure App Service](/azure/app-service/web-sites-staged-publishing) v dokumentaci k Azure.</span><span class="sxs-lookup"><span data-stu-id="2636e-168">For more information, see [Set up staging environments in Azure App Service](/azure/app-service/web-sites-staged-publishing) in the Azure documentation.</span></span>
-1. <span data-ttu-id="2636e-169">Výběrem **možnosti OK** zavřete okno **Nastavení aplikace Přidat nebo upravit.**</span><span class="sxs-lookup"><span data-stu-id="2636e-169">Select **OK** to close the **Add/Edit application setting** window.</span></span>
-1. <span data-ttu-id="2636e-170">V horní části okna **Konfigurace** vyberte **Uložit.**</span><span class="sxs-lookup"><span data-stu-id="2636e-170">Select **Save** at the top of the **Configuration** blade.</span></span>
+### <a name="windows"></a><span data-ttu-id="73481-197">Windows</span><span class="sxs-lookup"><span data-stu-id="73481-197">Windows</span></span>
 
-<span data-ttu-id="2636e-171">Služba Azure App Service aplikaci automaticky restartuje po přidání, změně nebo odstranění na webu Azure Portal (proměnná prostředí).</span><span class="sxs-lookup"><span data-stu-id="2636e-171">Azure App Service automatically restarts the app after an app setting (environment variable) is added, changed, or deleted in the Azure portal.</span></span>
+<span data-ttu-id="73481-198">Hodnoty prostředí v *launchSettings.jspři* přepisování hodnot nastavených v prostředí systému.</span><span class="sxs-lookup"><span data-stu-id="73481-198">Environment values in *launchSettings.json* override values set in the system environment.</span></span>
 
-#### <a name="windows"></a><span data-ttu-id="2636e-172">Windows</span><span class="sxs-lookup"><span data-stu-id="2636e-172">Windows</span></span>
+<span data-ttu-id="73481-199">K nastavení `ASPNETCORE_ENVIRONMENT` pro aktuální relaci při zahájení aplikace pomocí [spuštění dotnet](/dotnet/core/tools/dotnet-run)se použijí následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="73481-199">To set the `ASPNETCORE_ENVIRONMENT` for the current session when the app is started using [dotnet run](/dotnet/core/tools/dotnet-run), the following commands are used:</span></span>
 
-<span data-ttu-id="2636e-173">Chcete-li `ASPNETCORE_ENVIRONMENT` nastavit aktuální relaci při spuštění aplikace pomocí [dotnet run](/dotnet/core/tools/dotnet-run), použijí se následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="2636e-173">To set the `ASPNETCORE_ENVIRONMENT` for the current session when the app is started using [dotnet run](/dotnet/core/tools/dotnet-run), the following commands are used:</span></span>
-
-<span data-ttu-id="2636e-174">**Příkazového řádku**</span><span class="sxs-lookup"><span data-stu-id="2636e-174">**Command prompt**</span></span>
+<span data-ttu-id="73481-200">**Příkazový řádek**</span><span class="sxs-lookup"><span data-stu-id="73481-200">**Command prompt**</span></span>
 
 ```console
-set ASPNETCORE_ENVIRONMENT=Development
+set ASPNETCORE_ENVIRONMENT=Staging
+dotnet run --no-launch-profile
 ```
 
-<span data-ttu-id="2636e-175">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="2636e-175">**PowerShell**</span></span>
+<span data-ttu-id="73481-201">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="73481-201">**PowerShell**</span></span>
 
 ```powershell
-$Env:ASPNETCORE_ENVIRONMENT = "Development"
+$Env:ASPNETCORE_ENVIRONMENT = "Staging"
+dotnet run --no-launch-profile
 ```
 
-<span data-ttu-id="2636e-176">Tyto příkazy se projeví pouze pro aktuální okno.</span><span class="sxs-lookup"><span data-stu-id="2636e-176">These commands only take effect for the current window.</span></span> <span data-ttu-id="2636e-177">Když je okno zavřené, `ASPNETCORE_ENVIRONMENT` nastavení se vrátí na výchozí nastavení nebo hodnotu počítače.</span><span class="sxs-lookup"><span data-stu-id="2636e-177">When the window is closed, the `ASPNETCORE_ENVIRONMENT` setting reverts to the default setting or machine value.</span></span>
+<span data-ttu-id="73481-202">Předchozí příkaz nastaví `ASPNETCORE_ENVIRONMENT` pouze procesy spouštěné z tohoto příkazového okna.</span><span class="sxs-lookup"><span data-stu-id="73481-202">The preceding command sets `ASPNETCORE_ENVIRONMENT` only for processes launched from that command window.</span></span>
 
-<span data-ttu-id="2636e-178">Chcete-li nastavit hodnotu globálně v systému Windows, použijte některý z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="2636e-178">To set the value globally in Windows, use either of the following approaches:</span></span>
+<span data-ttu-id="73481-203">K nastavení hodnoty globálně ve Windows použijte některý z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="73481-203">To set the value globally in Windows, use either of the following approaches:</span></span>
 
-* <span data-ttu-id="2636e-179">Otevřete `ASPNETCORE_ENVIRONMENT` nastavení > **systému Ovládací** **panely:** > **System**</span><span class="sxs-lookup"><span data-stu-id="2636e-179">Open the **Control Panel** > **System** > **Advanced system settings** and add or edit the `ASPNETCORE_ENVIRONMENT` value:</span></span>
+* <span data-ttu-id="73481-204">Otevřete **ovládací panel** > **System** > **Upřesnit systémová nastavení** a přidejte nebo upravte `ASPNETCORE_ENVIRONMENT` hodnotu:</span><span class="sxs-lookup"><span data-stu-id="73481-204">Open the **Control Panel** > **System** > **Advanced system settings** and add or edit the `ASPNETCORE_ENVIRONMENT` value:</span></span>
 
   ![Rozšířené vlastnosti systému](environments/_static/systemsetting_environment.png)
 
-  ![Proměnná jádrového prostředí ASPNET](environments/_static/windows_aspnetcore_environment.png)
+  ![Proměnná prostředí ASPNET Core](environments/_static/windows_aspnetcore_environment.png)
 
-* <span data-ttu-id="2636e-182">Otevřete příkazový řádek `setx` pro správu a použijte příkaz `[Environment]::SetEnvironmentVariable`nebo příkaz PowerShell pro správu a použijte :</span><span class="sxs-lookup"><span data-stu-id="2636e-182">Open an administrative command prompt and use the `setx` command or open an administrative PowerShell command prompt and use `[Environment]::SetEnvironmentVariable`:</span></span>
+* <span data-ttu-id="73481-207">Otevřete příkazový řádek pro správu a použijte `setx` příkaz nebo otevřete příkazový řádek prostředí PowerShell pro správu a použijte příkaz `[Environment]::SetEnvironmentVariable` :</span><span class="sxs-lookup"><span data-stu-id="73481-207">Open an administrative command prompt and use the `setx` command or open an administrative PowerShell command prompt and use `[Environment]::SetEnvironmentVariable`:</span></span>
 
-  <span data-ttu-id="2636e-183">**Příkazového řádku**</span><span class="sxs-lookup"><span data-stu-id="2636e-183">**Command prompt**</span></span>
+  <span data-ttu-id="73481-208">**Příkazový řádek**</span><span class="sxs-lookup"><span data-stu-id="73481-208">**Command prompt**</span></span>
 
   ```console
-  setx ASPNETCORE_ENVIRONMENT Development /M
+  setx ASPNETCORE_ENVIRONMENT Staging /M
   ```
 
-  <span data-ttu-id="2636e-184">Přepínač `/M` označuje nastavení proměnné prostředí na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="2636e-184">The `/M` switch indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="2636e-185">Pokud `/M` se přepínač nepoužívá, je pro uživatelský účet nastavena proměnná prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-185">If the `/M` switch isn't used, the environment variable is set for the user account.</span></span>
+  <span data-ttu-id="73481-209">`/M`Přepínač označuje nastavení proměnné prostředí na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="73481-209">The `/M` switch indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="73481-210">Pokud `/M` přepínač není použit, je pro uživatelský účet nastavena proměnná prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-210">If the `/M` switch isn't used, the environment variable is set for the user account.</span></span>
 
-  <span data-ttu-id="2636e-186">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="2636e-186">**PowerShell**</span></span>
+  <span data-ttu-id="73481-211">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="73481-211">**PowerShell**</span></span>
 
   ```powershell
-  [Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development", "Machine")
+  [Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Staging", "Machine")
   ```
 
-  <span data-ttu-id="2636e-187">Hodnota `Machine` možnosti označuje nastavení proměnné prostředí na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="2636e-187">The `Machine` option value indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="2636e-188">Pokud se hodnota možnosti změní na `User`, je pro uživatelský účet nastavena proměnná prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-188">If the option value is changed to `User`, the environment variable is set for the user account.</span></span>
+  <span data-ttu-id="73481-212">`Machine`Hodnota možnosti určuje nastavení proměnné prostředí na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="73481-212">The `Machine` option value indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="73481-213">Pokud je hodnota možnosti změněna na `User` , je pro uživatelský účet nastavena proměnná prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-213">If the option value is changed to `User`, the environment variable is set for the user account.</span></span>
 
-<span data-ttu-id="2636e-189">Když `ASPNETCORE_ENVIRONMENT` je proměnná prostředí nastavena globálně, projeví se v `dotnet run` libovolném příkazovém okně otevřeném po nastavení hodnoty.</span><span class="sxs-lookup"><span data-stu-id="2636e-189">When the `ASPNETCORE_ENVIRONMENT` environment variable is set globally, it takes effect for `dotnet run` in any command window opened after the value is set.</span></span>
+<span data-ttu-id="73481-214">Pokud `ASPNETCORE_ENVIRONMENT` je proměnná prostředí nastavena globálně, projeví se `dotnet run` v jakémkoli příkazovém okně otevřeném po nastavení hodnoty.</span><span class="sxs-lookup"><span data-stu-id="73481-214">When the `ASPNETCORE_ENVIRONMENT` environment variable is set globally, it takes effect for `dotnet run` in any command window opened after the value is set.</span></span> <span data-ttu-id="73481-215">Hodnoty prostředí v *launchSettings.jspři* přepisování hodnot nastavených v prostředí systému.</span><span class="sxs-lookup"><span data-stu-id="73481-215">Environment values in *launchSettings.json* override values set in the system environment.</span></span>
 
-<span data-ttu-id="2636e-190">**Souboru web.config**</span><span class="sxs-lookup"><span data-stu-id="2636e-190">**web.config**</span></span>
+<span data-ttu-id="73481-216">**web.config**</span><span class="sxs-lookup"><span data-stu-id="73481-216">**web.config**</span></span>
 
-<span data-ttu-id="2636e-191">Chcete-li `ASPNETCORE_ENVIRONMENT` nastavit proměnnou prostředí pomocí *souboru web.config*, přečtěte si část *Nastavení proměnných prostředí* v aplikaci <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.</span><span class="sxs-lookup"><span data-stu-id="2636e-191">To set the `ASPNETCORE_ENVIRONMENT` environment variable with *web.config*, see the *Setting environment variables* section of <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.</span></span>
+<span data-ttu-id="73481-217">Chcete-li nastavit `ASPNETCORE_ENVIRONMENT` proměnnou prostředí pomocí *web.config*, přečtěte si část *nastavení proměnných prostředí* v tématu <xref:host-and-deploy/aspnet-core-module#setting-environment-variables> .</span><span class="sxs-lookup"><span data-stu-id="73481-217">To set the `ASPNETCORE_ENVIRONMENT` environment variable with *web.config*, see the *Setting environment variables* section of <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.</span></span>
 
-<span data-ttu-id="2636e-192">**Soubor projektu nebo profil publikování**</span><span class="sxs-lookup"><span data-stu-id="2636e-192">**Project file or publish profile**</span></span>
+<span data-ttu-id="73481-218">**Projektový soubor nebo profil publikování**</span><span class="sxs-lookup"><span data-stu-id="73481-218">**Project file or publish profile**</span></span>
 
-<span data-ttu-id="2636e-193">**Pro nasazení služby Windows IIS:** Zahrňte `<EnvironmentName>` vlastnost do [profilu publikování (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) nebo do souboru projektu.</span><span class="sxs-lookup"><span data-stu-id="2636e-193">**For Windows IIS deployments:** Include the `<EnvironmentName>` property in the [publish profile (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) or project file.</span></span> <span data-ttu-id="2636e-194">Tento přístup nastaví prostředí v *web.config* při publikování projektu:</span><span class="sxs-lookup"><span data-stu-id="2636e-194">This approach sets the environment in *web.config* when the project is published:</span></span>
+<span data-ttu-id="73481-219">**Pro nasazení služby Windows IIS:** Zahrňte `<EnvironmentName>` vlastnost do [profilu publikování (. pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) nebo souboru projektu.</span><span class="sxs-lookup"><span data-stu-id="73481-219">**For Windows IIS deployments:** Include the `<EnvironmentName>` property in the [publish profile (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) or project file.</span></span> <span data-ttu-id="73481-220">Tento přístup nastaví prostředí v *web.config* při publikování projektu:</span><span class="sxs-lookup"><span data-stu-id="73481-220">This approach sets the environment in *web.config* when the project is published:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -257,237 +241,126 @@ $Env:ASPNETCORE_ENVIRONMENT = "Development"
 </PropertyGroup>
 ```
 
-<span data-ttu-id="2636e-195">**Na fond aplikací služby IIS**</span><span class="sxs-lookup"><span data-stu-id="2636e-195">**Per IIS Application Pool**</span></span>
+<span data-ttu-id="73481-221">**Pro fond aplikací služby IIS**</span><span class="sxs-lookup"><span data-stu-id="73481-221">**Per IIS Application Pool**</span></span>
 
-<span data-ttu-id="2636e-196">Pokud chcete `ASPNETCORE_ENVIRONMENT` nastavit proměnnou prostředí pro aplikaci spuštěnou v izolovaném fondu aplikací (podporovaná ve službě IIS 10.0 nebo novější), přečtěte si část *příkazu AppCmd.exe* v tématu Proměnné [ &lt;&gt; prostředí proměnných](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-196">To set the `ASPNETCORE_ENVIRONMENT` environment variable for an app running in an isolated Application Pool (supported on IIS 10.0 or later), see the *AppCmd.exe command* section of the [Environment Variables &lt;environmentVariables&gt;](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) topic.</span></span> <span data-ttu-id="2636e-197">Když `ASPNETCORE_ENVIRONMENT` je proměnná prostředí nastavená pro fond aplikací, její hodnota přepíše nastavení na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="2636e-197">When the `ASPNETCORE_ENVIRONMENT` environment variable is set for an app pool, its value overrides a setting at the system level.</span></span>
+<span data-ttu-id="73481-222">Pokud chcete nastavit `ASPNETCORE_ENVIRONMENT` proměnnou prostředí pro aplikaci spuštěnou v izolovaném fondu aplikací (podporovaném ve službě IIS 10,0 nebo novější), přečtěte si část *AppCmd.exe příkazu* v tématu [ &lt; environmentVariables &gt; Variables (prostředí](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) ).</span><span class="sxs-lookup"><span data-stu-id="73481-222">To set the `ASPNETCORE_ENVIRONMENT` environment variable for an app running in an isolated Application Pool (supported on IIS 10.0 or later), see the *AppCmd.exe command* section of the [Environment Variables &lt;environmentVariables&gt;](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) topic.</span></span> <span data-ttu-id="73481-223">Když `ASPNETCORE_ENVIRONMENT` je pro fond aplikací nastavená proměnná prostředí, přepíše její hodnota nastavení na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="73481-223">When the `ASPNETCORE_ENVIRONMENT` environment variable is set for an app pool, its value overrides a setting at the system level.</span></span>
 
-> [!IMPORTANT]
-> <span data-ttu-id="2636e-198">Při hostování aplikace ve službě IIS `ASPNETCORE_ENVIRONMENT` a přidávání nebo změně proměnné prostředí použijte některý z následujících přístupů, aby se nová hodnota zvedla aplikacemi:</span><span class="sxs-lookup"><span data-stu-id="2636e-198">When hosting an app in IIS and adding or changing the `ASPNETCORE_ENVIRONMENT` environment variable, use any one of the following approaches to have the new value picked up by apps:</span></span>
->
-> * <span data-ttu-id="2636e-199">Provedení `net stop was /y` následované `net start w3svc` příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="2636e-199">Execute `net stop was /y` followed by `net start w3svc` from a command prompt.</span></span>
-> * <span data-ttu-id="2636e-200">Restartujte server.</span><span class="sxs-lookup"><span data-stu-id="2636e-200">Restart the server.</span></span>
+<span data-ttu-id="73481-224">Při hostování aplikace ve službě IIS a přidání nebo změny `ASPNETCORE_ENVIRONMENT` proměnné prostředí použijte libovolný z následujících přístupů, aby byla nová hodnota vyzvednuta aplikacemi:</span><span class="sxs-lookup"><span data-stu-id="73481-224">When hosting an app in IIS and adding or changing the `ASPNETCORE_ENVIRONMENT` environment variable, use any one of the following approaches to have the new value picked up by apps:</span></span>
 
-#### <a name="macos"></a><span data-ttu-id="2636e-201">macOS</span><span class="sxs-lookup"><span data-stu-id="2636e-201">macOS</span></span>
+* <span data-ttu-id="73481-225">Spustí `net stop was /y` a pak `net start w3svc` z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="73481-225">Execute `net stop was /y` followed by `net start w3svc` from a command prompt.</span></span>
+* <span data-ttu-id="73481-226">Restartujte server.</span><span class="sxs-lookup"><span data-stu-id="73481-226">Restart the server.</span></span>
 
-<span data-ttu-id="2636e-202">Nastavení aktuálního prostředí pro macOS lze provést in-line při spuštění aplikace:</span><span class="sxs-lookup"><span data-stu-id="2636e-202">Setting the current environment for macOS can be performed in-line when running the app:</span></span>
+#### <a name="macos"></a><span data-ttu-id="73481-227">macOS</span><span class="sxs-lookup"><span data-stu-id="73481-227">macOS</span></span>
 
-```bash
-ASPNETCORE_ENVIRONMENT=Development dotnet run
-```
-
-<span data-ttu-id="2636e-203">Případně nastavte prostředí s `export` před spuštěním aplikace:</span><span class="sxs-lookup"><span data-stu-id="2636e-203">Alternatively, set the environment with `export` prior to running the app:</span></span>
+<span data-ttu-id="73481-228">Nastavení aktuálního prostředí pro macOS se dá při spuštění aplikace provést na řádku:</span><span class="sxs-lookup"><span data-stu-id="73481-228">Setting the current environment for macOS can be performed in-line when running the app:</span></span>
 
 ```bash
-export ASPNETCORE_ENVIRONMENT=Development
+ASPNETCORE_ENVIRONMENT=Staging dotnet run
 ```
 
-<span data-ttu-id="2636e-204">Proměnné prostředí na úrovni počítače jsou nastaveny v souboru *%.bashrc* nebo *.bash_profile.*</span><span class="sxs-lookup"><span data-stu-id="2636e-204">Machine-level environment variables are set in the *.bashrc* or *.bash_profile* file.</span></span> <span data-ttu-id="2636e-205">Upravte soubor pomocí libovolného textového editoru.</span><span class="sxs-lookup"><span data-stu-id="2636e-205">Edit the file using any text editor.</span></span> <span data-ttu-id="2636e-206">Přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="2636e-206">Add the following statement:</span></span>
+<span data-ttu-id="73481-229">Případně můžete nastavit prostředí pomocí `export` před spuštěním aplikace:</span><span class="sxs-lookup"><span data-stu-id="73481-229">Alternatively, set the environment with `export` prior to running the app:</span></span>
 
 ```bash
-export ASPNETCORE_ENVIRONMENT=Development
+export ASPNETCORE_ENVIRONMENT=Staging
 ```
 
-#### <a name="linux"></a><span data-ttu-id="2636e-207">Linux</span><span class="sxs-lookup"><span data-stu-id="2636e-207">Linux</span></span>
+<span data-ttu-id="73481-230">Proměnné prostředí na úrovni počítače jsou nastaveny v souboru *. bashrc* nebo *. bash_profile* .</span><span class="sxs-lookup"><span data-stu-id="73481-230">Machine-level environment variables are set in the *.bashrc* or *.bash_profile* file.</span></span> <span data-ttu-id="73481-231">Upravte soubor pomocí libovolného textového editoru.</span><span class="sxs-lookup"><span data-stu-id="73481-231">Edit the file using any text editor.</span></span> <span data-ttu-id="73481-232">Přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="73481-232">Add the following statement:</span></span>
 
-<span data-ttu-id="2636e-208">Pro distribuce Linuxu `export` použijte příkaz na příkazovém řádku pro nastavení proměnných na základě relace a *bash_profile* soubor pro nastavení prostředí na úrovni počítače.</span><span class="sxs-lookup"><span data-stu-id="2636e-208">For Linux distros, use the `export` command at a command prompt for session-based variable settings and *bash_profile* file for machine-level environment settings.</span></span>
-
-### <a name="set-the-environment-in-code"></a><span data-ttu-id="2636e-209">Nastavení prostředí v kódu</span><span class="sxs-lookup"><span data-stu-id="2636e-209">Set the environment in code</span></span>
-
-<span data-ttu-id="2636e-210">Zavolejte <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseEnvironment*> při budování hostitele.</span><span class="sxs-lookup"><span data-stu-id="2636e-210">Call <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseEnvironment*> when building the host.</span></span> <span data-ttu-id="2636e-211">Viz třída <xref:fundamentals/host/generic-host#environmentname>.</span><span class="sxs-lookup"><span data-stu-id="2636e-211">See <xref:fundamentals/host/generic-host#environmentname>.</span></span>
-
-
-### <a name="configuration-by-environment"></a><span data-ttu-id="2636e-212">Konfigurace podle prostředí</span><span class="sxs-lookup"><span data-stu-id="2636e-212">Configuration by environment</span></span>
-
-<span data-ttu-id="2636e-213">Chcete-li načíst konfiguraci podle prostředí, doporučujeme:</span><span class="sxs-lookup"><span data-stu-id="2636e-213">To load configuration by environment, we recommend:</span></span>
-
-* <span data-ttu-id="2636e-214">*soubory nastavení aplikace* (*appsettings.{ prostředí}.json*).</span><span class="sxs-lookup"><span data-stu-id="2636e-214">*appsettings* files (*appsettings.{Environment}.json*).</span></span> <span data-ttu-id="2636e-215">Viz třída <xref:fundamentals/configuration/index#json-configuration-provider>.</span><span class="sxs-lookup"><span data-stu-id="2636e-215">See <xref:fundamentals/configuration/index#json-configuration-provider>.</span></span>
-* <span data-ttu-id="2636e-216">Proměnné prostředí (nastavené v každém systému, kde je aplikace hostována).</span><span class="sxs-lookup"><span data-stu-id="2636e-216">Environment variables (set on each system where the app is hosted).</span></span> <span data-ttu-id="2636e-217">Zobrazit <xref:fundamentals/host/generic-host#environmentname> <xref:security/app-secrets#environment-variables>a .</span><span class="sxs-lookup"><span data-stu-id="2636e-217">See <xref:fundamentals/host/generic-host#environmentname> and <xref:security/app-secrets#environment-variables>.</span></span>
-* <span data-ttu-id="2636e-218">Správce tajných barev (pouze ve vývojovém prostředí).</span><span class="sxs-lookup"><span data-stu-id="2636e-218">Secret Manager (in the Development environment only).</span></span> <span data-ttu-id="2636e-219">Viz třída <xref:security/app-secrets>.</span><span class="sxs-lookup"><span data-stu-id="2636e-219">See <xref:security/app-secrets>.</span></span>
-
-## <a name="environment-based-startup-class-and-methods"></a><span data-ttu-id="2636e-220">Třída a metody startupu založené na prostředí</span><span class="sxs-lookup"><span data-stu-id="2636e-220">Environment-based Startup class and methods</span></span>
-
-### <a name="inject-iwebhostenvironment-into-startupconfigure"></a><span data-ttu-id="2636e-221">Vložte prostředí IWebHostEnvironment do startupu.Konfigurace</span><span class="sxs-lookup"><span data-stu-id="2636e-221">Inject IWebHostEnvironment into Startup.Configure</span></span>
-
-<span data-ttu-id="2636e-222"><xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> Aplikujte `Startup.Configure`do něj .</span><span class="sxs-lookup"><span data-stu-id="2636e-222">Inject <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> into `Startup.Configure`.</span></span> <span data-ttu-id="2636e-223">Tento přístup je užitečný, když `Startup.Configure` aplikace vyžaduje pouze úpravu pro několik prostředí s minimálními rozdíly kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-223">This approach is useful when the app only requires adjusting `Startup.Configure` for a few environments with minimal code differences per environment.</span></span>
-
-```csharp
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    if (env.IsDevelopment())
-    {
-        // Development environment code
-    }
-    else
-    {
-        // Code for all other environments
-    }
-}
+```bash
+export ASPNETCORE_ENVIRONMENT=Staging
 ```
 
-### <a name="inject-iwebhostenvironment-into-the-startup-class"></a><span data-ttu-id="2636e-224">Vstříkněte prostředí IWebHostEnvironment do třídy Startup</span><span class="sxs-lookup"><span data-stu-id="2636e-224">Inject IWebHostEnvironment into the Startup class</span></span>
+#### <a name="linux"></a><span data-ttu-id="73481-233">Linux</span><span class="sxs-lookup"><span data-stu-id="73481-233">Linux</span></span>
 
-<span data-ttu-id="2636e-225">Vstříkněte <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do konstruktoru. `Startup`</span><span class="sxs-lookup"><span data-stu-id="2636e-225">Inject <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> into the `Startup` constructor.</span></span> <span data-ttu-id="2636e-226">Tento přístup je užitečný, když `Startup` aplikace vyžaduje konfiguraci pouze pro několik prostředí s minimálními rozdíly kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-226">This approach is useful when the app requires configuring `Startup` for only a few environments with minimal code differences per environment.</span></span>
+<span data-ttu-id="73481-234">U distribucí systému Linux použijte `export` příkaz na příkazovém řádku pro nastavení proměnné založené na relaci a soubor *bash_profile* pro nastavení prostředí na úrovni počítače.</span><span class="sxs-lookup"><span data-stu-id="73481-234">For Linux distributions, use the `export` command at a command prompt for session-based variable settings and *bash_profile* file for machine-level environment settings.</span></span>
 
-<span data-ttu-id="2636e-227">V následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="2636e-227">In the following example:</span></span>
+### <a name="set-the-environment-in-code"></a><span data-ttu-id="73481-235">Nastavení prostředí v kódu</span><span class="sxs-lookup"><span data-stu-id="73481-235">Set the environment in code</span></span>
 
-* <span data-ttu-id="2636e-228">Prostředí je drženo `_env` v terénu.</span><span class="sxs-lookup"><span data-stu-id="2636e-228">The environment is held in the `_env` field.</span></span>
-* <span data-ttu-id="2636e-229">`_env`se používá `ConfigureServices` `Configure` v a použít konfiguraci při spuštění na základě prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="2636e-229">`_env` is used in `ConfigureServices` and `Configure` to apply startup configuration based on the app's environment.</span></span>
+<span data-ttu-id="73481-236">Zavolejte <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseEnvironment*> při sestavování hostitele.</span><span class="sxs-lookup"><span data-stu-id="73481-236">Call <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseEnvironment*> when building the host.</span></span> <span data-ttu-id="73481-237">Viz třída <xref:fundamentals/host/generic-host#environmentname>.</span><span class="sxs-lookup"><span data-stu-id="73481-237">See <xref:fundamentals/host/generic-host#environmentname>.</span></span>
 
-```csharp
-public class Startup
-{
-    private readonly IWebHostEnvironment _env;
+### <a name="configuration-by-environment"></a><span data-ttu-id="73481-238">Konfigurace podle prostředí</span><span class="sxs-lookup"><span data-stu-id="73481-238">Configuration by environment</span></span>
 
-    public Startup(IWebHostEnvironment env)
-    {
-        _env = env;
-    }
+<span data-ttu-id="73481-239">Pokud chcete načíst konfiguraci podle prostředí, přečtěte si téma <xref:fundamentals/configuration/index#json-configuration-provider> .</span><span class="sxs-lookup"><span data-stu-id="73481-239">To load configuration by environment, see <xref:fundamentals/configuration/index#json-configuration-provider>.</span></span>
 
-    public void ConfigureServices(IServiceCollection services)
-    {
-        if (_env.IsDevelopment())
-        {
-            // Development environment code
-        }
-        else if (_env.IsStaging())
-        {
-            // Staging environment code
-        }
-        else
-        {
-            // Code for all other environments
-        }
-    }
+## <a name="environment-based-startup-class-and-methods"></a><span data-ttu-id="73481-240">Třída a metody spouštění založené na prostředí</span><span class="sxs-lookup"><span data-stu-id="73481-240">Environment-based Startup class and methods</span></span>
 
-    public void Configure(IApplicationBuilder app)
-    {
-        if (_env.IsDevelopment())
-        {
-            // Development environment code
-        }
-        else
-        {
-            // Code for all other environments
-        }
-    }
-}
-```
-### <a name="startup-class-conventions"></a><span data-ttu-id="2636e-230">Konvence spouštěcí třídy</span><span class="sxs-lookup"><span data-stu-id="2636e-230">Startup class conventions</span></span>
+### <a name="inject-iwebhostenvironment-into-the-startup-class"></a><span data-ttu-id="73481-241">Vložení IWebHostEnvironment do spouštěcí třídy</span><span class="sxs-lookup"><span data-stu-id="73481-241">Inject IWebHostEnvironment into the Startup class</span></span>
 
-<span data-ttu-id="2636e-231">Když se spustí ASP.NET základní aplikace, [spustí se třída Startup.](xref:fundamentals/startup)</span><span class="sxs-lookup"><span data-stu-id="2636e-231">When an ASP.NET Core app starts, the [Startup class](xref:fundamentals/startup) bootstraps the app.</span></span> <span data-ttu-id="2636e-232">Aplikace může definovat `Startup` samostatné třídy pro různá prostředí `StartupDevelopment`(například).</span><span class="sxs-lookup"><span data-stu-id="2636e-232">The app can define separate `Startup` classes for different environments (for example, `StartupDevelopment`).</span></span> <span data-ttu-id="2636e-233">Příslušná `Startup` třída je vybrána za běhu.</span><span class="sxs-lookup"><span data-stu-id="2636e-233">The appropriate `Startup` class is selected at runtime.</span></span> <span data-ttu-id="2636e-234">Třída, jejíž přípona názvu odpovídá aktuálnímu prostředí, je upřednostněna.</span><span class="sxs-lookup"><span data-stu-id="2636e-234">The class whose name suffix matches the current environment is prioritized.</span></span> <span data-ttu-id="2636e-235">Pokud odpovídající `Startup{EnvironmentName}` třída nebyla nalezena, třída se `Startup` používá.</span><span class="sxs-lookup"><span data-stu-id="2636e-235">If a matching `Startup{EnvironmentName}` class isn't found, the `Startup` class is used.</span></span> <span data-ttu-id="2636e-236">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pro několik prostředí s mnoha rozdíly kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-236">This approach is useful when the app requires configuring startup for several environments with many code differences per environment.</span></span>
+<span data-ttu-id="73481-242">Vložit <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do `Startup` konstruktoru.</span><span class="sxs-lookup"><span data-stu-id="73481-242">Inject <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> into the `Startup` constructor.</span></span> <span data-ttu-id="73481-243">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci `Startup` jenom pro několik prostředí s minimálními rozdíly v kódu pro každé prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-243">This approach is useful when the app requires configuring `Startup` for only a few environments with minimal code differences per environment.</span></span>
 
-<span data-ttu-id="2636e-237">Chcete-li implementovat třídy založené na `Startup` prostředí, vytvořte třídu `Startup{EnvironmentName}` pro každé prostředí, které se používá, a záložní `Startup` třídu:</span><span class="sxs-lookup"><span data-stu-id="2636e-237">To implement environment-based `Startup` classes, create a `Startup{EnvironmentName}` class for each environment in use and a fallback `Startup` class:</span></span>
+<span data-ttu-id="73481-244">V následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="73481-244">In the following example:</span></span>
 
-```csharp
-// Startup class to use in the Development environment
-public class StartupDevelopment
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-    }
+* <span data-ttu-id="73481-245">Prostředí se uchovává v `_env` poli.</span><span class="sxs-lookup"><span data-stu-id="73481-245">The environment is held in the `_env` field.</span></span>
+* <span data-ttu-id="73481-246">`_env`se používá v `ConfigureServices` `Configure` systémech a k aplikování konfigurace spuštění na základě prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="73481-246">`_env` is used in `ConfigureServices` and `Configure` to apply startup configuration based on the app's environment.</span></span>
 
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-    {
-    }
-}
+[!code-csharp[](environments/3.1sample/EnvironmentsSample/StartupInject.cs?name=snippet&highlight=3-11)]
 
-// Startup class to use in the Production environment
-public class StartupProduction
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-    }
+### <a name="startup-class-conventions"></a><span data-ttu-id="73481-247">Konvence třídy spouštění</span><span class="sxs-lookup"><span data-stu-id="73481-247">Startup class conventions</span></span>
 
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-    {
-    }
-}
+<span data-ttu-id="73481-248">Při spuštění aplikace ASP.NET Core spustí [spouštěcí třída](xref:fundamentals/startup) aplikaci.</span><span class="sxs-lookup"><span data-stu-id="73481-248">When an ASP.NET Core app starts, the [Startup class](xref:fundamentals/startup) bootstraps the app.</span></span> <span data-ttu-id="73481-249">Aplikace může definovat více `Startup` tříd pro různá prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-249">The app can define multiple `Startup` classes for different environments.</span></span> <span data-ttu-id="73481-250">Příslušná `Startup` Třída je vybrána za běhu.</span><span class="sxs-lookup"><span data-stu-id="73481-250">The appropriate `Startup` class is selected at runtime.</span></span> <span data-ttu-id="73481-251">Určuje prioritu třídy, jejíž přípona názvu odpovídá aktuálnímu prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-251">The class whose name suffix matches the current environment is prioritized.</span></span> <span data-ttu-id="73481-252">Pokud `Startup{EnvironmentName}` není nalezena shodná třída, `Startup` je použita třída.</span><span class="sxs-lookup"><span data-stu-id="73481-252">If a matching `Startup{EnvironmentName}` class isn't found, the `Startup` class is used.</span></span> <span data-ttu-id="73481-253">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pro několik prostředí s mnoha rozdíly v kódu pro každé prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-253">This approach is useful when the app requires configuring startup for several environments with many code differences per environment.</span></span> <span data-ttu-id="73481-254">Typické aplikace nebudou tento přístup potřebovat.</span><span class="sxs-lookup"><span data-stu-id="73481-254">Typical apps will not need this approach.</span></span>
 
-// Fallback Startup class
-// Selected if the environment doesn't match a Startup{EnvironmentName} class
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-    }
+<span data-ttu-id="73481-255">Chcete-li implementovat třídy založené na prostředí `Startup` , vytvořte `Startup{EnvironmentName}` třídy a záložní `Startup` třídu:</span><span class="sxs-lookup"><span data-stu-id="73481-255">To implement environment-based `Startup` classes, create a `Startup{EnvironmentName}` classes and a fallback `Startup` class:</span></span>
 
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-    {
-    }
-}
-```
+[!code-csharp[](environments/3.1sample/EnvironmentsSample/StartupClassConventions.cs?name=snippet)]
 
-[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+<span data-ttu-id="73481-256">Použijte přetížení [UseStartup (IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) , které přijímá název sestavení:</span><span class="sxs-lookup"><span data-stu-id="73481-256">Use the [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) overload that accepts an assembly name:</span></span>
 
-<span data-ttu-id="2636e-238">Použijte [přetížení UseStartup(IWebHostBuilder, String),](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) které přijímá název sestavení:</span><span class="sxs-lookup"><span data-stu-id="2636e-238">Use the [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) overload that accepts an assembly name:</span></span>
+[!code-csharp[](environments/3.1sample/EnvironmentsSample/Program.cs?name=snippet)]
 
-```csharp
-public static void Main(string[] args)
-{
-    CreateWebHostBuilder(args).Build().Run();
-}
+### <a name="startup-method-conventions"></a><span data-ttu-id="73481-257">Konvence metody spuštění</span><span class="sxs-lookup"><span data-stu-id="73481-257">Startup method conventions</span></span>
 
-public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-{
-    var assemblyName = typeof(Startup).GetTypeInfo().Assembly.FullName;
+<span data-ttu-id="73481-258">[Nakonfigurujte](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) a [ConfigureServiceste](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) podporu pro konkrétní verze formuláře a prostředí `Configure<EnvironmentName>` `Configure<EnvironmentName>Services` .</span><span class="sxs-lookup"><span data-stu-id="73481-258">[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) and [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) support environment-specific versions of the form `Configure<EnvironmentName>` and `Configure<EnvironmentName>Services`.</span></span> <span data-ttu-id="73481-259">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pro několik prostředí s mnoha rozdíly v kódu na prostředí:</span><span class="sxs-lookup"><span data-stu-id="73481-259">This approach is useful when the app requires configuring startup for several environments with many code differences per environment:</span></span>
 
-    return WebHost.CreateDefaultBuilder(args)
-        .UseStartup(assemblyName);
-}
-```
+[!code-csharp[](environments/3.1sample/EnvironmentsSample/StartupMethodConventions.cs?name=snippet)]
 
-### <a name="startup-method-conventions"></a><span data-ttu-id="2636e-239">Konvence metod spouštění</span><span class="sxs-lookup"><span data-stu-id="2636e-239">Startup method conventions</span></span>
-
-<span data-ttu-id="2636e-240">[Konfigurace](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) a [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) podporují verze formuláře `Configure<EnvironmentName>` a `Configure<EnvironmentName>Services`.</span><span class="sxs-lookup"><span data-stu-id="2636e-240">[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) and [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) support environment-specific versions of the form `Configure<EnvironmentName>` and `Configure<EnvironmentName>Services`.</span></span> <span data-ttu-id="2636e-241">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pro několik prostředí s mnoha rozdíly kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-241">This approach is useful when the app requires configuring startup for several environments with many code differences per environment.</span></span>
-
-[!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet_all&highlight=15,42)]
-
-## <a name="additional-resources"></a><span data-ttu-id="2636e-242">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="2636e-242">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="73481-260">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="73481-260">Additional resources</span></span>
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/configuration/index>
+* <xref:blazor/fundamentals/environments>
+
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="2636e-243">Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="2636e-243">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="73481-261">Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="73481-261">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="2636e-244">ASP.NET Core konfiguruje chování aplikací na základě runtime prostředí pomocí proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-244">ASP.NET Core configures app behavior based on the runtime environment using an environment variable.</span></span>
+<span data-ttu-id="73481-262">ASP.NET Core konfiguruje chování aplikace na základě běhového prostředí pomocí proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-262">ASP.NET Core configures app behavior based on the runtime environment using an environment variable.</span></span>
 
-<span data-ttu-id="2636e-245">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) [(jak stáhnout)](xref:index#how-to-download-a-sample)</span><span class="sxs-lookup"><span data-stu-id="2636e-245">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="73481-263">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="73481-263">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="environments"></a><span data-ttu-id="2636e-246">Prostředí</span><span class="sxs-lookup"><span data-stu-id="2636e-246">Environments</span></span>
+## <a name="environments"></a><span data-ttu-id="73481-264">Prostředí</span><span class="sxs-lookup"><span data-stu-id="73481-264">Environments</span></span>
 
-<span data-ttu-id="2636e-247">ASP.NET Core přečte `ASPNETCORE_ENVIRONMENT` proměnnou prostředí při spuštění aplikace a uloží hodnotu do [iHostingEnvironment.EnvironmentName](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName).</span><span class="sxs-lookup"><span data-stu-id="2636e-247">ASP.NET Core reads the environment variable `ASPNETCORE_ENVIRONMENT` at app startup and stores the value in [IHostingEnvironment.EnvironmentName](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName).</span></span> <span data-ttu-id="2636e-248">`ASPNETCORE_ENVIRONMENT`lze nastavit na libovolnou hodnotu, ale rámci jsou uvedeny tři hodnoty:</span><span class="sxs-lookup"><span data-stu-id="2636e-248">`ASPNETCORE_ENVIRONMENT` can be set to any value, but three values are provided by the framework:</span></span>
+<span data-ttu-id="73481-265">ASP.NET Core přečte proměnnou prostředí `ASPNETCORE_ENVIRONMENT` při spuštění aplikace a uloží hodnotu do [IHostingEnvironment. Environment](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName).</span><span class="sxs-lookup"><span data-stu-id="73481-265">ASP.NET Core reads the environment variable `ASPNETCORE_ENVIRONMENT` at app startup and stores the value in [IHostingEnvironment.EnvironmentName](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName).</span></span> <span data-ttu-id="73481-266">`ASPNETCORE_ENVIRONMENT`lze nastavit na libovolnou hodnotu, ale rozhraní poskytuje tři hodnoty:</span><span class="sxs-lookup"><span data-stu-id="73481-266">`ASPNETCORE_ENVIRONMENT` can be set to any value, but three values are provided by the framework:</span></span>
 
 * <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>
 * <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Staging>
-* <span data-ttu-id="2636e-249"><xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Production>(výchozí)</span><span class="sxs-lookup"><span data-stu-id="2636e-249"><xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Production> (default)</span></span>
+* <span data-ttu-id="73481-267"><xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Production>výchozí</span><span class="sxs-lookup"><span data-stu-id="73481-267"><xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Production> (default)</span></span>
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet)]
 
-<span data-ttu-id="2636e-250">Předcházející kód:</span><span class="sxs-lookup"><span data-stu-id="2636e-250">The preceding code:</span></span>
+<span data-ttu-id="73481-268">Předcházející kód:</span><span class="sxs-lookup"><span data-stu-id="73481-268">The preceding code:</span></span>
 
-* <span data-ttu-id="2636e-251">Volání [UseDeveloperExceptionPage,](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) `ASPNETCORE_ENVIRONMENT` pokud `Development`je nastavena na .</span><span class="sxs-lookup"><span data-stu-id="2636e-251">Calls [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) when `ASPNETCORE_ENVIRONMENT` is set to `Development`.</span></span>
-* <span data-ttu-id="2636e-252">Volá [UseExceptionHandler,](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) pokud `ASPNETCORE_ENVIRONMENT` je nastavena hodnota jedné z následujících možností:</span><span class="sxs-lookup"><span data-stu-id="2636e-252">Calls [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) when the value of `ASPNETCORE_ENVIRONMENT` is set one of the following:</span></span>
+* <span data-ttu-id="73481-269">Volá [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) , pokud `ASPNETCORE_ENVIRONMENT` je nastaven na `Development` .</span><span class="sxs-lookup"><span data-stu-id="73481-269">Calls [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) when `ASPNETCORE_ENVIRONMENT` is set to `Development`.</span></span>
+* <span data-ttu-id="73481-270">Volá [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) , pokud je hodnota `ASPNETCORE_ENVIRONMENT` nastavená na jednu z následujících hodnot:</span><span class="sxs-lookup"><span data-stu-id="73481-270">Calls [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) when the value of `ASPNETCORE_ENVIRONMENT` is set one of the following:</span></span>
 
   * `Staging`
   * `Production`
   * `Staging_2`
 
-<span data-ttu-id="2636e-253">Pomocník [značky prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) používá `IHostingEnvironment.EnvironmentName` hodnotu zahrnout nebo vyloučit značky v prvku:</span><span class="sxs-lookup"><span data-stu-id="2636e-253">The [Environment Tag Helper](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) uses the value of `IHostingEnvironment.EnvironmentName` to include or exclude markup in the element:</span></span>
+<span data-ttu-id="73481-271">[Pomocná značka prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) používá hodnotu `IHostingEnvironment.EnvironmentName` pro zahrnutí nebo vyloučení značek v elementu:</span><span class="sxs-lookup"><span data-stu-id="73481-271">The [Environment Tag Helper](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) uses the value of `IHostingEnvironment.EnvironmentName` to include or exclude markup in the element:</span></span>
 
 [!code-cshtml[](environments/sample-snapshot/EnvironmentsSample/Pages/About.cshtml)]
 
-<span data-ttu-id="2636e-254">Ve Windows a macOS nerozlišují proměnné a hodnoty prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-254">On Windows and macOS, environment variables and values aren't case sensitive.</span></span> <span data-ttu-id="2636e-255">Proměnné a hodnoty prostředí Linuxu jsou ve výchozím nastavení **rozlišovány malá a velká písmena.**</span><span class="sxs-lookup"><span data-stu-id="2636e-255">Linux environment variables and values are **case sensitive** by default.</span></span>
+<span data-ttu-id="73481-272">V systému Windows a macOS se v proměnných a hodnotách prostředí nerozlišují velká a malá písmena.</span><span class="sxs-lookup"><span data-stu-id="73481-272">On Windows and macOS, environment variables and values aren't case-sensitive.</span></span> <span data-ttu-id="73481-273">Ve výchozím nastavení se v proměnných a hodnotách prostředí Linux rozlišují velká a malá písmena.</span><span class="sxs-lookup"><span data-stu-id="73481-273">Linux environment variables and values are case-sensitive by default.</span></span>
 
-### <a name="development"></a><span data-ttu-id="2636e-256">Vývoj</span><span class="sxs-lookup"><span data-stu-id="2636e-256">Development</span></span>
+### <a name="development"></a><span data-ttu-id="73481-274">Vývoj</span><span class="sxs-lookup"><span data-stu-id="73481-274">Development</span></span>
 
-<span data-ttu-id="2636e-257">Vývojové prostředí může povolit funkce, které by neměly být vystaveny v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-257">The development environment can enable features that shouldn't be exposed in production.</span></span> <span data-ttu-id="2636e-258">Například ASP.NET základní šablony umožňují [stránku výjimky pro vývojáře](xref:fundamentals/error-handling#developer-exception-page) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-258">For example, the ASP.NET Core templates enable the [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page) in the development environment.</span></span>
+<span data-ttu-id="73481-275">Vývojové prostředí může povolit funkce, které by se neměly zveřejnit v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-275">The development environment can enable features that shouldn't be exposed in production.</span></span> <span data-ttu-id="73481-276">Například šablony ASP.NET Core umožňují [stránku s výjimkou vývojáře](xref:fundamentals/error-handling#developer-exception-page) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-276">For example, the ASP.NET Core templates enable the [Developer Exception Page](xref:fundamentals/error-handling#developer-exception-page) in the development environment.</span></span>
 
-<span data-ttu-id="2636e-259">Prostředí pro vývoj místního počítače lze nastavit v souboru *Properties\launchSettings.json* projektu.</span><span class="sxs-lookup"><span data-stu-id="2636e-259">The environment for local machine development can be set in the *Properties\launchSettings.json* file of the project.</span></span> <span data-ttu-id="2636e-260">Hodnoty prostředí nastavené v *launchSettings.json* přepíší hodnoty nastavené v systémovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-260">Environment values set in *launchSettings.json* override values set in the system environment.</span></span>
+<span data-ttu-id="73481-277">Prostředí pro vývoj místních počítačů lze nastavit v *Properties\launchSettings.jsv* souboru projektu.</span><span class="sxs-lookup"><span data-stu-id="73481-277">The environment for local machine development can be set in the *Properties\launchSettings.json* file of the project.</span></span> <span data-ttu-id="73481-278">Hodnoty prostředí nastavené v *launchSettings.jspři* přepisování hodnot nastavených v prostředí systému.</span><span class="sxs-lookup"><span data-stu-id="73481-278">Environment values set in *launchSettings.json* override values set in the system environment.</span></span>
 
-<span data-ttu-id="2636e-261">Následující JSON zobrazuje tři profily ze souboru *launchSettings.json:*</span><span class="sxs-lookup"><span data-stu-id="2636e-261">The following JSON shows three profiles from a *launchSettings.json* file:</span></span>
+<span data-ttu-id="73481-279">Následující JSON zobrazuje tři profily z *launchSettings.jsv* souboru:</span><span class="sxs-lookup"><span data-stu-id="73481-279">The following JSON shows three profiles from a *launchSettings.json* file:</span></span>
 
 ```json
 {
@@ -532,7 +405,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 ```
 
 > [!NOTE]
-> <span data-ttu-id="2636e-262">Vlastnost `applicationUrl` v *launchSettings.json* můžete zadat seznam adres URL serveru.</span><span class="sxs-lookup"><span data-stu-id="2636e-262">The `applicationUrl` property in *launchSettings.json* can specify a list of server URLs.</span></span> <span data-ttu-id="2636e-263">Použijte středník mezi adresami URL v seznamu:</span><span class="sxs-lookup"><span data-stu-id="2636e-263">Use a semicolon between the URLs in the list:</span></span>
+> <span data-ttu-id="73481-280">`applicationUrl`Vlastnost v *launchSettings.jsv* může určovat seznam adres URL serveru.</span><span class="sxs-lookup"><span data-stu-id="73481-280">The `applicationUrl` property in *launchSettings.json* can specify a list of server URLs.</span></span> <span data-ttu-id="73481-281">Použijte středník mezi adresami URL v seznamu:</span><span class="sxs-lookup"><span data-stu-id="73481-281">Use a semicolon between the URLs in the list:</span></span>
 >
 > ```json
 > "EnvironmentsSample": {
@@ -545,18 +418,18 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 > }
 > ```
 
-<span data-ttu-id="2636e-264">Při spuštění aplikace s [dotnet spustit](/dotnet/core/tools/dotnet-run), `"commandName": "Project"` první profil s se používá.</span><span class="sxs-lookup"><span data-stu-id="2636e-264">When the app is launched with [dotnet run](/dotnet/core/tools/dotnet-run), the first profile with `"commandName": "Project"` is used.</span></span> <span data-ttu-id="2636e-265">Hodnota `commandName` určuje webový server, který má být spuštěn.</span><span class="sxs-lookup"><span data-stu-id="2636e-265">The value of `commandName` specifies the web server to launch.</span></span> <span data-ttu-id="2636e-266">`commandName`může být některý z následujících:</span><span class="sxs-lookup"><span data-stu-id="2636e-266">`commandName` can be any one of the following:</span></span>
+<span data-ttu-id="73481-282">Když se aplikace spustí pomocí [příkazu dotnet](/dotnet/core/tools/dotnet-run), použije se první profil `"commandName": "Project"` .</span><span class="sxs-lookup"><span data-stu-id="73481-282">When the app is launched with [dotnet run](/dotnet/core/tools/dotnet-run), the first profile with `"commandName": "Project"` is used.</span></span> <span data-ttu-id="73481-283">Hodnota `commandName` Určuje webový server, který se má spustit.</span><span class="sxs-lookup"><span data-stu-id="73481-283">The value of `commandName` specifies the web server to launch.</span></span> <span data-ttu-id="73481-284">`commandName`může to být jedna z následujících:</span><span class="sxs-lookup"><span data-stu-id="73481-284">`commandName` can be any one of the following:</span></span>
 
 * `IISExpress`
 * `IIS`
-* <span data-ttu-id="2636e-267">`Project`(který spouští Kestrel)</span><span class="sxs-lookup"><span data-stu-id="2636e-267">`Project` (which launches Kestrel)</span></span>
+* <span data-ttu-id="73481-285">`Project`(která spouští Kestrel)</span><span class="sxs-lookup"><span data-stu-id="73481-285">`Project` (which launches Kestrel)</span></span>
 
-<span data-ttu-id="2636e-268">Při spuštění aplikace s [dotnet spustit](/dotnet/core/tools/dotnet-run):</span><span class="sxs-lookup"><span data-stu-id="2636e-268">When an app is launched with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
+<span data-ttu-id="73481-286">Když se aplikace spustí s použitím [příkazu dotnet](/dotnet/core/tools/dotnet-run):</span><span class="sxs-lookup"><span data-stu-id="73481-286">When an app is launched with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
 
-* <span data-ttu-id="2636e-269">*launchSettings.json* je přečten, pokud je k dispozici.</span><span class="sxs-lookup"><span data-stu-id="2636e-269">*launchSettings.json* is read if available.</span></span> <span data-ttu-id="2636e-270">`environmentVariables`nastavení v *launchSettings.json* přepsat proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-270">`environmentVariables` settings in *launchSettings.json* override environment variables.</span></span>
-* <span data-ttu-id="2636e-271">Zobrazí se hostitelské prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-271">The hosting environment is displayed.</span></span>
+* <span data-ttu-id="73481-287">*launchSettings.jszapnuto* je přečteno, pokud je k dispozici.</span><span class="sxs-lookup"><span data-stu-id="73481-287">*launchSettings.json* is read if available.</span></span> <span data-ttu-id="73481-288">`environmentVariables`nastavení v *launchSettings.jspři* přepisu proměnných prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-288">`environmentVariables` settings in *launchSettings.json* override environment variables.</span></span>
+* <span data-ttu-id="73481-289">Zobrazí se hostující prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-289">The hosting environment is displayed.</span></span>
 
-<span data-ttu-id="2636e-272">Následující výstup ukazuje aplikaci spuštěnou [s dotnet run](/dotnet/core/tools/dotnet-run):</span><span class="sxs-lookup"><span data-stu-id="2636e-272">The following output shows an app started with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
+<span data-ttu-id="73481-290">Následující výstup ukazuje aplikaci spuštěnou pomocí [příkazu dotnet](/dotnet/core/tools/dotnet-run):</span><span class="sxs-lookup"><span data-stu-id="73481-290">The following output shows an app started with [dotnet run](/dotnet/core/tools/dotnet-run):</span></span>
 
 ```bash
 PS C:\Websites\EnvironmentsSample> dotnet run
@@ -567,16 +440,16 @@ Now listening on: http://localhost:54340
 Application started. Press Ctrl+C to shut down.
 ```
 
-<span data-ttu-id="2636e-273">Karta **Ladění** vlastností projektu sady Visual Studio poskytuje grafické uživatelské rozhraní pro úpravu souboru *launchSettings.json:*</span><span class="sxs-lookup"><span data-stu-id="2636e-273">The Visual Studio project properties **Debug** tab provides a GUI to edit the *launchSettings.json* file:</span></span>
+<span data-ttu-id="73481-291">Karta **ladění** vlastností projektu sady Visual Studio poskytuje grafické uživatelské rozhraní pro úpravu *launchSettings.jsv* souboru:</span><span class="sxs-lookup"><span data-stu-id="73481-291">The Visual Studio project properties **Debug** tab provides a GUI to edit the *launchSettings.json* file:</span></span>
 
-![Vlastnosti projektu Nastavení proměnných prostředí](environments/_static/project-properties-debug.png)
+![Vlastnosti projektu nastavení proměnných prostředí](environments/_static/project-properties-debug.png)
 
-<span data-ttu-id="2636e-275">Změny provedené v profilech projektu se nemusí projevit, dokud nebude webový server restartován.</span><span class="sxs-lookup"><span data-stu-id="2636e-275">Changes made to project profiles may not take effect until the web server is restarted.</span></span> <span data-ttu-id="2636e-276">Kestrel musí být restartován předtím, než může rozpoznat změny provedené v jeho prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-276">Kestrel must be restarted before it can detect changes made to its environment.</span></span>
+<span data-ttu-id="73481-293">Změny provedené v profilech projektu se neprojeví, dokud se webový server nerestartuje.</span><span class="sxs-lookup"><span data-stu-id="73481-293">Changes made to project profiles may not take effect until the web server is restarted.</span></span> <span data-ttu-id="73481-294">Kestrel se musí restartovat, aby bylo možné zjistit změny provedené ve svém prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-294">Kestrel must be restarted before it can detect changes made to its environment.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="2636e-277">*launchSettings.json* by neměl ukládat tajné klíče.</span><span class="sxs-lookup"><span data-stu-id="2636e-277">*launchSettings.json* shouldn't store secrets.</span></span> <span data-ttu-id="2636e-278">[Nástroj Správce tajných barev](xref:security/app-secrets) lze použít k ukládání tajných kódů pro místní vývoj.</span><span class="sxs-lookup"><span data-stu-id="2636e-278">The [Secret Manager tool](xref:security/app-secrets) can be used to store secrets for local development.</span></span>
+> <span data-ttu-id="73481-295">*launchSettings.js* by neměl ukládat tajné klíče.</span><span class="sxs-lookup"><span data-stu-id="73481-295">*launchSettings.json* shouldn't store secrets.</span></span> <span data-ttu-id="73481-296">[Nástroj Správce tajných](xref:security/app-secrets) klíčů je možné použít k ukládání tajných kódů pro místní vývoj.</span><span class="sxs-lookup"><span data-stu-id="73481-296">The [Secret Manager tool](xref:security/app-secrets) can be used to store secrets for local development.</span></span>
 
-<span data-ttu-id="2636e-279">Při použití [kódu sady Visual Studio](https://code.visualstudio.com/)lze proměnné prostředí nastavit v souboru *.vscode/launch.json.*</span><span class="sxs-lookup"><span data-stu-id="2636e-279">When using [Visual Studio Code](https://code.visualstudio.com/), environment variables can be set in the *.vscode/launch.json* file.</span></span> <span data-ttu-id="2636e-280">Následující příklad nastaví `Development`prostředí na :</span><span class="sxs-lookup"><span data-stu-id="2636e-280">The following example sets the environment to `Development`:</span></span>
+<span data-ttu-id="73481-297">Při použití [Visual Studio Code](https://code.visualstudio.com/)lze proměnné prostředí nastavit v souboru *. VSCode/launch.js* .</span><span class="sxs-lookup"><span data-stu-id="73481-297">When using [Visual Studio Code](https://code.visualstudio.com/), environment variables can be set in the *.vscode/launch.json* file.</span></span> <span data-ttu-id="73481-298">Následující příklad nastaví prostředí na `Development` :</span><span class="sxs-lookup"><span data-stu-id="73481-298">The following example sets the environment to `Development`:</span></span>
 
 ```json
 {
@@ -595,93 +468,93 @@ Application started. Press Ctrl+C to shut down.
 }
 ```
 
-<span data-ttu-id="2636e-281">Soubor *.vscode/launch.json* v projektu se nečte při `dotnet run` spuštění aplikace stejným způsobem jako *Vlastnosti/launchSettings.json*.</span><span class="sxs-lookup"><span data-stu-id="2636e-281">A *.vscode/launch.json* file in the project isn't read when starting the app with `dotnet run` in the same way as *Properties/launchSettings.json*.</span></span> <span data-ttu-id="2636e-282">Při spouštění aplikace ve vývoji, která nemá soubor *launchSettings.json,* nastavte prostředí s proměnnou `dotnet run` prostředí nebo argument příkazového řádku na příkaz.</span><span class="sxs-lookup"><span data-stu-id="2636e-282">When launching an app in development that doesn't have a *launchSettings.json* file, either set the environment with an environment variable or a command-line argument to the `dotnet run` command.</span></span>
+<span data-ttu-id="73481-299">A *. VSCode/launch.js* v souboru v projektu se při spouštění aplikace `dotnet run` stejným způsobem jako *vlastnosti/launchSettings.js*nenačte.</span><span class="sxs-lookup"><span data-stu-id="73481-299">A *.vscode/launch.json* file in the project isn't read when starting the app with `dotnet run` in the same way as *Properties/launchSettings.json*.</span></span> <span data-ttu-id="73481-300">Při spouštění aplikace ve vývoji, která nemá *launchSettings.jsv* souboru, buď nastavte prostředí s proměnnou prostředí nebo argumentem příkazového řádku pro `dotnet run` příkaz.</span><span class="sxs-lookup"><span data-stu-id="73481-300">When launching an app in development that doesn't have a *launchSettings.json* file, either set the environment with an environment variable or a command-line argument to the `dotnet run` command.</span></span>
 
-### <a name="production"></a><span data-ttu-id="2636e-283">Výroba</span><span class="sxs-lookup"><span data-stu-id="2636e-283">Production</span></span>
+### <a name="production"></a><span data-ttu-id="73481-301">Produkce</span><span class="sxs-lookup"><span data-stu-id="73481-301">Production</span></span>
 
-<span data-ttu-id="2636e-284">Produkční prostředí by mělo být nakonfigurováno tak, aby maximalizovalo zabezpečení, výkon a robustnost aplikací.</span><span class="sxs-lookup"><span data-stu-id="2636e-284">The production environment should be configured to maximize security, performance, and app robustness.</span></span> <span data-ttu-id="2636e-285">Některá běžná nastavení, která se liší od vývoje, zahrnují:</span><span class="sxs-lookup"><span data-stu-id="2636e-285">Some common settings that differ from development include:</span></span>
+<span data-ttu-id="73481-302">Provozní prostředí by mělo být nakonfigurované tak, aby maximalizovalo zabezpečení, výkon a odolnost aplikací.</span><span class="sxs-lookup"><span data-stu-id="73481-302">The production environment should be configured to maximize security, performance, and app robustness.</span></span> <span data-ttu-id="73481-303">Mezi běžná nastavení, která se liší od vývoje, patří:</span><span class="sxs-lookup"><span data-stu-id="73481-303">Some common settings that differ from development include:</span></span>
 
-* <span data-ttu-id="2636e-286">Mezipaměti.</span><span class="sxs-lookup"><span data-stu-id="2636e-286">Caching.</span></span>
-* <span data-ttu-id="2636e-287">Prostředky na straně klienta jsou sdružené, minifikovány a potenciálně obsluhovány z cdn.</span><span class="sxs-lookup"><span data-stu-id="2636e-287">Client-side resources are bundled, minified, and potentially served from a CDN.</span></span>
-* <span data-ttu-id="2636e-288">Diagnostické chybové stránky jsou zakázány.</span><span class="sxs-lookup"><span data-stu-id="2636e-288">Diagnostic error pages disabled.</span></span>
-* <span data-ttu-id="2636e-289">Jsou povoleny popisné chybové stránky.</span><span class="sxs-lookup"><span data-stu-id="2636e-289">Friendly error pages enabled.</span></span>
-* <span data-ttu-id="2636e-290">Povoleno protokolování a monitorování výroby.</span><span class="sxs-lookup"><span data-stu-id="2636e-290">Production logging and monitoring enabled.</span></span> <span data-ttu-id="2636e-291">Například [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span><span class="sxs-lookup"><span data-stu-id="2636e-291">For example, [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span></span>
+* <span data-ttu-id="73481-304">Vyrovnávací.</span><span class="sxs-lookup"><span data-stu-id="73481-304">Caching.</span></span>
+* <span data-ttu-id="73481-305">Prostředky na straně klienta jsou seskupené, minifikovaného a potenciálně poskytované z CDN.</span><span class="sxs-lookup"><span data-stu-id="73481-305">Client-side resources are bundled, minified, and potentially served from a CDN.</span></span>
+* <span data-ttu-id="73481-306">Chybové stránky diagnostiky jsou zakázané.</span><span class="sxs-lookup"><span data-stu-id="73481-306">Diagnostic error pages disabled.</span></span>
+* <span data-ttu-id="73481-307">Jsou povoleny popisné chybové stránky.</span><span class="sxs-lookup"><span data-stu-id="73481-307">Friendly error pages enabled.</span></span>
+* <span data-ttu-id="73481-308">Protokolování a sledování výroby je povolené.</span><span class="sxs-lookup"><span data-stu-id="73481-308">Production logging and monitoring enabled.</span></span> <span data-ttu-id="73481-309">Například [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span><span class="sxs-lookup"><span data-stu-id="73481-309">For example, [Application Insights](/azure/application-insights/app-insights-asp-net-core).</span></span>
 
-## <a name="set-the-environment"></a><span data-ttu-id="2636e-292">Nastavení prostředí</span><span class="sxs-lookup"><span data-stu-id="2636e-292">Set the environment</span></span>
+## <a name="set-the-environment"></a><span data-ttu-id="73481-310">Nastavení prostředí</span><span class="sxs-lookup"><span data-stu-id="73481-310">Set the environment</span></span>
 
-<span data-ttu-id="2636e-293">Často je užitečné nastavit konkrétní prostředí pro testování s proměnnou prostředí nebo nastavení platformy.</span><span class="sxs-lookup"><span data-stu-id="2636e-293">It's often useful to set a specific environment for testing with an environment variable or platform setting.</span></span> <span data-ttu-id="2636e-294">Pokud prostředí není nastaveno, je `Production`výchozí na , který zakáže většinu funkcí ladění.</span><span class="sxs-lookup"><span data-stu-id="2636e-294">If the environment isn't set, it defaults to `Production`, which disables most debugging features.</span></span> <span data-ttu-id="2636e-295">Způsob nastavení prostředí závisí na operačním systému.</span><span class="sxs-lookup"><span data-stu-id="2636e-295">The method for setting the environment depends on the operating system.</span></span>
+<span data-ttu-id="73481-311">Je často užitečné nastavit konkrétní prostředí pro testování pomocí proměnné prostředí nebo nastavení platformy.</span><span class="sxs-lookup"><span data-stu-id="73481-311">It's often useful to set a specific environment for testing with an environment variable or platform setting.</span></span> <span data-ttu-id="73481-312">Pokud prostředí není nastavené, nastaví se jako výchozí `Production` , což zakáže většinu funkcí ladění.</span><span class="sxs-lookup"><span data-stu-id="73481-312">If the environment isn't set, it defaults to `Production`, which disables most debugging features.</span></span> <span data-ttu-id="73481-313">Metoda nastavení prostředí závisí na operačním systému.</span><span class="sxs-lookup"><span data-stu-id="73481-313">The method for setting the environment depends on the operating system.</span></span>
 
-<span data-ttu-id="2636e-296">Při vytváření hostitele určuje prostředí aplikace poslední nastavení prostředí přečtené aplikací.</span><span class="sxs-lookup"><span data-stu-id="2636e-296">When the host is built, the last environment setting read by the app determines the app's environment.</span></span> <span data-ttu-id="2636e-297">Prostředí aplikace nelze změnit, když je aplikace spuštěná.</span><span class="sxs-lookup"><span data-stu-id="2636e-297">The app's environment can't be changed while the app is running.</span></span>
+<span data-ttu-id="73481-314">Po sestavení hostitele určuje poslední nastavení prostředí načtené aplikací prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="73481-314">When the host is built, the last environment setting read by the app determines the app's environment.</span></span> <span data-ttu-id="73481-315">Prostředí aplikace se nedá změnit, když je aplikace spuštěná.</span><span class="sxs-lookup"><span data-stu-id="73481-315">The app's environment can't be changed while the app is running.</span></span>
 
-### <a name="environment-variable-or-platform-setting"></a><span data-ttu-id="2636e-298">Nastavení proměnné prostředí nebo platformy</span><span class="sxs-lookup"><span data-stu-id="2636e-298">Environment variable or platform setting</span></span>
+### <a name="environment-variable-or-platform-setting"></a><span data-ttu-id="73481-316">Nastavení proměnné prostředí nebo platformy</span><span class="sxs-lookup"><span data-stu-id="73481-316">Environment variable or platform setting</span></span>
 
-#### <a name="azure-app-service"></a><span data-ttu-id="2636e-299">Azure App Service</span><span class="sxs-lookup"><span data-stu-id="2636e-299">Azure App Service</span></span>
+#### <a name="azure-app-service"></a><span data-ttu-id="73481-317">Azure App Service</span><span class="sxs-lookup"><span data-stu-id="73481-317">Azure App Service</span></span>
 
-<span data-ttu-id="2636e-300">Chcete-li nastavit prostředí ve [službě Azure App Service](https://azure.microsoft.com/services/app-service/), proveďte následující kroky:</span><span class="sxs-lookup"><span data-stu-id="2636e-300">To set the environment in [Azure App Service](https://azure.microsoft.com/services/app-service/), perform the following steps:</span></span>
+<span data-ttu-id="73481-318">Pokud chcete nastavit prostředí v [Azure App Service](https://azure.microsoft.com/services/app-service/), proveďte následující kroky:</span><span class="sxs-lookup"><span data-stu-id="73481-318">To set the environment in [Azure App Service](https://azure.microsoft.com/services/app-service/), perform the following steps:</span></span>
 
-1. <span data-ttu-id="2636e-301">Vyberte aplikaci z okna **Služby aplikací.**</span><span class="sxs-lookup"><span data-stu-id="2636e-301">Select the app from the **App Services** blade.</span></span>
-1. <span data-ttu-id="2636e-302">Ve skupině **Nastavení** vyberte okno **Konfigurace.**</span><span class="sxs-lookup"><span data-stu-id="2636e-302">In the **Settings** group, select the **Configuration** blade.</span></span>
-1. <span data-ttu-id="2636e-303">Na kartě **Nastavení aplikace** vyberte Nastavení **nové aplikace**.</span><span class="sxs-lookup"><span data-stu-id="2636e-303">In the **Application settings** tab, select **New application setting**.</span></span>
-1. <span data-ttu-id="2636e-304">V okně Nastavení aplikace Přidat `ASPNETCORE_ENVIRONMENT` nebo **upravit** zadejte **název**.</span><span class="sxs-lookup"><span data-stu-id="2636e-304">In the **Add/Edit application setting** window, provide `ASPNETCORE_ENVIRONMENT` for the **Name**.</span></span> <span data-ttu-id="2636e-305">Pro **hodnotu**zadejte prostředí `Staging`(například).</span><span class="sxs-lookup"><span data-stu-id="2636e-305">For **Value**, provide the environment (for example, `Staging`).</span></span>
-1. <span data-ttu-id="2636e-306">Pokud chcete, aby nastavení prostředí zůstalo s aktuální mašleí při výměně slotů nasazení, zaškrtněte políčko **Nastavení patice nasazení.**</span><span class="sxs-lookup"><span data-stu-id="2636e-306">Select the **Deployment slot setting** check box if you wish the environment setting to remain with the current slot when deployment slots are swapped.</span></span> <span data-ttu-id="2636e-307">Další informace najdete v tématu [Nastavení pracovních prostředí ve službě Azure App Service](/azure/app-service/web-sites-staged-publishing) v dokumentaci k Azure.</span><span class="sxs-lookup"><span data-stu-id="2636e-307">For more information, see [Set up staging environments in Azure App Service](/azure/app-service/web-sites-staged-publishing) in the Azure documentation.</span></span>
-1. <span data-ttu-id="2636e-308">Výběrem **možnosti OK** zavřete okno **Nastavení aplikace Přidat nebo upravit.**</span><span class="sxs-lookup"><span data-stu-id="2636e-308">Select **OK** to close the **Add/Edit application setting** window.</span></span>
-1. <span data-ttu-id="2636e-309">V horní části okna **Konfigurace** vyberte **Uložit.**</span><span class="sxs-lookup"><span data-stu-id="2636e-309">Select **Save** at the top of the **Configuration** blade.</span></span>
+1. <span data-ttu-id="73481-319">Vyberte aplikaci z okna **App Services** .</span><span class="sxs-lookup"><span data-stu-id="73481-319">Select the app from the **App Services** blade.</span></span>
+1. <span data-ttu-id="73481-320">Ve skupině **Nastavení** vyberte okno **Konfigurace** .</span><span class="sxs-lookup"><span data-stu-id="73481-320">In the **Settings** group, select the **Configuration** blade.</span></span>
+1. <span data-ttu-id="73481-321">Na kartě **nastavení aplikace** vyberte možnost **nové nastavení aplikace**.</span><span class="sxs-lookup"><span data-stu-id="73481-321">In the **Application settings** tab, select **New application setting**.</span></span>
+1. <span data-ttu-id="73481-322">V okně **Přidat nebo upravit nastavení aplikace** zadejte `ASPNETCORE_ENVIRONMENT` **název**.</span><span class="sxs-lookup"><span data-stu-id="73481-322">In the **Add/Edit application setting** window, provide `ASPNETCORE_ENVIRONMENT` for the **Name**.</span></span> <span data-ttu-id="73481-323">V poli **hodnota**zadejte prostředí (například `Staging` ).</span><span class="sxs-lookup"><span data-stu-id="73481-323">For **Value**, provide the environment (for example, `Staging`).</span></span>
+1. <span data-ttu-id="73481-324">Zaškrtněte políčko **nastavení slotu nasazení** , pokud chcete, aby nastavení prostředí zůstalo v aktuální pozici, když jsou sloty nasazení prohozeny.</span><span class="sxs-lookup"><span data-stu-id="73481-324">Select the **Deployment slot setting** check box if you wish the environment setting to remain with the current slot when deployment slots are swapped.</span></span> <span data-ttu-id="73481-325">Další informace najdete v tématu [Nastavení přípravného prostředí v Azure App Service](/azure/app-service/web-sites-staged-publishing) v dokumentaci k Azure.</span><span class="sxs-lookup"><span data-stu-id="73481-325">For more information, see [Set up staging environments in Azure App Service](/azure/app-service/web-sites-staged-publishing) in the Azure documentation.</span></span>
+1. <span data-ttu-id="73481-326">Výběrem **OK** zavřete okno **Přidat/upravit nastavení aplikace** .</span><span class="sxs-lookup"><span data-stu-id="73481-326">Select **OK** to close the **Add/Edit application setting** window.</span></span>
+1. <span data-ttu-id="73481-327">V horní části okna **Konfigurace** vyberte **Uložit** .</span><span class="sxs-lookup"><span data-stu-id="73481-327">Select **Save** at the top of the **Configuration** blade.</span></span>
 
-<span data-ttu-id="2636e-310">Služba Azure App Service aplikaci automaticky restartuje po přidání, změně nebo odstranění na webu Azure Portal (proměnná prostředí).</span><span class="sxs-lookup"><span data-stu-id="2636e-310">Azure App Service automatically restarts the app after an app setting (environment variable) is added, changed, or deleted in the Azure portal.</span></span>
+<span data-ttu-id="73481-328">Azure App Service automaticky restartuje aplikaci po přidání, změně nebo odstranění nastavení aplikace (proměnná prostředí) v Azure Portal.</span><span class="sxs-lookup"><span data-stu-id="73481-328">Azure App Service automatically restarts the app after an app setting (environment variable) is added, changed, or deleted in the Azure portal.</span></span>
 
-#### <a name="windows"></a><span data-ttu-id="2636e-311">Windows</span><span class="sxs-lookup"><span data-stu-id="2636e-311">Windows</span></span>
+#### <a name="windows"></a><span data-ttu-id="73481-329">Windows</span><span class="sxs-lookup"><span data-stu-id="73481-329">Windows</span></span>
 
-<span data-ttu-id="2636e-312">Chcete-li `ASPNETCORE_ENVIRONMENT` nastavit aktuální relaci při spuštění aplikace pomocí [dotnet run](/dotnet/core/tools/dotnet-run), použijí se následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="2636e-312">To set the `ASPNETCORE_ENVIRONMENT` for the current session when the app is started using [dotnet run](/dotnet/core/tools/dotnet-run), the following commands are used:</span></span>
+<span data-ttu-id="73481-330">K nastavení `ASPNETCORE_ENVIRONMENT` pro aktuální relaci při zahájení aplikace pomocí [spuštění dotnet](/dotnet/core/tools/dotnet-run)se použijí následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="73481-330">To set the `ASPNETCORE_ENVIRONMENT` for the current session when the app is started using [dotnet run](/dotnet/core/tools/dotnet-run), the following commands are used:</span></span>
 
-<span data-ttu-id="2636e-313">**Příkazového řádku**</span><span class="sxs-lookup"><span data-stu-id="2636e-313">**Command prompt**</span></span>
+<span data-ttu-id="73481-331">**Příkazový řádek**</span><span class="sxs-lookup"><span data-stu-id="73481-331">**Command prompt**</span></span>
 
 ```console
 set ASPNETCORE_ENVIRONMENT=Development
 ```
 
-<span data-ttu-id="2636e-314">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="2636e-314">**PowerShell**</span></span>
+<span data-ttu-id="73481-332">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="73481-332">**PowerShell**</span></span>
 
 ```powershell
 $Env:ASPNETCORE_ENVIRONMENT = "Development"
 ```
 
-<span data-ttu-id="2636e-315">Tyto příkazy se projeví pouze pro aktuální okno.</span><span class="sxs-lookup"><span data-stu-id="2636e-315">These commands only take effect for the current window.</span></span> <span data-ttu-id="2636e-316">Když je okno zavřené, `ASPNETCORE_ENVIRONMENT` nastavení se vrátí na výchozí nastavení nebo hodnotu počítače.</span><span class="sxs-lookup"><span data-stu-id="2636e-316">When the window is closed, the `ASPNETCORE_ENVIRONMENT` setting reverts to the default setting or machine value.</span></span>
+<span data-ttu-id="73481-333">Tyto příkazy se projeví pouze pro aktuální okno.</span><span class="sxs-lookup"><span data-stu-id="73481-333">These commands only take effect for the current window.</span></span> <span data-ttu-id="73481-334">Po zavření okna se `ASPNETCORE_ENVIRONMENT` nastavení vrátí k výchozímu nastavení nebo hodnotě počítače.</span><span class="sxs-lookup"><span data-stu-id="73481-334">When the window is closed, the `ASPNETCORE_ENVIRONMENT` setting reverts to the default setting or machine value.</span></span>
 
-<span data-ttu-id="2636e-317">Chcete-li nastavit hodnotu globálně v systému Windows, použijte některý z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="2636e-317">To set the value globally in Windows, use either of the following approaches:</span></span>
+<span data-ttu-id="73481-335">K nastavení hodnoty globálně ve Windows použijte některý z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="73481-335">To set the value globally in Windows, use either of the following approaches:</span></span>
 
-* <span data-ttu-id="2636e-318">Otevřete `ASPNETCORE_ENVIRONMENT` nastavení > **systému Ovládací** **panely:** > **System**</span><span class="sxs-lookup"><span data-stu-id="2636e-318">Open the **Control Panel** > **System** > **Advanced system settings** and add or edit the `ASPNETCORE_ENVIRONMENT` value:</span></span>
+* <span data-ttu-id="73481-336">Otevřete **ovládací panel** > **System** > **Upřesnit systémová nastavení** a přidejte nebo upravte `ASPNETCORE_ENVIRONMENT` hodnotu:</span><span class="sxs-lookup"><span data-stu-id="73481-336">Open the **Control Panel** > **System** > **Advanced system settings** and add or edit the `ASPNETCORE_ENVIRONMENT` value:</span></span>
 
   ![Rozšířené vlastnosti systému](environments/_static/systemsetting_environment.png)
 
-  ![Proměnná jádrového prostředí ASPNET](environments/_static/windows_aspnetcore_environment.png)
+  ![Proměnná prostředí ASPNET Core](environments/_static/windows_aspnetcore_environment.png)
 
-* <span data-ttu-id="2636e-321">Otevřete příkazový řádek `setx` pro správu a použijte příkaz `[Environment]::SetEnvironmentVariable`nebo příkaz PowerShell pro správu a použijte :</span><span class="sxs-lookup"><span data-stu-id="2636e-321">Open an administrative command prompt and use the `setx` command or open an administrative PowerShell command prompt and use `[Environment]::SetEnvironmentVariable`:</span></span>
+* <span data-ttu-id="73481-339">Otevřete příkazový řádek pro správu a použijte `setx` příkaz nebo otevřete příkazový řádek prostředí PowerShell pro správu a použijte příkaz `[Environment]::SetEnvironmentVariable` :</span><span class="sxs-lookup"><span data-stu-id="73481-339">Open an administrative command prompt and use the `setx` command or open an administrative PowerShell command prompt and use `[Environment]::SetEnvironmentVariable`:</span></span>
 
-  <span data-ttu-id="2636e-322">**Příkazového řádku**</span><span class="sxs-lookup"><span data-stu-id="2636e-322">**Command prompt**</span></span>
+  <span data-ttu-id="73481-340">**Příkazový řádek**</span><span class="sxs-lookup"><span data-stu-id="73481-340">**Command prompt**</span></span>
 
   ```console
   setx ASPNETCORE_ENVIRONMENT Development /M
   ```
 
-  <span data-ttu-id="2636e-323">Přepínač `/M` označuje nastavení proměnné prostředí na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="2636e-323">The `/M` switch indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="2636e-324">Pokud `/M` se přepínač nepoužívá, je pro uživatelský účet nastavena proměnná prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-324">If the `/M` switch isn't used, the environment variable is set for the user account.</span></span>
+  <span data-ttu-id="73481-341">`/M`Přepínač označuje nastavení proměnné prostředí na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="73481-341">The `/M` switch indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="73481-342">Pokud `/M` přepínač není použit, je pro uživatelský účet nastavena proměnná prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-342">If the `/M` switch isn't used, the environment variable is set for the user account.</span></span>
 
-  <span data-ttu-id="2636e-325">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="2636e-325">**PowerShell**</span></span>
+  <span data-ttu-id="73481-343">**PowerShell**</span><span class="sxs-lookup"><span data-stu-id="73481-343">**PowerShell**</span></span>
 
   ```powershell
   [Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development", "Machine")
   ```
 
-  <span data-ttu-id="2636e-326">Hodnota `Machine` možnosti označuje nastavení proměnné prostředí na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="2636e-326">The `Machine` option value indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="2636e-327">Pokud se hodnota možnosti změní na `User`, je pro uživatelský účet nastavena proměnná prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-327">If the option value is changed to `User`, the environment variable is set for the user account.</span></span>
+  <span data-ttu-id="73481-344">`Machine`Hodnota možnosti určuje nastavení proměnné prostředí na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="73481-344">The `Machine` option value indicates to set the environment variable at the system level.</span></span> <span data-ttu-id="73481-345">Pokud je hodnota možnosti změněna na `User` , je pro uživatelský účet nastavena proměnná prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-345">If the option value is changed to `User`, the environment variable is set for the user account.</span></span>
 
-<span data-ttu-id="2636e-328">Když `ASPNETCORE_ENVIRONMENT` je proměnná prostředí nastavena globálně, projeví se v `dotnet run` libovolném příkazovém okně otevřeném po nastavení hodnoty.</span><span class="sxs-lookup"><span data-stu-id="2636e-328">When the `ASPNETCORE_ENVIRONMENT` environment variable is set globally, it takes effect for `dotnet run` in any command window opened after the value is set.</span></span>
+<span data-ttu-id="73481-346">Pokud `ASPNETCORE_ENVIRONMENT` je proměnná prostředí nastavena globálně, projeví se `dotnet run` v jakémkoli příkazovém okně otevřeném po nastavení hodnoty.</span><span class="sxs-lookup"><span data-stu-id="73481-346">When the `ASPNETCORE_ENVIRONMENT` environment variable is set globally, it takes effect for `dotnet run` in any command window opened after the value is set.</span></span>
 
-<span data-ttu-id="2636e-329">**Souboru web.config**</span><span class="sxs-lookup"><span data-stu-id="2636e-329">**web.config**</span></span>
+<span data-ttu-id="73481-347">**web.config**</span><span class="sxs-lookup"><span data-stu-id="73481-347">**web.config**</span></span>
 
-<span data-ttu-id="2636e-330">Chcete-li `ASPNETCORE_ENVIRONMENT` nastavit proměnnou prostředí pomocí *souboru web.config*, přečtěte si část *Nastavení proměnných prostředí* v aplikaci <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.</span><span class="sxs-lookup"><span data-stu-id="2636e-330">To set the `ASPNETCORE_ENVIRONMENT` environment variable with *web.config*, see the *Setting environment variables* section of <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.</span></span>
+<span data-ttu-id="73481-348">Chcete-li nastavit `ASPNETCORE_ENVIRONMENT` proměnnou prostředí pomocí *web.config*, přečtěte si část *nastavení proměnných prostředí* v tématu <xref:host-and-deploy/aspnet-core-module#setting-environment-variables> .</span><span class="sxs-lookup"><span data-stu-id="73481-348">To set the `ASPNETCORE_ENVIRONMENT` environment variable with *web.config*, see the *Setting environment variables* section of <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.</span></span>
 
-<span data-ttu-id="2636e-331">**Soubor projektu nebo profil publikování**</span><span class="sxs-lookup"><span data-stu-id="2636e-331">**Project file or publish profile**</span></span>
+<span data-ttu-id="73481-349">**Projektový soubor nebo profil publikování**</span><span class="sxs-lookup"><span data-stu-id="73481-349">**Project file or publish profile**</span></span>
 
-<span data-ttu-id="2636e-332">**Pro nasazení služby Windows IIS:** Zahrňte `<EnvironmentName>` vlastnost do [profilu publikování (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) nebo do souboru projektu.</span><span class="sxs-lookup"><span data-stu-id="2636e-332">**For Windows IIS deployments:** Include the `<EnvironmentName>` property in the [publish profile (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) or project file.</span></span> <span data-ttu-id="2636e-333">Tento přístup nastaví prostředí v *web.config* při publikování projektu:</span><span class="sxs-lookup"><span data-stu-id="2636e-333">This approach sets the environment in *web.config* when the project is published:</span></span>
+<span data-ttu-id="73481-350">**Pro nasazení služby Windows IIS:** Zahrňte `<EnvironmentName>` vlastnost do [profilu publikování (. pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) nebo souboru projektu.</span><span class="sxs-lookup"><span data-stu-id="73481-350">**For Windows IIS deployments:** Include the `<EnvironmentName>` property in the [publish profile (.pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) or project file.</span></span> <span data-ttu-id="73481-351">Tento přístup nastaví prostředí v *web.config* při publikování projektu:</span><span class="sxs-lookup"><span data-stu-id="73481-351">This approach sets the environment in *web.config* when the project is published:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -689,57 +562,57 @@ $Env:ASPNETCORE_ENVIRONMENT = "Development"
 </PropertyGroup>
 ```
 
-<span data-ttu-id="2636e-334">**Na fond aplikací služby IIS**</span><span class="sxs-lookup"><span data-stu-id="2636e-334">**Per IIS Application Pool**</span></span>
+<span data-ttu-id="73481-352">**Pro fond aplikací služby IIS**</span><span class="sxs-lookup"><span data-stu-id="73481-352">**Per IIS Application Pool**</span></span>
 
-<span data-ttu-id="2636e-335">Pokud chcete `ASPNETCORE_ENVIRONMENT` nastavit proměnnou prostředí pro aplikaci spuštěnou v izolovaném fondu aplikací (podporovaná ve službě IIS 10.0 nebo novější), přečtěte si část *příkazu AppCmd.exe* v tématu Proměnné [ &lt;&gt; prostředí proměnných](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-335">To set the `ASPNETCORE_ENVIRONMENT` environment variable for an app running in an isolated Application Pool (supported on IIS 10.0 or later), see the *AppCmd.exe command* section of the [Environment Variables &lt;environmentVariables&gt;](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) topic.</span></span> <span data-ttu-id="2636e-336">Když `ASPNETCORE_ENVIRONMENT` je proměnná prostředí nastavená pro fond aplikací, její hodnota přepíše nastavení na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="2636e-336">When the `ASPNETCORE_ENVIRONMENT` environment variable is set for an app pool, its value overrides a setting at the system level.</span></span>
+<span data-ttu-id="73481-353">Pokud chcete nastavit `ASPNETCORE_ENVIRONMENT` proměnnou prostředí pro aplikaci spuštěnou v izolovaném fondu aplikací (podporovaném ve službě IIS 10,0 nebo novější), přečtěte si část *AppCmd.exe příkazu* v tématu [ &lt; environmentVariables &gt; Variables (prostředí](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) ).</span><span class="sxs-lookup"><span data-stu-id="73481-353">To set the `ASPNETCORE_ENVIRONMENT` environment variable for an app running in an isolated Application Pool (supported on IIS 10.0 or later), see the *AppCmd.exe command* section of the [Environment Variables &lt;environmentVariables&gt;](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) topic.</span></span> <span data-ttu-id="73481-354">Když `ASPNETCORE_ENVIRONMENT` je pro fond aplikací nastavená proměnná prostředí, přepíše její hodnota nastavení na úrovni systému.</span><span class="sxs-lookup"><span data-stu-id="73481-354">When the `ASPNETCORE_ENVIRONMENT` environment variable is set for an app pool, its value overrides a setting at the system level.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="2636e-337">Při hostování aplikace ve službě IIS `ASPNETCORE_ENVIRONMENT` a přidávání nebo změně proměnné prostředí použijte některý z následujících přístupů, aby se nová hodnota zvedla aplikacemi:</span><span class="sxs-lookup"><span data-stu-id="2636e-337">When hosting an app in IIS and adding or changing the `ASPNETCORE_ENVIRONMENT` environment variable, use any one of the following approaches to have the new value picked up by apps:</span></span>
+> <span data-ttu-id="73481-355">Při hostování aplikace ve službě IIS a přidání nebo změny `ASPNETCORE_ENVIRONMENT` proměnné prostředí použijte libovolný z následujících přístupů, aby byla nová hodnota vyzvednuta aplikacemi:</span><span class="sxs-lookup"><span data-stu-id="73481-355">When hosting an app in IIS and adding or changing the `ASPNETCORE_ENVIRONMENT` environment variable, use any one of the following approaches to have the new value picked up by apps:</span></span>
 >
-> * <span data-ttu-id="2636e-338">Provedení `net stop was /y` následované `net start w3svc` příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="2636e-338">Execute `net stop was /y` followed by `net start w3svc` from a command prompt.</span></span>
-> * <span data-ttu-id="2636e-339">Restartujte server.</span><span class="sxs-lookup"><span data-stu-id="2636e-339">Restart the server.</span></span>
+> * <span data-ttu-id="73481-356">Spustí `net stop was /y` a pak `net start w3svc` z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="73481-356">Execute `net stop was /y` followed by `net start w3svc` from a command prompt.</span></span>
+> * <span data-ttu-id="73481-357">Restartujte server.</span><span class="sxs-lookup"><span data-stu-id="73481-357">Restart the server.</span></span>
 
-#### <a name="macos"></a><span data-ttu-id="2636e-340">macOS</span><span class="sxs-lookup"><span data-stu-id="2636e-340">macOS</span></span>
+#### <a name="macos"></a><span data-ttu-id="73481-358">macOS</span><span class="sxs-lookup"><span data-stu-id="73481-358">macOS</span></span>
 
-<span data-ttu-id="2636e-341">Nastavení aktuálního prostředí pro macOS lze provést in-line při spuštění aplikace:</span><span class="sxs-lookup"><span data-stu-id="2636e-341">Setting the current environment for macOS can be performed in-line when running the app:</span></span>
+<span data-ttu-id="73481-359">Nastavení aktuálního prostředí pro macOS se dá při spuštění aplikace provést na řádku:</span><span class="sxs-lookup"><span data-stu-id="73481-359">Setting the current environment for macOS can be performed in-line when running the app:</span></span>
 
 ```bash
 ASPNETCORE_ENVIRONMENT=Development dotnet run
 ```
 
-<span data-ttu-id="2636e-342">Případně nastavte prostředí s `export` před spuštěním aplikace:</span><span class="sxs-lookup"><span data-stu-id="2636e-342">Alternatively, set the environment with `export` prior to running the app:</span></span>
+<span data-ttu-id="73481-360">Případně můžete nastavit prostředí pomocí `export` před spuštěním aplikace:</span><span class="sxs-lookup"><span data-stu-id="73481-360">Alternatively, set the environment with `export` prior to running the app:</span></span>
 
 ```bash
 export ASPNETCORE_ENVIRONMENT=Development
 ```
 
-<span data-ttu-id="2636e-343">Proměnné prostředí na úrovni počítače jsou nastaveny v souboru *%.bashrc* nebo *.bash_profile.*</span><span class="sxs-lookup"><span data-stu-id="2636e-343">Machine-level environment variables are set in the *.bashrc* or *.bash_profile* file.</span></span> <span data-ttu-id="2636e-344">Upravte soubor pomocí libovolného textového editoru.</span><span class="sxs-lookup"><span data-stu-id="2636e-344">Edit the file using any text editor.</span></span> <span data-ttu-id="2636e-345">Přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="2636e-345">Add the following statement:</span></span>
+<span data-ttu-id="73481-361">Proměnné prostředí na úrovni počítače jsou nastaveny v souboru *. bashrc* nebo *. bash_profile* .</span><span class="sxs-lookup"><span data-stu-id="73481-361">Machine-level environment variables are set in the *.bashrc* or *.bash_profile* file.</span></span> <span data-ttu-id="73481-362">Upravte soubor pomocí libovolného textového editoru.</span><span class="sxs-lookup"><span data-stu-id="73481-362">Edit the file using any text editor.</span></span> <span data-ttu-id="73481-363">Přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="73481-363">Add the following statement:</span></span>
 
 ```bash
 export ASPNETCORE_ENVIRONMENT=Development
 ```
 
-#### <a name="linux"></a><span data-ttu-id="2636e-346">Linux</span><span class="sxs-lookup"><span data-stu-id="2636e-346">Linux</span></span>
+#### <a name="linux"></a><span data-ttu-id="73481-364">Linux</span><span class="sxs-lookup"><span data-stu-id="73481-364">Linux</span></span>
 
-<span data-ttu-id="2636e-347">Pro distribuce Linuxu `export` použijte příkaz na příkazovém řádku pro nastavení proměnných na základě relace a *bash_profile* soubor pro nastavení prostředí na úrovni počítače.</span><span class="sxs-lookup"><span data-stu-id="2636e-347">For Linux distros, use the `export` command at a command prompt for session-based variable settings and *bash_profile* file for machine-level environment settings.</span></span>
+<span data-ttu-id="73481-365">U distribucí systému Linux použijte `export` příkaz na příkazovém řádku pro nastavení proměnné založené na relaci a soubor *bash_profile* pro nastavení prostředí na úrovni počítače.</span><span class="sxs-lookup"><span data-stu-id="73481-365">For Linux distributions, use the `export` command at a command prompt for session-based variable settings and *bash_profile* file for machine-level environment settings.</span></span>
 
-### <a name="set-the-environment-in-code"></a><span data-ttu-id="2636e-348">Nastavení prostředí v kódu</span><span class="sxs-lookup"><span data-stu-id="2636e-348">Set the environment in code</span></span>
+### <a name="set-the-environment-in-code"></a><span data-ttu-id="73481-366">Nastavení prostředí v kódu</span><span class="sxs-lookup"><span data-stu-id="73481-366">Set the environment in code</span></span>
 
-<span data-ttu-id="2636e-349">Zavolejte <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseEnvironment*> při budování hostitele.</span><span class="sxs-lookup"><span data-stu-id="2636e-349">Call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseEnvironment*> when building the host.</span></span> <span data-ttu-id="2636e-350">Viz třída <xref:fundamentals/host/web-host#environment>.</span><span class="sxs-lookup"><span data-stu-id="2636e-350">See <xref:fundamentals/host/web-host#environment>.</span></span>
+<span data-ttu-id="73481-367">Zavolejte <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseEnvironment*> při sestavování hostitele.</span><span class="sxs-lookup"><span data-stu-id="73481-367">Call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseEnvironment*> when building the host.</span></span> <span data-ttu-id="73481-368">Viz třída <xref:fundamentals/host/web-host#environment>.</span><span class="sxs-lookup"><span data-stu-id="73481-368">See <xref:fundamentals/host/web-host#environment>.</span></span>
 
-### <a name="configuration-by-environment"></a><span data-ttu-id="2636e-351">Konfigurace podle prostředí</span><span class="sxs-lookup"><span data-stu-id="2636e-351">Configuration by environment</span></span>
+### <a name="configuration-by-environment"></a><span data-ttu-id="73481-369">Konfigurace podle prostředí</span><span class="sxs-lookup"><span data-stu-id="73481-369">Configuration by environment</span></span>
 
-<span data-ttu-id="2636e-352">Chcete-li načíst konfiguraci podle prostředí, doporučujeme:</span><span class="sxs-lookup"><span data-stu-id="2636e-352">To load configuration by environment, we recommend:</span></span>
+<span data-ttu-id="73481-370">K načtení konfigurace podle prostředí doporučujeme:</span><span class="sxs-lookup"><span data-stu-id="73481-370">To load configuration by environment, we recommend:</span></span>
 
-* <span data-ttu-id="2636e-353">*soubory nastavení aplikace* (*appsettings.{ prostředí}.json*).</span><span class="sxs-lookup"><span data-stu-id="2636e-353">*appsettings* files (*appsettings.{Environment}.json*).</span></span> <span data-ttu-id="2636e-354">Viz třída <xref:fundamentals/configuration/index#json-configuration-provider>.</span><span class="sxs-lookup"><span data-stu-id="2636e-354">See <xref:fundamentals/configuration/index#json-configuration-provider>.</span></span>
-* <span data-ttu-id="2636e-355">Proměnné prostředí (nastavené v každém systému, kde je aplikace hostována).</span><span class="sxs-lookup"><span data-stu-id="2636e-355">Environment variables (set on each system where the app is hosted).</span></span> <span data-ttu-id="2636e-356">Zobrazit <xref:fundamentals/host/web-host#environment> <xref:security/app-secrets#environment-variables>a .</span><span class="sxs-lookup"><span data-stu-id="2636e-356">See <xref:fundamentals/host/web-host#environment> and <xref:security/app-secrets#environment-variables>.</span></span>
-* <span data-ttu-id="2636e-357">Správce tajných barev (pouze ve vývojovém prostředí).</span><span class="sxs-lookup"><span data-stu-id="2636e-357">Secret Manager (in the Development environment only).</span></span> <span data-ttu-id="2636e-358">Viz třída <xref:security/app-secrets>.</span><span class="sxs-lookup"><span data-stu-id="2636e-358">See <xref:security/app-secrets>.</span></span>
+* <span data-ttu-id="73481-371">soubory *appSettings* (*appSettings. { Environment}. JSON*.</span><span class="sxs-lookup"><span data-stu-id="73481-371">*appsettings* files (*appsettings.{Environment}.json*).</span></span> <span data-ttu-id="73481-372">Viz třída <xref:fundamentals/configuration/index#json-configuration-provider>.</span><span class="sxs-lookup"><span data-stu-id="73481-372">See <xref:fundamentals/configuration/index#json-configuration-provider>.</span></span>
+* <span data-ttu-id="73481-373">Proměnné prostředí (nastavené v každém systému, ve kterém je aplikace hostovaná).</span><span class="sxs-lookup"><span data-stu-id="73481-373">Environment variables (set on each system where the app is hosted).</span></span> <span data-ttu-id="73481-374">Viz <xref:fundamentals/host/web-host#environment> a <xref:security/app-secrets#environment-variables> .</span><span class="sxs-lookup"><span data-stu-id="73481-374">See <xref:fundamentals/host/web-host#environment> and <xref:security/app-secrets#environment-variables>.</span></span>
+* <span data-ttu-id="73481-375">Správce tajných klíčů (jenom ve vývojovém prostředí).</span><span class="sxs-lookup"><span data-stu-id="73481-375">Secret Manager (in the Development environment only).</span></span> <span data-ttu-id="73481-376">Viz třída <xref:security/app-secrets>.</span><span class="sxs-lookup"><span data-stu-id="73481-376">See <xref:security/app-secrets>.</span></span>
 
-## <a name="environment-based-startup-class-and-methods"></a><span data-ttu-id="2636e-359">Třída a metody startupu založené na prostředí</span><span class="sxs-lookup"><span data-stu-id="2636e-359">Environment-based Startup class and methods</span></span>
+## <a name="environment-based-startup-class-and-methods"></a><span data-ttu-id="73481-377">Třída a metody spouštění založené na prostředí</span><span class="sxs-lookup"><span data-stu-id="73481-377">Environment-based Startup class and methods</span></span>
 
-### <a name="inject-ihostingenvironment-into-startupconfigure"></a><span data-ttu-id="2636e-360">Vložte iHostingEnvironment do startup.Configure</span><span class="sxs-lookup"><span data-stu-id="2636e-360">Inject IHostingEnvironment into Startup.Configure</span></span>
+### <a name="inject-ihostingenvironment-into-startupconfigure"></a><span data-ttu-id="73481-378">Vložení IHostingEnvironment do Startup.Configurovat</span><span class="sxs-lookup"><span data-stu-id="73481-378">Inject IHostingEnvironment into Startup.Configure</span></span>
 
-<span data-ttu-id="2636e-361"><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> Aplikujte `Startup.Configure`do něj .</span><span class="sxs-lookup"><span data-stu-id="2636e-361">Inject <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> into `Startup.Configure`.</span></span> <span data-ttu-id="2636e-362">Tento přístup je užitečný, když `Startup.Configure` aplikace vyžaduje konfiguraci pouze pro několik prostředí s minimálními rozdíly kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-362">This approach is useful when the app only requires configuring `Startup.Configure` for only a few environments with minimal code differences per environment.</span></span>
+<span data-ttu-id="73481-379">Vložit <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> do `Startup.Configure` .</span><span class="sxs-lookup"><span data-stu-id="73481-379">Inject <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> into `Startup.Configure`.</span></span> <span data-ttu-id="73481-380">Tento přístup je užitečný, když aplikace vyžaduje jenom konfiguraci `Startup.Configure` jenom pro několik prostředí s minimálními rozdíly v kódu pro každé prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-380">This approach is useful when the app only requires configuring `Startup.Configure` for only a few environments with minimal code differences per environment.</span></span>
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -755,14 +628,14 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-### <a name="inject-ihostingenvironment-into-the-startup-class"></a><span data-ttu-id="2636e-363">Vstříkněte iHostingEnvironment do třídy Startup</span><span class="sxs-lookup"><span data-stu-id="2636e-363">Inject IHostingEnvironment into the Startup class</span></span>
+### <a name="inject-ihostingenvironment-into-the-startup-class"></a><span data-ttu-id="73481-381">Vložení IHostingEnvironment do spouštěcí třídy</span><span class="sxs-lookup"><span data-stu-id="73481-381">Inject IHostingEnvironment into the Startup class</span></span>
 
-<span data-ttu-id="2636e-364">Vstříkněte <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> do konstruktoru `Startup` a přiřaďte službu k poli pro použití v `Startup` celé třídě.</span><span class="sxs-lookup"><span data-stu-id="2636e-364">Inject <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> into the `Startup` constructor and assign the service to a field for use throughout the `Startup` class.</span></span> <span data-ttu-id="2636e-365">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pouze pro několik prostředí s minimálními rozdíly kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-365">This approach is useful when the app requires configuring startup for only a few environments with minimal code differences per environment.</span></span>
+<span data-ttu-id="73481-382">Vložení <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> do `Startup` konstruktoru a přiřazení služby k poli pro použití v rámci `Startup` třídy.</span><span class="sxs-lookup"><span data-stu-id="73481-382">Inject <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> into the `Startup` constructor and assign the service to a field for use throughout the `Startup` class.</span></span> <span data-ttu-id="73481-383">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spouštění jenom pro několik prostředí s minimálními rozdíly v kódu pro každé prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-383">This approach is useful when the app requires configuring startup for only a few environments with minimal code differences per environment.</span></span>
 
-<span data-ttu-id="2636e-366">V následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="2636e-366">In the following example:</span></span>
+<span data-ttu-id="73481-384">V následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="73481-384">In the following example:</span></span>
 
-* <span data-ttu-id="2636e-367">Prostředí je drženo `_env` v terénu.</span><span class="sxs-lookup"><span data-stu-id="2636e-367">The environment is held in the `_env` field.</span></span>
-* <span data-ttu-id="2636e-368">`_env`se používá `ConfigureServices` `Configure` v a použít konfiguraci při spuštění na základě prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="2636e-368">`_env` is used in `ConfigureServices` and `Configure` to apply startup configuration based on the app's environment.</span></span>
+* <span data-ttu-id="73481-385">Prostředí se uchovává v `_env` poli.</span><span class="sxs-lookup"><span data-stu-id="73481-385">The environment is held in the `_env` field.</span></span>
+* <span data-ttu-id="73481-386">`_env`se používá v `ConfigureServices` `Configure` systémech a k aplikování konfigurace spuštění na základě prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="73481-386">`_env` is used in `ConfigureServices` and `Configure` to apply startup configuration based on the app's environment.</span></span>
 
 ```csharp
 public class Startup
@@ -804,11 +677,11 @@ public class Startup
 }
 ```
 
-### <a name="startup-class-conventions"></a><span data-ttu-id="2636e-369">Konvence spouštěcí třídy</span><span class="sxs-lookup"><span data-stu-id="2636e-369">Startup class conventions</span></span>
+### <a name="startup-class-conventions"></a><span data-ttu-id="73481-387">Konvence třídy spouštění</span><span class="sxs-lookup"><span data-stu-id="73481-387">Startup class conventions</span></span>
 
-<span data-ttu-id="2636e-370">Když se spustí ASP.NET základní aplikace, [spustí se třída Startup.](xref:fundamentals/startup)</span><span class="sxs-lookup"><span data-stu-id="2636e-370">When an ASP.NET Core app starts, the [Startup class](xref:fundamentals/startup) bootstraps the app.</span></span> <span data-ttu-id="2636e-371">Aplikace může definovat `Startup` samostatné třídy pro různá prostředí `StartupDevelopment`(například).</span><span class="sxs-lookup"><span data-stu-id="2636e-371">The app can define separate `Startup` classes for different environments (for example, `StartupDevelopment`).</span></span> <span data-ttu-id="2636e-372">Příslušná `Startup` třída je vybrána za běhu.</span><span class="sxs-lookup"><span data-stu-id="2636e-372">The appropriate `Startup` class is selected at runtime.</span></span> <span data-ttu-id="2636e-373">Třída, jejíž přípona názvu odpovídá aktuálnímu prostředí, je upřednostněna.</span><span class="sxs-lookup"><span data-stu-id="2636e-373">The class whose name suffix matches the current environment is prioritized.</span></span> <span data-ttu-id="2636e-374">Pokud odpovídající `Startup{EnvironmentName}` třída nebyla nalezena, třída se `Startup` používá.</span><span class="sxs-lookup"><span data-stu-id="2636e-374">If a matching `Startup{EnvironmentName}` class isn't found, the `Startup` class is used.</span></span> <span data-ttu-id="2636e-375">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pro několik prostředí s mnoha rozdíly kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-375">This approach is useful when the app requires configuring startup for several environments with many code differences per environment.</span></span>
+<span data-ttu-id="73481-388">Při spuštění aplikace ASP.NET Core spustí [spouštěcí třída](xref:fundamentals/startup) aplikaci.</span><span class="sxs-lookup"><span data-stu-id="73481-388">When an ASP.NET Core app starts, the [Startup class](xref:fundamentals/startup) bootstraps the app.</span></span> <span data-ttu-id="73481-389">Aplikace může definovat samostatné `Startup` třídy pro různá prostředí (například `StartupDevelopment` ).</span><span class="sxs-lookup"><span data-stu-id="73481-389">The app can define separate `Startup` classes for different environments (for example, `StartupDevelopment`).</span></span> <span data-ttu-id="73481-390">Příslušná `Startup` Třída je vybrána za běhu.</span><span class="sxs-lookup"><span data-stu-id="73481-390">The appropriate `Startup` class is selected at runtime.</span></span> <span data-ttu-id="73481-391">Určuje prioritu třídy, jejíž přípona názvu odpovídá aktuálnímu prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-391">The class whose name suffix matches the current environment is prioritized.</span></span> <span data-ttu-id="73481-392">Pokud `Startup{EnvironmentName}` není nalezena shodná třída, `Startup` je použita třída.</span><span class="sxs-lookup"><span data-stu-id="73481-392">If a matching `Startup{EnvironmentName}` class isn't found, the `Startup` class is used.</span></span> <span data-ttu-id="73481-393">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pro několik prostředí s mnoha rozdíly v kódu pro každé prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-393">This approach is useful when the app requires configuring startup for several environments with many code differences per environment.</span></span>
 
-<span data-ttu-id="2636e-376">Chcete-li implementovat třídy založené na `Startup` prostředí, vytvořte třídu `Startup{EnvironmentName}` pro každé prostředí, které se používá, a záložní `Startup` třídu:</span><span class="sxs-lookup"><span data-stu-id="2636e-376">To implement environment-based `Startup` classes, create a `Startup{EnvironmentName}` class for each environment in use and a fallback `Startup` class:</span></span>
+<span data-ttu-id="73481-394">Chcete-li implementovat třídy založené na prostředí `Startup` , vytvořte `Startup{EnvironmentName}` třídu pro každé používané prostředí a záložní `Startup` třídu:</span><span class="sxs-lookup"><span data-stu-id="73481-394">To implement environment-based `Startup` classes, create a `Startup{EnvironmentName}` class for each environment in use and a fallback `Startup` class:</span></span>
 
 ```csharp
 // Startup class to use in the Development environment
@@ -849,7 +722,7 @@ public class Startup
 }
 ```
 
-<span data-ttu-id="2636e-377">Použijte [přetížení UseStartup(IWebHostBuilder, String),](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) které přijímá název sestavení:</span><span class="sxs-lookup"><span data-stu-id="2636e-377">Use the [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) overload that accepts an assembly name:</span></span>
+<span data-ttu-id="73481-395">Použijte přetížení [UseStartup (IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) , které přijímá název sestavení:</span><span class="sxs-lookup"><span data-stu-id="73481-395">Use the [UseStartup(IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) overload that accepts an assembly name:</span></span>
 
 ```csharp
 public static void Main(string[] args)
@@ -866,13 +739,13 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 }
 ```
 
-### <a name="startup-method-conventions"></a><span data-ttu-id="2636e-378">Konvence metod spouštění</span><span class="sxs-lookup"><span data-stu-id="2636e-378">Startup method conventions</span></span>
+### <a name="startup-method-conventions"></a><span data-ttu-id="73481-396">Konvence metody spuštění</span><span class="sxs-lookup"><span data-stu-id="73481-396">Startup method conventions</span></span>
 
-<span data-ttu-id="2636e-379">[Konfigurace](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) a [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) podporují verze formuláře `Configure<EnvironmentName>` a `Configure<EnvironmentName>Services`.</span><span class="sxs-lookup"><span data-stu-id="2636e-379">[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) and [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) support environment-specific versions of the form `Configure<EnvironmentName>` and `Configure<EnvironmentName>Services`.</span></span> <span data-ttu-id="2636e-380">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pro několik prostředí s mnoha rozdíly kódu na prostředí.</span><span class="sxs-lookup"><span data-stu-id="2636e-380">This approach is useful when the app requires configuring startup for several environments with many code differences per environment.</span></span>
+<span data-ttu-id="73481-397">[Nakonfigurujte](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) a [ConfigureServiceste](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) podporu pro konkrétní verze formuláře a prostředí `Configure<EnvironmentName>` `Configure<EnvironmentName>Services` .</span><span class="sxs-lookup"><span data-stu-id="73481-397">[Configure](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure) and [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices) support environment-specific versions of the form `Configure<EnvironmentName>` and `Configure<EnvironmentName>Services`.</span></span> <span data-ttu-id="73481-398">Tento přístup je užitečný, když aplikace vyžaduje konfiguraci spuštění pro několik prostředí s mnoha rozdíly v kódu pro každé prostředí.</span><span class="sxs-lookup"><span data-stu-id="73481-398">This approach is useful when the app requires configuring startup for several environments with many code differences per environment.</span></span>
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet_all&highlight=15,42)]
 
-## <a name="additional-resources"></a><span data-ttu-id="2636e-381">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="2636e-381">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="73481-399">Další materiály</span><span class="sxs-lookup"><span data-stu-id="73481-399">Additional resources</span></span>
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/configuration/index>
