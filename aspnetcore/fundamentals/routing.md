@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: 18f1aee5ac33b17914bd182e46453120e14b31ab
-ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
+ms.openlocfilehash: fcf79966abf7a023773ef892636530278b668c44
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2020
-ms.locfileid: "86176197"
+ms.lasthandoff: 07/28/2020
+ms.locfileid: "87303609"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -435,7 +435,7 @@ Vzory adres URL, které se pokoušejí zachytit název souboru s volitelnou př�
 * `/files/myFile.txt`
 * `/files/myFile`
 
-Parametry směrování můžou mít **výchozí hodnoty** určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se ( `=` ). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller` . Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku ( `?` ) na konec názvu parametru. Například `id?`. Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování:
+Parametry směrování můžou mít **výchozí hodnoty** určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se ( `=` ). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller` . Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku ( `?` ) na konec názvu parametru. Například, `id?`. Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování:
 
 * Parametr trasy s výchozí hodnotou vždy vytvoří hodnotu.
 * Volitelný parametr má hodnotu pouze v případě, že je hodnota poskytnuta adresou URL požadavku.
@@ -586,7 +586,7 @@ Vlastní omezení tras je potřeba jenom zřídka. Před implementací vlastníh
 
 Složka [omezení](https://github.com/dotnet/aspnetcore/tree/master/src/Http/Routing/src/Constraints) ASP.NET Core poskytuje vhodné příklady vytváření omezení. Například [GuidRouteConstraint](https://github.com/dotnet/aspnetcore/blob/master/src/Http/Routing/src/Constraints/GuidRouteConstraint.cs#L18).
 
-Chcete-li použít vlastní `IRouteConstraint` , musí být typ omezení trasy zaregistrován v rámci aplikace <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v kontejneru služby. `ConstraintMap`Je slovník, který mapuje klíče omezení tras na `IRouteConstraint` implementace, které ověřují tato omezení. Aplikace se `ConstraintMap` dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Zde je příklad:
+Chcete-li použít vlastní `IRouteConstraint` , musí být typ omezení trasy zaregistrován v rámci aplikace <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v kontejneru služby. `ConstraintMap`Je slovník, který mapuje klíče omezení tras na `IRouteConstraint` implementace, které ověřují tato omezení. Aplikace se `ConstraintMap` dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/StartupConstraint.cs?name=snippet)]
 
@@ -602,7 +602,7 @@ Implementace `MyCustomConstraint` brání `0` použití parametru trasy:
 
 [!INCLUDE[](~/includes/regex.md)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Zabrání `0` v `{id}` segmentu trasy.
 * Je zobrazený jako základní příklad implementace vlastního omezení. Neměl by se používat v produkční aplikaci.
@@ -669,7 +669,7 @@ Prvním krokem při řešení potíží s generováním adresy URL je nastavení
 
 Podrobnosti o generování adresy URL najdete v tématu [odkazy na generování adresy URL](#ugr) .
 
-### <a name="addresses"></a>Addresses (Adresy)
+### <a name="addresses"></a>Adresy
 
 Adresy představují koncept v adrese URL, který se používá pro svázání volání do generátoru odkazů do sady koncových bodů kandidáta.
 
@@ -701,7 +701,7 @@ Následující příklad ukazuje okolní hodnoty a explicitní hodnoty. Poskytuj
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/WidgetController.cs?name=snippet)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Vrátí`/Widget/Index/17`
 * Získá <xref:Microsoft.AspNetCore.Routing.LinkGenerator> přes [di](xref:fundamentals/dependency-injection).
@@ -831,7 +831,7 @@ V předchozím kódu `culture` je parametr Route použit k lokalizaci. Je potře
 Následující odkazy obsahují informace o konfiguraci metadat koncového bodu:
 
 * [Povolení CORS s směrováním koncových bodů](xref:security/cors#enable-cors-with-endpoint-routing)
-* [Ukázka IAuthorizationPolicyProvider](https://github.com/dotnet/AspNetCore/tree/release/3.0/src/Security/samples/CustomPolicyProvider) s použitím vlastního `[MinimumAgeAuthorize]` atributu
+* [Ukázka IAuthorizationPolicyProvider](https://github.com/dotnet/AspNetCore/tree/release/3.1/src/Security/samples/CustomPolicyProvider) s použitím vlastního `[MinimumAgeAuthorize]` atributu
 * [Test ověřování pomocí atributu [autorizovat]](xref:security/authentication/identity#test-identity)
 * <xref:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization*>
 * [Výběr schématu pomocí atributu [autorizovat]](xref:security/authorization/limitingidentitybyscheme#selecting-the-scheme-with-the-authorize-attribute)
@@ -1503,7 +1503,7 @@ Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulárn�
 
 Kromě předdefinovaných omezení trasy lze vytvořit vlastní omezení trasy implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>Rozhraní obsahuje jedinou metodu, `Match` která vrací, `true` Pokud je omezení splněno, a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Zde je příklad:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -1512,7 +1512,7 @@ services.AddRouting(options =>
 });
 ```
 
-Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Zde je příklad:
+Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Příklad:
 
 ```csharp
 [HttpGet("{id:customName}")]
@@ -1947,7 +1947,7 @@ Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulárn�
 
 Kromě předdefinovaných omezení trasy lze vytvořit vlastní omezení trasy implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>Rozhraní obsahuje jedinou metodu, `Match` která vrací, `true` Pokud je omezení splněno, a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Zde je příklad:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -1956,7 +1956,7 @@ services.AddRouting(options =>
 });
 ```
 
-Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Zde je příklad:
+Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Příklad:
 
 ```csharp
 [HttpGet("{id:customName}")]

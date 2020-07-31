@@ -4,7 +4,7 @@ author: jamesnk
 description: Naučte se volat služby gRPC Services pomocí klienta .NET gRPC.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 04/21/2020
+ms.date: 07/27/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 9ebe36cdb17e858fd82216b090e3e89169197101
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0d8856bba5afaaed4d9552480e4ae5dcbb7704d5
+ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406183"
+ms.lasthandoff: 07/28/2020
+ms.locfileid: "87303544"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>Volání služeb gRPC pomocí klienta .NET
 
@@ -50,6 +50,19 @@ var counterClient = new Count.CounterClient(channel);
 // Use clients to call gRPC services
 ```
 
+### <a name="configure-tls"></a>Konfigurace TLS
+
+Klient gRPC musí používat stejné zabezpečení na úrovni připojení jako volaná služba. protokol TLS (gRPC Client Transport Layer Security) je nakonfigurován při vytvoření kanálu gRPC. Klient gRPC vyvolá chybu při volání služby a zabezpečení kanálu a služby na úrovni připojení se neshoduje.
+
+Pokud chcete gRPC kanál nakonfigurovat tak, aby používal protokol TLS, ujistěte se, že adresa serveru začíná `https` . Například `GrpcChannel.ForAddress("https://localhost:5001")` používá protokol HTTPS. Kanál gRPC automaticky negotates připojení zabezpečené protokolem TLS a používá zabezpečené připojení k zajištění gRPC volání.
+
+> [!TIP]
+> gRPC podporuje ověřování certifikátu klienta přes protokol TLS. Informace o konfiguraci klientských certifikátů pomocí gRPC kanálu najdete v tématu <xref:grpc/authn-and-authz#client-certificate-authentication> .
+
+Chcete-li volat nezabezpečené služby gRPC, ujistěte se, že adresa serveru začíná `http` . Například `GrpcChannel.ForAddress("http://localhost:5000")` používá protokol HTTP. V .NET Core 3,1 nebo novější se vyžaduje další konfigurace pro [volání nezabezpečených gRPC služeb pomocí klienta .NET](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client).
+
+### <a name="client-performance"></a>Výkon klienta
+
 Výkon a využití kanálu a klienta:
 
 * Vytvoření kanálu může být náročná operace. Použití kanálu pro volání gRPC poskytuje výhody týkající se výkonu.
@@ -59,9 +72,6 @@ Výkon a využití kanálu a klienta:
 * Klienti vytvoření z kanálu můžou provádět víc souběžných volání.
 
 `GrpcChannel.ForAddress`není jedinou možností pro vytvoření klienta gRPC. Pokud voláte služby gRPC Services z aplikace ASP.NET Core, zvažte [integraci klientské továrny gRPC](xref:grpc/clientfactory). integrace gRPC s `HttpClientFactory` nabízí centralizovanou alternativu k vytváření klientů gRPC.
-
-> [!NOTE]
-> Pro [volání nezabezpečených služeb gRPC s klientem .NET](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)je vyžadována další konfigurace.
 
 > [!NOTE]
 > Volání gRPC přes HTTP/2 s `Grpc.Net.Client` se v Xamarin v tuto chvíli nepodporuje. Pracujeme na vylepšení podpory protokolu HTTP/2 v budoucí verzi Xamarin. [Grpc. Core](https://www.nuget.org/packages/Grpc.Core) a [Grpc-web](xref:grpc/browser) představují životaschopné alternativy, které dnes fungují.
@@ -196,7 +206,7 @@ Console.WriteLine("Greeting: " + response.Message);
 // Greeting: Hello World
 
 var trailers = call.GetTrailers();
-var myValue = trailers.First(e => e.Key == "my-trailer-name");
+var myValue = trailers.GetValue("my-trailer-name");
 ```
 
 Volání serveru a obousměrného streamování musí dokončit čekání na datový proud odpovědi před voláním `GetTrailers()` :
@@ -212,7 +222,7 @@ await foreach (var response in call.ResponseStream.ReadAllAsync())
 }
 
 var trailers = call.GetTrailers();
-var myValue = trailers.First(e => e.Key == "my-trailer-name");
+var myValue = trailers.GetValue("my-trailer-name");
 ```
 
 gRPC přívěsy jsou také přístupné z `RpcException` . Služba může vracet přípojná vozidla společně se stavem gRPC bez OK. V této situaci jsou přípojná rozhraní načítána z výjimky vyvolané klientem gRPC:
@@ -230,16 +240,16 @@ try
     // Greeting: Hello World
 
     var trailers = call.GetTrailers();
-    myValue = trailers.First(e => e.Key == "my-trailer-name");
+    myValue = trailers.GetValue("my-trailer-name");
 }
 catch (RpcException ex)
 {
     var trailers = ex.Trailers;
-    myValue = trailers.First(e => e.Key == "my-trailer-name");
+    myValue = trailers.GetValue("my-trailer-name");
 }
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:grpc/clientfactory>
 * <xref:grpc/basics>
