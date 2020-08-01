@@ -5,7 +5,7 @@ description: Seznamte se s konfigurací Blazor aplikací, včetně nastavení ap
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/10/2020
+ms.date: 07/29/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,24 +15,29 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/configuration
-ms.openlocfilehash: f78803a3954feb98a39f26874b9de0aa08dc6327
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 9ae0dcc16b9debd47a61010953243b0abe499c4f
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445213"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87443973"
 ---
-# <a name="aspnet-core-blazor-configuration"></a>BlazorKonfigurace ASP.NET Core
+# <a name="aspnet-core-no-locblazor-configuration"></a>BlazorKonfigurace ASP.NET Core
 
 > [!NOTE]
 > Toto téma se týká Blazor WebAssembly . Obecné pokyny týkající se konfigurace ASP.NET Core aplikace najdete v tématu <xref:fundamentals/configuration/index> .
 
-Blazor WebAssemblyNačte konfiguraci z:
+Blazor WebAssemblyNačte konfiguraci ze souborů nastavení aplikace ve výchozím nastavení:
 
-* Soubory nastavení aplikace ve výchozím nastavení:
-  * `wwwroot/appsettings.json`
-  * `wwwroot/appsettings.{ENVIRONMENT}.json`
-* Další [poskytovatelé konfigurace](xref:fundamentals/configuration/index) zaregistrované aplikací Ne všichni poskytovatelé jsou vhodné pro Blazor WebAssembly aplikace. Vyjasnění, které zprostředkovatelé podporují, Blazor WebAssembly je sledováno pomocí [vysvětlení poskytovatelé konfigurace pro Blazor WASM (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).
+* `wwwroot/appsettings.json`
+* `wwwroot/appsettings.{ENVIRONMENT}.json`
+
+Konfigurace můžou taky poskytovat další poskytovatelé konfigurace, které tato aplikace zaregistruje.
+
+Ne všichni poskytovatelé nebo funkce poskytovatele jsou vhodné pro Blazor WebAssembly aplikace:
+
+* [Zprostředkovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration): zprostředkovatel není podporován pro spravovanou IDENTITU a ID aplikace (ID klienta) s použitím scénářů tajného klíče klienta. ID aplikace s tajným klíčem klienta se nedoporučuje pro žádnou aplikaci ASP.NET Core, zejména pro Blazor WebAssembly aplikace, protože tajný klíč klienta nemůže být zabezpečený na straně klienta pro přístup ke službě.
+* [Poskytovatel konfigurace aplikace Azure](/azure/azure-app-configuration/quickstart-aspnet-core-app): poskytovatel není vhodný pro Blazor WebAssembly aplikace, protože Blazor WebAssembly aplikace neběží na serveru v Azure.
 
 > [!WARNING]
 > Konfigurace v Blazor WebAssembly aplikaci je viditelná pro uživatele. **Neukládejte tajné klíče aplikace ani přihlašovací údaje v konfiguraci.**
@@ -61,7 +66,31 @@ Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do k
 <p>Message: @Configuration["message"]</p>
 ```
 
-## <a name="provider-configuration"></a>Konfigurace zprostředkovatele
+## <a name="custom-configuration-provider-with-ef-core"></a>Vlastní poskytovatel konfigurace s EF Core
+
+Vlastní poskytovatel konfigurace s EF Core ukázal v <xref:fundamentals/configuration/index#custom-configuration-provider> práci s Blazor WebAssembly aplikacemi.
+
+Přidejte poskytovatele konfigurace tohoto příkladu k následujícímu kódu v `Program.Main` ( `Program.cs` ):
+
+```csharp
+builder.Configuration.AddEFConfiguration(
+    options => options.UseInMemoryDatabase("InMemoryDb"));
+```
+
+Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do komponenty pro přístup k datům konfigurace:
+
+```razor
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<ul>
+    <li>@Configuration["quote1"]</li>
+    <li>@Configuration["quote2"]</li>
+    <li>@Configuration["quote3"]</li>
+</ul>
+```
+
+## <a name="memory-configuration-source"></a>Zdroj konfigurace paměti
 
 Následující příklad používá <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> k poskytnutí další konfigurace:
 

@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 6e47e627915bd8988d161f7d5af4a89f3671c0a7
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: a08993a7909d67be34446815b10d32089d9e0629
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445447"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444156"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -223,7 +223,7 @@ dotnet run --MyKey "Using --" --Position:Title=Cmd-- --Position:Name=Cmd--Rick
 Hodnota klíče:
 
 * Musí následovat po `=` , nebo klíč musí mít předponu `--` nebo, `/` Pokud se hodnota řídí mezerou.
-* Není vyžadováno `=` , pokud je použit. Například `MySetting=`.
+* Není vyžadováno `=` , pokud je použit. Například, `MySetting=`.
 
 V rámci stejného příkazu Nekombinujte páry klíč-hodnota argumentu příkazového řádku, které `=` se používají s páry klíč-hodnota, které používají mezeru.
 
@@ -371,7 +371,7 @@ Uvažujte následující kód:
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON.cs?name=snippet&highlight=12-14)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Nakonfiguruje zprostředkovatele konfigurace JSON, aby načetl *MyConfig.js* do souboru s následujícími možnostmi:
   * `optional: true`: Soubor je nepovinný.
@@ -675,7 +675,7 @@ Vytvořte vlastního poskytovatele konfigurace děděním z <xref:Microsoft.Exte
 
 Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *program.cs*:
 
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
+[!code-csharp[](index/samples_snippets/3.x/ConfigurationSample/Program.cs?highlight=7-8)]
 
 <a name="acs"></a>
 
@@ -687,7 +687,7 @@ Následující kód zobrazuje konfigurační data v `Startup` metodách:
 
 Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuštění aplikace najdete v tématu [metody spuštění aplikace: pohodlí](xref:fundamentals/startup#convenience-methods).
 
-## <a name="access-configuration-in-razor-pages"></a>Přístup ke konfiguraci na Razor stránkách
+## <a name="access-configuration-in-no-locrazor-pages"></a>Přístup ke konfiguraci na Razor stránkách
 
 Následující kód zobrazuje konfigurační data na Razor stránce:
 
@@ -763,7 +763,7 @@ Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NE
 
 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>Implementace umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídu aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Zdrojový kód konfigurace](https://github.com/dotnet/extensions/tree/master/src/Configuration)
 * <xref:fundamentals/configuration/options>
@@ -1799,7 +1799,7 @@ public class Startup
 
 Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuštění aplikace najdete v tématu [metody spuštění aplikace: pohodlí](xref:fundamentals/startup#convenience-methods).
 
-## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a>Přístup ke konfiguraci na Razor stránce stránky nebo zobrazení MVC
+## <a name="access-configuration-in-a-no-locrazor-pages-page-or-mvc-view"></a>Přístup ke konfiguraci na Razor stránce stránky nebo zobrazení MVC
 
 Chcete-li získat přístup k nastavení konfigurace na Razor stránce stránky nebo zobrazení MVC, přidejte [direktivu using](xref:mvc/views/razor#using) ([Referenční dokumentace jazyka C#: using](/dotnet/csharp/language-reference/keywords/using-directive)) pro [obor názvůMicrosoft.Extensions.Configuration](xref:Microsoft.Extensions.Configuration) a vložte ho <xref:Microsoft.Extensions.Configuration.IConfiguration> do stránky nebo zobrazení.
 

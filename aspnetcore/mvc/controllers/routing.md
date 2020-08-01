@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: b917671053313c74acfff36518e8f36d5ef2eb22
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 962b42239b2101fc95e55fb38ce214481bf0ef01
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405481"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444134"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování na akce kontroleru v ASP.NET Core
 
@@ -52,7 +52,7 @@ Tento dokument:
 
 [!code-csharp[](routing/samples/3.x/main/StartupDefaultMVC.cs?name=snippet)]
 
-Uvnitř volání metody <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> se používá k vytvoření jedné trasy. Jedna trasa má název `default` Route. Většina aplikací s řadiči a zobrazeními používá šablonu směrování podobnou `default` trase. Rozhraní REST API by měly používat [Směrování atributů](#ar).
+Uvnitř volání metody <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute%2A> se používá k vytvoření jedné trasy. Jedna trasa má název `default` Route. Většina aplikací s řadiči a zobrazeními používá šablonu směrování podobnou `default` trase. Rozhraní REST API by měly používat [Směrování atributů](#ar).
 
 Šablona trasy `"{controller=Home}/{action=Index}/{id?}"` :
 
@@ -89,7 +89,7 @@ Pomocí předchozí definice kontroleru a šablony trasy se `HomeController.Inde
 
 Cesta URL `/` používá výchozí `Home` řadiče a akci šablony směrování `Index` . Cesta URL `/Home` používá výchozí akci šablony směrování `Index` .
 
-Způsob usnadnění <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapDefaultControllerRoute*> :
+Způsob usnadnění <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapDefaultControllerRoute%2A> :
 
 ```csharp
 endpoints.MapDefaultControllerRoute();
@@ -102,10 +102,10 @@ endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"
 ```
 
 > [!IMPORTANT]
-> Směrování je nakonfigurované pomocí <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*> <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> middlewaru a. Použití řadičů:
+> Směrování je nakonfigurované pomocí <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting%2A> <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> middlewaru a. Použití řadičů:
 >
-> * Zavolejte <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> uvnitř `UseEndpoints` pro mapování řadičů [směrovaných na atributy](#ar) .
-> * Zavolejte <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> nebo <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> , pokud chcete namapovat obě [konvence směrované](#cr) na řadiče a ovladače [směrovaného atributu](#ar) .
+> * Zavolejte <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers%2A> uvnitř `UseEndpoints` pro mapování řadičů [směrovaných na atributy](#ar) .
+> * Zavolejte <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute%2A> nebo <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute%2A> , pokud chcete namapovat obě [konvence směrované](#cr) na řadiče a ovladače [směrovaného atributu](#ar) .
 
 <a name="routing-conventional-ref-label"></a>
 <a name="crd"></a>
@@ -151,7 +151,7 @@ Většina aplikací by měla zvolit základní a popisné schéma směrování, 
 * Je užitečným výchozím bodem pro aplikace založené na uživatelském rozhraní.
 * Je jedinou šablonou směrování, která je nutná pro mnoho webových aplikací uživatelského rozhraní. U větších webových aplikací uživatelského rozhraní je další trasa s použitím [oblastí](#areas) , pokud je to potřeba.
 
-<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*>a <xref:Microsoft.AspNetCore.Builder.MvcAreaRouteBuilderExtensions.MapAreaRoute*> :
+<xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute%2A>a <xref:Microsoft.AspNetCore.Builder.MvcAreaRouteBuilderExtensions.MapAreaRoute%2A> :
 
 * Automatické přiřazení hodnoty **objednávky** ke svým koncovým bodům podle pořadí, ve kterém jsou vyvolány.
 
@@ -168,7 +168,7 @@ Povolte [protokolování](xref:fundamentals/logging/index) , abyste viděli, jak
 
 ### <a name="multiple-conventional-routes"></a>Několik konvenčních tras
 
-V rámci lze přidat více [konvenčních tras](#cr) `UseEndpoints` přidáním dalších volání do <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> a <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> . To umožňuje definovat více konvencí nebo přidávat konvenční trasy, které jsou vyhrazeny určité [akci](#action), například:
+V rámci lze přidat více [konvenčních tras](#cr) `UseEndpoints` přidáním dalších volání do <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute%2A> a <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute%2A> . To umožňuje definovat více konvencí nebo přidávat konvenční trasy, které jsou vyhrazeny určité [akci](#action), například:
 
 [!code-csharp[](routing/samples/3.x/main/Startup.cs?name=snippet_1)]
 
@@ -189,7 +189,7 @@ Protože `controller` se `action` nezobrazuje v šabloně trasy `"blog/{*article
 Předchozí příklad:
 
 * `blog`trasa má vyšší prioritu pro shody, než je `default` trasa, protože je přidána jako první.
-* Je a příkladem směrování stylu [popisu](https://developer.mozilla.org/docs/Glossary/Slug) , kde je typický název článku jako součást adresy URL.
+* Je příkladem směrování stylu [popisu](https://developer.mozilla.org/docs/Glossary/Slug) , kde je typický jako součást adresy URL název článku.
 
 > [!WARNING]
 > V ASP.NET Core 3,0 a novějších směrování:
@@ -203,7 +203,7 @@ Předchozí příklad:
 ### <a name="conventional-routing-order"></a>Konvenční pořadí směrování
 
 Konvenční směrování odpovídá pouze kombinaci akcí a kontrolérů, které jsou definovány aplikací. Cílem je zjednodušit případy, kdy se konvenční trasy překrývají.
-Přidání tras pomocí <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> , <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapDefaultControllerRoute*> a <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> Automatické přiřazení hodnoty objednávky ke svým koncovým bodům na základě pořadí, ve kterém jsou vyvolány. Shody z trasy, která se zobrazí dříve, mají vyšší prioritu. Konvenční směrování je závislé na pořadí. Obecně platí, že trasy s oblastmi by měly být umístěny dříve, protože jsou konkrétnější než trasy bez oblasti. [Vyhrazené konvenční trasy](#dcr) se zachycením všech parametrů tras, jako je například `{*article}` , mohou vytvořit trasu příliš [hladce](xref:fundamentals/routing#greedy), což znamená, že odpovídají adresám URL, které mají být porovnány s jinými trasami. Tyto hladové trasy umístěte později do směrovací tabulky, aby se zabránilo hladce porovnávání.
+Přidání tras pomocí <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute%2A> , <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapDefaultControllerRoute%2A> a <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute%2A> Automatické přiřazení hodnoty objednávky ke svým koncovým bodům na základě pořadí, ve kterém jsou vyvolány. Shody z trasy, která se zobrazí dříve, mají vyšší prioritu. Konvenční směrování je závislé na pořadí. Obecně platí, že trasy s oblastmi by měly být umístěny dříve, protože jsou konkrétnější než trasy bez oblasti. [Vyhrazené konvenční trasy](#dcr) se zachycením všech parametrů tras, jako je například `{*article}` , mohou vytvořit trasu příliš [hladce](xref:fundamentals/routing#greedy), což znamená, že odpovídají adresám URL, které mají být porovnány s jinými trasami. Tyto hladové trasy umístěte později do směrovací tabulky, aby se zabránilo hladce porovnávání.
 
 [!INCLUDE[](~/includes/catchall.md)]
 
@@ -216,7 +216,7 @@ Pokud se dva koncové body shodují přes směrování, musí směrování prov�
 * Vyberte nejlepší kandidáta.
 * Vyvolejte výjimku.
 
-Například:
+Příklad:
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet9)]
 
@@ -272,7 +272,7 @@ Směrování atributů používá sadu atributů k mapování akcí přímo na �
 
 [!code-csharp[](routing/samples/3.x/main/StartupAPI.cs?name=snippet)]
 
-V předchozím kódu <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> je volána uvnitř `UseEndpoints` pro mapování řadičů směrovaných na atribut.
+V předchozím kódu <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers%2A> je volána uvnitř `UseEndpoints` pro mapování řadičů směrovaných na atribut.
 
 V následujícím příkladu:
 
@@ -431,7 +431,7 @@ Následující tabulka popisuje `[Route]` atributy v předchozím kódu:
 | `[Route("")]` | Ano | `"Home"` |
 | `[Route("Index")]` | Ano | `"Home/Index"` |
 | `[Route("/")]` | **Ne** | `""` |
-| `[Route("About")]` | Yes | `"Home/About"` |
+| `[Route("About")]` | Ano | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
 <a name="oar"></a>
@@ -758,7 +758,7 @@ Následující Razor soubor generuje odkaz HTML na `Destination_Route` :
 
 <a name="routing-gen-urls-html-ref-label"></a>
 
-### <a name="generate-urls-in-html-and-razor"></a>Generování adres URL ve formátu HTML aRazor
+### <a name="generate-urls-in-html-and-no-locrazor"></a>Generování adres URL ve formátu HTML aRazor
 
 <xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper>poskytuje <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper> metody [HTML. BeginForm](xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper.BeginForm*) a [HTML. ActionLink](xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper.ActionLink*) ke generování `<form>` a `<a>` prvkům v tomto pořadí. Tyto metody používají metodu [URL. Action](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*) pro VYGENEROVÁNÍ adresy URL a přijímající podobné argumenty. `Url.RouteUrl`Doprovodníci pro `HtmlHelper` jsou `Html.BeginRouteForm` a `Html.RouteLink` mají podobné funkce.
 
@@ -776,7 +776,7 @@ Předchozí příklady ukázaly použití `IUrlHelper` v kontroleru. Nejběžně
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/CustomerController.cs?name=snippet)]
 
-Akce pro metody vytváření výsledků, jako je například <xref:Microsoft.AspNetCore.Mvc.ControllerBase.RedirectToAction*> a <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> následují podobně jako metody v `IUrlHelper` .
+Akce pro metody vytváření výsledků, jako je například <xref:Microsoft.AspNetCore.Mvc.ControllerBase.RedirectToAction%2A> a <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction%2A> následují podobně jako metody v `IUrlHelper` .
 
 <a name="routing-dedicated-ref-label"></a>
 
@@ -805,7 +805,7 @@ Následující příklad nakonfiguruje MVC tak, aby používala výchozí konven
 
 [!code-csharp[](routing/samples/3.x/AreasRouting/Startup.cs?name=snippet1)]
 
-V předchozím kódu <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> je volána k vytvoření `"blog_route"` . Druhým parametrem `"Blog"` je název oblasti.
+V předchozím kódu <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute%2A> je volána k vytvoření `"blog_route"` . Druhým parametrem `"Blog"` je název oblasti.
 
 Při porovnání cesty URL jako `/Manage/Users/AddUser` se v `"blog_route"` trase vygeneruje hodnoty trasy `{ area = Blog, controller = Users, action = AddUser }` . `area`Hodnota trasy je vytvořena výchozí hodnotou pro `area` . Trasa, kterou vytvořil, `MapAreaControllerRoute` je ekvivalentní následujícímu:
 
@@ -1009,7 +1009,7 @@ V rámci zpracování žádosti MVC ověří, že hodnoty trasy lze použít k v
 
 ### <a name="disambiguating-actions"></a>Nejednoznačnost akcí
 
-Pokud se dvě akce shodují přes směrování, MVC musí nejednoznačně vybrat kandidáta na nejlepší nebo jinak vyvolat výjimku. Například:
+Pokud se dvě akce shodují přes směrování, MVC musí nejednoznačně vybrat kandidáta na nejlepší nebo jinak vyvolat výjimku. Příklad:
 
 ```csharp
 public class ProductsController : Controller

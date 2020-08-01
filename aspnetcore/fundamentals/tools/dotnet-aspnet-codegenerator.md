@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: a106654c8a37e84e9186a2f06d90605df753e8a7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: af151b65d3fefb5863529de1cd97c6315f11ca82
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405598"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444124"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet ASPNET – CodeGenerator
 
@@ -50,7 +50,7 @@ dotnet aspnet-codegenerator [arguments] [-p|--project] [-n|--nuget-package-dir] 
 dotnet aspnet-codegenerator [-h|--help]
 ```
 
-## <a name="description"></a>Description
+## <a name="description"></a>Popis
 
 `dotnet aspnet-codegenerator`Globální příkaz spustí generátor kódu ASP.NET Core a modul generování uživatelského rozhraní.
 
@@ -60,13 +60,13 @@ dotnet aspnet-codegenerator [-h|--help]
 
 Generátor kódu, který se má spustit. K dispozici jsou následující generátory:
 
-| Generátor | Operace |
-| ----------------- | ------------ | 
-| oblast      | [Generování uživatelského rozhraní oblasti](/aspnet/core/mvc/controllers/areas) |
-  kontroler| [Generování uživatelského rozhraní kontroleru](/aspnet/core/tutorials/first-mvc-app/adding-model) |
-  identity  | [SCAFFOLDIdentity](/aspnet/core/security/authentication/scaffold-identity) |
-  razorpage | [Stránky generování uživatelského rozhraní Razor](/aspnet/core/tutorials/razor-pages/model) |
-  zobrazení      | [Generování uživatelského rozhraní zobrazení](/aspnet/core/mvc/views/overview) |
+| Generátor  | Operace                                                            |
+| ---------- | -------------------------------------------------------------------- |
+| oblast       | [Generování uživatelského rozhraní oblasti](xref:mvc/controllers/areas)                      |
+| kontroler | [Generování uživatelského rozhraní kontroleru](xref:tutorials/first-mvc-app/adding-model)  |
+| identity   | [SCAFFOLDIdentity](xref:security/authentication/scaffold-identity) |
+| razorpage  | [Stránky generování uživatelského rozhraní Razor](xref:tutorials/razor-pages/model)            |
+| zobrazení       | [Generování uživatelského rozhraní zobrazení](xref:mvc/views/overview)                          |
 
 ## <a name="options"></a>Možnosti
 
@@ -105,7 +105,7 @@ Následující části obsahují podrobné informace o možnostech, které jsou 
 * Oblast
 * Kontrolér
 * Identity  
-* Razorpage
+* RazorPage
 * Zobrazit
 
 <a name="area"></a>
@@ -135,13 +135,13 @@ V následující tabulce jsou uvedeny možnosti pro `aspnet-codegenerator` `cont
 
 Následující tabulka uvádí možnosti, které jsou jedinečné pro `aspnet-codegenerator controller` :
 
-| Možnost               | Description|
-| ----------------- | ------------ |
-| --Controller nebo-Name | Název kontroleru |
-| --useAsyncActions nebo-Async | Vygenerujte akce asynchronního kontroleru. |
-| --nezobrazení nebo-NV | Negenerovat **žádná** zobrazení |
-| --restWithNoViews nebo-API  | Vygenerujte kontrolér s rozhraním API stylu REST. `noViews`je předpokládaná a všechny možnosti zobrazení jsou ignorovány. |
-| --readWriteActions nebo-Actions | Vygeneruje kontroler s akcemi čtení/zápisu bez modelu. |
+| Možnost                         | Popis                                                                                               |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| --Controller nebo-Name      | Název kontroleru                                                                                   |
+| --useAsyncActions nebo-Async    | Vygenerujte akce asynchronního kontroleru.                                                                        |
+| --nezobrazení nebo-NV               | Negenerovat **žádná** zobrazení                                                                                    |
+| --restWithNoViews nebo-API      | Vygenerujte kontrolér s rozhraním API stylu REST. `noViews`je předpokládaná a všechny možnosti zobrazení jsou ignorovány. |
+| --readWriteActions nebo-Actions | Vygeneruje kontroler s akcemi čtení/zápisu bez modelu.                                              |
 
 `-h`Pro nápovědu k příkazu použijte přepínač `aspnet-codegenerator controller` :
 
@@ -149,9 +149,9 @@ Následující tabulka uvádí možnosti, které jsou jedinečné pro `aspnet-co
 dotnet aspnet-codegenerator controller -h
 ```
 
-Příklad naleznete v tématu [generování modelu filmu](/aspnet/core/tutorials/razor-pages/model) `dotnet aspnet-codegenerator controller` .
+Příklad naleznete v tématu [generování modelu filmu](xref:tutorials/first-mvc-app/adding-model) `dotnet aspnet-codegenerator controller` .
 
-### <a name="razorpage"></a>Razorpage
+### <a name="no-locrazorpage"></a>RazorPage
 
 <a name="rp"></a>
 
@@ -184,11 +184,11 @@ V následující tabulce jsou uvedeny možnosti pro `aspnet-codegenerator` `razo
 
 Následující tabulka uvádí možnosti, které jsou jedinečné pro `aspnet-codegenerator razorpage` :
 
-| Možnost               | Description|
-| ----------------- | ------------ |
-|   --Namespace nebo-Namespace | Název oboru názvů, který se má použít pro vygenerovaný PageModel |
-| --partialView nebo-Partial | Vygeneruje částečné zobrazení. Možnosti rozložení – l a-UDL se při zadání tohoto nastavení ignorují. |
-| --noPageModel nebo-npm | Přepněte na negenerovat třídu PageModel pro prázdnou šablonu. |
+| Možnost                        | Popis                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------- |
+| --Namespace nebo-Namespace | Název oboru názvů, který se má použít pro vygenerovaný PageModel                          |
+| --partialView nebo-Partial     | Vygeneruje částečné zobrazení. Možnosti rozložení – l a-UDL se při zadání tohoto nastavení ignorují. |
+| --noPageModel nebo-npm         | Přepněte na negenerovat třídu PageModel pro prázdnou šablonu.                           |
 
 `-h`Pro nápovědu k příkazu použijte přepínač `aspnet-codegenerator razorpage` :
 
@@ -196,8 +196,8 @@ Následující tabulka uvádí možnosti, které jsou jedinečné pro `aspnet-co
 dotnet aspnet-codegenerator razorpage -h
 ```
 
-Příklad naleznete v tématu [generování modelu filmu](/aspnet/core/tutorials/razor-pages/model) `dotnet aspnet-codegenerator razorpage` .
+Příklad naleznete v tématu [generování modelu filmu](xref:tutorials/razor-pages/model) `dotnet aspnet-codegenerator razorpage` .
 
 ### Identity
 
-Viz [generování Identity uživatelského rozhraní](/aspnet/core/security/authentication/scaffold-identity)
+Viz [generování Identity uživatelského rozhraní](xref:security/authentication/scaffold-identity)

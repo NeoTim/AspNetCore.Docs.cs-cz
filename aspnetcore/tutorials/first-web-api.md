@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: 2383934070a65b8131e890a170186b736d3fcec0
-ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
+ms.openlocfilehash: b6a189907f521d7d9d18c1373747a13ab38a621f
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/28/2020
-ms.locfileid: "86869988"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444163"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -238,7 +238,7 @@ Třídy modelu mohou jít kdekoli v projektu, ale složka *modely* je používá
 * Vyberte kartu **Procházet** a potom do vyhledávacího pole zadejte **Microsoft. EntityFrameworkCore. SqlServer** .
 * V levém podokně vyberte **Microsoft. EntityFrameworkCore. SqlServer** .
 * Zaškrtněte políčko **projekt** v pravém podokně a pak vyberte **nainstalovat**.
-* Pomocí předchozích pokynů přidejte `Microsoft.EntityFrameworkCore.InMemory` balíček NuGet.
+* Pomocí předchozích pokynů přidejte balíček NuGet **Microsoft. EntityFrameworkCore. inMemory** .
 
 ![Správce balíčků NuGet](first-web-api/_static/vs3NuGet.png)
 
@@ -304,7 +304,7 @@ Předchozí příkazy:
 
 Generovaný kód:
 
-* Označí třídu [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) atributem. Tento atribut označuje, že kontroler reaguje na požadavky webového rozhraní API. Informace o konkrétním chování, které atribut povoluje, naleznete v tématu <xref:web-api/index> .
+* Označí třídu [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) atributem. Tento atribut označuje, že kontroler reaguje na požadavky webového rozhraní API. Informace o konkrétním chování, které atribut povoluje, naleznete v tématu <xref:web-api/index> .
 * Pomocí DI vloží kontext databáze ( `TodoContext` ) do kontroleru. Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.
 
 Šablony ASP.NET Core pro:
@@ -320,7 +320,7 @@ Nahraďte příkaz return v `PostTodoItem` operátoru k použití operátoru [na
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Create)]
 
-Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) atributem. Metoda získá hodnotu položky k seřízení z těla požadavku HTTP.
+Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](xref:Microsoft.AspNetCore.Mvc.HttpPostAttribute) atributem. Metoda získá hodnotu položky k seřízení z těla požadavku HTTP.
 
 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*>Metoda:
 
@@ -409,7 +409,7 @@ Tato aplikace používá databázi v paměti. Pokud se aplikace zastaví a spust
 
 ## <a name="routing-and-url-paths"></a>Směrování a cesty URL
 
-[`[HttpGet]`](/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute)Atribut označuje metodu, která reaguje na požadavek HTTP GET. Cesta URL pro každou metodu je konstruována takto:
+[`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute)Atribut označuje metodu, která reaguje na požadavek HTTP GET. Cesta URL pro každou metodu je konstruována takto:
 
 * Začněte s řetězcem šablony v `Route` atributu kontroleru:
 
@@ -428,7 +428,7 @@ Návratový typ `GetTodoItems` `GetTodoItem` metod a je [ActionResult \<T> typ](
 
 `ActionResult`návratové typy mohou představovat široké spektrum stavových kódů HTTP. Například `GetTodoItem` může vracet dvě různé stavové hodnoty:
 
-* Pokud žádná položka neodpovídá požadovanému ID, vrátí metoda kód chyby 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) .
+* Pokud žádná položka neodpovídá požadovanému ID, vrátí metoda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A> kód chyby 404.
 * V opačném případě metoda vrátí 200 text odpovědi JSON. `item`Výsledkem vrácení výsledků odpovědi HTTP 200.
 
 ## <a name="the-puttodoitem-method"></a>Metoda PutTodoItem
@@ -720,7 +720,7 @@ Předcházející kód:
 Předcházející kód:
 
 * Definuje třídu kontroleru rozhraní API bez metod.
-* Označí třídu [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) atributem. Tento atribut označuje, že kontroler reaguje na požadavky webového rozhraní API. Informace o konkrétním chování, které atribut povoluje, naleznete v tématu <xref:web-api/index> .
+* Označí třídu [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) atributem. Tento atribut označuje, že kontroler reaguje na požadavky webového rozhraní API. Informace o konkrétním chování, které atribut povoluje, naleznete v tématu <xref:web-api/index> .
 * Pomocí DI vloží kontext databáze ( `TodoContext` ) do kontroleru. Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.
 * Přidá položku s názvem `Item1` do databáze, pokud je databáze prázdná. Tento kód je v konstruktoru, takže se spustí pokaždé, když se vytvoří nový požadavek HTTP. Pokud odstraníte všechny položky, konstruktor se znovu vytvoří `Item1` při příštím volání metody rozhraní API. Takže může vypadat, že odstranění nefungovalo, pokud skutečně fungovalo.
 
@@ -756,7 +756,7 @@ Následující odpověď protokolu HTTP je vytvořena voláním metody `GetTodoI
 
 ## <a name="routing-and-url-paths"></a>Směrování a cesty URL
 
-[`[HttpGet]`](/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute)Atribut označuje metodu, která reaguje na požadavek HTTP GET. Cesta URL pro každou metodu je konstruována takto:
+[`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute)Atribut označuje metodu, která reaguje na požadavek HTTP GET. Cesta URL pro každou metodu je konstruována takto:
 
 * Začněte s řetězcem šablony v `Route` atributu kontroleru:
 
@@ -775,7 +775,7 @@ Návratový typ `GetTodoItems` `GetTodoItem` metod a je [ActionResult \<T> typ](
 
 `ActionResult`návratové typy mohou představovat široké spektrum stavových kódů HTTP. Například `GetTodoItem` může vracet dvě různé stavové hodnoty:
 
-* Pokud žádná položka neodpovídá požadovanému ID, vrátí metoda kód chyby 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) .
+* Pokud žádná položka neodpovídá požadovanému ID, vrátí metoda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A> kód chyby 404.
 * V opačném případě metoda vrátí 200 text odpovědi JSON. `item`Výsledkem vrácení výsledků odpovědi HTTP 200.
 
 ## <a name="test-the-gettodoitems-method"></a>Test metody GetTodoItems
@@ -814,7 +814,7 @@ Přidejte následující `PostTodoItem` metodu do *Controllers/TodoController. c
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Create)]
 
-Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) atributem. Metoda získá hodnotu položky k seřízení z těla požadavku HTTP.
+Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](xref:Microsoft.AspNetCore.Mvc.HttpPostAttribute) atributem. Metoda získá hodnotu položky k seřízení z těla požadavku HTTP.
 
 `CreatedAtAction`Metoda:
 
@@ -907,7 +907,7 @@ Ukázková aplikace umožňuje odstranit všechny položky. Když je však posle
 
 V této části se přidá stránka HTML, která pomocí JavaScriptu volá webové rozhraní API. jQuery inicializuje požadavek. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
 
-Nakonfigurujte aplikaci tak, aby [sloužila pro statické soubory](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) , a [Povolte výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) aktualizací *Startup.cs* pomocí následujícího zvýrazněného kódu:
+Nakonfigurujte aplikaci tak, aby [sloužila pro statické soubory](xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A) , a [Povolte výchozí mapování souborů](xref:Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles%2A) aktualizací *Startup.cs* pomocí následujícího zvýrazněného kódu:
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 

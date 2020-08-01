@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/http-requests
-ms.openlocfilehash: 578263978959100e266626aeccccc0830d9462b7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: fb9001c06228b4290ca1e0c7cfb6b1338f431cd6
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399111"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444115"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -214,7 +214,7 @@ V předchozím kódu `CreateItemAsync` metoda:
 * Volání <xref:System.Net.Http.HttpClient.PostAsync%2A> pro odeslání obsahu JSON na zadanou adresu URL. Toto je relativní adresa URL, která se přidá do [HttpClient. BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress).
 * Volání <xref:System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode%2A> vyvolávající výjimku, pokud kód stavu odpovědi neindikuje úspěch.
 
-`HttpClient`podporuje také další typy obsahu. Například <xref:System.Net.Http.MultipartContent> a <xref:System.Net.Http.StreamContent> . Úplný seznam podporovaného obsahu najdete v tématu <xref:System.Net.Http.HttpContent> .
+`HttpClient`podporuje také další typy obsahu. Příklad: <xref:System.Net.Http.MultipartContent> a <xref:System.Net.Http.StreamContent>. Úplný seznam podporovaného obsahu najdete v tématu <xref:System.Net.Http.HttpContent> .
 
 Následující příklad ukazuje požadavek HTTP PUT:
 
@@ -318,7 +318,7 @@ Přístup ke správě často používaných zásad je definovat jednou a zaregis
 
 V následujícím kódu:
 
-* Přidávají se zásady "regular" a "Long".
+* Přidají se zásady "regular" a "Long".
 * <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddPolicyHandlerFromRegistry*>Přidá do registru zásady "regular" a "Long".
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup4.cs?name=snippet1)]
@@ -370,7 +370,7 @@ Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensi
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -421,7 +421,7 @@ V následujícím příkladu:
   var response = client.GetAsync(...);
   ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
@@ -688,7 +688,7 @@ Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensi
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -723,7 +723,7 @@ V následujícím příkladu:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
@@ -744,7 +744,7 @@ Je <xref:System.Net.Http.IHttpClientFactory> možné zaregistrovat a použít ke
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Projekty, které cílí na .NET Framework vyžadují instalaci balíčku [Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet. Projekty, které cílí na .NET Core a odkazují na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) , už `Microsoft.Extensions.Http` balíček obsahuje.
 
@@ -996,7 +996,7 @@ Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensi
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -1048,7 +1048,7 @@ V následujícím příkladu:
   var response = client.GetAsync(...);
   ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)

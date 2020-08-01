@@ -14,14 +14,14 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/index
-ms.openlocfilehash: e7e9bc76a2bba1c15b32c97f0f3629285f256499
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: bd9f991a2aba32cbbeb193ad422005f910e6795b
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86568702"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444068"
 ---
-# <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor stránek v ASP.NET Core
+# <a name="introduction-to-no-locrazor-pages-in-aspnet-core"></a>Úvod do Razor stránek v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -33,7 +33,7 @@ Pokud hledáte kurz, který používá přístup k modelovým zobrazením, pře�
 
 Tento dokument popisuje úvodní Razor stránky. Nejedná se o podrobný kurz. Pokud zjistíte, že některé části jsou moc pokročilé, přečtěte si téma Začínáme [se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start). Přehled ASP.NET Core najdete v [úvodu k ASP.NET Core](xref:index).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -51,7 +51,7 @@ Tento dokument popisuje úvodní Razor stránky. Nejedná se o podrobný kurz. P
 
 <a name="rpvs17"></a>
 
-## <a name="create-a-razor-pages-project"></a>Vytvořit Razor projekt stránek
+## <a name="create-a-no-locrazor-pages-project"></a>Vytvořit Razor projekt stránek
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -67,7 +67,7 @@ Podrobné pokyny k vytvoření projektu stránky najdete v tématu Začínáme [
 
 ---
 
-## <a name="razor-pages"></a>RazorStránky
+## <a name="no-locrazor-pages"></a>RazorStránky
 
 RazorStránky jsou povolené v *Startup.cs*:
 
@@ -109,6 +109,8 @@ RazorStránky jsou navržené tak, aby při vytváření aplikace byly běžné 
 
 Pro ukázky v tomto dokumentu `DbContext` se inicializuje v souboru [Startup.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/razor-pages/index/3.0sample/RazorPagesContacts/Startup.cs#L23-L24) .
 
+Databáze v paměti vyžaduje `Microsoft.EntityFrameworkCore.InMemory` balíček NuGet.
+
 [!code-csharp[](index/3.0sample/RazorPagesContacts/Startup.cs?name=snippet)]
 
 Datový model:
@@ -132,7 +134,7 @@ Podle konvence `PageModel` je třída volána `<PageName>Model` a je ve stejném
 `PageModel`Třída umožňuje oddělení logiky stránky od její prezentace. Definuje obslužné rutiny stránky pro požadavky odeslané na stránku a data použitá k vykreslení stránky. Toto oddělení umožňuje:
 
 * Správa závislostí stránky prostřednictvím [vkládání závislostí](xref:fundamentals/dependency-injection).
-* [Testování částí](xref:test/razor-pages-tests)
+* [Testování jednotek](xref:test/razor-pages-tests)
 
 Stránka obsahuje `OnPostAsync` *metodu obslužné rutiny*, která běží na `POST` žádostech (když uživatel formulář odešle). Lze přidat metody obslužné rutiny pro jakýkoli příkaz HTTP. Nejběžnější obslužné rutiny jsou:
 
@@ -279,7 +281,7 @@ Pomocí následujícího souboru zobrazení *Create. cshtml* :
 
 [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create3.cshtml?highlight=3,8-9,15-99)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Zahrnuje skripty pro ověření jQuery a jQuery.
 * Používá `<div />` `<span />` [pomocníky značek](xref:mvc/views/tag-helpers/intro) a k povolení:
@@ -296,7 +298,7 @@ Při publikování formuláře vytvořit bez hodnoty Name se zobrazí chybová z
 `[StringLength(10)]`Atribut generuje `data-val-length-max="10"` na vykresleném HTML. `data-val-length-max`zabrání prohlížečům v zadávání více než maximální zadané délky. Pokud se k úpravě a přehrání příspěvku používá nástroj, například [Fiddler](https://www.telerik.com/fiddler) :
 
 * S názvem delším než 10.
-* Chybová zpráva "název pole musí být řetězec s maximální délkou 10." je vrácen.
+* Chybová zpráva "název pole musí být řetězec s maximální délkou 10." .
 
 Vezměte v úvahu následující `Movie` model:
 
@@ -323,7 +325,7 @@ Stránka vytvořit pro `Movie` model zobrazuje chyby s neplatnými hodnotami:
 
 ![Formulář zobrazení videa s několika chybami ověřování na straně klienta jQuery](~/tutorials/razor-pages/validation/_static/val.png)
 
-Další informace najdete tady:
+Další informace:
 
 * [Přidání ověření do aplikace Movie](xref:tutorials/razor-pages/validation)
 * [Ověřování modelu v ASP.NET Core](xref:mvc/models/validation).
@@ -340,13 +342,13 @@ RazorStránky se vrátí k volání `OnGet` obslužné rutiny, `OnHead` Pokud ne
 
 <a name="xsrf"></a>
 
-## <a name="xsrfcsrf-and-razor-pages"></a>XSRF/CSRF a Razor stránky
+## <a name="xsrfcsrf-and-no-locrazor-pages"></a>XSRF/CSRF a Razor stránky
 
 RazorStránky jsou chráněny [ověřováním proti padělání](xref:security/anti-request-forgery). [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) vloží tokeny proti padělání do prvků formuláře HTML.
 
 <a name="layout"></a>
 
-## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>Použití rozložení, částečných, šablon a značek pomocníka se Razor stránkami
+## <a name="using-layouts-partials-templates-and-tag-helpers-with-no-locrazor-pages"></a>Použití rozložení, částečných, šablon a značek pomocníka se Razor stránkami
 
 Stránky fungují se všemi možnostmi Razor modulu zobrazení. Rozložení, částečné typy, šablony, pomocníka značek, *_ViewStart. cshtml*a *_ViewImports. cshtml* fungují stejným způsobem jako u konvenčních Razor zobrazení.
 
@@ -454,7 +456,7 @@ Název stránky je cesta ke stránce z kořenové složky */Pages* , včetně ú
 
 Generování adresy URL pro stránky podporuje relativní názvy. Následující tabulka ukazuje, která stránka index je vybrána pomocí různých `RedirectToPage` parametrů na *stránkách/zákaznících/vytvořit. cshtml*.
 
-| RedirectToPage (x)| stránka |
+| RedirectToPage (x)| Stránka |
 | ----------------- | ------------ |
 | RedirectToPage("/Index") | *Stránky/rejstřík* |
 | RedirectToPage("./Index"); | *Stránky/zákazníci/rejstřík* |
@@ -585,19 +587,19 @@ Pomocí <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions> můžete na
 
 Chcete-li předkompilovat zobrazení, přečtěte si téma [ Razor zobrazení kompilace](xref:mvc/views/view-compilation).
 
-### <a name="specify-that-razor-pages-are-at-the-content-root"></a>Zadejte, jestli Razor se stránky nacházejí v kořenu obsahu.
+### <a name="specify-that-no-locrazor-pages-are-at-the-content-root"></a>Zadejte, jestli Razor se stránky nacházejí v kořenu obsahu.
 
 Ve výchozím nastavení Razor se stránky rootují v adresáři */Pages* . Přidat <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.WithRazorPagesAtContentRoot*> k určení, že vaše Razor stránky jsou v [kořenu obsahu](xref:fundamentals/index#content-root) ( <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootPath> ) aplikace:
 
 [!code-csharp[](index/3.0sample/RazorPagesContacts/StartupWithRazorPagesAtContentRoot.cs?name=snippet)]
 
-### <a name="specify-that-razor-pages-are-at-a-custom-root-directory"></a>Zadejte, jestli Razor jsou stránky ve vlastním kořenovém adresáři.
+### <a name="specify-that-no-locrazor-pages-are-at-a-custom-root-directory"></a>Zadejte, jestli Razor jsou stránky ve vlastním kořenovém adresáři.
 
 Přidat <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuilderExtensions.WithRazorPagesRoot*> k určení, že Razor stránky jsou v aplikaci vlastním kořenovým adresářem (zadejte relativní cestu):
 
 [!code-csharp[](index/3.0sample/RazorPagesContacts/StartupWithRazorPagesRoot.cs?name=snippet)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * Viz Začínáme [se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start), které jsou založeny na tomto úvodu.
 * [Autorizovat atributy a Razor stránky](xref:security/authorization/simple#aarp)
@@ -624,7 +626,7 @@ Pokud hledáte kurz, který používá přístup k modelovým zobrazením, pře�
 
 Tento dokument popisuje úvodní Razor stránky. Nejedná se o podrobný kurz. Pokud zjistíte, že některé části jsou moc pokročilé, přečtěte si téma Začínáme [se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start). Přehled ASP.NET Core najdete v [úvodu k ASP.NET Core](xref:index).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -642,7 +644,7 @@ Tento dokument popisuje úvodní Razor stránky. Nejedná se o podrobný kurz. P
 
 <a name="rpvs17"></a>
 
-## <a name="create-a-razor-pages-project"></a>Vytvořit Razor projekt stránek
+## <a name="create-a-no-locrazor-pages-project"></a>Vytvořit Razor projekt stránek
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -660,7 +662,7 @@ Spusťte `dotnet new webapp` příkaz z příkazového řádku.
 
 ---
 
-## <a name="razor-pages"></a>RazorStránky
+## <a name="no-locrazor-pages"></a>RazorStránky
 
 RazorStránky jsou povolené v *Startup.cs*:
 
@@ -860,13 +862,13 @@ services.AddMvc()
 
 <a name="xsrf"></a>
 
-## <a name="xsrfcsrf-and-razor-pages"></a>XSRF/CSRF a Razor stránky
+## <a name="xsrfcsrf-and-no-locrazor-pages"></a>XSRF/CSRF a Razor stránky
 
 Nemusíte psát žádný kód pro [ověřování proti padělání](xref:security/anti-request-forgery). Generování a ověření tokenu antipadělání jsou automaticky zahrnuty na Razor stránkách.
 
 <a name="layout"></a>
 
-## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>Použití rozložení, částečných, šablon a značek pomocníka se Razor stránkami
+## <a name="using-layouts-partials-templates-and-tag-helpers-with-no-locrazor-pages"></a>Použití rozložení, částečných, šablon a značek pomocníka se Razor stránkami
 
 Stránky fungují se všemi možnostmi Razor modulu zobrazení. Rozložení, částečné typy, šablony, pomocníka značek, *_ViewStart. cshtml*, *_ViewImports. cshtml* fungují stejným způsobem jako u konvenčních Razor zobrazení.
 
@@ -964,7 +966,7 @@ Název stránky je cesta ke stránce z kořenové složky */Pages* , včetně ú
 
 Generování adresy URL pro stránky podporuje relativní názvy. Následující tabulka ukazuje, která stránka indexu je vybrána s různými `RedirectToPage` parametry ze *stránky/zákazníci/vytvořit. cshtml*:
 
-| RedirectToPage (x)| stránka |
+| RedirectToPage (x)| Stránka |
 | ----------------- | ------------ |
 | RedirectToPage("/Index") | *Stránky/rejstřík* |
 | RedirectToPage("./Index"); | *Stránky/zákazníci/rejstřík* |
@@ -1094,7 +1096,7 @@ Chcete-li předkompilovat zobrazení, přečtěte si téma [ Razor zobrazení ko
 
 Viz Začínáme [se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start), které jsou založeny na tomto úvodu.
 
-### <a name="specify-that-razor-pages-are-at-the-content-root"></a>Zadejte, jestli Razor se stránky nacházejí v kořenu obsahu.
+### <a name="specify-that-no-locrazor-pages-are-at-the-content-root"></a>Zadejte, jestli Razor se stránky nacházejí v kořenu obsahu.
 
 Ve výchozím nastavení Razor se stránky rootují v adresáři */Pages* . Přidejte [s Razor PagesAtContentRoot](/dotnet/api/microsoft.extensions.dependencyinjection.mvcrazorpagesmvcbuilderextensions.withrazorpagesatcontentroot) do [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc#Microsoft_Extensions_DependencyInjection_MvcServiceCollectionExtensions_AddMvc_Microsoft_Extensions_DependencyInjection_IServiceCollection_) a určete, jestli Razor jsou vaše stránky v [kořenu obsahu](xref:fundamentals/index#content-root) ([ContentRootPath](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.contentrootpath)) aplikace:
 
@@ -1107,7 +1109,7 @@ services.AddMvc()
     .WithRazorPagesAtContentRoot();
 ```
 
-### <a name="specify-that-razor-pages-are-at-a-custom-root-directory"></a>Zadejte, jestli Razor jsou stránky ve vlastním kořenovém adresáři.
+### <a name="specify-that-no-locrazor-pages-are-at-a-custom-root-directory"></a>Zadejte, jestli Razor jsou stránky ve vlastním kořenovém adresáři.
 
 Přidejte [s Razor PagesRoot](/dotnet/api/microsoft.extensions.dependencyinjection.mvcrazorpagesmvccorebuilderextensions.withrazorpagesroot) do [AddMvc](/dotnet/api/microsoft.extensions.dependencyinjection.mvcservicecollectionextensions.addmvc#Microsoft_Extensions_DependencyInjection_MvcServiceCollectionExtensions_AddMvc_Microsoft_Extensions_DependencyInjection_IServiceCollection_) a určete tak, že vaše Razor stránky jsou v aplikaci vlastním kořenovým adresářem (zadejte relativní cestu):
 
@@ -1120,7 +1122,7 @@ services.AddMvc()
     .WithRazorPagesRoot("/path/to/razor/pages");
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Autorizovat atributy a Razor stránky](xref:security/authorization/simple#aarp)
 * <xref:index>

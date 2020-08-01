@@ -5,7 +5,7 @@ description: Sestavte Blazor aplikaci krok za krokem.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2020
+ms.date: 07/30/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: 174a8e561701bb3ebd68ed05e42dfc3d70a9b450
-ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
+ms.openlocfilehash: b58c0c3db685d0a5b082aaf2eb434635bd10e2eb
+ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2020
-ms.locfileid: "86176229"
+ms.lasthandoff: 07/30/2020
+ms.locfileid: "87444041"
 ---
-# <a name="build-a-blazor-todo-list-app"></a>Sestavení Blazor aplikace seznamu úkolů
+# <a name="build-a-no-locblazor-todo-list-app"></a>Sestavení Blazor aplikace seznamu úkolů
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
@@ -32,9 +32,15 @@ V tomto kurzu se dozvíte, jak vytvořit a upravit Blazor aplikaci. Získáte in
 > * Vytvoření Blazor projektu aplikace seznamu úkolů
 > * Upravit Razor součásti
 > * Použití zpracování událostí a datové vazby v součástech
-> * Použití vkládání závislostí (DI) a směrování v Blazor aplikaci
+> * Použití směrování v Blazor aplikaci
 
 Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
+
+## <a name="prerequisites"></a>Předpoklady
+
+[!INCLUDE[](~/includes/3.1-SDK.md)]
+
+## <a name="create-a-todo-list-no-locblazor-app"></a>Vytvoření aplikace seznamu úkolů Blazor
 
 1. Vytvořte novou Blazor aplikaci s názvem `TodoList` v příkazovém prostředí:
 
@@ -140,7 +146,7 @@ V tomto kurzu jste se naučili:
 > * Vytvoření Blazor projektu aplikace seznamu úkolů
 > * Upravit Razor součásti
 > * Použití zpracování událostí a datové vazby v součástech
-> * Použití vkládání závislostí (DI) a směrování v Blazor aplikaci
+> * Použití směrování v Blazor aplikaci
 
 Další informace o nástrojích pro ASP.NET Core Blazor :
 
