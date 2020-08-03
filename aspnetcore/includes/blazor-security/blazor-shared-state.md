@@ -5,7 +5,7 @@ Blazor serverové aplikace jsou v paměti serveru v provozu. To znamená, že v 
 
 V aplikacích Blazor můžete použít stavové služby typu Singleton, pokud jsou pro ně konkrétně navržené. Například je možné použít mezipaměť paměti jako typ singleton, protože pro přístup k dané položce vyžaduje klíč, za předpokladu, že uživatelé nemají kontrolu nad tím, jaké klíče mezipaměti jsou používány.
 
-**Z bezpečnostních důvodů navíc nesmíte <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> v aplikacích Blazor používat.** Aplikace Blazor běží mimo kontext kanálu ASP.NET Core a <xref:Microsoft.AspNetCore.Http.HttpContext> není zaručena, že by měla být k dispozici v rámci <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> , ani zaručit, že by měla být v kontextu spuštěná aplikace Blazor.
+**Z bezpečnostních důvodů navíc nesmíte <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> v aplikacích Blazor používat.** Aplikace Blazor se spouštějí mimo kontext kanálu ASP.NET Core. <xref:Microsoft.AspNetCore.Http.HttpContext>Není zaručeno, že bude k dispozici v rámci <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> , ani je zaručeno, že by měla být držena v kontextu, který spustil aplikaci Blazor.
 
 Doporučeným způsobem, jak předat stav žádosti do aplikace Blazor, je prostřednictvím parametrů kořenové součásti při počátečním vykreslování aplikace:
 
