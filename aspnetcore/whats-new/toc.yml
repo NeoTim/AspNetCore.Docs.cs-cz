@@ -5,6 +5,8 @@
     - name: 2020
       expanded: true
       items:
+        - name: Červenec
+          href: 2020-07.md
         - name: Červen
           href: 2020-06.md
         - name: Květen
@@ -15,5 +17,3 @@
           href: 2020-03.md
         - name: Únor
           href: 2020-02.md
-        - name: January (Leden)
-          href: 2020-01.md
