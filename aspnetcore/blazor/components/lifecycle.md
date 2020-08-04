@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 6b9653356659700ae8396a01b38c04d59a86625f
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 92fd893963f049e014325d4f55affa789979647a
+ms.sourcegitcommit: 37f6f2e13ceb4eae268d20973d76e4b83acf6a24
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059887"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526274"
 ---
-# <a name="aspnet-core-blazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
+# <a name="aspnet-core-no-locblazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
@@ -90,7 +90,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A>nebo <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> se nazývají:
 
-* Po inicializaci komponenty v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> nebo <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> .
+* Po inicializaci komponenty v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> nebo <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> .
 * Po opětovném vykreslení nadřazené komponenty a dodání:
   * Pouze známé primitivní neměnné typy, u kterých se změnil alespoň jeden parametr.
   * Jakékoli parametry komplexního typu. Architektura nemůže zjistit, zda hodnoty parametru složitého typu jsou interně provedeny, takže se sada parametrů považuje za změněnou.
@@ -187,37 +187,6 @@ V `FetchData` komponentě Blazor šablony <xref:Microsoft.AspNetCore.Components.
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
-## <a name="component-disposal-with-idisposable"></a>Vyřazení komponent pomocí IDisposable
-
-Pokud komponenta implementuje <xref:System.IDisposable> , je [ `Dispose` Metoda](/dotnet/standard/garbage-collection/implementing-dispose) volána, když je komponenta odebrána z uživatelského rozhraní. Následující komponenta používá `@implements IDisposable` a `Dispose` metodu:
-
-```razor
-@using System
-@implements IDisposable
-
-...
-
-@code {
-    public void Dispose()
-    {
-        ...
-    }
-}
-```
-
-> [!NOTE]
-> Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> v `Dispose` není podporováno. <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
-
-Zruší odběr obslužných rutin událostí z událostí .NET. Následující příklady [ Blazor formulářů](xref:blazor/forms-validation) ukazují, jak odpojovat obslužnou rutinu události v `Dispose` metodě:
-
-* Přístup k privátnímu poli a lambda
-
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
-
-* Přístup k privátní metodě
-
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
-
 ## <a name="handle-errors"></a>Ošetření chyb
 
 Informace o zpracování chyb během provádění metod životního cyklu naleznete v tématu <xref:blazor/fundamentals/handle-errors#lifecycle-methods> .
@@ -285,6 +254,37 @@ Další informace o naleznete v <xref:Microsoft.AspNetCore.Mvc.TagHelpers.Compon
 ## <a name="detect-when-the-app-is-prerendering"></a>Rozpoznat, kdy se aplikace předvykresluje
 
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
+
+## <a name="component-disposal-with-idisposable"></a>Vyřazení komponent pomocí IDisposable
+
+Pokud komponenta implementuje <xref:System.IDisposable> , je [ `Dispose` Metoda](/dotnet/standard/garbage-collection/implementing-dispose) volána, když je komponenta odebrána z uživatelského rozhraní. K vyřazení může dojít kdykoli, včetně při [inicializaci komponenty](#component-initialization-methods). Následující komponenta používá `@implements IDisposable` a `Dispose` metodu:
+
+```razor
+@using System
+@implements IDisposable
+
+...
+
+@code {
+    public void Dispose()
+    {
+        ...
+    }
+}
+```
+
+> [!NOTE]
+> Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> v `Dispose` není podporováno. <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
+
+Zruší odběr obslužných rutin událostí z událostí .NET. Následující příklady [ Blazor formulářů](xref:blazor/forms-validation) ukazují, jak odpojovat obslužnou rutinu události v `Dispose` metodě:
+
+* Přístup k privátnímu poli a lambda
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
+
+* Přístup k privátní metodě
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
 
 ## <a name="cancelable-background-work"></a>Zrušit práci na pozadí
 
