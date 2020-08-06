@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 6e31a8f49ca535f98f4e073af13896386a4a0feb
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: cebfc88a8a8313bfd975001b50db6e41b6939aed
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408211"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819138"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -49,11 +49,11 @@ Další informace naleznete v tématu <xref:blazor/index>.
 
 Blazorodpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Serverposkytuje podporu pro hostování Razor komponent na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes SignalR připojení. Blazor Serverje podporován v ASP.NET Core 3,0.
 
-### <a name="blazor-webassembly-preview"></a>Blazor WebAssemblyTisk
+### <a name="no-locblazor-webassembly-preview"></a>Blazor WebAssemblyTisk
 
 Blazoraplikace je také možné spustit přímo v prohlížeči pomocí rozhraní .NET runtime založeného na WebAssembly. Blazor WebAssemblyje ve verzi Preview a *nepodporuje* se v ASP.NET Core 3,0. Blazor WebAssemblybude podporován v budoucí verzi ASP.NET Core.
 
-### <a name="razor-components"></a>Razorkonstrukční
+### <a name="no-locrazor-components"></a>Razorkonstrukční
 
 Blazoraplikace jsou sestavené z komponent. Komponenty jsou samostatné bloky uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenty jsou normální třídy .NET, které definují logiku vykreslování uživatelského rozhraní a obslužné rutiny událostí na straně klienta. Můžete vytvářet bohatě interaktivní webové aplikace bez JavaScriptu.
 
@@ -72,7 +72,7 @@ Komponenty v Blazor jsou obvykle vytvořeny pomocí Razor syntaxe, přirozeného
   * Formát binární serializace.
 * Poskytuje funkce, jako například:
 
-  * Ověřování
+  * Ověřování uživatelů
   * Obousměrné streamování a řízení toku.
   * Zrušení a vypršení časového limitu.
 
@@ -320,16 +320,16 @@ ASP.NET Core 3,0 teď používá standardně <xref:System.Text.Json> pro seriali
 
 Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidání podpory formátu JSON založeného na Newtonsoft.Js](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support).
 
-## <a name="new-razor-directives"></a>Nové Razor direktivy
+## <a name="new-no-locrazor-directives"></a>Nové Razor direktivy
 
 Následující seznam obsahuje nové Razor direktivy:
 
 * [`@attribute`](xref:mvc/views/razor#attribute): `@attribute` Direktiva aplikuje daný atribut na třídu generované stránky nebo zobrazení. Například, `@attribute [Authorize]`.
 * [`@implements`](xref:mvc/views/razor#implements): `@implements` Direktiva implementuje rozhraní pro generovanou třídu. Například, `@implements IDisposable`.
 
-## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 podporuje ověřování a autorizaci pro webová rozhraní API a jednostránkové.
+## <a name="no-locidentityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 podporuje ověřování a autorizaci pro webová rozhraní API a jednostránkové.
 
-ASP.NET Core 3,0 nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) s využitím podpory pro autorizaci webového rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelů se v kombinaci s [IdentityServer4](https://identityserver.io/) pro implementaci otevřeného ID Connect.
+ASP.NET Core 3,0 nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) s využitím podpory pro autorizaci webového rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelů se v kombinaci s [ Identity Server4](https://identityserver.io/) pro implementaci OpenID připojení.
 
 IdentityServer4 je rozhraní OpenID Connect a OAuth 2,0 Framework pro ASP.NET Core 3,0. Umožňuje následující funkce zabezpečení:
 
@@ -338,7 +338,7 @@ IdentityServer4 je rozhraní OpenID Connect a OAuth 2,0 Framework pro ASP.NET Co
 * Řízení přístupu pro rozhraní API
 * Federační brána
 
-Další informace najdete v [dokumentaci k IdentityServer4 nebo v](http://docs.identityserver.io/en/latest/index.html) článku věnovaném [ověřování a autorizaci pro jednostránkové](xref:security/authentication/identity/spa).
+Další informace najdete v [dokumentaci k Identity Server4 nebo v](http://docs.identityserver.io/en/latest/index.html) článku věnovaném [ověřování a autorizaci pro jednostránkové](xref:security/authentication/identity/spa).
 
 ## <a name="certificate-and-kerberos-authentication"></a>Ověřování pomocí certifikátů a protokolu Kerberos
 
@@ -485,7 +485,7 @@ Další informace najdete v následujících článcích:
 
 ## <a name="pipes-on-httpcontext"></a>Kanály na HttpContext
 
-Nyní je možné číst text žádosti a zapsat tělo odpovědi pomocí <xref:System.IO.Pipelines> rozhraní API. Rozhraní <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader`vlastnost poskytuje objekt <xref:System.IO.Pipelines.PipeReader> , který lze použít ke čtení textu žádosti. Rozhraní <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter`vlastnost poskytuje <xref:System.IO.Pipelines.PipeWriter> , kterou lze použít k zápisu textu odpovědi. `HttpRequest.BodyReader`je analogkou `HttpRequest.Body` datového proudu. `HttpResponse.BodyWriter`je analogkou `HttpResponse.Body` datového proudu.
+Nyní je možné číst text žádosti a zapsat tělo odpovědi pomocí <xref:System.IO.Pipelines> rozhraní API. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader`vlastnost poskytuje objekt <xref:System.IO.Pipelines.PipeReader> , který lze použít ke čtení textu žádosti. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter`vlastnost poskytuje <xref:System.IO.Pipelines.PipeWriter> , kterou lze použít k zápisu textu odpovědi. `HttpRequest.BodyReader`je analogkou `HttpRequest.Body` datového proudu. `HttpResponse.BodyWriter`je analogkou `HttpResponse.Body` datového proudu.
 
 <!-- indirectly related, https://github.com/dotnet/docs/pull/14414 won't be published by 9/23  -->
 
@@ -497,7 +497,7 @@ Chyby při spuštění při hostování ASP.NET Corech aplikací ve službě IIS
 
 .NET Core 3,0 zavádí novou šablonu aplikace služby pracovního procesu. Tato šablona poskytuje výchozí bod pro psaní dlouhých služeb, které běží v .NET Core.
 
-Další informace naleznete v tématu:
+Další informace:
 
 * [Pracovní procesy .NET Core jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>

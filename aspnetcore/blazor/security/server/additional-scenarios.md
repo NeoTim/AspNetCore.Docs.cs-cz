@@ -15,22 +15,22 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/additional-scenarios
-ms.openlocfilehash: 46de9a22dec540b8dfda7583b7a3c5c2dcbbc549
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8f112a4d71e44cae112e9854fc77dfda4af5a47a
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402322"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818908"
 ---
-# <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor Server Další scénáře zabezpečení
+# <a name="aspnet-core-no-locblazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor Server Další scénáře zabezpečení
 
 [Javier Calvarro Nelson](https://github.com/javiercn)
 
-## <a name="pass-tokens-to-a-blazor-server-app"></a>Předání tokenů do Blazor Server aplikace
+## <a name="pass-tokens-to-a-no-locblazor-server-app"></a>Předání tokenů do Blazor Server aplikace
 
 Tokeny, které jsou k dispozici mimo Razor součásti v Blazor Server aplikaci, mohou být předány komponentám s přístupem popsaným v této části. Vzorový kód, včetně kompletního `Startup.ConfigureServices` příkladu, najdete v tématu [předávání tokenů do Blazor aplikace na straně serveru](https://github.com/javiercn/blazor-server-aad-sample).
 
-Ověřte Blazor Server aplikaci stejně, jako byste použili běžné Razor stránky nebo aplikace MVC. Zajistěte a uložte tokeny do souboru cookie pro ověřování. Například:
+Ověřte Blazor Server aplikaci stejně, jako byste použili běžné Razor stránky nebo aplikace MVC. Zajistěte a uložte tokeny do souboru cookie pro ověřování. Příklad:
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -162,9 +162,9 @@ endpoints.MapBlazorHub().RequireAuthorization(
     });
 ```
 
-## <a name="use-open-id-connect-oidc-v20-endpoints"></a>Použití koncových bodů Open ID Connect (OIDC) v 2.0
+## <a name="use-openid-connect-oidc-v20-endpoints"></a>Použití koncových bodů OpenID Connect (OIDC) v 2.0
 
-Knihovna a šablony ověřování Blazor používají koncové body Open ID Connect (OIDC) v 1.0. Pokud chcete použít koncový bod v 2.0, nakonfigurujte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> možnost v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> :
+Knihovna a šablony ověřování Blazor používají koncové body OpenID Connect (OIDC) v 1.0. Pokud chcete použít koncový bod v 2.0, nakonfigurujte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> možnost v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> :
 
 ```csharp
 services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, 

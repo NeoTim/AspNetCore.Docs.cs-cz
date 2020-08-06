@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/hubcontext
-ms.openlocfilehash: 85f0f48dd6586b40b8db21eb4b59793069afe2c5
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d38cb5b3e818879d3ec40a927acfdd69dc85377a
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405806"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819247"
 ---
 # <a name="send-messages-from-outside-a-hub"></a>Posílání zpráv mimo centrum
 
@@ -70,7 +70,7 @@ app.Use(async (context, next) =>
 
 ### <a name="get-an-instance-of-ihubcontext-from-ihost"></a>Získat instanci IHubContext z IHost
 
-Přístup k `IHubContext` webu z webového hostitele je užitečný pro integraci s oblastmi mimo ASP.NET Core, například pomocí rozhraní pro vkládání závislostí třetích stran:
+Přístup k `IHubContext` webu z webového hostitele je užitečný pro integraci s oblastmi mimo ASP.NET Core, například pomocí rozhraní pro vkládání závislostí od jiných výrobců:
 
 ```csharp
     public class Program
@@ -114,5 +114,5 @@ public class ChatController : Controller
 ## <a name="related-resources"></a>Související prostředky
 
 * [Začínáme](xref:tutorials/signalr)
-* [Centra](xref:signalr/hubs)
-* [Publikování aplikací do Azure](xref:signalr/publish-to-azure-web-app)
+* [Rozbočovače](xref:signalr/hubs)
+* [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

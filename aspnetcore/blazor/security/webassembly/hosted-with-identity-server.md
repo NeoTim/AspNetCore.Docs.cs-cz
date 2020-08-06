@@ -1,7 +1,7 @@
 ---
-title: Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
+title: Zabezpečení hostované Blazor WebAssembly aplikace v ASP.NET Core se Identity serverem
 author: guardrex
-description: Vytvoření nové Blazor hostované aplikace s ověřováním z aplikace Visual Studio, která používá back-end [ Identity serveru](https://identityserver.io/)
+description: Vytvoření nového hostovaného Blazor řešení s ověřováním v rámci sady Visual Studio, které používá [ Identity Server](https://identityserver.io/) back-end
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -15,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: a27d31345cfe6a4212e3c61d0d99ae6745eab052
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 87424f413ab21ae51fc1b1b2033069f5a41da566
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445174"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818882"
 ---
-# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
+# <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-no-locidentity-server"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
-Tento článek vysvětluje, jak vytvořit novou Blazor hostovanou aplikaci, která používá [ Identity Server](https://identityserver.io/) k ověřování uživatelů a volání rozhraní API.
+Tento článek vysvětluje, jak vytvořit nové hostované Blazor řešení, které používá [ Identity Server](https://identityserver.io/) k ověřování uživatelů a volání rozhraní API.
 
 > [!NOTE]
 > Pokud chcete samostatnou nebo hostovanou Blazor WebAssembly aplikaci nakonfigurovat tak, aby používala existující externí Identity instanci serveru, postupujte podle pokynů v části <xref:blazor/security/webassembly/standalone-with-authentication-library> .
@@ -107,7 +107,7 @@ Následující části popisují přidání do projektu, pokud je zahrnutá Podp
 
 * V `Startup.Configure`:
 
-  * IdentityMiddleware serveru zpřístupňuje koncové body otevřeného ID Connect (OIDC):
+  * IdentityMiddleware serveru zpřístupňuje koncové body OpenID Connect (OIDC):
 
     ```csharp
     app.UseIdentityServer();
@@ -130,7 +130,7 @@ Následující části popisují přidání do projektu, pokud je zahrnutá Podp
 
 <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A>Pomocná metoda konfiguruje [ Identity Server](https://identityserver.io/) pro ASP.NET Core scénáře. IdentityServer je výkonné a rozšiřitelné rozhraní pro zpracování otázek zabezpečení aplikací. IdentityServer zveřejňuje nepotřebnou složitost pro nejběžnější scénáře. V důsledku toho je k dispozici sada konvencí a možností konfigurace, které považujeme za dobrý výchozí bod. Jakmile se vaše potřeby ověřování změní, Identity je k dispozici plná síla serveru pro přizpůsobení ověřování podle požadavků aplikace.
 
-### <a name="addidentityserverjwt"></a>Přidat Identity ServerJwt
+### <a name="addno-locidentityserverjwt"></a>Přidat Identity ServerJwt
 
 <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A>Pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování. Zásady jsou nakonfigurovány tak, aby umožňovaly Identity zpracování všech požadavků směrovaných na jakoukoli dílčí cestu v Identity prostoru URL `/Identity` . <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler>Zpracovává všechny ostatní požadavky. Tato metoda navíc:
 
@@ -195,7 +195,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
 ```
 
 > [!NOTE]
-> Pokud konfigurujete Blazor WebAssembly aplikaci tak, aby používala stávající Identity instanci serveru, která není součástí Blazor hostovaného řešení, změňte <xref:System.Net.Http.HttpClient> registraci základní adresy z <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> ( `builder.HostEnvironment.BaseAddress` ) na adresu URL koncového bodu rozhraní API serverové aplikace.
+> Pokud konfigurujete Blazor WebAssembly aplikaci tak, aby používala stávající Identity instanci serveru, která není součástí hostovaného Blazor řešení, změňte <xref:System.Net.Http.HttpClient> registraci základní adresy z <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> ( `builder.HostEnvironment.BaseAddress` ) na adresu URL koncového bodu rozhraní API serverové aplikace.
 
 ### <a name="api-authorization-support"></a>Podpora autorizace rozhraní API
 
@@ -364,7 +364,7 @@ services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>();
 ```
 
-### <a name="configure-identity-server"></a>Konfigurovat Identity Server
+### <a name="configure-no-locidentity-server"></a>Konfigurovat Identity Server
 
 Použijte **jeden** z následujících přístupů:
 
@@ -464,7 +464,7 @@ V klientské aplikaci jsou v tuto chvíli funkční přístupy k komponentám au
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Nasazení do Azure App Service](xref:security/authentication/identity/spa#deploy-to-production)
 * [Import certifikátu z Key Vault (dokumentace k Azure)](/azure/app-service/configure-ssl-certificate#import-a-certificate-from-key-vault)

@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: a08993a7909d67be34446815b10d32089d9e0629
-ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
+ms.openlocfilehash: 9f143523a6d02ac018ad2a869cc9d768ee25681f
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/30/2020
-ms.locfileid: "87444156"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819260"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -356,6 +356,35 @@ Když je proměnná prostředí zjištěna a načtena do konfigurace se všemi �
 | `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | Klíč: `ConnectionStrings:{KEY}_ProviderName` :<br>Hodnota: `System.Data.SqlClient`  |
 | `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | Klíč: `ConnectionStrings:{KEY}_ProviderName` :<br>Hodnota: `System.Data.SqlClient`  |
 
+## <a name="file-configuration-provider"></a>Poskytovatel konfigurace souboru
+
+<xref:Microsoft.Extensions.Configuration.FileConfigurationProvider>je základní třídou pro načtení konfigurace ze systému souborů. Následující poskytovatelé konfigurace jsou odvozeni z `FileConfigurationProvider` :
+
+* [Poskytovatel konfigurace INI](#ini-configuration-provider)
+* [Zprostředkovatel konfigurace JSON](#jcp)
+* [Poskytovatel konfigurace XML](#xml-configuration-provider)
+
+### <a name="ini-configuration-provider"></a>Poskytovatel konfigurace INI
+
+<xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider>Načítá konfiguraci z párů klíč-hodnota souboru INI za běhu.
+
+Následující kód vymaže všechny poskytovatele konfigurace a přidá několik poskytovatelů konfigurace:
+
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramINI.cs?name=snippet&highlight=10-30)]
+
+V předchozím kódu nastavení *MyIniConfig.ini* a *MyIniConfig*. `Environment` . soubory *ini* jsou přepsány nastavením v:
+
+* [Poskytovatel konfigurace proměnných prostředí](#evcp)
+* [Poskytovatel konfigurace příkazového řádku](#clcp)
+
+[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyIniConfig.ini* :
+
+[!code-ini[](index/samples/3.x/ConfigSample/MyIniConfig.ini)]
+
+Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) zobrazuje několik předchozích nastavení konfigurace:
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
+
 <a name="jcp"></a>
 
 ### <a name="json-configuration-provider"></a>Zprostředkovatel konfigurace JSON
@@ -398,35 +427,6 @@ Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotn
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
 <a name="fcp"></a>
-
-## <a name="file-configuration-provider"></a>Poskytovatel konfigurace souboru
-
-<xref:Microsoft.Extensions.Configuration.FileConfigurationProvider>je základní třídou pro načtení konfigurace ze systému souborů. Následující poskytovatelé konfigurace jsou odvozeni z `FileConfigurationProvider` :
-
-* [Poskytovatel konfigurace INI](#ini-configuration-provider)
-* [Zprostředkovatel konfigurace JSON](#jcp)
-* [Poskytovatel konfigurace XML](#xml-configuration-provider)
-
-### <a name="ini-configuration-provider"></a>Poskytovatel konfigurace INI
-
-<xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider>Načítá konfiguraci z párů klíč-hodnota souboru INI za běhu.
-
-Následující kód vymaže všechny poskytovatele konfigurace a přidá několik poskytovatelů konfigurace:
-
-[!code-csharp[](index/samples/3.x/ConfigSample/ProgramINI.cs?name=snippet&highlight=10-30)]
-
-V předchozím kódu nastavení *MyIniConfig.ini* a *MyIniConfig*. `Environment` . soubory *ini* jsou přepsány nastavením v:
-
-* [Poskytovatel konfigurace proměnných prostředí](#evcp)
-* [Poskytovatel konfigurace příkazového řádku](#clcp)
-
-[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyIniConfig.ini* :
-
-[!code-ini[](index/samples/3.x/ConfigSample/MyIniConfig.ini)]
-
-Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) zobrazuje několik předchozích nastavení konfigurace:
-
-[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
 ### <a name="xml-configuration-provider"></a>Poskytovatel konfigurace XML
 

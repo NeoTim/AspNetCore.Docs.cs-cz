@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/index
-ms.openlocfilehash: 77202cd60d357c27237cdb925e0adc00e66d2e56
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: d8c1d340a05ebdddffcdebad400b44e31159bc28
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407707"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818895"
 ---
-# <a name="host-and-deploy-aspnet-core-blazor"></a>ASP.NET Core hostitele a nasazeníBlazor
+# <a name="host-and-deploy-aspnet-core-no-locblazor"></a>ASP.NET Core hostitele a nasazeníBlazor
 
 Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)
 
@@ -41,7 +41,7 @@ Aplikace jsou publikované pro nasazení v konfiguraci vydání.
 1. Vyberte **sestavení**  >  **publikovat do složky**.
 1. Potvrďte, že složka obdrží publikované prostředky a vyberte **`Publish`** .
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 [`dotnet publish`](/dotnet/core/tools/dotnet-publish)K publikování aplikace s konfigurací vydané verze použijte příkaz:
 
@@ -120,6 +120,10 @@ Zástupný symbol `{RELATIVE PATH}` je nekořenová cesta na serveru. Napříkla
 ```csharp
 endpoints.MapFallbackToPage("/CoolApp/{**path:nonfile}");
 ```
+
+**Hostování více Blazor WebAssembly aplikací**
+
+Další informace o hostování více Blazor WebAssembly aplikací v hostovaném Blazor řešení najdete v tématu <xref:blazor/host-and-deploy/webassembly#hosted-deployment-with-multiple-blazor-webassembly-apps> .
 
 ## <a name="deployment"></a>Nasazení
 

@@ -5,7 +5,7 @@ description: Naučte se konfigurovat Blazor WebAssembly pro další scénáře z
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/24/2020
+ms.date: 08/03/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,29 +15,79 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 79f7b2177d6d07101c73cde841c062b0e1468593
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 81ab2bb139dfcbea712d4eb51acfc9d7f6767d46
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445148"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818830"
 ---
-# <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly Další scénáře zabezpečení
+# <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly Další scénáře zabezpečení
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
 ## <a name="attach-tokens-to-outgoing-requests"></a>Připojit tokeny k odchozím žádostem
 
-<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler>Službu lze použít s nástrojem <xref:System.Net.Http.HttpClient> k připojení přístupových tokenů k odchozím žádostem. Tokeny se získávají pomocí existující <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider> služby. Pokud token nelze získat, <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException> je vyvolána výjimka. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException>má <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException.Redirect%2A> metodu, která se dá použít k navigaci uživatele na poskytovatele identity za účelem získání nového tokenu. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler>Pomocí metody lze konfigurovat pomocí autorizovaných adres URL, oborů a návratové adresy URL <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> .
+<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler>slouží <xref:System.Net.Http.DelegatingHandler> k připojení přístupových tokenů k odchozím <xref:System.Net.Http.HttpResponseMessage> instancím. Tokeny jsou získány pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider> služby, která je registrována rozhraním. Pokud token nelze získat, <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException> je vyvolána výjimka. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException>má <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException.Redirect%2A> metodu, která se dá použít k navigaci uživatele na poskytovatele identity za účelem získání nového tokenu.
 
-Ke konfiguraci obslužné rutiny zpráv pro odchozí požadavky použijte některý z následujících přístupů:
+Pro usnadnění pohodlí poskytuje rozhraní <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> předem nakonfigurovanou základní adresu aplikace jako autorizovanou adresu URL. **Přístupové tokeny se přidávají jenom v případě, že identifikátor URI žádosti spadá do základního identifikátoru URI aplikace.** Pokud neexistují odchozí identifikátory URI žádosti v rámci základního identifikátoru URI aplikace, použijte [vlastní `AuthorizationMessageHandler` třídu (*doporučeno*)](#custom-authorizationmessagehandler-class) nebo [Nakonfigurujte `AuthorizationMessageHandler` ](#configure-authorizationmessagehandler).
 
-* [Vlastní `AuthorizationMessageHandler` Třída](#custom-authorizationmessagehandler-class) (*doporučeno*)
-* [Konfigurace`AuthorizationMessageHandler`](#configure-authorizationmessagehandler)
+> [!NOTE]
+> Kromě konfigurace klientské aplikace pro přístup k rozhraní API serveru musí serverové rozhraní API také umožňovat žádosti mezi zdroji (CORS), pokud se klient a server nenachází na stejné základní adrese. Další informace o konfiguraci CORS na straně serveru najdete v části [sdílení prostředků mezi zdroji (CORS)](#cross-origin-resource-sharing-cors) dále v tomto článku.
 
-### <a name="custom-authorizationmessagehandler-class"></a>Vlastní třída AuthorizationMessageHandler
+V následujícím příkladu:
 
-V následujícím příkladu vlastní třída rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> , která může být použita ke konfiguraci <xref:System.Net.Http.HttpClient> :
+* <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient%2A>přidá <xref:System.Net.Http.IHttpClientFactory> a související služby do kolekce služeb a nakonfiguruje s názvem <xref:System.Net.Http.HttpClient> ( `ServerAPI` ). <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>je základní adresou identifikátoru URI prostředku při odesílání požadavků. <xref:System.Net.Http.IHttpClientFactory>je poskytováno [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) balíčkem NuGet.
+* <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler><xref:System.Net.Http.DelegatingHandler>slouží k připojení přístupových tokenů k odchozím <xref:System.Net.Http.HttpResponseMessage> instancím. Přístupové tokeny se přidávají jenom v případě, že identifikátor URI žádosti spadá do základního identifikátoru URI aplikace.
+* <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A?displayProperty=nameWithType>Vytvoří a nakonfiguruje <xref:System.Net.Http.HttpClient> instanci pro odchozí požadavky pomocí konfigurace, která odpovídá pojmenovanému <xref:System.Net.Http.HttpClient> ( `ServerAPI` ).
+
+```csharp
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
+builder.Services.AddHttpClient("ServerAPI", 
+        client => client.BaseAddress = new Uri("https://www.example.com/base"))
+    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+
+builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
+    .CreateClient("ServerAPI"));
+```
+
+V případě Blazor aplikace založené na Blazor WebAssembly šabloně hostovaného projektu jsou ve výchozím nastavení identifikátory URI požadavků v rámci základního identifikátoru URI aplikace. Proto <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ) je přiřazeno <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> v aplikaci vygenerované ze šablony projektu.
+
+Nakonfigurovaná <xref:System.Net.Http.HttpClient> se používá k provádění autorizovaných požadavků pomocí [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) vzoru:
+
+```razor
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject HttpClient Client
+
+...
+
+protected override async Task OnInitializedAsync()
+{
+    private ExampleType[] examples;
+
+    try
+    {
+        examples = 
+            await Client.GetFromJsonAsync<ExampleType[]>("ExampleAPIMethod");
+
+        ...
+    }
+    catch (AccessTokenNotAvailableException exception)
+    {
+        exception.Redirect();
+    }
+}
+```
+
+### <a name="custom-authorizationmessagehandler-class"></a>Vlastní `AuthorizationMessageHandler` Třída
+
+*Tento návod v této části se doporučuje pro klientské aplikace, které vytvářejí odchozí požadavky na identifikátory URI, které nejsou v rámci základního identifikátoru URI aplikace.*
+
+V následujícím příkladu vlastní třída rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> pro použití jako <xref:System.Net.Http.DelegatingHandler> pro <xref:System.Net.Http.HttpClient> . <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A>nakonfiguruje tuto obslužnou rutinu tak, aby schvalovala odchozí požadavky HTTP pomocí přístupového tokenu. Přístupový token je připojen pouze v případě, že alespoň jedna z autorizovaných adres URL je základem identifikátoru URI žádosti ( <xref:System.Net.Http.HttpRequestMessage.RequestUri?displayProperty=nameWithType> ).
 
 ```csharp
 using Microsoft.AspNetCore.Components;
@@ -56,7 +106,7 @@ public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
 }
 ```
 
-V `Program.Main` ( `Program.cs` ) <xref:System.Net.Http.HttpClient> je nakonfigurován s vlastní obslužnou rutinou ověřovací zprávy:
+V `Program.Main` ( `Program.cs` ) `CustomAuthorizationMessageHandler` je zaregistrován jako Oborová služba a je nakonfigurován jako <xref:System.Net.Http.DelegatingHandler> pro odchozí <xref:System.Net.Http.HttpResponseMessage> instance vytvořené pomocí pojmenovaného <xref:System.Net.Http.HttpClient> :
 
 ```csharp
 builder.Services.AddScoped<CustomAuthorizationMessageHandler>();
@@ -66,9 +116,9 @@ builder.Services.AddHttpClient("ServerAPI",
     .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
 ```
 
-Pro Blazor aplikaci založenou na Blazor WebAssembly hostované šabloně <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> () je `new Uri(builder.HostEnvironment.BaseAddress)` možné přiřadit k <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> .
+Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného projektu <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ) je <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> ve výchozím nastavení přiřazeno.
 
-Nakonfigurovaná <xref:System.Net.Http.HttpClient> se používá k provádění autorizovaných požadavků pomocí [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) vzoru. V případě, že je klient vytvořen pomocí nástroje <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A> ( [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) balíček), <xref:System.Net.Http.HttpClient> jsou dodány instance, které zahrnují přístupové tokeny při vytváření požadavků na rozhraní API serveru:
+Nakonfigurovaná <xref:System.Net.Http.HttpClient> se používá k provádění autorizovaných požadavků pomocí [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) vzoru. V případě, že je klient vytvořen pomocí nástroje <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A> ( [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) balíček), <xref:System.Net.Http.HttpClient> jsou dodány instance, které zahrnují přístupové tokeny při vytváření požadavků na rozhraní API serveru. Pokud je identifikátor URI požadavku relativním identifikátorem URI, protože je v následujícím příkladu ( `ExampleAPIMethod` ), je v kombinaci s rozhraním, <xref:System.Net.Http.HttpClient.BaseAddress> když klientská aplikace provede požadavek:
 
 ```razor
 @inject IHttpClientFactory ClientFactory
@@ -85,7 +135,7 @@ Nakonfigurovaná <xref:System.Net.Http.HttpClient> se používá k provádění 
             var client = ClientFactory.CreateClient("ServerAPI");
 
             examples = 
-                await client.GetFromJsonAsync<ExampleType[]>("{API METHOD}");
+                await client.GetFromJsonAsync<ExampleType[]>("ExampleAPIMethod");
 
             ...
         }
@@ -93,12 +143,13 @@ Nakonfigurovaná <xref:System.Net.Http.HttpClient> se používá k provádění 
         {
             exception.Redirect();
         }
-        
     }
 }
 ```
 
-### <a name="configure-authorizationmessagehandler"></a>Konfigurace AuthorizationMessageHandler
+### <a name="configure-authorizationmessagehandler"></a>Konfigurace`AuthorizationMessageHandler`
+
+<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler>dá se nakonfigurovat pomocí autorizovaných adres URL, oborů a návratové adresy URL pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> metody. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A>nakonfiguruje obslužnou rutinu pro autorizaci odchozích požadavků HTTP pomocí přístupového tokenu. Přístupový token je připojen pouze v případě, že alespoň jedna z autorizovaných adres URL je základem identifikátoru URI žádosti ( <xref:System.Net.Http.HttpRequestMessage.RequestUri?displayProperty=nameWithType> ). Pokud je identifikátor URI požadavku relativním identifikátorem URI, je v kombinaci s <xref:System.Net.Http.HttpClient.BaseAddress> .
 
 V následujícím příkladu <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> nakonfiguruje <xref:System.Net.Http.HttpClient> v `Program.Main` ( `Program.cs` ):
 
@@ -118,58 +169,12 @@ builder.Services.AddScoped(sp => new HttpClient(
     });
 ```
 
-Pro Blazor aplikaci založenou na Blazor WebAssembly hostované šabloně se <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> dá přiřadit:
+Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného projektu <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> je ve výchozím nastavení přiřazen následující:
 
 * Rozhraní <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ).
 * Adresa URL `authorizedUrls` pole
 
-Pro usnadnění práce <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> je součástí předem nakonfigurovaná základní adresa aplikace jako autorizovaná adresa URL. Šablony s povoleným ověřováním Blazor WebAssembly používají <xref:System.Net.Http.IHttpClientFactory> ( [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) balíček) v projektu rozhraní API serveru k nastavení <xref:System.Net.Http.HttpClient> pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> :
-
-```csharp
-using System.Net.Http;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-
-...
-
-builder.Services.AddHttpClient("ServerAPI", 
-        client => client.BaseAddress = new Uri("https://www.example.com/base"))
-    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
-
-builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
-    .CreateClient("ServerAPI"));
-```
-
-Pro Blazor aplikaci založenou na Blazor WebAssembly hostované šabloně <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> () je `new Uri(builder.HostEnvironment.BaseAddress)` možné přiřadit k <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> .
-
-Tam, kde je klient vytvořen pomocí <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A> v předchozím příkladu, se <xref:System.Net.Http.HttpClient> dodávají instance, které zahrnují přístupové tokeny při vytváření požadavků na serverový projekt.
-
-Nakonfigurovaná <xref:System.Net.Http.HttpClient> se používá k provádění autorizovaných požadavků pomocí [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) vzoru:
-
-```razor
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@inject HttpClient Client
-
-...
-
-protected override async Task OnInitializedAsync()
-{
-    private ExampleType[] examples;
-
-    try
-    {
-        examples = 
-            await Client.GetFromJsonAsync<ExampleType[]>("{API METHOD}");
-
-        ...
-    }
-    catch (AccessTokenNotAvailableException exception)
-    {
-        exception.Redirect();
-    }
-}
-```
-
-## <a name="typed-httpclient"></a>Typové HttpClient
+## <a name="typed-httpclient"></a>Zadal`HttpClient`
 
 Je možné definovat zadaného klienta, který zpracovává všechny aspekty získání HTTP a tokenu v rámci jedné třídy.
 
@@ -225,7 +230,7 @@ builder.Services.AddHttpClient<WeatherForecastClient>(
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 ```
 
-Pro Blazor aplikaci založenou na Blazor WebAssembly hostované šabloně <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> () je `new Uri(builder.HostEnvironment.BaseAddress)` možné přiřadit k <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> .
+Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného projektu <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ) je <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> ve výchozím nastavení přiřazeno.
 
 `FetchData`součást ( `Pages/FetchData.razor` ):
 
@@ -240,7 +245,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-## <a name="configure-the-httpclient-handler"></a>Konfigurace obslužné rutiny HttpClient
+## <a name="configure-the-httpclient-handler"></a>Konfigurace `HttpClient` obslužné rutiny
 
 Obslužná rutina může být dále nakonfigurována <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> pro odchozí požadavky HTTP.
 
@@ -255,7 +260,7 @@ builder.Services.AddHttpClient<WeatherForecastClient>(
         scopes: new[] { "example.read", "example.write" }));
 ```
 
-Pro Blazor aplikaci založenou na Blazor WebAssembly hostované šabloně se <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> dá přiřadit:
+Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného projektu <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> je ve výchozím nastavení přiřazen následující:
 
 * Rozhraní <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ).
 * Adresa URL `authorizedUrls` pole
@@ -271,7 +276,7 @@ builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient",
     client => client.BaseAddress = new Uri("https://www.example.com/base"));
 ```
 
-Pro Blazor aplikaci založenou na Blazor WebAssembly hostované šabloně <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> () je `new Uri(builder.HostEnvironment.BaseAddress)` možné přiřadit k <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> .
+Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného projektu <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ) je <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> ve výchozím nastavení přiřazeno.
 
 Předchozí registrace je kromě existující zabezpečené výchozí <xref:System.Net.Http.HttpClient> registrace.
 
@@ -350,7 +355,7 @@ if (tokenResult.TryGetToken(out var token))
 * `true`s nástrojem `token` pro použití.
 * `false`Pokud se token nenačte.
 
-## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>HttpClient a zprávy HttpRequestMessage s možnostmi žádosti o rozhraní API pro načtení
+## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>`HttpClient`a `HttpRequestMessage` s možnostmi požadavku rozhraní API pro načtení
 
 Při spuštění na WebAssembly v Blazor WebAssembly aplikaci [`HttpClient`](xref:fundamentals/http-requests) ([dokumentace k rozhraní API](xref:System.Net.Http.HttpClient)) a <xref:System.Net.Http.HttpRequestMessage> dá se použít k přizpůsobení požadavků. Můžete například zadat metodu HTTP a hlavičku požadavku. Následující komponenta vytvoří požadavek na `POST` koncový bod rozhraní API seznamu na serveru a zobrazí tělo odpovědi:
 
@@ -456,11 +461,13 @@ app.UseCors(policy =>
     .AllowCredentials());
 ```
 
+Hostované Blazor řešení založené na Blazor šabloně hostovaného projektu používá stejnou základní adresu pro klientské a serverové aplikace. Klientská aplikace <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> je ve výchozím nastavení nastavená na identifikátor URI `builder.HostEnvironment.BaseAddress` . Konfigurace **CORS se nevyžaduje** ve výchozí konfiguraci hostované aplikace vytvořené ze Blazor šablony hostovaného projektu. Další klientské aplikace, které nejsou hostované serverovým projektem a nesdílejí **základní adresu aplikace serveru, vyžadují v** projektu serveru konfiguraci CORS.
+
 Další informace najdete v tématu <xref:security/cors> a součásti testera požadavku HTTP ukázkové aplikace ( `Components/HTTPRequestTester.razor` ).
 
 ## <a name="handle-token-request-errors"></a>Zpracování chyb požadavků na tokeny
 
-Když jedna stránková aplikace (SPA) ověřuje uživatele pomocí funkce Open ID Connect (OIDC), je stav ověřování udržován místně v zabezpečeném uživatelském rozhraní (SPA) a ve Identity zprostředkovateli (IP) ve formě souboru cookie relace, který je nastaven jako výsledek uživatele, který poskytuje své přihlašovací údaje.
+Když se jedna stránková aplikace (SPA) ověřuje uživatele pomocí OpenID Connect (OIDC), stav ověřování se udržuje místně v zabezpečeném uživatelském rozhraní (SPA) a ve Identity zprostředkovateli (IP) ve formě souboru cookie relace, který je nastavený jako uživatel, který poskytuje svoje přihlašovací údaje.
 
 Tokeny, které jsou pro uživatele vysílané, jsou obvykle platné po krátkou dobu přibližně jedna hodina, takže klientská aplikace musí pravidelně načítat nové tokeny. V opačném případě se uživatel odhlásí po vypršení platnosti udělených tokenů. Ve většině případů můžou klienti OIDC zřizovat nové tokeny, aniž by museli znovu ověřovat uživatele díky stavu ověřování nebo "relaci", která se udržuje v rámci IP adresy.
 
@@ -552,7 +559,7 @@ Následující příklad ukazuje, jak:
 
 Během operace ověřování existují případy, kdy chcete uložit stav aplikace, než se prohlížeč přesměruje na IP adresu. To může být případ, kdy používáte kontejner stavu a chcete obnovit stav po úspěšném ověření. Vlastní objekt stavu ověřování můžete použít k zachování stavu specifického pro aplikaci nebo odkaz na něj a obnovení tohoto stavu po úspěšném dokončení operace ověřování. Následující příklad demonstruje přístup.
 
-V aplikaci se vytvoří třída kontejneru stavů s vlastnostmi, které uchovávají hodnoty stavu aplikace. V následujícím příkladu se kontejner používá k údržbě hodnoty čítače pro komponentu výchozí šablony `Counter` ( `Pages/Counter.razor` ). Metody pro serializaci a deserializaci kontejneru jsou založeny na <xref:System.Text.Json> .
+V aplikaci se vytvoří třída kontejneru stavů s vlastnostmi, které uchovávají hodnoty stavu aplikace. V následujícím příkladu je kontejner použit k údržbě hodnoty čítače výchozí komponenty šablony projektu `Counter` ( `Pages/Counter.razor` ). Metody pro serializaci a deserializaci kontejneru jsou založeny na <xref:System.Text.Json> .
 
 ```csharp
 using System.Text.Json;
@@ -1015,9 +1022,9 @@ I když tento přístup vyžaduje další síťové směrování prostřednictv�
 * Server může ukládat aktualizační tokeny a zajistit, aby aplikace neztratila přístup k prostředkům třetích stran.
 * Aplikace nemůže zajímat přístupové tokeny ze serveru, který může obsahovat citlivá oprávnění.
 
-## <a name="use-open-id-connect-oidc-v20-endpoints"></a>Použití koncových bodů Open ID Connect (OIDC) v 2.0
+## <a name="use-openid-connect-oidc-v20-endpoints"></a>Použití koncových bodů OpenID Connect (OIDC) v 2.0
 
-Knihovna a šablony ověřování Blazor používají koncové body Open ID Connect (OIDC) v 1.0. Pokud chcete použít koncový bod v 2.0, nakonfigurujte možnost nosiče JWT <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority?displayProperty=nameWithType> . V následujícím příkladu je AAD nakonfigurováno v 2.0 připojením `v2.0` segmentu k <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority> vlastnosti:
+Knihovna ověřování a Blazor šablony projektu používají koncové body OpenID Connect (OIDC) v 1.0. Pokud chcete použít koncový bod v 2.0, nakonfigurujte možnost nosiče JWT <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority?displayProperty=nameWithType> . V následujícím příkladu je AAD nakonfigurováno v 2.0 připojením `v2.0` segmentu k <xref:Microsoft.AspNetCore.Builder.JwtBearerOptions.Authority> vlastnosti:
 
 ```csharp
 builder.Services.Configure<JwtBearerOptions>(

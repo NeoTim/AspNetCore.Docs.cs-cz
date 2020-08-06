@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/mfa
-ms.openlocfilehash: cb7d63aa2f04b0c53fd403dfa6e4885b2d94da0b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1ab6e5802e177aeaf77584838feea09a7ff79db7
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408991"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819175"
 ---
 # <a name="multi-factor-authentication-in-aspnet-core"></a>Multi-Factor Authentication v ASP.NET Core
 
@@ -69,7 +69,7 @@ VÍCEFAKTOROVÉ ověřování pomocí SMS zvyšuje zabezpečení v porovnání s
 
 [Pokyny pro NIST](https://pages.nist.gov/800-63-3/sp800-63b.html)
 
-## <a name="configure-mfa-for-administration-pages-using-aspnet-core-identity"></a>Konfigurace MFA pro stránky správy pomocí ASP.NET CoreIdentity
+## <a name="configure-mfa-for-administration-pages-using-aspnet-core-no-locidentity"></a>Konfigurace MFA pro stránky správy pomocí ASP.NET CoreIdentity
 
 Vícefaktorové ověřování může být pro uživatele vynucené k přístupu k citlivým stránkám v Identity aplikaci ASP.NET Core. To může být užitečné pro aplikace, kde pro různé identity existují různé úrovně přístupu. Uživatelé můžou například zobrazit profilová data pomocí přihlašovacího hesla, ale pro přístup ke stránkám pro správu musel správce použít MFA.
 
@@ -259,11 +259,11 @@ Po kliknutí na odkaz pro **správu** se uživatel přesměruje na zobrazení pr
 `acr_values`Parametr lze použít k předání `mfa` požadované hodnoty z klienta na server v žádosti o ověření.
 
 > [!NOTE]
-> `acr_values`Aby tato funkce fungovala, musí být na serveru otevřeného ID Connect zpracován parametr.
+> `acr_values`Aby tato funkce fungovala, musí být na serveru OpenID Connect zpracován parametr.
 
 ### <a name="openid-connect-aspnet-core-client"></a>OpenID Connect ASP.NET Core klienta
 
-Aplikace ASP.NET Core Razor Open ID Connect Client App používá `AddOpenIdConnect` metodu pro přihlášení k serveru s otevřeným ID Connect. `acr_values`Parametr je nastaven s `mfa` hodnotou a odeslán s požadavkem na ověření. `OpenIdConnectEvents`Slouží k přidání.
+ASP.NET Core Razor stránky OpenID připojit klientskou aplikaci používá `AddOpenIdConnect` metodu pro přihlášení k serveru OpenID Connect. `acr_values`Parametr je nastaven s `mfa` hodnotou a odeslán s požadavkem na ověření. `OpenIdConnectEvents`Slouží k přidání.
 
 Doporučené `acr_values` hodnoty parametrů najdete v tématu [referenční hodnoty metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08).
 
@@ -302,7 +302,7 @@ public void ConfigureServices(IServiceCollection services)
     });
 ```
 
-### <a name="example-openid-connect-identityserver-4-server-with-aspnet-core-identity"></a>Příklad OpenID připojení serveru IdentityServer 4 pomocí ASP.NET CoreIdentity
+### <a name="example-openid-connect-no-locidentityserver-4-server-with-aspnet-core-no-locidentity"></a>Příklad OpenID připojení serveru Identity serveru 4 s ASP.NET CoreIdentity
 
 Na serveru OpenID Connect, který je implementován pomocí ASP.NET Core Identity s zobrazeními MVC, je vytvořeno nové zobrazení s názvem *ErrorEnable2FA. cshtml* . Zobrazení:
 
@@ -325,7 +325,7 @@ You can enable MFA to login here:
 <a asp-controller="Manage" asp-action="TwoFactorAuthentication">Enable MFA</a>
 ```
 
-V `Login` metodě se `IIdentityServerInteractionService` implementace rozhraní `_interaction` používá pro přístup k parametrům Open ID Connect Request. K `acr_values` parametru je přistup pomocí `AcrValues` Vlastnosti. Jak klient tuto `mfa` možnost odeslal, je možné ho zkontrolovat.
+V `Login` metodě se `IIdentityServerInteractionService` implementace rozhraní `_interaction` používá pro přístup k parametrům žádosti OpenID Connect. K `acr_values` parametru je přistup pomocí `AcrValues` Vlastnosti. Jak klient tuto `mfa` možnost odeslal, je možné ho zkontrolovat.
 
 Pokud je vyžadováno MFA a uživatel v ASP.NET Core Identity má povolené MFA, přihlášení pokračuje. Pokud uživatel nemá povolené vícefaktorové ověřování, uživatel se přesměruje na vlastní zobrazení *ErrorEnable2FA. cshtml*. Pak ASP.NET Core Identity podepíše uživatele v.
 
@@ -429,9 +429,9 @@ namespace AspNetCoreRequireMfaOidc
 
 `AuthorizationHandler`Je implementována, která bude používat `amr` deklaraci identity a kontroluje hodnotu `mfa` . `amr`Je vrácen v rámci `id_token` úspěšného ověření a může mít mnoho různých hodnot definovaných ve specifikaci [referenčních hodnot metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08) .
 
-Vrácená hodnota závisí na tom, jak identita byla ověřena, a na základě implementace serveru Connect pro připojení.
+Vrácená hodnota závisí na způsobu ověřování identity a implementaci serveru OpenID Connect.
 
-`AuthorizationHandler`Použije `RequireMfa` požadavek a ověří `amr` deklaraci identity. Server OpenID Connect se dá implementovat pomocí IdentityServer4 s ASP.NET Core Identity . Když se uživatel přihlásí pomocí TOTP, `amr` deklarace identity se vrátí s hodnotou MFA. Pokud používáte jinou implementaci serveru OpenID Connect nebo jiný typ MFA, `amr` deklarace identity bude nebo může mít jinou hodnotu. Aby bylo možné tuto akci přijmout, je nutné kód rozšířit.
+`AuthorizationHandler`Použije `RequireMfa` požadavek a ověří `amr` deklaraci identity. Server OpenID Connect se dá implementovat pomocí Identity Server4 s ASP.NET Core Identity . Když se uživatel přihlásí pomocí TOTP, `amr` deklarace identity se vrátí s hodnotou MFA. Pokud používáte jinou implementaci serveru OpenID Connect nebo jiný typ MFA, `amr` deklarace identity bude nebo může mít jinou hodnotu. Aby bylo možné tuto akci přijmout, je nutné kód rozšířit.
 
 ```csharp
 using Microsoft.AspNetCore.Authorization;
@@ -559,7 +559,7 @@ You require MFA to login here
 <a href="https://localhost:44352/Manage/TwoFactorAuthentication">Enable MFA</a>
 ```
 
-Nyní mají přístup k této stránce nebo webu pouze uživatelé, kteří ověřují pomocí VÍCEFAKTOROVÉHO ověřování. Pokud se používá jiné typy MFA nebo pokud je 2FA v pořádku, `amr` bude mít deklarace jiné hodnoty a musí se zpracovat správně. Jiné otevřené ID připojení servery také vrátí jiné hodnoty pro tuto deklaraci identity a nemusí následovat po specifikaci [referenčních hodnot metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08) .
+Nyní mají přístup k této stránce nebo webu pouze uživatelé, kteří ověřují pomocí VÍCEFAKTOROVÉHO ověřování. Pokud se používá jiné typy MFA nebo pokud je 2FA v pořádku, `amr` bude mít deklarace jiné hodnoty a musí se zpracovat správně. Různé servery OpenID Connect také vracejí jiné hodnoty pro tuto deklaraci identity a nemusí následovat po specifikaci [referenčních hodnot metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08) .
 
 Pokud se přihlašujete bez MFA (například pomocí hesla jenom heslo):
 
@@ -575,7 +575,7 @@ Další možností je přihlášení pomocí jednorázového hesla pomocí Ident
 
 ![require_mfa_oidc_01.png](mfa/_static/require_mfa_oidc_01.png)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core](xref:security/authentication/identity-enable-qrcodes)
 * [Možnosti ověřování neheslem pro Azure Active Directory](/azure/active-directory/authentication/concept-authentication-passwordless)

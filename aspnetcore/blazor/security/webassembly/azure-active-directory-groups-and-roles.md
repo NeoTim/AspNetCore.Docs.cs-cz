@@ -5,7 +5,7 @@ description: Naučte se konfigurovat Blazor WebAssembly , aby používaly Azure 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/28/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: 6e27b062d7b5a1b72804fe5d4ea31ec65358ce45
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 68071be9fb9f7a097c0c3693293bf8295e0173f1
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402153"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818804"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Skupiny Azure AD, role pro správu a uživatelsky definované role
 
@@ -42,7 +42,19 @@ Pokyny v tomto článku se týkají Blazor WebAssembly scénářů nasazení AAD
 * [Samostatná aplikace využívající Azure Active Directory](xref:blazor/security/webassembly/standalone-with-azure-active-directory)
 * [Hostovaná aplikace využívající Azure Active Directory](xref:blazor/security/webassembly/hosted-with-azure-active-directory)
 
-### <a name="user-defined-groups-and-built-in-administrative-roles"></a>Uživatelsky definované skupiny a předdefinované role pro správu
+## <a name="microsoft-graph-api-permission"></a>Oprávnění rozhraní API pro Microsoft Graph
+
+Pro každého uživatele aplikace s více než pěti integrovanou rolí správce AAD a členstvím ve skupině zabezpečení je vyžadováno volání [rozhraní API Microsoft Graph](/graph/use-the-api) .
+
+Pokud chcete povolit Graph API volání, poskytněte samostatnou nebo klientskou aplikaci hostovaného Blazor řešení kterékoli z následujících [Graph API oprávnění](/graph/permissions-reference) v Azure Portal:
+
+* `Directory.Read.All`
+* `Directory.ReadWrite.All`
+* `Directory.AccessAsUser.All`
+
+`Directory.Read.All`je oprávnění s minimálním oprávněním a je použito pro příklad popsaný v tomto článku.
+
+## <a name="user-defined-groups-and-built-in-administrative-roles"></a>Uživatelsky definované skupiny a předdefinované role pro správu
 
 Postup konfigurace aplikace v Azure Portal k poskytnutí `groups` deklarace identity členství najdete v následujících článcích Azure. Přiřaďte uživatele k uživatelem definovaným skupinám AAD a integrovaným rolím pro správu.
 
@@ -53,7 +65,9 @@ V následujících příkladech se předpokládá, že je uživatel přiřazený
 
 Jediná `groups` deklarace ODESÍLANÁ AAD prezentuje skupiny uživatelů a role jako ID objektů (GUID) v poli JSON. Aplikace musí převést pole JSON skupin a rolí na jednotlivé `group` deklarace identity, pro které může aplikace sestavovat [zásady](xref:security/authorization/policies) .
 
-Rozšíříte <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> tak, aby zahrnovalo vlastnosti pole pro skupiny a role.
+Když počet přiřazených předdefinovaných rolí správy Azure a uživatelem definovaných skupin přesáhne pět, AAD pošle `hasgroups` deklaraci identity s `true` hodnotou namísto odeslání `groups` deklarace identity. Každá aplikace, která může mít více než pět rolí a skupin přiřazených uživatelům, musí vytvořit samostatné Graph API volání, aby získala role a skupiny uživatelů. Ukázková implementace uvedená v tomto článku se zabývá tímto scénářem. Další informace najdete v `groups` `hasgroups` článku o deklaracích identity v tématu [tokeny přístupu k platformě Microsoft Identity Platform: deklarace datové části](/azure/active-directory/develop/access-tokens#payload-claims) .
+
+Rozšíříte <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> tak, aby zahrnovalo vlastnosti pole pro skupiny a role. Přiřaďte k jednotlivým vlastnostem prázdné pole, aby kontrola `null` není nutná, pokud jsou tyto vlastnosti použity ve `foreach` smyčcech později.
 
 `CustomUserAccount.cs`:
 
@@ -64,29 +78,98 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 public class CustomUserAccount : RemoteUserAccount
 {
     [JsonPropertyName("groups")]
-    public string[] Groups { get; set; }
+    public string[] Groups { get; set; } = new string[] { };
 
     [JsonPropertyName("roles")]
-    public string[] Roles { get; set; }
+    public string[] Roles { get; set; } = new string[] { };
 }
 ```
 
-Vytvořte vlastní objekt pro vytváření uživatelů v samostatné aplikaci nebo klientské aplikaci hostovaného řešení. Následující objekt pro vytváření je také nakonfigurovaný pro zpracování `roles` polí deklarací identity, která jsou popsaná v části [uživatelsky definované role](#user-defined-roles) :
+V samostatné aplikaci nebo klientské aplikaci hostovaného Blazor řešení vytvořte vlastní <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> třídu. Použijte správný obor (oprávnění) pro Graph API volání, která získávají informace o rolích a skupinách.
+
+`GraphAPIAuthorizationMessageHandler.cs`:
 
 ```csharp
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+public class GraphAPIAuthorizationMessageHandler : AuthorizationMessageHandler
+{
+    public GraphAPIAuthorizationMessageHandler(IAccessTokenProvider provider,
+        NavigationManager navigationManager)
+        : base(provider, navigationManager)
+    {
+        ConfigureHandler(
+            authorizedUrls: new[] { "https://graph.microsoft.com" },
+            scopes: new[] { "https://graph.microsoft.com/Directory.Read.All" });
+    }
+}
+```
+
+V `Program.Main` ( `Program.cs` ) přidejte <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> implementační službu a přidejte s názvem <xref:System.Net.Http.HttpClient> pro vytváření Graph APIch požadavků. Následující příklad pojmenuje klienta `GraphAPI` :
+
+```csharp
+builder.Services.AddScoped<GraphAPIAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("GraphAPI",
+        client => client.BaseAddress = new Uri("https://graph.microsoft.com"))
+    .AddHttpMessageHandler<GraphAPIAuthorizationMessageHandler>();
+```
+
+Vytvořte třídy adresářových objektů AAD pro příjem rolí a skupin Open Data Protocol (OData) z Graph API volání. OData přijde ve formátu JSON a volání <xref:System.Net.Http.Json.HttpContentJsonExtensions.ReadFromJsonAsync%2A> naplní instanci `DirectoryObjects` třídy.
+
+`DirectoryObjects.cs`:
+
+```csharp
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+public class DirectoryObjects
+{
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    [JsonPropertyName("value")]
+    public List<Value> Values { get; set; }
+}
+
+public class Value
+{
+    [JsonPropertyName("@odata.type")]
+    public string Type { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+}
+```
+
+Vytvořte vlastní objekt pro vytváření uživatelů, který bude zpracovávat deklarace rolí a skupin. Následující příklad implementace také zpracovává `roles` pole deklarací, které je popsáno v části [uživatelsky definované role](#user-defined-roles) . Pokud `hasgroups` je tato deklarace identity přítomná, <xref:System.Net.Http.HttpClient> použije se k tomu autorizovaný požadavek na Graph API, aby se získaly role a skupiny uživatelů. Tato implementace používá Identity koncový bod platformy Microsoft Platform v 1.0 `https://graph.microsoft.com/v1.0/me/memberOf` ([dokumentace k rozhraní API](/graph/api/user-list-memberof)). Pokyny v tomto tématu budou aktualizovány pro Identity verzi v 2.0, pokud jsou balíčky MSAL upgradovány pro verze 2.0.
+
+`CustomAccountFactory.cs`:
+
+```csharp
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
+using Microsoft.Extensions.Logging;
 
 public class CustomUserFactory
     : AccountClaimsPrincipalFactory<CustomUserAccount>
 {
-    public CustomUserFactory(NavigationManager navigationManager,
-        IAccessTokenProviderAccessor accessor)
+    private readonly ILogger<CustomUserFactory> _logger;
+    private readonly IHttpClientFactory _clientFactory;
+
+    public CustomUserFactory(IAccessTokenProviderAccessor accessor, 
+        IHttpClientFactory clientFactory, 
+        ILogger<CustomUserFactory> logger)
         : base(accessor)
     {
+        _clientFactory = clientFactory;
+        _logger = logger;
     }
 
     public async override ValueTask<ClaimsPrincipal> CreateUserAsync(
@@ -104,9 +187,47 @@ public class CustomUserFactory
                 userIdentity.AddClaim(new Claim("role", role));
             }
 
-            foreach (var group in account.Groups)
+            if (userIdentity.HasClaim(c => c.Type == "hasgroups"))
             {
-                userIdentity.AddClaim(new Claim("group", group));
+                try
+                {
+                    var client = _clientFactory.CreateClient("GraphAPI");
+
+                    var response = await client.GetAsync("v1.0/me/memberOf");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var userObjects = await response.Content
+                            .ReadFromJsonAsync<DirectoryObjects>();
+
+                        foreach (var obj in userObjects?.Values)
+                        {
+                            userIdentity.AddClaim(new Claim("group", obj.Id));
+                        }
+
+                        var claim = userIdentity.Claims.FirstOrDefault(
+                            c => c.Type == "hasgroups");
+
+                        userIdentity.RemoveClaim(claim);
+                    }
+                    else
+                    {
+                        _logger.LogError("Graph API request failure: {REASON}", 
+                            response.ReasonPhrase);
+                    }
+                }
+                catch (AccessTokenNotAvailableException exception)
+                {
+                    _logger.LogError("Graph API access token failure: {MESSAGE}", 
+                        exception.Message);
+                }
+            }
+            else
+            {
+                foreach (var group in account.Groups)
+                {
+                    userIdentity.AddClaim(new Claim("group", group));
+                }
             }
         }
 
@@ -115,9 +236,18 @@ public class CustomUserFactory
 }
 ```
 
-Není nutné zadávat kód pro odebrání původní `groups` deklarace identity, protože je automaticky odebrána rozhraním Framework.
+Není nutné zadávat kód pro odebrání původní `groups` deklarace identity, pokud je k dispozici, protože je automaticky odebrána rozhraním.
 
-Registrace továrny v `Program.Main` ( `Program.cs` ) samostatné aplikace nebo klientské aplikace hostovaného řešení:
+> [!NOTE]
+> Přístup v tomto příkladu:
+>
+> * Přidá vlastní <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> třídu pro připojení přístupových tokenů k odchozím žádostem.
+> * Přidá s názvem <xref:System.Net.Http.HttpClient> , aby vyžádal webové rozhraní API na zabezpečený externí koncový bod webového rozhraní API.
+> * <xref:System.Net.Http.HttpClient>K provádění autorizovaných požadavků používá pojmenovaný.
+>
+> Obecné pokrytí tohoto přístupu najdete v <xref:blazor/security/webassembly/additional-scenarios#custom-authorizationmessagehandler-class> článku.
+
+Zaregistrujte továrnu v `Program.Main` ( `Program.cs` ) samostatné aplikace nebo klientské aplikace hostovaného Blazor řešení. Souhlas s `Directory.Read.All` oborem oprávnění jako další obor pro aplikaci:
 
 ```csharp
 builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
@@ -126,8 +256,9 @@ builder.Services.AddMsalAuthentication<RemoteAuthenticationState,
     builder.Configuration.Bind("AzureAd", 
         options.ProviderOptions.Authentication);
     options.ProviderOptions.DefaultAccessTokenScopes.Add("...");
-    
-    ...
+
+    options.ProviderOptions.AdditionalScopesToConsent.Add(
+        "https://graph.microsoft.com/Directory.Read.All");
 })
 .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, CustomUserAccount, 
     CustomUserFactory>();
@@ -214,7 +345,7 @@ Kontrolu zásad lze také [provést v kódu s procedurální logikou](xref:blazo
 }
 ```
 
-### <a name="user-defined-roles"></a>Uživatelsky definované role
+## <a name="user-defined-roles"></a>Uživatelsky definované role
 
 Aplikace zaregistrovaná v AAD se taky dá nakonfigurovat tak, aby používala uživatelsky definované role.
 
@@ -232,9 +363,9 @@ Následující příklad předpokládá, že je aplikace nakonfigurovaná se dv�
 
 Jediná deklarace, kterou `roles` odesílá AAD, prezentuje uživatelsky definované role jako `appRoles` `value` s v poli JSON. Aplikace musí převést pole rolí JSON na jednotlivé `role` deklarace identity.
 
-V `CustomUserFactory` části [uživatelsky definované skupiny a předdefinované role pro správu AAD](#user-defined-groups-and-built-in-administrative-roles) je nastavené tak, aby se jednalo o `roles` deklaraci identity s hodnotou pole JSON. Přidejte a zaregistrujte se `CustomUserFactory` do samostatné aplikace nebo klientské aplikace hostovaného řešení, jak je znázorněno v části [uživatelsky definované skupiny a předdefinované role pro správu AAD](#user-defined-groups-and-built-in-administrative-roles) . Není nutné zadávat kód pro odebrání původní `roles` deklarace identity, protože je automaticky odebrána rozhraním Framework.
+V `CustomUserFactory` části [uživatelsky definované skupiny a předdefinované role pro správu AAD](#user-defined-groups-and-built-in-administrative-roles) je nastavené tak, aby se jednalo o `roles` deklaraci identity s hodnotou pole JSON. Přidejte a zaregistrujte se `CustomUserFactory` do samostatné aplikace nebo klientské aplikace hostovaného Blazor řešení, jak je znázorněno v části [uživatelsky definované skupiny a předdefinované role pro správu AAD](#user-defined-groups-and-built-in-administrative-roles) . Není nutné zadávat kód pro odebrání původní `roles` deklarace identity, protože je automaticky odebrána rozhraním Framework.
 
-V `Program.Main` samostatné aplikaci nebo klientské aplikaci hostovaného řešení zadejte deklaraci identity s názvem `role` jako deklaraci identity role:
+V `Program.Main` samostatné aplikaci nebo klientské aplikaci hostovaného Blazor řešení zadejte deklaraci identity s názvem `role` jako deklaraci identity role:
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -318,7 +449,7 @@ Týmy – specialisté komunikace | ef547281-cf46-4cc6-bcaa-f5eac3f030c9
 Správce služby Teams | 8846a0be-197b-443a-b13c-11192691fa24
 Správce uživatelů | 1f6eed58-7dd3-460b-a298-666f975427a1
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:security/authorization/claims>
 * <xref:blazor/security/index>

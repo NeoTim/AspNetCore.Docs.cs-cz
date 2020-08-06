@@ -15,20 +15,20 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: b28e4e43b88fcf8eab9e8959142cca21223c57ff
-ms.sourcegitcommit: e216e8f4afa21215dc38124c28d5ee19f5ed7b1e
+ms.openlocfilehash: b32710e515d111b7dd6556f1db55082cd56a82b5
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86239631"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818999"
 ---
-# <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
+# <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
 
-Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
+Od [Daniel Skořepa](https://github.com/danroth27), [MacKinnon Buck](https://github.com/MackinnonBuck)a [Luke Latham](https://github.com/guardrex)
 
 Tento článek popisuje konfiguraci modelu hostování.
 
-### <a name="signalr-cross-origin-negotiation-for-authentication"></a>SignalRvyjednávání mezi zdroji pro ověřování
+### <a name="no-locsignalr-cross-origin-negotiation-for-authentication"></a>SignalRvyjednávání mezi zdroji pro ověřování
 
 *Tato část se týká Blazor WebAssembly .*
 
@@ -117,7 +117,7 @@ Blazor Serveraplikace se ve výchozím nastavení nastavují tak, aby se před v
 * Je předem vykreslen na stránku.
 * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
 
-| Režim vykreslování | Description |
+| Režim vykreslování | Popis |
 | --- | --- |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí komponentu do statického HTML a obsahuje značku pro Blazor Server aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor Server aplikaci. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
@@ -125,13 +125,13 @@ Blazor Serveraplikace se ve výchozím nastavení nastavují tak, aby se před v
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-## <a name="configure-the-signalr-client-for-blazor-server-apps"></a>Konfigurace SignalR klienta pro Blazor Server aplikace
+## <a name="configure-the-no-locsignalr-client-for-no-locblazor-server-apps"></a>Konfigurace SignalR klienta pro Blazor Server aplikace
 
 *Tato část se týká Blazor Server .*
 
 Nakonfigurujte SignalR klienta používaného Blazor Server aplikacemi v `Pages/_Host.cshtml` souboru. Umístěte skript, který volá `Blazor.start` za `_framework/blazor.server.js` skript a dovnitř `</body>` značky.
 
-### <a name="logging"></a>Protokolování
+### <a name="logging"></a>protokolování
 
 Konfigurace SignalR protokolování klienta:
 
@@ -141,7 +141,7 @@ Konfigurace SignalR protokolování klienta:
 ```cshtml
     ...
 
-    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script autostart="false" src="_framework/blazor.server.js"></script>
     <script>
       Blazor.start({
         configureSignalR: function (builder) {
@@ -169,7 +169,7 @@ Postup úpravy událostí připojení:
 ```cshtml
     ...
 
-    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script autostart="false" src="_framework/blazor.server.js"></script>
     <script>
       Blazor.start({
         reconnectionHandler: {
@@ -191,7 +191,7 @@ Postup úpravy počtu opakování připojení a intervalu:
 ```cshtml
     ...
 
-    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script autostart="false" src="_framework/blazor.server.js"></script>
     <script>
       Blazor.start({
         reconnectionOptions: {
@@ -213,7 +213,7 @@ Skrytí zobrazení opětovného připojení:
 ```cshtml
     ...
 
-    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script autostart="false" src="_framework/blazor.server.js"></script>
     <script>
       window.addEventListener('beforeunload', function () {
         Blazor.defaultReconnectionHandler._reconnectionDisplay = {};
@@ -231,6 +231,41 @@ Blazor.defaultReconnectionHandler._reconnectionDisplay =
 
 Zástupný symbol `{ELEMENT ID}` je ID prvku HTML, který se má zobrazit.
 
-## <a name="additional-resources"></a>Další zdroje
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="influence-html-head-tag-elements"></a>Ovlivnění `<head>` elementů značek HTML
+
+*Tato část se týká Blazor WebAssembly a Blazor Server .*
+
+Při vykreslení, `Title` komponenty, `Link` a `Meta` přidají nebo aktualizují data v `<head>` prvcích značek HTML:
+
+```razor
+@using Microsoft.AspNetCore.Components.Web.Extensions.Head
+
+<Title Value="{TITLE}" />
+<Link href="{URL}" rel="stylesheet" />
+<Meta content="{DESCRIPTION}" name="description" />
+```
+
+V předchozím příkladu zástupné symboly pro `{TITLE}` , `{URL}` a `{DESCRIPTION}` jsou řetězcové hodnoty, Razor proměnné nebo Razor výrazy.
+
+Platí následující vlastnosti:
+
+* Je podporováno předběžné vykreslování na straně serveru.
+* `Value`Parametr je jediným platným parametrem pro `Title` komponentu.
+* Atributy HTML, které jsou zadány `Meta` `Link` komponentám a jsou zachyceny v [dalších atributech](xref:blazor/components/index#attribute-splatting-and-arbitrary-parameters) a předány do vykreslené značky HTML.
+* U více `Title` komponent se v názvu stránky zobrazuje `Value` Poslední `Title` vykreslená komponenta.
+* Je `Meta` -li `Link` pro stejné atributy zahrnuto více komponent nebo, je k dispozici pouze jedna značka HTML vykreslená na jednu `Meta` nebo `Link` komponentu. Dvě `Meta` nebo `Link` komponenty nemůžou odkazovat na stejnou vykreslenou značku HTML.
+* Změny parametrů existujících `Meta` nebo `Link` komponent se projeví ve vykreslených značkách HTML.
+* Když `Link` komponenty nebo `Meta` již nejsou vykreslovány a jsou následně odstraněny rozhraním, jsou odebrány jejich vykreslené značky HTML.
+
+Pokud se jedna z komponent rozhraní používá v podřízené komponentě, vykreslená značka HTML ovlivňuje všechny ostatní podřízené komponenty nadřazené komponenty, pokud je vykreslena podřízená komponenta obsahující komponentu rozhraní. Rozdíl mezi použitím jedné z těchto komponent rozhraní v podřízené komponentě a umístěním značky HTML do `wwwroot/index.html` nebo `Pages/_Host.cshtml` je vykreslená značka HTML komponenty rozhraní:
+
+* Může být upraveno stavem aplikace. Pevně kódovaná značka HTML nemůže být upravena stavem aplikace.
+* Je odebrán z kódu HTML, `<head>` Pokud již není vykreslena nadřazená komponenta.
+
+::: moniker-end
+
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:fundamentals/logging/index>

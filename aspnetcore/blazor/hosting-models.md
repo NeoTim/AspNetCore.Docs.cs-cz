@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 56681e713e008188d57166da9c8fd4eb6923928c
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 6e3753131388c294130f11aa913a0bb7e8127fa3
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944214"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818947"
 ---
-# <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
+# <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 
 Od [Daniel Skořepa](https://github.com/danroth27)
 
@@ -32,7 +32,7 @@ Blazorje webová architektura navržená tak, aby běžela na straně klienta v 
 
 Hlavní hostující model pro Blazor je spuštěn na straně klienta v prohlížeči na webovém sestavení. BlazorAplikace, její závislosti a modul runtime .NET se stáhnou do prohlížeče. Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče. Aktualizace uživatelského rozhraní a zpracování událostí se vyskytují v rámci stejného procesu. Prostředky aplikace se nasazují jako statické soubory na webový server nebo službu, která je schopná obsluhovat statický obsah klientům.
 
-![Blazor WebAssembly: Blazor Aplikace běží ve vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/blazor-webassembly.png)
+![::: No-Loc (Blazor WebAssembly):::: The::: No-Loc (Blazor)::: aplikace běží ve vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/blazor-webassembly.png)
 
 K vytvoření Blazor aplikace pomocí modelu hostování na straně klienta použijte šablonu ** Blazor WebAssembly aplikace** ( [`dotnet new blazorwasm`](/dotnet/core/tools/dotnet-new) ).
 
@@ -57,13 +57,13 @@ Existuje downsides k Blazor WebAssembly hostování:
 * Velikost ke stažení je větší a aplikace trvá déle, než se načtou.
 * Podpora modulu runtime .NET a nástrojů je méně vyspělá. Například omezení existují v [.NET Standard](/dotnet/standard/net-standard) podpoře a ladění.
 
-BlazorHostovaný aplikační model podporuje [kontejnery Docker](/dotnet/standard/microservices-architecture/container-docker-introduction/index). Klikněte pravým tlačítkem na projekt serveru v aplikaci Visual Studio a vyberte **Přidat**  >  **podporu Docker**.
+Hostovaný Blazor aplikační model podporuje [kontejnery Docker](/dotnet/standard/microservices-architecture/container-docker-introduction/index). Klikněte pravým tlačítkem na projekt serveru v aplikaci Visual Studio a vyberte **Přidat**  >  **podporu Docker**.
 
 ## Blazor Server
 
 V případě Blazor Server hostujícího modelu se aplikace spouští na serveru z aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes [SignalR](xref:signalr/introduction) připojení.
 
-![Prohlížeč komunikuje s aplikací (hostovanou v aplikaci ASP.NET Core) na serveru přes SignalR připojení.](hosting-models/_static/blazor-server.png)
+![Prohlížeč komunikuje s aplikací (hostovanou v aplikaci ASP.NET Core) na serveru přes::: No-Loc (Signal)::: Connection.](hosting-models/_static/blazor-server.png)
 
 K vytvoření Blazor aplikace pomocí Blazor Server modelu hostování použijte šablonu ASP.NET Core ** Blazor Server App** Template ( [`dotnet new blazorserver`](/dotnet/core/tools/dotnet-new) ). Aplikace ASP.NET Core hostuje Blazor Server aplikaci a vytvoří SignalR koncový bod, ve kterém se klienti připojují.
 
@@ -149,7 +149,7 @@ Pro aplikace doporučujeme používat [ SignalR službu Azure](/azure/azure-sign
 
 Při použití služby IIS jsou v rámci směrování žádostí na aplikace povoleny rychlé relace. Další informace najdete v tématu [Vyrovnávání zatížení HTTP pomocí směrování žádostí na aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:signalr/introduction>
 * <xref:blazor/fundamentals/additional-scenarios>

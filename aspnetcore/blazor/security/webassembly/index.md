@@ -15,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: fbb3f6d254e6d294edc7af59d7980a1d67e4a801
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: 8d75852c74b33fe538d05c5945829e0726a5030f
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86568805"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818817"
 ---
-# <a name="secure-aspnet-core-blazor-webassembly"></a>ASP.NET Core zabezpečeníBlazor WebAssembly
+# <a name="secure-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core zabezpečeníBlazor WebAssembly
 
 [Javier Calvarro Nelson](https://github.com/javiercn)
 
-Blazor WebAssemblyaplikace jsou zabezpečené stejným způsobem jako aplikace s jedním stránkou (jednostránkové). K ověřování uživatelů jednostránkové je k dispozici několik přístupů, ale nejběžnějším a komplexním přístupem je použití implementace založené na [protokolu OAuth 2,0](https://oauth.net/), jako je například [Open ID Connect (OIDC)](https://openid.net/connect/).
+Blazor WebAssemblyaplikace jsou zabezpečené stejným způsobem jako aplikace s jedním stránkou (jednostránkové). K ověřování uživatelů jednostránkové je k dispozici několik přístupů, ale nejběžnějším a komplexním přístupem je použití implementace založené na [protokolu OAuth 2,0](https://oauth.net/), jako je například [OPENID Connect (OIDC)](https://openid.net/connect/).
 
 ## <a name="authentication-library"></a>Knihovna ověřování
 

@@ -5,7 +5,7 @@ description: Zjistěte, jak mohou být součásti součástí Blazor aplikací z
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/23/2020
+ms.date: 07/27/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/class-libraries
-ms.openlocfilehash: b172059407f9a08dacc0fadd804864c7aee7fb90
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 8293d61f88f53e55d94b114ca2143fdfb6fd8468
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944502"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819064"
 ---
-# <a name="aspnet-core-razor-components-class-libraries"></a>RazorKnihovny tříd ASP.NET Core komponenty
+# <a name="aspnet-core-no-locrazor-components-class-libraries"></a>RazorKnihovny tříd ASP.NET Core komponenty
 
 Od [Simon Timms](https://github.com/stimms)
 
@@ -41,7 +41,7 @@ Stejně jako komponenty jsou běžné typy .NET, komponenty poskytované RCL jso
 1. Vytvoření nového projektu
 1. Vyberte možnost ** Razor Knihovna tříd**. Vyberte **Další**.
 1. V dialogovém okně **vytvořit novou Razor knihovnu tříd** vyberte **vytvořit**.
-1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. V příkladech v tomto tématu se používá název projektu `MyComponentLib1` . Vyberte **Vytvořit**.
+1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. V příkladech v tomto tématu se používá název projektu `ComponentLibrary` . Vyberte **Vytvořit**.
 1. Přidat RCL do řešení:
    1. Klikněte pravým tlačítkem na řešení. Vyberte **Přidat**  >  **existující projekt**.
    1. Přejděte do souboru projektu RCL.
@@ -59,12 +59,12 @@ Stejně jako komponenty jsou běžné typy .NET, komponenty poskytované RCL jso
 >
 > Ručně přidejte soubor do kořenového adresáře vygenerovaného projektu.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-1. Použijte šablonu ** Razor knihovny tříd** ( `razorclasslib` ) s [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazem v příkazovém prostředí. V následujícím příkladu je vytvořen RCL s názvem `MyComponentLib1` . Složka, která je uložena, `MyComponentLib1` je vytvořena automaticky při spuštění příkazu:
+1. Použijte šablonu ** Razor knihovny tříd** ( `razorclasslib` ) s [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazem v příkazovém prostředí. V následujícím příkladu je vytvořen RCL s názvem `ComponentLibrary` . Složka, která je uložena, `ComponentLibrary` je vytvořena automaticky při spuštění příkazu:
 
    ```dotnetcli
-   dotnet new razorclasslib -o MyComponentLib1
+   dotnet new razorclasslib -o ComponentLibrary
    ```
 
    > [!NOTE]
@@ -91,35 +91,82 @@ Aby bylo možné využívat komponenty definované v knihovně v jiném projektu
 * Použijte úplný název typu s oborem názvů.
 * Razor [`@using`](xref:mvc/views/razor#using) Direktiva use. Jednotlivé komponenty lze přidat podle názvu.
 
-V následujících příkladech `MyComponentLib1` je knihovna komponent obsahující `SalesReport` komponentu.
+V následujících příkladech `ComponentLibrary` je knihovna komponent obsahující `Component1` komponentu ( `Component1.razor` ). `Component1`Komponenta je ukázková komponenta, která je automaticky přidána šablonou projektu RCL při vytvoření knihovny.
 
-Na `SalesReport` komponentu lze odkazovat pomocí jejího úplného názvu typu s oborem názvů:
+Odkaz na `Component1` komponentu pomocí jejího oboru názvů:
 
 ```razor
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
-<MyComponentLib1.SalesReport />
+<ComponentLibrary.Component1 />
 ```
 
-Na komponentu lze také odkazovat, je-li knihovna přenesena do rozsahu s `@using` direktivou:
+Případně přeneste knihovnu do oboru pomocí [`@using`](xref:mvc/views/razor#using) direktivy a použijte komponentu bez jejího oboru názvů:
 
 ```razor
-@using MyComponentLib1
+@using ComponentLibrary
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
-<SalesReport />
+<Component1 />
 ```
 
-Zahrňte `@using MyComponentLib1` direktivu do souboru nejvyšší úrovně `_Import.razor` , aby komponenty knihovny byly dostupné pro celý projekt. Přidáním direktivy do `_Import.razor` souboru na libovolné úrovni můžete použít obor názvů na jednu stránku nebo sadu stránek v rámci složky.
+Volitelně můžete zahrnout `@using ComponentLibrary` direktivu do souboru nejvyšší úrovně `_Import.razor` , aby byly komponenty knihovny k dispozici pro celý projekt. Přidejte direktivu do `_Import.razor` souboru na libovolné úrovni pro použití oboru názvů pro jednu komponentu nebo sadu součástí v rámci složky.
 
-## <a name="create-a-razor-components-class-library-with-static-assets"></a>Vytvoření Razor knihovny tříd komponent se statickými prostředky
+::: moniker range=">= aspnetcore-5.0"
+
+Chcete- `Component1` li `my-component` do komponenty poskytnout CSS třídu, odkazujte na šablonu stylů knihovny pomocí [ `Link` komponenty](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) rozhraní v nástroji `Component1.razor` :
+
+```razor
+<div class="my-component">
+    <Link href="_content/ComponentLibrary/styles.css" rel="stylesheet" />
+
+    <p>
+        This Blazor component is defined in the <strong>ComponentLibrary</strong> package.
+    </p>
+</div>
+```
+
+Pokud chcete šablonu stylů zadat v rámci aplikace, můžete alternativně vytvořit odkaz na šablonu stylů knihovny v souboru aplikace `wwwroot/index.html` ( Blazor WebAssembly ) nebo `Pages/_Host.cshtml` souboru ( Blazor Server ):
+
+```html
+<head>
+    ...
+    <link href="_content/ComponentLibrary/styles.css" rel="stylesheet" />
+</head>
+```
+
+Při `Link` použití komponenty v podřízené součásti je propojená Asset také k dispozici libovolné jiné podřízené součásti nadřazené komponenty, pokud `Link` je vykreslena podřízená komponenta. Rozdíl mezi použitím `Link` komponenty v podřízené komponentě a umístěním `<link>` značky HTML v `wwwroot/index.html` nebo `Pages/_Host.cshtml` je, že vykreslená značka HTML komponenty rozhraní:
+
+* Může být upraveno stavem aplikace. Pevně kódovaná `<link>` značka HTML nemůže být upravena stavem aplikace.
+* Je odebrán z kódu HTML, `<head>` Pokud již není vykreslena nadřazená komponenta.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+Chcete-li poskytnout `Component1` `my-component` CSS třídu, odkaz na šablonu stylů knihovny v `wwwroot/index.html` souboru aplikace ( Blazor WebAssembly ) nebo `Pages/_Host.cshtml` souboru ( Blazor Server ):
+
+```html
+<head>
+    ...
+    <link href="_content/ComponentLibrary/styles.css" rel="stylesheet" />
+</head>
+```
+
+::: moniker-end
+
+## <a name="create-a-no-locrazor-components-class-library-with-static-assets"></a>Vytvoření Razor knihovny tříd komponent se statickými prostředky
 
 RCL může zahrnovat statické prostředky. Statické prostředky jsou k dispozici pro všechny aplikace, které knihovnu využívají. Další informace naleznete v tématu <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.
+
+## <a name="supply-components-and-static-assets-to-multiple-hosted-no-locblazor-apps"></a>Dodávání komponent a statických prostředků do více hostovaných Blazor aplikací
+
+Další informace naleznete v tématu <xref:blazor/host-and-deploy/webassembly#static-assets-and-class-libraries>.
 
 ## <a name="build-pack-and-ship-to-nuget"></a>Sestavení, balení a odeslání do NuGet
 
@@ -131,7 +178,7 @@ dotnet pack
 
 Nahrajte balíček do NuGet pomocí [`dotnet nuget push`](/dotnet/core/tools/dotnet-nuget-push) příkazu v příkazovém prostředí.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:razor-pages/ui-class>
 * [Přidání konfiguračního souboru linkeru XML do knihovny](xref:blazor/host-and-deploy/configure-linker#add-an-xml-linker-configuration-file-to-a-library)

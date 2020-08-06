@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 5c22220871fdba7fea43c38fa4bc826c07135ffc
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: f3afa9592422da911799a137f9943631ed12ab59
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060030"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819123"
 ---
-# <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>Volání funkcí jazyka JavaScript z metod .NET v ASP.NET CoreBlazor
+# <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>Volání funkcí jazyka JavaScript z metod .NET v ASP.NET CoreBlazor
 
 [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Skořepa](https://github.com/danroth27)a [Luke Latham](https://github.com/guardrex)
 
@@ -154,7 +154,7 @@ Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace aplikace (např
 
 Funkce jazyka JavaScript, které vracejí [typ void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) nebo [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) , jsou volány s <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> .
 
-## <a name="detect-when-a-blazor-server-app-is-prerendering"></a>Rozpoznat, kdy Blazor Server se aplikace předvykresluje
+## <a name="detect-when-a-no-locblazor-server-app-is-prerendering"></a>Rozpoznat, kdy Blazor Server se aplikace předvykresluje
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
@@ -178,7 +178,7 @@ Následující příklad ukazuje, jak zachytit odkaz na `username` `<input>` prv
 ```
 
 > [!WARNING]
-> Pouze odkaz na element lze použít k použití obsahu prázdného prvku, který nekomunikuje s Blazor . Tento scénář je užitečný, když rozhraní API třetí strany poskytuje obsah do elementu. Vzhledem k tomu Blazor , že nekomunikuje s prvkem, neexistuje možnost konfliktu mezi Blazor reprezentací prvku a modelu DOM.
+> Pouze odkaz na element lze použít k použití obsahu prázdného prvku, který nekomunikuje s Blazor . Tento scénář je užitečný, když rozhraní API třetí strany dodává obsah do elementu. Vzhledem k tomu Blazor , že nekomunikuje s prvkem, neexistuje možnost konfliktu mezi Blazor reprezentací prvku a modelu DOM.
 >
 > V následujícím příkladu je *nebezpečné* postupovat obsah neuspořádaného seznamu ( `ul` ), protože Blazor spolupracuje s DOM k naplnění položek seznamu tohoto elementu ( `<li>` ):
 >
@@ -483,7 +483,7 @@ Další informace najdete v následujících problémech:
 * [Cyklické odkazy nejsou podporované, musí být dva (dotnet/aspnetcore #20525).](https://github.com/dotnet/aspnetcore/issues/20525)
 * [Návrh: Přidání mechanismu pro zpracování cyklických odkazů při serializaci (dotnet/runtime #30820)](https://github.com/dotnet/runtime/issues/30820)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:blazor/call-dotnet-from-javascript>
 * [Příklad InteropComponent. Razor (dotnet/AspNetCore, úložiště GitHub, větev vydání 3,1)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)

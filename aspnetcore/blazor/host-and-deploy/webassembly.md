@@ -5,7 +5,7 @@ description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Cor
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/27/2020
+ms.date: 08/03/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 15c5f02043a83e499eb5ec36fda52171124fe202
-ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
+ms.openlocfilehash: 9d596e38a1d8350cd4a27f2fec4b262a0edf1015
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/30/2020
-ms.locfileid: "87443977"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818843"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core hostitele a nasazeníBlazor WebAssembly
 
@@ -116,6 +116,289 @@ Klientská Blazor WebAssembly aplikace se publikuje do `/bin/Release/{TARGET FRA
 Další informace o ASP.NET Core hostování a nasazení aplikací najdete v tématu <xref:host-and-deploy/index> .
 
 Informace o nasazení do Azure App Service najdete v tématu <xref:tutorials/publish-to-azure-webapp-using-vs> .
+
+## <a name="hosted-deployment-with-multiple-no-locblazor-webassembly-apps"></a>Hostované nasazení s více Blazor WebAssembly aplikacemi
+
+### <a name="app-configuration"></a>Konfigurace aplikací
+
+Konfigurace hostovaného Blazor řešení pro poskytování více Blazor WebAssembly aplikací:
+
+* Použijte existující hostované Blazor řešení nebo vytvořte nové řešení ze Blazor šablony hostovaného projektu.
+
+* V souboru projektu klientské aplikace přidejte `<StaticWebAssetBasePath>` vlastnost do pole `<PropertyGroup>` s hodnotou, `FirstApp` abyste nastavili základní cestu pro statické prostředky projektu:
+
+  ```xml
+  <PropertyGroup>
+    ...
+    <StaticWebAssetBasePath>FirstApp</StaticWebAssetBasePath>
+  </PropertyGroup>
+  ```
+
+* Přidání druhé klientské aplikace do řešení:
+
+  * Přidejte do složky řešení složku s názvem `SecondClient` .
+  * Vytvořte Blazor WebAssembly aplikaci s názvem `SecondBlazorApp.Client` ve `SecondClient` složce ze Blazor WebAssembly šablony projektu.
+  * V souboru projektu aplikace:
+
+    * Přidejte `<StaticWebAssetBasePath>` vlastnost do pole `<PropertyGroup>` s hodnotou `SecondApp` :
+
+      ```xml
+      <PropertyGroup>
+        ...
+        <StaticWebAssetBasePath>SecondApp</StaticWebAssetBasePath>
+      </PropertyGroup>
+      ```
+
+    * Přidat odkaz na projekt do `Shared` projektu:
+
+      ```xml
+      <ItemGroup>
+        <ProjectReference Include="..\Shared\{SOLUTION NAME}.Shared.csproj" />
+      </ItemGroup>
+      ```
+
+      Zástupný symbol `{SOLUTION NAME}` je název řešení.
+
+* V souboru projektu aplikace serveru vytvořte odkaz na projekt pro přidanou klientskou aplikaci:
+
+  ```xml
+  <ItemGroup>
+    ...
+    <ProjectReference Include="..\SecondClient\SecondBlazorApp.Client.csproj" />
+  </ItemGroup>
+  ```
+
+* V souboru serverové aplikace `Properties/launchSettings.json` Nakonfigurujte `applicationUrl` profil Kestrel ( `{SOLUTION NAME}.Server` ) pro přístup k klientským aplikacím na portech 5001 a 5002:
+
+  ```json
+  "applicationUrl": "https://localhost:5001;https://localhost:5002",
+  ```
+
+* V metodě serverové aplikace `Startup.Configure` ( `Startup.cs` ) odeberte následující řádky, které se zobrazí po volání <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection%2A> :
+
+  ```csharp
+  app.UseBlazorFrameworkFiles();
+  app.UseStaticFiles();
+
+  app.UseRouting();
+
+  app.UseEndpoints(endpoints =>
+  {
+      endpoints.MapRazorPages();
+      endpoints.MapControllers();
+      endpoints.MapFallbackToFile("index.html");
+  });
+  ```
+
+  Přidejte middleware, který mapuje požadavky na klientské aplikace. Následující příklad konfiguruje middleware ke spuštění v následujících případech:
+
+  * Port žádosti je buď 5001 pro původní klientskou aplikaci, nebo 5002 pro přidanou klientskou aplikaci.
+  * Hostitel žádosti je buď `firstapp.com` pro původní klientskou aplikaci, nebo `secondapp.com` pro přidanou klientskou aplikaci.
+
+    > [!NOTE]
+    > Příklad uvedený v této části vyžaduje další konfiguraci pro:
+    >
+    > * Přístup k aplikacím v ukázkových doménách hostitelů `firstapp.com` a `secondapp.com` .
+    > * Certifikáty pro klientské aplikace, které umožňují zabezpečení TLS (HTTPS).
+    >
+    > Požadovaná konfigurace překračuje rozsah tohoto článku a závisí na tom, jak je řešení hostované. Další informace najdete v [článcích o hostiteli a nasazení](xref:host-and-deploy/index).
+
+  Vložte následující kód, kde byly řádky odebrány dříve:
+
+  ```csharp
+  app.MapWhen(ctx => ctx.Request.Host.Port == 5001 || 
+      ctx.Request.Host.Equals("firstapp.com"), first =>
+  {
+      first.Use((ctx, nxt) =>
+      {
+          ctx.Request.Path = "/FirstApp" + ctx.Request.Path;
+          return nxt();
+      });
+
+      first.UseBlazorFrameworkFiles("/FirstApp");
+      first.UseStaticFiles();
+      first.UseStaticFiles("/FirstApp");
+      first.UseRouting();
+
+      first.UseEndpoints(endpoints =>
+      {
+          endpoints.MapControllers();
+          endpoints.MapFallbackToFile("/FirstApp/{*path:nonfile}", 
+              "FirstApp/index.html");
+      });
+  });
+  
+  app.MapWhen(ctx => ctx.Request.Host.Port == 5002 || 
+      ctx.Request.Host.Equals("secondapp.com"), second =>
+  {
+      second.Use((ctx, nxt) =>
+      {
+          ctx.Request.Path = "/SecondApp" + ctx.Request.Path;
+          return nxt();
+      });
+
+      second.UseBlazorFrameworkFiles("/SecondApp");
+      second.UseStaticFiles();
+      second.UseStaticFiles("/SecondApp");
+      second.UseRouting();
+
+      second.UseEndpoints(endpoints =>
+      {
+          endpoints.MapControllers();
+          endpoints.MapFallbackToFile("/SecondApp/{*path:nonfile}", 
+              "SecondApp/index.html");
+      });
+  });
+  ```
+
+* V řadiči pro předpověď počasí aplikace serveru ( `Controllers/WeatherForecastController.cs` ) nahraďte stávající trasu ( `[Route("[controller]")]` ) následujícími trasami `WeatherForecastController` :
+
+  ```csharp
+  [Route("FirstApp/[controller]")]
+  [Route("SecondApp/[controller]")]
+  ```
+
+  Middleware přidané do metody serverové aplikace `Startup.Configure` dříve mění příchozí požadavky na `/WeatherForecast` buď `/FirstApp/WeatherForecast` nebo `/SecondApp/WeatherForecast` v závislosti na portu (5001/5002) nebo doméně ( `firstapp.com` / `secondapp.com` ). Aby bylo možné vracet údaje o počasí z aplikace serveru do klientských aplikací, je nutné, aby byly předchozí trasy řadiče.
+
+### <a name="static-assets-and-class-libraries"></a>Statické prostředky a knihovny tříd
+
+Pro statické prostředky použijte následující přístupy:
+
+* Pokud je prostředek ve složce klientské aplikace `wwwroot` , zadejte jejich cesty normálně:
+
+  ```razor
+  <img alt="..." src="/{ASSET FILE NAME}" />
+  ```
+
+* Pokud je Asset ve `wwwroot` složce [ Razor knihovny tříd (RCL)](xref:blazor/components/class-libraries), odkazujte na statický prostředek v klientské aplikaci podle pokynů v [článku RCL](xref:razor-pages/ui-class#consume-content-from-a-referenced-rcl):
+
+  ```razor
+  <img alt="..." src="_content/{LIBRARY NAME}/{ASSET FILE NAME}" />
+  ```
+
+::: moniker range=">= aspnetcore-5.0"
+
+Na součásti, které jsou k klientské aplikaci poskytovány knihovny tříd, se obvykle odkazuje. Pokud některé komponenty vyžadují šablony stylů nebo soubory JavaScriptu, použijte k získání statických prostředků některý z následujících přístupů:
+
+* Soubor klientské aplikace `wwwroot/index.html` může propojit ( `<link>` ) se statickými prostředky.
+* Komponenta může použít [ `Link` komponentu](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) rozhraní pro získání statických prostředků.
+
+Předchozí přístupy jsou znázorněné v následujících příkladech.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+Na součásti, které jsou k klientské aplikaci poskytovány knihovny tříd, se obvykle odkazuje. Pokud některé komponenty vyžadují šablony stylů nebo soubory JavaScriptu, musí soubor klientské aplikace `wwwroot/index.html` zahrnovat správné propojení statických prostředků. Tyto přístupy jsou znázorněné v následujících příkladech.
+
+::: moniker-end
+
+Přidejte následující `Jeep` komponentu do jedné z klientských aplikací. `Jeep`Komponenta používá:
+
+* Obrázek ze složky klientské aplikace `wwwroot` ( `jeep-cj.png` ).
+* Obrázek z přidané složky [ Razor knihovny součástí](xref:blazor/components/class-libraries) () `JeepImage` `wwwroot` ( `jeep-yj.png` ).
+* Ukázková součást ( `Component1` ) je vytvořena automaticky šablonou projektu RCL při `JeepImage` Přidání knihovny do řešení.
+
+```razor
+@page "/Jeep"
+
+<h1>1979 Jeep CJ-5&trade;</h1>
+
+<p>
+    <img alt="1979 Jeep CJ-5&trade;" src="/jeep-cj.png" />
+</p>
+
+<h1>1991 Jeep YJ&trade;</h1>
+
+<p>
+    <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+</p>
+
+<p>
+    <em>Jeep CJ-5</em> and <em>Jeep YJ</em> are a trademarks of 
+    <a href="https://www.fcagroup.com">Fiat Chrysler Automobiles</a>.
+</p>
+
+<JeepImage.Component1 />
+```
+
+> [!WARNING]
+> **Nezveřejňujte** image vozidel veřejně, pokud Image nevlastníte. V opačném případě riskujete porušení autorských práv.
+
+::: moniker range=">= aspnetcore-5.0"
+
+`jeep-yj.png`Bitovou kopii knihovny lze také přidat do `Component1` komponenty knihovny ( `Component1.razor` ). Chcete-li poskytnout `my-component` třídu CSS na stránku klientské aplikace, propojte na šablonu stylů knihovny pomocí [ `Link` komponenty](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)rozhraní:
+
+```razor
+<div class="my-component">
+    <Link href="_content/JeepImage/styles.css" rel="stylesheet" />
+
+    <h1>JeepImage.Component1</h1>
+
+    <p>
+        This Blazor component is defined in the <strong>JeepImage</strong> package.
+    </p>
+
+    <p>
+        <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+    </p>
+</div>
+```
+
+Alternativou k použití [ `Link` komponenty](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) je načtení šablony stylů ze souboru klientské aplikace `wwwroot/index.html` . Tento přístup zpřístupňuje šablonu stylů všem součástem v klientské aplikaci:
+
+```html
+<head>
+    ...
+    <link href="_content/JeepImage/styles.css" rel="stylesheet" />
+</head>
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+`jeep-yj.png`Bitovou kopii knihovny lze také přidat do `Component1` komponenty knihovny ( `Component1.razor` ):
+
+```razor
+<div class="my-component">
+    <h1>JeepImage.Component1</h1>
+
+    <p>
+        This Blazor component is defined in the <strong>JeepImage</strong> package.
+    </p>
+
+    <p>
+        <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+    </p>
+</div>
+```
+
+Soubor klientské aplikace `wwwroot/index.html` požaduje šablonu stylů knihovny s následující přidanou `<link>` značkou:
+
+```html
+<head>
+    ...
+    <link href="_content/JeepImage/styles.css" rel="stylesheet" />
+</head>
+```
+
+::: moniker-end
+
+Přidat navigaci k `Jeep` součásti v součásti klientské aplikace `NavMenu` ( `Shared/NavMenu.razor` ):
+
+```razor
+<li class="nav-item px-3">
+    <NavLink class="nav-link" href="Jeep">
+        <span class="oi oi-list-rich" aria-hidden="true"></span> Jeep
+    </NavLink>
+</li>
+```
+
+Další informace o RCLs najdete v tématech:
+
+* <xref:blazor/components/class-libraries>
+* <xref:razor-pages/ui-class>
 
 ## <a name="standalone-deployment"></a>Samostatné nasazení
 
@@ -333,9 +616,15 @@ Další informace najdete v tématech [`mod_mime`](https://httpd.apache.org/docs
 
 ### <a name="github-pages"></a>Stránky GitHubu
 
-Chcete-li zpracovat přepisy adresy URL, přidejte `404.html` soubor se skriptem, který zpracovává přesměrování požadavku na `index.html` stránku. Ukázkovou implementaci poskytovanou komunitou najdete v tématu [jednostránkové aplikace pro stránky GitHubu](https://spa-github-pages.rafrex.com/) ([rafrex/Spa – GitHub-Pages na GitHubu](https://github.com/rafrex/spa-github-pages#readme)). Příklad použití přístupu komunity se dá zobrazit v [blazor-demo/blazor-demo. GitHub. IO na GitHubu](https://github.com/blazor-demo/blazor-demo.github.io) ([živý web](https://blazor-demo.github.io/)).
+Chcete-li zpracovat přepisy adresy URL, přidejte `wwwroot/404.html` soubor se skriptem, který zpracovává přesměrování požadavku na `index.html` stránku. Příklad najdete v [ Blazor úložišti GitHub SteveSandersonMS/OnGitHubPages](https://github.com/SteveSandersonMS/BlazorOnGitHubPages):
 
-Při použití webu projektu místo webu organizace přidejte nebo aktualizujte `<base>` značku v `index.html` . Nastavte `href` hodnotu atributu na název úložiště GitHub s koncovým lomítkem (například `my-repository/` .
+* [`wwwroot/404.html`](https://github.com/SteveSandersonMS/BlazorOnGitHubPages/blob/master/wwwroot/404.html)
+* [Živý web](https://stevesandersonms.github.io/BlazorOnGitHubPages/))
+
+Při použití webu projektu namísto webu organizace aktualizujte `<base>` značku v `wwwroot/index.html` . Nastavte `href` hodnotu atributu na název úložiště GitHub s koncovým lomítkem (například `/my-repository/` ). V [ Blazor úložišti GitHub SteveSandersonMS/OnGitHubPages](https://github.com/SteveSandersonMS/BlazorOnGitHubPages)se základ `href` aktualizuje při publikování pomocí [ `.github/workflows/main.yml` konfiguračního souboru](https://github.com/SteveSandersonMS/BlazorOnGitHubPages/blob/master/.github/workflows/main.yml).
+
+> [!NOTE]
+> [ Blazor Úložiště GitHub SteveSandersonMS/OnGitHubPages](https://github.com/SteveSandersonMS/BlazorOnGitHubPages) není vlastněné, udržované ani podporované rozhraním .NET Foundation ani Microsoftem.
 
 ## <a name="host-configuration-values"></a>Hodnoty konfigurace hostitele
 
@@ -552,4 +841,3 @@ V souboru projektu se skript spustí po publikování aplikace:
 ```
 
 Pokud chcete poskytnout zpětnou vazbu, navštivte [aspnetcore/problémy #5477](https://github.com/dotnet/aspnetcore/issues/5477).
- 
