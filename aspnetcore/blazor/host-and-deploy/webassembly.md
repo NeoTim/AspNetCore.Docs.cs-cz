@@ -5,7 +5,7 @@ description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Cor
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/27/2020
+ms.date: 08/03/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,41 +15,41 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 15c5f02043a83e499eb5ec36fda52171124fe202
-ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
+ms.openlocfilehash: 9d596e38a1d8350cd4a27f2fec4b262a0edf1015
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/30/2020
-ms.locfileid: "87443977"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87818843"
 ---
-# <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a><span data-ttu-id="db3b6-103">ASP.NET Core hostitele a nasazeníBlazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="db3b6-103">Host and deploy ASP.NET Core Blazor WebAssembly</span></span>
+# <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a><span data-ttu-id="11690-103">ASP.NET Core hostitele a nasazeníBlazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="11690-103">Host and deploy ASP.NET Core Blazor WebAssembly</span></span>
 
-<span data-ttu-id="db3b6-104">Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), [Daniel Skořepa](https://github.com/danroth27), [Robert Adams](https://twitter.com/ben_a_adams)a [Safia Abdalla](https://safia.rocks)</span><span class="sxs-lookup"><span data-stu-id="db3b6-104">By [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), [Daniel Roth](https://github.com/danroth27), [Ben Adams](https://twitter.com/ben_a_adams), and [Safia Abdalla](https://safia.rocks)</span></span>
+<span data-ttu-id="11690-104">Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), [Daniel Skořepa](https://github.com/danroth27), [Robert Adams](https://twitter.com/ben_a_adams)a [Safia Abdalla](https://safia.rocks)</span><span class="sxs-lookup"><span data-stu-id="11690-104">By [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), [Daniel Roth](https://github.com/danroth27), [Ben Adams](https://twitter.com/ben_a_adams), and [Safia Abdalla](https://safia.rocks)</span></span>
 
-<span data-ttu-id="db3b6-105">S [ Blazor WebAssembly modelem hostování](xref:blazor/hosting-models#blazor-webassembly):</span><span class="sxs-lookup"><span data-stu-id="db3b6-105">With the [Blazor WebAssembly hosting model](xref:blazor/hosting-models#blazor-webassembly):</span></span>
+<span data-ttu-id="11690-105">S [ Blazor WebAssembly modelem hostování](xref:blazor/hosting-models#blazor-webassembly):</span><span class="sxs-lookup"><span data-stu-id="11690-105">With the [Blazor WebAssembly hosting model](xref:blazor/hosting-models#blazor-webassembly):</span></span>
 
-* <span data-ttu-id="db3b6-106">BlazorAplikace, její závislosti a modul runtime .NET jsou stahovány do prohlížeče paralelně.</span><span class="sxs-lookup"><span data-stu-id="db3b6-106">The Blazor app, its dependencies, and the .NET runtime are downloaded to the browser in parallel.</span></span>
-* <span data-ttu-id="db3b6-107">Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče.</span><span class="sxs-lookup"><span data-stu-id="db3b6-107">The app is executed directly on the browser UI thread.</span></span>
+* <span data-ttu-id="11690-106">BlazorAplikace, její závislosti a modul runtime .NET jsou stahovány do prohlížeče paralelně.</span><span class="sxs-lookup"><span data-stu-id="11690-106">The Blazor app, its dependencies, and the .NET runtime are downloaded to the browser in parallel.</span></span>
+* <span data-ttu-id="11690-107">Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče.</span><span class="sxs-lookup"><span data-stu-id="11690-107">The app is executed directly on the browser UI thread.</span></span>
 
-<span data-ttu-id="db3b6-108">Podporují se tyto strategie nasazení:</span><span class="sxs-lookup"><span data-stu-id="db3b6-108">The following deployment strategies are supported:</span></span>
+<span data-ttu-id="11690-108">Podporují se tyto strategie nasazení:</span><span class="sxs-lookup"><span data-stu-id="11690-108">The following deployment strategies are supported:</span></span>
 
-* <span data-ttu-id="db3b6-109">BlazorAplikaci obsluhuje aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="db3b6-109">The Blazor app is served by an ASP.NET Core app.</span></span> <span data-ttu-id="db3b6-110">Tato strategie je popsaná v části [hostované nasazení s ASP.NET Core](#hosted-deployment-with-aspnet-core) .</span><span class="sxs-lookup"><span data-stu-id="db3b6-110">This strategy is covered in the [Hosted deployment with ASP.NET Core](#hosted-deployment-with-aspnet-core) section.</span></span>
-* <span data-ttu-id="db3b6-111">BlazorAplikace se umístí na statický hostující webový server nebo službu, kde rozhraní .NET se k obsluze aplikace nepoužívá Blazor .</span><span class="sxs-lookup"><span data-stu-id="db3b6-111">The Blazor app is placed on a static hosting web server or service, where .NET isn't used to serve the Blazor app.</span></span> <span data-ttu-id="db3b6-112">Tato strategie je popsaná v části [samostatné nasazení](#standalone-deployment) , která obsahuje informace o hostování Blazor WebAssembly aplikace jako dílčí aplikace služby IIS.</span><span class="sxs-lookup"><span data-stu-id="db3b6-112">This strategy is covered in the [Standalone deployment](#standalone-deployment) section, which includes information on hosting a Blazor WebAssembly app as an IIS sub-app.</span></span>
+* <span data-ttu-id="11690-109">BlazorAplikaci obsluhuje aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="11690-109">The Blazor app is served by an ASP.NET Core app.</span></span> <span data-ttu-id="11690-110">Tato strategie je popsaná v části [hostované nasazení s ASP.NET Core](#hosted-deployment-with-aspnet-core) .</span><span class="sxs-lookup"><span data-stu-id="11690-110">This strategy is covered in the [Hosted deployment with ASP.NET Core](#hosted-deployment-with-aspnet-core) section.</span></span>
+* <span data-ttu-id="11690-111">BlazorAplikace se umístí na statický hostující webový server nebo službu, kde rozhraní .NET se k obsluze aplikace nepoužívá Blazor .</span><span class="sxs-lookup"><span data-stu-id="11690-111">The Blazor app is placed on a static hosting web server or service, where .NET isn't used to serve the Blazor app.</span></span> <span data-ttu-id="11690-112">Tato strategie je popsaná v části [samostatné nasazení](#standalone-deployment) , která obsahuje informace o hostování Blazor WebAssembly aplikace jako dílčí aplikace služby IIS.</span><span class="sxs-lookup"><span data-stu-id="11690-112">This strategy is covered in the [Standalone deployment](#standalone-deployment) section, which includes information on hosting a Blazor WebAssembly app as an IIS sub-app.</span></span>
 
-## <a name="compression"></a><span data-ttu-id="db3b6-113">Komprese</span><span class="sxs-lookup"><span data-stu-id="db3b6-113">Compression</span></span>
+## <a name="compression"></a><span data-ttu-id="11690-113">Komprese</span><span class="sxs-lookup"><span data-stu-id="11690-113">Compression</span></span>
 
-<span data-ttu-id="db3b6-114">Při Blazor WebAssembly publikování aplikace je výstup během publikování staticky komprimován, aby se snížila velikost aplikace a odstranila se režie pro kompresi za běhu.</span><span class="sxs-lookup"><span data-stu-id="db3b6-114">When a Blazor WebAssembly app is published, the output is statically compressed during publish to reduce the app's size and remove the overhead for runtime compression.</span></span> <span data-ttu-id="db3b6-115">Používají se následující kompresní algoritmy:</span><span class="sxs-lookup"><span data-stu-id="db3b6-115">The following compression algorithms are used:</span></span>
+<span data-ttu-id="11690-114">Při Blazor WebAssembly publikování aplikace je výstup během publikování staticky komprimován, aby se snížila velikost aplikace a odstranila se režie pro kompresi za běhu.</span><span class="sxs-lookup"><span data-stu-id="11690-114">When a Blazor WebAssembly app is published, the output is statically compressed during publish to reduce the app's size and remove the overhead for runtime compression.</span></span> <span data-ttu-id="11690-115">Používají se následující kompresní algoritmy:</span><span class="sxs-lookup"><span data-stu-id="11690-115">The following compression algorithms are used:</span></span>
 
-* <span data-ttu-id="db3b6-116">[Brotli](https://tools.ietf.org/html/rfc7932) (nejvyšší úroveň)</span><span class="sxs-lookup"><span data-stu-id="db3b6-116">[Brotli](https://tools.ietf.org/html/rfc7932) (highest level)</span></span>
-* [<span data-ttu-id="db3b6-117">GZIP</span><span class="sxs-lookup"><span data-stu-id="db3b6-117">Gzip</span></span>](https://tools.ietf.org/html/rfc1952)
+* <span data-ttu-id="11690-116">[Brotli](https://tools.ietf.org/html/rfc7932) (nejvyšší úroveň)</span><span class="sxs-lookup"><span data-stu-id="11690-116">[Brotli](https://tools.ietf.org/html/rfc7932) (highest level)</span></span>
+* [<span data-ttu-id="11690-117">GZIP</span><span class="sxs-lookup"><span data-stu-id="11690-117">Gzip</span></span>](https://tools.ietf.org/html/rfc1952)
 
-<span data-ttu-id="db3b6-118">Blazorspoléhá na hostitele, který obsluhuje příslušné komprimované soubory.</span><span class="sxs-lookup"><span data-stu-id="db3b6-118">Blazor relies on the host to the serve the appropriate compressed files.</span></span> <span data-ttu-id="db3b6-119">Při použití hostovaného projektu ASP.NET Core je hostitelský projekt schopný provádět vyjednávání obsahu a obsluhovat staticky komprimované soubory.</span><span class="sxs-lookup"><span data-stu-id="db3b6-119">When using an ASP.NET Core hosted project, the host project is capable of performing content negotiation and serving the statically-compressed files.</span></span> <span data-ttu-id="db3b6-120">Při hostování Blazor WebAssembly samostatné aplikace může být nutné provést další práci, aby bylo zajištěno, že budou obsluhovány staticky komprimované soubory:</span><span class="sxs-lookup"><span data-stu-id="db3b6-120">When hosting a Blazor WebAssembly standalone app, additional work might be required to ensure that statically-compressed files are served:</span></span>
+<span data-ttu-id="11690-118">Blazorspoléhá na hostitele, který obsluhuje příslušné komprimované soubory.</span><span class="sxs-lookup"><span data-stu-id="11690-118">Blazor relies on the host to the serve the appropriate compressed files.</span></span> <span data-ttu-id="11690-119">Při použití hostovaného projektu ASP.NET Core je hostitelský projekt schopný provádět vyjednávání obsahu a obsluhovat staticky komprimované soubory.</span><span class="sxs-lookup"><span data-stu-id="11690-119">When using an ASP.NET Core hosted project, the host project is capable of performing content negotiation and serving the statically-compressed files.</span></span> <span data-ttu-id="11690-120">Při hostování Blazor WebAssembly samostatné aplikace může být nutné provést další práci, aby bylo zajištěno, že budou obsluhovány staticky komprimované soubory:</span><span class="sxs-lookup"><span data-stu-id="11690-120">When hosting a Blazor WebAssembly standalone app, additional work might be required to ensure that statically-compressed files are served:</span></span>
 
-* <span data-ttu-id="db3b6-121">`web.config`Konfiguraci komprese služby IIS najdete v části [IIS: Brotli a komprese GZip](#brotli-and-gzip-compression) .</span><span class="sxs-lookup"><span data-stu-id="db3b6-121">For IIS `web.config` compression configuration, see the [IIS: Brotli and Gzip compression](#brotli-and-gzip-compression) section.</span></span> 
-* <span data-ttu-id="db3b6-122">Při hostování řešení statického hostování, které nepodporují vyjednávání se staticky komprimovaným souborem, jako jsou stránky GitHubu, zvažte konfiguraci aplikace pro načtení a dekódování Brotli komprimovaných souborů:</span><span class="sxs-lookup"><span data-stu-id="db3b6-122">When hosting on static hosting solutions that don't support statically-compressed file content negotiation, such as GitHub Pages, consider configuring the app to fetch and decode Brotli compressed files:</span></span>
+* <span data-ttu-id="11690-121">`web.config`Konfiguraci komprese služby IIS najdete v části [IIS: Brotli a komprese GZip](#brotli-and-gzip-compression) .</span><span class="sxs-lookup"><span data-stu-id="11690-121">For IIS `web.config` compression configuration, see the [IIS: Brotli and Gzip compression](#brotli-and-gzip-compression) section.</span></span> 
+* <span data-ttu-id="11690-122">Při hostování řešení statického hostování, které nepodporují vyjednávání se staticky komprimovaným souborem, jako jsou stránky GitHubu, zvažte konfiguraci aplikace pro načtení a dekódování Brotli komprimovaných souborů:</span><span class="sxs-lookup"><span data-stu-id="11690-122">When hosting on static hosting solutions that don't support statically-compressed file content negotiation, such as GitHub Pages, consider configuring the app to fetch and decode Brotli compressed files:</span></span>
 
-  * <span data-ttu-id="db3b6-123">Získejte dekodér JavaScript Brotli z [úložiště GitHub Google/Brotli](https://github.com/google/brotli).</span><span class="sxs-lookup"><span data-stu-id="db3b6-123">Obtain the JavaScript Brotli decoder from the [google/brotli GitHub repository](https://github.com/google/brotli).</span></span> <span data-ttu-id="db3b6-124">Od července 2020 se soubor dekodéru pojmenuje `decode.min.js` a nalezne se ve [ `js` složce](https://github.com/google/brotli/tree/master/js)úložiště.</span><span class="sxs-lookup"><span data-stu-id="db3b6-124">As of July 2020, the decoder file is named `decode.min.js` and found in the repository's [`js` folder](https://github.com/google/brotli/tree/master/js).</span></span>
-  * <span data-ttu-id="db3b6-125">Aktualizujte aplikaci tak, aby používala dekodér.</span><span class="sxs-lookup"><span data-stu-id="db3b6-125">Update the app to use the decoder.</span></span> <span data-ttu-id="db3b6-126">Změňte značku uvnitř uzavírací `<body>` značky v `wwwroot/index.html` následujícím formátu:</span><span class="sxs-lookup"><span data-stu-id="db3b6-126">Change the markup inside the the closing `<body>` tag in `wwwroot/index.html` to the following:</span></span>
+  * <span data-ttu-id="11690-123">Získejte dekodér JavaScript Brotli z [úložiště GitHub Google/Brotli](https://github.com/google/brotli).</span><span class="sxs-lookup"><span data-stu-id="11690-123">Obtain the JavaScript Brotli decoder from the [google/brotli GitHub repository](https://github.com/google/brotli).</span></span> <span data-ttu-id="11690-124">Od července 2020 se soubor dekodéru pojmenuje `decode.min.js` a nalezne se ve [ `js` složce](https://github.com/google/brotli/tree/master/js)úložiště.</span><span class="sxs-lookup"><span data-stu-id="11690-124">As of July 2020, the decoder file is named `decode.min.js` and found in the repository's [`js` folder](https://github.com/google/brotli/tree/master/js).</span></span>
+  * <span data-ttu-id="11690-125">Aktualizujte aplikaci tak, aby používala dekodér.</span><span class="sxs-lookup"><span data-stu-id="11690-125">Update the app to use the decoder.</span></span> <span data-ttu-id="11690-126">Změňte značku uvnitř uzavírací `<body>` značky v `wwwroot/index.html` následujícím formátu:</span><span class="sxs-lookup"><span data-stu-id="11690-126">Change the markup inside the the closing `<body>` tag in `wwwroot/index.html` to the following:</span></span>
   
     ```html
     <script src="decode.min.js"></script>
@@ -77,7 +77,7 @@ ms.locfileid: "87443977"
     </script>
     ```
  
-<span data-ttu-id="db3b6-127">Chcete-li vypnout kompresi, přidejte `BlazorEnableCompression` do souboru projektu aplikace vlastnost MSBuild a nastavte hodnotu na `false` :</span><span class="sxs-lookup"><span data-stu-id="db3b6-127">To disable compression, add the `BlazorEnableCompression` MSBuild property to the app's project file and set the value to `false`:</span></span>
+<span data-ttu-id="11690-127">Chcete-li vypnout kompresi, přidejte `BlazorEnableCompression` do souboru projektu aplikace vlastnost MSBuild a nastavte hodnotu na `false` :</span><span class="sxs-lookup"><span data-stu-id="11690-127">To disable compression, add the `BlazorEnableCompression` MSBuild property to the app's project file and set the value to `false`:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -85,98 +85,381 @@ ms.locfileid: "87443977"
 </PropertyGroup>
 ```
 
-## <a name="rewrite-urls-for-correct-routing"></a><span data-ttu-id="db3b6-128">Přepište adresy URL pro správné směrování.</span><span class="sxs-lookup"><span data-stu-id="db3b6-128">Rewrite URLs for correct routing</span></span>
+## <a name="rewrite-urls-for-correct-routing"></a><span data-ttu-id="11690-128">Přepište adresy URL pro správné směrování.</span><span class="sxs-lookup"><span data-stu-id="11690-128">Rewrite URLs for correct routing</span></span>
 
-<span data-ttu-id="db3b6-129">Požadavky směrování na součásti stránky v Blazor WebAssembly aplikaci nejsou stejně jednoduché jako požadavky směrování v Blazor Server hostované aplikaci.</span><span class="sxs-lookup"><span data-stu-id="db3b6-129">Routing requests for page components in a Blazor WebAssembly app isn't as straightforward as routing requests in a Blazor Server, hosted app.</span></span> <span data-ttu-id="db3b6-130">Vezměte v úvahu Blazor WebAssembly aplikaci se dvěma součástmi:</span><span class="sxs-lookup"><span data-stu-id="db3b6-130">Consider a Blazor WebAssembly app with two components:</span></span>
+<span data-ttu-id="11690-129">Požadavky směrování na součásti stránky v Blazor WebAssembly aplikaci nejsou stejně jednoduché jako požadavky směrování v Blazor Server hostované aplikaci.</span><span class="sxs-lookup"><span data-stu-id="11690-129">Routing requests for page components in a Blazor WebAssembly app isn't as straightforward as routing requests in a Blazor Server, hosted app.</span></span> <span data-ttu-id="11690-130">Vezměte v úvahu Blazor WebAssembly aplikaci se dvěma součástmi:</span><span class="sxs-lookup"><span data-stu-id="11690-130">Consider a Blazor WebAssembly app with two components:</span></span>
 
-* <span data-ttu-id="db3b6-131">`Main.razor`: Načte do kořenového adresáře aplikace a obsahuje odkaz na `About` komponentu ( `href="About"` ).</span><span class="sxs-lookup"><span data-stu-id="db3b6-131">`Main.razor`: Loads at the root of the app and contains a link to the `About` component (`href="About"`).</span></span>
-* <span data-ttu-id="db3b6-132">`About.razor`: `About` součást.</span><span class="sxs-lookup"><span data-stu-id="db3b6-132">`About.razor`: `About` component.</span></span>
+* <span data-ttu-id="11690-131">`Main.razor`: Načte do kořenového adresáře aplikace a obsahuje odkaz na `About` komponentu ( `href="About"` ).</span><span class="sxs-lookup"><span data-stu-id="11690-131">`Main.razor`: Loads at the root of the app and contains a link to the `About` component (`href="About"`).</span></span>
+* <span data-ttu-id="11690-132">`About.razor`: `About` součást.</span><span class="sxs-lookup"><span data-stu-id="11690-132">`About.razor`: `About` component.</span></span>
 
-<span data-ttu-id="db3b6-133">Pokud je výchozí dokument aplikace požadován pomocí panelu Adresa prohlížeče (například `https://www.contoso.com/` ):</span><span class="sxs-lookup"><span data-stu-id="db3b6-133">When the app's default document is requested using the browser's address bar (for example, `https://www.contoso.com/`):</span></span>
+<span data-ttu-id="11690-133">Pokud je výchozí dokument aplikace požadován pomocí panelu Adresa prohlížeče (například `https://www.contoso.com/` ):</span><span class="sxs-lookup"><span data-stu-id="11690-133">When the app's default document is requested using the browser's address bar (for example, `https://www.contoso.com/`):</span></span>
 
-1. <span data-ttu-id="db3b6-134">Prohlížeč vytvoří požadavek.</span><span class="sxs-lookup"><span data-stu-id="db3b6-134">The browser makes a request.</span></span>
-1. <span data-ttu-id="db3b6-135">Vrátí se výchozí stránka, což je obvykle `index.html` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-135">The default page is returned, which is usually `index.html`.</span></span>
-1. <span data-ttu-id="db3b6-136">`index.html`napředá aplikaci.</span><span class="sxs-lookup"><span data-stu-id="db3b6-136">`index.html` bootstraps the app.</span></span>
-1. <span data-ttu-id="db3b6-137">Blazorse načte směrovač a Razor `Main` Komponenta se vykreslí.</span><span class="sxs-lookup"><span data-stu-id="db3b6-137">Blazor's router loads, and the Razor `Main` component is rendered.</span></span>
+1. <span data-ttu-id="11690-134">Prohlížeč vytvoří požadavek.</span><span class="sxs-lookup"><span data-stu-id="11690-134">The browser makes a request.</span></span>
+1. <span data-ttu-id="11690-135">Vrátí se výchozí stránka, což je obvykle `index.html` .</span><span class="sxs-lookup"><span data-stu-id="11690-135">The default page is returned, which is usually `index.html`.</span></span>
+1. <span data-ttu-id="11690-136">`index.html`napředá aplikaci.</span><span class="sxs-lookup"><span data-stu-id="11690-136">`index.html` bootstraps the app.</span></span>
+1. <span data-ttu-id="11690-137">Blazorse načte směrovač a Razor `Main` Komponenta se vykreslí.</span><span class="sxs-lookup"><span data-stu-id="11690-137">Blazor's router loads, and the Razor `Main` component is rendered.</span></span>
 
-<span data-ttu-id="db3b6-138">Na hlavní stránce vyberte odkaz na `About` komponentu na klientovi, protože Blazor směrovač zastaví v prohlížeči, aby odeslal požadavek na Internet `www.contoso.com` pro `About` a sloužil přímo vykreslené `About` součásti.</span><span class="sxs-lookup"><span data-stu-id="db3b6-138">In the Main page, selecting the link to the `About` component works on the client because the Blazor router stops the browser from making a request on the Internet to `www.contoso.com` for `About` and serves the rendered `About` component itself.</span></span> <span data-ttu-id="db3b6-139">Všechny požadavky na vnitřní koncové body *v Blazor WebAssembly aplikaci* fungují stejným způsobem: požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu.</span><span class="sxs-lookup"><span data-stu-id="db3b6-139">All of the requests for internal endpoints *within the Blazor WebAssembly app* work the same way: Requests don't trigger browser-based requests to server-hosted resources on the Internet.</span></span> <span data-ttu-id="db3b6-140">Směrovač zpracovává požadavky interně.</span><span class="sxs-lookup"><span data-stu-id="db3b6-140">The router handles the requests internally.</span></span>
+<span data-ttu-id="11690-138">Na hlavní stránce vyberte odkaz na `About` komponentu na klientovi, protože Blazor směrovač zastaví v prohlížeči, aby odeslal požadavek na Internet `www.contoso.com` pro `About` a sloužil přímo vykreslené `About` součásti.</span><span class="sxs-lookup"><span data-stu-id="11690-138">In the Main page, selecting the link to the `About` component works on the client because the Blazor router stops the browser from making a request on the Internet to `www.contoso.com` for `About` and serves the rendered `About` component itself.</span></span> <span data-ttu-id="11690-139">Všechny požadavky na vnitřní koncové body *v Blazor WebAssembly aplikaci* fungují stejným způsobem: požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu.</span><span class="sxs-lookup"><span data-stu-id="11690-139">All of the requests for internal endpoints *within the Blazor WebAssembly app* work the same way: Requests don't trigger browser-based requests to server-hosted resources on the Internet.</span></span> <span data-ttu-id="11690-140">Směrovač zpracovává požadavky interně.</span><span class="sxs-lookup"><span data-stu-id="11690-140">The router handles the requests internally.</span></span>
 
-<span data-ttu-id="db3b6-141">Pokud je žádost vytvořena pomocí panelu Adresa prohlížeče pro `www.contoso.com/About` , požadavek se nezdařil.</span><span class="sxs-lookup"><span data-stu-id="db3b6-141">If a request is made using the browser's address bar for `www.contoso.com/About`, the request fails.</span></span> <span data-ttu-id="db3b6-142">Žádný takový prostředek na internetovém hostiteli aplikace neexistuje, takže se vrátí odpověď *404 – Nenalezeno* .</span><span class="sxs-lookup"><span data-stu-id="db3b6-142">No such resource exists on the app's Internet host, so a *404 - Not Found* response is returned.</span></span>
+<span data-ttu-id="11690-141">Pokud je žádost vytvořena pomocí panelu Adresa prohlížeče pro `www.contoso.com/About` , požadavek se nezdařil.</span><span class="sxs-lookup"><span data-stu-id="11690-141">If a request is made using the browser's address bar for `www.contoso.com/About`, the request fails.</span></span> <span data-ttu-id="11690-142">Žádný takový prostředek na internetovém hostiteli aplikace neexistuje, takže se vrátí odpověď *404 – Nenalezeno* .</span><span class="sxs-lookup"><span data-stu-id="11690-142">No such resource exists on the app's Internet host, so a *404 - Not Found* response is returned.</span></span>
 
-<span data-ttu-id="db3b6-143">Vzhledem k tomu, že prohlížeče připravují žádosti na internetové hostitele pro stránky na straně klienta, webové servery a hostitelské služby musí přepsat všechny požadavky na prostředky, které nejsou na stránce fyzicky na serveru `index.html` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-143">Because browsers make requests to Internet-based hosts for client-side pages, web servers and hosting services must rewrite all requests for resources not physically on the server to the `index.html` page.</span></span> <span data-ttu-id="db3b6-144">Když `index.html` se vrátí, Blazor směrovač aplikace převezme a odpoví správným prostředkem.</span><span class="sxs-lookup"><span data-stu-id="db3b6-144">When `index.html` is returned, the app's Blazor router takes over and responds with the correct resource.</span></span>
+<span data-ttu-id="11690-143">Vzhledem k tomu, že prohlížeče připravují žádosti na internetové hostitele pro stránky na straně klienta, webové servery a hostitelské služby musí přepsat všechny požadavky na prostředky, které nejsou na stránce fyzicky na serveru `index.html` .</span><span class="sxs-lookup"><span data-stu-id="11690-143">Because browsers make requests to Internet-based hosts for client-side pages, web servers and hosting services must rewrite all requests for resources not physically on the server to the `index.html` page.</span></span> <span data-ttu-id="11690-144">Když `index.html` se vrátí, Blazor směrovač aplikace převezme a odpoví správným prostředkem.</span><span class="sxs-lookup"><span data-stu-id="11690-144">When `index.html` is returned, the app's Blazor router takes over and responds with the correct resource.</span></span>
 
-<span data-ttu-id="db3b6-145">Při nasazování na server služby IIS můžete použít modul pro přepsání adresy URL s publikovaným `web.config` souborem aplikace.</span><span class="sxs-lookup"><span data-stu-id="db3b6-145">When deploying to an IIS server, you can use the URL Rewrite Module with the app's published `web.config` file.</span></span> <span data-ttu-id="db3b6-146">Další informace najdete v části [IIS](#iis) .</span><span class="sxs-lookup"><span data-stu-id="db3b6-146">For more information, see the [IIS](#iis) section.</span></span>
+<span data-ttu-id="11690-145">Při nasazování na server služby IIS můžete použít modul pro přepsání adresy URL s publikovaným `web.config` souborem aplikace.</span><span class="sxs-lookup"><span data-stu-id="11690-145">When deploying to an IIS server, you can use the URL Rewrite Module with the app's published `web.config` file.</span></span> <span data-ttu-id="11690-146">Další informace najdete v části [IIS](#iis) .</span><span class="sxs-lookup"><span data-stu-id="11690-146">For more information, see the [IIS](#iis) section.</span></span>
 
-## <a name="hosted-deployment-with-aspnet-core"></a><span data-ttu-id="db3b6-147">Hostované nasazení s ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="db3b6-147">Hosted deployment with ASP.NET Core</span></span>
+## <a name="hosted-deployment-with-aspnet-core"></a><span data-ttu-id="11690-147">Hostované nasazení s ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="11690-147">Hosted deployment with ASP.NET Core</span></span>
 
-<span data-ttu-id="db3b6-148">*Hostované nasazení* obsluhuje Blazor WebAssembly aplikaci prohlížeči z [ASP.NET Core aplikace](xref:index) , která běží na webovém serveru.</span><span class="sxs-lookup"><span data-stu-id="db3b6-148">A *hosted deployment* serves the Blazor WebAssembly app to browsers from an [ASP.NET Core app](xref:index) that runs on a web server.</span></span>
+<span data-ttu-id="11690-148">*Hostované nasazení* obsluhuje Blazor WebAssembly aplikaci prohlížeči z [ASP.NET Core aplikace](xref:index) , která běží na webovém serveru.</span><span class="sxs-lookup"><span data-stu-id="11690-148">A *hosted deployment* serves the Blazor WebAssembly app to browsers from an [ASP.NET Core app](xref:index) that runs on a web server.</span></span>
 
-<span data-ttu-id="db3b6-149">Klientská Blazor WebAssembly aplikace se publikuje do `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` složky serverové aplikace spolu s dalšími statickými webovými prostředky serverové aplikace.</span><span class="sxs-lookup"><span data-stu-id="db3b6-149">The client Blazor WebAssembly app is published into the `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` folder of the server app, along with any other static web assets of the server app.</span></span> <span data-ttu-id="db3b6-150">Obě aplikace se nasazují dohromady.</span><span class="sxs-lookup"><span data-stu-id="db3b6-150">The two apps are deployed together.</span></span> <span data-ttu-id="db3b6-151">Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="db3b6-151">A web server that is capable of hosting an ASP.NET Core app is required.</span></span> <span data-ttu-id="db3b6-152">V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu \*\* Blazor WebAssembly aplikace\*\* ( `blazorwasm` Šablona při použití [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu) s **`Hosted`** vybranou možností ( `-ho|--hosted` při použití `dotnet new` příkazu).</span><span class="sxs-lookup"><span data-stu-id="db3b6-152">For a hosted deployment, Visual Studio includes the **Blazor WebAssembly App** project template (`blazorwasm` template when using the [`dotnet new`](/dotnet/core/tools/dotnet-new) command) with the **`Hosted`** option selected (`-ho|--hosted` when using the `dotnet new` command).</span></span>
+<span data-ttu-id="11690-149">Klientská Blazor WebAssembly aplikace se publikuje do `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` složky serverové aplikace spolu s dalšími statickými webovými prostředky serverové aplikace.</span><span class="sxs-lookup"><span data-stu-id="11690-149">The client Blazor WebAssembly app is published into the `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` folder of the server app, along with any other static web assets of the server app.</span></span> <span data-ttu-id="11690-150">Obě aplikace se nasazují dohromady.</span><span class="sxs-lookup"><span data-stu-id="11690-150">The two apps are deployed together.</span></span> <span data-ttu-id="11690-151">Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="11690-151">A web server that is capable of hosting an ASP.NET Core app is required.</span></span> <span data-ttu-id="11690-152">V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu \*\* Blazor WebAssembly aplikace\*\* ( `blazorwasm` Šablona při použití [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu) s **`Hosted`** vybranou možností ( `-ho|--hosted` při použití `dotnet new` příkazu).</span><span class="sxs-lookup"><span data-stu-id="11690-152">For a hosted deployment, Visual Studio includes the **Blazor WebAssembly App** project template (`blazorwasm` template when using the [`dotnet new`](/dotnet/core/tools/dotnet-new) command) with the **`Hosted`** option selected (`-ho|--hosted` when using the `dotnet new` command).</span></span>
 
-<span data-ttu-id="db3b6-153">Další informace o ASP.NET Core hostování a nasazení aplikací najdete v tématu <xref:host-and-deploy/index> .</span><span class="sxs-lookup"><span data-stu-id="db3b6-153">For more information on ASP.NET Core app hosting and deployment, see <xref:host-and-deploy/index>.</span></span>
+<span data-ttu-id="11690-153">Další informace o ASP.NET Core hostování a nasazení aplikací najdete v tématu <xref:host-and-deploy/index> .</span><span class="sxs-lookup"><span data-stu-id="11690-153">For more information on ASP.NET Core app hosting and deployment, see <xref:host-and-deploy/index>.</span></span>
 
-<span data-ttu-id="db3b6-154">Informace o nasazení do Azure App Service najdete v tématu <xref:tutorials/publish-to-azure-webapp-using-vs> .</span><span class="sxs-lookup"><span data-stu-id="db3b6-154">For information on deploying to Azure App Service, see <xref:tutorials/publish-to-azure-webapp-using-vs>.</span></span>
+<span data-ttu-id="11690-154">Informace o nasazení do Azure App Service najdete v tématu <xref:tutorials/publish-to-azure-webapp-using-vs> .</span><span class="sxs-lookup"><span data-stu-id="11690-154">For information on deploying to Azure App Service, see <xref:tutorials/publish-to-azure-webapp-using-vs>.</span></span>
 
-## <a name="standalone-deployment"></a><span data-ttu-id="db3b6-155">Samostatné nasazení</span><span class="sxs-lookup"><span data-stu-id="db3b6-155">Standalone deployment</span></span>
+## <a name="hosted-deployment-with-multiple-no-locblazor-webassembly-apps"></a><span data-ttu-id="11690-155">Hostované nasazení s více Blazor WebAssembly aplikacemi</span><span class="sxs-lookup"><span data-stu-id="11690-155">Hosted deployment with multiple Blazor WebAssembly apps</span></span>
 
-<span data-ttu-id="db3b6-156">*Samostatné nasazení* obsluhuje Blazor WebAssembly aplikaci jako sadu statických souborů, které jsou požadovány přímo klienty.</span><span class="sxs-lookup"><span data-stu-id="db3b6-156">A *standalone deployment* serves the Blazor WebAssembly app as a set of static files that are requested directly by clients.</span></span> <span data-ttu-id="db3b6-157">Každý statický souborový server může Blazor aplikaci zpracovat.</span><span class="sxs-lookup"><span data-stu-id="db3b6-157">Any static file server is able to serve the Blazor app.</span></span>
+### <a name="app-configuration"></a><span data-ttu-id="11690-156">Konfigurace aplikací</span><span class="sxs-lookup"><span data-stu-id="11690-156">App configuration</span></span>
 
-<span data-ttu-id="db3b6-158">Samostatné prostředky nasazení jsou publikovány do `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` složky.</span><span class="sxs-lookup"><span data-stu-id="db3b6-158">Standalone deployment assets are published into the `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` folder.</span></span>
+<span data-ttu-id="11690-157">Konfigurace hostovaného Blazor řešení pro poskytování více Blazor WebAssembly aplikací:</span><span class="sxs-lookup"><span data-stu-id="11690-157">To configure a hosted Blazor solution to serve multiple Blazor WebAssembly apps:</span></span>
 
-### <a name="azure-app-service"></a><span data-ttu-id="db3b6-159">Azure App Service</span><span class="sxs-lookup"><span data-stu-id="db3b6-159">Azure App Service</span></span>
+* <span data-ttu-id="11690-158">Použijte existující hostované Blazor řešení nebo vytvořte nové řešení ze Blazor šablony hostovaného projektu.</span><span class="sxs-lookup"><span data-stu-id="11690-158">Use an existing hosted Blazor solution or create a new solution from the Blazor Hosted project template.</span></span>
 
-<span data-ttu-id="db3b6-160">Blazor WebAssemblyaplikace se dají nasadit do Azure App Services v systému Windows, které hostují aplikaci ve [službě IIS](#iis).</span><span class="sxs-lookup"><span data-stu-id="db3b6-160">Blazor WebAssembly apps can be deployed to Azure App Services on Windows, which hosts the app on [IIS](#iis).</span></span>
+* <span data-ttu-id="11690-159">V souboru projektu klientské aplikace přidejte `<StaticWebAssetBasePath>` vlastnost do pole `<PropertyGroup>` s hodnotou, `FirstApp` abyste nastavili základní cestu pro statické prostředky projektu:</span><span class="sxs-lookup"><span data-stu-id="11690-159">In the client app's project file, add a `<StaticWebAssetBasePath>` property to the `<PropertyGroup>` with a value of `FirstApp` to set the base path for the project's static assets:</span></span>
 
-<span data-ttu-id="db3b6-161">Nasazení samostatné Blazor WebAssembly aplikace do Azure App Service pro Linux není aktuálně podporováno.</span><span class="sxs-lookup"><span data-stu-id="db3b6-161">Deploying a standalone Blazor WebAssembly app to Azure App Service for Linux isn't currently supported.</span></span> <span data-ttu-id="db3b6-162">Image serveru pro Linux, která je hostitelem aplikace, není v tuto chvíli k dispozici.</span><span class="sxs-lookup"><span data-stu-id="db3b6-162">A Linux server image to host the app isn't available at this time.</span></span> <span data-ttu-id="db3b6-163">Pro povolení tohoto scénáře probíhá práce.</span><span class="sxs-lookup"><span data-stu-id="db3b6-163">Work is in progress to enable this scenario.</span></span>
+  ```xml
+  <PropertyGroup>
+    ...
+    <StaticWebAssetBasePath>FirstApp</StaticWebAssetBasePath>
+  </PropertyGroup>
+  ```
 
-### <a name="iis"></a><span data-ttu-id="db3b6-164">IIS</span><span class="sxs-lookup"><span data-stu-id="db3b6-164">IIS</span></span>
+* <span data-ttu-id="11690-160">Přidání druhé klientské aplikace do řešení:</span><span class="sxs-lookup"><span data-stu-id="11690-160">Add a second client app to the solution:</span></span>
 
-<span data-ttu-id="db3b6-165">Služba IIS je schopným statickým souborovým serverem pro Blazor aplikace.</span><span class="sxs-lookup"><span data-stu-id="db3b6-165">IIS is a capable static file server for Blazor apps.</span></span> <span data-ttu-id="db3b6-166">Chcete-li nakonfigurovat službu IIS na hostování Blazor , přečtěte si téma [vytvoření statického webu ve službě IIS](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis).</span><span class="sxs-lookup"><span data-stu-id="db3b6-166">To configure IIS to host Blazor, see [Build a Static Website on IIS](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis).</span></span>
+  * <span data-ttu-id="11690-161">Přidejte do složky řešení složku s názvem `SecondClient` .</span><span class="sxs-lookup"><span data-stu-id="11690-161">Add a folder named `SecondClient` to the solution's folder.</span></span>
+  * <span data-ttu-id="11690-162">Vytvořte Blazor WebAssembly aplikaci s názvem `SecondBlazorApp.Client` ve `SecondClient` složce ze Blazor WebAssembly šablony projektu.</span><span class="sxs-lookup"><span data-stu-id="11690-162">Create a Blazor WebAssembly app named `SecondBlazorApp.Client` in the `SecondClient` folder from the Blazor WebAssembly project template.</span></span>
+  * <span data-ttu-id="11690-163">V souboru projektu aplikace:</span><span class="sxs-lookup"><span data-stu-id="11690-163">In the app's project file:</span></span>
 
-<span data-ttu-id="db3b6-167">Publikované assety se vytvoří ve `/bin/Release/{TARGET FRAMEWORK}/publish` složce.</span><span class="sxs-lookup"><span data-stu-id="db3b6-167">Published assets are created in the `/bin/Release/{TARGET FRAMEWORK}/publish` folder.</span></span> <span data-ttu-id="db3b6-168">Hostovat obsah `publish` složky na webovém serveru nebo v hostitelské službě.</span><span class="sxs-lookup"><span data-stu-id="db3b6-168">Host the contents of the `publish` folder on the web server or hosting service.</span></span>
+    * <span data-ttu-id="11690-164">Přidejte `<StaticWebAssetBasePath>` vlastnost do pole `<PropertyGroup>` s hodnotou `SecondApp` :</span><span class="sxs-lookup"><span data-stu-id="11690-164">Add a `<StaticWebAssetBasePath>` property to the `<PropertyGroup>` with a value of `SecondApp`:</span></span>
 
-#### <a name="webconfig"></a><span data-ttu-id="db3b6-169">web.config</span><span class="sxs-lookup"><span data-stu-id="db3b6-169">web.config</span></span>
+      ```xml
+      <PropertyGroup>
+        ...
+        <StaticWebAssetBasePath>SecondApp</StaticWebAssetBasePath>
+      </PropertyGroup>
+      ```
 
-<span data-ttu-id="db3b6-170">Při Blazor publikování projektu se vytvoří `web.config` soubor s následující konfigurací služby IIS:</span><span class="sxs-lookup"><span data-stu-id="db3b6-170">When a Blazor project is published, a `web.config` file is created with the following IIS configuration:</span></span>
+    * <span data-ttu-id="11690-165">Přidat odkaz na projekt do `Shared` projektu:</span><span class="sxs-lookup"><span data-stu-id="11690-165">Add a project reference to the `Shared` project:</span></span>
 
-* <span data-ttu-id="db3b6-171">Typy MIME jsou nastaveny pro následující přípony souborů:</span><span class="sxs-lookup"><span data-stu-id="db3b6-171">MIME types are set for the following file extensions:</span></span>
-  * <span data-ttu-id="db3b6-172">`.dll`: `application/octet-stream`</span><span class="sxs-lookup"><span data-stu-id="db3b6-172">`.dll`: `application/octet-stream`</span></span>
-  * <span data-ttu-id="db3b6-173">`.json`: `application/json`</span><span class="sxs-lookup"><span data-stu-id="db3b6-173">`.json`: `application/json`</span></span>
-  * <span data-ttu-id="db3b6-174">`.wasm`: `application/wasm`</span><span class="sxs-lookup"><span data-stu-id="db3b6-174">`.wasm`: `application/wasm`</span></span>
-  * <span data-ttu-id="db3b6-175">`.woff`: `application/font-woff`</span><span class="sxs-lookup"><span data-stu-id="db3b6-175">`.woff`: `application/font-woff`</span></span>
-  * <span data-ttu-id="db3b6-176">`.woff2`: `application/font-woff`</span><span class="sxs-lookup"><span data-stu-id="db3b6-176">`.woff2`: `application/font-woff`</span></span>
-* <span data-ttu-id="db3b6-177">Pro následující typy MIME je povolena komprese protokolu HTTP:</span><span class="sxs-lookup"><span data-stu-id="db3b6-177">HTTP compression is enabled for the following MIME types:</span></span>
+      ```xml
+      <ItemGroup>
+        <ProjectReference Include="..\Shared\{SOLUTION NAME}.Shared.csproj" />
+      </ItemGroup>
+      ```
+
+      <span data-ttu-id="11690-166">Zástupný symbol `{SOLUTION NAME}` je název řešení.</span><span class="sxs-lookup"><span data-stu-id="11690-166">The placeholder `{SOLUTION NAME}` is the solution's name.</span></span>
+
+* <span data-ttu-id="11690-167">V souboru projektu aplikace serveru vytvořte odkaz na projekt pro přidanou klientskou aplikaci:</span><span class="sxs-lookup"><span data-stu-id="11690-167">In the server app's project file, create a project reference for the added client app:</span></span>
+
+  ```xml
+  <ItemGroup>
+    ...
+    <ProjectReference Include="..\SecondClient\SecondBlazorApp.Client.csproj" />
+  </ItemGroup>
+  ```
+
+* <span data-ttu-id="11690-168">V souboru serverové aplikace `Properties/launchSettings.json` Nakonfigurujte `applicationUrl` profil Kestrel ( `{SOLUTION NAME}.Server` ) pro přístup k klientským aplikacím na portech 5001 a 5002:</span><span class="sxs-lookup"><span data-stu-id="11690-168">In the server app's `Properties/launchSettings.json` file, configure the `applicationUrl` of the Kestrel profile (`{SOLUTION NAME}.Server`) to access the client apps at ports 5001 and 5002:</span></span>
+
+  ```json
+  "applicationUrl": "https://localhost:5001;https://localhost:5002",
+  ```
+
+* <span data-ttu-id="11690-169">V metodě serverové aplikace `Startup.Configure` ( `Startup.cs` ) odeberte následující řádky, které se zobrazí po volání <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection%2A> :</span><span class="sxs-lookup"><span data-stu-id="11690-169">In the server app's `Startup.Configure` method (`Startup.cs`), remove the following lines, which appear after the call to <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection%2A>:</span></span>
+
+  ```csharp
+  app.UseBlazorFrameworkFiles();
+  app.UseStaticFiles();
+
+  app.UseRouting();
+
+  app.UseEndpoints(endpoints =>
+  {
+      endpoints.MapRazorPages();
+      endpoints.MapControllers();
+      endpoints.MapFallbackToFile("index.html");
+  });
+  ```
+
+  <span data-ttu-id="11690-170">Přidejte middleware, který mapuje požadavky na klientské aplikace.</span><span class="sxs-lookup"><span data-stu-id="11690-170">Add middleware that maps requests to the client apps.</span></span> <span data-ttu-id="11690-171">Následující příklad konfiguruje middleware ke spuštění v následujících případech:</span><span class="sxs-lookup"><span data-stu-id="11690-171">The following example configures the middleware to run when:</span></span>
+
+  * <span data-ttu-id="11690-172">Port žádosti je buď 5001 pro původní klientskou aplikaci, nebo 5002 pro přidanou klientskou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="11690-172">The request port is either 5001 for the original client app or 5002 for the added client app.</span></span>
+  * <span data-ttu-id="11690-173">Hostitel žádosti je buď `firstapp.com` pro původní klientskou aplikaci, nebo `secondapp.com` pro přidanou klientskou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="11690-173">The request host is either `firstapp.com` for the original client app or `secondapp.com` for the added client app.</span></span>
+
+    > [!NOTE]
+    > <span data-ttu-id="11690-174">Příklad uvedený v této části vyžaduje další konfiguraci pro:</span><span class="sxs-lookup"><span data-stu-id="11690-174">The example shown in this section requires additional configuration for:</span></span>
+    >
+    > * <span data-ttu-id="11690-175">Přístup k aplikacím v ukázkových doménách hostitelů `firstapp.com` a `secondapp.com` .</span><span class="sxs-lookup"><span data-stu-id="11690-175">Accessing the apps at the example host domains, `firstapp.com` and `secondapp.com`.</span></span>
+    > * <span data-ttu-id="11690-176">Certifikáty pro klientské aplikace, které umožňují zabezpečení TLS (HTTPS).</span><span class="sxs-lookup"><span data-stu-id="11690-176">Certificates for the client apps to enable TLS security (HTTPS).</span></span>
+    >
+    > <span data-ttu-id="11690-177">Požadovaná konfigurace překračuje rozsah tohoto článku a závisí na tom, jak je řešení hostované.</span><span class="sxs-lookup"><span data-stu-id="11690-177">The required configuration is beyond the scope of this article and depends on how the solution is hosted.</span></span> <span data-ttu-id="11690-178">Další informace najdete v [článcích o hostiteli a nasazení](xref:host-and-deploy/index).</span><span class="sxs-lookup"><span data-stu-id="11690-178">For more information see the [Host and deploy articles](xref:host-and-deploy/index).</span></span>
+
+  <span data-ttu-id="11690-179">Vložte následující kód, kde byly řádky odebrány dříve:</span><span class="sxs-lookup"><span data-stu-id="11690-179">Place the following code where the lines were removed earlier:</span></span>
+
+  ```csharp
+  app.MapWhen(ctx => ctx.Request.Host.Port == 5001 || 
+      ctx.Request.Host.Equals("firstapp.com"), first =>
+  {
+      first.Use((ctx, nxt) =>
+      {
+          ctx.Request.Path = "/FirstApp" + ctx.Request.Path;
+          return nxt();
+      });
+
+      first.UseBlazorFrameworkFiles("/FirstApp");
+      first.UseStaticFiles();
+      first.UseStaticFiles("/FirstApp");
+      first.UseRouting();
+
+      first.UseEndpoints(endpoints =>
+      {
+          endpoints.MapControllers();
+          endpoints.MapFallbackToFile("/FirstApp/{*path:nonfile}", 
+              "FirstApp/index.html");
+      });
+  });
+  
+  app.MapWhen(ctx => ctx.Request.Host.Port == 5002 || 
+      ctx.Request.Host.Equals("secondapp.com"), second =>
+  {
+      second.Use((ctx, nxt) =>
+      {
+          ctx.Request.Path = "/SecondApp" + ctx.Request.Path;
+          return nxt();
+      });
+
+      second.UseBlazorFrameworkFiles("/SecondApp");
+      second.UseStaticFiles();
+      second.UseStaticFiles("/SecondApp");
+      second.UseRouting();
+
+      second.UseEndpoints(endpoints =>
+      {
+          endpoints.MapControllers();
+          endpoints.MapFallbackToFile("/SecondApp/{*path:nonfile}", 
+              "SecondApp/index.html");
+      });
+  });
+  ```
+
+* <span data-ttu-id="11690-180">V řadiči pro předpověď počasí aplikace serveru ( `Controllers/WeatherForecastController.cs` ) nahraďte stávající trasu ( `[Route("[controller]")]` ) následujícími trasami `WeatherForecastController` :</span><span class="sxs-lookup"><span data-stu-id="11690-180">In the server app's weather forecast controller (`Controllers/WeatherForecastController.cs`), replace the existing route (`[Route("[controller]")]`) to `WeatherForecastController` with the following routes:</span></span>
+
+  ```csharp
+  [Route("FirstApp/[controller]")]
+  [Route("SecondApp/[controller]")]
+  ```
+
+  <span data-ttu-id="11690-181">Middleware přidané do metody serverové aplikace `Startup.Configure` dříve mění příchozí požadavky na `/WeatherForecast` buď `/FirstApp/WeatherForecast` nebo `/SecondApp/WeatherForecast` v závislosti na portu (5001/5002) nebo doméně ( `firstapp.com` / `secondapp.com` ).</span><span class="sxs-lookup"><span data-stu-id="11690-181">The middleware added to the server app's `Startup.Configure` method earlier modifies incoming requests to `/WeatherForecast` to either `/FirstApp/WeatherForecast` or `/SecondApp/WeatherForecast` depending on the port (5001/5002) or domain (`firstapp.com`/`secondapp.com`).</span></span> <span data-ttu-id="11690-182">Aby bylo možné vracet údaje o počasí z aplikace serveru do klientských aplikací, je nutné, aby byly předchozí trasy řadiče.</span><span class="sxs-lookup"><span data-stu-id="11690-182">The preceding controller routes are required in order to return weather data from the server app to the client apps.</span></span>
+
+### <a name="static-assets-and-class-libraries"></a><span data-ttu-id="11690-183">Statické prostředky a knihovny tříd</span><span class="sxs-lookup"><span data-stu-id="11690-183">Static assets and class libraries</span></span>
+
+<span data-ttu-id="11690-184">Pro statické prostředky použijte následující přístupy:</span><span class="sxs-lookup"><span data-stu-id="11690-184">Use the following approaches for static assets:</span></span>
+
+* <span data-ttu-id="11690-185">Pokud je prostředek ve složce klientské aplikace `wwwroot` , zadejte jejich cesty normálně:</span><span class="sxs-lookup"><span data-stu-id="11690-185">When the asset is in the client app's `wwwroot` folder, provide their paths normally:</span></span>
+
+  ```razor
+  <img alt="..." src="/{ASSET FILE NAME}" />
+  ```
+
+* <span data-ttu-id="11690-186">Pokud je Asset ve `wwwroot` složce [ Razor knihovny tříd (RCL)](xref:blazor/components/class-libraries), odkazujte na statický prostředek v klientské aplikaci podle pokynů v [článku RCL](xref:razor-pages/ui-class#consume-content-from-a-referenced-rcl):</span><span class="sxs-lookup"><span data-stu-id="11690-186">When the asset is in the `wwwroot` folder of a [Razor Class Library (RCL)](xref:blazor/components/class-libraries), reference the static asset in the client app per the guidance in the [RCL article](xref:razor-pages/ui-class#consume-content-from-a-referenced-rcl):</span></span>
+
+  ```razor
+  <img alt="..." src="_content/{LIBRARY NAME}/{ASSET FILE NAME}" />
+  ```
+
+::: moniker range=">= aspnetcore-5.0"
+
+<span data-ttu-id="11690-187">Na součásti, které jsou k klientské aplikaci poskytovány knihovny tříd, se obvykle odkazuje.</span><span class="sxs-lookup"><span data-stu-id="11690-187">Components provided to a client app by a class library are referenced normally.</span></span> <span data-ttu-id="11690-188">Pokud některé komponenty vyžadují šablony stylů nebo soubory JavaScriptu, použijte k získání statických prostředků některý z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="11690-188">If any components require stylesheets or JavaScript files, use either of the following approaches to obtain the static assets:</span></span>
+
+* <span data-ttu-id="11690-189">Soubor klientské aplikace `wwwroot/index.html` může propojit ( `<link>` ) se statickými prostředky.</span><span class="sxs-lookup"><span data-stu-id="11690-189">The client app's `wwwroot/index.html` file can link (`<link>`) to the static assets.</span></span>
+* <span data-ttu-id="11690-190">Komponenta může použít [ `Link` komponentu](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) rozhraní pro získání statických prostředků.</span><span class="sxs-lookup"><span data-stu-id="11690-190">The component can use the framework's [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) to obtain the static assets.</span></span>
+
+<span data-ttu-id="11690-191">Předchozí přístupy jsou znázorněné v následujících příkladech.</span><span class="sxs-lookup"><span data-stu-id="11690-191">The preceding approaches are demonstrated in the following examples.</span></span>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+<span data-ttu-id="11690-192">Na součásti, které jsou k klientské aplikaci poskytovány knihovny tříd, se obvykle odkazuje.</span><span class="sxs-lookup"><span data-stu-id="11690-192">Components provided to a client app by a class library are referenced normally.</span></span> <span data-ttu-id="11690-193">Pokud některé komponenty vyžadují šablony stylů nebo soubory JavaScriptu, musí soubor klientské aplikace `wwwroot/index.html` zahrnovat správné propojení statických prostředků.</span><span class="sxs-lookup"><span data-stu-id="11690-193">If any components require stylesheets or JavaScript files, the client app's `wwwroot/index.html` file must include the correct static asset links.</span></span> <span data-ttu-id="11690-194">Tyto přístupy jsou znázorněné v následujících příkladech.</span><span class="sxs-lookup"><span data-stu-id="11690-194">These approaches are demonstrated in the following examples.</span></span>
+
+::: moniker-end
+
+<span data-ttu-id="11690-195">Přidejte následující `Jeep` komponentu do jedné z klientských aplikací.</span><span class="sxs-lookup"><span data-stu-id="11690-195">Add the following `Jeep` component to one of the client apps.</span></span> <span data-ttu-id="11690-196">`Jeep`Komponenta používá:</span><span class="sxs-lookup"><span data-stu-id="11690-196">The `Jeep` component uses:</span></span>
+
+* <span data-ttu-id="11690-197">Obrázek ze složky klientské aplikace `wwwroot` ( `jeep-cj.png` ).</span><span class="sxs-lookup"><span data-stu-id="11690-197">An image from the client app's `wwwroot` folder (`jeep-cj.png`).</span></span>
+* <span data-ttu-id="11690-198">Obrázek z přidané složky [ Razor knihovny součástí](xref:blazor/components/class-libraries) () `JeepImage` `wwwroot` ( `jeep-yj.png` ).</span><span class="sxs-lookup"><span data-stu-id="11690-198">An image from an [added Razor component library](xref:blazor/components/class-libraries) (`JeepImage`) `wwwroot` folder (`jeep-yj.png`).</span></span>
+* <span data-ttu-id="11690-199">Ukázková součást ( `Component1` ) je vytvořena automaticky šablonou projektu RCL při `JeepImage` Přidání knihovny do řešení.</span><span class="sxs-lookup"><span data-stu-id="11690-199">The example component (`Component1`) is created automatically by the RCL project template when the `JeepImage` library is added to the solution.</span></span>
+
+```razor
+@page "/Jeep"
+
+<h1>1979 Jeep CJ-5&trade;</h1>
+
+<p>
+    <img alt="1979 Jeep CJ-5&trade;" src="/jeep-cj.png" />
+</p>
+
+<h1>1991 Jeep YJ&trade;</h1>
+
+<p>
+    <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+</p>
+
+<p>
+    <em>Jeep CJ-5</em> and <em>Jeep YJ</em> are a trademarks of 
+    <a href="https://www.fcagroup.com">Fiat Chrysler Automobiles</a>.
+</p>
+
+<JeepImage.Component1 />
+```
+
+> [!WARNING]
+> <span data-ttu-id="11690-200">**Nezveřejňujte** image vozidel veřejně, pokud Image nevlastníte.</span><span class="sxs-lookup"><span data-stu-id="11690-200">Do **not** publish images of vehicles publicly unless you own the images.</span></span> <span data-ttu-id="11690-201">V opačném případě riskujete porušení autorských práv.</span><span class="sxs-lookup"><span data-stu-id="11690-201">Otherwise, you risk copyright infringement.</span></span>
+
+::: moniker range=">= aspnetcore-5.0"
+
+<span data-ttu-id="11690-202">`jeep-yj.png`Bitovou kopii knihovny lze také přidat do `Component1` komponenty knihovny ( `Component1.razor` ).</span><span class="sxs-lookup"><span data-stu-id="11690-202">The library's `jeep-yj.png` image can also be added to the library's `Component1` component (`Component1.razor`).</span></span> <span data-ttu-id="11690-203">Chcete-li poskytnout `my-component` třídu CSS na stránku klientské aplikace, propojte na šablonu stylů knihovny pomocí [ `Link` komponenty](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements)rozhraní:</span><span class="sxs-lookup"><span data-stu-id="11690-203">To provide the `my-component` CSS class to the client app's page, link to the library's stylesheet using the framework's [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements):</span></span>
+
+```razor
+<div class="my-component">
+    <Link href="_content/JeepImage/styles.css" rel="stylesheet" />
+
+    <h1>JeepImage.Component1</h1>
+
+    <p>
+        This Blazor component is defined in the <strong>JeepImage</strong> package.
+    </p>
+
+    <p>
+        <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+    </p>
+</div>
+```
+
+<span data-ttu-id="11690-204">Alternativou k použití [ `Link` komponenty](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) je načtení šablony stylů ze souboru klientské aplikace `wwwroot/index.html` .</span><span class="sxs-lookup"><span data-stu-id="11690-204">An alternative to using the [`Link` component](xref:blazor/fundamentals/additional-scenarios#influence-html-head-tag-elements) is to load the stylesheet from the client app's `wwwroot/index.html` file.</span></span> <span data-ttu-id="11690-205">Tento přístup zpřístupňuje šablonu stylů všem součástem v klientské aplikaci:</span><span class="sxs-lookup"><span data-stu-id="11690-205">This approach makes the stylesheet available to all of the components in the client app:</span></span>
+
+```html
+<head>
+    ...
+    <link href="_content/JeepImage/styles.css" rel="stylesheet" />
+</head>
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+<span data-ttu-id="11690-206">`jeep-yj.png`Bitovou kopii knihovny lze také přidat do `Component1` komponenty knihovny ( `Component1.razor` ):</span><span class="sxs-lookup"><span data-stu-id="11690-206">The library's `jeep-yj.png` image can also be added to the library's `Component1` component (`Component1.razor`):</span></span>
+
+```razor
+<div class="my-component">
+    <h1>JeepImage.Component1</h1>
+
+    <p>
+        This Blazor component is defined in the <strong>JeepImage</strong> package.
+    </p>
+
+    <p>
+        <img alt="1991 Jeep YJ&trade;" src="_content/JeepImage/jeep-yj.png" />
+    </p>
+</div>
+```
+
+<span data-ttu-id="11690-207">Soubor klientské aplikace `wwwroot/index.html` požaduje šablonu stylů knihovny s následující přidanou `<link>` značkou:</span><span class="sxs-lookup"><span data-stu-id="11690-207">The client app's `wwwroot/index.html` file requests the library's stylesheet with the following added `<link>` tag:</span></span>
+
+```html
+<head>
+    ...
+    <link href="_content/JeepImage/styles.css" rel="stylesheet" />
+</head>
+```
+
+::: moniker-end
+
+<span data-ttu-id="11690-208">Přidat navigaci k `Jeep` součásti v součásti klientské aplikace `NavMenu` ( `Shared/NavMenu.razor` ):</span><span class="sxs-lookup"><span data-stu-id="11690-208">Add navigation to the `Jeep` component in the client app's `NavMenu` component (`Shared/NavMenu.razor`):</span></span>
+
+```razor
+<li class="nav-item px-3">
+    <NavLink class="nav-link" href="Jeep">
+        <span class="oi oi-list-rich" aria-hidden="true"></span> Jeep
+    </NavLink>
+</li>
+```
+
+<span data-ttu-id="11690-209">Další informace o RCLs najdete v tématech:</span><span class="sxs-lookup"><span data-stu-id="11690-209">For more information on RCLs, see:</span></span>
+
+* <xref:blazor/components/class-libraries>
+* <xref:razor-pages/ui-class>
+
+## <a name="standalone-deployment"></a><span data-ttu-id="11690-210">Samostatné nasazení</span><span class="sxs-lookup"><span data-stu-id="11690-210">Standalone deployment</span></span>
+
+<span data-ttu-id="11690-211">*Samostatné nasazení* obsluhuje Blazor WebAssembly aplikaci jako sadu statických souborů, které jsou požadovány přímo klienty.</span><span class="sxs-lookup"><span data-stu-id="11690-211">A *standalone deployment* serves the Blazor WebAssembly app as a set of static files that are requested directly by clients.</span></span> <span data-ttu-id="11690-212">Každý statický souborový server může Blazor aplikaci zpracovat.</span><span class="sxs-lookup"><span data-stu-id="11690-212">Any static file server is able to serve the Blazor app.</span></span>
+
+<span data-ttu-id="11690-213">Samostatné prostředky nasazení jsou publikovány do `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` složky.</span><span class="sxs-lookup"><span data-stu-id="11690-213">Standalone deployment assets are published into the `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` folder.</span></span>
+
+### <a name="azure-app-service"></a><span data-ttu-id="11690-214">Azure App Service</span><span class="sxs-lookup"><span data-stu-id="11690-214">Azure App Service</span></span>
+
+<span data-ttu-id="11690-215">Blazor WebAssemblyaplikace se dají nasadit do Azure App Services v systému Windows, které hostují aplikaci ve [službě IIS](#iis).</span><span class="sxs-lookup"><span data-stu-id="11690-215">Blazor WebAssembly apps can be deployed to Azure App Services on Windows, which hosts the app on [IIS](#iis).</span></span>
+
+<span data-ttu-id="11690-216">Nasazení samostatné Blazor WebAssembly aplikace do Azure App Service pro Linux není aktuálně podporováno.</span><span class="sxs-lookup"><span data-stu-id="11690-216">Deploying a standalone Blazor WebAssembly app to Azure App Service for Linux isn't currently supported.</span></span> <span data-ttu-id="11690-217">Image serveru pro Linux, která je hostitelem aplikace, není v tuto chvíli k dispozici.</span><span class="sxs-lookup"><span data-stu-id="11690-217">A Linux server image to host the app isn't available at this time.</span></span> <span data-ttu-id="11690-218">Pro povolení tohoto scénáře probíhá práce.</span><span class="sxs-lookup"><span data-stu-id="11690-218">Work is in progress to enable this scenario.</span></span>
+
+### <a name="iis"></a><span data-ttu-id="11690-219">IIS</span><span class="sxs-lookup"><span data-stu-id="11690-219">IIS</span></span>
+
+<span data-ttu-id="11690-220">Služba IIS je schopným statickým souborovým serverem pro Blazor aplikace.</span><span class="sxs-lookup"><span data-stu-id="11690-220">IIS is a capable static file server for Blazor apps.</span></span> <span data-ttu-id="11690-221">Chcete-li nakonfigurovat službu IIS na hostování Blazor , přečtěte si téma [vytvoření statického webu ve službě IIS](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis).</span><span class="sxs-lookup"><span data-stu-id="11690-221">To configure IIS to host Blazor, see [Build a Static Website on IIS](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis).</span></span>
+
+<span data-ttu-id="11690-222">Publikované assety se vytvoří ve `/bin/Release/{TARGET FRAMEWORK}/publish` složce.</span><span class="sxs-lookup"><span data-stu-id="11690-222">Published assets are created in the `/bin/Release/{TARGET FRAMEWORK}/publish` folder.</span></span> <span data-ttu-id="11690-223">Hostovat obsah `publish` složky na webovém serveru nebo v hostitelské službě.</span><span class="sxs-lookup"><span data-stu-id="11690-223">Host the contents of the `publish` folder on the web server or hosting service.</span></span>
+
+#### <a name="webconfig"></a><span data-ttu-id="11690-224">web.config</span><span class="sxs-lookup"><span data-stu-id="11690-224">web.config</span></span>
+
+<span data-ttu-id="11690-225">Při Blazor publikování projektu se vytvoří `web.config` soubor s následující konfigurací služby IIS:</span><span class="sxs-lookup"><span data-stu-id="11690-225">When a Blazor project is published, a `web.config` file is created with the following IIS configuration:</span></span>
+
+* <span data-ttu-id="11690-226">Typy MIME jsou nastaveny pro následující přípony souborů:</span><span class="sxs-lookup"><span data-stu-id="11690-226">MIME types are set for the following file extensions:</span></span>
+  * <span data-ttu-id="11690-227">`.dll`: `application/octet-stream`</span><span class="sxs-lookup"><span data-stu-id="11690-227">`.dll`: `application/octet-stream`</span></span>
+  * <span data-ttu-id="11690-228">`.json`: `application/json`</span><span class="sxs-lookup"><span data-stu-id="11690-228">`.json`: `application/json`</span></span>
+  * <span data-ttu-id="11690-229">`.wasm`: `application/wasm`</span><span class="sxs-lookup"><span data-stu-id="11690-229">`.wasm`: `application/wasm`</span></span>
+  * <span data-ttu-id="11690-230">`.woff`: `application/font-woff`</span><span class="sxs-lookup"><span data-stu-id="11690-230">`.woff`: `application/font-woff`</span></span>
+  * <span data-ttu-id="11690-231">`.woff2`: `application/font-woff`</span><span class="sxs-lookup"><span data-stu-id="11690-231">`.woff2`: `application/font-woff`</span></span>
+* <span data-ttu-id="11690-232">Pro následující typy MIME je povolena komprese protokolu HTTP:</span><span class="sxs-lookup"><span data-stu-id="11690-232">HTTP compression is enabled for the following MIME types:</span></span>
   * `application/octet-stream`
   * `application/wasm`
-* <span data-ttu-id="db3b6-178">Pravidla pro přepis adres URL jsou navázána:</span><span class="sxs-lookup"><span data-stu-id="db3b6-178">URL Rewrite Module rules are established:</span></span>
-  * <span data-ttu-id="db3b6-179">Slouží jako podadresáře, kde se nachází statické prostředky aplikace ( `wwwroot/{PATH REQUESTED}` ).</span><span class="sxs-lookup"><span data-stu-id="db3b6-179">Serve the sub-directory where the app's static assets reside (`wwwroot/{PATH REQUESTED}`).</span></span>
-  * <span data-ttu-id="db3b6-180">Vytvořte záložní záložní postup, aby se požadavky na nesouborové prostředky přesměrovaly do výchozího dokumentu aplikace ve složce static assets ( `wwwroot/index.html` ).</span><span class="sxs-lookup"><span data-stu-id="db3b6-180">Create SPA fallback routing so that requests for non-file assets are redirected to the app's default document in its static assets folder (`wwwroot/index.html`).</span></span>
+* <span data-ttu-id="11690-233">Pravidla pro přepis adres URL jsou navázána:</span><span class="sxs-lookup"><span data-stu-id="11690-233">URL Rewrite Module rules are established:</span></span>
+  * <span data-ttu-id="11690-234">Slouží jako podadresáře, kde se nachází statické prostředky aplikace ( `wwwroot/{PATH REQUESTED}` ).</span><span class="sxs-lookup"><span data-stu-id="11690-234">Serve the sub-directory where the app's static assets reside (`wwwroot/{PATH REQUESTED}`).</span></span>
+  * <span data-ttu-id="11690-235">Vytvořte záložní záložní postup, aby se požadavky na nesouborové prostředky přesměrovaly do výchozího dokumentu aplikace ve složce static assets ( `wwwroot/index.html` ).</span><span class="sxs-lookup"><span data-stu-id="11690-235">Create SPA fallback routing so that requests for non-file assets are redirected to the app's default document in its static assets folder (`wwwroot/index.html`).</span></span>
   
-#### <a name="use-a-custom-webconfig"></a><span data-ttu-id="db3b6-181">Použití vlastního web.config</span><span class="sxs-lookup"><span data-stu-id="db3b6-181">Use a custom web.config</span></span>
+#### <a name="use-a-custom-webconfig"></a><span data-ttu-id="11690-236">Použití vlastního web.config</span><span class="sxs-lookup"><span data-stu-id="11690-236">Use a custom web.config</span></span>
 
-<span data-ttu-id="db3b6-182">Chcete-li použít vlastní `web.config` soubor, umístěte vlastní `web.config` soubor do kořenové složky projektu a publikujte projekt.</span><span class="sxs-lookup"><span data-stu-id="db3b6-182">To use a custom `web.config` file, place the custom `web.config` file at the root of the project folder and publish the project.</span></span>
+<span data-ttu-id="11690-237">Chcete-li použít vlastní `web.config` soubor, umístěte vlastní `web.config` soubor do kořenové složky projektu a publikujte projekt.</span><span class="sxs-lookup"><span data-stu-id="11690-237">To use a custom `web.config` file, place the custom `web.config` file at the root of the project folder and publish the project.</span></span>
 
-#### <a name="install-the-url-rewrite-module"></a><span data-ttu-id="db3b6-183">Instalace modulu URL pro přepis</span><span class="sxs-lookup"><span data-stu-id="db3b6-183">Install the URL Rewrite Module</span></span>
+#### <a name="install-the-url-rewrite-module"></a><span data-ttu-id="11690-238">Instalace modulu URL pro přepis</span><span class="sxs-lookup"><span data-stu-id="11690-238">Install the URL Rewrite Module</span></span>
 
-<span data-ttu-id="db3b6-184">Pro přepis adres URL je vyžadován [modul URL Rewrite](https://www.iis.net/downloads/microsoft/url-rewrite) .</span><span class="sxs-lookup"><span data-stu-id="db3b6-184">The [URL Rewrite Module](https://www.iis.net/downloads/microsoft/url-rewrite) is required to rewrite URLs.</span></span> <span data-ttu-id="db3b6-185">Modul není nainstalován ve výchozím nastavení a není k dispozici pro instalaci jako funkci služby role Webový server (IIS).</span><span class="sxs-lookup"><span data-stu-id="db3b6-185">The module isn't installed by default, and it isn't available for install as a Web Server (IIS) role service feature.</span></span> <span data-ttu-id="db3b6-186">Modul se musí stáhnout z webu IIS.</span><span class="sxs-lookup"><span data-stu-id="db3b6-186">The module must be downloaded from the IIS website.</span></span> <span data-ttu-id="db3b6-187">K instalaci modulu použijte instalační program webové platformy:</span><span class="sxs-lookup"><span data-stu-id="db3b6-187">Use the Web Platform Installer to install the module:</span></span>
+<span data-ttu-id="11690-239">Pro přepis adres URL je vyžadován [modul URL Rewrite](https://www.iis.net/downloads/microsoft/url-rewrite) .</span><span class="sxs-lookup"><span data-stu-id="11690-239">The [URL Rewrite Module](https://www.iis.net/downloads/microsoft/url-rewrite) is required to rewrite URLs.</span></span> <span data-ttu-id="11690-240">Modul není nainstalován ve výchozím nastavení a není k dispozici pro instalaci jako funkci služby role Webový server (IIS).</span><span class="sxs-lookup"><span data-stu-id="11690-240">The module isn't installed by default, and it isn't available for install as a Web Server (IIS) role service feature.</span></span> <span data-ttu-id="11690-241">Modul se musí stáhnout z webu IIS.</span><span class="sxs-lookup"><span data-stu-id="11690-241">The module must be downloaded from the IIS website.</span></span> <span data-ttu-id="11690-242">K instalaci modulu použijte instalační program webové platformy:</span><span class="sxs-lookup"><span data-stu-id="11690-242">Use the Web Platform Installer to install the module:</span></span>
 
-1. <span data-ttu-id="db3b6-188">Místně přejděte na [stránku ke stažení modulu pro přepsání adresy URL](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads).</span><span class="sxs-lookup"><span data-stu-id="db3b6-188">Locally, navigate to the [URL Rewrite Module downloads page](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads).</span></span> <span data-ttu-id="db3b6-189">V případě anglické verze vyberte **WebPI** a Stáhněte si instalační program WebPI.</span><span class="sxs-lookup"><span data-stu-id="db3b6-189">For the English version, select **WebPI** to download the WebPI installer.</span></span> <span data-ttu-id="db3b6-190">Pro jiné jazyky vyberte příslušnou architekturu pro server (x86/x64) a stáhněte instalační program.</span><span class="sxs-lookup"><span data-stu-id="db3b6-190">For other languages, select the appropriate architecture for the server (x86/x64) to download the installer.</span></span>
-1. <span data-ttu-id="db3b6-191">Zkopírujte instalační program na server.</span><span class="sxs-lookup"><span data-stu-id="db3b6-191">Copy the installer to the server.</span></span> <span data-ttu-id="db3b6-192">Spusťte instalační program.</span><span class="sxs-lookup"><span data-stu-id="db3b6-192">Run the installer.</span></span> <span data-ttu-id="db3b6-193">Vyberte tlačítko **nainstalovat** a přijměte licenční podmínky.</span><span class="sxs-lookup"><span data-stu-id="db3b6-193">Select the **Install** button and accept the license terms.</span></span> <span data-ttu-id="db3b6-194">Po dokončení instalace není restartování serveru vyžadováno.</span><span class="sxs-lookup"><span data-stu-id="db3b6-194">A server restart isn't required after the install completes.</span></span>
+1. <span data-ttu-id="11690-243">Místně přejděte na [stránku ke stažení modulu pro přepsání adresy URL](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads).</span><span class="sxs-lookup"><span data-stu-id="11690-243">Locally, navigate to the [URL Rewrite Module downloads page](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads).</span></span> <span data-ttu-id="11690-244">V případě anglické verze vyberte **WebPI** a Stáhněte si instalační program WebPI.</span><span class="sxs-lookup"><span data-stu-id="11690-244">For the English version, select **WebPI** to download the WebPI installer.</span></span> <span data-ttu-id="11690-245">Pro jiné jazyky vyberte příslušnou architekturu pro server (x86/x64) a stáhněte instalační program.</span><span class="sxs-lookup"><span data-stu-id="11690-245">For other languages, select the appropriate architecture for the server (x86/x64) to download the installer.</span></span>
+1. <span data-ttu-id="11690-246">Zkopírujte instalační program na server.</span><span class="sxs-lookup"><span data-stu-id="11690-246">Copy the installer to the server.</span></span> <span data-ttu-id="11690-247">Spusťte instalační program.</span><span class="sxs-lookup"><span data-stu-id="11690-247">Run the installer.</span></span> <span data-ttu-id="11690-248">Vyberte tlačítko **nainstalovat** a přijměte licenční podmínky.</span><span class="sxs-lookup"><span data-stu-id="11690-248">Select the **Install** button and accept the license terms.</span></span> <span data-ttu-id="11690-249">Po dokončení instalace není restartování serveru vyžadováno.</span><span class="sxs-lookup"><span data-stu-id="11690-249">A server restart isn't required after the install completes.</span></span>
 
-#### <a name="configure-the-website"></a><span data-ttu-id="db3b6-195">Konfigurace webu</span><span class="sxs-lookup"><span data-stu-id="db3b6-195">Configure the website</span></span>
+#### <a name="configure-the-website"></a><span data-ttu-id="11690-250">Konfigurace webu</span><span class="sxs-lookup"><span data-stu-id="11690-250">Configure the website</span></span>
 
-<span data-ttu-id="db3b6-196">Nastavte **fyzickou cestu** webu na složku aplikace.</span><span class="sxs-lookup"><span data-stu-id="db3b6-196">Set the website's **Physical path** to the app's folder.</span></span> <span data-ttu-id="db3b6-197">Složka obsahuje:</span><span class="sxs-lookup"><span data-stu-id="db3b6-197">The folder contains:</span></span>
+<span data-ttu-id="11690-251">Nastavte **fyzickou cestu** webu na složku aplikace.</span><span class="sxs-lookup"><span data-stu-id="11690-251">Set the website's **Physical path** to the app's folder.</span></span> <span data-ttu-id="11690-252">Složka obsahuje:</span><span class="sxs-lookup"><span data-stu-id="11690-252">The folder contains:</span></span>
 
-* <span data-ttu-id="db3b6-198">`web.config`Soubor, který služba IIS používá ke konfiguraci webu, včetně požadovaných pravidel přesměrování a typů obsahu souborů.</span><span class="sxs-lookup"><span data-stu-id="db3b6-198">The `web.config` file that IIS uses to configure the website, including the required redirect rules and file content types.</span></span>
-* <span data-ttu-id="db3b6-199">Složka statických prostředků aplikace</span><span class="sxs-lookup"><span data-stu-id="db3b6-199">The app's static asset folder.</span></span>
+* <span data-ttu-id="11690-253">`web.config`Soubor, který služba IIS používá ke konfiguraci webu, včetně požadovaných pravidel přesměrování a typů obsahu souborů.</span><span class="sxs-lookup"><span data-stu-id="11690-253">The `web.config` file that IIS uses to configure the website, including the required redirect rules and file content types.</span></span>
+* <span data-ttu-id="11690-254">Složka statických prostředků aplikace</span><span class="sxs-lookup"><span data-stu-id="11690-254">The app's static asset folder.</span></span>
 
-#### <a name="host-as-an-iis-sub-app"></a><span data-ttu-id="db3b6-200">Hostování jako dílčí aplikace služby IIS</span><span class="sxs-lookup"><span data-stu-id="db3b6-200">Host as an IIS sub-app</span></span>
+#### <a name="host-as-an-iis-sub-app"></a><span data-ttu-id="11690-255">Hostování jako dílčí aplikace služby IIS</span><span class="sxs-lookup"><span data-stu-id="11690-255">Host as an IIS sub-app</span></span>
 
-<span data-ttu-id="db3b6-201">Pokud je samostatná aplikace hostovaná jako dílčí aplikace služby IIS, proveďte jednu z následujících akcí:</span><span class="sxs-lookup"><span data-stu-id="db3b6-201">If a standalone app is hosted as an IIS sub-app, perform either of the following:</span></span>
+<span data-ttu-id="11690-256">Pokud je samostatná aplikace hostovaná jako dílčí aplikace služby IIS, proveďte jednu z následujících akcí:</span><span class="sxs-lookup"><span data-stu-id="11690-256">If a standalone app is hosted as an IIS sub-app, perform either of the following:</span></span>
 
-* <span data-ttu-id="db3b6-202">Zakažte zděděnou obslužnou rutinu modulu ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="db3b6-202">Disable the inherited ASP.NET Core Module handler.</span></span>
+* <span data-ttu-id="11690-257">Zakažte zděděnou obslužnou rutinu modulu ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="11690-257">Disable the inherited ASP.NET Core Module handler.</span></span>
 
-  <span data-ttu-id="db3b6-203">Odeberte obslužnou rutinu v Blazor publikovaném `web.config` souboru aplikace tak, že `<handlers>` do souboru přidáte oddíl:</span><span class="sxs-lookup"><span data-stu-id="db3b6-203">Remove the handler in the Blazor app's published `web.config` file by adding a `<handlers>` section to the file:</span></span>
+  <span data-ttu-id="11690-258">Odeberte obslužnou rutinu v Blazor publikovaném `web.config` souboru aplikace tak, že `<handlers>` do souboru přidáte oddíl:</span><span class="sxs-lookup"><span data-stu-id="11690-258">Remove the handler in the Blazor app's published `web.config` file by adding a `<handlers>` section to the file:</span></span>
 
   ```xml
   <handlers>
@@ -184,7 +467,7 @@ ms.locfileid: "87443977"
   </handlers>
   ```
 
-* <span data-ttu-id="db3b6-204">Zakažte dědění kořenového oddílu (nadřazené) aplikace `<system.webServer>` pomocí `<location>` elementu s `inheritInChildApplications` nastavením na `false` :</span><span class="sxs-lookup"><span data-stu-id="db3b6-204">Disable inheritance of the root (parent) app's `<system.webServer>` section using a `<location>` element with `inheritInChildApplications` set to `false`:</span></span>
+* <span data-ttu-id="11690-259">Zakažte dědění kořenového oddílu (nadřazené) aplikace `<system.webServer>` pomocí `<location>` elementu s `inheritInChildApplications` nastavením na `false` :</span><span class="sxs-lookup"><span data-stu-id="11690-259">Disable inheritance of the root (parent) app's `<system.webServer>` section using a `<location>` element with `inheritInChildApplications` set to `false`:</span></span>
 
   ```xml
   <?xml version="1.0" encoding="utf-8"?>
@@ -200,42 +483,42 @@ ms.locfileid: "87443977"
   </configuration>
   ```
 
-<span data-ttu-id="db3b6-205">Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [Konfigurace základní cesty aplikace](xref:blazor/host-and-deploy/index#app-base-path).</span><span class="sxs-lookup"><span data-stu-id="db3b6-205">Removing the handler or disabling inheritance is performed in addition to [configuring the app's base path](xref:blazor/host-and-deploy/index#app-base-path).</span></span> <span data-ttu-id="db3b6-206">Nastavte základní cestu aplikace v `index.html` souboru aplikace na alias služby IIS, který se používá při konfiguraci dílčí aplikace v IIS.</span><span class="sxs-lookup"><span data-stu-id="db3b6-206">Set the app base path in the app's `index.html` file to the IIS alias used when configuring the sub-app in IIS.</span></span>
+<span data-ttu-id="11690-260">Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [Konfigurace základní cesty aplikace](xref:blazor/host-and-deploy/index#app-base-path).</span><span class="sxs-lookup"><span data-stu-id="11690-260">Removing the handler or disabling inheritance is performed in addition to [configuring the app's base path](xref:blazor/host-and-deploy/index#app-base-path).</span></span> <span data-ttu-id="11690-261">Nastavte základní cestu aplikace v `index.html` souboru aplikace na alias služby IIS, který se používá při konfiguraci dílčí aplikace v IIS.</span><span class="sxs-lookup"><span data-stu-id="11690-261">Set the app base path in the app's `index.html` file to the IIS alias used when configuring the sub-app in IIS.</span></span>
 
-#### <a name="brotli-and-gzip-compression"></a><span data-ttu-id="db3b6-207">Komprese Brotli a gzip</span><span class="sxs-lookup"><span data-stu-id="db3b6-207">Brotli and Gzip compression</span></span>
+#### <a name="brotli-and-gzip-compression"></a><span data-ttu-id="11690-262">Komprese Brotli a gzip</span><span class="sxs-lookup"><span data-stu-id="11690-262">Brotli and Gzip compression</span></span>
 
-<span data-ttu-id="db3b6-208">Službu IIS je možné nakonfigurovat prostřednictvím služby `web.config` za účelem poskytování komprimovaných prostředků Brotli nebo gzip Blazor .</span><span class="sxs-lookup"><span data-stu-id="db3b6-208">IIS can be configured via `web.config` to serve Brotli or Gzip compressed Blazor assets.</span></span> <span data-ttu-id="db3b6-209">Příklad konfigurace najdete v tématu [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true) .</span><span class="sxs-lookup"><span data-stu-id="db3b6-209">For an example configuration, see [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true).</span></span>
+<span data-ttu-id="11690-263">Službu IIS je možné nakonfigurovat prostřednictvím služby `web.config` za účelem poskytování komprimovaných prostředků Brotli nebo gzip Blazor .</span><span class="sxs-lookup"><span data-stu-id="11690-263">IIS can be configured via `web.config` to serve Brotli or Gzip compressed Blazor assets.</span></span> <span data-ttu-id="11690-264">Příklad konfigurace najdete v tématu [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true) .</span><span class="sxs-lookup"><span data-stu-id="11690-264">For an example configuration, see [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true).</span></span>
 
-#### <a name="troubleshooting"></a><span data-ttu-id="db3b6-210">Řešení potíží</span><span class="sxs-lookup"><span data-stu-id="db3b6-210">Troubleshooting</span></span>
+#### <a name="troubleshooting"></a><span data-ttu-id="11690-265">Řešení potíží</span><span class="sxs-lookup"><span data-stu-id="11690-265">Troubleshooting</span></span>
 
-<span data-ttu-id="db3b6-211">Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis.</span><span class="sxs-lookup"><span data-stu-id="db3b6-211">If a *500 - Internal Server Error* is received and IIS Manager throws errors when attempting to access the website's configuration, confirm that the URL Rewrite Module is installed.</span></span> <span data-ttu-id="db3b6-212">Pokud modul není nainstalován, `web.config` soubor nelze analyzovat službou IIS.</span><span class="sxs-lookup"><span data-stu-id="db3b6-212">When the module isn't installed, the `web.config` file can't be parsed by IIS.</span></span> <span data-ttu-id="db3b6-213">Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web ze Blazor statických souborů obsluhy.</span><span class="sxs-lookup"><span data-stu-id="db3b6-213">This prevents the IIS Manager from loading the website's configuration and the website from serving Blazor's static files.</span></span>
+<span data-ttu-id="11690-266">Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis.</span><span class="sxs-lookup"><span data-stu-id="11690-266">If a *500 - Internal Server Error* is received and IIS Manager throws errors when attempting to access the website's configuration, confirm that the URL Rewrite Module is installed.</span></span> <span data-ttu-id="11690-267">Pokud modul není nainstalován, `web.config` soubor nelze analyzovat službou IIS.</span><span class="sxs-lookup"><span data-stu-id="11690-267">When the module isn't installed, the `web.config` file can't be parsed by IIS.</span></span> <span data-ttu-id="11690-268">Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web ze Blazor statických souborů obsluhy.</span><span class="sxs-lookup"><span data-stu-id="11690-268">This prevents the IIS Manager from loading the website's configuration and the website from serving Blazor's static files.</span></span>
 
-<span data-ttu-id="db3b6-214">Další informace o řešení potíží s nasazeními služby IIS najdete v tématu <xref:test/troubleshoot-azure-iis> .</span><span class="sxs-lookup"><span data-stu-id="db3b6-214">For more information on troubleshooting deployments to IIS, see <xref:test/troubleshoot-azure-iis>.</span></span>
+<span data-ttu-id="11690-269">Další informace o řešení potíží s nasazeními služby IIS najdete v tématu <xref:test/troubleshoot-azure-iis> .</span><span class="sxs-lookup"><span data-stu-id="11690-269">For more information on troubleshooting deployments to IIS, see <xref:test/troubleshoot-azure-iis>.</span></span>
 
-### <a name="azure-storage"></a><span data-ttu-id="db3b6-215">Azure Storage</span><span class="sxs-lookup"><span data-stu-id="db3b6-215">Azure Storage</span></span>
+### <a name="azure-storage"></a><span data-ttu-id="11690-270">Azure Storage</span><span class="sxs-lookup"><span data-stu-id="11690-270">Azure Storage</span></span>
 
-<span data-ttu-id="db3b6-216">Hostování statického souboru [Azure Storage](/azure/storage/) umožňuje Blazor hostování aplikací bez serveru.</span><span class="sxs-lookup"><span data-stu-id="db3b6-216">[Azure Storage](/azure/storage/) static file hosting allows serverless Blazor app hosting.</span></span> <span data-ttu-id="db3b6-217">Podporují se názvy vlastních domén, Azure Content Delivery Network (CDN) a HTTPS.</span><span class="sxs-lookup"><span data-stu-id="db3b6-217">Custom domain names, the Azure Content Delivery Network (CDN), and HTTPS are supported.</span></span>
+<span data-ttu-id="11690-271">Hostování statického souboru [Azure Storage](/azure/storage/) umožňuje Blazor hostování aplikací bez serveru.</span><span class="sxs-lookup"><span data-stu-id="11690-271">[Azure Storage](/azure/storage/) static file hosting allows serverless Blazor app hosting.</span></span> <span data-ttu-id="11690-272">Podporují se názvy vlastních domén, Azure Content Delivery Network (CDN) a HTTPS.</span><span class="sxs-lookup"><span data-stu-id="11690-272">Custom domain names, the Azure Content Delivery Network (CDN), and HTTPS are supported.</span></span>
 
-<span data-ttu-id="db3b6-218">Když je u služby BLOB Service povolené hostování statických webů v účtu úložiště:</span><span class="sxs-lookup"><span data-stu-id="db3b6-218">When the blob service is enabled for static website hosting on a storage account:</span></span>
+<span data-ttu-id="11690-273">Když je u služby BLOB Service povolené hostování statických webů v účtu úložiště:</span><span class="sxs-lookup"><span data-stu-id="11690-273">When the blob service is enabled for static website hosting on a storage account:</span></span>
 
-* <span data-ttu-id="db3b6-219">Nastavte **název dokumentu indexu** na `index.html` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-219">Set the **Index document name** to `index.html`.</span></span>
-* <span data-ttu-id="db3b6-220">Nastavte **cestu k chybovému dokumentu** na `index.html` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-220">Set the **Error document path** to `index.html`.</span></span> <span data-ttu-id="db3b6-221">Razorsoučásti a jiné koncové body, které nejsou v souboru, se neukládají na fyzických cestách ve statickém obsahu uloženém službou BLOB Service.</span><span class="sxs-lookup"><span data-stu-id="db3b6-221">Razor components and other non-file endpoints don't reside at physical paths in the static content stored by the blob service.</span></span> <span data-ttu-id="db3b6-222">Když se přijme žádost o jeden z těchto prostředků, kterou Blazor by měl směrovač zpracovat, chyba *404 – nenalezená* služba BLOB Service směruje požadavek na **cestu k chybovému dokumentu**.</span><span class="sxs-lookup"><span data-stu-id="db3b6-222">When a request for one of these resources is received that the Blazor router should handle, the *404 - Not Found* error generated by the blob service routes the request to the **Error document path**.</span></span> <span data-ttu-id="db3b6-223">`index.html`Vrátí se objekt BLOB a Blazor směrovač načte a zpracuje cestu.</span><span class="sxs-lookup"><span data-stu-id="db3b6-223">The `index.html` blob is returned, and the Blazor router loads and processes the path.</span></span>
+* <span data-ttu-id="11690-274">Nastavte **název dokumentu indexu** na `index.html` .</span><span class="sxs-lookup"><span data-stu-id="11690-274">Set the **Index document name** to `index.html`.</span></span>
+* <span data-ttu-id="11690-275">Nastavte **cestu k chybovému dokumentu** na `index.html` .</span><span class="sxs-lookup"><span data-stu-id="11690-275">Set the **Error document path** to `index.html`.</span></span> <span data-ttu-id="11690-276">Razorsoučásti a jiné koncové body, které nejsou v souboru, se neukládají na fyzických cestách ve statickém obsahu uloženém službou BLOB Service.</span><span class="sxs-lookup"><span data-stu-id="11690-276">Razor components and other non-file endpoints don't reside at physical paths in the static content stored by the blob service.</span></span> <span data-ttu-id="11690-277">Když se přijme žádost o jeden z těchto prostředků, kterou Blazor by měl směrovač zpracovat, chyba *404 – nenalezená* služba BLOB Service směruje požadavek na **cestu k chybovému dokumentu**.</span><span class="sxs-lookup"><span data-stu-id="11690-277">When a request for one of these resources is received that the Blazor router should handle, the *404 - Not Found* error generated by the blob service routes the request to the **Error document path**.</span></span> <span data-ttu-id="11690-278">`index.html`Vrátí se objekt BLOB a Blazor směrovač načte a zpracuje cestu.</span><span class="sxs-lookup"><span data-stu-id="11690-278">The `index.html` blob is returned, and the Blazor router loads and processes the path.</span></span>
 
-<span data-ttu-id="db3b6-224">Pokud nejsou za běhu načteny soubory z důvodu nevhodných typů MIME v `Content-Type` hlavičkách souborů, proveďte jednu z následujících akcí:</span><span class="sxs-lookup"><span data-stu-id="db3b6-224">If files aren't loaded at runtime due to inappropriate MIME types in the files' `Content-Type` headers, take either of the following actions:</span></span>
+<span data-ttu-id="11690-279">Pokud nejsou za běhu načteny soubory z důvodu nevhodných typů MIME v `Content-Type` hlavičkách souborů, proveďte jednu z následujících akcí:</span><span class="sxs-lookup"><span data-stu-id="11690-279">If files aren't loaded at runtime due to inappropriate MIME types in the files' `Content-Type` headers, take either of the following actions:</span></span>
 
-* <span data-ttu-id="db3b6-225">Nakonfigurujte nástroje tak, aby při nasazení souborů nastavily správné typy MIME ( `Content-Type` hlavičky).</span><span class="sxs-lookup"><span data-stu-id="db3b6-225">Configure your tooling to set the correct MIME types (`Content-Type` headers) when the files are deployed.</span></span>
-* <span data-ttu-id="db3b6-226">Změňte typy MIME ( `Content-Type` hlavičky) souborů po nasazení aplikace.</span><span class="sxs-lookup"><span data-stu-id="db3b6-226">Change the MIME types (`Content-Type` headers) for the files after the app is deployed.</span></span>
+* <span data-ttu-id="11690-280">Nakonfigurujte nástroje tak, aby při nasazení souborů nastavily správné typy MIME ( `Content-Type` hlavičky).</span><span class="sxs-lookup"><span data-stu-id="11690-280">Configure your tooling to set the correct MIME types (`Content-Type` headers) when the files are deployed.</span></span>
+* <span data-ttu-id="11690-281">Změňte typy MIME ( `Content-Type` hlavičky) souborů po nasazení aplikace.</span><span class="sxs-lookup"><span data-stu-id="11690-281">Change the MIME types (`Content-Type` headers) for the files after the app is deployed.</span></span>
 
-  <span data-ttu-id="db3b6-227">V Průzkumník služby Storage (Azure Portal) pro každý soubor:</span><span class="sxs-lookup"><span data-stu-id="db3b6-227">In Storage Explorer (Azure portal) for each file:</span></span>
+  <span data-ttu-id="11690-282">V Průzkumník služby Storage (Azure Portal) pro každý soubor:</span><span class="sxs-lookup"><span data-stu-id="11690-282">In Storage Explorer (Azure portal) for each file:</span></span>
   
-  1. <span data-ttu-id="db3b6-228">Klikněte na soubor pravým tlačítkem a vyberte **vlastnosti**.</span><span class="sxs-lookup"><span data-stu-id="db3b6-228">Right-click the file and select **Properties**.</span></span>
-  1. <span data-ttu-id="db3b6-229">Nastavte **ContentType** a klikněte na tlačítko **Uložit** .</span><span class="sxs-lookup"><span data-stu-id="db3b6-229">Set the **ContentType** and select the **Save** button.</span></span>
+  1. <span data-ttu-id="11690-283">Klikněte na soubor pravým tlačítkem a vyberte **vlastnosti**.</span><span class="sxs-lookup"><span data-stu-id="11690-283">Right-click the file and select **Properties**.</span></span>
+  1. <span data-ttu-id="11690-284">Nastavte **ContentType** a klikněte na tlačítko **Uložit** .</span><span class="sxs-lookup"><span data-stu-id="11690-284">Set the **ContentType** and select the **Save** button.</span></span>
 
-<span data-ttu-id="db3b6-230">Další informace najdete v tématu [statické hostování webů v Azure Storage](/azure/storage/blobs/storage-blob-static-website).</span><span class="sxs-lookup"><span data-stu-id="db3b6-230">For more information, see [Static website hosting in Azure Storage](/azure/storage/blobs/storage-blob-static-website).</span></span>
+<span data-ttu-id="11690-285">Další informace najdete v tématu [statické hostování webů v Azure Storage](/azure/storage/blobs/storage-blob-static-website).</span><span class="sxs-lookup"><span data-stu-id="11690-285">For more information, see [Static website hosting in Azure Storage](/azure/storage/blobs/storage-blob-static-website).</span></span>
 
-### <a name="nginx"></a><span data-ttu-id="db3b6-231">Nginx</span><span class="sxs-lookup"><span data-stu-id="db3b6-231">Nginx</span></span>
+### <a name="nginx"></a><span data-ttu-id="11690-286">Nginx</span><span class="sxs-lookup"><span data-stu-id="11690-286">Nginx</span></span>
 
-<span data-ttu-id="db3b6-232">Následující `nginx.conf` soubor je zjednodušený a ukazuje, jak nakonfigurovat Nginx pro odeslání `index.html` souboru pokaždé, když nemůže najít odpovídající soubor na disku.</span><span class="sxs-lookup"><span data-stu-id="db3b6-232">The following `nginx.conf` file is simplified to show how to configure Nginx to send the `index.html` file whenever it can't find a corresponding file on disk.</span></span>
+<span data-ttu-id="11690-287">Následující `nginx.conf` soubor je zjednodušený a ukazuje, jak nakonfigurovat Nginx pro odeslání `index.html` souboru pokaždé, když nemůže najít odpovídající soubor na disku.</span><span class="sxs-lookup"><span data-stu-id="11690-287">The following `nginx.conf` file is simplified to show how to configure Nginx to send the `index.html` file whenever it can't find a corresponding file on disk.</span></span>
 
 ```
 events { }
@@ -251,7 +534,7 @@ http {
 }
 ```
 
-<span data-ttu-id="db3b6-233">Při nastavování [limitu přenosové rychlosti Nginx](https://www.nginx.com/blog/rate-limiting-nginx/#bursts) pomocí můžou [`limit_req`](https://nginx.org/docs/http/ngx_http_limit_req_module.html#limit_req) Blazor WebAssembly aplikace vyžadovat velkou `burst` hodnotu parametru, aby odpovídala poměrně velkému počtu požadavků, které aplikace vytvořila.</span><span class="sxs-lookup"><span data-stu-id="db3b6-233">When setting the [NGINX burst rate limit](https://www.nginx.com/blog/rate-limiting-nginx/#bursts) with [`limit_req`](https://nginx.org/docs/http/ngx_http_limit_req_module.html#limit_req), Blazor WebAssembly apps may require a large `burst` parameter value to accommodate the relatively large number of requests made by an app.</span></span> <span data-ttu-id="db3b6-234">Zpočátku nastavte hodnotu aspoň 60:</span><span class="sxs-lookup"><span data-stu-id="db3b6-234">Initially, set the value to at least 60:</span></span>
+<span data-ttu-id="11690-288">Při nastavování [limitu přenosové rychlosti Nginx](https://www.nginx.com/blog/rate-limiting-nginx/#bursts) pomocí můžou [`limit_req`](https://nginx.org/docs/http/ngx_http_limit_req_module.html#limit_req) Blazor WebAssembly aplikace vyžadovat velkou `burst` hodnotu parametru, aby odpovídala poměrně velkému počtu požadavků, které aplikace vytvořila.</span><span class="sxs-lookup"><span data-stu-id="11690-288">When setting the [NGINX burst rate limit](https://www.nginx.com/blog/rate-limiting-nginx/#bursts) with [`limit_req`](https://nginx.org/docs/http/ngx_http_limit_req_module.html#limit_req), Blazor WebAssembly apps may require a large `burst` parameter value to accommodate the relatively large number of requests made by an app.</span></span> <span data-ttu-id="11690-289">Zpočátku nastavte hodnotu aspoň 60:</span><span class="sxs-lookup"><span data-stu-id="11690-289">Initially, set the value to at least 60:</span></span>
 
 ```
 http {
@@ -267,15 +550,15 @@ http {
 }
 ```
 
-<span data-ttu-id="db3b6-235">Zvyšte hodnotu, pokud nástroje pro vývojáře v prohlížeči nebo síťový provoz označují, že žádosti dostávají stavový kód *Nedostupnosti 503-Service* .</span><span class="sxs-lookup"><span data-stu-id="db3b6-235">Increase the value if browser developer tools or a network traffic tool indicates that requests are receiving a *503 - Service Unavailable* status code.</span></span>
+<span data-ttu-id="11690-290">Zvyšte hodnotu, pokud nástroje pro vývojáře v prohlížeči nebo síťový provoz označují, že žádosti dostávají stavový kód *Nedostupnosti 503-Service* .</span><span class="sxs-lookup"><span data-stu-id="11690-290">Increase the value if browser developer tools or a network traffic tool indicates that requests are receiving a *503 - Service Unavailable* status code.</span></span>
 
-<span data-ttu-id="db3b6-236">Další informace o konfiguraci webového serveru Nginx v produkčním prostředí najdete v tématu [vytváření konfiguračních souborů Nginx plus a Nginx](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/).</span><span class="sxs-lookup"><span data-stu-id="db3b6-236">For more information on production Nginx web server configuration, see [Creating NGINX Plus and NGINX Configuration Files](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/).</span></span>
+<span data-ttu-id="11690-291">Další informace o konfiguraci webového serveru Nginx v produkčním prostředí najdete v tématu [vytváření konfiguračních souborů Nginx plus a Nginx](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/).</span><span class="sxs-lookup"><span data-stu-id="11690-291">For more information on production Nginx web server configuration, see [Creating NGINX Plus and NGINX Configuration Files](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/).</span></span>
 
-### <a name="nginx-in-docker"></a><span data-ttu-id="db3b6-237">Nginx v Docker</span><span class="sxs-lookup"><span data-stu-id="db3b6-237">Nginx in Docker</span></span>
+### <a name="nginx-in-docker"></a><span data-ttu-id="11690-292">Nginx v Docker</span><span class="sxs-lookup"><span data-stu-id="11690-292">Nginx in Docker</span></span>
 
-<span data-ttu-id="db3b6-238">Pokud chcete hostovat Blazor v Docker pomocí Nginx, nastavte souboru Dockerfile na použití Nginx image založené na Alpine.</span><span class="sxs-lookup"><span data-stu-id="db3b6-238">To host Blazor in Docker using Nginx, setup the Dockerfile to use the Alpine-based Nginx image.</span></span> <span data-ttu-id="db3b6-239">Aktualizujte souboru Dockerfile tak, aby se `nginx.config` soubor zkopíroval do kontejneru.</span><span class="sxs-lookup"><span data-stu-id="db3b6-239">Update the Dockerfile to copy the `nginx.config` file into the container.</span></span>
+<span data-ttu-id="11690-293">Pokud chcete hostovat Blazor v Docker pomocí Nginx, nastavte souboru Dockerfile na použití Nginx image založené na Alpine.</span><span class="sxs-lookup"><span data-stu-id="11690-293">To host Blazor in Docker using Nginx, setup the Dockerfile to use the Alpine-based Nginx image.</span></span> <span data-ttu-id="11690-294">Aktualizujte souboru Dockerfile tak, aby se `nginx.config` soubor zkopíroval do kontejneru.</span><span class="sxs-lookup"><span data-stu-id="11690-294">Update the Dockerfile to copy the `nginx.config` file into the container.</span></span>
 
-<span data-ttu-id="db3b6-240">Do souboru Dockerfile přidejte jeden řádek, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="db3b6-240">Add one line to the Dockerfile, as shown in the following example:</span></span>
+<span data-ttu-id="11690-295">Do souboru Dockerfile přidejte jeden řádek, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="11690-295">Add one line to the Dockerfile, as shown in the following example:</span></span>
 
 ```dockerfile
 FROM nginx:alpine
@@ -283,11 +566,11 @@ COPY ./bin/Release/netstandard2.0/publish /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
 
-### <a name="apache"></a><span data-ttu-id="db3b6-241">Apache</span><span class="sxs-lookup"><span data-stu-id="db3b6-241">Apache</span></span>
+### <a name="apache"></a><span data-ttu-id="11690-296">Apache</span><span class="sxs-lookup"><span data-stu-id="11690-296">Apache</span></span>
 
-<span data-ttu-id="db3b6-242">Nasazení Blazor WebAssembly aplikace na CentOS 7 nebo novější:</span><span class="sxs-lookup"><span data-stu-id="db3b6-242">To deploy a Blazor WebAssembly app to CentOS 7 or later:</span></span>
+<span data-ttu-id="11690-297">Nasazení Blazor WebAssembly aplikace na CentOS 7 nebo novější:</span><span class="sxs-lookup"><span data-stu-id="11690-297">To deploy a Blazor WebAssembly app to CentOS 7 or later:</span></span>
 
-1. <span data-ttu-id="db3b6-243">Vytvořte konfigurační soubor Apache.</span><span class="sxs-lookup"><span data-stu-id="db3b6-243">Create the Apache configuration file.</span></span> <span data-ttu-id="db3b6-244">V následujícím příkladu je zjednodušený konfigurační soubor ( `blazorapp.config` ):</span><span class="sxs-lookup"><span data-stu-id="db3b6-244">The following example is a simplified configuration file (`blazorapp.config`):</span></span>
+1. <span data-ttu-id="11690-298">Vytvořte konfigurační soubor Apache.</span><span class="sxs-lookup"><span data-stu-id="11690-298">Create the Apache configuration file.</span></span> <span data-ttu-id="11690-299">V následujícím příkladu je zjednodušený konfigurační soubor ( `blazorapp.config` ):</span><span class="sxs-lookup"><span data-stu-id="11690-299">The following example is a simplified configuration file (`blazorapp.config`):</span></span>
 
    ```
    <VirtualHost *:80>
@@ -323,121 +606,127 @@ COPY nginx.conf /etc/nginx/nginx.conf
    </VirtualHost>
    ```
 
-1. <span data-ttu-id="db3b6-245">Soubor konfigurace Apache umístěte do `/etc/httpd/conf.d/` adresáře, který je výchozím adresářem konfigurace Apache v CentOS 7.</span><span class="sxs-lookup"><span data-stu-id="db3b6-245">Place the Apache configuration file into the `/etc/httpd/conf.d/` directory, which is the default Apache configuration directory in CentOS 7.</span></span>
+1. <span data-ttu-id="11690-300">Soubor konfigurace Apache umístěte do `/etc/httpd/conf.d/` adresáře, který je výchozím adresářem konfigurace Apache v CentOS 7.</span><span class="sxs-lookup"><span data-stu-id="11690-300">Place the Apache configuration file into the `/etc/httpd/conf.d/` directory, which is the default Apache configuration directory in CentOS 7.</span></span>
 
-1. <span data-ttu-id="db3b6-246">Umístěte soubory aplikace do `/var/www/blazorapp` adresáře (umístění zadaného do `DocumentRoot` konfiguračního souboru).</span><span class="sxs-lookup"><span data-stu-id="db3b6-246">Place the app's files into the `/var/www/blazorapp` directory (the location specified to `DocumentRoot` in the configuration file).</span></span>
+1. <span data-ttu-id="11690-301">Umístěte soubory aplikace do `/var/www/blazorapp` adresáře (umístění zadaného do `DocumentRoot` konfiguračního souboru).</span><span class="sxs-lookup"><span data-stu-id="11690-301">Place the app's files into the `/var/www/blazorapp` directory (the location specified to `DocumentRoot` in the configuration file).</span></span>
 
-1. <span data-ttu-id="db3b6-247">Restartujte službu Apache.</span><span class="sxs-lookup"><span data-stu-id="db3b6-247">Restart the Apache service.</span></span>
+1. <span data-ttu-id="11690-302">Restartujte službu Apache.</span><span class="sxs-lookup"><span data-stu-id="11690-302">Restart the Apache service.</span></span>
 
-<span data-ttu-id="db3b6-248">Další informace najdete v tématech [`mod_mime`](https://httpd.apache.org/docs/2.4/mod/mod_mime.html) a [`mod_deflate`](https://httpd.apache.org/docs/current/mod/mod_deflate.html) .</span><span class="sxs-lookup"><span data-stu-id="db3b6-248">For more information, see [`mod_mime`](https://httpd.apache.org/docs/2.4/mod/mod_mime.html) and [`mod_deflate`](https://httpd.apache.org/docs/current/mod/mod_deflate.html).</span></span>
+<span data-ttu-id="11690-303">Další informace najdete v tématech [`mod_mime`](https://httpd.apache.org/docs/2.4/mod/mod_mime.html) a [`mod_deflate`](https://httpd.apache.org/docs/current/mod/mod_deflate.html) .</span><span class="sxs-lookup"><span data-stu-id="11690-303">For more information, see [`mod_mime`](https://httpd.apache.org/docs/2.4/mod/mod_mime.html) and [`mod_deflate`](https://httpd.apache.org/docs/current/mod/mod_deflate.html).</span></span>
 
-### <a name="github-pages"></a><span data-ttu-id="db3b6-249">Stránky GitHubu</span><span class="sxs-lookup"><span data-stu-id="db3b6-249">GitHub Pages</span></span>
+### <a name="github-pages"></a><span data-ttu-id="11690-304">Stránky GitHubu</span><span class="sxs-lookup"><span data-stu-id="11690-304">GitHub Pages</span></span>
 
-<span data-ttu-id="db3b6-250">Chcete-li zpracovat přepisy adresy URL, přidejte `404.html` soubor se skriptem, který zpracovává přesměrování požadavku na `index.html` stránku.</span><span class="sxs-lookup"><span data-stu-id="db3b6-250">To handle URL rewrites, add a `404.html` file with a script that handles redirecting the request to the `index.html` page.</span></span> <span data-ttu-id="db3b6-251">Ukázkovou implementaci poskytovanou komunitou najdete v tématu [jednostránkové aplikace pro stránky GitHubu](https://spa-github-pages.rafrex.com/) ([rafrex/Spa – GitHub-Pages na GitHubu](https://github.com/rafrex/spa-github-pages#readme)).</span><span class="sxs-lookup"><span data-stu-id="db3b6-251">For an example implementation provided by the community, see [Single Page Apps for GitHub Pages](https://spa-github-pages.rafrex.com/) ([rafrex/spa-github-pages on GitHub](https://github.com/rafrex/spa-github-pages#readme)).</span></span> <span data-ttu-id="db3b6-252">Příklad použití přístupu komunity se dá zobrazit v [blazor-demo/blazor-demo. GitHub. IO na GitHubu](https://github.com/blazor-demo/blazor-demo.github.io) ([živý web](https://blazor-demo.github.io/)).</span><span class="sxs-lookup"><span data-stu-id="db3b6-252">An example using the community approach can be seen at [blazor-demo/blazor-demo.github.io on GitHub](https://github.com/blazor-demo/blazor-demo.github.io) ([live site](https://blazor-demo.github.io/)).</span></span>
+<span data-ttu-id="11690-305">Chcete-li zpracovat přepisy adresy URL, přidejte `wwwroot/404.html` soubor se skriptem, který zpracovává přesměrování požadavku na `index.html` stránku.</span><span class="sxs-lookup"><span data-stu-id="11690-305">To handle URL rewrites, add a `wwwroot/404.html` file with a script that handles redirecting the request to the `index.html` page.</span></span> <span data-ttu-id="11690-306">Příklad najdete v [ Blazor úložišti GitHub SteveSandersonMS/OnGitHubPages](https://github.com/SteveSandersonMS/BlazorOnGitHubPages):</span><span class="sxs-lookup"><span data-stu-id="11690-306">For an example, see the [SteveSandersonMS/BlazorOnGitHubPages GitHub repository](https://github.com/SteveSandersonMS/BlazorOnGitHubPages):</span></span>
 
-<span data-ttu-id="db3b6-253">Při použití webu projektu místo webu organizace přidejte nebo aktualizujte `<base>` značku v `index.html` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-253">When using a project site instead of an organization site, add or update the `<base>` tag in `index.html`.</span></span> <span data-ttu-id="db3b6-254">Nastavte `href` hodnotu atributu na název úložiště GitHub s koncovým lomítkem (například `my-repository/` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-254">Set the `href` attribute value to the GitHub repository name with a trailing slash (for example, `my-repository/`.</span></span>
+* [`wwwroot/404.html`](https://github.com/SteveSandersonMS/BlazorOnGitHubPages/blob/master/wwwroot/404.html)
+* <span data-ttu-id="11690-307">[Živý web](https://stevesandersonms.github.io/BlazorOnGitHubPages/))</span><span class="sxs-lookup"><span data-stu-id="11690-307">[Live site](https://stevesandersonms.github.io/BlazorOnGitHubPages/))</span></span>
 
-## <a name="host-configuration-values"></a><span data-ttu-id="db3b6-255">Hodnoty konfigurace hostitele</span><span class="sxs-lookup"><span data-stu-id="db3b6-255">Host configuration values</span></span>
+<span data-ttu-id="11690-308">Při použití webu projektu namísto webu organizace aktualizujte `<base>` značku v `wwwroot/index.html` .</span><span class="sxs-lookup"><span data-stu-id="11690-308">When using a project site instead of an organization site, update the `<base>` tag in `wwwroot/index.html`.</span></span> <span data-ttu-id="11690-309">Nastavte `href` hodnotu atributu na název úložiště GitHub s koncovým lomítkem (například `/my-repository/` ).</span><span class="sxs-lookup"><span data-stu-id="11690-309">Set the `href` attribute value to the GitHub repository name with a trailing slash (for example, `/my-repository/`).</span></span> <span data-ttu-id="11690-310">V [ Blazor úložišti GitHub SteveSandersonMS/OnGitHubPages](https://github.com/SteveSandersonMS/BlazorOnGitHubPages)se základ `href` aktualizuje při publikování pomocí [ `.github/workflows/main.yml` konfiguračního souboru](https://github.com/SteveSandersonMS/BlazorOnGitHubPages/blob/master/.github/workflows/main.yml).</span><span class="sxs-lookup"><span data-stu-id="11690-310">In the [SteveSandersonMS/BlazorOnGitHubPages GitHub repository](https://github.com/SteveSandersonMS/BlazorOnGitHubPages), the base `href` is updated at publish by the [`.github/workflows/main.yml` configuration file](https://github.com/SteveSandersonMS/BlazorOnGitHubPages/blob/master/.github/workflows/main.yml).</span></span>
 
-<span data-ttu-id="db3b6-256">[ Blazor WebAssembly aplikace](xref:blazor/hosting-models#blazor-webassembly) mohou přijmout následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="db3b6-256">[Blazor WebAssembly apps](xref:blazor/hosting-models#blazor-webassembly) can accept the following host configuration values as command-line arguments at runtime in the development environment.</span></span>
+> [!NOTE]
+> <span data-ttu-id="11690-311">[ Blazor Úložiště GitHub SteveSandersonMS/OnGitHubPages](https://github.com/SteveSandersonMS/BlazorOnGitHubPages) není vlastněné, udržované ani podporované rozhraním .NET Foundation ani Microsoftem.</span><span class="sxs-lookup"><span data-stu-id="11690-311">The [SteveSandersonMS/BlazorOnGitHubPages GitHub repository](https://github.com/SteveSandersonMS/BlazorOnGitHubPages) isn't owned, maintained, or supported by the .NET Foundation or Microsoft.</span></span>
 
-### <a name="content-root"></a><span data-ttu-id="db3b6-257">Kořen obsahu</span><span class="sxs-lookup"><span data-stu-id="db3b6-257">Content root</span></span>
+## <a name="host-configuration-values"></a><span data-ttu-id="11690-312">Hodnoty konfigurace hostitele</span><span class="sxs-lookup"><span data-stu-id="11690-312">Host configuration values</span></span>
 
-<span data-ttu-id="db3b6-258">`--contentroot`Argument nastavuje absolutní cestu k adresáři, který obsahuje soubory obsahu aplikace ([kořen obsahu](xref:fundamentals/index#content-root)).</span><span class="sxs-lookup"><span data-stu-id="db3b6-258">The `--contentroot` argument sets the absolute path to the directory that contains the app's content files ([content root](xref:fundamentals/index#content-root)).</span></span> <span data-ttu-id="db3b6-259">V následujících příkladech `/content-root-path` je kořenová cesta obsahu aplikace.</span><span class="sxs-lookup"><span data-stu-id="db3b6-259">In the following examples, `/content-root-path` is the app's content root path.</span></span>
+<span data-ttu-id="11690-313">[ Blazor WebAssembly aplikace](xref:blazor/hosting-models#blazor-webassembly) mohou přijmout následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="11690-313">[Blazor WebAssembly apps](xref:blazor/hosting-models#blazor-webassembly) can accept the following host configuration values as command-line arguments at runtime in the development environment.</span></span>
 
-* <span data-ttu-id="db3b6-260">Předejte argument při místním spuštění aplikace z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="db3b6-260">Pass the argument when running the app locally at a command prompt.</span></span> <span data-ttu-id="db3b6-261">Z adresáře aplikace spusťte:</span><span class="sxs-lookup"><span data-stu-id="db3b6-261">From the app's directory, execute:</span></span>
+### <a name="content-root"></a><span data-ttu-id="11690-314">Kořen obsahu</span><span class="sxs-lookup"><span data-stu-id="11690-314">Content root</span></span>
+
+<span data-ttu-id="11690-315">`--contentroot`Argument nastavuje absolutní cestu k adresáři, který obsahuje soubory obsahu aplikace ([kořen obsahu](xref:fundamentals/index#content-root)).</span><span class="sxs-lookup"><span data-stu-id="11690-315">The `--contentroot` argument sets the absolute path to the directory that contains the app's content files ([content root](xref:fundamentals/index#content-root)).</span></span> <span data-ttu-id="11690-316">V následujících příkladech `/content-root-path` je kořenová cesta obsahu aplikace.</span><span class="sxs-lookup"><span data-stu-id="11690-316">In the following examples, `/content-root-path` is the app's content root path.</span></span>
+
+* <span data-ttu-id="11690-317">Předejte argument při místním spuštění aplikace z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="11690-317">Pass the argument when running the app locally at a command prompt.</span></span> <span data-ttu-id="11690-318">Z adresáře aplikace spusťte:</span><span class="sxs-lookup"><span data-stu-id="11690-318">From the app's directory, execute:</span></span>
 
   ```dotnetcli
   dotnet run --contentroot=/content-root-path
   ```
 
-* <span data-ttu-id="db3b6-262">Přidejte položku do `launchSettings.json` souboru aplikace v profilu **IIS Express** .</span><span class="sxs-lookup"><span data-stu-id="db3b6-262">Add an entry to the app's `launchSettings.json` file in the **IIS Express** profile.</span></span> <span data-ttu-id="db3b6-263">Toto nastavení se používá při spuštění aplikace s ladicím programem sady Visual Studio a z příkazového řádku s `dotnet run` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-263">This setting is used when the app is run with the Visual Studio Debugger and from a command prompt with `dotnet run`.</span></span>
+* <span data-ttu-id="11690-319">Přidejte položku do `launchSettings.json` souboru aplikace v profilu **IIS Express** .</span><span class="sxs-lookup"><span data-stu-id="11690-319">Add an entry to the app's `launchSettings.json` file in the **IIS Express** profile.</span></span> <span data-ttu-id="11690-320">Toto nastavení se používá při spuštění aplikace s ladicím programem sady Visual Studio a z příkazového řádku s `dotnet run` .</span><span class="sxs-lookup"><span data-stu-id="11690-320">This setting is used when the app is run with the Visual Studio Debugger and from a command prompt with `dotnet run`.</span></span>
 
   ```json
   "commandLineArgs": "--contentroot=/content-root-path"
   ```
 
-* <span data-ttu-id="db3b6-264">V aplikaci Visual Studio zadejte argument v části **vlastnosti**  >  **ladit**  >  **argumenty aplikace**.</span><span class="sxs-lookup"><span data-stu-id="db3b6-264">In Visual Studio, specify the argument in **Properties** > **Debug** > **Application arguments**.</span></span> <span data-ttu-id="db3b6-265">Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá do `launchSettings.json` souboru Argument.</span><span class="sxs-lookup"><span data-stu-id="db3b6-265">Setting the argument in the Visual Studio property page adds the argument to the `launchSettings.json` file.</span></span>
+* <span data-ttu-id="11690-321">V aplikaci Visual Studio zadejte argument v části **vlastnosti**  >  **ladit**  >  **argumenty aplikace**.</span><span class="sxs-lookup"><span data-stu-id="11690-321">In Visual Studio, specify the argument in **Properties** > **Debug** > **Application arguments**.</span></span> <span data-ttu-id="11690-322">Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá do `launchSettings.json` souboru Argument.</span><span class="sxs-lookup"><span data-stu-id="11690-322">Setting the argument in the Visual Studio property page adds the argument to the `launchSettings.json` file.</span></span>
 
   ```console
   --contentroot=/content-root-path
   ```
 
-### <a name="path-base"></a><span data-ttu-id="db3b6-266">Základ cesty</span><span class="sxs-lookup"><span data-stu-id="db3b6-266">Path base</span></span>
+### <a name="path-base"></a><span data-ttu-id="11690-323">Základ cesty</span><span class="sxs-lookup"><span data-stu-id="11690-323">Path base</span></span>
 
-<span data-ttu-id="db3b6-267">`--pathbase`Argument nastaví základní cestu aplikace pro aplikaci spouštěnou místně s nekořenovou cestou relativní adresy URL ( `<base>` značka `href` je nastavená na jinou cestu než `/` pro pracovní a produkční).</span><span class="sxs-lookup"><span data-stu-id="db3b6-267">The `--pathbase` argument sets the app base path for an app run locally with a non-root relative URL path (the `<base>` tag `href` is set to a path other than `/` for staging and production).</span></span> <span data-ttu-id="db3b6-268">V následujících příkladech `/relative-URL-path` je základ cesty aplikace.</span><span class="sxs-lookup"><span data-stu-id="db3b6-268">In the following examples, `/relative-URL-path` is the app's path base.</span></span> <span data-ttu-id="db3b6-269">Další informace najdete v tématu [základní cesta k aplikaci](xref:blazor/host-and-deploy/index#app-base-path).</span><span class="sxs-lookup"><span data-stu-id="db3b6-269">For more information, see [App base path](xref:blazor/host-and-deploy/index#app-base-path).</span></span>
+<span data-ttu-id="11690-324">`--pathbase`Argument nastaví základní cestu aplikace pro aplikaci spouštěnou místně s nekořenovou cestou relativní adresy URL ( `<base>` značka `href` je nastavená na jinou cestu než `/` pro pracovní a produkční).</span><span class="sxs-lookup"><span data-stu-id="11690-324">The `--pathbase` argument sets the app base path for an app run locally with a non-root relative URL path (the `<base>` tag `href` is set to a path other than `/` for staging and production).</span></span> <span data-ttu-id="11690-325">V následujících příkladech `/relative-URL-path` je základ cesty aplikace.</span><span class="sxs-lookup"><span data-stu-id="11690-325">In the following examples, `/relative-URL-path` is the app's path base.</span></span> <span data-ttu-id="11690-326">Další informace najdete v tématu [základní cesta k aplikaci](xref:blazor/host-and-deploy/index#app-base-path).</span><span class="sxs-lookup"><span data-stu-id="11690-326">For more information, see [App base path](xref:blazor/host-and-deploy/index#app-base-path).</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="db3b6-270">Na rozdíl od cesty, která je k dispozici pro `href` `<base>` značku, nezahrnujte koncové lomítko ( `/` ) při předávání `--pathbase` hodnoty argumentu.</span><span class="sxs-lookup"><span data-stu-id="db3b6-270">Unlike the path provided to `href` of the `<base>` tag, don't include a trailing slash (`/`) when passing the `--pathbase` argument value.</span></span> <span data-ttu-id="db3b6-271">Pokud se základní cesta aplikace poskytuje ve `<base>` značce jako `<base href="/CoolApp/">` (zahrnuje koncové lomítko), předejte hodnotu argumentu příkazového řádku jako `--pathbase=/CoolApp` (žádné koncové lomítko).</span><span class="sxs-lookup"><span data-stu-id="db3b6-271">If the app base path is provided in the `<base>` tag as `<base href="/CoolApp/">` (includes a trailing slash), pass the command-line argument value as `--pathbase=/CoolApp` (no trailing slash).</span></span>
+> <span data-ttu-id="11690-327">Na rozdíl od cesty, která je k dispozici pro `href` `<base>` značku, nezahrnujte koncové lomítko ( `/` ) při předávání `--pathbase` hodnoty argumentu.</span><span class="sxs-lookup"><span data-stu-id="11690-327">Unlike the path provided to `href` of the `<base>` tag, don't include a trailing slash (`/`) when passing the `--pathbase` argument value.</span></span> <span data-ttu-id="11690-328">Pokud se základní cesta aplikace poskytuje ve `<base>` značce jako `<base href="/CoolApp/">` (zahrnuje koncové lomítko), předejte hodnotu argumentu příkazového řádku jako `--pathbase=/CoolApp` (žádné koncové lomítko).</span><span class="sxs-lookup"><span data-stu-id="11690-328">If the app base path is provided in the `<base>` tag as `<base href="/CoolApp/">` (includes a trailing slash), pass the command-line argument value as `--pathbase=/CoolApp` (no trailing slash).</span></span>
 
-* <span data-ttu-id="db3b6-272">Předejte argument při místním spuštění aplikace z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="db3b6-272">Pass the argument when running the app locally at a command prompt.</span></span> <span data-ttu-id="db3b6-273">Z adresáře aplikace spusťte:</span><span class="sxs-lookup"><span data-stu-id="db3b6-273">From the app's directory, execute:</span></span>
+* <span data-ttu-id="11690-329">Předejte argument při místním spuštění aplikace z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="11690-329">Pass the argument when running the app locally at a command prompt.</span></span> <span data-ttu-id="11690-330">Z adresáře aplikace spusťte:</span><span class="sxs-lookup"><span data-stu-id="11690-330">From the app's directory, execute:</span></span>
 
   ```dotnetcli
   dotnet run --pathbase=/relative-URL-path
   ```
 
-* <span data-ttu-id="db3b6-274">Přidejte položku do `launchSettings.json` souboru aplikace v profilu **IIS Express** .</span><span class="sxs-lookup"><span data-stu-id="db3b6-274">Add an entry to the app's `launchSettings.json` file in the **IIS Express** profile.</span></span> <span data-ttu-id="db3b6-275">Toto nastavení se používá při spuštění aplikace pomocí ladicího programu sady Visual Studio a z příkazového řádku s `dotnet run` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-275">This setting is used when running the app with the Visual Studio Debugger and from a command prompt with `dotnet run`.</span></span>
+* <span data-ttu-id="11690-331">Přidejte položku do `launchSettings.json` souboru aplikace v profilu **IIS Express** .</span><span class="sxs-lookup"><span data-stu-id="11690-331">Add an entry to the app's `launchSettings.json` file in the **IIS Express** profile.</span></span> <span data-ttu-id="11690-332">Toto nastavení se používá při spuštění aplikace pomocí ladicího programu sady Visual Studio a z příkazového řádku s `dotnet run` .</span><span class="sxs-lookup"><span data-stu-id="11690-332">This setting is used when running the app with the Visual Studio Debugger and from a command prompt with `dotnet run`.</span></span>
 
   ```json
   "commandLineArgs": "--pathbase=/relative-URL-path"
   ```
 
-* <span data-ttu-id="db3b6-276">V aplikaci Visual Studio zadejte argument v části **vlastnosti**  >  **ladit**  >  **argumenty aplikace**.</span><span class="sxs-lookup"><span data-stu-id="db3b6-276">In Visual Studio, specify the argument in **Properties** > **Debug** > **Application arguments**.</span></span> <span data-ttu-id="db3b6-277">Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá do `launchSettings.json` souboru Argument.</span><span class="sxs-lookup"><span data-stu-id="db3b6-277">Setting the argument in the Visual Studio property page adds the argument to the `launchSettings.json` file.</span></span>
+* <span data-ttu-id="11690-333">V aplikaci Visual Studio zadejte argument v části **vlastnosti**  >  **ladit**  >  **argumenty aplikace**.</span><span class="sxs-lookup"><span data-stu-id="11690-333">In Visual Studio, specify the argument in **Properties** > **Debug** > **Application arguments**.</span></span> <span data-ttu-id="11690-334">Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá do `launchSettings.json` souboru Argument.</span><span class="sxs-lookup"><span data-stu-id="11690-334">Setting the argument in the Visual Studio property page adds the argument to the `launchSettings.json` file.</span></span>
 
   ```console
   --pathbase=/relative-URL-path
   ```
 
-### <a name="urls"></a><span data-ttu-id="db3b6-278">Adresy URL</span><span class="sxs-lookup"><span data-stu-id="db3b6-278">URLs</span></span>
+### <a name="urls"></a><span data-ttu-id="11690-335">Adresy URL</span><span class="sxs-lookup"><span data-stu-id="11690-335">URLs</span></span>
 
-<span data-ttu-id="db3b6-279">`--urls`Argument nastaví IP adresy nebo adresy hostitelů s porty a protokoly, které se mají na požadavky naslouchat.</span><span class="sxs-lookup"><span data-stu-id="db3b6-279">The `--urls` argument sets the IP addresses or host addresses with ports and protocols to listen on for requests.</span></span>
+<span data-ttu-id="11690-336">`--urls`Argument nastaví IP adresy nebo adresy hostitelů s porty a protokoly, které se mají na požadavky naslouchat.</span><span class="sxs-lookup"><span data-stu-id="11690-336">The `--urls` argument sets the IP addresses or host addresses with ports and protocols to listen on for requests.</span></span>
 
-* <span data-ttu-id="db3b6-280">Předejte argument při místním spuštění aplikace z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="db3b6-280">Pass the argument when running the app locally at a command prompt.</span></span> <span data-ttu-id="db3b6-281">Z adresáře aplikace spusťte:</span><span class="sxs-lookup"><span data-stu-id="db3b6-281">From the app's directory, execute:</span></span>
+* <span data-ttu-id="11690-337">Předejte argument při místním spuštění aplikace z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="11690-337">Pass the argument when running the app locally at a command prompt.</span></span> <span data-ttu-id="11690-338">Z adresáře aplikace spusťte:</span><span class="sxs-lookup"><span data-stu-id="11690-338">From the app's directory, execute:</span></span>
 
   ```dotnetcli
   dotnet run --urls=http://127.0.0.1:0
   ```
 
-* <span data-ttu-id="db3b6-282">Přidejte položku do `launchSettings.json` souboru aplikace v profilu **IIS Express** .</span><span class="sxs-lookup"><span data-stu-id="db3b6-282">Add an entry to the app's `launchSettings.json` file in the **IIS Express** profile.</span></span> <span data-ttu-id="db3b6-283">Toto nastavení se používá při spuštění aplikace pomocí ladicího programu sady Visual Studio a z příkazového řádku s `dotnet run` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-283">This setting is used when running the app with the Visual Studio Debugger and from a command prompt with `dotnet run`.</span></span>
+* <span data-ttu-id="11690-339">Přidejte položku do `launchSettings.json` souboru aplikace v profilu **IIS Express** .</span><span class="sxs-lookup"><span data-stu-id="11690-339">Add an entry to the app's `launchSettings.json` file in the **IIS Express** profile.</span></span> <span data-ttu-id="11690-340">Toto nastavení se používá při spuštění aplikace pomocí ladicího programu sady Visual Studio a z příkazového řádku s `dotnet run` .</span><span class="sxs-lookup"><span data-stu-id="11690-340">This setting is used when running the app with the Visual Studio Debugger and from a command prompt with `dotnet run`.</span></span>
 
   ```json
   "commandLineArgs": "--urls=http://127.0.0.1:0"
   ```
 
-* <span data-ttu-id="db3b6-284">V aplikaci Visual Studio zadejte argument v části **vlastnosti**  >  **ladit**  >  **argumenty aplikace**.</span><span class="sxs-lookup"><span data-stu-id="db3b6-284">In Visual Studio, specify the argument in **Properties** > **Debug** > **Application arguments**.</span></span> <span data-ttu-id="db3b6-285">Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá do `launchSettings.json` souboru Argument.</span><span class="sxs-lookup"><span data-stu-id="db3b6-285">Setting the argument in the Visual Studio property page adds the argument to the `launchSettings.json` file.</span></span>
+* <span data-ttu-id="11690-341">V aplikaci Visual Studio zadejte argument v části **vlastnosti**  >  **ladit**  >  **argumenty aplikace**.</span><span class="sxs-lookup"><span data-stu-id="11690-341">In Visual Studio, specify the argument in **Properties** > **Debug** > **Application arguments**.</span></span> <span data-ttu-id="11690-342">Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá do `launchSettings.json` souboru Argument.</span><span class="sxs-lookup"><span data-stu-id="11690-342">Setting the argument in the Visual Studio property page adds the argument to the `launchSettings.json` file.</span></span>
 
   ```console
   --urls=http://127.0.0.1:0
   ```
 
-## <a name="configure-the-linker"></a><span data-ttu-id="db3b6-286">Konfigurace Linkeru</span><span class="sxs-lookup"><span data-stu-id="db3b6-286">Configure the Linker</span></span>
+## <a name="configure-the-linker"></a><span data-ttu-id="11690-343">Konfigurace Linkeru</span><span class="sxs-lookup"><span data-stu-id="11690-343">Configure the Linker</span></span>
 
-<span data-ttu-id="db3b6-287">Blazorprovede propojení s mezijazykem (IL) na každém sestavení vydaných verzí a odebere z výstupních sestavení zbytečné IL.</span><span class="sxs-lookup"><span data-stu-id="db3b6-287">Blazor performs Intermediate Language (IL) linking on each Release build to remove unnecessary IL from the output assemblies.</span></span> <span data-ttu-id="db3b6-288">Další informace naleznete v tématu <xref:blazor/host-and-deploy/configure-linker>.</span><span class="sxs-lookup"><span data-stu-id="db3b6-288">For more information, see <xref:blazor/host-and-deploy/configure-linker>.</span></span>
+<span data-ttu-id="11690-344">Blazorprovede propojení s mezijazykem (IL) na každém sestavení vydaných verzí a odebere z výstupních sestavení zbytečné IL.</span><span class="sxs-lookup"><span data-stu-id="11690-344">Blazor performs Intermediate Language (IL) linking on each Release build to remove unnecessary IL from the output assemblies.</span></span> <span data-ttu-id="11690-345">Další informace naleznete v tématu <xref:blazor/host-and-deploy/configure-linker>.</span><span class="sxs-lookup"><span data-stu-id="11690-345">For more information, see <xref:blazor/host-and-deploy/configure-linker>.</span></span>
 
-## <a name="custom-boot-resource-loading"></a><span data-ttu-id="db3b6-289">Načítání vlastního spouštěcího prostředku</span><span class="sxs-lookup"><span data-stu-id="db3b6-289">Custom boot resource loading</span></span>
+## <a name="custom-boot-resource-loading"></a><span data-ttu-id="11690-346">Načítání vlastního spouštěcího prostředku</span><span class="sxs-lookup"><span data-stu-id="11690-346">Custom boot resource loading</span></span>
 
-<span data-ttu-id="db3b6-290">Blazor WebAssemblyAplikaci lze inicializovat pomocí `loadBootResource` funkce pro přepsání integrovaného mechanismu načítání spouštěcích prostředků.</span><span class="sxs-lookup"><span data-stu-id="db3b6-290">A Blazor WebAssembly app can be initialized with the `loadBootResource` function to override the built-in boot resource loading mechanism.</span></span> <span data-ttu-id="db3b6-291">Použijte `loadBootResource` v následujících případech:</span><span class="sxs-lookup"><span data-stu-id="db3b6-291">Use `loadBootResource` for the following scenarios:</span></span>
+<span data-ttu-id="11690-347">Blazor WebAssemblyAplikaci lze inicializovat pomocí `loadBootResource` funkce pro přepsání integrovaného mechanismu načítání spouštěcích prostředků.</span><span class="sxs-lookup"><span data-stu-id="11690-347">A Blazor WebAssembly app can be initialized with the `loadBootResource` function to override the built-in boot resource loading mechanism.</span></span> <span data-ttu-id="11690-348">Použijte `loadBootResource` v následujících případech:</span><span class="sxs-lookup"><span data-stu-id="11690-348">Use `loadBootResource` for the following scenarios:</span></span>
 
-* <span data-ttu-id="db3b6-292">Umožňuje uživatelům načíst statické prostředky, jako jsou například data o časovém pásmu nebo `dotnet.wasm` síť CDN.</span><span class="sxs-lookup"><span data-stu-id="db3b6-292">Allow users to load static resources, such as timezone data or `dotnet.wasm` from a CDN.</span></span>
-* <span data-ttu-id="db3b6-293">Načtěte komprimovaná sestavení pomocí požadavku HTTP a dekomprimujte je v klientovi pro hostitele, kteří nepodporují načítání komprimovaného obsahu ze serveru.</span><span class="sxs-lookup"><span data-stu-id="db3b6-293">Load compressed assemblies using an HTTP request and decompress them on the client for hosts that don't support fetching compressed contents from the server.</span></span>
-* <span data-ttu-id="db3b6-294">Aliasujte prostředky na jiný název tak, že každý požadavek přesměrujete `fetch` na nový název.</span><span class="sxs-lookup"><span data-stu-id="db3b6-294">Alias resources to a different name by redirecting each `fetch` request to a new name.</span></span>
+* <span data-ttu-id="11690-349">Umožňuje uživatelům načíst statické prostředky, jako jsou například data o časovém pásmu nebo `dotnet.wasm` síť CDN.</span><span class="sxs-lookup"><span data-stu-id="11690-349">Allow users to load static resources, such as timezone data or `dotnet.wasm` from a CDN.</span></span>
+* <span data-ttu-id="11690-350">Načtěte komprimovaná sestavení pomocí požadavku HTTP a dekomprimujte je v klientovi pro hostitele, kteří nepodporují načítání komprimovaného obsahu ze serveru.</span><span class="sxs-lookup"><span data-stu-id="11690-350">Load compressed assemblies using an HTTP request and decompress them on the client for hosts that don't support fetching compressed contents from the server.</span></span>
+* <span data-ttu-id="11690-351">Aliasujte prostředky na jiný název tak, že každý požadavek přesměrujete `fetch` na nový název.</span><span class="sxs-lookup"><span data-stu-id="11690-351">Alias resources to a different name by redirecting each `fetch` request to a new name.</span></span>
 
-<span data-ttu-id="db3b6-295">`loadBootResource`parametry jsou uvedeny v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="db3b6-295">`loadBootResource` parameters appear in the following table.</span></span>
+<span data-ttu-id="11690-352">`loadBootResource`parametry jsou uvedeny v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="11690-352">`loadBootResource` parameters appear in the following table.</span></span>
 
-| <span data-ttu-id="db3b6-296">Parametr</span><span class="sxs-lookup"><span data-stu-id="db3b6-296">Parameter</span></span>    | <span data-ttu-id="db3b6-297">Popis</span><span class="sxs-lookup"><span data-stu-id="db3b6-297">Description</span></span> |
+| <span data-ttu-id="11690-353">Parametr</span><span class="sxs-lookup"><span data-stu-id="11690-353">Parameter</span></span>    | <span data-ttu-id="11690-354">Popis</span><span class="sxs-lookup"><span data-stu-id="11690-354">Description</span></span> |
 | ------------ | ----------- |
-| `type`       | <span data-ttu-id="db3b6-298">Typ prostředku.</span><span class="sxs-lookup"><span data-stu-id="db3b6-298">The type of the resource.</span></span> <span data-ttu-id="db3b6-299">Permissable typy: `assembly` , `pdb` , `dotnetjs` , `dotnetwasm` ,`timezonedata`</span><span class="sxs-lookup"><span data-stu-id="db3b6-299">Permissable types: `assembly`, `pdb`, `dotnetjs`, `dotnetwasm`, `timezonedata`</span></span> |
-| `name`       | <span data-ttu-id="db3b6-300">Název prostředku.</span><span class="sxs-lookup"><span data-stu-id="db3b6-300">The name of the resource.</span></span> |
-| `defaultUri` | <span data-ttu-id="db3b6-301">Relativní nebo absolutní identifikátor URI prostředku.</span><span class="sxs-lookup"><span data-stu-id="db3b6-301">The relative or absolute URI of the resource.</span></span> |
-| `integrity`  | <span data-ttu-id="db3b6-302">Řetězec integrity představující očekávaný obsah v odpovědi</span><span class="sxs-lookup"><span data-stu-id="db3b6-302">The integrity string representing the expected content in the response.</span></span> |
+| `type`       | <span data-ttu-id="11690-355">Typ prostředku.</span><span class="sxs-lookup"><span data-stu-id="11690-355">The type of the resource.</span></span> <span data-ttu-id="11690-356">Permissable typy: `assembly` , `pdb` , `dotnetjs` , `dotnetwasm` ,`timezonedata`</span><span class="sxs-lookup"><span data-stu-id="11690-356">Permissable types: `assembly`, `pdb`, `dotnetjs`, `dotnetwasm`, `timezonedata`</span></span> |
+| `name`       | <span data-ttu-id="11690-357">Název prostředku.</span><span class="sxs-lookup"><span data-stu-id="11690-357">The name of the resource.</span></span> |
+| `defaultUri` | <span data-ttu-id="11690-358">Relativní nebo absolutní identifikátor URI prostředku.</span><span class="sxs-lookup"><span data-stu-id="11690-358">The relative or absolute URI of the resource.</span></span> |
+| `integrity`  | <span data-ttu-id="11690-359">Řetězec integrity představující očekávaný obsah v odpovědi</span><span class="sxs-lookup"><span data-stu-id="11690-359">The integrity string representing the expected content in the response.</span></span> |
 
-<span data-ttu-id="db3b6-303">`loadBootResource`Vrátí některou z následujících možností pro přepsání procesu načítání:</span><span class="sxs-lookup"><span data-stu-id="db3b6-303">`loadBootResource` returns any of the following to override the loading process:</span></span>
+<span data-ttu-id="11690-360">`loadBootResource`Vrátí některou z následujících možností pro přepsání procesu načítání:</span><span class="sxs-lookup"><span data-stu-id="11690-360">`loadBootResource` returns any of the following to override the loading process:</span></span>
 
-* <span data-ttu-id="db3b6-304">Řetězec identifikátoru URI.</span><span class="sxs-lookup"><span data-stu-id="db3b6-304">URI string.</span></span> <span data-ttu-id="db3b6-305">V následujícím příkladu ( `wwwroot/index.html` ) jsou následující soubory obsluhovány ze sítě CDN v `https://my-awesome-cdn.com/` :</span><span class="sxs-lookup"><span data-stu-id="db3b6-305">In the following example (`wwwroot/index.html`), the following files are served from a CDN at `https://my-awesome-cdn.com/`:</span></span>
+* <span data-ttu-id="11690-361">Řetězec identifikátoru URI.</span><span class="sxs-lookup"><span data-stu-id="11690-361">URI string.</span></span> <span data-ttu-id="11690-362">V následujícím příkladu ( `wwwroot/index.html` ) jsou následující soubory obsluhovány ze sítě CDN v `https://my-awesome-cdn.com/` :</span><span class="sxs-lookup"><span data-stu-id="11690-362">In the following example (`wwwroot/index.html`), the following files are served from a CDN at `https://my-awesome-cdn.com/`:</span></span>
 
   * `dotnet.*.js`
   * `dotnet.wasm`
-  * <span data-ttu-id="db3b6-306">Data časového pásma</span><span class="sxs-lookup"><span data-stu-id="db3b6-306">Timezone data</span></span>
+  * <span data-ttu-id="11690-363">Data časového pásma</span><span class="sxs-lookup"><span data-stu-id="11690-363">Timezone data</span></span>
 
   ```html
   ...
@@ -458,9 +747,9 @@ COPY nginx.conf /etc/nginx/nginx.conf
   </script>
   ```
 
-* <span data-ttu-id="db3b6-307">`Promise<Response>`.</span><span class="sxs-lookup"><span data-stu-id="db3b6-307">`Promise<Response>`.</span></span> <span data-ttu-id="db3b6-308">Předejte `integrity` parametr v hlavičce pro zachování výchozího chování kontroly integrity.</span><span class="sxs-lookup"><span data-stu-id="db3b6-308">Pass the `integrity` parameter in a header to retain the default integrity-checking behavior.</span></span>
+* <span data-ttu-id="11690-364">`Promise<Response>`.</span><span class="sxs-lookup"><span data-stu-id="11690-364">`Promise<Response>`.</span></span> <span data-ttu-id="11690-365">Předejte `integrity` parametr v hlavičce pro zachování výchozího chování kontroly integrity.</span><span class="sxs-lookup"><span data-stu-id="11690-365">Pass the `integrity` parameter in a header to retain the default integrity-checking behavior.</span></span>
 
-  <span data-ttu-id="db3b6-309">Následující příklad ( `wwwroot/index.html` ) přidá vlastní HLAVIČKU http do odchozích požadavků a předá `integrity` parametr prostřednictvím `fetch` volání:</span><span class="sxs-lookup"><span data-stu-id="db3b6-309">The following example (`wwwroot/index.html`) adds a custom HTTP header to the outbound requests and passes the `integrity` parameter through to the `fetch` call:</span></span>
+  <span data-ttu-id="11690-366">Následující příklad ( `wwwroot/index.html` ) přidá vlastní HLAVIČKU http do odchozích požadavků a předá `integrity` parametr prostřednictvím `fetch` volání:</span><span class="sxs-lookup"><span data-stu-id="11690-366">The following example (`wwwroot/index.html`) adds a custom HTTP header to the outbound requests and passes the `integrity` parameter through to the `fetch` call:</span></span>
   
   ```html
   <script src="_framework/blazor.webassembly.js" autostart="false"></script>
@@ -477,58 +766,58 @@ COPY nginx.conf /etc/nginx/nginx.conf
   </script>
   ```
 
-* <span data-ttu-id="db3b6-310">`null`/`undefined`, což vede k výchozímu chování při načítání.</span><span class="sxs-lookup"><span data-stu-id="db3b6-310">`null`/`undefined`, which results in the default loading behavior.</span></span>
+* <span data-ttu-id="11690-367">`null`/`undefined`, což vede k výchozímu chování při načítání.</span><span class="sxs-lookup"><span data-stu-id="11690-367">`null`/`undefined`, which results in the default loading behavior.</span></span>
 
-<span data-ttu-id="db3b6-311">Externí zdroje musí vracet požadované hlavičky CORS pro prohlížeče, aby bylo možné načíst prostředky mezi zdroji.</span><span class="sxs-lookup"><span data-stu-id="db3b6-311">External sources must return the required CORS headers for browsers to allow the cross-origin resource loading.</span></span> <span data-ttu-id="db3b6-312">Sítě CDN obvykle poskytuje ve výchozím nastavení požadované hlavičky.</span><span class="sxs-lookup"><span data-stu-id="db3b6-312">CDNs usually provide the required headers by default.</span></span>
+<span data-ttu-id="11690-368">Externí zdroje musí vracet požadované hlavičky CORS pro prohlížeče, aby bylo možné načíst prostředky mezi zdroji.</span><span class="sxs-lookup"><span data-stu-id="11690-368">External sources must return the required CORS headers for browsers to allow the cross-origin resource loading.</span></span> <span data-ttu-id="11690-369">Sítě CDN obvykle poskytuje ve výchozím nastavení požadované hlavičky.</span><span class="sxs-lookup"><span data-stu-id="11690-369">CDNs usually provide the required headers by default.</span></span>
 
-<span data-ttu-id="db3b6-313">Stačí zadat typy pro vlastní chování.</span><span class="sxs-lookup"><span data-stu-id="db3b6-313">You only need to specify types for custom behaviors.</span></span> <span data-ttu-id="db3b6-314">Typy neurčené pro `loadBootResource` jsou načteny rozhraním na své výchozí chování při načítání.</span><span class="sxs-lookup"><span data-stu-id="db3b6-314">Types not specified to `loadBootResource` are loaded by the framework per their default loading behaviors.</span></span>
+<span data-ttu-id="11690-370">Stačí zadat typy pro vlastní chování.</span><span class="sxs-lookup"><span data-stu-id="11690-370">You only need to specify types for custom behaviors.</span></span> <span data-ttu-id="11690-371">Typy neurčené pro `loadBootResource` jsou načteny rozhraním na své výchozí chování při načítání.</span><span class="sxs-lookup"><span data-stu-id="11690-371">Types not specified to `loadBootResource` are loaded by the framework per their default loading behaviors.</span></span>
 
-## <a name="change-the-filename-extension-of-dll-files"></a><span data-ttu-id="db3b6-315">Změna přípony filename souborů DLL</span><span class="sxs-lookup"><span data-stu-id="db3b6-315">Change the filename extension of DLL files</span></span>
+## <a name="change-the-filename-extension-of-dll-files"></a><span data-ttu-id="11690-372">Změna přípony filename souborů DLL</span><span class="sxs-lookup"><span data-stu-id="11690-372">Change the filename extension of DLL files</span></span>
 
-<span data-ttu-id="db3b6-316">V případě, že potřebujete změnit příponu filename pro publikované `.dll` soubory aplikace, postupujte podle pokynů v této části.</span><span class="sxs-lookup"><span data-stu-id="db3b6-316">In case you have a need to change the filename extensions of the app's published `.dll` files, follow the guidance in this section.</span></span>
+<span data-ttu-id="11690-373">V případě, že potřebujete změnit příponu filename pro publikované `.dll` soubory aplikace, postupujte podle pokynů v této části.</span><span class="sxs-lookup"><span data-stu-id="11690-373">In case you have a need to change the filename extensions of the app's published `.dll` files, follow the guidance in this section.</span></span>
 
-<span data-ttu-id="db3b6-317">Po publikování aplikace použijte skript prostředí nebo kanál sestavení DevOps k přejmenování `.dll` souborů tak, aby používaly jinou příponu souboru.</span><span class="sxs-lookup"><span data-stu-id="db3b6-317">After publishing the app, use a shell script or DevOps build pipeline to rename `.dll` files to use a different file extension.</span></span> <span data-ttu-id="db3b6-318">Zaměřte se na `.dll` soubory v `wwwroot` adresáři publikovaného výstupu aplikace (například `{CONTENT ROOT}/bin/Release/netstandard2.1/publish/wwwroot` ).</span><span class="sxs-lookup"><span data-stu-id="db3b6-318">Target the `.dll` files in the `wwwroot` directory of the app's published output (for example, `{CONTENT ROOT}/bin/Release/netstandard2.1/publish/wwwroot`).</span></span>
+<span data-ttu-id="11690-374">Po publikování aplikace použijte skript prostředí nebo kanál sestavení DevOps k přejmenování `.dll` souborů tak, aby používaly jinou příponu souboru.</span><span class="sxs-lookup"><span data-stu-id="11690-374">After publishing the app, use a shell script or DevOps build pipeline to rename `.dll` files to use a different file extension.</span></span> <span data-ttu-id="11690-375">Zaměřte se na `.dll` soubory v `wwwroot` adresáři publikovaného výstupu aplikace (například `{CONTENT ROOT}/bin/Release/netstandard2.1/publish/wwwroot` ).</span><span class="sxs-lookup"><span data-stu-id="11690-375">Target the `.dll` files in the `wwwroot` directory of the app's published output (for example, `{CONTENT ROOT}/bin/Release/netstandard2.1/publish/wwwroot`).</span></span>
 
-<span data-ttu-id="db3b6-319">V následujících příkladech `.dll` jsou soubory přejmenovány, aby používaly `.bin` příponu souboru.</span><span class="sxs-lookup"><span data-stu-id="db3b6-319">In the following examples, `.dll` files are renamed to use the `.bin` file extension.</span></span>
+<span data-ttu-id="11690-376">V následujících příkladech `.dll` jsou soubory přejmenovány, aby používaly `.bin` příponu souboru.</span><span class="sxs-lookup"><span data-stu-id="11690-376">In the following examples, `.dll` files are renamed to use the `.bin` file extension.</span></span>
 
-<span data-ttu-id="db3b6-320">Ve Windows:</span><span class="sxs-lookup"><span data-stu-id="db3b6-320">On Windows:</span></span>
+<span data-ttu-id="11690-377">Ve Windows:</span><span class="sxs-lookup"><span data-stu-id="11690-377">On Windows:</span></span>
 
 ```powershell
 dir .\_framework\_bin | rename-item -NewName { $_.name -replace ".dll\b",".bin" }
 ((Get-Content .\_framework\blazor.boot.json -Raw) -replace '.dll"','.bin"') | Set-Content .\_framework\blazor.boot.json
 ```
 
-<span data-ttu-id="db3b6-321">Pokud se také používají prostředky pracovního procesu služby, přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="db3b6-321">If service worker assets are also in use, add the following command:</span></span>
+<span data-ttu-id="11690-378">Pokud se také používají prostředky pracovního procesu služby, přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="11690-378">If service worker assets are also in use, add the following command:</span></span>
 
 ```powershell
 ((Get-Content .\service-worker-assets.js -Raw) -replace '.dll"','.bin"') | Set-Content .\service-worker-assets.js
 ```
 
-<span data-ttu-id="db3b6-322">V systému Linux nebo macOS:</span><span class="sxs-lookup"><span data-stu-id="db3b6-322">On Linux or macOS:</span></span>
+<span data-ttu-id="11690-379">V systému Linux nebo macOS:</span><span class="sxs-lookup"><span data-stu-id="11690-379">On Linux or macOS:</span></span>
 
 ```console
 for f in _framework/_bin/*; do mv "$f" "`echo $f | sed -e 's/\.dll\b/.bin/g'`"; done
 sed -i 's/\.dll"/.bin"/g' _framework/blazor.boot.json
 ```
 
-<span data-ttu-id="db3b6-323">Pokud se také používají prostředky pracovního procesu služby, přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="db3b6-323">If service worker assets are also in use, add the following command:</span></span>
+<span data-ttu-id="11690-380">Pokud se také používají prostředky pracovního procesu služby, přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="11690-380">If service worker assets are also in use, add the following command:</span></span>
 
 ```console
 sed -i 's/\.dll"/.bin"/g' service-worker-assets.js
 ```
    
-<span data-ttu-id="db3b6-324">Chcete-li použít jinou příponu souboru než `.bin` , nahraďte `.bin` v předchozích příkazech.</span><span class="sxs-lookup"><span data-stu-id="db3b6-324">To use a different file extension than `.bin`, replace `.bin` in the preceding commands.</span></span>
+<span data-ttu-id="11690-381">Chcete-li použít jinou příponu souboru než `.bin` , nahraďte `.bin` v předchozích příkazech.</span><span class="sxs-lookup"><span data-stu-id="11690-381">To use a different file extension than `.bin`, replace `.bin` in the preceding commands.</span></span>
 
-<span data-ttu-id="db3b6-325">Pro vyřešení komprimovaných `blazor.boot.json.gz` `blazor.boot.json.br` souborů proveďte jednu z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="db3b6-325">To address the compressed `blazor.boot.json.gz` and `blazor.boot.json.br` files, adopt either of the following approaches:</span></span>
+<span data-ttu-id="11690-382">Pro vyřešení komprimovaných `blazor.boot.json.gz` `blazor.boot.json.br` souborů proveďte jednu z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="11690-382">To address the compressed `blazor.boot.json.gz` and `blazor.boot.json.br` files, adopt either of the following approaches:</span></span>
 
-* <span data-ttu-id="db3b6-326">Odeberte komprimované `blazor.boot.json.gz` soubory a `blazor.boot.json.br` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-326">Remove the compressed `blazor.boot.json.gz` and `blazor.boot.json.br` files.</span></span> <span data-ttu-id="db3b6-327">Komprese je u tohoto přístupu zakázána.</span><span class="sxs-lookup"><span data-stu-id="db3b6-327">Compression is disabled with this approach.</span></span>
-* <span data-ttu-id="db3b6-328">Opětovná komprimace aktualizovaného `blazor.boot.json` souboru.</span><span class="sxs-lookup"><span data-stu-id="db3b6-328">Recompress the updated `blazor.boot.json` file.</span></span>
+* <span data-ttu-id="11690-383">Odeberte komprimované `blazor.boot.json.gz` soubory a `blazor.boot.json.br` .</span><span class="sxs-lookup"><span data-stu-id="11690-383">Remove the compressed `blazor.boot.json.gz` and `blazor.boot.json.br` files.</span></span> <span data-ttu-id="11690-384">Komprese je u tohoto přístupu zakázána.</span><span class="sxs-lookup"><span data-stu-id="11690-384">Compression is disabled with this approach.</span></span>
+* <span data-ttu-id="11690-385">Opětovná komprimace aktualizovaného `blazor.boot.json` souboru.</span><span class="sxs-lookup"><span data-stu-id="11690-385">Recompress the updated `blazor.boot.json` file.</span></span>
 
-<span data-ttu-id="db3b6-329">Předchozí pokyny platí i v případě, že se aktivují prostředky pracovního procesu.</span><span class="sxs-lookup"><span data-stu-id="db3b6-329">The preceding guidance also applies when service worker assets are in use.</span></span> <span data-ttu-id="db3b6-330">Odeberte nebo znovu proveďte komprimaci `wwwroot/service-worker-assets.js.br` a `wwwroot/service-worker-assets.js.gz` .</span><span class="sxs-lookup"><span data-stu-id="db3b6-330">Remove or recompress `wwwroot/service-worker-assets.js.br` and `wwwroot/service-worker-assets.js.gz`.</span></span> <span data-ttu-id="db3b6-331">V opačném případě kontroly integrity souborů selžou v prohlížeči.</span><span class="sxs-lookup"><span data-stu-id="db3b6-331">Otherwise, file integrity checks fail in the browser.</span></span>
+<span data-ttu-id="11690-386">Předchozí pokyny platí i v případě, že se aktivují prostředky pracovního procesu.</span><span class="sxs-lookup"><span data-stu-id="11690-386">The preceding guidance also applies when service worker assets are in use.</span></span> <span data-ttu-id="11690-387">Odeberte nebo znovu proveďte komprimaci `wwwroot/service-worker-assets.js.br` a `wwwroot/service-worker-assets.js.gz` .</span><span class="sxs-lookup"><span data-stu-id="11690-387">Remove or recompress `wwwroot/service-worker-assets.js.br` and `wwwroot/service-worker-assets.js.gz`.</span></span> <span data-ttu-id="11690-388">V opačném případě kontroly integrity souborů selžou v prohlížeči.</span><span class="sxs-lookup"><span data-stu-id="11690-388">Otherwise, file integrity checks fail in the browser.</span></span>
 
-<span data-ttu-id="db3b6-332">Následující příklad Windows používá skript prostředí PowerShell umístěný v kořenovém adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="db3b6-332">The following Windows example uses a PowerShell script placed at the root of the project.</span></span>
+<span data-ttu-id="11690-389">Následující příklad Windows používá skript prostředí PowerShell umístěný v kořenovém adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="11690-389">The following Windows example uses a PowerShell script placed at the root of the project.</span></span>
 
-<span data-ttu-id="db3b6-333">`ChangeDLLExtensions.ps1:`:</span><span class="sxs-lookup"><span data-stu-id="db3b6-333">`ChangeDLLExtensions.ps1:`:</span></span>
+<span data-ttu-id="11690-390">`ChangeDLLExtensions.ps1:`:</span><span class="sxs-lookup"><span data-stu-id="11690-390">`ChangeDLLExtensions.ps1:`:</span></span>
 
 ```powershell
 param([string]$filepath,[string]$tfm)
@@ -537,13 +826,13 @@ dir $filepath\bin\Release\$tfm\wwwroot\_framework\_bin | rename-item -NewName { 
 Remove-Item $filepath\bin\Release\$tfm\wwwroot\_framework\blazor.boot.json.gz
 ```
 
-<span data-ttu-id="db3b6-334">Pokud se také používají prostředky pracovního procesu služby, přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="db3b6-334">If service worker assets are also in use, add the following command:</span></span>
+<span data-ttu-id="11690-391">Pokud se také používají prostředky pracovního procesu služby, přidejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="11690-391">If service worker assets are also in use, add the following command:</span></span>
 
 ```powershell
 ((Get-Content $filepath\bin\Release\$tfm\wwwroot\service-worker-assets.js -Raw) -replace '.dll"','.bin"') | Set-Content $filepath\bin\Release\$tfm\wwwroot\service-worker-assets.js
 ```
 
-<span data-ttu-id="db3b6-335">V souboru projektu se skript spustí po publikování aplikace:</span><span class="sxs-lookup"><span data-stu-id="db3b6-335">In the project file, the script is run after publishing the app:</span></span>
+<span data-ttu-id="11690-392">V souboru projektu se skript spustí po publikování aplikace:</span><span class="sxs-lookup"><span data-stu-id="11690-392">In the project file, the script is run after publishing the app:</span></span>
 
 ```xml
 <Target Name="ChangeDLLFileExtensions" AfterTargets="Publish" Condition="'$(Configuration)'=='Release'">
@@ -551,5 +840,4 @@ Remove-Item $filepath\bin\Release\$tfm\wwwroot\_framework\blazor.boot.json.gz
 </Target>
 ```
 
-<span data-ttu-id="db3b6-336">Pokud chcete poskytnout zpětnou vazbu, navštivte [aspnetcore/problémy #5477](https://github.com/dotnet/aspnetcore/issues/5477).</span><span class="sxs-lookup"><span data-stu-id="db3b6-336">To provide feedback, visit [aspnetcore/issues #5477](https://github.com/dotnet/aspnetcore/issues/5477).</span></span>
- 
+<span data-ttu-id="11690-393">Pokud chcete poskytnout zpětnou vazbu, navštivte [aspnetcore/problémy #5477](https://github.com/dotnet/aspnetcore/issues/5477).</span><span class="sxs-lookup"><span data-stu-id="11690-393">To provide feedback, visit [aspnetcore/issues #5477](https://github.com/dotnet/aspnetcore/issues/5477).</span></span>
