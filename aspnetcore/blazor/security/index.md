@@ -15,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: 85446ac18608b39c469da766e1a9f2e92a1f5e11
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 7b19ac9170fc99a3524fedda419bd03498aa999a
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445109"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913779"
 ---
-# <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor ověřování a autorizace
+# <a name="aspnet-core-no-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor ověřování a autorizace
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS) a [Luke Latham](https://github.com/guardrex)
 
@@ -44,7 +44,7 @@ Blazor WebAssemblyaplikace běží na klientovi. Autorizace se používá *jenom
 
 Blazorpoužívá k vytvoření identity uživatele existující mechanismy ověřování ASP.NET Core. Přesný mechanismus závisí na tom, jak Blazor je aplikace hostována, Blazor WebAssembly nebo Blazor Server .
 
-### <a name="blazor-webassembly-authentication"></a>Blazor WebAssemblypřihlašovací
+### <a name="no-locblazor-webassembly-authentication"></a>Blazor WebAssemblypřihlašovací
 
 V Blazor WebAssembly aplikacích lze kontroly ověřování obejít, protože všechny kódy na straně klienta mohou být změněny uživateli. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
 
@@ -53,19 +53,19 @@ Přidejte následující:
 * Odkaz na balíček pro [`Microsoft.AspNetCore.Components.Authorization`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) soubor projektu aplikace.
 * `Microsoft.AspNetCore.Components.Authorization`Obor názvů `_Imports.razor` souboru aplikace
 
-Pro zpracování ověřování se implementace předdefinované nebo vlastní <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> služby zabývá následujícími oddíly.
+K ověřování pomocí předdefinované nebo vlastní <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> služby se vztahuje v následujících oddílech.
 
 Další informace o vytváření aplikací a konfigurace najdete v tématu <xref:blazor/security/webassembly/index> .
 
-### <a name="blazor-server-authentication"></a>Blazor Serverpřihlašovací
+### <a name="no-locblazor-server-authentication"></a>Blazor Serverpřihlašovací
 
 Blazor Serveraplikace pracují s připojením v reálném čase vytvořeným pomocí SignalR . [Ověřování v SignalR aplikacích založených na ověřování](xref:signalr/authn-and-authz) se zpracovává při navázání připojení. Ověřování může být založené na souboru cookie nebo nějakém jiném nosným tokenu.
+
+Integrovaná <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> Služba pro Blazor Server aplikace získává data o stavu ověřování z ASP.NET Core `HttpContext.User` . To je způsob, jakým se stav ověřování integruje se stávajícími mechanismy ověřování ASP.NET Core.
 
 Další informace o vytváření aplikací a konfigurace najdete v tématu <xref:blazor/security/server/index> .
 
 ## <a name="authenticationstateprovider-service"></a>Služba AuthenticationStateProvider
-
-Integrovaná <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> služba získá data stavu ověřování z ASP.NET Core `HttpContext.User` . To je způsob, jakým se stav ověřování integruje se stávajícími mechanismy ověřování ASP.NET Core.
 
 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>je základní službou, kterou <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> Komponenta a komponenta používá <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> k získání stavu ověřování.
 
@@ -491,7 +491,7 @@ Je možné, že projekt nebyl vytvořen pomocí Blazor Server šablony s povolen
 
 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> `Task<` <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState> `>` Doplní kaskádový parametr, který zase získá z podkladové <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> služby di.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:security/index>
 * <xref:security/authentication/windowsauth>

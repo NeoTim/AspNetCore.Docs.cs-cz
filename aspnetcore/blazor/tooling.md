@@ -16,24 +16,24 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
-ms.openlocfilehash: 33245e669b317ed577a8a1652b2eed8f9ea5b915
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: 094ec24fb6599168f0aa84f16c00deabf5f239b7
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407642"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913834"
 ---
-# <a name="tooling-for-aspnet-core-blazor"></a>Nástroje pro ASP.NET CoreBlazor
+# <a name="tooling-for-aspnet-core-no-locblazor"></a>Nástroje pro ASP.NET CoreBlazor
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
-::: zone pivot="os-windows"
+::: zone pivot="windows"
 
 1. Nainstalujte nejnovější verzi sady [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) s úlohou **vývoje ASP.NET a webu** .
 
 1. Vytvoření nového projektu
 
-1. Vyberte možnost ** Blazor aplikace**. Vyberte **Next** (Další).
+1. Vyberte možnost ** Blazor aplikace**. Vyberte **Další**.
 
 1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
@@ -47,7 +47,7 @@ Další informace o důvěřování certifikátu pro vývoj ASP.NET Core HTTPS n
 
 ::: zone-end
 
-::: zone pivot="os-linux"
+::: zone pivot="linux"
 
 1. Nainstalujte nejnovější verzi sady [.NET Core 3,1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1). Pokud jste dříve nainstalovali sadu SDK, můžete zjistit nainstalovanou verzi spuštěním následujícího příkazu v příkazovém prostředí:
 
@@ -91,7 +91,7 @@ Další informace najdete v pokynech, které poskytuje váš prohlížeč a dist
 
 ::: zone-end
 
-::: zone pivot="os-macos"
+::: zone pivot="macos"
 
 1. Nainstalujte [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/).
 
@@ -99,11 +99,11 @@ Další informace najdete v pokynech, které poskytuje váš prohlížeč a dist
 
 1. Na bočním panelu vyberte **Webová a konzolová**  >  **aplikace**.
 
-   Pro Blazor WebAssembly prostředí vyberte šablonu ** Blazor WebAssembly aplikace** . Pro Blazor Server prostředí vyberte šablonu ** Blazor Server aplikace** . Vyberte **Next** (Další).
+   Pro Blazor WebAssembly prostředí vyberte šablonu ** Blazor WebAssembly aplikace** . Pro Blazor Server prostředí vyberte šablonu ** Blazor Server aplikace** . Vyberte **Další**.
 
    Informace o těchto dvou Blazor modelech hostování *Blazor WebAssembly* a naleznete *Blazor Server* v tématu <xref:blazor/hosting-models> .
 
-1. Potvrďte, že **ověřování** je nastaveno na **bez ověřování**. Vyberte **Next** (Další).
+1. Potvrďte, že **ověřování** je nastaveno na **bez ověřování**. Vyberte **Další**.
 
 1. Do pole **název projektu** název aplikace `WebApplication1` . Vyberte **Vytvořit**.
 

@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 15f3ce5a8e8d47ac567acaadcdc4bf8ba738b2ff
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f74f6ce93093adbc931dd90b32a14de5d4f89096
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408172"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913882"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -50,7 +50,7 @@ Běžný problém s výkonem v ASP.NET Core aplikace blokuje volání, která by
 **Do**:
 
 * Proveďte asynchronní vytváření [cest kódu](#understand-hot-code-paths) .
-* Pokud je k dispozici asynchronní rozhraní API, volejte asynchronní rozhraní API pro přístup k datům, vstupně-výstupní operace a dlouhotrvající provozní rozhraní. Nepoužívejte rutinu [Task. Run](/dotnet/api/system.threading.tasks.task.run) , aby rozhraní API synchronus bylo asynchronní. **not**
+* Pokud je k dispozici asynchronní rozhraní API, volejte asynchronní rozhraní API pro přístup k datům, vstupně-výstupní operace a dlouhotrvající provozní rozhraní. Nepoužívejte rutinu [Task. Run](/dotnet/api/system.threading.tasks.task.run) , aby se asynchronní rozhraní API **nepoužívalo** synchronně.
 * Provede Razor asynchronní akce kontroleru nebo stránky. Celý zásobník volání je asynchronní, aby bylo možné využívat vzory [Async/await](/dotnet/csharp/programming-guide/concepts/async/) .
 
 Profiler, například [PerfView](https://github.com/Microsoft/perfview), lze použít k nalezení často přidaných vláken do [fondu vláken](/windows/desktop/procthread/thread-pools). `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start`Událost indikuje vlákno přidané do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
@@ -108,7 +108,7 @@ Doporučit
 
 ## <a name="keep-common-code-paths-fast"></a>Rychlé udržování běžných cest kódu
 
-Chcete, aby byl veškerý kód rychlý. Často volané cesty kódu jsou nejdůležitější pro optimalizaci. Zde jsou některé z nich:
+Chcete, aby byl veškerý kód rychlý. Často volané cesty kódu jsou nejdůležitější pro optimalizaci. Mezi ně patří:
 
 * Komponenty middlewaru v kanálu zpracování požadavků aplikace, zejména middleware spouštěné včas v kanálu. Tyto součásti mají velký dopad na výkon.
 * Kód, který se spustí pro každý požadavek nebo vícekrát na požadavek. Například vlastní protokolování, obslužné rutiny autorizace nebo inicializace přechodných služeb.
@@ -146,7 +146,7 @@ Doporučit
 
 ## <a name="use-the-latest-aspnet-core-release"></a>Použít nejnovější verzi ASP.NET Core
 
-Každé nové vydání ASP.NET Core zahrnuje vylepšení výkonu. Optimalizace v .NET Core a ASP.NET Core znamenají, že novější verze obecně překoná starší verze. Například rozhraní .NET Core 2,1 přidalo podporu kompilovaných regulárních výrazů a benefitted [z \<T> rozsahu](https://msdn.microsoft.com/magazine/mt814808.aspx). ASP.NET Core 2,2 přidali podporu pro HTTP/2. [ASP.NET Core 3,0 přidává mnoho vylepšení](xref:aspnetcore-3.0) , která omezují využití paměti a zvyšují propustnost. Pokud je výkon prioritou, zvažte upgrade na aktuální verzi ASP.NET Core.
+Každé nové vydání ASP.NET Core zahrnuje vylepšení výkonu. Optimalizace v .NET Core a ASP.NET Core znamenají, že novější verze obecně překoná starší verze. Například rozhraní .NET Core 2,1 přidalo podporu kompilovaných regulárních výrazů a benefitted [z \<T> rozsahu](/archive/msdn-magazine/2018/january/csharp-all-about-span-exploring-a-new-net-mainstay). ASP.NET Core 2,2 přidali podporu pro HTTP/2. [ASP.NET Core 3,0 přidává mnoho vylepšení](xref:aspnetcore-3.0) , která omezují využití paměti a zvyšují propustnost. Pokud je výkon prioritou, zvažte upgrade na aktuální verzi ASP.NET Core.
 
 ## <a name="minimize-exceptions"></a>Minimalizace výjimek
 

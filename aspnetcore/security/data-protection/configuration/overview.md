@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: 65ef506d5857afb71113a0309613a2cbd82893be
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 096862b7149679c14e3d1ca17d38468a14e438a2
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399540"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913873"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany ASP.NET Core dat
 
@@ -357,7 +357,7 @@ services.AddDataProtection()
 ::: moniker-end
 
 > [!NOTE]
-> Algoritmus symetrického šifrování bloku musí mít délku klíče >= 128 bitů, velikost bloku >= 64 bitů a musí podporovat šifrování v CBC s odsazením PKCS #7. Algoritmus hash musí mít velikost algoritmu Digest >= 128 bitů a musí podporovat otevření pomocí \_ \_ \_ příznaku HMAC ALG popisovače symetrickými \_ . \*Vlastnosti zprostředkovatele lze nastavit na hodnotu null pro použití výchozího zprostředkovatele pro zadaný algoritmus. Další informace najdete v dokumentaci k [BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx) .
+> Algoritmus symetrického šifrování bloku musí mít délku klíče >= 128 bitů, velikost bloku >= 64 bitů a musí podporovat šifrování v CBC s odsazením PKCS #7. Algoritmus hash musí mít velikost algoritmu Digest >= 128 bitů a musí podporovat otevření pomocí \_ \_ \_ příznaku HMAC ALG popisovače symetrickými \_ . \*Vlastnosti zprostředkovatele lze nastavit na hodnotu null pro použití výchozího zprostředkovatele pro zadaný algoritmus. Další informace najdete v dokumentaci k [BCryptOpenAlgorithmProvider](/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider) .
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -400,7 +400,7 @@ services.AddDataProtection()
 ::: moniker-end
 
 > [!NOTE]
-> Algoritmus symetrického šifrování bloku musí mít délku klíče >= 128 bitů, velikost bloku je přesně 128 bitů a musí podporovat šifrování GCM. Vlastnost [EncryptionAlgorithmProvider](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.configurationmodel.cngcbcauthenticatedencryptorconfiguration.encryptionalgorithmprovider) můžete nastavit na hodnotu null, aby pro zadaný algoritmus používala výchozího zprostředkovatele. Další informace najdete v dokumentaci k [BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx) .
+> Algoritmus symetrického šifrování bloku musí mít délku klíče >= 128 bitů, velikost bloku je přesně 128 bitů a musí podporovat šifrování GCM. Vlastnost [EncryptionAlgorithmProvider](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.configurationmodel.cngcbcauthenticatedencryptorconfiguration.encryptionalgorithmprovider) můžete nastavit na hodnotu null, aby pro zadaný algoritmus používala výchozího zprostředkovatele. Další informace najdete v dokumentaci k [BCryptOpenAlgorithmProvider](/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider) .
 
 ### <a name="specifying-other-custom-algorithms"></a>Určení dalších vlastních algoritmů
 
@@ -417,7 +417,7 @@ Při hostování v kontejneru [Docker](/dotnet/standard/microservices-architectu
 
 Pro ukládání klíčů by měly být použity pouze verze Redis podporující [Trvalost dat Redis](/azure/azure-cache-for-redis/cache-how-to-premium-persistence) . [Úložiště objektů BLOB v Azure](/azure/storage/blobs/storage-blobs-introduction) je trvalé a dá se použít k ukládání klíčů. Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore/issues/13476).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:security/data-protection/configuration/non-di-scenarios>
 * <xref:security/data-protection/configuration/machine-wide-policy>

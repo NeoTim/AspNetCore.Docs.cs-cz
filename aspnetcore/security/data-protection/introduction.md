@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/introduction
-ms.openlocfilehash: 60cf659c720012d05bb2a6f1433c18d347469462
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: bf41d5a756c988b239824c19ef7a9d177a93a4a1
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399527"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913828"
 ---
 # <a name="aspnet-core-data-protection"></a>Ochrana dat ASP.NET Core
 
@@ -53,7 +53,7 @@ Zahájili jsme identifikaci problémů s existujícím zásobníkem. Až to mám
 
 Díky těmto principům jsme vyvinuli jednoduchý a [snadno použitelný](xref:security/data-protection/using-data-protection) zásobník ochrany dat.
 
-Rozhraní API pro ochranu ASP.NET Core dat nejsou primárně určena pro neomezenou perzistenci důvěrných datových částí. Další technologie, jako je [Windows CNG DPAPI](https://msdn.microsoft.com/library/windows/desktop/hh706794%28v=vs.85%29.aspx) a [Azure Rights Management](/rights-management/) , jsou vhodnější pro scénář neurčitého úložiště a mají odpovídající možnosti silné správy klíčů. V takovém případě nebrání vývojářům v používání rozhraní API ochrany ASP.NET Core dat pro dlouhodobou ochranu důvěrných dat.
+Rozhraní API pro ochranu ASP.NET Core dat nejsou primárně určena pro neomezenou perzistenci důvěrných datových částí. Další technologie, jako je [Windows CNG DPAPI](/windows/win32/seccng/cng-dpapi) a [Azure Rights Management](/rights-management/) , jsou vhodnější pro scénář neurčitého úložiště a mají odpovídající možnosti silné správy klíčů. V takovém případě nebrání vývojářům v používání rozhraní API ochrany ASP.NET Core dat pro dlouhodobou ochranu důvěrných dat.
 
 ## <a name="audience"></a>Cílová skupina
 
@@ -85,6 +85,6 @@ Zásobník ochrany dat se skládá z pěti balíčků.
 
 * [Odvození od společnosti Microsoft. AspNetCore. Cryptography. devozuje](https://www.nuget.org/packages/Microsoft.AspNetCore.Cryptography.KeyDerivation/) poskytuje implementaci rutiny hash hesla PBKDF2 a může být používána systémy, které musí bezpečně zpracovávat hesla uživatelů. Další informace naleznete v tématu <xref:security/data-protection/consumer-apis/password-hashing>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 <xref:host-and-deploy/web-farm>

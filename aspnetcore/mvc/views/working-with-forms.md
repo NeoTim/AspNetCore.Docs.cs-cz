@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 7a92f2b5bc791f268b897878db08a9f9f4f7bf0c
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 833939417c4973c61eca4d41aaeabe7856680190
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212415"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913865"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Tagování pomocníků ve formulářích ve ASP.NET Core
 
@@ -89,7 +89,7 @@ Podporované atributy [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/an
 |[ASP – stránka](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název Razor stránky|
 |[ASP – obslužná rutina stránky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Název Razor obslužné rutiny stránky|
 |[ASP – trasa](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|Název trasy.|
-|[ASP-Route-{Value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|Jedna hodnota směrování adresy URL. Například `asp-route-id="1234"`.|
+|[ASP-Route-{Value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|Jedna hodnota směrování adresy URL. Například, `asp-route-id="1234"`.|
 |[ASP-All-Route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|Všechny hodnoty tras.|
 |[ASP – fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|Fragment adresy URL|
 
@@ -191,16 +191,16 @@ Pomocná rutina vstupní značky:
 
 * Poskytuje silné psaní. Pokud se název vlastnosti změní a pomocník značek neaktualizujete, zobrazí se chybová zpráva podobná následující:
 
-```
-An error occurred during the compilation of a resource required to process
-this request. Please review the following specific error details and modify
-your source code appropriately.
+  ```
+  An error occurred during the compilation of a resource required to process
+  this request. Please review the following specific error details and modify
+  your source code appropriately.
 
-Type expected
- 'RegisterViewModel' does not contain a definition for 'Email' and no
- extension method 'Email' accepting a first argument of type 'RegisterViewModel'
- could be found (are you missing a using directive or an assembly reference?)
-```
+  Type expected
+   'RegisterViewModel' does not contain a definition for 'Email' and no
+   extension method 'Email' accepting a first argument of type 'RegisterViewModel'
+   could be found (are you missing a using directive or an assembly reference?)
+  ```
 
 `Input`Pomocník značek nastaví `type` atribut HTML na základě typu .NET. Následující tabulka uvádí některé typy běžných typů .NET a generovaný typ HTML (ne každý typ .NET je uveden).
 
@@ -462,7 +462,7 @@ Pokud dojde k chybě ověřování na straně serveru (například když máte z
 |--- |--- |
 |Ovládací souhrnu ověření. All|Úroveň vlastnosti a modelu|
 |Ovládací souhrnu ověření. ModelOnly|Model|
-|Ovládací souhrnu ověření. None|Žádná|
+|Ovládací souhrnu ověření. None|Žádné|
 
 ### <a name="sample"></a>Ukázka
 
@@ -499,7 +499,7 @@ Generovaný kód HTML (Pokud je model platný):
 
 * Má alternativu k Pomocníkovi HTML `Html.DropDownListFor` a`Html.ListBoxFor`
 
-`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Zde je příklad:
+`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Příklad:
 
 [!code-cshtml[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 

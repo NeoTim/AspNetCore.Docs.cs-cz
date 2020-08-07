@@ -13,18 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 0c81dc2fd83cb9327dad46dab840d4352de89baf
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5648ae9e75b48fa4749ed6bcc01b91559dbd2939
+ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85409030"
+ms.lasthandoff: 08/07/2020
+ms.locfileid: "87913765"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>Vývoj aplikací ASP.NET Core pomocí sledovacího procesu souborů
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [vítěz Hurdugaci](https://twitter.com/victorhurdugaci)
 
-[dotnet Watch](https://www.nuget.org/packages/dotnet-watch) je nástroj, který spouští příkaz [.NET Core CLI](/dotnet/core/tools) , když se změní zdrojové soubory. Například změna souboru může aktivovat kompilaci, spuštění testu nebo nasazení.
+`dotnet watch`je nástroj, který spouští příkaz [.NET Core CLI](/dotnet/core/tools) , když se změní zdrojové soubory. Například změna souboru může aktivovat kompilaci, spuštění testu nebo nasazení.
 
 V tomto kurzu se používá existující webové rozhraní API se dvěma koncovými body: jeden, který vrací součet, a jeden, který vrací produkt. Metoda produktu obsahuje chybu, která je v tomto kurzu opravena.
 
@@ -77,7 +77,7 @@ Přejděte na rozhraní API produktu ( `http://localhost:<port number>/api/math/
 
 ## <a name="run-net-core-cli-commands-using-dotnet-watch"></a>Spouštění příkazů .NET Core CLI pomocí`dotnet watch`
 
-Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit pomocí příkazu `dotnet watch` . Například:
+Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit pomocí příkazu `dotnet watch` . Příklad:
 
 | Příkaz | Příkaz se sledováním |
 | ---- | ----- |
@@ -104,13 +104,13 @@ public static int Product(int a, int b)
 }
 ```
 
-Uložte soubor. Výstup konzoly indikuje, že `dotnet watch` zjistil změnu souboru a restartuje aplikaci.
+Soubor uložte. Výstup konzoly indikuje, že `dotnet watch` zjistil změnu souboru a restartuje aplikaci.
 
 Ověřování `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí správný výsledek.
 
 ## <a name="run-tests-using-dotnet-watch"></a>Spustit testy pomocí`dotnet watch`
 
-1. Změňte `Product` metodu *MathController.cs* zpět na vrácení součtu. Uložte soubor.
+1. Změňte `Product` metodu *MathController.cs* zpět na vrácení součtu. Soubor uložte.
 1. V příkazovém prostředí přejděte do složky *WebAppTests* .
 1. Spusťte [dotnet Restore](/dotnet/core/tools/dotnet-restore).
 1. Spusťte `dotnet watch test`. Jeho výstup označuje, že se test nezdařil a že sledovací proces čeká na změny souborů:
@@ -120,7 +120,7 @@ Ověřování `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí 
      Test Run Failed.
      ```
 
-1. Opravte `Product` kód metody tak, aby vrátil produkt. Uložte soubor.
+1. Opravte `Product` kód metody tak, aby vrátil produkt. Soubor uložte.
 
 `dotnet watch`zjistí změnu souboru a znovu spustí testy. Výstup konzoly indikuje úspěšné testy.
 
