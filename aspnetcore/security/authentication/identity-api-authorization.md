@@ -15,16 +15,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 2b587517268208dcf66cd2895b7aa22bfa381f84
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: c06f1d4bf772d7726d19163fcdee8c92d4006cd2
+ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060355"
+ms.lasthandoff: 08/05/2020
+ms.locfileid: "87819110"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
-ASP.NET Core 3,0 nebo novější nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) pomocí podpory pro autorizaci rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelů se v kombinaci s [IdentityServer](https://identityserver.io/) pro implementaci otevřeného ID Connect.
+ASP.NET Core 3,0 nebo novější nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) pomocí podpory pro autorizaci rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelů se zkombinuje se [ Identity serverem](https://identityserver.io/) pro implementaci OpenID Connect.
 
 Parametr ověřování byl přidán do **úhlových** a **reagujících** šablon projektů, které se podobají parametru ověřování v šablonách projektů **webové aplikace (model-zobrazení-kontroler)** a **webové aplikace** ( Razor stránky). Povolené hodnoty parametrů jsou **none** a **jednotlivce**. Šablona projektu **React.js a Redux** v tuto chvíli nepodporuje parametr ověřování.
 
@@ -52,7 +52,7 @@ Následující části popisují přidání do projektu, pokud je k dispozici po
 
 ### <a name="startup-class"></a>Spouštěcí třída
 
-Následující příklady kódu jsou závislé na balíčku NuGet [Microsoft. AspNetCore. ApiAuthorization. IdentityServer](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer) . Příklady konfigurují ověřování rozhraní API a autorizaci pomocí <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> metod rozšíření a. Projekty používající šablony projektů s použitím reakce nebo úhlové SPA s ověřováním zahrnují odkaz na tento balíček.
+Následující příklady kódu se spoléhají na [Microsoft. AspNetCore. ApiAuthorization. Identity ](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer)Balíček NuGet serveru. Příklady konfigurují ověřování rozhraní API a autorizaci pomocí <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> metod rozšíření a. Projekty používající šablony projektů s použitím reakce nebo úhlové SPA s ověřováním zahrnují odkaz na tento balíček.
 
 `Startup`Třída má následující doplňky:
 
@@ -67,14 +67,14 @@ Následující příklady kódu jsou závislé na balíčku NuGet [Microsoft. As
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * IdentityServer s další `AddApiAuthorization` pomocnou metodou, která nastaví některé výchozí konvence ASP.NET Core nad IdentityServer:
+  * IdentityServer s další `AddApiAuthorization` pomocnou metodou, která nastaví některé výchozí konvence ASP.NET Core na Identity serveru:
 
     ```csharp
     services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * Ověřování s další `AddIdentityServerJwt` pomocnou metodou, která nakonfiguruje aplikaci pro ověření tokenů JWT vyprodukovaných pomocí IdentityServer:
+  * Ověřování s další `AddIdentityServerJwt` pomocnou metodou, která nakonfiguruje aplikaci k ověření tokenů JWT vyprodukovaných Identity serverem:
 
     ```csharp
     services.AddAuthentication()
@@ -88,7 +88,7 @@ Následující příklady kódu jsou závislé na balíčku NuGet [Microsoft. As
     app.UseAuthentication();
     ```
 
-  * Middleware IdentityServer, který zpřístupňuje koncové body připojení Open ID:
+  * IdentityMiddleware serveru, který zpřístupňuje koncové body OpenID Connect:
 
     ```csharp
     app.UseIdentityServer();
@@ -96,11 +96,11 @@ Následující příklady kódu jsou závislé na balíčku NuGet [Microsoft. As
 
 ### <a name="addapiauthorization"></a>AddApiAuthorization
 
-Tato pomocná metoda nakonfiguruje IdentityServer, aby používala naši podporovanou konfiguraci. IdentityServer je výkonná a rozšiřitelná architektura pro zpracování otázek zabezpečení aplikací. Ve stejnou chvíli zveřejňuje nepotřebnou složitost v nejběžnějších scénářích. V důsledku toho jsou k dispozici sady konvencí a možností konfigurace, které jsou považovány za dobrý výchozí bod. Jakmile se vaše potřeby ověřování změní, je stále k dispozici kompletní výkon IdentityServer, abyste mohli přizpůsobit ověřování podle vašich potřeb.
+Tato pomocná metoda nakonfiguruje Identity Server tak, aby používal naši podporovanou konfiguraci. IdentityServer je výkonné a rozšiřitelné rozhraní pro zpracování otázek zabezpečení aplikací. Ve stejnou chvíli zveřejňuje nepotřebnou složitost v nejběžnějších scénářích. V důsledku toho jsou k dispozici sady konvencí a možností konfigurace, které jsou považovány za dobrý výchozí bod. Jakmile se vaše požadavky na ověření změní, je k Identity dispozici kompletní výkon serveru, aby bylo možné přizpůsobit ověřování tak, aby vyhovovalo vašim potřebám.
 
-### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
+### <a name="addno-locidentityserverjwt"></a>Přidat Identity ServerJwt
 
-Tato pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování. Zásady jsou nakonfigurované tak, aby pomohly Identity zpracovávat všechny požadavky směrované na jakoukoli dílčí cestu v Identity prostoru URL (/ Identity ). `JwtBearerHandler`Zpracovává všechny ostatní požadavky. Tato metoda navíc registruje `<<ApplicationName>>API` prostředek rozhraní API s IdentityServer s výchozím rozsahem `<<ApplicationName>>API` a konfiguruje middleware tokenu JWT nosiče k ověření tokenů vydaných IdentityServer pro aplikaci.
+Tato pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování. Zásady jsou nakonfigurované tak, aby pomohly Identity zpracovávat všechny požadavky směrované na jakoukoli dílčí cestu v Identity prostoru URL (/ Identity ). `JwtBearerHandler`Zpracovává všechny ostatní požadavky. Tato metoda navíc registruje `<<ApplicationName>>API` prostředek rozhraní API se Identity serverem s výchozím rozsahem `<<ApplicationName>>API` a konfiguruje middleware tokenu JWT nosiče k ověření tokenů vydaných Identity serverem pro aplikaci.
 
 ### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
@@ -108,7 +108,7 @@ V souboru *Controllers\WeatherForecastController.cs* si všimněte `[Authorize]`
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
-V souboru *Data\ApplicationDbContext.cs* si všimněte, že se `DbContext` používá v Identity s výjimkou, kterou rozšiřuje `ApiAuthorizationDbContext` (další odvozená třída z `IdentityDbContext` ) pro zahrnutí schématu pro IdentityServer.
+V souboru *Data\ApplicationDbContext.cs* si všimněte, že se `DbContext` používá v Identity s výjimkou, kterou rozšiřuje `ApiAuthorizationDbContext` (další odvozená třída z `IdentityDbContext` ) k zahrnutí schématu pro Identity Server.
 
 Chcete-li získat úplné řízení schématu databáze, zdědit jednu z dostupných Identity `DbContext` tříd a nakonfigurovat kontext pro zahrnutí Identity schématu voláním `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating` metody.
 
@@ -273,7 +273,7 @@ async populateWeatherData() {
 
 Pokud chcete nasadit aplikaci do produkčního prostředí, je potřeba zřídit tyto prostředky:
 
-* Databáze pro ukládání Identity uživatelských účtů a IdentityServer grantů.
+* Databáze pro ukládání Identity uživatelských účtů a Identity udělení oprávnění serveru.
 * Provozní certifikát, který se má použít pro podepisování tokenů.
   * Pro tento certifikát neexistují žádné zvláštní požadavky. může se jednat o certifikát podepsaný svým držitelem nebo certifikát zřízený autoritou certifikační autority.
   * Dá se vygenerovat pomocí standardních nástrojů, jako je PowerShell nebo OpenSSL.
@@ -310,25 +310,25 @@ Po nakonfigurování aplikace a nastavení aplikace v Azure Portal restartujte a
 
 ## <a name="other-configuration-options"></a>Další možnosti konfigurace
 
-Podpora pro autorizaci rozhraní API se sestavuje na IdentityServer se sadou konvencí, výchozími hodnotami a vylepšeními, které zjednodušují prostředí jednostránkové. Bez nutnosti vyslovit, pokud ASP.NET Core integrace nepokrývá váš scénář, je k dispozici plný výkon IdentityServer na pozadí. Podpora ASP.NET Core se zaměřuje na aplikace "první strany", kde se všechny aplikace vytvářejí a nasazují v naší organizaci. V takovém případě se podpora nenabízí pro věci, jako je například souhlas nebo federace. V případě těchto scénářů použijte IdentityServer a postupujte podle jejich dokumentace.
+Podpora pro autorizaci rozhraní API je založena na Identity serveru se sadou konvencí, výchozími hodnotami a vylepšeními, které zjednodušují prostředí jednostránkové. Bez nutnosti vyslovit, Identity pokud ASP.NET Core integrace nepokrývá váš scénář, je kompletní síla serveru dostupná na pozadí. Podpora ASP.NET Core se zaměřuje na aplikace "první strany", kde se všechny aplikace vytvářejí a nasazují v naší organizaci. V takovém případě se podpora nenabízí pro věci, jako je například souhlas nebo federace. Pro tyto scénáře použijte Identity Server a postupujte podle jejich dokumentace.
 
 ### <a name="application-profiles"></a>Profily aplikací
 
 Profily aplikací jsou předdefinované konfigurace pro aplikace, které dále definují jejich parametry. V současné době jsou podporovány následující profily:
 
-* `IdentityServerSPA`: Představuje zabezpečené ověřování na hostitele společně s IdentityServer jako s jednou jednotkou.
+* `IdentityServerSPA`: Představuje zabezpečené servery hostované společně se Identity serverem jako jediná jednotka.
   * `redirect_uri`Výchozí hodnota je `/authentication/login-callback` .
   * `post_logout_redirect_uri`Výchozí hodnota je `/authentication/logout-callback` .
   * Sada oborů zahrnuje `openid` , `profile` a každý obor definovaný pro rozhraní API v aplikaci.
   * Sada povolených typů OIDC odezvy je `id_token token` nebo každou z nich jednotlivě ( `id_token` , `token` ).
   * Režim povolených odpovědí je `fragment` .
-* `SPA`: Představuje zabezpečené zabezpečené ověřování, které není hostované v IdentityServer.
+* `SPA`: Představuje zabezpečené zabezpečené ověřování, které není hostované na Identity serveru.
   * Sada oborů zahrnuje `openid` , `profile` a každý obor definovaný pro rozhraní API v aplikaci.
   * Sada povolených typů OIDC odezvy je `id_token token` nebo každou z nich jednotlivě ( `id_token` , `token` ).
   * Režim povolených odpovědí je `fragment` .
-* `IdentityServerJwt`: Představuje rozhraní API, které je hostováno společně s IdentityServer.
+* `IdentityServerJwt`: Představuje rozhraní API, které je hostované společně se Identity serverem.
   * Aplikace je nakonfigurovaná tak, aby měla jeden obor, který má výchozí název aplikace.
-* `API`: Představuje rozhraní API, které není hostované v IdentityServer.
+* `API`: Představuje rozhraní API, které není hostované na Identity serveru.
   * Aplikace je nakonfigurovaná tak, aby měla jeden obor, který má výchozí název aplikace.
 
 ### <a name="configuration-through-appsettings"></a>Konfigurace prostřednictvím AppSettings
@@ -380,7 +380,7 @@ AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
 });
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:spa/angular>
 * <xref:spa/react>

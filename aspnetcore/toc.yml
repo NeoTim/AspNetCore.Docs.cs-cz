@@ -337,14 +337,20 @@
                   href: blazor/forms-validation.md#built-in-forms-components
                 - name: InputTextArea
                   href: blazor/forms-validation.md#built-in-forms-components
+                - name: Odkaz
+                  href: blazor/fundamentals/additional-scenarios.md#influence-html-head-tag-elements
                 - name: MainLayout
                   href: blazor/layouts.md#mainlayout-component
+                - name: Meta
+                  href: blazor/fundamentals/additional-scenarios.md#influence-html-head-tag-elements
                 - name: NavLink
                   href: blazor/fundamentals/routing.md#navlink-component
                 - name: NavMenu
                   href: blazor/fundamentals/routing.md#navlink-component
                 - name: Směrovač
                   href: blazor/fundamentals/routing.md#route-templates
+                - name: Nadpis
+                  href: blazor/fundamentals/additional-scenarios.md#influence-html-head-tag-elements
             - name: Kaskádové hodnoty a parametry
               uid: blazor/components/cascading-values-and-parameters
             - name: Datová vazba
@@ -411,6 +417,8 @@
           uid: blazor/state-management
         - name: Ladění aplikací WebAssembly
           uid: blazor/debug
+        - name: Opožděné načítání sestavení s WebAssembly
+          uid: blazor/webassembly-lazy-load-assemblies
         - name: Výkon WebAssembly
           uid: blazor/webassembly-performance-best-practices
         - name: Webové aplikace PWA (Progressive Web Application)
