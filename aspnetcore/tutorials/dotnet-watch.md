@@ -5,6 +5,8 @@ description: V tomto kurzu se dozvíte, jak nainstalovat a používat nástroj s
 ms.author: riande
 ms.date: 05/31/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,33 +15,33 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 5648ae9e75b48fa4749ed6bcc01b91559dbd2939
-ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
+ms.openlocfilehash: f4987e7eef496f3ba4b8f9bb084816be3b17ada7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/07/2020
-ms.locfileid: "87913765"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022443"
 ---
-# <a name="develop-aspnet-core-apps-using-a-file-watcher"></a><span data-ttu-id="8738a-103">Vývoj aplikací ASP.NET Core pomocí sledovacího procesu souborů</span><span class="sxs-lookup"><span data-stu-id="8738a-103">Develop ASP.NET Core apps using a file watcher</span></span>
+# <a name="develop-aspnet-core-apps-using-a-file-watcher"></a><span data-ttu-id="e4863-103">Vývoj aplikací ASP.NET Core pomocí sledovacího procesu souborů</span><span class="sxs-lookup"><span data-stu-id="e4863-103">Develop ASP.NET Core apps using a file watcher</span></span>
 
-<span data-ttu-id="8738a-104">Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [vítěz Hurdugaci](https://twitter.com/victorhurdugaci)</span><span class="sxs-lookup"><span data-stu-id="8738a-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Victor Hurdugaci](https://twitter.com/victorhurdugaci)</span></span>
+<span data-ttu-id="e4863-104">Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [vítěz Hurdugaci](https://twitter.com/victorhurdugaci)</span><span class="sxs-lookup"><span data-stu-id="e4863-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Victor Hurdugaci](https://twitter.com/victorhurdugaci)</span></span>
 
-<span data-ttu-id="8738a-105">`dotnet watch`je nástroj, který spouští příkaz [.NET Core CLI](/dotnet/core/tools) , když se změní zdrojové soubory.</span><span class="sxs-lookup"><span data-stu-id="8738a-105">`dotnet watch` is a tool that runs a [.NET Core CLI](/dotnet/core/tools) command when source files change.</span></span> <span data-ttu-id="8738a-106">Například změna souboru může aktivovat kompilaci, spuštění testu nebo nasazení.</span><span class="sxs-lookup"><span data-stu-id="8738a-106">For example, a file change can trigger compilation, test execution, or deployment.</span></span>
+<span data-ttu-id="e4863-105">`dotnet watch`je nástroj, který spouští příkaz [.NET Core CLI](/dotnet/core/tools) , když se změní zdrojové soubory.</span><span class="sxs-lookup"><span data-stu-id="e4863-105">`dotnet watch` is a tool that runs a [.NET Core CLI](/dotnet/core/tools) command when source files change.</span></span> <span data-ttu-id="e4863-106">Například změna souboru může aktivovat kompilaci, spuštění testu nebo nasazení.</span><span class="sxs-lookup"><span data-stu-id="e4863-106">For example, a file change can trigger compilation, test execution, or deployment.</span></span>
 
-<span data-ttu-id="8738a-107">V tomto kurzu se používá existující webové rozhraní API se dvěma koncovými body: jeden, který vrací součet, a jeden, který vrací produkt.</span><span class="sxs-lookup"><span data-stu-id="8738a-107">This tutorial uses an existing web API with two endpoints: one that returns a sum and one that returns a product.</span></span> <span data-ttu-id="8738a-108">Metoda produktu obsahuje chybu, která je v tomto kurzu opravena.</span><span class="sxs-lookup"><span data-stu-id="8738a-108">The product method has a bug, which is fixed in this tutorial.</span></span>
+<span data-ttu-id="e4863-107">V tomto kurzu se používá existující webové rozhraní API se dvěma koncovými body: jeden, který vrací součet, a jeden, který vrací produkt.</span><span class="sxs-lookup"><span data-stu-id="e4863-107">This tutorial uses an existing web API with two endpoints: one that returns a sum and one that returns a product.</span></span> <span data-ttu-id="e4863-108">Metoda produktu obsahuje chybu, která je v tomto kurzu opravena.</span><span class="sxs-lookup"><span data-stu-id="e4863-108">The product method has a bug, which is fixed in this tutorial.</span></span>
 
-<span data-ttu-id="8738a-109">Stáhněte si [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample).</span><span class="sxs-lookup"><span data-stu-id="8738a-109">Download the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample).</span></span> <span data-ttu-id="8738a-110">Skládá se ze dvou projektů: *WebApp* (ASP.NET Core Web API) a *WebAppTests* (testování částí webového rozhraní API).</span><span class="sxs-lookup"><span data-stu-id="8738a-110">It consists of two projects: *WebApp* (an ASP.NET Core web API) and *WebAppTests* (unit tests for the web API).</span></span>
+<span data-ttu-id="e4863-109">Stáhněte si [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample).</span><span class="sxs-lookup"><span data-stu-id="e4863-109">Download the [sample app](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample).</span></span> <span data-ttu-id="e4863-110">Skládá se ze dvou projektů: *WebApp* (ASP.NET Core Web API) a *WebAppTests* (testování částí webového rozhraní API).</span><span class="sxs-lookup"><span data-stu-id="e4863-110">It consists of two projects: *WebApp* (an ASP.NET Core web API) and *WebAppTests* (unit tests for the web API).</span></span>
 
-<span data-ttu-id="8738a-111">V příkazovém prostředí přejděte do složky *WebApp* .</span><span class="sxs-lookup"><span data-stu-id="8738a-111">In a command shell, navigate to the *WebApp* folder.</span></span> <span data-ttu-id="8738a-112">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="8738a-112">Run the following command:</span></span>
+<span data-ttu-id="e4863-111">V příkazovém prostředí přejděte do složky *WebApp* .</span><span class="sxs-lookup"><span data-stu-id="e4863-111">In a command shell, navigate to the *WebApp* folder.</span></span> <span data-ttu-id="e4863-112">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="e4863-112">Run the following command:</span></span>
 
 ```dotnetcli
 dotnet run
 ```
 
 > [!NOTE]
-> <span data-ttu-id="8738a-113">Můžete použít `dotnet run --project <PROJECT>` k určení projektu, který se má spustit.</span><span class="sxs-lookup"><span data-stu-id="8738a-113">You can use `dotnet run --project <PROJECT>` to specify a project to run.</span></span> <span data-ttu-id="8738a-114">Například spuštění `dotnet run --project WebApp` z kořenového adresáře ukázkové aplikace spustí také projekt *WebApp* .</span><span class="sxs-lookup"><span data-stu-id="8738a-114">For example, running `dotnet run --project WebApp` from the root of the sample app will also run the *WebApp* project.</span></span>
+> <span data-ttu-id="e4863-113">Můžete použít `dotnet run --project <PROJECT>` k určení projektu, který se má spustit.</span><span class="sxs-lookup"><span data-stu-id="e4863-113">You can use `dotnet run --project <PROJECT>` to specify a project to run.</span></span> <span data-ttu-id="e4863-114">Například spuštění `dotnet run --project WebApp` z kořenového adresáře ukázkové aplikace spustí také projekt *WebApp* .</span><span class="sxs-lookup"><span data-stu-id="e4863-114">For example, running `dotnet run --project WebApp` from the root of the sample app will also run the *WebApp* project.</span></span>
 
-<span data-ttu-id="8738a-115">Výstup konzoly zobrazuje zprávy podobné následujícímu (což značí, že aplikace běží a čekají na žádosti):</span><span class="sxs-lookup"><span data-stu-id="8738a-115">The console output shows messages similar to the following (indicating that the app is running and awaiting requests):</span></span>
+<span data-ttu-id="e4863-115">Výstup konzoly zobrazuje zprávy podobné následujícímu (což značí, že aplikace běží a čekají na žádosti):</span><span class="sxs-lookup"><span data-stu-id="e4863-115">The console output shows messages similar to the following (indicating that the app is running and awaiting requests):</span></span>
 
 ```console
 $ dotnet run
@@ -49,17 +51,17 @@ Now listening on: http://localhost:5000
 Application started. Press Ctrl+C to shut down.
 ```
 
-<span data-ttu-id="8738a-116">Ve webovém prohlížeči přejděte na adresu `http://localhost:<port number>/api/math/sum?a=4&b=5`.</span><span class="sxs-lookup"><span data-stu-id="8738a-116">In a web browser, navigate to `http://localhost:<port number>/api/math/sum?a=4&b=5`.</span></span> <span data-ttu-id="8738a-117">Měl by se zobrazit výsledek `9` .</span><span class="sxs-lookup"><span data-stu-id="8738a-117">You should see the result of `9`.</span></span>
+<span data-ttu-id="e4863-116">Ve webovém prohlížeči přejděte na adresu `http://localhost:<port number>/api/math/sum?a=4&b=5`.</span><span class="sxs-lookup"><span data-stu-id="e4863-116">In a web browser, navigate to `http://localhost:<port number>/api/math/sum?a=4&b=5`.</span></span> <span data-ttu-id="e4863-117">Měl by se zobrazit výsledek `9` .</span><span class="sxs-lookup"><span data-stu-id="e4863-117">You should see the result of `9`.</span></span>
 
-<span data-ttu-id="8738a-118">Přejděte na rozhraní API produktu ( `http://localhost:<port number>/api/math/product?a=4&b=5` ).</span><span class="sxs-lookup"><span data-stu-id="8738a-118">Navigate to the product API (`http://localhost:<port number>/api/math/product?a=4&b=5`).</span></span> <span data-ttu-id="8738a-119">Vrátí `9` , ne `20` jako byste očekávali.</span><span class="sxs-lookup"><span data-stu-id="8738a-119">It returns `9`, not `20` as you'd expect.</span></span> <span data-ttu-id="8738a-120">Tento problém je opravený později v tomto kurzu.</span><span class="sxs-lookup"><span data-stu-id="8738a-120">That problem is fixed later in the tutorial.</span></span>
+<span data-ttu-id="e4863-118">Přejděte na rozhraní API produktu ( `http://localhost:<port number>/api/math/product?a=4&b=5` ).</span><span class="sxs-lookup"><span data-stu-id="e4863-118">Navigate to the product API (`http://localhost:<port number>/api/math/product?a=4&b=5`).</span></span> <span data-ttu-id="e4863-119">Vrátí `9` , ne `20` jako byste očekávali.</span><span class="sxs-lookup"><span data-stu-id="e4863-119">It returns `9`, not `20` as you'd expect.</span></span> <span data-ttu-id="e4863-120">Tento problém je opravený později v tomto kurzu.</span><span class="sxs-lookup"><span data-stu-id="e4863-120">That problem is fixed later in the tutorial.</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
-## <a name="add-dotnet-watch-to-a-project"></a><span data-ttu-id="8738a-121">Přidat `dotnet watch` do projektu</span><span class="sxs-lookup"><span data-stu-id="8738a-121">Add `dotnet watch` to a project</span></span>
+## <a name="add-dotnet-watch-to-a-project"></a><span data-ttu-id="e4863-121">Přidat `dotnet watch` do projektu</span><span class="sxs-lookup"><span data-stu-id="e4863-121">Add `dotnet watch` to a project</span></span>
 
-<span data-ttu-id="8738a-122">`dotnet watch`Nástroj sledovacího procesu souborů je součástí 2.1.300 verze .NET Core SDK.</span><span class="sxs-lookup"><span data-stu-id="8738a-122">The `dotnet watch` file watcher tool is included with version 2.1.300 of the .NET Core SDK.</span></span> <span data-ttu-id="8738a-123">Při použití starší verze .NET Core SDK jsou vyžadovány následující kroky.</span><span class="sxs-lookup"><span data-stu-id="8738a-123">The following steps are required when using an earlier version of the .NET Core SDK.</span></span>
+<span data-ttu-id="e4863-122">`dotnet watch`Nástroj sledovacího procesu souborů je součástí 2.1.300 verze .NET Core SDK.</span><span class="sxs-lookup"><span data-stu-id="e4863-122">The `dotnet watch` file watcher tool is included with version 2.1.300 of the .NET Core SDK.</span></span> <span data-ttu-id="e4863-123">Při použití starší verze .NET Core SDK jsou vyžadovány následující kroky.</span><span class="sxs-lookup"><span data-stu-id="e4863-123">The following steps are required when using an earlier version of the .NET Core SDK.</span></span>
 
-1. <span data-ttu-id="8738a-124">Přidejte `Microsoft.DotNet.Watcher.Tools` odkaz na balíček do souboru *. csproj* :</span><span class="sxs-lookup"><span data-stu-id="8738a-124">Add a `Microsoft.DotNet.Watcher.Tools` package reference to the *.csproj* file:</span></span>
+1. <span data-ttu-id="e4863-124">Přidejte `Microsoft.DotNet.Watcher.Tools` odkaz na balíček do souboru *. csproj* :</span><span class="sxs-lookup"><span data-stu-id="e4863-124">Add a `Microsoft.DotNet.Watcher.Tools` package reference to the *.csproj* file:</span></span>
 
     ```xml
     <ItemGroup>
@@ -67,7 +69,7 @@ Application started. Press Ctrl+C to shut down.
     </ItemGroup>
     ```
 
-1. <span data-ttu-id="8738a-125">Nainstalujte `Microsoft.DotNet.Watcher.Tools` balíček spuštěním následujícího příkazu:</span><span class="sxs-lookup"><span data-stu-id="8738a-125">Install the `Microsoft.DotNet.Watcher.Tools` package by running the following command:</span></span>
+1. <span data-ttu-id="e4863-125">Nainstalujte `Microsoft.DotNet.Watcher.Tools` balíček spuštěním následujícího příkazu:</span><span class="sxs-lookup"><span data-stu-id="e4863-125">Install the `Microsoft.DotNet.Watcher.Tools` package by running the following command:</span></span>
 
     ```dotnetcli
     dotnet restore
@@ -75,27 +77,27 @@ Application started. Press Ctrl+C to shut down.
 
 ::: moniker-end
 
-## <a name="run-net-core-cli-commands-using-dotnet-watch"></a><span data-ttu-id="8738a-126">Spouštění příkazů .NET Core CLI pomocí`dotnet watch`</span><span class="sxs-lookup"><span data-stu-id="8738a-126">Run .NET Core CLI commands using `dotnet watch`</span></span>
+## <a name="run-net-core-cli-commands-using-dotnet-watch"></a><span data-ttu-id="e4863-126">Spouštění příkazů .NET Core CLI pomocí`dotnet watch`</span><span class="sxs-lookup"><span data-stu-id="e4863-126">Run .NET Core CLI commands using `dotnet watch`</span></span>
 
-<span data-ttu-id="8738a-127">Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit pomocí příkazu `dotnet watch` .</span><span class="sxs-lookup"><span data-stu-id="8738a-127">Any [.NET Core CLI command](/dotnet/core/tools#cli-commands) can be run with `dotnet watch`.</span></span> <span data-ttu-id="8738a-128">Příklad:</span><span class="sxs-lookup"><span data-stu-id="8738a-128">For example:</span></span>
+<span data-ttu-id="e4863-127">Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit pomocí příkazu `dotnet watch` .</span><span class="sxs-lookup"><span data-stu-id="e4863-127">Any [.NET Core CLI command](/dotnet/core/tools#cli-commands) can be run with `dotnet watch`.</span></span> <span data-ttu-id="e4863-128">Například:</span><span class="sxs-lookup"><span data-stu-id="e4863-128">For example:</span></span>
 
-| <span data-ttu-id="8738a-129">Příkaz</span><span class="sxs-lookup"><span data-stu-id="8738a-129">Command</span></span> | <span data-ttu-id="8738a-130">Příkaz se sledováním</span><span class="sxs-lookup"><span data-stu-id="8738a-130">Command with watch</span></span> |
+| <span data-ttu-id="e4863-129">Příkaz</span><span class="sxs-lookup"><span data-stu-id="e4863-129">Command</span></span> | <span data-ttu-id="e4863-130">Příkaz se sledováním</span><span class="sxs-lookup"><span data-stu-id="e4863-130">Command with watch</span></span> |
 | ---- | ----- |
-| <span data-ttu-id="8738a-131">dotnet run</span><span class="sxs-lookup"><span data-stu-id="8738a-131">dotnet run</span></span> | <span data-ttu-id="8738a-132">dotnet – běh kukátka</span><span class="sxs-lookup"><span data-stu-id="8738a-132">dotnet watch run</span></span> |
-| <span data-ttu-id="8738a-133">příkaz dotnet Run-f netcoreapp 2.0</span><span class="sxs-lookup"><span data-stu-id="8738a-133">dotnet run -f netcoreapp2.0</span></span> | <span data-ttu-id="8738a-134">dotnet Watch Run-f netcoreapp 2.0</span><span class="sxs-lookup"><span data-stu-id="8738a-134">dotnet watch run -f netcoreapp2.0</span></span> |
-| <span data-ttu-id="8738a-135">dotnet Run-f netcoreapp 2.0----arg1</span><span class="sxs-lookup"><span data-stu-id="8738a-135">dotnet run -f netcoreapp2.0 -- --arg1</span></span> | <span data-ttu-id="8738a-136">dotnet Watch Run-f netcoreapp 2.0----arg1</span><span class="sxs-lookup"><span data-stu-id="8738a-136">dotnet watch run -f netcoreapp2.0 -- --arg1</span></span> |
-| <span data-ttu-id="8738a-137">dotnet test</span><span class="sxs-lookup"><span data-stu-id="8738a-137">dotnet test</span></span> | <span data-ttu-id="8738a-138">test výrazu dotnet</span><span class="sxs-lookup"><span data-stu-id="8738a-138">dotnet watch test</span></span> |
+| <span data-ttu-id="e4863-131">dotnet run</span><span class="sxs-lookup"><span data-stu-id="e4863-131">dotnet run</span></span> | <span data-ttu-id="e4863-132">dotnet – běh kukátka</span><span class="sxs-lookup"><span data-stu-id="e4863-132">dotnet watch run</span></span> |
+| <span data-ttu-id="e4863-133">příkaz dotnet Run-f netcoreapp 2.0</span><span class="sxs-lookup"><span data-stu-id="e4863-133">dotnet run -f netcoreapp2.0</span></span> | <span data-ttu-id="e4863-134">dotnet Watch Run-f netcoreapp 2.0</span><span class="sxs-lookup"><span data-stu-id="e4863-134">dotnet watch run -f netcoreapp2.0</span></span> |
+| <span data-ttu-id="e4863-135">dotnet Run-f netcoreapp 2.0----arg1</span><span class="sxs-lookup"><span data-stu-id="e4863-135">dotnet run -f netcoreapp2.0 -- --arg1</span></span> | <span data-ttu-id="e4863-136">dotnet Watch Run-f netcoreapp 2.0----arg1</span><span class="sxs-lookup"><span data-stu-id="e4863-136">dotnet watch run -f netcoreapp2.0 -- --arg1</span></span> |
+| <span data-ttu-id="e4863-137">dotnet test</span><span class="sxs-lookup"><span data-stu-id="e4863-137">dotnet test</span></span> | <span data-ttu-id="e4863-138">test výrazu dotnet</span><span class="sxs-lookup"><span data-stu-id="e4863-138">dotnet watch test</span></span> |
 
-<span data-ttu-id="8738a-139">Spusťte `dotnet watch run` ve složce *WebApp* .</span><span class="sxs-lookup"><span data-stu-id="8738a-139">Run `dotnet watch run` in the *WebApp* folder.</span></span> <span data-ttu-id="8738a-140">Výstup konzoly indikuje, že `watch` byl spuštěn.</span><span class="sxs-lookup"><span data-stu-id="8738a-140">The console output indicates `watch` has started.</span></span>
+<span data-ttu-id="e4863-139">Spusťte `dotnet watch run` ve složce *WebApp* .</span><span class="sxs-lookup"><span data-stu-id="e4863-139">Run `dotnet watch run` in the *WebApp* folder.</span></span> <span data-ttu-id="e4863-140">Výstup konzoly indikuje, že `watch` byl spuštěn.</span><span class="sxs-lookup"><span data-stu-id="e4863-140">The console output indicates `watch` has started.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="8738a-141">Můžete použít `dotnet watch --project <PROJECT>` k určení projektu, který se má sledovat.</span><span class="sxs-lookup"><span data-stu-id="8738a-141">You can use `dotnet watch --project <PROJECT>` to specify a project to watch.</span></span> <span data-ttu-id="8738a-142">Například spuštění `dotnet watch --project WebApp run` z kořenového adresáře ukázkové aplikace bude také spuštěno a sledovat projekt *WebApp* .</span><span class="sxs-lookup"><span data-stu-id="8738a-142">For example, running `dotnet watch --project WebApp run` from the root of the sample app will also run and watch the *WebApp* project.</span></span>
+> <span data-ttu-id="e4863-141">Můžete použít `dotnet watch --project <PROJECT>` k určení projektu, který se má sledovat.</span><span class="sxs-lookup"><span data-stu-id="e4863-141">You can use `dotnet watch --project <PROJECT>` to specify a project to watch.</span></span> <span data-ttu-id="e4863-142">Například spuštění `dotnet watch --project WebApp run` z kořenového adresáře ukázkové aplikace bude také spuštěno a sledovat projekt *WebApp* .</span><span class="sxs-lookup"><span data-stu-id="e4863-142">For example, running `dotnet watch --project WebApp run` from the root of the sample app will also run and watch the *WebApp* project.</span></span>
 
-## <a name="make-changes-with-dotnet-watch"></a><span data-ttu-id="8738a-143">Provést změny pomocí`dotnet watch`</span><span class="sxs-lookup"><span data-stu-id="8738a-143">Make changes with `dotnet watch`</span></span>
+## <a name="make-changes-with-dotnet-watch"></a><span data-ttu-id="e4863-143">Provést změny pomocí`dotnet watch`</span><span class="sxs-lookup"><span data-stu-id="e4863-143">Make changes with `dotnet watch`</span></span>
 
-<span data-ttu-id="8738a-144">Ujistěte `dotnet watch` se, že je spuštěný.</span><span class="sxs-lookup"><span data-stu-id="8738a-144">Make sure `dotnet watch` is running.</span></span>
+<span data-ttu-id="e4863-144">Ujistěte `dotnet watch` se, že je spuštěný.</span><span class="sxs-lookup"><span data-stu-id="e4863-144">Make sure `dotnet watch` is running.</span></span>
 
-<span data-ttu-id="8738a-145">Opravte chybu v `Product` metodě *MathController.cs* tak, aby vrátila produkt, a ne součet:</span><span class="sxs-lookup"><span data-stu-id="8738a-145">Fix the bug in the `Product` method of *MathController.cs* so it returns the product and not the sum:</span></span>
+<span data-ttu-id="e4863-145">Opravte chybu v `Product` metodě *MathController.cs* tak, aby vrátila produkt, a ne součet:</span><span class="sxs-lookup"><span data-stu-id="e4863-145">Fix the bug in the `Product` method of *MathController.cs* so it returns the product and not the sum:</span></span>
 
 ```csharp
 public static int Product(int a, int b)
@@ -104,35 +106,35 @@ public static int Product(int a, int b)
 }
 ```
 
-<span data-ttu-id="8738a-146">Soubor uložte.</span><span class="sxs-lookup"><span data-stu-id="8738a-146">Save the file.</span></span> <span data-ttu-id="8738a-147">Výstup konzoly indikuje, že `dotnet watch` zjistil změnu souboru a restartuje aplikaci.</span><span class="sxs-lookup"><span data-stu-id="8738a-147">The console output indicates that `dotnet watch` detected a file change and restarted the app.</span></span>
+<span data-ttu-id="e4863-146">Soubor uložte.</span><span class="sxs-lookup"><span data-stu-id="e4863-146">Save the file.</span></span> <span data-ttu-id="e4863-147">Výstup konzoly indikuje, že `dotnet watch` zjistil změnu souboru a restartuje aplikaci.</span><span class="sxs-lookup"><span data-stu-id="e4863-147">The console output indicates that `dotnet watch` detected a file change and restarted the app.</span></span>
 
-<span data-ttu-id="8738a-148">Ověřování `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí správný výsledek.</span><span class="sxs-lookup"><span data-stu-id="8738a-148">Verify `http://localhost:<port number>/api/math/product?a=4&b=5` returns the correct result.</span></span>
+<span data-ttu-id="e4863-148">Ověřování `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí správný výsledek.</span><span class="sxs-lookup"><span data-stu-id="e4863-148">Verify `http://localhost:<port number>/api/math/product?a=4&b=5` returns the correct result.</span></span>
 
-## <a name="run-tests-using-dotnet-watch"></a><span data-ttu-id="8738a-149">Spustit testy pomocí`dotnet watch`</span><span class="sxs-lookup"><span data-stu-id="8738a-149">Run tests using `dotnet watch`</span></span>
+## <a name="run-tests-using-dotnet-watch"></a><span data-ttu-id="e4863-149">Spustit testy pomocí`dotnet watch`</span><span class="sxs-lookup"><span data-stu-id="e4863-149">Run tests using `dotnet watch`</span></span>
 
-1. <span data-ttu-id="8738a-150">Změňte `Product` metodu *MathController.cs* zpět na vrácení součtu.</span><span class="sxs-lookup"><span data-stu-id="8738a-150">Change the `Product` method of *MathController.cs* back to returning the sum.</span></span> <span data-ttu-id="8738a-151">Soubor uložte.</span><span class="sxs-lookup"><span data-stu-id="8738a-151">Save the file.</span></span>
-1. <span data-ttu-id="8738a-152">V příkazovém prostředí přejděte do složky *WebAppTests* .</span><span class="sxs-lookup"><span data-stu-id="8738a-152">In a command shell, navigate to the *WebAppTests* folder.</span></span>
-1. <span data-ttu-id="8738a-153">Spusťte [dotnet Restore](/dotnet/core/tools/dotnet-restore).</span><span class="sxs-lookup"><span data-stu-id="8738a-153">Run [dotnet restore](/dotnet/core/tools/dotnet-restore).</span></span>
-1. <span data-ttu-id="8738a-154">Spusťte `dotnet watch test`.</span><span class="sxs-lookup"><span data-stu-id="8738a-154">Run `dotnet watch test`.</span></span> <span data-ttu-id="8738a-155">Jeho výstup označuje, že se test nezdařil a že sledovací proces čeká na změny souborů:</span><span class="sxs-lookup"><span data-stu-id="8738a-155">Its output indicates that a test failed and that the watcher is awaiting file changes:</span></span>
+1. <span data-ttu-id="e4863-150">Změňte `Product` metodu *MathController.cs* zpět na vrácení součtu.</span><span class="sxs-lookup"><span data-stu-id="e4863-150">Change the `Product` method of *MathController.cs* back to returning the sum.</span></span> <span data-ttu-id="e4863-151">Soubor uložte.</span><span class="sxs-lookup"><span data-stu-id="e4863-151">Save the file.</span></span>
+1. <span data-ttu-id="e4863-152">V příkazovém prostředí přejděte do složky *WebAppTests* .</span><span class="sxs-lookup"><span data-stu-id="e4863-152">In a command shell, navigate to the *WebAppTests* folder.</span></span>
+1. <span data-ttu-id="e4863-153">Spusťte [dotnet Restore](/dotnet/core/tools/dotnet-restore).</span><span class="sxs-lookup"><span data-stu-id="e4863-153">Run [dotnet restore](/dotnet/core/tools/dotnet-restore).</span></span>
+1. <span data-ttu-id="e4863-154">Spusťte příkaz `dotnet watch test`.</span><span class="sxs-lookup"><span data-stu-id="e4863-154">Run `dotnet watch test`.</span></span> <span data-ttu-id="e4863-155">Jeho výstup označuje, že se test nezdařil a že sledovací proces čeká na změny souborů:</span><span class="sxs-lookup"><span data-stu-id="e4863-155">Its output indicates that a test failed and that the watcher is awaiting file changes:</span></span>
 
      ```console
      Total tests: 2. Passed: 1. Failed: 1. Skipped: 0.
      Test Run Failed.
      ```
 
-1. <span data-ttu-id="8738a-156">Opravte `Product` kód metody tak, aby vrátil produkt.</span><span class="sxs-lookup"><span data-stu-id="8738a-156">Fix the `Product` method code so it returns the product.</span></span> <span data-ttu-id="8738a-157">Soubor uložte.</span><span class="sxs-lookup"><span data-stu-id="8738a-157">Save the file.</span></span>
+1. <span data-ttu-id="e4863-156">Opravte `Product` kód metody tak, aby vrátil produkt.</span><span class="sxs-lookup"><span data-stu-id="e4863-156">Fix the `Product` method code so it returns the product.</span></span> <span data-ttu-id="e4863-157">Soubor uložte.</span><span class="sxs-lookup"><span data-stu-id="e4863-157">Save the file.</span></span>
 
-<span data-ttu-id="8738a-158">`dotnet watch`zjistí změnu souboru a znovu spustí testy.</span><span class="sxs-lookup"><span data-stu-id="8738a-158">`dotnet watch` detects the file change and reruns the tests.</span></span> <span data-ttu-id="8738a-159">Výstup konzoly indikuje úspěšné testy.</span><span class="sxs-lookup"><span data-stu-id="8738a-159">The console output indicates the tests passed.</span></span>
+<span data-ttu-id="e4863-158">`dotnet watch`zjistí změnu souboru a znovu spustí testy.</span><span class="sxs-lookup"><span data-stu-id="e4863-158">`dotnet watch` detects the file change and reruns the tests.</span></span> <span data-ttu-id="e4863-159">Výstup konzoly indikuje úspěšné testy.</span><span class="sxs-lookup"><span data-stu-id="e4863-159">The console output indicates the tests passed.</span></span>
 
-## <a name="customize-files-list-to-watch"></a><span data-ttu-id="8738a-160">Přizpůsobení seznamu souborů pro sledování</span><span class="sxs-lookup"><span data-stu-id="8738a-160">Customize files list to watch</span></span>
+## <a name="customize-files-list-to-watch"></a><span data-ttu-id="e4863-160">Přizpůsobení seznamu souborů pro sledování</span><span class="sxs-lookup"><span data-stu-id="e4863-160">Customize files list to watch</span></span>
 
-<span data-ttu-id="8738a-161">Ve výchozím nastavení `dotnet-watch` sleduje všechny soubory, které odpovídají následujícím vzorům glob:</span><span class="sxs-lookup"><span data-stu-id="8738a-161">By default, `dotnet-watch` tracks all files matching the following glob patterns:</span></span>
+<span data-ttu-id="e4863-161">Ve výchozím nastavení `dotnet-watch` sleduje všechny soubory, které odpovídají následujícím vzorům glob:</span><span class="sxs-lookup"><span data-stu-id="e4863-161">By default, `dotnet-watch` tracks all files matching the following glob patterns:</span></span>
 
 * `**/*.cs`
 * `*.csproj`
 * `**/*.resx`
 
-<span data-ttu-id="8738a-162">Další položky lze přidat do seznamu sledování úpravou souboru *. csproj* .</span><span class="sxs-lookup"><span data-stu-id="8738a-162">More items can be added to the watch list by editing the *.csproj* file.</span></span> <span data-ttu-id="8738a-163">Položky lze zadat jednotlivě nebo pomocí glob vzorů.</span><span class="sxs-lookup"><span data-stu-id="8738a-163">Items can be specified individually or by using glob patterns.</span></span>
+<span data-ttu-id="e4863-162">Další položky lze přidat do seznamu sledování úpravou souboru *. csproj* .</span><span class="sxs-lookup"><span data-stu-id="e4863-162">More items can be added to the watch list by editing the *.csproj* file.</span></span> <span data-ttu-id="e4863-163">Položky lze zadat jednotlivě nebo pomocí glob vzorů.</span><span class="sxs-lookup"><span data-stu-id="e4863-163">Items can be specified individually or by using glob patterns.</span></span>
 
 ```xml
 <ItemGroup>
@@ -141,9 +143,9 @@ public static int Product(int a, int b)
 </ItemGroup>
 ```
 
-## <a name="opt-out-of-files-to-be-watched"></a><span data-ttu-id="8738a-164">Výslovný souhlas se soubory, které se mají sledovat</span><span class="sxs-lookup"><span data-stu-id="8738a-164">Opt-out of files to be watched</span></span>
+## <a name="opt-out-of-files-to-be-watched"></a><span data-ttu-id="e4863-164">Výslovný souhlas se soubory, které se mají sledovat</span><span class="sxs-lookup"><span data-stu-id="e4863-164">Opt-out of files to be watched</span></span>
 
-<span data-ttu-id="8738a-165">`dotnet-watch`dá se nakonfigurovat tak, aby ignoroval výchozí nastavení.</span><span class="sxs-lookup"><span data-stu-id="8738a-165">`dotnet-watch` can be configured to ignore its default settings.</span></span> <span data-ttu-id="8738a-166">Chcete-li ignorovat konkrétní soubory, přidejte `Watch="false"` atribut do definice položky v souboru *. csproj* :</span><span class="sxs-lookup"><span data-stu-id="8738a-166">To ignore specific files, add the `Watch="false"` attribute to an item's definition in the *.csproj* file:</span></span>
+<span data-ttu-id="e4863-165">`dotnet-watch`dá se nakonfigurovat tak, aby ignoroval výchozí nastavení.</span><span class="sxs-lookup"><span data-stu-id="e4863-165">`dotnet-watch` can be configured to ignore its default settings.</span></span> <span data-ttu-id="e4863-166">Chcete-li ignorovat konkrétní soubory, přidejte `Watch="false"` atribut do definice položky v souboru *. csproj* :</span><span class="sxs-lookup"><span data-stu-id="e4863-166">To ignore specific files, add the `Watch="false"` attribute to an item's definition in the *.csproj* file:</span></span>
 
 ```xml
 <ItemGroup>
@@ -158,15 +160,15 @@ public static int Product(int a, int b)
 </ItemGroup>
 ```
 
-## <a name="custom-watch-projects"></a><span data-ttu-id="8738a-167">Vlastní projekty kukátka</span><span class="sxs-lookup"><span data-stu-id="8738a-167">Custom watch projects</span></span>
+## <a name="custom-watch-projects"></a><span data-ttu-id="e4863-167">Vlastní projekty kukátka</span><span class="sxs-lookup"><span data-stu-id="e4863-167">Custom watch projects</span></span>
 
-<span data-ttu-id="8738a-168">`dotnet-watch`není omezen na projekty C#.</span><span class="sxs-lookup"><span data-stu-id="8738a-168">`dotnet-watch` isn't restricted to C# projects.</span></span> <span data-ttu-id="8738a-169">Je možné vytvořit vlastní projekty kukátka pro zpracování různých scénářů.</span><span class="sxs-lookup"><span data-stu-id="8738a-169">Custom watch projects can be created to handle different scenarios.</span></span> <span data-ttu-id="8738a-170">Vezměte v úvahu následující rozložení projektu:</span><span class="sxs-lookup"><span data-stu-id="8738a-170">Consider the following project layout:</span></span>
+<span data-ttu-id="e4863-168">`dotnet-watch`není omezen na projekty C#.</span><span class="sxs-lookup"><span data-stu-id="e4863-168">`dotnet-watch` isn't restricted to C# projects.</span></span> <span data-ttu-id="e4863-169">Je možné vytvořit vlastní projekty kukátka pro zpracování různých scénářů.</span><span class="sxs-lookup"><span data-stu-id="e4863-169">Custom watch projects can be created to handle different scenarios.</span></span> <span data-ttu-id="e4863-170">Vezměte v úvahu následující rozložení projektu:</span><span class="sxs-lookup"><span data-stu-id="e4863-170">Consider the following project layout:</span></span>
 
-* <span data-ttu-id="8738a-171">**napaden**</span><span class="sxs-lookup"><span data-stu-id="8738a-171">**test/**</span></span>
-  * <span data-ttu-id="8738a-172">*UnitTests/UnitTests. csproj*</span><span class="sxs-lookup"><span data-stu-id="8738a-172">*UnitTests/UnitTests.csproj*</span></span>
-  * <span data-ttu-id="8738a-173">*IntegrationTests/IntegrationTests. csproj*</span><span class="sxs-lookup"><span data-stu-id="8738a-173">*IntegrationTests/IntegrationTests.csproj*</span></span>
+* <span data-ttu-id="e4863-171">**napaden**</span><span class="sxs-lookup"><span data-stu-id="e4863-171">**test/**</span></span>
+  * <span data-ttu-id="e4863-172">*UnitTests/UnitTests. csproj*</span><span class="sxs-lookup"><span data-stu-id="e4863-172">*UnitTests/UnitTests.csproj*</span></span>
+  * <span data-ttu-id="e4863-173">*IntegrationTests/IntegrationTests. csproj*</span><span class="sxs-lookup"><span data-stu-id="e4863-173">*IntegrationTests/IntegrationTests.csproj*</span></span>
 
-<span data-ttu-id="8738a-174">Pokud je cílem sledovat oba projekty, vytvořte vlastní soubor projektu nakonfigurovaný pro sledování obou projektů:</span><span class="sxs-lookup"><span data-stu-id="8738a-174">If the goal is to watch both projects, create a custom project file configured to watch both projects:</span></span>
+<span data-ttu-id="e4863-174">Pokud je cílem sledovat oba projekty, vytvořte vlastní soubor projektu nakonfigurovaný pro sledování obou projektů:</span><span class="sxs-lookup"><span data-stu-id="e4863-174">If the goal is to watch both projects, create a custom project file configured to watch both projects:</span></span>
 
 ```xml
 <Project>
@@ -183,14 +185,14 @@ public static int Product(int a, int b)
 </Project>
 ```
 
-<span data-ttu-id="8738a-175">Chcete-li spustit sledování souborů na obou projektech, přejděte do složky *test* .</span><span class="sxs-lookup"><span data-stu-id="8738a-175">To start file watching on both projects, change to the *test* folder.</span></span> <span data-ttu-id="8738a-176">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="8738a-176">Execute the following command:</span></span>
+<span data-ttu-id="e4863-175">Chcete-li spustit sledování souborů na obou projektech, přejděte do složky *test* .</span><span class="sxs-lookup"><span data-stu-id="e4863-175">To start file watching on both projects, change to the *test* folder.</span></span> <span data-ttu-id="e4863-176">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="e4863-176">Execute the following command:</span></span>
 
 ```dotnetcli
 dotnet watch msbuild /t:Test
 ```
 
-<span data-ttu-id="8738a-177">VSTest se spustí při každé změně souboru v jednom testovacím projektu.</span><span class="sxs-lookup"><span data-stu-id="8738a-177">VSTest executes when any file changes in either test project.</span></span>
+<span data-ttu-id="e4863-177">VSTest se spustí při každé změně souboru v jednom testovacím projektu.</span><span class="sxs-lookup"><span data-stu-id="e4863-177">VSTest executes when any file changes in either test project.</span></span>
 
-## <a name="dotnet-watch-in-github"></a><span data-ttu-id="8738a-178">`dotnet-watch`v GitHubu</span><span class="sxs-lookup"><span data-stu-id="8738a-178">`dotnet-watch` in GitHub</span></span>
+## <a name="dotnet-watch-in-github"></a><span data-ttu-id="e4863-178">`dotnet-watch`v GitHubu</span><span class="sxs-lookup"><span data-stu-id="e4863-178">`dotnet-watch` in GitHub</span></span>
 
-<span data-ttu-id="8738a-179">`dotnet-watch`je součástí [úložiště dotnet/AspNetCore](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch)v GitHubu.</span><span class="sxs-lookup"><span data-stu-id="8738a-179">`dotnet-watch` is part of the GitHub [dotnet/AspNetCore repository](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch).</span></span>
+<span data-ttu-id="e4863-179">`dotnet-watch`je součástí [úložiště dotnet/AspNetCore](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch)v GitHubu.</span><span class="sxs-lookup"><span data-stu-id="e4863-179">`dotnet-watch` is part of the GitHub [dotnet/AspNetCore repository](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch).</span></span>

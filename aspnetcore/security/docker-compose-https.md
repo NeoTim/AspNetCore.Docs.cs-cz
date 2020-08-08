@@ -7,6 +7,8 @@ ms.author: ravipal
 ms.custom: mvc
 ms.date: 03/28/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,61 +17,61 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-compose-https
-ms.openlocfilehash: a44e82be9c631aae788a671b514bab3b70f54522
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: c3b627cdc74f1b40611d84bc3419e678e2dfbba4
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407798"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022456"
 ---
-# <a name="hosting-aspnet-core-images-with-docker-compose-over-https"></a><span data-ttu-id="71001-103">Hostování ASP.NET Core imagí pomocí Docker Compose přes HTTPS</span><span class="sxs-lookup"><span data-stu-id="71001-103">Hosting ASP.NET Core images with Docker Compose over HTTPS</span></span>
+# <a name="hosting-aspnet-core-images-with-docker-compose-over-https"></a><span data-ttu-id="68429-103">Hostování ASP.NET Core imagí pomocí Docker Compose přes HTTPS</span><span class="sxs-lookup"><span data-stu-id="68429-103">Hosting ASP.NET Core images with Docker Compose over HTTPS</span></span>
 
 
-<span data-ttu-id="71001-104">ASP.NET Core [ve výchozím nastavení používá protokol HTTPS](/aspnet/core/security/enforcing-ssl).</span><span class="sxs-lookup"><span data-stu-id="71001-104">ASP.NET Core uses [HTTPS by default](/aspnet/core/security/enforcing-ssl).</span></span> <span data-ttu-id="71001-105">[Protokol HTTPS](https://en.wikipedia.org/wiki/HTTPS) spoléhá na [certifikáty](https://en.wikipedia.org/wiki/Public_key_certificate) pro důvěryhodnost, identitu a šifrování.</span><span class="sxs-lookup"><span data-stu-id="71001-105">[HTTPS](https://en.wikipedia.org/wiki/HTTPS) relies on [certificates](https://en.wikipedia.org/wiki/Public_key_certificate) for trust, identity, and encryption.</span></span>
+<span data-ttu-id="68429-104">ASP.NET Core [ve výchozím nastavení používá protokol HTTPS](/aspnet/core/security/enforcing-ssl).</span><span class="sxs-lookup"><span data-stu-id="68429-104">ASP.NET Core uses [HTTPS by default](/aspnet/core/security/enforcing-ssl).</span></span> <span data-ttu-id="68429-105">[Protokol HTTPS](https://en.wikipedia.org/wiki/HTTPS) spoléhá na [certifikáty](https://en.wikipedia.org/wiki/Public_key_certificate) pro důvěryhodnost, identitu a šifrování.</span><span class="sxs-lookup"><span data-stu-id="68429-105">[HTTPS](https://en.wikipedia.org/wiki/HTTPS) relies on [certificates](https://en.wikipedia.org/wiki/Public_key_certificate) for trust, identity, and encryption.</span></span>
 
-<span data-ttu-id="71001-106">Tento dokument vysvětluje, jak spustit předem připravené image kontejnerů pomocí protokolu HTTPS.</span><span class="sxs-lookup"><span data-stu-id="71001-106">This document explains how to run pre-built container images with HTTPS.</span></span>
+<span data-ttu-id="68429-106">Tento dokument vysvětluje, jak spustit předem připravené image kontejnerů pomocí protokolu HTTPS.</span><span class="sxs-lookup"><span data-stu-id="68429-106">This document explains how to run pre-built container images with HTTPS.</span></span>
 
-<span data-ttu-id="71001-107">Další informace najdete v tématu [vývoj aplikací ASP.NET Core s využitím Docker přes protokol HTTPS](https://github.com/dotnet/dotnet-docker/blob/master/samples/run-aspnetcore-https-development.md) pro vývojové scénáře.</span><span class="sxs-lookup"><span data-stu-id="71001-107">See [Developing ASP.NET Core Applications with Docker over HTTPS](https://github.com/dotnet/dotnet-docker/blob/master/samples/run-aspnetcore-https-development.md) for development scenarios.</span></span>
+<span data-ttu-id="68429-107">Další informace najdete v tématu [vývoj aplikací ASP.NET Core s využitím Docker přes protokol HTTPS](https://github.com/dotnet/dotnet-docker/blob/master/samples/run-aspnetcore-https-development.md) pro vývojové scénáře.</span><span class="sxs-lookup"><span data-stu-id="68429-107">See [Developing ASP.NET Core Applications with Docker over HTTPS](https://github.com/dotnet/dotnet-docker/blob/master/samples/run-aspnetcore-https-development.md) for development scenarios.</span></span>
 
-<span data-ttu-id="71001-108">Tato ukázka vyžaduje [docker 17,06](https://docs.docker.com/release-notes/docker-ce) nebo novější z [klienta Docker](https://www.docker.com/products/docker).</span><span class="sxs-lookup"><span data-stu-id="71001-108">This sample requires [Docker 17.06](https://docs.docker.com/release-notes/docker-ce) or later of the [Docker client](https://www.docker.com/products/docker).</span></span>
+<span data-ttu-id="68429-108">Tato ukázka vyžaduje [docker 17,06](https://docs.docker.com/release-notes/docker-ce) nebo novější z [klienta Docker](https://www.docker.com/products/docker).</span><span class="sxs-lookup"><span data-stu-id="68429-108">This sample requires [Docker 17.06](https://docs.docker.com/release-notes/docker-ce) or later of the [Docker client](https://www.docker.com/products/docker).</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="71001-109">Požadované součásti</span><span class="sxs-lookup"><span data-stu-id="71001-109">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="68429-109">Požadavky</span><span class="sxs-lookup"><span data-stu-id="68429-109">Prerequisites</span></span>
 
-<span data-ttu-id="71001-110">Některé pokyny v tomto dokumentu vyžadují [sadu SDK .NET Core 2,2](https://dotnet.microsoft.com/download) nebo novější.</span><span class="sxs-lookup"><span data-stu-id="71001-110">The [.NET Core 2.2 SDK](https://dotnet.microsoft.com/download) or later is required for some of the instructions in this document.</span></span>
+<span data-ttu-id="68429-110">Některé pokyny v tomto dokumentu vyžadují [sadu SDK .NET Core 2,2](https://dotnet.microsoft.com/download) nebo novější.</span><span class="sxs-lookup"><span data-stu-id="68429-110">The [.NET Core 2.2 SDK](https://dotnet.microsoft.com/download) or later is required for some of the instructions in this document.</span></span>
 
-## <a name="certificates"></a><span data-ttu-id="71001-111">Certifikáty</span><span class="sxs-lookup"><span data-stu-id="71001-111">Certificates</span></span>
+## <a name="certificates"></a><span data-ttu-id="68429-111">Certifikáty</span><span class="sxs-lookup"><span data-stu-id="68429-111">Certificates</span></span>
 
-<span data-ttu-id="71001-112">Pro [hostování v provozu](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/) v doméně je vyžadován certifikát od [certifikační autority](https://wikipedia.org/wiki/Certificate_authority) .</span><span class="sxs-lookup"><span data-stu-id="71001-112">A certificate from a [certificate authority](https://wikipedia.org/wiki/Certificate_authority) is required for [production hosting](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/) for a domain.</span></span> <span data-ttu-id="71001-113">[Let's Encrypt](https://letsencrypt.org/)je certifikační autorita, která nabízí bezplatné certifikáty.</span><span class="sxs-lookup"><span data-stu-id="71001-113">[Let's Encrypt](https://letsencrypt.org/) is a certificate authority that offers free certificates.</span></span>
+<span data-ttu-id="68429-112">Pro [hostování v provozu](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/) v doméně je vyžadován certifikát od [certifikační autority](https://wikipedia.org/wiki/Certificate_authority) .</span><span class="sxs-lookup"><span data-stu-id="68429-112">A certificate from a [certificate authority](https://wikipedia.org/wiki/Certificate_authority) is required for [production hosting](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/) for a domain.</span></span> <span data-ttu-id="68429-113">[Let's Encrypt](https://letsencrypt.org/)je certifikační autorita, která nabízí bezplatné certifikáty.</span><span class="sxs-lookup"><span data-stu-id="68429-113">[Let's Encrypt](https://letsencrypt.org/) is a certificate authority that offers free certificates.</span></span>
 
-<span data-ttu-id="71001-114">Tento dokument používá [certifikáty pro vývoj podepsaný svým držitelem](https://wikipedia.org/wiki/Self-signed_certificate) pro hostování předem vytvořených imagí `localhost` .</span><span class="sxs-lookup"><span data-stu-id="71001-114">This document uses [self-signed development certificates](https://wikipedia.org/wiki/Self-signed_certificate) for hosting pre-built images over `localhost`.</span></span> <span data-ttu-id="71001-115">Pokyny jsou podobné použití produkčních certifikátů.</span><span class="sxs-lookup"><span data-stu-id="71001-115">The instructions are similar to using production certificates.</span></span>
+<span data-ttu-id="68429-114">Tento dokument používá [certifikáty pro vývoj podepsaný svým držitelem](https://wikipedia.org/wiki/Self-signed_certificate) pro hostování předem vytvořených imagí `localhost` .</span><span class="sxs-lookup"><span data-stu-id="68429-114">This document uses [self-signed development certificates](https://wikipedia.org/wiki/Self-signed_certificate) for hosting pre-built images over `localhost`.</span></span> <span data-ttu-id="68429-115">Pokyny jsou podobné použití produkčních certifikátů.</span><span class="sxs-lookup"><span data-stu-id="68429-115">The instructions are similar to using production certificates.</span></span>
 
-<span data-ttu-id="71001-116">Pro produkční certifikáty:</span><span class="sxs-lookup"><span data-stu-id="71001-116">For production certificates:</span></span>
+<span data-ttu-id="68429-116">Pro produkční certifikáty:</span><span class="sxs-lookup"><span data-stu-id="68429-116">For production certificates:</span></span>
 
-* <span data-ttu-id="71001-117">`dotnet dev-certs`Nástroj není povinný.</span><span class="sxs-lookup"><span data-stu-id="71001-117">The `dotnet dev-certs` tool is not required.</span></span>
-* <span data-ttu-id="71001-118">Certifikáty není nutné ukládat v umístění, které jste použili v pokynech.</span><span class="sxs-lookup"><span data-stu-id="71001-118">Certificates don't need to be stored in the location used in the instructions.</span></span> <span data-ttu-id="71001-119">Certifikáty uložte v jakémkoli umístění mimo adresář webu.</span><span class="sxs-lookup"><span data-stu-id="71001-119">Store the certificates in any location outside the site directory.</span></span>
+* <span data-ttu-id="68429-117">`dotnet dev-certs`Nástroj není povinný.</span><span class="sxs-lookup"><span data-stu-id="68429-117">The `dotnet dev-certs` tool is not required.</span></span>
+* <span data-ttu-id="68429-118">Certifikáty není nutné ukládat v umístění, které jste použili v pokynech.</span><span class="sxs-lookup"><span data-stu-id="68429-118">Certificates don't need to be stored in the location used in the instructions.</span></span> <span data-ttu-id="68429-119">Certifikáty uložte v jakémkoli umístění mimo adresář webu.</span><span class="sxs-lookup"><span data-stu-id="68429-119">Store the certificates in any location outside the site directory.</span></span>
 
-<span data-ttu-id="71001-120">Pokyny obsažené v následujícím oddílu připojovat certifikáty do kontejnerů pomocí `volumes` vlastnosti v *Docker-Compose. yml.*</span><span class="sxs-lookup"><span data-stu-id="71001-120">The instructions contained in the following section volume mount certificates into containers using the `volumes` property in *docker-compose.yml.*</span></span> <span data-ttu-id="71001-121">Do imagí kontejnerů můžete přidat certifikáty pomocí `COPY` příkazu ve *souboru Dockerfile*, ale nedoporučuje se to.</span><span class="sxs-lookup"><span data-stu-id="71001-121">You could add certificates into container images with a `COPY` command in a *Dockerfile*, but it's not recommended.</span></span> <span data-ttu-id="71001-122">Kopírování certifikátů do bitové kopie se nedoporučuje z následujících důvodů:</span><span class="sxs-lookup"><span data-stu-id="71001-122">Copying certificates into an image isn't recommended for the following reasons:</span></span>
+<span data-ttu-id="68429-120">Pokyny obsažené v následujícím oddílu připojovat certifikáty do kontejnerů pomocí `volumes` vlastnosti v *Docker-Compose. yml.*</span><span class="sxs-lookup"><span data-stu-id="68429-120">The instructions contained in the following section volume mount certificates into containers using the `volumes` property in *docker-compose.yml.*</span></span> <span data-ttu-id="68429-121">Do imagí kontejnerů můžete přidat certifikáty pomocí `COPY` příkazu ve *souboru Dockerfile*, ale nedoporučuje se to.</span><span class="sxs-lookup"><span data-stu-id="68429-121">You could add certificates into container images with a `COPY` command in a *Dockerfile*, but it's not recommended.</span></span> <span data-ttu-id="68429-122">Kopírování certifikátů do bitové kopie se nedoporučuje z následujících důvodů:</span><span class="sxs-lookup"><span data-stu-id="68429-122">Copying certificates into an image isn't recommended for the following reasons:</span></span>
 
-* <span data-ttu-id="71001-123">Pro testování pomocí certifikátů pro vývojáře je obtížné použít stejný obrázek.</span><span class="sxs-lookup"><span data-stu-id="71001-123">It makes it difficult to use the same image for testing with developer certificates.</span></span>
-* <span data-ttu-id="71001-124">Je obtížné použít stejný obrázek pro hostování s provozními certifikáty.</span><span class="sxs-lookup"><span data-stu-id="71001-124">It makes it difficult to use the same image for Hosting with production certificates.</span></span>
-* <span data-ttu-id="71001-125">Existuje významné riziko odhalení certifikátu.</span><span class="sxs-lookup"><span data-stu-id="71001-125">There is significant risk of certificate disclosure.</span></span>
+* <span data-ttu-id="68429-123">Pro testování pomocí certifikátů pro vývojáře je obtížné použít stejný obrázek.</span><span class="sxs-lookup"><span data-stu-id="68429-123">It makes it difficult to use the same image for testing with developer certificates.</span></span>
+* <span data-ttu-id="68429-124">Je obtížné použít stejný obrázek pro hostování s provozními certifikáty.</span><span class="sxs-lookup"><span data-stu-id="68429-124">It makes it difficult to use the same image for Hosting with production certificates.</span></span>
+* <span data-ttu-id="68429-125">Existuje významné riziko odhalení certifikátu.</span><span class="sxs-lookup"><span data-stu-id="68429-125">There is significant risk of certificate disclosure.</span></span>
 
-## <a name="starting-a-container-with-https-support-using-docker-compose"></a><span data-ttu-id="71001-126">Spuštění kontejneru s podporou protokolu HTTPS pomocí sestavení Docker</span><span class="sxs-lookup"><span data-stu-id="71001-126">Starting a container with https support using docker compose</span></span>
+## <a name="starting-a-container-with-https-support-using-docker-compose"></a><span data-ttu-id="68429-126">Spuštění kontejneru s podporou protokolu HTTPS pomocí sestavení Docker</span><span class="sxs-lookup"><span data-stu-id="68429-126">Starting a container with https support using docker compose</span></span>
 
-<span data-ttu-id="71001-127">Pro konfiguraci operačního systému použijte následující pokyny.</span><span class="sxs-lookup"><span data-stu-id="71001-127">Use the following instructions for your operating system configuration.</span></span>
+<span data-ttu-id="68429-127">Pro konfiguraci operačního systému použijte následující pokyny.</span><span class="sxs-lookup"><span data-stu-id="68429-127">Use the following instructions for your operating system configuration.</span></span>
 
-### <a name="windows-using-linux-containers"></a><span data-ttu-id="71001-128">Windows s použitím kontejnerů Linux</span><span class="sxs-lookup"><span data-stu-id="71001-128">Windows using Linux containers</span></span>
+### <a name="windows-using-linux-containers"></a><span data-ttu-id="68429-128">Windows s použitím kontejnerů Linux</span><span class="sxs-lookup"><span data-stu-id="68429-128">Windows using Linux containers</span></span>
 
-<span data-ttu-id="71001-129">Generovat certifikát a nakonfigurovat místní počítač:</span><span class="sxs-lookup"><span data-stu-id="71001-129">Generate certificate and configure local machine:</span></span>
+<span data-ttu-id="68429-129">Generovat certifikát a nakonfigurovat místní počítač:</span><span class="sxs-lookup"><span data-stu-id="68429-129">Generate certificate and configure local machine:</span></span>
 
 ```dotnetcli
 dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { password here }
 dotnet dev-certs https --trust
 ```
 
-<span data-ttu-id="71001-130">V předchozích příkazech nahraďte `{ password here }` heslo.</span><span class="sxs-lookup"><span data-stu-id="71001-130">In the preceding commands, replace `{ password here }` with a password.</span></span>
+<span data-ttu-id="68429-130">V předchozích příkazech nahraďte `{ password here }` heslo.</span><span class="sxs-lookup"><span data-stu-id="68429-130">In the preceding commands, replace `{ password here }` with a password.</span></span>
 
-<span data-ttu-id="71001-131">Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:</span><span class="sxs-lookup"><span data-stu-id="71001-131">Create a _docker-compose.debug.yml_ file with the following content:</span></span>
+<span data-ttu-id="68429-131">Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:</span><span class="sxs-lookup"><span data-stu-id="68429-131">Create a _docker-compose.debug.yml_ file with the following content:</span></span>
 
 ```json
 version: '3.4'
@@ -88,28 +90,28 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
 ```
-<span data-ttu-id="71001-132">Heslo zadané v souboru Docker pro sestavení se musí shodovat s heslem použitým pro certifikát.</span><span class="sxs-lookup"><span data-stu-id="71001-132">The password specified in the docker compose file must match the password used for the certificate.</span></span>
+<span data-ttu-id="68429-132">Heslo zadané v souboru Docker pro sestavení se musí shodovat s heslem použitým pro certifikát.</span><span class="sxs-lookup"><span data-stu-id="68429-132">The password specified in the docker compose file must match the password used for the certificate.</span></span>
 
-<span data-ttu-id="71001-133">Spusťte kontejner s ASP.NET Core nakonfigurovanou pro protokol HTTPS:</span><span class="sxs-lookup"><span data-stu-id="71001-133">Start the container with ASP.NET Core configured for HTTPS:</span></span>
+<span data-ttu-id="68429-133">Spusťte kontejner s ASP.NET Core nakonfigurovanou pro protokol HTTPS:</span><span class="sxs-lookup"><span data-stu-id="68429-133">Start the container with ASP.NET Core configured for HTTPS:</span></span>
 
 ```console
 docker-compose -f "docker-compose.debug.yml" up -d
 ```
 
-### <a name="macos-or-linux"></a><span data-ttu-id="71001-134">macOS nebo Linux</span><span class="sxs-lookup"><span data-stu-id="71001-134">macOS or Linux</span></span>
+### <a name="macos-or-linux"></a><span data-ttu-id="68429-134">macOS nebo Linux</span><span class="sxs-lookup"><span data-stu-id="68429-134">macOS or Linux</span></span>
 
-<span data-ttu-id="71001-135">Generovat certifikát a nakonfigurovat místní počítač:</span><span class="sxs-lookup"><span data-stu-id="71001-135">Generate certificate and configure local machine:</span></span>
+<span data-ttu-id="68429-135">Generovat certifikát a nakonfigurovat místní počítač:</span><span class="sxs-lookup"><span data-stu-id="68429-135">Generate certificate and configure local machine:</span></span>
 
 ```dotnetcli
 dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { password here }
 dotnet dev-certs https --trust
 ```
 
-<span data-ttu-id="71001-136">`dotnet dev-certs https --trust`je podporován pouze v macOS a Windows.</span><span class="sxs-lookup"><span data-stu-id="71001-136">`dotnet dev-certs https --trust` is only supported on macOS and Windows.</span></span> <span data-ttu-id="71001-137">Musíte důvěřovat certifikátům v systému Linux způsobem, který podporuje vaše distribuce.</span><span class="sxs-lookup"><span data-stu-id="71001-137">You need to trust certificates on Linux in the way that is supported by your distribution.</span></span> <span data-ttu-id="71001-138">Je možné, že certifikát budete muset důvěřovat v prohlížeči.</span><span class="sxs-lookup"><span data-stu-id="71001-138">It is likely that you need to trust the certificate in your browser.</span></span>
+<span data-ttu-id="68429-136">`dotnet dev-certs https --trust`je podporován pouze v macOS a Windows.</span><span class="sxs-lookup"><span data-stu-id="68429-136">`dotnet dev-certs https --trust` is only supported on macOS and Windows.</span></span> <span data-ttu-id="68429-137">Musíte důvěřovat certifikátům v systému Linux způsobem, který podporuje vaše distribuce.</span><span class="sxs-lookup"><span data-stu-id="68429-137">You need to trust certificates on Linux in the way that is supported by your distribution.</span></span> <span data-ttu-id="68429-138">Je možné, že certifikát budete muset důvěřovat v prohlížeči.</span><span class="sxs-lookup"><span data-stu-id="68429-138">It is likely that you need to trust the certificate in your browser.</span></span>
 
-<span data-ttu-id="71001-139">V předchozích příkazech nahraďte `{ password here }` heslo.</span><span class="sxs-lookup"><span data-stu-id="71001-139">In the preceding commands, replace `{ password here }` with a password.</span></span>
+<span data-ttu-id="68429-139">V předchozích příkazech nahraďte `{ password here }` heslo.</span><span class="sxs-lookup"><span data-stu-id="68429-139">In the preceding commands, replace `{ password here }` with a password.</span></span>
 
-<span data-ttu-id="71001-140">Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:</span><span class="sxs-lookup"><span data-stu-id="71001-140">Create a _docker-compose.debug.yml_ file with the following content:</span></span>
+<span data-ttu-id="68429-140">Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:</span><span class="sxs-lookup"><span data-stu-id="68429-140">Create a _docker-compose.debug.yml_ file with the following content:</span></span>
 
 ```json
 version: '3.4'
@@ -128,26 +130,26 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
 ```
-<span data-ttu-id="71001-141">Heslo zadané v souboru Docker pro sestavení se musí shodovat s heslem použitým pro certifikát.</span><span class="sxs-lookup"><span data-stu-id="71001-141">The password specified in the docker compose file must match the password used for the certificate.</span></span>
+<span data-ttu-id="68429-141">Heslo zadané v souboru Docker pro sestavení se musí shodovat s heslem použitým pro certifikát.</span><span class="sxs-lookup"><span data-stu-id="68429-141">The password specified in the docker compose file must match the password used for the certificate.</span></span>
 
-<span data-ttu-id="71001-142">Spusťte kontejner s ASP.NET Core nakonfigurovanou pro protokol HTTPS:</span><span class="sxs-lookup"><span data-stu-id="71001-142">Start the container with ASP.NET Core configured for HTTPS:</span></span>
+<span data-ttu-id="68429-142">Spusťte kontejner s ASP.NET Core nakonfigurovanou pro protokol HTTPS:</span><span class="sxs-lookup"><span data-stu-id="68429-142">Start the container with ASP.NET Core configured for HTTPS:</span></span>
 
 ```console
 docker-compose -f "docker-compose.debug.yml" up -d
 ```
 
-### <a name="windows-using-windows-containers"></a><span data-ttu-id="71001-143">Windows s kontejnery Windows</span><span class="sxs-lookup"><span data-stu-id="71001-143">Windows using Windows containers</span></span>
+### <a name="windows-using-windows-containers"></a><span data-ttu-id="68429-143">Windows s kontejnery Windows</span><span class="sxs-lookup"><span data-stu-id="68429-143">Windows using Windows containers</span></span>
 
-<span data-ttu-id="71001-144">Generovat certifikát a nakonfigurovat místní počítač:</span><span class="sxs-lookup"><span data-stu-id="71001-144">Generate certificate and configure local machine:</span></span>
+<span data-ttu-id="68429-144">Generovat certifikát a nakonfigurovat místní počítač:</span><span class="sxs-lookup"><span data-stu-id="68429-144">Generate certificate and configure local machine:</span></span>
 
 ```dotnetcli
 dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { password here }
 dotnet dev-certs https --trust
 ```
 
-<span data-ttu-id="71001-145">V předchozích příkazech nahraďte `{ password here }` heslo.</span><span class="sxs-lookup"><span data-stu-id="71001-145">In the preceding commands, replace `{ password here }` with a password.</span></span>
+<span data-ttu-id="68429-145">V předchozích příkazech nahraďte `{ password here }` heslo.</span><span class="sxs-lookup"><span data-stu-id="68429-145">In the preceding commands, replace `{ password here }` with a password.</span></span>
 
-<span data-ttu-id="71001-146">Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:</span><span class="sxs-lookup"><span data-stu-id="71001-146">Create a _docker-compose.debug.yml_ file with the following content:</span></span>
+<span data-ttu-id="68429-146">Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:</span><span class="sxs-lookup"><span data-stu-id="68429-146">Create a _docker-compose.debug.yml_ file with the following content:</span></span>
 
 ```json
 version: '3.4'
@@ -166,9 +168,9 @@ services:
     volumes:
       - ${USERPROFILE}\.aspnet\https:C:\https:ro
 ```
-<span data-ttu-id="71001-147">Heslo zadané v souboru Docker pro sestavení se musí shodovat s heslem použitým pro certifikát.</span><span class="sxs-lookup"><span data-stu-id="71001-147">The password specified in the docker compose file must match the password used for the certificate.</span></span>
+<span data-ttu-id="68429-147">Heslo zadané v souboru Docker pro sestavení se musí shodovat s heslem použitým pro certifikát.</span><span class="sxs-lookup"><span data-stu-id="68429-147">The password specified in the docker compose file must match the password used for the certificate.</span></span>
 
-<span data-ttu-id="71001-148">Spusťte kontejner s ASP.NET Core nakonfigurovanou pro protokol HTTPS:</span><span class="sxs-lookup"><span data-stu-id="71001-148">Start the container with ASP.NET Core configured for HTTPS:</span></span>
+<span data-ttu-id="68429-148">Spusťte kontejner s ASP.NET Core nakonfigurovanou pro protokol HTTPS:</span><span class="sxs-lookup"><span data-stu-id="68429-148">Start the container with ASP.NET Core configured for HTTPS:</span></span>
 
 ```console
 docker-compose -f "docker-compose.debug.yml" up -d

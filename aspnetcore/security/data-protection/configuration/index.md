@@ -5,6 +5,8 @@ description: Objevte témata, která vysvětlují konfiguraci ochrany dat v ASP.
 ms.author: riande
 ms.date: 10/12/2017
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,25 +15,25 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/index
-ms.openlocfilehash: 9dfe20731fcec14fd359833b9a893f9305fecc10
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 241bdd9baf5aeb3a7c34f13a893ba5fc7ac7d033
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400697"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021390"
 ---
-# <a name="data-protection-configuration-in-aspnet-core"></a><span data-ttu-id="822b0-103">Konfigurace ochrany dat v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="822b0-103">Data Protection configuration in ASP.NET Core</span></span>
+# <a name="data-protection-configuration-in-aspnet-core"></a><span data-ttu-id="38043-103">Konfigurace ochrany dat v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="38043-103">Data Protection configuration in ASP.NET Core</span></span>
 
-<span data-ttu-id="822b0-104">Další informace o konfiguraci ochrany dat v ASP.NET Core najdete v těchto tématech:</span><span class="sxs-lookup"><span data-stu-id="822b0-104">Visit these topics to learn about Data Protection configuration in ASP.NET Core:</span></span>
+<span data-ttu-id="38043-104">Další informace o konfiguraci ochrany dat v ASP.NET Core najdete v těchto tématech:</span><span class="sxs-lookup"><span data-stu-id="38043-104">Visit these topics to learn about Data Protection configuration in ASP.NET Core:</span></span>
 
-* [<span data-ttu-id="822b0-105">Konfigurace ochrany ASP.NET Core dat</span><span class="sxs-lookup"><span data-stu-id="822b0-105">Configure ASP.NET Core Data Protection</span></span>](xref:security/data-protection/configuration/overview)  
-  <span data-ttu-id="822b0-106">Přehled konfigurace ASP.NET Core ochrany dat</span><span class="sxs-lookup"><span data-stu-id="822b0-106">An overview on configuring ASP.NET Core Data Protection.</span></span>
+* [<span data-ttu-id="38043-105">Konfigurace ochrany ASP.NET Core dat</span><span class="sxs-lookup"><span data-stu-id="38043-105">Configure ASP.NET Core Data Protection</span></span>](xref:security/data-protection/configuration/overview)  
+  <span data-ttu-id="38043-106">Přehled konfigurace ASP.NET Core ochrany dat</span><span class="sxs-lookup"><span data-stu-id="38043-106">An overview on configuring ASP.NET Core Data Protection.</span></span>
 
-* [<span data-ttu-id="822b0-107">Správa klíčů a doba života ochrany dat</span><span class="sxs-lookup"><span data-stu-id="822b0-107">Data Protection key management and lifetime</span></span>](xref:security/data-protection/configuration/default-settings)  
-  <span data-ttu-id="822b0-108">Informace o správě a životnosti klíčů pro ochranu dat.</span><span class="sxs-lookup"><span data-stu-id="822b0-108">Information on Data Protection key management and lifetime.</span></span>
+* [<span data-ttu-id="38043-107">Správa klíčů a doba života ochrany dat</span><span class="sxs-lookup"><span data-stu-id="38043-107">Data Protection key management and lifetime</span></span>](xref:security/data-protection/configuration/default-settings)  
+  <span data-ttu-id="38043-108">Informace o správě a životnosti klíčů pro ochranu dat.</span><span class="sxs-lookup"><span data-stu-id="38043-108">Information on Data Protection key management and lifetime.</span></span>
 
-* [<span data-ttu-id="822b0-109">Podpora zásad na úrovni počítače pro ochranu dat</span><span class="sxs-lookup"><span data-stu-id="822b0-109">Data Protection machine-wide policy support</span></span>](xref:security/data-protection/configuration/machine-wide-policy)  
-  <span data-ttu-id="822b0-110">Podrobnosti o nastavení výchozích zásad pro celý počítač pro všechny aplikace, které používají ochranu dat.</span><span class="sxs-lookup"><span data-stu-id="822b0-110">Details on setting a default machine-wide policy for all apps that use Data Protection.</span></span>
+* [<span data-ttu-id="38043-109">Podpora zásad na úrovni počítače pro ochranu dat</span><span class="sxs-lookup"><span data-stu-id="38043-109">Data Protection machine-wide policy support</span></span>](xref:security/data-protection/configuration/machine-wide-policy)  
+  <span data-ttu-id="38043-110">Podrobnosti o nastavení výchozích zásad pro celý počítač pro všechny aplikace, které používají ochranu dat.</span><span class="sxs-lookup"><span data-stu-id="38043-110">Details on setting a default machine-wide policy for all apps that use Data Protection.</span></span>
 
-* [<span data-ttu-id="822b0-111">Scénáře, které se nepoužívají při ochraně dat v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="822b0-111">Non-DI aware scenarios for Data Protection in ASP.NET Core</span></span>](xref:security/data-protection/configuration/non-di-scenarios)  
-  <span data-ttu-id="822b0-112">Použití konkrétního typu [DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider) k použití ochrany dat bez přechodu přes cesty kódu specifické pro di.</span><span class="sxs-lookup"><span data-stu-id="822b0-112">How to use the [DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider) concrete type to use Data Protection without going through DI-specific code paths.</span></span>
+* [<span data-ttu-id="38043-111">Scénáře, které se nepoužívají při ochraně dat v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="38043-111">Non-DI aware scenarios for Data Protection in ASP.NET Core</span></span>](xref:security/data-protection/configuration/non-di-scenarios)  
+  <span data-ttu-id="38043-112">Použití konkrétního typu [DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider) k použití ochrany dat bez přechodu přes cesty kódu specifické pro di.</span><span class="sxs-lookup"><span data-stu-id="38043-112">How to use the [DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider) concrete type to use Data Protection without going through DI-specific code paths.</span></span>
