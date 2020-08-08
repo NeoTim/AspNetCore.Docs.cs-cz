@@ -6,6 +6,8 @@ ms.author: riserrad
 ms.custom: mvc
 ms.date: 07/10/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: 43a2c4fed3a8873f64259167d3949d720f2c5dab
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a07786b1ae7e92e73d4336d0dd0bdbf99b571a0a
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406742"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022313"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>Publikování aplikace ASP.NET Core do Azure pomocí Visual Studio Code
 
@@ -81,7 +83,7 @@ Pokud příkaz níže nefunguje, ověřte, jestli je instalace správně nakonfi
 
 ### <a name="through-visual-studio-code-interface"></a>Přes Visual Studio Code rozhraní
 
-- Otevřít Visual Studio Code
+- Otevřete Visual Studio Code.
 - V nabídce vyberte`File > Open Folder`
 - Vyberte kořen složky, ve které jste vytvořili projekt MVC.
 

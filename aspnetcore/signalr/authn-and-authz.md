@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,20 +17,20 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 794465ceb69f47ee3d5cc8c100b321cb958d9cfe
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1e022c510dda3e39dd02d607f1d9c493aecdeb5a
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407132"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021559"
 ---
-# <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>Ověřování a autorizace v ASP.NET CoreSignalR
+# <a name="authentication-and-authorization-in-aspnet-core-no-locsignalr"></a>Ověřování a autorizace v ASP.NET CoreSignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>Ověřování uživatelů připojujících se k SignalR centru
+## <a name="authenticate-users-connecting-to-a-no-locsignalr-hub"></a>Ověřování uživatelů připojujících se k SignalR centru
 
 SignalRdá se použít s [ověřováním ASP.NET Core](xref:security/authentication/identity) k přidružení uživatele k jednotlivým připojením. V centru můžete k datům ověřování přicházet z vlastnosti [HubConnectionContext. User](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) . Ověřování umožňuje centru volat metody u všech připojení přidružených k uživateli. Další informace najdete v tématu [Správa uživatelů a skupin v SignalR ](xref:signalr/groups)nástroji. K jednomu uživateli může být přidruženo více připojení.
 
@@ -86,15 +88,15 @@ public void Configure(IApplicationBuilder app)
 
 ::: moniker-end
 
-### <a name="cookie-authentication"></a>Ověřování souborem cookie
+### <a name="no-loccookie-authentication"></a>Cookiepřihlašovací
 
-V aplikaci založené na prohlížeči umožňuje ověřování pomocí souborů cookie, aby vaše stávající uživatelská pověření automaticky pokračovala v SignalR připojeních. Při použití klienta prohlížeče není nutná žádná další konfigurace. Pokud je uživatel přihlášený do vaší aplikace, SignalR připojení Toto ověřování automaticky zdědí.
+V aplikaci založené na prohlížeči cookie ověřování umožňuje, aby vaše stávající uživatelská pověření automaticky pokračovala v SignalR připojeních. Při použití klienta prohlížeče není nutná žádná další konfigurace. Pokud je uživatel přihlášený do vaší aplikace, SignalR připojení Toto ověřování automaticky zdědí.
 
-Soubory cookie jsou způsoby, jak odesílat přístupové tokeny, ale klienti bez prohlížeče je mohou odeslat. Při použití [klienta .NET](xref:signalr/dotnet-client) `Cookies` lze vlastnost nakonfigurovat ve `.WithUrl` volání za účelem poskytnutí souboru cookie. Použití ověřování souborem cookie z klienta .NET ale vyžaduje, aby aplikace poskytovala rozhraní API pro výměnu ověřovacích dat pro soubor cookie.
+Cookies jsou způsoby, jak odesílat přístupové tokeny, ale klienti bez prohlížeče můžou je odeslat. Při použití [klienta .NET](xref:signalr/dotnet-client) `Cookies` lze vlastnost nakonfigurovat při `.WithUrl` volání metody pro poskytnutí cookie . Použití cookie ověřování od klienta .NET ale vyžaduje, aby aplikace poskytovala rozhraní API pro výměnu ověřovacích dat pro cookie .
 
 ### <a name="bearer-token-authentication"></a>Ověřování nosných tokenů
 
-Klient může místo použití souboru cookie zadat přístupový token. Server token ověří a použije ho k identifikaci uživatele. Toto ověření se provádí jenom v případě, že se naváže připojení. Během života připojení se server automaticky znovu neověřuje, aby zkontroloval odvolání tokenu.
+Klient může místo použití použít přístupový token cookie . Server token ověří a použije ho k identifikaci uživatele. Toto ověření se provádí jenom v případě, že se naváže připojení. Během života připojení se server automaticky znovu neověřuje, aby zkontroloval odvolání tokenu.
 
 Na serveru je ověřování pomocí tokenu nosiče nakonfigurované pomocí [middleware nosiče JWT](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer).
 
@@ -125,9 +127,9 @@ V případě standardních webových rozhraní API se tokeny nosiče odesílají
 > [!NOTE]
 > Řetězec dotazu se používá v prohlížečích při připojování k objektům WebSockets a událostem odesílaným serverem kvůli omezením rozhraní API prohlížeče. Při použití protokolu HTTPS jsou hodnoty řetězce dotazu zabezpečené připojením TLS. Mnoho serverů ale protokoluje hodnoty řetězce dotazu. Další informace najdete v tématu [požadavky na zabezpečení v SignalR ASP.NET Core ](xref:signalr/security). SignalRpomocí hlaviček odesílá tokeny v prostředích, které je podporují (například klienti .NET a Java).
 
-### <a name="cookies-vs-bearer-tokens"></a>Soubory cookie vs. nosných tokenů 
+### <a name="no-loccookies-vs-bearer-tokens"></a>Cookies vs. nosnými tokeny 
 
-Soubory cookie jsou specifické pro prohlížeče. Posílání z jiných druhů klientů přináší v porovnání s posíláním nosných tokenů složitost. V důsledku toho se ověřování souborů cookie nedoporučuje, pokud aplikace potřebuje jenom ověřovat uživatele z klienta prohlížeče. Ověřování nosných tokenů je doporučený postup při použití jiných klientů, než je klient prohlížeče.
+Cookies jsou specifické pro prohlížeče. Posílání z jiných druhů klientů přináší v porovnání s posíláním nosných tokenů složitost. V důsledku toho se cookie ověřování nedoporučuje, pokud aplikace potřebuje jenom ověřovat uživatele z klienta prohlížeče. Ověřování nosných tokenů je doporučený postup při použití jiných klientů, než je klient prohlížeče.
 
 ### <a name="windows-authentication"></a>Ověřování systému Windows
 

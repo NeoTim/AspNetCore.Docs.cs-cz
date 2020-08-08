@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/17/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: cfa1a4c67649e1816f510a33cc53e559c4a59153
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2d128d54dc9b1189124563e45d72d74b19704ab1
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408679"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022521"
 ---
-# <a name="aspnet-core-signalr-hosting-and-scaling"></a>ASP.NET Core SignalR hostování a škálování
+# <a name="aspnet-core-no-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR hostování a škálování
 
 Autor [: Andrew Stanton – sestry](https://twitter.com/anurse), [Brady gastera](https://twitter.com/bradygaster)a [Dykstra](https://github.com/tdykstra);
 
@@ -62,15 +64,15 @@ Aby SignalR využití prostředků mohlo způsobovat chyby v SignalR aplikaci, h
 
 Aplikace, která využívá SignalR potřebnou evidenci všech připojení, která vytváří problémy pro serverovou farmu. Přidejte server a získá nová připojení, o kterých ostatní servery nevědí. Například SignalR na každém serveru v následujícím diagramu neznáte připojení na ostatních serverech. Když SignalR na jednom ze serverů přeje odeslat zprávu všem klientům, zpráva se dostane jenom na klienty připojené k tomuto serveru.
 
-![Škálování SignalR bez plánu](scale/_static/scale-no-backplane.png)
+![Škálování::: No – Loc (Signal)::: bez plánu](scale/_static/scale-no-backplane.png)
 
 Možnosti řešení tohoto problému jsou [ SignalR služby Azure](#azure-signalr-service) a [Redis replánování](#redis-backplane).
 
-## <a name="azure-signalr-service"></a>SignalRSlužba Azure
+## <a name="azure-no-locsignalr-service"></a>SignalRSlužba Azure
 
 Služba Azure SignalR je proxy místo pro plán. Pokaždé, když klient inicializuje připojení k serveru, klient se přesměruje, aby se připojil ke službě. Tento proces je znázorněný v následujícím diagramu:
 
-![Navázání připojení ke SignalR službě Azure](scale/_static/azure-signalr-service-one-connection.png)
+![Navazování připojení k Azure::: No-Loc (Signal)::: Service](scale/_static/azure-signalr-service-one-connection.png)
 
 Výsledkem je, že služba spravuje všechna připojení klientů, zatímco každý server potřebuje jenom malý konstantní počet připojení ke službě, jak je znázorněno v následujícím diagramu:
 
@@ -126,14 +128,14 @@ proxy_set_header Connection $connection_upgrade;
 
 Další informace najdete v tématu [Nginx jako proxy server WebSocket](https://www.nginx.com/blog/websocket-nginx/).
 
-## <a name="third-party-signalr-backplane-providers"></a>SignalRPoskytovatelé pro replánování třetích stran
+## <a name="third-party-no-locsignalr-backplane-providers"></a>SignalRPoskytovatelé pro replánování třetích stran
 
 * [NCache](https://www.alachisoft.com/ncache/asp-net-core-signalr.html)
 * [Orleans](https://github.com/OrleansContrib/SignalR.Orleans)
 
 ## <a name="next-steps"></a>Další kroky
 
-Další informace najdete v následujících materiálech:
+Další informace naleznete v následujících zdrojích:
 
 * [SignalRDokumentace ke službě Azure](/azure/azure-signalr/signalr-overview)
 * [Nastavení Redisho plánu](xref:signalr/redis-backplane)

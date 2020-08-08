@@ -5,6 +5,8 @@ description: V této sérii kurzů se dozvíte, jak používat Razor stránky v 
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 77b230f14b4eef60d771daf8fe09288a9dd3c69c
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 5fb841de2fa9a04cf05aaf08f255041ee1952638
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86213000"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021091"
 ---
-# <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se Razor stránkami v ASP.NET Core
+# <a name="tutorial-get-started-with-no-locrazor-pages-in-aspnet-core"></a>Kurz: Začínáme se Razor stránkami v ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -60,7 +62,7 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
 ---
 
-## <a name="create-a-razor-pages-web-app"></a>Vytvoření Razor webové aplikace Pages
+## <a name="create-a-no-locrazor-pages-web-app"></a>Vytvoření Razor webové aplikace Pages
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -204,7 +206,7 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
 ---
 
-## <a name="create-a-razor-pages-web-app"></a>Vytvoření Razor webové aplikace Pages
+## <a name="create-a-no-locrazor-pages-web-app"></a>Vytvoření Razor webové aplikace Pages
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -356,9 +358,9 @@ Obsahuje vstupní bod pro program. Další informace naleznete v tématu <xref:f
 
 ### <a name="startupcs"></a>Startup.cs
 
-Obsahuje kód, který konfiguruje chování aplikace, například zda vyžaduje souhlas s soubory cookie. Další informace naleznete v tématu <xref:fundamentals/startup>.
+Obsahuje kód, který konfiguruje chování aplikace, například zda vyžaduje souhlas cookie s. Další informace naleznete v tématu <xref:fundamentals/startup>.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
 

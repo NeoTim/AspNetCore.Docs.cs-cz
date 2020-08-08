@@ -6,6 +6,8 @@ ms.author: riande
 ms.date: 7/18/2020
 ms.custom: mvc, seodec18
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/secure-data
-ms.openlocfilehash: 7d4c10fa0b1c569179fc3e0a518917ec0185c51f
-ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
+ms.openlocfilehash: 44777369693f9eb29d78c3ba638db2e692f430ae
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2020
-ms.locfileid: "87160273"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021182"
 ---
 # <a name="create-an-aspnet-core-web-app-with-user-data-protected-by-authorization"></a>Vytvoření webové aplikace v ASP.NET Core s uživatelskými daty chráněnými autorizací
 
@@ -71,12 +73,12 @@ Ukázka obsahuje následující obslužné rutiny autorizace:
 * `ContactManagerAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty.
 * `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Tento kurz je pokročilý. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
-* [Authentication](xref:security/authentication/identity)
+* [Ověřování](xref:security/authentication/identity)
 * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
 * [Autorizace](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
@@ -330,9 +332,9 @@ Snadný způsob, jak otestovat dokončenou aplikaci, je spustit tři různé pro
 
 | Uživatel                | Podsazený aplikací | Možnosti                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | No                | Upravit nebo odstranit vlastní data.                |
-| manager@contoso.com | Yes               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
-| admin@contoso.com   | Yes               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
+| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
+| manager@contoso.com | Ano               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
+| admin@contoso.com   | Ano               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
 
 V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstranění a úpravy v kontaktní osobě správce. Vložením těchto odkazů do prohlížeče testovacího uživatele ověříte, že testovací uživatel nemůže tyto operace provést.
 
@@ -425,12 +427,12 @@ Ukázka obsahuje následující obslužné rutiny autorizace:
 * `ContactManagerAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty.
 * `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Tento kurz je pokročilý. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
-* [Authentication](xref:security/authentication/identity)
+* [Ověřování](xref:security/authentication/identity)
 * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
 * [Autorizace](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
@@ -657,9 +659,9 @@ Snadný způsob, jak otestovat dokončenou aplikaci, je spustit tři různé pro
 
 | Uživatel                | Podsazený aplikací | Možnosti                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | No                | Upravit nebo odstranit vlastní data.                |
-| manager@contoso.com | Yes               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
-| admin@contoso.com   | Yes               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
+| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
+| manager@contoso.com | Ano               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
+| admin@contoso.com   | Ano               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
 
 V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstranění a úpravy v kontaktní osobě správce. Vložením těchto odkazů do prohlížeče testovacího uživatele ověříte, že testovací uživatel nemůže tyto operace provést.
 
@@ -710,7 +712,7 @@ Otestujte, že aplikace dosazený databázi. Pokud je ve službě Contact DB ně
 
 <a name="secure-data-add-resources-label"></a>
 
-### <a name="additional-resources"></a>Další zdroje informací
+### <a name="additional-resources"></a>Další zdroje
 
 * [Vytvoření webové aplikace .NET Core využívající SQL Database ve službě Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
 * [ASP.NET Core autorizačního prostředí](https://github.com/blowdart/AspNetAuthorizationWorkshop). Tato laboratoř obsahuje další podrobnosti o funkcích zabezpečení, které jsou představené v tomto kurzu.

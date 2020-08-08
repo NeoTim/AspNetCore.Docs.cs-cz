@@ -5,6 +5,8 @@ description: Naučte se vytvářet aplikace ASP.NET Core s potvrzením e-mailu a
 ms.author: riande
 ms.date: 03/11/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 1156ddd2921afbfeccaf077ca29d267f8b1e844a
-ms.sourcegitcommit: 3544941682869734ea0113e24e02ed0ec9e1a9ec
+ms.openlocfilehash: 7016c2c1997d961f4b3d3cf513fc1769bd65247b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2020
-ms.locfileid: "86464550"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021611"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -27,14 +29,14 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Ponant](https://github.com
 V tomto kurzu se dozvíte, jak vytvořit aplikaci ASP.NET Core s potvrzením e-mailu a resetováním hesla. Tento **kurz není** úvodním tématem. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/razor-pages/razor-pages-start)
-* [Authentication](xref:security/authentication/identity)
+* [Ověřování](xref:security/authentication/identity)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
 <!-- see C:/Dropbox/wrk/Code/SendGridConsole/Program.cs -->
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 [.NET Core 3,0 SDK nebo novější](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
@@ -67,7 +69,7 @@ Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázc
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
+Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Například:
 
 ```dotnetcli
 dotnet user-secrets set SendGridUser RickAndMSFT
@@ -103,7 +105,7 @@ V konzole správce balíčků zadejte následující příkaz:
 Install-Package SendGrid
 ```
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 Z konzoly zadejte následující příkaz:
 
@@ -231,11 +233,11 @@ Povolení potvrzení účtu na webu s uživateli zamkne všechny existující u�
 
 ::: moniker range="< aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 [.NET Core 2,2 SDK nebo novější](https://dotnet.microsoft.com/download/dotnet-core)
 
-## <a name="create-a-web--app-and-scaffold-identity"></a>Vytvoření webové aplikace a uživatelského rozhraníIdentity
+## <a name="create-a-web--app-and-scaffold-no-locidentity"></a>Vytvoření webové aplikace a uživatelského rozhraníIdentity
 
 Spuštěním následujících příkazů vytvořte webovou aplikaci s ověřováním.
 
@@ -287,7 +289,7 @@ Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázc
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
+Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Například:
 
 ```console
 C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT
@@ -321,7 +323,7 @@ V konzole správce balíčků zadejte následující příkaz:
 Install-Package SendGrid
 ```
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 Z konzoly zadejte následující příkaz:
 

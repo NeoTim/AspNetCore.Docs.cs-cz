@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,18 +16,18 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-2.0
-ms.openlocfilehash: 97d8606ba6bef0bb8bf23d1553c7cb5681fbdbd8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1ec51bf054f1f0d60ed27ee280f436e6d4c8c4b0
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404363"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021192"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2,0
 
 Tento článek zvýrazňuje nejvýznamnější změny v ASP.NET Core 2,0 s odkazy na příslušnou dokumentaci.
 
-## <a name="razor-pages"></a>RazorStránky
+## <a name="no-locrazor-pages"></a>RazorStránky
 
 RazorStránky jsou novou funkcí ASP.NET Core MVC, která usnadňuje a produktivnější vytváření kódu pro scénáře zaměřené na stránku.
 
@@ -72,7 +74,7 @@ Nové šablony jsou k dispozici pro konfiguraci ověřování pro webové aplika
 
 Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/3054).
 
-## <a name="identity-update"></a>IdentityUpdate
+## <a name="no-locidentity-update"></a>IdentityUpdate
 
 Usnadnili jsme vytváření zabezpečených webových rozhraní API pomocí Identity ASP.NET Core 2,0. Přístupové tokeny pro přístup k webovým rozhraním API můžete získat pomocí [knihovny Microsoft Authentication Library (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client).
 
@@ -136,7 +138,7 @@ Razorzobrazení předkompilace je ve výchozím nastavení povoleno, což snižu
 
 Další informace naleznete v tématu [ Razor zobrazení kompilace a předkompilace v ASP.NET Core](xref:mvc/views/view-compilation).
 
-## <a name="razor-support-for-c-71"></a>RazorPodpora pro C# 7,1
+## <a name="no-locrazor-support-for-c-71"></a>RazorPodpora pro C# 7,1
 
 RazorModul zobrazení byl aktualizován tak, aby fungoval s novým kompilátorem Roslyn. Který zahrnuje podporu pro funkce C# 7,1 jako výchozí výrazy, odvoditelné názvy řazené kolekce členů a porovnávání vzorů s obecnými typy. Chcete-li v projektu použít C# 7,1, přidejte do souboru projektu následující vlastnost a pak znovu načtěte toto řešení:
 

@@ -5,6 +5,8 @@ description: Přečtěte si o skriptování mezi weby (XSS) a techniky pro řeš
 ms.author: riande
 ms.date: 10/02/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,18 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cross-site-scripting
-ms.openlocfilehash: a94fe1612c023468238f09a91ddb0346b65d52ba
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 24fab313c3af30cfd4143ba29a33ba25bfcdf9a9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408016"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021806"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>Zabránit skriptování mezi weby (XSS) v ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Skriptování mezi weby (XSS) je ohrožení zabezpečení, které umožňuje útočníkovi umístit skripty na straně klienta (obvykle JavaScript) do webových stránek. Když ostatní uživatelé načtou ovlivněné stránky, spustí se skripty útočníka, což útočníkovi umožní ukrást soubory cookie a tokeny relace, změnit obsah webové stránky prostřednictvím manipulace s modelem DOM nebo přesměrovat prohlížeč na jinou stránku. K ohrožení zabezpečení XSS obvykle dochází, když aplikace přebírá uživatelem vstup a výstupuje na stránku bez ověřování, kódování nebo uvozovacího uvozovacího prvku.
+Skriptování mezi weby (XSS) je ohrožení zabezpečení, které umožňuje útočníkovi umístit skripty na straně klienta (obvykle JavaScript) do webových stránek. Když ostatní uživatelé načtou ovlivněné stránky, spustí se skripty útočníka, což útočníkovi umožní ukrást cookie a tokeny relace, změnit obsah webové stránky prostřednictvím manipulace s modelem DOM nebo přesměrovat prohlížeč na jinou stránku. K ohrožení zabezpečení XSS obvykle dochází, když aplikace přebírá uživatelem vstup a výstupuje na stránku bez ověřování, kódování nebo uvozovacího uvozovacího prvku.
 
 ## <a name="protecting-your-application-against-xss"></a>Ochrana aplikace proti XSS
 
@@ -40,7 +42,7 @@ Na základní úrovni technologie XSS funguje tak, že se podíváme na vaši ap
 
 5. Před vložením nedůvěryhodných dat do řetězce dotazu URL zajistěte, aby byla zakódovaná adresa URL.
 
-## <a name="html-encoding-using-razor"></a>Kódování HTML pomocíRazor
+## <a name="html-encoding-using-no-locrazor"></a>Kódování HTML pomocíRazor
 
 RazorModul používaný v MVC automaticky zakóduje všechny výstupy zdroje z proměnných, pokud nepracujete opravdu k tomu, aby se tak zabránilo. Používá pravidla kódování atributů HTML vždy, když použijete *@* směrnici. Kódování atributu HTML je nadmnožinou kódování HTML to znamená, že se nemusíte zabývat sami, ať už používáte kódování HTML nebo kódování atributů HTML. Je nutné, abyste měli jistotu, že budete používat pouze @ v kontextu jazyka HTML, nikoli při pokusu o vložení nedůvěryhodného vstupu přímo do JavaScriptu. Pomocník značek také zakóduje vstup, který použijete v parametrech značek.
 
@@ -63,7 +65,7 @@ Toto zobrazení vypíše obsah proměnné *untrustedInput* . Tato proměnná zah
 >[!WARNING]
 > ASP.NET Core MVC poskytuje `HtmlString` třídu, která není automaticky kódována při výstupu. Tato akce by se nikdy neměla používat v kombinaci s nedůvěryhodným vstupem, protože to vystavuje chybu zabezpečení XSS.
 
-## <a name="javascript-encoding-using-razor"></a>Kódování JavaScriptu pomocíRazor
+## <a name="javascript-encoding-using-no-locrazor"></a>Kódování JavaScriptu pomocíRazor
 
 Může nastat situace, kdy budete chtít vložit hodnotu do JavaScriptu pro zpracování v zobrazení. Můžete to provést dvěma způsoby. Nejbezpečnější způsob, jak vkládat hodnoty, je umístit hodnotu do atributu data tagu a načíst ho v JavaScriptu. Například:
 
@@ -174,7 +176,7 @@ public class HomeController : Controller
 
 ## <a name="encoding-url-parameters"></a>Kódování parametrů adresy URL
 
-Pokud chcete vytvořit řetězec dotazu URL s nedůvěryhodným vstupem jako hodnotu, použijte `UrlEncoder` ke kódování hodnoty. Třeba
+Pokud chcete vytvořit řetězec dotazu URL s nedůvěryhodným vstupem jako hodnotu, použijte `UrlEncoder` ke kódování hodnoty. Příklad:
 
 ```csharp
 var example = "\"Quoted Value with spaces and &\"";

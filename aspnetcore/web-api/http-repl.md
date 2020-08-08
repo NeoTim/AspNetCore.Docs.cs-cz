@@ -7,6 +7,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 05/20/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: ead745ae8843173bb25b94672005cc6ce295db2e
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0fb19aa19703e68812b83f0631f029dd66a3d64e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403375"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021325"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -35,12 +37,12 @@ Smyčka HTTP Read-Eval-Print (REPL) je:
 Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods) :
 
 * [DSTRANIT](#test-http-delete-requests)
-* [Čtěte](#test-http-get-requests)
-* [ZÁHLAVÍ](#test-http-head-requests)
+* [GET](#test-http-get-requests)
+* [HEAD](#test-http-head-requests)
 * [NASTAVENÍ](#test-http-options-requests)
 * [POUŽITA](#test-http-patch-requests)
 * [SPUŠTĚNÍ](#test-http-post-requests)
-* [PŘEVÉST](#test-http-put-requests)
+* [PUT](#test-http-put-requests)
 
 Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhraní API nebo si ho stáhněte](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([jak si ho stáhnout](xref:index#how-to-download-a-sample)).
 
@@ -996,7 +998,7 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
     https://localhost:5001/~ run C:\http-repl-scripts\people-script.txt
     ```
 
-    Zobrazí se výstup:
+    Objeví se následující výstup:
 
     ```console
     https://localhost:5001/~ set base https://localhost:5001

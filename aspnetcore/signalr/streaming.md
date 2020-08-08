@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: c7a3c7bb88230d84025bdf02deb98b51a2d1f92a
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e0eabe711fd69e42bd9bfa5e03a92e1df780e4db
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406170"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022508"
 ---
-# <a name="use-streaming-in-aspnet-core-signalr"></a>Použití streamování v ASP.NET CoreSignalR
+# <a name="use-streaming-in-aspnet-core-no-locsignalr"></a>Použití streamování v ASP.NET CoreSignalR
 
 Od [Brennan Conroy](https://github.com/BrennanConroy)
 
@@ -324,4 +326,4 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
 * [Centra](xref:signalr/hubs)
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
-* [Publikování aplikací do Azure](xref:signalr/publish-to-azure-web-app)
+* [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 2/18/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/filter
-ms.openlocfilehash: 626003ad75333cfaf17a3ea97549ca82650469a8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b8942020e98d0f985e5445bb1816c540bcb7829b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407366"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021403"
 ---
-# <a name="filter-methods-for-razor-pages-in-aspnet-core"></a>Filtrovat metody pro Razor stránky v ASP.NET Core
+# <a name="filter-methods-for-no-locrazor-pages-in-aspnet-core"></a>Filtrovat metody pro Razor stránky v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -57,7 +59,7 @@ RazorFiltry stránek poskytují následující metody, které lze použít glob�
 
 Implementujte **buď** synchronní, nebo asynchronní verzi rozhraní filtru, **nikoli** obojí. Rozhraní nejprve kontroluje, zda filtr implementuje asynchronní rozhraní, a pokud ano, zavolá tuto metodu. V takovém případě volá metody synchronního rozhraní. Pokud jsou implementována obě rozhraní, jsou zavolány pouze asynchronní metody. Stejné pravidlo se vztahuje na přepsání na stránkách, implementuje synchronní nebo asynchronní verzi přepsání, nikoli obojí.
 
-## <a name="implement-razor-page-filters-globally"></a>RazorGlobálně implementovat filtry stránek
+## <a name="implement-no-locrazor-page-filters-globally"></a>RazorGlobálně implementovat filtry stránek
 
 Následující kód implementuje `IAsyncPageFilter` :
 
@@ -81,7 +83,7 @@ Následující kód umožňuje `SamplePageFilter` :
 
 [!code-csharp[Main](filter/3.1sample/PageFilter/StartupSync.cs?name=snippet2)]
 
-## <a name="implement-razor-page-filters-by-overriding-filter-methods"></a>Implementace Razor filtrů stránek přepsáním metod filtrování
+## <a name="implement-no-locrazor-page-filters-by-overriding-filter-methods"></a>Implementace Razor filtrů stránek přepsáním metod filtrování
 
 Následující kód Přepisuje Razor filtry asynchronní stránky:
 
@@ -149,7 +151,7 @@ RazorFiltry stránek poskytují následující metody, které lze použít glob�
 > [!NOTE]
 > Implementujte **buď** synchronní, nebo asynchronní verzi rozhraní filtru, nikoli obojí. Rozhraní nejprve kontroluje, zda filtr implementuje asynchronní rozhraní, a pokud ano, zavolá tuto metodu. V takovém případě volá metody synchronního rozhraní. Pokud jsou implementována obě rozhraní, jsou zavolány pouze asynchronní metody. Stejné pravidlo se vztahuje na přepsání na stránkách, implementuje synchronní nebo asynchronní verzi přepsání, nikoli obojí.
 
-## <a name="implement-razor-page-filters-globally"></a>RazorGlobálně implementovat filtry stránek
+## <a name="implement-no-locrazor-page-filters-globally"></a>RazorGlobálně implementovat filtry stránek
 
 Následující kód implementuje `IAsyncPageFilter` :
 
@@ -177,7 +179,7 @@ Následující kód umožňuje `SamplePageFilter` :
 
 [!code-csharp[Main](filter/sample/PageFilter/StartupSync.cs?name=snippet2&highlight=11)]
 
-## <a name="implement-razor-page-filters-by-overriding-filter-methods"></a>Implementace Razor filtrů stránek přepsáním metod filtrování
+## <a name="implement-no-locrazor-page-filters-by-overriding-filter-methods"></a>Implementace Razor filtrů stránek přepsáním metod filtrování
 
 Následující kód Přepisuje Razor filtry synchronní stránky:
 

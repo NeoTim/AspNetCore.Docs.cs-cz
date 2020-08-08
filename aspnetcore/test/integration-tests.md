@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/14/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/integration-tests
-ms.openlocfilehash: c050665f630c0973abe6c9d08a4652597441639f
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 508c2d2cb668f5dbf416d341c1d9a966f9d16fd4
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445278"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021039"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -49,7 +51,7 @@ Testy integrace vyhodnocují komponenty aplikace na širší úrovni než [testy
 
 Tyto širší testy se používají k testování infrastruktury a celé architektury aplikace, často včetně následujících komponent:
 
-* databáze
+* Databáze
 * Systém souborů
 * Síťová zařízení
 * Kanál požadavků a odpovědí
@@ -140,11 +142,11 @@ Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/doc
 
 Následující testovací třída, `BasicTests` používá `WebApplicationFactory` k zavedení SUT a poskytuje [HttpClient](/dotnet/api/system.net.http.httpclient) testovací metodě, `Get_EndpointsReturnSuccessAndCorrectContentType` . Metoda zkontroluje, jestli je kód stavu odpovědi úspěšný (stavové kódy v rozsahu 200-299), a `Content-Type` záhlaví je `text/html; charset=utf-8` pro několik stránek aplikace.
 
-[CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient` , která automaticky následuje přesměrování a zpracovává soubory cookie.
+[CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient` , která se automaticky řídí přesměrováním a popisovači cookie s.
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet1)]
 
-Ve výchozím nastavení se soubory cookie, které nejsou nezbytné, nezachovají mezi požadavky, pokud je povolená [zásada pro vyjádření souhlasu GDPR](xref:security/gdpr) . Chcete-li zachovat soubory cookie, které nejsou nezbytné, například ty, které používá poskytovatel TempData, označte je jako nezbytné v testech. Pokyny k označení souboru cookie jako nezbytného najdete v tématu [základní soubory cookie](xref:security/gdpr#essential-cookies).
+Ve výchozím nastavení cookie nejsou všechny požadavky zachované, pokud je povolená [zásada pro vyjádření souhlasu s GDPR](xref:security/gdpr) . Chcete-li zachovat jiné než nezbytné cookie prvky, například ty, které používá poskytovatel TempData, označte je jako nezbytné v testech. Pokyny týkající se označení a cookie důležitosti najdete v části [základní cookie s](xref:security/gdpr#essential-cookies).
 
 ## <a name="customize-webapplicationfactory"></a>Přizpůsobení WebApplicationFactory
 
@@ -188,8 +190,8 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
 Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kterou automaticky provádí [systém ochrany dat proti padělání dat](xref:security/data-protection/introduction)aplikace. Aby bylo možné uspořádat požadavek POST testu, musí aplikace testů:
 
 1. Vytvořte požadavek na stránku.
-1. Analyzovat soubor cookie pro antipadělání a žádat ověřovací token z odpovědi.
-1. Proveďte požadavek POST se souborem cookie antipadělání a ověřovacím tokenem žádosti.
+1. Analyzovat antipadělání cookie a žádat ověřovací token z odpovědi.
+1. Proveďte požadavek POST se žádostí o cookie ověření a vyžádat ověřovací token.
 
 `SendAsync`Pomocné metody rozšíření (*helpers/HttpClientExtensions. cs*) a `GetDocumentAsync` pomocná metoda (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti falšování pomocí následujících metod:
 
@@ -200,7 +202,7 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
   * Odeslat tlačítko ( `IHtmlElement` ) a hodnoty formuláře ( `IEnumerable<KeyValuePair<string, string>>` )
 
 > [!NOTE]
-> [AngleSharp](https://anglesharp.github.io/) je knihovna analýzy třetí strany, která se používá pro demonstrační účely v tomto tématu a v ukázkové aplikaci. AngleSharp se nepodporuje nebo nevyžaduje pro testování integrace ASP.NET Corech aplikací. Lze použít jiné analyzátory, jako je například [HTML flexibility Pack (HAP)](https://html-agility-pack.net/). Další možností je napsat kód pro zpracování tokenu žádosti o ověření požadavku systému antipadělání a souboru cookie.
+> [AngleSharp](https://anglesharp.github.io/) je knihovna analýzy třetí strany, která se používá pro demonstrační účely v tomto tématu a v ukázkové aplikaci. AngleSharp se nepodporuje nebo nevyžaduje pro testování integrace ASP.NET Corech aplikací. Lze použít jiné analyzátory, jako je například [HTML flexibility Pack (HAP)](https://html-agility-pack.net/). Další možností je napsat kód pro zpracování tokenu pro ověření žádosti systému System a jeho padělání cookie .
 
 ## <a name="customize-the-client-with-withwebhostbuilder"></a>Přizpůsobení klienta pomocí WithWebHostBuilder
 
@@ -220,7 +222,7 @@ Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/d
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
-| [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, jestli `HttpClient` by instance měly zpracovávat soubory cookie. | `true` |
+| [Popisovač Cookie s](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, jestli se `HttpClient` mají zpracovat instance cookie . | `true` |
 | [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | Získá nebo nastaví maximální počet odpovědí přesměrování, které `HttpClient` by měly instance následovat. | 7 |
 
 Vytvořte `WebApplicationFactoryClientOptions` třídu a předejte ji metodě [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) (výchozí hodnoty jsou uvedeny v příkladu kódu):
@@ -437,7 +439,7 @@ Testy integrace vyhodnocují komponenty aplikace na širší úrovni než [testy
 
 Tyto širší testy se používají k testování infrastruktury a celé architektury aplikace, často včetně následujících komponent:
 
-* databáze
+* Databáze
 * Systém souborů
 * Síťová zařízení
 * Kanál požadavků a odpovědí
@@ -522,11 +524,11 @@ Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/doc
 
 Následující testovací třída, `BasicTests` používá `WebApplicationFactory` k zavedení SUT a poskytuje [HttpClient](/dotnet/api/system.net.http.httpclient) testovací metodě, `Get_EndpointsReturnSuccessAndCorrectContentType` . Metoda zkontroluje, jestli je kód stavu odpovědi úspěšný (stavové kódy v rozsahu 200-299), a `Content-Type` záhlaví je `text/html; charset=utf-8` pro několik stránek aplikace.
 
-[CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient` , která automaticky následuje přesměrování a zpracovává soubory cookie.
+[CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient` , která se automaticky řídí přesměrováním a popisovači cookie s.
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet1)]
 
-Ve výchozím nastavení se soubory cookie, které nejsou nezbytné, nezachovají mezi požadavky, pokud je povolená [zásada pro vyjádření souhlasu GDPR](xref:security/gdpr) . Chcete-li zachovat soubory cookie, které nejsou nezbytné, například ty, které používá poskytovatel TempData, označte je jako nezbytné v testech. Pokyny k označení souboru cookie jako nezbytného najdete v tématu [základní soubory cookie](xref:security/gdpr#essential-cookies).
+Ve výchozím nastavení cookie nejsou všechny požadavky zachované, pokud je povolená [zásada pro vyjádření souhlasu s GDPR](xref:security/gdpr) . Chcete-li zachovat jiné než nezbytné cookie prvky, například ty, které používá poskytovatel TempData, označte je jako nezbytné v testech. Pokyny týkající se označení a cookie důležitosti najdete v části [základní cookie s](xref:security/gdpr#essential-cookies).
 
 ## <a name="customize-webapplicationfactory"></a>Přizpůsobení WebApplicationFactory
 
@@ -551,8 +553,8 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
 Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kterou automaticky provádí [systém ochrany dat proti padělání dat](xref:security/data-protection/introduction)aplikace. Aby bylo možné uspořádat požadavek POST testu, musí aplikace testů:
 
 1. Vytvořte požadavek na stránku.
-1. Analyzovat soubor cookie pro antipadělání a žádat ověřovací token z odpovědi.
-1. Proveďte požadavek POST se souborem cookie antipadělání a ověřovacím tokenem žádosti.
+1. Analyzovat antipadělání cookie a žádat ověřovací token z odpovědi.
+1. Proveďte požadavek POST se žádostí o cookie ověření a vyžádat ověřovací token.
 
 `SendAsync`Pomocné metody rozšíření (*helpers/HttpClientExtensions. cs*) a `GetDocumentAsync` pomocná metoda (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti falšování pomocí následujících metod:
 
@@ -563,7 +565,7 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
   * Odeslat tlačítko ( `IHtmlElement` ) a hodnoty formuláře ( `IEnumerable<KeyValuePair<string, string>>` )
 
 > [!NOTE]
-> [AngleSharp](https://anglesharp.github.io/) je knihovna analýzy třetí strany, která se používá pro demonstrační účely v tomto tématu a v ukázkové aplikaci. AngleSharp se nepodporuje nebo nevyžaduje pro testování integrace ASP.NET Corech aplikací. Lze použít jiné analyzátory, jako je například [HTML flexibility Pack (HAP)](https://html-agility-pack.net/). Další možností je napsat kód pro zpracování tokenu žádosti o ověření požadavku systému antipadělání a souboru cookie.
+> [AngleSharp](https://anglesharp.github.io/) je knihovna analýzy třetí strany, která se používá pro demonstrační účely v tomto tématu a v ukázkové aplikaci. AngleSharp se nepodporuje nebo nevyžaduje pro testování integrace ASP.NET Corech aplikací. Lze použít jiné analyzátory, jako je například [HTML flexibility Pack (HAP)](https://html-agility-pack.net/). Další možností je napsat kód pro zpracování tokenu pro ověření žádosti systému System a jeho padělání cookie .
 
 ## <a name="customize-the-client-with-withwebhostbuilder"></a>Přizpůsobení klienta pomocí WithWebHostBuilder
 
@@ -583,7 +585,7 @@ Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/d
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
-| [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, jestli `HttpClient` by instance měly zpracovávat soubory cookie. | `true` |
+| [Popisovač Cookie s](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, jestli se `HttpClient` mají zpracovat instance cookie . | `true` |
 | [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | Získá nebo nastaví maximální počet odpovědí přesměrování, které `HttpClient` by měly instance následovat. | 7 |
 
 Vytvořte `WebApplicationFactoryClientOptions` třídu a předejte ji metodě [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) (výchozí hodnoty jsou uvedeny v příkladu kódu):

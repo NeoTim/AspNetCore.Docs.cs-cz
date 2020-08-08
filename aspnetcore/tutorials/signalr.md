@@ -6,6 +6,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/21/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: 91d7108748f3e2ae4d7db3791ebc1536e104e2a8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 51b9eae0d4746001696e0795467eaf4c0ab2c990
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406950"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022027"
 ---
-# <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s ASP.NET CoreSignalR
+# <a name="tutorial-get-started-with-aspnet-core-no-locsignalr"></a>Kurz: Začínáme s ASP.NET CoreSignalR
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -36,7 +38,7 @@ V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pom
 
 Na konci budete mít funkční chatovací aplikaci:
 
-![SignalRUkázková aplikace](signalr/_static/3.x/signalr-get-started-finished.png)
+![::: No-Loc (Signaler)::: Ukázková aplikace](signalr/_static/3.x/signalr-get-started-finished.png)
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -62,7 +64,7 @@ Na konci budete mít funkční chatovací aplikaci:
 
 * V dialogovém okně **vytvořit nový projekt** vyberte **ASP.NET Core webová aplikace**a pak vyberte **Další**.
 
-* V dialogovém okně **Konfigurovat nový projekt** pojmenujte projekt *SignalRChat*a pak vyberte **vytvořit**.
+* V dialogovém okně **Konfigurovat nový projekt** pojmenujte * SignalR chat*do projektu a pak vyberte **vytvořit**.
 
 * V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte **.net Core** a **ASP.NET Core 3,0**. 
 
@@ -89,11 +91,11 @@ Na konci budete mít funkční chatovací aplikaci:
 
 * Ujistěte se, že je **Cílová architektura** nastavená na **.NET Core 3,0**, a pak vyberte **Další**.
 
-* Pojmenujte projekt *SignalRChat*a pak vyberte **vytvořit**.
+* Pojmenujte * SignalR chat*do projektu a pak vyberte **vytvořit**.
 
 ---
 
-## <a name="add-the-signalr-client-library"></a>Přidat SignalR klientskou knihovnu
+## <a name="add-the-no-locsignalr-client-library"></a>Přidat SignalR klientskou knihovnu
 
 SignalRKnihovna serveru je součástí sdílené architektury ASP.NET Core 3,0. Klientská knihovna pro JavaScript není automaticky obsažena v projektu. Pro tento kurz použijte Správce knihovny (LibMan) k získání klientské knihovny z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může doručovat cokoli, co najdete v NPM, správce balíčků Node.js.
 
@@ -148,7 +150,7 @@ SignalRKnihovna serveru je součástí sdílené architektury ASP.NET Core 3,0. 
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* Přejděte do složky projektu (ta, která obsahuje soubor *SignalRChat. csproj* ).
+* Přejděte do složky projektu (ta, která obsahuje soubor * SignalR chat. csproj* ).
 
 * Spusťte následující příkaz, který načte SignalR klientskou knihovnu pomocí LibMan.
 
@@ -171,11 +173,11 @@ SignalRKnihovna serveru je součástí sdílené architektury ASP.NET Core 3,0. 
 
 ---
 
-## <a name="create-a-signalr-hub"></a>Vytvoření SignalR centra
+## <a name="create-a-no-locsignalr-hub"></a>Vytvoření SignalR centra
 
 *Centrum* je třída, která slouží jako kanál vysoké úrovně, který zpracovává komunikaci mezi klientem a serverem.
 
-* Ve složce projektu SignalRChat vytvořte složku *Centers* .
+* Ve SignalR složce projektu chatu vytvořte složku *Centers* .
 
 * Ve složce *Centers* vytvořte soubor *ChatHub.cs* s následujícím kódem:
 
@@ -185,7 +187,7 @@ SignalRKnihovna serveru je součástí sdílené architektury ASP.NET Core 3,0. 
 
   `SendMessage`Metoda může být volána připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. SignalRkód je asynchronní pro zajištění maximální škálovatelnosti.
 
-## <a name="configure-signalr"></a>KonfiguraceSignalR
+## <a name="configure-no-locsignalr"></a>KonfiguraceSignalR
 
 SignalRServer musí být nakonfigurován na předávání SignalR požadavků SignalR .
 
@@ -195,7 +197,7 @@ SignalRServer musí být nakonfigurován na předávání SignalR požadavků Si
 
   Tyto změny se přidají SignalR do systémů pro vkládání a směrování závislostí ASP.NET Core.
 
-## <a name="add-signalr-client-code"></a>Přidat SignalR klientský kód
+## <a name="add-no-locsignalr-client-code"></a>Přidat SignalR klientský kód
 
 * Nahraďte obsah v *Pages\Index.cshtml* následujícím kódem:
 
@@ -243,7 +245,7 @@ SignalRServer musí být nakonfigurován na předávání SignalR požadavků Si
 
   Název a zpráva se okamžitě zobrazí na obou stránkách.
 
-  ![SignalRUkázková aplikace](signalr/_static/3.x/signalr-get-started-finished.png)
+  ![::: No-Loc (Signaler)::: Ukázková aplikace](signalr/_static/3.x/signalr-get-started-finished.png)
 
 > [!TIP]
 > * Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že jste umístili *signalr.js* do jiné složky, než je směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.
@@ -267,7 +269,7 @@ V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pom
 > * Vytvořte SignalR centrum. 
 > * Nakonfigurujte projekt tak, aby se používal SignalR . 
 > * Přidejte kód, který odesílá zprávy od libovolného klienta ke všem připojeným klientům.  
-Na konci budete mít funkční chatovací aplikaci: ![SignalR ukázková aplikace](signalr/_static/2.x/signalr-get-started-finished.png)   
+Na konci budete mít funkční chatovací aplikaci: ![ ::: No-Loc (Signal)::: Ukázková aplikace](signalr/_static/2.x/signalr-get-started-finished.png)   
 
 ## <a name="prerequisites"></a>Požadavky    
 
@@ -291,7 +293,7 @@ Na konci budete mít funkční chatovací aplikaci: ![SignalR ukázková aplikac
 
 * V nabídce vyberte **soubor > nový projekt**. 
 
-* V dialogovém okně **Nový projekt** vyberte možnost **nainstalováno > Visual C# > web > ASP.NET Core webové aplikace**. Pojmenujte projekt *SignalRChat*. 
+* V dialogovém okně **Nový projekt** vyberte možnost **nainstalováno > Visual C# > web > ASP.NET Core webové aplikace**. Pojmenujte * SignalR chat*projektu.   
 
   ![Dialogové okno Nový projekt v aplikaci Visual Studio](signalr/_static/2.x/signalr-new-project-dialog.png)    
 
@@ -308,8 +310,8 @@ Na konci budete mít funkční chatovací aplikaci: ![SignalR ukázková aplikac
 * Spusťte následující příkazy:   
 
    ```dotnetcli 
-   dotnet new webapp -o SignalRChat 
-   code -r SignalRChat  
+   dotnet new webapp -o SignalRChat   
+   code -r SignalRChat    
    ```  
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)   
@@ -320,11 +322,11 @@ Na konci budete mít funkční chatovací aplikaci: ![SignalR ukázková aplikac
 
 * Vyberte **Další**.  
 
-* Pojmenujte projekt *SignalRChat*a pak vyberte **vytvořit**.   
+* Pojmenujte * SignalR chat*do projektu a pak vyberte **vytvořit**. 
 
 --- 
 
-## <a name="add-the-signalr-client-library"></a>Přidat SignalR klientskou knihovnu 
+## <a name="add-the-no-locsignalr-client-library"></a>Přidat SignalR klientskou knihovnu 
 
 SignalRKnihovna serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. Klientská knihovna pro JavaScript není automaticky obsažena v projektu. Pro tento kurz použijte Správce knihovny (LibMan) k získání klientské knihovny z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může doručovat cokoli, co najdete v NPM, správce balíčků Node.js.   
 
@@ -381,7 +383,7 @@ SignalRKnihovna serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. K
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli   
   ```   
 
-* Přejděte do složky projektu (ta, která obsahuje soubor *SignalRChat. csproj* ). 
+* Přejděte do složky projektu (ta, která obsahuje soubor * SignalR chat. csproj* ).   
 
 * Spusťte následující příkaz, který načte SignalR klientskou knihovnu pomocí LibMan.    
 
@@ -404,11 +406,11 @@ SignalRKnihovna serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. K
 
 --- 
 
-## <a name="create-a-signalr-hub"></a>Vytvoření SignalR centra   
+## <a name="create-a-no-locsignalr-hub"></a>Vytvoření SignalR centra   
 
 *Centrum* je třída, která slouží jako kanál vysoké úrovně, který zpracovává komunikaci mezi klientem a serverem.   
 
-* Ve složce projektu SignalRChat vytvořte složku *Centers* .    
+* Ve SignalR složce projektu chatu vytvořte složku *Centers* .  
 
 * Ve složce *Centers* vytvořte soubor *ChatHub.cs* s následujícím kódem: 
 
@@ -418,7 +420,7 @@ SignalRKnihovna serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. K
 
   `SendMessage`Metoda může být volána připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. SignalRkód je asynchronní pro zajištění maximální škálovatelnosti.    
 
-## <a name="configure-signalr"></a>KonfiguraceSignalR  
+## <a name="configure-no-locsignalr"></a>KonfiguraceSignalR  
 
 SignalRServer musí být nakonfigurován na předávání SignalR požadavků SignalR .    
 
@@ -428,7 +430,7 @@ SignalRServer musí být nakonfigurován na předávání SignalR požadavků Si
 
   Tyto změny se přidají SignalR do systému vkládání závislostí ASP.NET Core a do kanálu middlewaru.  
 
-## <a name="add-signalr-client-code"></a>Přidat SignalR klientský kód    
+## <a name="add-no-locsignalr-client-code"></a>Přidat SignalR klientský kód    
 
 * Nahraďte obsah v *Pages\Index.cshtml* následujícím kódem:  
 
@@ -476,7 +478,7 @@ SignalRServer musí být nakonfigurován na předávání SignalR požadavků Si
 
   Název a zpráva se okamžitě zobrazí na obou stránkách.   
 
-  ![SignalRUkázková aplikace](signalr/_static/2.x/signalr-get-started-finished.png) 
+  ![::: No-Loc (Signaler)::: Ukázková aplikace](signalr/_static/2.x/signalr-get-started-finished.png) 
 
 > [!TIP]    
 > Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že jste umístili *signalr.js* do jiné složky, než je směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.   

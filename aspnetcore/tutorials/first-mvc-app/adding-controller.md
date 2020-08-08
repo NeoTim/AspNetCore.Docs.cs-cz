@@ -5,6 +5,8 @@ description: Část 2 série kurzů na ASP.NET Core MVC
 ms.author: riande
 ms.date: 08/05/2017
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 30272900b2ff19879921f1954a1c9b3eba203ca4
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6a2c9fe6dde725129e293a3137c1281bfb1a30ef
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400450"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021052"
 ---
 # <a name="part-2-add-a-controller-to-an-aspnet-core-mvc-app"></a>Část 2, přidání kontroleru do aplikace ASP.NET Core MVC
 
@@ -96,7 +98,7 @@ Když přejdete do aplikace a nezadáte žádné segmenty adresy URL, použije s
 
 První segment adresy URL určuje třídu kontroleru, která se má spustit. Proto `localhost:{PORT}/HelloWorld` se namapuje na třídu kontroleru **HelloWorld**. Druhá část segmentu adresy URL určuje metodu Action třídy. Takže `localhost:{PORT}/HelloWorld/Index` by to způsobilo, že se `Index` Metoda `HelloWorldController` třídy spustí. Všimněte si, že jste museli procházet pouze `localhost:{PORT}/HelloWorld` a `Index` metoda byla volána ve výchozím nastavení. To je proto, že `Index` je výchozí metoda, která bude volána na řadiči, pokud není explicitně zadán název metody. Třetí část segmentu adresy URL ( `id` ) je určena pro data trasy. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
 
-Přejděte na `https://localhost:{PORT}/HelloWorld/Welcome`. `Welcome`Metoda se spustí a vrátí řetězec `This is the Welcome action method...` . Pro tuto adresu URL kontroler je `HelloWorld` a `Welcome` je metodou Action. Ještě jste nepoužili `[Parameters]` část této adresy URL.
+Přejděte na adresu `https://localhost:{PORT}/HelloWorld/Welcome`. `Welcome`Metoda se spustí a vrátí řetězec `This is the Welcome action method...` . Pro tuto adresu URL kontroler je `HelloWorld` a `Welcome` je metodou Action. Ještě jste nepoužili `[Parameters]` část této adresy URL.
 
 ![Okno prohlížeče ukazující odezvu aplikace na toto je metoda akce Welcome](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
@@ -215,7 +217,7 @@ Když přejdete do aplikace a nezadáte žádné segmenty adresy URL, použije s
 
 První segment adresy URL určuje třídu kontroleru, která se má spustit. Proto `localhost:{PORT}/HelloWorld` se mapuje na `HelloWorldController` třídu. Druhá část segmentu adresy URL určuje metodu Action třídy. Takže `localhost:{PORT}/HelloWorld/Index` by to způsobilo, že se `Index` Metoda `HelloWorldController` třídy spustí. Všimněte si, že jste museli procházet pouze `localhost:{PORT}/HelloWorld` a `Index` metoda byla volána ve výchozím nastavení. Důvodem je, že `Index` je výchozí metoda, která bude volána na řadiči, pokud není explicitně zadán název metody. Třetí část segmentu adresy URL ( `id` ) je určena pro data trasy. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
 
-Přejděte na `https://localhost:{PORT}/HelloWorld/Welcome`. `Welcome`Metoda se spustí a vrátí řetězec `This is the Welcome action method...` . Pro tuto adresu URL kontroler je `HelloWorld` a `Welcome` je metodou Action. Ještě jste nepoužili `[Parameters]` část této adresy URL.
+Přejděte na adresu `https://localhost:{PORT}/HelloWorld/Welcome`. `Welcome`Metoda se spustí a vrátí řetězec `This is the Welcome action method...` . Pro tuto adresu URL kontroler je `HelloWorld` a `Welcome` je metodou Action. Ještě jste nepoužili `[Parameters]` část této adresy URL.
 
 ![Okno prohlížeče ukazující odezvu aplikace na toto je metoda akce Welcome](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 

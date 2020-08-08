@@ -5,6 +5,8 @@ description: Část 4 série kurzů na ASP.NET Core MVC
 ms.author: riande
 ms.date: 01/13/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 77c12b98462c8a84ab807abef247573b6a028fcc
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: cc9c0447dc032ff0a88d379cd9d542e3406777bf
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86213166"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021962"
 ---
 # <a name="part-4-add-a-model-to-an-aspnet-core-mvc-app"></a>4. část Přidání modelu do aplikace ASP.NET Core MVC
 
@@ -286,7 +288,7 @@ Projděte si soubor migrace */{timestamp} _InitialCreate. cs* :
 
 <a name="test"></a>
 
-## <a name="test-the-app"></a>Testování aplikace
+## <a name="test-the-app"></a>Otestování aplikace
 
 * Spusťte aplikaci a klikněte na odkaz **video aplikace** .
 
@@ -407,7 +409,7 @@ Po vytvoření kontroleru filmů zahrnuje generování uživatelského rozhraní
 
 Vzhledem k tomu `Model` , že objekt je silného typu (jako `IEnumerable<Movie>` objekt), každá položka ve smyčce je zapsána jako `Movie` . Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)
 * [Globalizace a lokalizace](xref:fundamentals/localization)
@@ -613,7 +615,7 @@ Vytvořili jste kontext databáze a zaregistrovali jej pomocí kontejneru DI.
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a>Testování aplikace
+### <a name="test-the-app"></a>Otestování aplikace
 
 * Spusťte aplikaci a přidejte ji `/Movies` k adrese URL v prohlížeči ( `http://localhost:port/movies` ).
 
@@ -716,7 +718,7 @@ Když jste vytvořili kontroler filmů, generování uživatelského rozhraní a
 
 Vzhledem k tomu `Model` , že objekt je silného typu (jako `IEnumerable<Movie>` objekt), každá položka ve smyčce je zapsána jako `Movie` . Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu:
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)
 * [Globalizace a lokalizace](xref:fundamentals/localization)

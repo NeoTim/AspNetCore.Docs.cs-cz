@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: bf5fff213b2cd7db0b3227922a8c5babba2fc904
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 409ace5e3eaa4ab1de0b9d5f0cbd0e10d9243ea9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85409082"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022378"
 ---
-# <a name="host-aspnet-core-signalr-in-background-services"></a>Hostování ASP.NET Core SignalR ve službách na pozadí
+# <a name="host-aspnet-core-no-locsignalr-in-background-services"></a>Hostování ASP.NET Core SignalR ve službách na pozadí
 
 Od [Brady gastera](https://twitter.com/bradygaster)
 
@@ -42,7 +44,7 @@ Tento článek poskytuje pokyny pro:
 
 ::: moniker-end
 
-## <a name="enable-signalr-in-startup"></a>Povolit SignalR při spuštění
+## <a name="enable-no-locsignalr-in-startup"></a>Povolit SignalR při spuštění
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -90,7 +92,7 @@ Rozhraní používané silným typem `ClockHub` je `IClock` rozhraní.
 
 ::: moniker-end
 
-## <a name="call-a-signalr-hub-from-a-background-service"></a>Volání SignalR centra ze služby na pozadí
+## <a name="call-a-no-locsignalr-hub-from-a-background-service"></a>Volání SignalR centra ze služby na pozadí
 
 Při spuštění `Worker` `BackgroundService` je třída povolena pomocí `AddHostedService` .
 
@@ -113,7 +115,7 @@ Vzhledem k tomu SignalR , že je zároveň zapnutá i během `Startup` fáze, kd
 
 Jak `ExecuteAsync` je metoda volána iterativním způsobem ve službě na pozadí, je aktuální datum a čas serveru odesíláno připojeným klientům pomocí `ClockHub` .
 
-## <a name="react-to-signalr-events-with-background-services"></a>Reakce na SignalR události se službami na pozadí
+## <a name="react-to-no-locsignalr-events-with-background-services"></a>Reakce na SignalR události se službami na pozadí
 
 Podobně jako jedna stránková aplikace, která používá klienta JavaScriptu pro SignalR nebo desktopovou aplikaci .NET, může pomocí <xref:signalr/dotnet-client> implementace použít, a `BackgroundService` nebo použít implementaci, nebo `IHostedService` taky pro připojení k centrům SignalR a reakci na události.
 
@@ -158,5 +160,5 @@ Během `IHostedService.StopAsync` metody `HubConnection` je vyřazení asynchron
 
 * [Začínáme](xref:tutorials/signalr)
 * [Centra](xref:signalr/hubs)
-* [Publikování aplikací do Azure](xref:signalr/publish-to-azure-web-app)
+* [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
 * [Rozbočovače silného typu](xref:signalr/hubs#strongly-typed-hubs)

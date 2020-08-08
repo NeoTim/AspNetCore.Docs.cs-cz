@@ -7,6 +7,8 @@ ms.author: anurse
 ms.custom: signalr
 ms.date: 06/12/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: f2b864d47c98a031872be676a68143bd79f49829
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 61733fe4fbcd7b94662404a39a288ff2ce75ec53
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85409095"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021832"
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a diagnostika v ASP.NET CoreSignalR
+# <a name="logging-and-diagnostics-in-aspnet-core-no-locsignalr"></a>Protokolování a diagnostika v ASP.NET CoreSignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
@@ -90,7 +92,7 @@ Chcete-li protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v `con
 
 V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta jazyka JavaScript. Nastavením úrovně protokolu na jednu z těchto hodnot povolíte protokolování na této úrovni a všechny úrovně nad ním v tabulce.
 
-| Úroveň | Description |
+| Úroveň | Popis |
 | ----- | ----------- |
 | `None` | Nejsou protokolovány žádné zprávy. |
 | `Critical` | Zprávy indikující selhání v celé aplikaci. |
@@ -218,11 +220,11 @@ Diagnostické soubory můžete k problémům s GitHubem připojit tak, že je p�
 
 Metrika je reprezentace datových měr v časových intervalech. Například požadavky za sekundu. Data metrik umožňují sledovat stav aplikace na vysoké úrovni. Metriky .NET gRPC jsou vydávány pomocí <xref:System.Diagnostics.Tracing.EventCounter> .
 
-### <a name="signalr-server-metrics"></a>SignalRmetriky serveru
+### <a name="no-locsignalr-server-metrics"></a>SignalRmetriky serveru
 
 SignalRmetriky serveru jsou hlášeny ve <xref:Microsoft.AspNetCore.Http.Connections> zdroji událostí.
 
-| Name                    | Description                 |
+| Název                    | Popis                 |
 |-------------------------|-----------------------------|
 | `connections-started`   | Celkový počet spuštěných připojení   |
 | `connections-stopped`   | Celkový počet zastavených připojení   |
@@ -247,7 +249,7 @@ Press p to pause, r to resume, q to quit.
     Total Connections Timed Out                 0
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:signalr/configuration>
 * <xref:signalr/javascript-client>

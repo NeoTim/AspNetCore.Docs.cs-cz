@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,20 +16,20 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 1bc9b2b081c58392bd2c226ebedc804b43810bc2
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: dad2e667cb6fa3ace7cb5e5dcb982511357ed49b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408848"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021520"
 ---
-# <a name="part-8-add-validation-to-an-aspnet-core-razor-page"></a>Část 8 – přidání ověřování na stránku ASP.NET Core Razor
+# <a name="part-8-add-validation-to-an-aspnet-core-no-locrazor-page"></a>Část 8 – přidání ověřování na stránku ASP.NET Core Razor
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V této části je logika ověřování přidána do `Movie` modelu. Ověřovací pravidla se vynutily pokaždé, když uživatel vytvoří nebo upraví film.
 
-## <a name="validation"></a>Ověřování
+## <a name="validation"></a>Ověřování vstupů (validace)
 
 Key principem vývoje softwaru se nazývá [suchý](https://wikipedia.org/wiki/Don%27t_repeat_yourself) ("**D**on't **R**EPEAT **Y**ourself"). RazorStránky přivíjejí vývoj, ve kterém jsou funkce zadány jednou a které se projeví v celé aplikaci. Bezsuchá může pomáhat:
 
@@ -63,7 +65,7 @@ Atributy ověřování určují chování, které chcete vyhovět pro vlastnosti
 
 Automatické vynucení ověřovacích pravidel nástrojem ASP.NET Core pomáhá zajistit větší odolnost aplikace. Také zajišťuje, že se nebudete moci zapomenout a neúmyslně ověřit data v databázi.
 
-### <a name="validation-error-ui-in-razor-pages"></a>Uživatelské rozhraní chyby ověřování na Razor stránkách
+### <a name="validation-error-ui-in-no-locrazor-pages"></a>Uživatelské rozhraní chyby ověřování na Razor stránkách
 
 Spusťte aplikaci a přejděte na stránky/filmy.
 
@@ -191,7 +193,7 @@ Add-Migration New_DataAnnotations
 Update-Database
 ```
 
-`Update-Database`spustí `Up` metody `New_DataAnnotations` třídy. Projděte si `Up` metodu:
+`Update-Database`spustí `Up` metody `New_DataAnnotations` třídy. Prohlédněte si metodu `Up`:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Migrations/20190724163003_New_DataAnnotations.cs?name=snippet)]
 
@@ -215,7 +217,7 @@ Migrace nejsou pro SQLite požadovány.
 
 ---
 
-### <a name="publish-to-azure"></a>Publikování aplikací do Azure
+### <a name="publish-to-azure"></a>Publikování do Azure
 
 Informace o nasazení do Azure najdete v tématu [kurz: sestavení aplikace ASP.NET Core v Azure pomocí SQL Database](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb).
 

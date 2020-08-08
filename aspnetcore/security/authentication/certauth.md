@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 07/16/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 06803ee57824bbfac5725763938abbb9db0e360a
-ms.sourcegitcommit: d9ae1f352d372a20534b57e23646c1a1d9171af1
+ms.openlocfilehash: 7a23f2b17cc8fb3a4989b9fddd5c128add13db5b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86568844"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021949"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
@@ -44,7 +46,7 @@ Do webové aplikace přidejte odkaz na balíček [Microsoft. AspNetCore. Authent
 
 Pokud se ověření nepovede, vrátí tato obslužná rutina `403 (Forbidden)` odpověď místo `401 (Unauthorized)` toho, jak byste mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
 
-Přidejte také `app.UseAuthentication();` do `Startup.Configure` metody. V opačném případě nebude `HttpContext.User` nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Příklad:
+Přidejte také `app.UseAuthentication();` do `Startup.Configure` metody. V opačném případě nebude `HttpContext.User` nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Například:
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -636,7 +638,7 @@ Následující přístup podporuje volitelné klientské certifikáty:
 
 * Nastavte vazbu pro doménu a subdoménu:
   * Například nastavte vazby v `contoso.com` a `myClient.contoso.com` . `contoso.com`Hostitel nevyžaduje klientský certifikát `myClient.contoso.com` , ale má.
-  * Další informace najdete tady:
+  * Další informace:
     * [Kestrel](/fundamentals/servers/kestrel):
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>

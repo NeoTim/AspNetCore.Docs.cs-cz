@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/memory
-ms.openlocfilehash: 8eec361efbc3c7dca6c0bef65b6f6b40b3b46798
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 131fd5f2d09b20814cbd557d6b6d873ce15501db
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404610"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021221"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť v paměti v ASP.NET Core
 
@@ -363,7 +365,7 @@ Použití `CancellationTokenSource` Možnosti umožňuje vyřazení více polož
 
 Použijte [službu na pozadí](xref:fundamentals/host/hosted-services) , například <xref:Microsoft.Extensions.Hosting.IHostedService> k aktualizaci mezipaměti. Služba na pozadí může přepočítat položky a pak je přiřadit do mezipaměti pouze v případě, že jsou připravené.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>

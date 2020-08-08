@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/policies
-ms.openlocfilehash: 668c68bc328860ef17e1f2df09103fca07733ef7
-ms.sourcegitcommit: 1b89fc58114a251926abadfd5c69c120f1ba12d8
+ms.openlocfilehash: 03d6e7fdc4ab4b5e4925508952bfd6c835d90486
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2020
-ms.locfileid: "87160171"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021273"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>Ověřování na základě zásad v ASP.NET Core
 
@@ -119,13 +121,13 @@ Použijte <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> nebo `
 
 Pokud používáte Razor stránky, přečtěte si téma [použití zásad na Razor stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.
 
-Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Příklad:
+Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Například:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="apply-policies-to-no-locrazor-pages"></a>Použít zásady na Razor stránky
 
-Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Příklad:
+Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Například:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
@@ -174,7 +176,7 @@ Předchozí průchod kódu [PendingRequirements](/dotnet/api/microsoft.aspnetcor
 
 ### <a name="handler-registration"></a>Registrace obslužné rutiny
 
-Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Příklad:
+Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Například:
 
 [!code-csharp[](policies/samples/3.0PoliciesAuthApp1/Startup.cs?range=31-32,39-40,42-45, 53-55, 58)]
 
@@ -227,7 +229,7 @@ Například předchozí `BadgeEntryHandler` může být přepsána následujíc�
 
 `HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte. Rozhraní, jako je MVC, nebo SignalR jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.
 
-Při použití směrování koncových bodů se autorizaci obvykle zpracovává pomocí middleware autorizace. V tomto případě `Resource` je vlastnost instancí třídy <xref:Microsoft.AspNetCore.Http.Endpoint> . Koncový bod se dá použít k testování základního prostředku, ke kterému se právě směrujete. Příklad:
+Při použití směrování koncových bodů se autorizaci obvykle zpracovává pomocí middleware autorizace. V tomto případě `Resource` je vlastnost instancí třídy <xref:Microsoft.AspNetCore.Http.Endpoint> . Koncový bod se dá použít k testování základního prostředku, ke kterému se právě směrujete. Například:
 
 ```csharp
 if (context.Resource is Endpoint endpoint)
@@ -355,13 +357,13 @@ Použijte <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> nebo `
 
 Pokud používáte Razor stránky, přečtěte si téma [použití zásad na Razor stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.
 
-Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Příklad:
+Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Například:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="apply-policies-to-no-locrazor-pages"></a>Použít zásady na Razor stránky
 
-Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Příklad:
+Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Například:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
@@ -408,7 +410,7 @@ Předchozí průchod kódu [PendingRequirements](/dotnet/api/microsoft.aspnetcor
 
 ### <a name="handler-registration"></a>Registrace obslužné rutiny
 
-Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Příklad:
+Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Například:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 

@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/08/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,16 +16,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 042b22a220d961773437e9d85d5f0c5782e29bea
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 66b307a3629e18e49b5bb6e65a156054c0002ba8
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406014"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022105"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>Autorizovat pomocí konkrétního schématu v ASP.NET Core
 
-V některých scénářích, jako jsou například jednostránkové aplikace (jednostránkové), je běžné použít více metod ověřování. Aplikace může například použít ověřování pomocí souborů cookie k přihlášení a ověření nosiče JWT pro požadavky JavaScriptu. V některých případech může aplikace mít několik instancí obslužné rutiny ověřování. Například dva obslužné rutiny souborů cookie, kde jedna obsahuje základní identitu a která je vytvořena, když byla aktivována aplikace Multi-Factor Authentication (MFA). Vícefaktorové ověřování může být aktivováno, protože uživatel požadoval operaci, která vyžaduje dodatečné zabezpečení. Další informace o vynucování MFA, když si uživatel vyžádá prostředek, který vyžaduje MFA, najdete v části věnované problému pro ochranu GitHubu [pomocí MFA](https://github.com/dotnet/AspNetCore.Docs/issues/15791#issuecomment-580464195).
+V některých scénářích, jako jsou například jednostránkové aplikace (jednostránkové), je běžné použít více metod ověřování. Aplikace může například použít cookie ověřování k přihlášení a ověření nosiče JWT pro požadavky JavaScriptu. V některých případech může aplikace mít několik instancí obslužné rutiny ověřování. Například dvě cookie obslužné rutiny, kde jedna obsahuje základní identitu a která je vytvořena, když byla aktivována aplikace Multi-Factor Authentication (MFA). Vícefaktorové ověřování může být aktivováno, protože uživatel požadoval operaci, která vyžaduje dodatečné zabezpečení. Další informace o vynucování MFA, když si uživatel vyžádá prostředek, který vyžaduje MFA, najdete v části věnované problému pro ochranu GitHubu [pomocí MFA](https://github.com/dotnet/AspNetCore.Docs/issues/15791#issuecomment-580464195).
 
 Schéma ověřování se jmenuje, když je ověřovací služba nakonfigurovaná během ověřování. Například:
 
@@ -43,7 +45,7 @@ public void ConfigureServices(IServiceCollection services)
         });
 ```
 
-V předchozím kódu byly přidány dvě obslužné rutiny ověřování: jeden pro soubory cookie a jeden pro nosič.
+V předchozím kódu byly přidány dvě obslužné rutiny ověřování: jeden pro cookie s a jeden pro nosič.
 
 >[!NOTE]
 >Zadáním výchozího schématu dojde `HttpContext.User` k nastavení vlastnosti na tuto identitu. Pokud toto chování nepřejete, zakažte ho voláním formuláře bez parametrů `AddAuthentication` .
@@ -63,7 +65,7 @@ public class MixedController : Controller
         JwtBearerDefaults.AuthenticationScheme;
 ```
 
-V předchozím příkladu jsou oba obslužné rutiny cookie a nosiče a mají možnost vytvořit a připojit identitu pro aktuálního uživatele. Zadáním jediného schématu se spustí odpovídající obslužná rutina.
+V předchozím příkladu cookie obslužné rutiny i nosiče jsou spuštěny a mají možnost vytvořit a připojit identitu pro aktuálního uživatele. Zadáním jediného schématu se spustí odpovídající obslužná rutina.
 
 ```csharp
 [Authorize(AuthenticationSchemes = 
@@ -71,7 +73,7 @@ V předchozím příkladu jsou oba obslužné rutiny cookie a nosiče a mají mo
 public class MixedController : Controller
 ```
 
-V předchozím kódu se spouští jenom obslužná rutina se schématem "nosič". Všechny identity založené na souborech cookie se ignorují.
+V předchozím kódu se spouští jenom obslužná rutina se schématem "nosič". Všechny cookie identity založené na základě jsou ignorovány.
 
 ## <a name="selecting-the-scheme-with-policies"></a>Výběr schématu pomocí zásad
 

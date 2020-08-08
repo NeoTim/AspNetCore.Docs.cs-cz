@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 03/26/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/sdk
-ms.openlocfilehash: 56b4d4c13023918a4ac25c8c5d8ad1ee2c346ac6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b960460a50558a11bc47f9a1844931aa32e3d696
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403037"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021416"
 ---
-# <a name="aspnet-core-razor-sdk"></a>RazorSada ASP.NET Core SDK
+# <a name="aspnet-core-no-locrazor-sdk"></a>RazorSada ASP.NET Core SDK
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -52,7 +54,7 @@ RazorSada SDK obsahuje `Content` položku s `Include` atributem nastaveným na `
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
-## <a name="use-the-razor-sdk"></a>Použití Razor sady SDK
+## <a name="use-the-no-locrazor-sdk"></a>Použití Razor sady SDK
 
 Většina webových aplikací není pro explicitní odkazování na Razor sadu SDK nutná.
 
@@ -111,7 +113,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 
 ::: moniker-end
 
-| Položky | Description |
+| Položky | Popis |
 | ----- | ----------- |
 | `RazorGenerate` | Prvky položky (soubory *. cshtml* ), které jsou vstupy pro generování kódu. |
 | `RazorComponent` | Prvky položky (soubory *. Razor* ), které jsou vstupy pro Razor generování kódu komponenty. |
@@ -133,7 +135,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | `CopyRazorGenerateFilesToPublishDirectory` | Při `true` kopírování `RazorGenerate` souborů položek (*. cshtml*) do adresáře pro publikování. RazorPro publikovanou aplikaci se obvykle nevyžadují soubory, pokud se účastní kompilace při sestavení nebo době publikování. Výchozí hodnota je `false` . |
 | `PreserveCompilationReferences` | Při `true` kopírování položek referenčního sestavení do adresáře pro publikování. V případě, že je Razor kompilace provedena v době sestavení nebo v době publikování, nejsou obvykle referenční sestavení vyžadována pro publikovanou aplikaci. Nastavte na, `true` Pokud publikovaná aplikace vyžaduje kompilaci za běhu. Například nastavte hodnotu na, `true` Pokud aplikace upraví soubory *. cshtml* za běhu nebo používá vložená zobrazení. Výchozí hodnota je `false` . |
 | `IncludeRazorContentInPack` | `true` Razor V případě jsou všechny položky obsahu (soubory *. cshtml* ) označeny pro zahrnutí do generovaného balíčku NuGet. Výchozí hodnota je `false` . |
-| `EmbedRazorGenerateSources` | Když `true` přidá položky RazorGenerate (*. cshtml*) jako vložené soubory do generovaného Razor sestavení. Výchozí hodnota je `false` . |
+| `EmbedRazorGenerateSources` | Kdy `true` přidá Razor položky Generate (*. cshtml*) jako vložené soubory do generovaného Razor sestavení. Výchozí hodnota je `false` . |
 | `UseRazorBuildServer` | `true`V případě používá trvalý proces sestavení serveru pro přesměrování práce generování kódu. Výchozí hodnota je `UseSharedCompilation` . |
 | `GenerateMvcApplicationPartsAssemblyAttributes` | Když `true` sada SDK generuje další atributy, pomocí kterých MVC za běhu provede zjišťování částí aplikace. |
 | `DefaultWebContentItemExcludes` | Vzor expanze názvů pro prvky položky, které mají být vyloučeny ze `Content` skupiny položek v projektech, které cílí na web nebo Razor sadu SDK |
@@ -157,7 +159,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | `CopyRazorGenerateFilesToPublishDirectory` | Při `true` kopírování `RazorGenerate` souborů položek (*. cshtml*) do adresáře pro publikování. RazorPro publikovanou aplikaci se obvykle nevyžadují soubory, pokud se účastní kompilace při sestavení nebo době publikování. Výchozí hodnota je `false` . |
 | `CopyRefAssembliesToPublishDirectory` | Při `true` kopírování položek referenčního sestavení do adresáře pro publikování. V případě, že je Razor kompilace provedena v době sestavení nebo v době publikování, nejsou obvykle referenční sestavení vyžadována pro publikovanou aplikaci. Nastavte na, `true` Pokud publikovaná aplikace vyžaduje kompilaci za běhu. Například nastavte hodnotu na, `true` Pokud aplikace upraví soubory *. cshtml* za běhu nebo používá vložená zobrazení. Výchozí hodnota je `false` . |
 | `IncludeRazorContentInPack` | `true` Razor V případě jsou všechny položky obsahu (soubory *. cshtml* ) označeny pro zahrnutí do generovaného balíčku NuGet. Výchozí hodnota je `false` . |
-| `EmbedRazorGenerateSources` | Když `true` přidá položky RazorGenerate (*. cshtml*) jako vložené soubory do generovaného Razor sestavení. Výchozí hodnota je `false` . |
+| `EmbedRazorGenerateSources` | Kdy `true` přidá Razor položky Generate (*. cshtml*) jako vložené soubory do generovaného Razor sestavení. Výchozí hodnota je `false` . |
 | `UseRazorBuildServer` | `true`V případě používá trvalý proces sestavení serveru pro přesměrování práce generování kódu. Výchozí hodnota je `UseSharedCompilation` . |
 | `GenerateMvcApplicationPartsAssemblyAttributes` | Když `true` sada SDK generuje další atributy, pomocí kterých MVC za běhu provede zjišťování částí aplikace. |
 | `DefaultWebContentItemExcludes` | Vzor expanze názvů pro prvky položky, které mají být vyloučeny ze `Content` skupiny položek v projektech, které cílí na web nebo Razor sadu SDK |
@@ -177,13 +179,13 @@ RazorSada SDK definuje dva primární cíle:
 * `RazorCompile`: Zkompiluje generované soubory *. cs* v Razor sestavení. Použijte `RazorCompileDependsOn` k určení dalších cílů, které mohou být spuštěny před nebo po tomto cíli.
 * `RazorComponentGenerate`: Kód generuje soubory *. cs* pro `RazorComponent` prvky položky. Vlastnost použijte `RazorComponentGenerateDependsOn` k určení dalších cílů, které mohou být spuštěny před nebo po tomto cíli.
 
-### <a name="runtime-compilation-of-razor-views"></a>Běhová kompilace Razor zobrazení
+### <a name="runtime-compilation-of-no-locrazor-views"></a>Běhová kompilace Razor zobrazení
 
 * Ve výchozím nastavení Razor SDK nepublikuje referenční sestavení, která jsou nutná k provedení kompilace za běhu. Výsledkem je selhání kompilace, když aplikační model spoléhá na kompilaci za běhu &mdash; . aplikace například používá vložená zobrazení nebo změny zobrazení po publikování aplikace. Nastavte `CopyRefAssembliesToPublishDirectory` na `true` pro pokračování v publikování referenčních sestavení.
 
 * V případě webové aplikace zajistěte, aby vaše aplikace byla cílena na `Microsoft.NET.Sdk.Web` sadu SDK.
 
-## <a name="razor-language-version"></a>Razorverze jazyka
+## <a name="no-locrazor-language-version"></a>Razorverze jazyka
 
 Při cílení na `Microsoft.NET.Sdk.Web` sadu SDK Razor je jazyková verze odvozena z verze cílového rozhraní Framework aplikace. Pro projekty `Microsoft.NET.Sdk.Razor` , které cílí na sadu SDK, nebo v případě, že aplikace vyžaduje jinou Razor verzi jazyka než odvozená hodnota, lze verzi nakonfigurovat nastavením `<RazorLangVersion>` vlastnosti v souboru projektu aplikace:
 

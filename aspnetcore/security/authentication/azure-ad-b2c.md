@@ -6,6 +6,8 @@ ms.author: casoper
 ms.custom: mvc
 ms.date: 01/21/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: 4933203b8bdd8f653268c1df7ff83b8e9423341f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 78fe4d5dd9e3f64789956e58a4490bef6bdbca1e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405065"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021702"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Cloudové ověřování pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -58,11 +60,11 @@ Použijte následující hodnoty:
 | Nastavení                       | Hodnota                     | Poznámky                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                      | *&lt;název aplikace&gt;*        | Zadejte **název** aplikace, který popíše vaši aplikaci pro uživatele.                                                                                                                                 |
-| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Yes                       |                                                                                                                                                                                                    |
-| **Povolit implicitní tok**       | Yes                       |                                                                                                                                                                                                    |
+| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Ano                       |                                                                                                                                                                                                    |
+| **Povolit implicitní tok**       | Ano                       |                                                                                                                                                                                                    |
 | **Adresa URL odpovědi**                 | `https://localhost:44300/signin-oidc` | Adresy URL odpovědí jsou koncové body, kam Azure AD B2C vrací všechny tokeny, které vaše aplikace požaduje. Visual Studio poskytuje adresu URL odpovědi, která se má použít. Prozatím zadejte `https://localhost:44300/signin-oidc` pro vyplnění formuláře. |
 | **Identifikátor URI ID aplikace**                | Ponechte prázdné               | Pro tento kurz není vyžadováno.                                                                                                                                                                    |
-| **Zahrnout nativního klienta**     | No                        |                                                                                                                                                                                                    |
+| **Zahrnout nativního klienta**     | Ne                        |                                                                                                                                                                                                    |
 
 > [!WARNING]
 > Pokud nastavili adresu URL odpovědi, která není localhost, pamatujte na [omezení, co je v seznamu Adresa URL odpovědi povolené](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application). 
@@ -114,7 +116,7 @@ Pomocí kroků v dokumentaci Azure AD B2C [vytvořte zásadu registrace nebo př
 > [!WARNING]
 > Zajistěte, aby názvy zásad byly přesně popsané v dokumentaci, protože se tyto zásady používaly v dialogovém okně **změnit ověřování** v aplikaci Visual Studio. Názvy zásad lze ověřit v *appsettings.js*.
 
-## <a name="configure-the-underlying-openidconnectoptionsjwtbearercookie-options"></a>Konfigurace základních možností OpenIdConnectOptions/JwtBearer/cookie
+## <a name="configure-the-underlying-openidconnectoptionsjwtbearerno-loccookie-options"></a>Konfigurovat základní OpenIdConnectOptions/JwtBearer/ Cookie Možnosti
 
 Chcete-li konfigurovat základní možnosti přímo, použijte odpovídající konstanty schématu v nástroji `Startup.ConfigureServices` :
 
@@ -140,7 +142,7 @@ services.Configure<JwtBearerOptions>(
 
 ## <a name="run-the-app"></a>Spuštění aplikace
 
-V aplikaci Visual Studio stiskněte klávesu **F5** a sestavte a spusťte aplikaci. Po spuštění webové aplikace vyberte **přijmout** a přijměte použití souborů cookie (Pokud se zobrazí výzva) a pak vyberte **Přihlásit**se.
+V aplikaci Visual Studio stiskněte klávesu **F5** a sestavte a spusťte aplikaci. Po spuštění webové aplikace vyberte **přijmout** , aby se přijměte použití cookie s (Pokud se zobrazí výzva), a pak vyberte **Přihlásit**se.
 
 ![Přihlášení k aplikaci](./azure-ad-b2c/_static/signin.png)
 
@@ -150,7 +152,7 @@ Prohlížeč přesměruje na tenanta Azure AD B2C. Přihlaste se pomocí existuj
 
 Po úspěšném přihlášení se prohlížeč přesměruje na webovou aplikaci.
 
-![Úspěch](./azure-ad-b2c/_static/success.png)
+![Success](./azure-ad-b2c/_static/success.png)
 
 ## <a name="next-steps"></a>Další kroky
 

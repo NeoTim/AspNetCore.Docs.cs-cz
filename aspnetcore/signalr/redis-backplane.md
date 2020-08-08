@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/redis-backplane
-ms.openlocfilehash: 58c1ff2c9334e75535f6e5f0f418976176822724
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d80bce204b467d436a3580933718147bc3fbe75c
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408471"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022482"
 ---
-# <a name="set-up-a-redis-backplane-for-aspnet-core-signalr-scale-out"></a>Nastavení Redisho plánu pro horizontální navýšení SignalR kapacity ASP.NET Core
+# <a name="set-up-a-redis-backplane-for-aspnet-core-no-locsignalr-scale-out"></a>Nastavení Redisho plánu pro horizontální navýšení SignalR kapacity ASP.NET Core
 
 Autor [: Andrew Stanton – sestry](https://twitter.com/anurse), [Brady gastera](https://twitter.com/bradygaster)a [Dykstra](https://github.com/tdykstra);
 
@@ -35,7 +37,7 @@ Tento článek vysvětluje SignalR konkrétní aspekty nastavení serveru [Redis
   > [!IMPORTANT] 
   > Pro produkční použití se doporučuje Redisý plán, který je spuštěný ve stejném datovém centru jako SignalR aplikace. V opačném případě latence sítě snižuje výkon. Pokud SignalR je vaše aplikace spuštěná v cloudu Azure, doporučujeme SignalR místo Redisho plánu použít službu Azure. Službu Azure Redis Cache můžete použít pro vývojová a testovací prostředí.
 
-  Další informace najdete v následujících materiálech:
+  Další informace naleznete v následujících zdrojích:
 
   * <xref:signalr/scale>
   * [Dokumentace k Redis](https://redis.io/)
@@ -232,7 +234,7 @@ services.AddSignalR()
 
 ## <a name="next-steps"></a>Další kroky
 
-Další informace najdete v následujících materiálech:
+Další informace naleznete v následujících zdrojích:
 
 * <xref:signalr/scale>
 * [Dokumentace k Redis](https://redis.io/documentation)

@@ -7,6 +7,8 @@ ms.author: ravipal
 ms.custom: mvc
 ms.date: 03/28/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-compose-https
-ms.openlocfilehash: a44e82be9c631aae788a671b514bab3b70f54522
-ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
+ms.openlocfilehash: c3b627cdc74f1b40611d84bc3419e678e2dfbba4
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2020
-ms.locfileid: "86407798"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022456"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-compose-over-https"></a>Hostování ASP.NET Core imagí pomocí Docker Compose přes HTTPS
 
@@ -33,7 +35,7 @@ Další informace najdete v tématu [vývoj aplikací ASP.NET Core s využitím 
 
 Tato ukázka vyžaduje [docker 17,06](https://docs.docker.com/release-notes/docker-ce) nebo novější z [klienta Docker](https://www.docker.com/products/docker).
 
-## <a name="prerequisites"></a>Požadované součásti
+## <a name="prerequisites"></a>Požadavky
 
 Některé pokyny v tomto dokumentu vyžadují [sadu SDK .NET Core 2,2](https://dotnet.microsoft.com/download) nebo novější.
 

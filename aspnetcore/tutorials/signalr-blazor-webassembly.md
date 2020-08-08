@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: d5aa7520a637b18e014519134dfe2d2139e7c11d
-ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.openlocfilehash: 3d7ae49142849c589a1a20c33d30e87747ad1935
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2020
-ms.locfileid: "86147779"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021624"
 ---
-# <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použít ASP.NET Core SignalR sBlazor WebAssembly
+# <a name="use-aspnet-core-no-locsignalr-with-no-locblazor-webassembly"></a>Použít ASP.NET Core SignalR sBlazor WebAssembly
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
@@ -61,7 +63,7 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 
 ---
 
-## <a name="create-a-hosted-blazor-webassembly-app-project"></a>Vytvoření projektu hostované Blazor WebAssembly aplikace
+## <a name="create-a-hosted-no-locblazor-webassembly-app-project"></a>Vytvoření projektu hostované Blazor WebAssembly aplikace
 
 Postupujte podle pokynů pro výběr nástrojů:
 
@@ -122,7 +124,7 @@ dotnet new blazorwasm --hosted --output BlazorSignalRApp
 
 ---
 
-## <a name="add-the-signalr-client-library"></a>Přidat SignalR klientskou knihovnu
+## <a name="add-the-no-locsignalr-client-library"></a>Přidat SignalR klientskou knihovnu
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
@@ -169,13 +171,13 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 ---
 
-## <a name="add-a-signalr-hub"></a>Přidání SignalR centra
+## <a name="add-a-no-locsignalr-hub"></a>Přidání SignalR centra
 
 V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidejte následující `ChatHub` třídu ( `Hubs/ChatHub.cs` ):
 
 [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Hubs/ChatHub.cs)]
 
-## <a name="add-services-and-an-endpoint-for-the-signalr-hub"></a>Přidání služeb a koncového bodu pro SignalR centrum
+## <a name="add-services-and-an-endpoint-for-the-no-locsignalr-hub"></a>Přidání služeb a koncového bodu pro SignalR centrum
 
 1. V `BlazorSignalRApp.Server` projektu otevřete `Startup.cs` soubor.
 
@@ -196,7 +198,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
    [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_Configure&highlight=3,25)]
 
-## <a name="add-razor-component-code-for-chat"></a>Přidat Razor kód komponenty pro chat
+## <a name="add-no-locrazor-component-code-for-chat"></a>Přidat Razor kód komponenty pro chat
 
 1. V `BlazorSignalRApp.Client` projektu otevřete `Pages/Index.razor` soubor.
 
@@ -216,7 +218,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy. Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![SignalRBlazor WebAssemblyukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
@@ -234,7 +236,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy. Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![SignalRBlazor WebAssemblyukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
@@ -246,7 +248,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy. Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![SignalRBlazor WebAssemblyukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
@@ -263,7 +265,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy. Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![SignalRBlazor WebAssemblyukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 

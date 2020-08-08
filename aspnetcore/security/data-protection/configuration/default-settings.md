@@ -5,6 +5,8 @@ description: Seznamte se se správou klíčů a životností dat v ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/default-settings
-ms.openlocfilehash: f758c814280ee09a240d99cc59cdab2dc4590df6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b39187d93247dc83c34bbbe6ec6accfd77108794
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407093"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021377"
 ---
 # <a name="data-protection-key-management-and-lifetime-in-aspnet-core"></a>Správa a životnost klíče ochrany dat v ASP.NET Core
 
@@ -31,7 +33,7 @@ Aplikace se pokusí zjistit své provozní prostředí a sám zpracovat konfigur
 1. Pokud je aplikace hostovaná v [aplikacích Azure](https://azure.microsoft.com/services/app-service/), klíče se uchovávají do složky *%Home%\ASP.NET\DataProtection-Keys* . Tato složka je zajištěná síťovým úložištěm a je synchronizovaná napříč všemi počítači hostujícími aplikaci.
    * Klíče nejsou chráněny v klidovém umístění.
    * Složka *DataProtection-Keys* poskytuje klíčového prstence všem instancím aplikace v jednom slotu nasazení.
-   * Samostatné sloty nasazení, jako je například pracovní a produkční, nesdílejte klíč Ring. Když proměníte mezi sloty nasazení, například swaping v produkčním prostředí nebo pomocí testování/B, nebude mít jakákoli aplikace využívající ochranu dat k dešifrování uložených dat pomocí služby Key Ring v předchozí pozici. To vede k odhlášení uživatelů z aplikace, která používá standardní ověřování souborů cookie ASP.NET Core, protože používá ochranu dat k ochraně svých souborů cookie. Pokud si přejete zakroužky klíčů nezávislé na slotech, použijte externího poskytovatele služby Key Ring, jako je například Azure Blob Storage, Azure Key Vault, úložiště SQL nebo Redis Cache.
+   * Samostatné sloty nasazení, jako je například pracovní a produkční, nesdílejte klíč Ring. Když proměníte mezi sloty nasazení, například swaping v produkčním prostředí nebo pomocí testování/B, nebude mít jakákoli aplikace využívající ochranu dat k dešifrování uložených dat pomocí služby Key Ring v předchozí pozici. To vede k odhlášení uživatelů z aplikace, která používá standardní ASP.NET Core cookie ověřování, protože používá ochranu dat k ochraně svých aplikací cookie . Pokud si přejete zakroužky klíčů nezávislé na slotech, použijte externího poskytovatele služby Key Ring, jako je například Azure Blob Storage, Azure Key Vault, úložiště SQL nebo Redis Cache.
 
 1. Pokud je profil uživatele k dispozici, zachovají se klíče do složky *%localappdata%\ASP.NET\DataProtection-Keys* . Pokud je operační systém Windows, klíče se zašifrují v klidovém stavu pomocí DPAPI.
 
@@ -61,7 +63,7 @@ Klíče mají ve výchozím nastavení dobu ve 90 dnech. Po vypršení platnosti
 
 Výchozí použitý algoritmus ochrany datových částí je AES-256-CBC pro zajištění důvěrnosti a HMACSHA256 pro pravost. 512 bitový hlavní klíč, který se změní každých 90 dní, se používá pro odvození dvou podklíčů používaných pro tyto algoritmy pro každou datovou část. Další informace naleznete v tématu [odvození podklíče](xref:security/data-protection/implementation/subkeyderivation#additional-authenticated-data-and-subkey-derivation) .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:security/data-protection/extensibility/key-management>
 * <xref:host-and-deploy/web-farm>

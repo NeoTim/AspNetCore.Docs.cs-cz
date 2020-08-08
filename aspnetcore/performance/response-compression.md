@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/response-compression
-ms.openlocfilehash: 83f5b2da8fdba784131e8d159171b8433b13a091
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1dd931d0ee654b888814df8a0d0675d32b5c3a20
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406469"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020961"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Komprese odezvy v ASP.NET Core
 
@@ -50,15 +52,15 @@ Obvykle by jakákoli odpověď, která není nativně komprimovaná, mohla využ
 
 Když klient může zpracovat komprimovaný obsah, klient musí informovat Server svých schopností odesláním `Accept-Encoding` hlavičky s požadavkem. Když server pošle komprimovaný obsah, musí obsahovat informace v `Content-Encoding` záhlaví způsobu, jakým je komprimovaná odpověď zakódovaná. V následující tabulce jsou uvedena označení kódování obsahu podporovaná middlewarem.
 
-| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Description |
+| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Popis |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | Ano (výchozí)        | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | No                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | No                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
-| `gzip`                          | Yes                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Yes                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
-| `pack200-gzip`                  | No                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
-| `*`                             | Yes                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
+| `deflate`                       | Ne                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | Ne                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `gzip`                          | Ano                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
+| `identity`                      | Ano                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
+| `pack200-gzip`                  | Ne                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `*`                             | Ano                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
 
 Další informace najdete v [seznamu kódů oficiálního obsahu IANA](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
 
@@ -144,7 +146,7 @@ Zprostředkovatel komprese Brotli je nutné přidat, když jsou explicitně při
 
 Nastavte úroveň komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions> . Zprostředkovatel komprese Brotli je výchozím nastavením nejrychlejší kompresní úrovně ([CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel)), což nemusí způsobovat nejúčinnější kompresi. Pokud je žádoucí co nejúčinnější komprese, nakonfigurujte middleware pro optimální kompresi.
 
-| Úroveň komprese | Description |
+| Úroveň komprese | Popis |
 | ----------------- | ----------- |
 | [CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel) | Komprese by měla být dokončena co nejrychleji, a to i v případě, že výsledný výstup není optimálně komprimován. |
 | [CompressionLevel. uncompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
@@ -184,7 +186,7 @@ Zprostředkovatel komprese GZip se musí přidat, když se explicitně přidají
 
 Nastavte úroveň komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions> . Zprostředkovatel komprese GZip je výchozím nastavením nejrychlejší kompresní úrovně ([CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel)), což nemusí způsobovat nejúčinnější kompresi. Pokud je žádoucí co nejúčinnější komprese, nakonfigurujte middleware pro optimální kompresi.
 
-| Úroveň komprese | Description |
+| Úroveň komprese | Popis |
 | ----------------- | ----------- |
 | [CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel) | Komprese by měla být dokončena co nejrychleji, a to i v případě, že výsledný výstup není optimálně komprimován. |
 | [CompressionLevel. uncompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
@@ -250,7 +252,7 @@ Když požadavek vyNginx proxy serverem, `Accept-Encoding` Hlavička se odebere.
 
 Pokud máte aktivní dynamický kompresní modul služby IIS nakonfigurovaný na úrovni serveru, který chcete pro aplikaci zakázat, zakažte modul s přidáním do souboru *web.config* . Další informace najdete v tématu [zakázání modulů IIS](xref:host-and-deploy/iis/modules#disabling-iis-modules).
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/), což vám umožní nastavit `Accept-Encoding` hlavičku požadavku a prozkoumat hlavičky, velikost a text odpovědi. Ve výchozím nastavení middleware pro komprimaci odezvy komprimuje odezvy, které splňují následující podmínky:
 
@@ -296,15 +298,15 @@ Obvykle by jakákoli odpověď, která není nativně komprimovaná, mohla využ
 
 Když klient může zpracovat komprimovaný obsah, klient musí informovat Server svých schopností odesláním `Accept-Encoding` hlavičky s požadavkem. Když server pošle komprimovaný obsah, musí obsahovat informace v `Content-Encoding` záhlaví způsobu, jakým je komprimovaná odpověď zakódovaná. V následující tabulce jsou uvedena označení kódování obsahu podporovaná middlewarem.
 
-| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Description |
+| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Popis |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | Ano (výchozí)        | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | No                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | No                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
-| `gzip`                          | Yes                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Yes                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
-| `pack200-gzip`                  | No                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
-| `*`                             | Yes                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
+| `deflate`                       | Ne                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | Ne                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `gzip`                          | Ano                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
+| `identity`                      | Ano                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
+| `pack200-gzip`                  | Ne                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `*`                             | Ano                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
 
 Další informace najdete v [seznamu kódů oficiálního obsahu IANA](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
 
@@ -390,7 +392,7 @@ Zprostředkovatel komprese Brotli je nutné přidat, když jsou explicitně při
 
 Nastavte úroveň komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions> . Zprostředkovatel komprese Brotli je výchozím nastavením nejrychlejší kompresní úrovně ([CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel)), což nemusí způsobovat nejúčinnější kompresi. Pokud je žádoucí co nejúčinnější komprese, nakonfigurujte middleware pro optimální kompresi.
 
-| Úroveň komprese | Description |
+| Úroveň komprese | Popis |
 | ----------------- | ----------- |
 | [CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel) | Komprese by měla být dokončena co nejrychleji, a to i v případě, že výsledný výstup není optimálně komprimován. |
 | [CompressionLevel. uncompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
@@ -430,7 +432,7 @@ Zprostředkovatel komprese GZip se musí přidat, když se explicitně přidají
 
 Nastavte úroveň komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions> . Zprostředkovatel komprese GZip je výchozím nastavením nejrychlejší kompresní úrovně ([CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel)), což nemusí způsobovat nejúčinnější kompresi. Pokud je žádoucí co nejúčinnější komprese, nakonfigurujte middleware pro optimální kompresi.
 
-| Úroveň komprese | Description |
+| Úroveň komprese | Popis |
 | ----------------- | ----------- |
 | [CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel) | Komprese by měla být dokončena co nejrychleji, a to i v případě, že výsledný výstup není optimálně komprimován. |
 | [CompressionLevel. uncompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
@@ -495,7 +497,7 @@ Když požadavek vyNginx proxy serverem, `Accept-Encoding` Hlavička se odebere.
 
 Pokud máte aktivní dynamický kompresní modul služby IIS nakonfigurovaný na úrovni serveru, který chcete pro aplikaci zakázat, zakažte modul s přidáním do souboru *web.config* . Další informace najdete v tématu [zakázání modulů IIS](xref:host-and-deploy/iis/modules#disabling-iis-modules).
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/), což vám umožní nastavit `Accept-Encoding` hlavičku požadavku a prozkoumat hlavičky, velikost a text odpovědi. Ve výchozím nastavení middleware pro komprimaci odezvy komprimuje odezvy, které splňují následující podmínky:
 
@@ -541,15 +543,15 @@ Obvykle by jakákoli odpověď, která není nativně komprimovaná, mohla využ
 
 Když klient může zpracovat komprimovaný obsah, klient musí informovat Server svých schopností odesláním `Accept-Encoding` hlavičky s požadavkem. Když server pošle komprimovaný obsah, musí obsahovat informace v `Content-Encoding` záhlaví způsobu, jakým je komprimovaná odpověď zakódovaná. V následující tabulce jsou uvedena označení kódování obsahu podporovaná middlewarem.
 
-| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Description |
+| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Popis |
 | ------------------------------- | :------------------: | ----------- |
-| `br`                            | No                   | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | No                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | No                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `br`                            | Ne                   | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
+| `deflate`                       | Ne                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | Ne                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | Ano (výchozí)        | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Yes                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
-| `pack200-gzip`                  | No                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
-| `*`                             | Yes                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
+| `identity`                      | Ano                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
+| `pack200-gzip`                  | Ne                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `*`                             | Ano                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
 
 Další informace najdete v [seznamu kódů oficiálního obsahu IANA](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
 
@@ -635,7 +637,7 @@ Zprostředkovatel komprese GZip se musí přidat, když se explicitně přidají
 
 Nastavte úroveň komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions> . Zprostředkovatel komprese GZip je výchozím nastavením nejrychlejší kompresní úrovně ([CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel)), což nemusí způsobovat nejúčinnější kompresi. Pokud je žádoucí co nejúčinnější komprese, nakonfigurujte middleware pro optimální kompresi.
 
-| Úroveň komprese | Description |
+| Úroveň komprese | Popis |
 | ----------------- | ----------- |
 | [CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel) | Komprese by měla být dokončena co nejrychleji, a to i v případě, že výsledný výstup není optimálně komprimován. |
 | [CompressionLevel. uncompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
@@ -700,7 +702,7 @@ Když požadavek vyNginx proxy serverem, `Accept-Encoding` Hlavička se odebere.
 
 Pokud máte aktivní dynamický kompresní modul služby IIS nakonfigurovaný na úrovni serveru, který chcete pro aplikaci zakázat, zakažte modul s přidáním do souboru *web.config* . Další informace najdete v tématu [zakázání modulů IIS](xref:host-and-deploy/iis/modules#disabling-iis-modules).
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/), což vám umožní nastavit `Accept-Encoding` hlavičku požadavku a prozkoumat hlavičky, velikost a text odpovědi. Ve výchozím nastavení middleware pro komprimaci odezvy komprimuje odezvy, které splňují následující podmínky:
 

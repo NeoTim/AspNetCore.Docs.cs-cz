@@ -5,6 +5,8 @@ description: Naučte se vytvářet a používat vlastní formátovací moduly pr
 ms.author: riande
 ms.date: 06/25/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: c6ec73c028c7003a40b2f09b631bdc2c976686fa
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: ecf233273a28df9b2d35edf3264b8c73b16759e5
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793355"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021871"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>Vlastní formátovací moduly v ASP.NET Core Web API
 
@@ -149,7 +151,7 @@ Chcete-li přidat soubor vCard do kolekce kontaktů v paměti:
 * Nastavte `Content-Type` hlavičku na `text/vcard` .
 * Nastavte `vCard` text v těle formátovaného jako v předchozím příkladu.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:web-api/advanced/formatting>
 * <xref:grpc/dotnet-grpc>

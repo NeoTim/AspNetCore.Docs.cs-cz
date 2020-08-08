@@ -5,6 +5,8 @@ description: Přečtěte si, jak ASP.NET Core MVC je bohatá architektura pro vy
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/overview
-ms.openlocfilehash: 68a0b14eb0897f6ff6e24e74b1fe5536bee1adfe
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 64bee1966eff40e9057166adfafbf78d0cc5b6aa
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405845"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021442"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -194,7 +196,7 @@ Pokud chcete povolit podporu pro multimédia, použijte generaci odkazů. Umož�
 
 Použití rozhraní a vkládání závislostí v rozhraní je vhodné pro testování částí a rozhraní zahrnuje funkce (jako je TestHost a inMemory Provider pro Entity Framework), které umožňují provádět i rychlé a snadné [testy integrace](xref:test/integration-tests) . Přečtěte si další informace o [testování logiky kontroleru](controllers/testing.md).
 
-### <a name="razor-view-engine"></a>RazorZobrazit modul
+### <a name="no-locrazor-view-engine"></a>RazorZobrazit modul
 
 [ASP.NET Core zobrazení MVC](views/overview.md) používají k vykreslování zobrazení [ Razor modul zobrazení](views/razor.md) . Razorje kompaktní, expresně a jazyk kapalinového kódu pro definování zobrazení pomocí vloženého kódu jazyka C#. Razorslouží k dynamickému generování webového obsahu na serveru. Kód serveru můžete vyčistit pomocí obsahu a kódu na straně klienta.
 

@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/26/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: bf6375f8f63bb9db50c423706a48363f53e96549
-ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.openlocfilehash: 5ecb6379f00c3ad505a447dfc0d3fac5f857cb09
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2020
-ms.locfileid: "86147664"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022183"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s swashbuckle a ASP.NET Core
 
@@ -168,7 +170,7 @@ Uživatelské rozhraní Swagger zobrazuje informace o verzi:
 
 ![Uživatelské rozhraní Swagger s informacemi o verzi: Popis, autor a zobrazit další odkaz](web-api-help-pages-using-swagger/_static/custom-info.png)
 
-### <a name="xml-comments"></a>XML – komentáře
+### <a name="xml-comments"></a>Komentáře XML
 
 Komentáře XML lze povolit pomocí následujících přístupů:
 

@@ -7,6 +7,8 @@ ms.author: anurse
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 4e125fd6c4ad2cd4989d692dd28a63638218ee57
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e004899e334738f723cb98638cb31de8d314a830
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400411"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022469"
 ---
-# <a name="security-considerations-in-aspnet-core-signalr"></a>Požadavky na zabezpečení v ASP.NET CoreSignalR
+# <a name="security-considerations-in-aspnet-core-no-locsignalr"></a>Požadavky na zabezpečení v ASP.NET CoreSignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
@@ -41,12 +43,12 @@ Další informace o konfiguraci CORS najdete v tématu [povolení požadavků me
 
 * Povolí konkrétní očekávané zdroje. Povolení libovolného zdroje je možné, ale **není zabezpečené nebo** Doporučené.
 * Metody HTTP `GET` a `POST` musí být povoleny.
-* Aby rychlé relace založené na souborech cookie fungovaly správně, musí být přihlašovací údaje povolené. Musí být povolené i v případě, že se ověřování nepoužívá.
+* Přihlašovací údaje musí být povoleny v pořadí, aby cookie správně fungovaly rychlé relace založené na. Musí být povolené i v případě, že se ověřování nepoužívá.
 
 ::: moniker range=">= aspnetcore-5.0"
 
 V 5,0 jsme ale v klientovi TypeScript zadali možnost, aby nepoužívala přihlašovací údaje.
-Možnost Nepoužívat přihlašovací údaje byste měli použít jenom v případě, že znáte 100%, že přihlašovací údaje jako soubory cookie ve vaší aplikaci nepotřebujete (soubory cookie používá služba Azure App Service při použití více serverů pro rychlé relace).
+Možnost Nepoužívat přihlašovací údaje by se měla používat jenom v případě, že víte 100%, že přihlašovací údaje, jako Cookie je třeba, se ve vašich aplikacích nepotřebují v aplikacích, které cookie používají Azure App Service při použití více serverů pro rychlé relace.
 
 ::: moniker-end
 

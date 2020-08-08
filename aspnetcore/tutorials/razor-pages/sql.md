@@ -5,6 +5,8 @@ description: Část 4 série kurzů na Razor stránkách.
 ms.author: riande
 ms.date: 7/22/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 68764a5b8c908012cc0053aa4e3ea071f2ce423d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6d1a93a9cab49d33181e88b7fdc0f203a1e2546c
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400905"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022417"
 ---
 # <a name="part-4-with-a-database-and-aspnet-core"></a>4. část s databází a ASP.NET Core
 
@@ -261,7 +263,7 @@ Následující kód ukazuje aktualizovaný soubor *program.cs* .
 
 Produkční aplikace by nevolala `Database.Migrate` . Přidá se k předchozímu kódu, aby se zabránilo následující výjimce, pokud nebyla `Update-Database` spuštěna:
 
-SqlException: Nelze otevřít databázi "RazorPagesMovieContext-21" požadovanou pro přihlášení. Přihlášení se nezdařilo.
+SqlException: Nelze otevřít databázi " Razor PagesMovieContext-21" požadovanou pro přihlášení. Přihlášení se nezdařilo.
 Přihlášení uživatele "uživatelské jméno" se nezdařilo.
 
 ### <a name="test-the-app"></a>Otestování aplikace

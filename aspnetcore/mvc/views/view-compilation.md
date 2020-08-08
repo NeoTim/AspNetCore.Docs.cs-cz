@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/14/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 71487ff2d5d7d7cf96835778f386e5f30fa32254
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: fc7924f8f8b321ae017b7acd729fe11c4e0e3c7e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405442"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021078"
 ---
-# <a name="razor-file-compilation-in-aspnet-core"></a>Razorkompilace souborů v ASP.NET Core
+# <a name="no-locrazor-file-compilation-in-aspnet-core"></a>Razorkompilace souborů v ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -29,7 +31,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Razorsoubory s příponou *. cshtml* jsou kompilovány jak při sestavování, tak při publikování pomocí [ Razor sady SDK](xref:razor-pages/sdk). Kompilace za běhu může být volitelně povolena konfigurací projektu.
 
-## <a name="razor-compilation"></a>Razorkompilace
+## <a name="no-locrazor-compilation"></a>Razorkompilace
 
 RazorSada SDK ve výchozím nastavení povoluje kompilaci souborů pro čas sestavení a publikování Razor . Pokud je povoleno, kompilace za běhu doplňuje kompilaci při sestavení a umožňuje Razor aktualizovat soubory, pokud jsou upravovány.
 
@@ -91,7 +93,7 @@ V následujícím příkladu je kompilace modulu runtime ve vývojovém prostře
 
 Ve třídě projektu nejsou potřeba žádné změny kódu `Startup` . V době běhu ASP.NET Core vyhledá [atribut HostingStartup na úrovni sestavení](xref:fundamentals/configuration/platform-specific-configuration#hostingstartup-attribute) v `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` . `HostingStartup`Atribut určuje spouštěcí kód aplikace, který se má spustit. Tento spouštěcí kód umožňuje kompilaci za běhu.
 
-## <a name="enable-runtime-compilation-for-a-razor-class-library"></a>Povolit kompilaci za běhu pro Razor knihovnu tříd
+## <a name="enable-runtime-compilation-for-a-no-locrazor-class-library"></a>Povolit kompilaci za běhu pro Razor knihovnu tříd
 
 Vezměte v úvahu scénář, ve kterém se Razor projekt stránky odkazuje na [ Razor knihovnu tříd (RCL)](xref:razor-pages/ui-class) s názvem *MyClassLib*. RCL obsahuje soubor *_Layout. cshtml* , který využívá všechny projekty MVC a Razor Pages vašeho týmu. Chcete povolit kompilaci za běhu pro soubor *_Layout. cshtml* v tomto RCL. Proveďte následující změny v Razor projektu stránky:
 
@@ -104,7 +106,7 @@ Vezměte v úvahu scénář, ve kterém se Razor projekt stránky odkazuje na [ 
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* Vlastnosti [RazorCompileOnBuild a RazorCompileOnPublish](xref:razor-pages/sdk#properties) .
+* Vlastnosti [ Razor CompileOnBuild a Razor CompileOnPublish](xref:razor-pages/sdk#properties) .
 * <xref:razor-pages/index>
 * <xref:mvc/views/overview>
 * <xref:razor-pages/sdk>
@@ -115,7 +117,7 @@ Vezměte v úvahu scénář, ve kterém se Razor projekt stránky odkazuje na [ 
 
 Razorsoubory s příponou *. cshtml* jsou kompilovány jak při sestavování, tak při publikování pomocí [ Razor sady SDK](xref:razor-pages/sdk). Kompilace za běhu může být volitelně povolena konfigurací aplikace.
 
-## <a name="razor-compilation"></a>Razorkompilace
+## <a name="no-locrazor-compilation"></a>Razorkompilace
 
 RazorSada SDK ve výchozím nastavení povoluje kompilaci souborů pro čas sestavení a publikování Razor . Pokud je povoleno, kompilace za běhu doplňuje kompilaci při sestavení a umožňuje Razor aktualizovat soubory, pokud jsou upravovány.
 
@@ -159,7 +161,7 @@ Povolení kompilace za běhu na základě prostředí a konfiguračního režimu
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* Vlastnosti [RazorCompileOnBuild a RazorCompileOnPublish](xref:razor-pages/sdk#properties) .
+* Vlastnosti [ Razor CompileOnBuild a Razor CompileOnPublish](xref:razor-pages/sdk#properties) .
 * <xref:razor-pages/index>
 * <xref:mvc/views/overview>
 * <xref:razor-pages/sdk>
@@ -171,7 +173,7 @@ Povolení kompilace za běhu na základě prostředí a konfiguračního režimu
 
 RazorSoubor je zkompilován za běhu, když Razor je vyvolána přidružená stránka nebo zobrazení MVC. Razorsoubory jsou kompilovány jak při sestavování, tak při publikování pomocí [ Razor sady SDK](xref:razor-pages/sdk).
 
-## <a name="razor-compilation"></a>Razorkompilace
+## <a name="no-locrazor-compilation"></a>Razorkompilace
 
 RazorSada SDK ve výchozím nastavení povoluje kompilaci souborů sestavení a publikování Razor . Úpravy Razor souborů po jejich aktualizaci jsou podporovány v době sestavení. Ve výchozím nastavení jsou ve vaší aplikaci nasazeny pouze zkompilované *Views.dll* a žádné soubory *. cshtml* nebo odkazy na sestavení nutná ke kompilaci Razor souborů.
 
@@ -184,7 +186,7 @@ RazorSada SDK ve výchozím nastavení povoluje kompilaci souborů sestavení a 
 
 Kompilace v době sestavení je doplněna kompilací souborů za běhu Razor . ASP.NET Core MVC bude Razor po změně obsahu souboru *. cshtml* znovu kompilovat soubory.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:razor-pages/index>
 * <xref:mvc/views/overview>

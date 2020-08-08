@@ -5,6 +5,8 @@ description: Část 6 – přidání modelu do aplikace ASP.NET Core MVC
 ms.author: riande
 ms.date: 12/13/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: b473b8575a870b91d83e5494103d39486ef4fee1
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: b5b54adb1d86e4ab982647dc8207839cc9afdac9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86213046"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021065"
 ---
 # <a name="part-6-controller-methods-and-views-in-aspnet-core"></a>Část 6, metody kontroleru a zobrazení v ASP.NET Core
 
@@ -154,7 +156,7 @@ Předtím, než se formulář pošle na server, ověřování na straně klienta
 
 Všechny `HttpGet` metody v kontroleru filmů následují podobně jako vzor. Získají filmový objekt (nebo seznam objektů v případě `Index` ) a předá do zobrazení objekt (model). `Create`Metoda předá do zobrazení prázdný objekt filmu `Create` . Všechny metody, které vytvářejí, upravují, odstraňují nebo jinak upravují data, jsou v `[HttpPost]` přetížení metody. Úprava dat v `HTTP GET` metodě je bezpečnostní riziko. Úpravy dat v `HTTP GET` metodě také porušují osvědčené postupy http a model [REST](http://rest.elkstein.org/) architektury, který určuje, že požadavky GET by neměly měnit stav aplikace. Jinými slovy, provádění operace GET by mělo být bezpečná operace, která nemá žádné vedlejší účinky a neupravuje vaše trvalá data.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Globalizace a lokalizace](xref:fundamentals/localization)
 * [Úvod k pomocníkům značek](xref:mvc/views/tag-helpers/intro)

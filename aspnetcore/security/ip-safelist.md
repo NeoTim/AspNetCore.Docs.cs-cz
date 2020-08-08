@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/ip-safelist
-ms.openlocfilehash: 5b74205bc7b17d61edbb73cf309f6e24e4318391
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 75c1ea3a6087f89a200d1f73b1ff65080c819ccd
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85409004"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021767"
 ---
 # <a name="client-ip-safelist-for-aspnet-core"></a>IP adresa klienta Safelist pro ASP.NET Core
 
@@ -99,7 +101,7 @@ V ukázkové aplikaci se filtr akcí aplikuje na `Get` metodu akce kontroleru. P
 
 * Příkaz žádosti HTTP jiný než GET, `AdminSafeListMiddleware` middleware OVĚŘÍ IP adresu klienta.
 
-## <a name="razor-pages-filter"></a>RazorFiltr stránek
+## <a name="no-locrazor-pages-filter"></a>RazorFiltr stránek
 
 Pokud chcete ovládací prvek přístupu řízený Safelist pro Razor aplikaci Pages, použijte Razor filtr stránky. Například:
 

@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 7c24340af0f0d589d683b0134d186bf9304d91b1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8fd42c7d31edd20c2aae7577c5a490b54ab8129c
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403440"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022261"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme s NSwag a ASP.NET Core
 
@@ -118,7 +120,7 @@ Můžete využít možnosti generování kódu NSwag výběrem jedné z následu
 ### <a name="generate-code-with-nswagstudio"></a>Generování kódu pomocí NSwagStudio
 
 * Nainstalujte NSwagStudio podle pokynů v [úložišti GitHub NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio). Na stránce verze NSwag si můžete stáhnout verzi příkazu xcopy, kterou lze spustit bez oprávnění k instalaci a správcům.
-* Spusťte NSwagStudio a v textovém poli **Adresa URL specifikace Swagger** zadejte adresu url souboru *swagger.js* . Například *http://localhost:44354/swagger/v1/swagger.json* .
+* Spusťte NSwagStudio a v textovém poli **Adresa URL specifikace Swagger** zadejte adresu url souboru *swagger.js* . Příklad: *http://localhost:44354/swagger/v1/swagger.json*.
 * Kliknutím na tlačítko **vytvořit místní kopii** vygenerujete reprezentaci JSON vaší specifikace Swagger.
 
   ![Vytvořit místní kopii specifikace Swagger](web-api-help-pages-using-swagger/_static/CreateLocalCopy-NSwagStudio.PNG)
@@ -197,7 +199,7 @@ Uživatelské rozhraní Swagger zobrazuje informace o verzi:
 
 ![Uživatelské rozhraní Swagger s informacemi o verzi](web-api-help-pages-using-swagger/_static/custom-info-nswag.png)
 
-### <a name="xml-comments"></a>XML – komentáře
+### <a name="xml-comments"></a>Komentáře XML
 
 Chcete-li povolit komentáře XML, proveďte následující kroky:
 

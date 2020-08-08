@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/30/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: b58c0c3db685d0a5b082aaf2eb434635bd10e2eb
-ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
+ms.openlocfilehash: 42c4f94869586bfcd4e8b27e4bdf4ef226094072
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/30/2020
-ms.locfileid: "87444041"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022495"
 ---
 # <a name="build-a-no-locblazor-todo-list-app"></a>Sestavení Blazor aplikace seznamu úkolů
 
@@ -36,7 +38,7 @@ V tomto kurzu se dozvíte, jak vytvořit a upravit Blazor aplikaci. Získáte in
 
 Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 [!INCLUDE[](~/includes/3.1-SDK.md)]
 

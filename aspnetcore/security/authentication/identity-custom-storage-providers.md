@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: 137b73529a6c3d2a1dece201ebd8a7a5a96da349
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 27f6130742e25e07d4b908973e1ebf26288fdbfd
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404740"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021533"
 ---
-# <a name="custom-storage-providers-for-aspnet-core-identity"></a>Vlastní poskytovatelé úložiště pro ASP.NET CoreIdentity
+# <a name="custom-storage-providers-for-aspnet-core-no-locidentity"></a>Vlastní poskytovatelé úložiště pro ASP.NET CoreIdentity
 
 [Steve Smith](https://ardalis.com/)
 
@@ -47,7 +49,7 @@ Při použití .NET Core CLI přidejte `-au Individual` :
 dotnet new mvc -au Individual
 ```
 
-## <a name="the-aspnet-core-identity-architecture"></a>Architektura ASP.NET Core Identity
+## <a name="the-aspnet-core-no-locidentity-architecture"></a>Architektura ASP.NET Core Identity
 
 ASP.NET Core Identity se skládá ze tříd nazvaných manažeři a obchody. *Manažeři* jsou třídy vysoké úrovně, které vývojář aplikace používá k provádění operací, jako je například vytvoření Identity uživatele. *Úložiště* jsou třídy nižší úrovně, které určují, jak jsou trvalé entity, jako jsou uživatelé a role. Úložiště se řídí vzorem úložiště a jsou úzce spojeny s mechanismem trvalosti. Manažeři jsou oddělené od úložišť, což znamená, že můžete nahradit mechanismus trvalosti beze změny kódu aplikace (s výjimkou konfigurace).
 
@@ -61,13 +63,13 @@ Při vytváření nové instance nebo zadání `UserManager` `RoleManager` typu 
 
 Změna [Konfigurace aplikace na použití nového poskytovatele úložiště](#reconfigure-app-to-use-a-new-storage-provider) ukazuje, jak vytvářet instance `UserManager` a `RoleManager` s přizpůsobeným úložištěm.
 
-## <a name="aspnet-core-identity-stores-data-types"></a>ASP.NET Core Identity ukládá datové typy
+## <a name="aspnet-core-no-locidentity-stores-data-types"></a>ASP.NET Core Identity ukládá datové typy
 
 [ASP.NET Core Identity ](https://github.com/aspnet/identity) datové typy jsou podrobně popsané v následujících částech:
 
 ### <a name="users"></a>Uživatelé
 
-Registrovaní uživatelé vašeho webu. Typ [IdentityUser](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser) může být rozšířen nebo použit jako příklad pro vlastní typ. K implementaci vlastního řešení úložiště identity není nutné dědit z konkrétního typu.
+Registrovaní uživatelé vašeho webu. Typ [ Identity uživatele](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser) může být rozšířen nebo použit jako příklad pro vlastní typ. K implementaci vlastního řešení úložiště identity není nutné dědit z konkrétního typu.
 
 ### <a name="user-claims"></a>Deklarace identity uživatele
 
@@ -123,7 +125,7 @@ Logika implementace pro vytvoření uživatele je v `_usersTable.CreateAsync` me
 
 ## <a name="customize-the-user-class"></a>Přizpůsobení třídy uživatele
 
-Při implementaci poskytovatele úložiště vytvořte třídu uživatele, která je ekvivalentní [třídě IdentityUser](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser).
+Při implementaci poskytovatele úložiště vytvořte třídu uživatele, která je ekvivalentní [ Identity třídě uživatele](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser).
 
 Třída uživatele musí obsahovat minimálně `Id` `UserName` vlastnost a.
 
@@ -191,9 +193,9 @@ public class UserStore : IUserStore<IdentityUser>,
 }
 ```
 
-### <a name="identityuserclaim-identityuserlogin-and-identityuserrole"></a>IdentityUserClaim, IdentityUserLogin a IdentityUserRole
+### <a name="no-locidentityuserclaim-no-locidentityuserlogin-and-no-locidentityuserrole"></a>IdentityUserClaim, Identity userlogin a Identity UserRole
 
-`Microsoft.AspNet.Identity.EntityFramework`Obor názvů obsahuje implementace tříd [IdentityUserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1), [IdentityUserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)a [IdentityUserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1) . Pokud tyto funkce používáte, možná budete chtít vytvořit vlastní verze těchto tříd a definovat vlastnosti pro vaši aplikaci. V některých případech je ale při provádění základních operací (například přidání nebo odebrání deklarace identity uživatele) efektivnější tyto entity nečítat do paměti. Místo toho mohou třídy úložiště back-end provádět tyto operace přímo na zdroji dat. Například `UserStore.GetClaimsAsync` metoda může volat `userClaimTable.FindByUserId(user.Id)` metodu pro provedení dotazu přímo v této tabulce a vrácení seznamu deklarací.
+`Microsoft.AspNet.Identity.EntityFramework`Obor názvů obsahuje implementace tříd [ Identity UserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1), [ Identity userlogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)a [ Identity UserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1) . Pokud tyto funkce používáte, možná budete chtít vytvořit vlastní verze těchto tříd a definovat vlastnosti pro vaši aplikaci. V některých případech je ale při provádění základních operací (například přidání nebo odebrání deklarace identity uživatele) efektivnější tyto entity nečítat do paměti. Místo toho mohou třídy úložiště back-end provádět tyto operace přímo na zdroji dat. Například `UserStore.GetClaimsAsync` metoda může volat `userClaimTable.FindByUserId(user.Id)` metodu pro provedení dotazu přímo v této tabulce a vrácení seznamu deklarací.
 
 ## <a name="customize-the-role-class"></a>Přizpůsobení třídy role
 
@@ -219,7 +221,7 @@ Po implementaci poskytovatele úložiště můžete aplikaci nakonfigurovat tak,
 1. Odeberte `Microsoft.AspNetCore.EntityFramework.Identity` balíček NuGet.
 1. Pokud se poskytovatel úložiště nachází v samostatném projektu nebo balíčku, přidejte na něj odkaz.
 1. Nahraďte všechny odkazy na pomocí `Microsoft.AspNetCore.EntityFramework.Identity` příkazu Using pro obor názvů vašeho poskytovatele úložiště.
-1. V `ConfigureServices` metodě změňte `AddIdentity` metodu tak, aby používala vaše vlastní typy. Pro tento účel můžete vytvořit vlastní metody rozšíření. Příklad najdete v tématu [IdentityServiceCollectionExtensions](https://github.com/aspnet/Identity/blob/rel/1.1.0/src/Microsoft.AspNetCore.Identity/IdentityServiceCollectionExtensions.cs) .
+1. V `ConfigureServices` metodě změňte `AddIdentity` metodu tak, aby používala vaše vlastní typy. Pro tento účel můžete vytvořit vlastní metody rozšíření. Příklad najdete v tématu [ Identity ServiceCollectionExtensions](https://github.com/aspnet/Identity/blob/rel/1.1.0/src/Microsoft.AspNetCore.Identity/IdentityServiceCollectionExtensions.cs) .
 1. Pokud používáte role, aktualizujte, `RoleManager` aby se použila vaše `RoleStore` Třída.
 1. Aktualizujte připojovací řetězec a přihlašovací údaje na konfiguraci vaší aplikace.
 

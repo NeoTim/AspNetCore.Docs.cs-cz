@@ -1,12 +1,14 @@
 ---
-title: Ukázka SameSite souboru cookie pro ASP.NET Core 2,1 MVC
+title: Ukázka SameSite 2,1 MVC pro ASP.NET Core cookie
 author: rick-anderson
-description: Ukázka SameSite souboru cookie pro ASP.NET Core 2,1 MVC
+description: Ukázka SameSite 2,1 MVC pro ASP.NET Core cookie
 monikerRange: '>= aspnetcore-2.1 < aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/03/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,22 +17,22 @@ no-loc:
 - Razor
 - SignalR
 uid: security/samesite/mvc21
-ms.openlocfilehash: ce301cd7e2cbfbfc724d78bd5734dff231d0ab93
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 4285432d48ba11b5069d109c5667192a99fe115e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944733"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021780"
 ---
-# <a name="aspnet-core-21-mvc-samesite-cookie-sample"></a>Ukázka SameSite souboru cookie pro ASP.NET Core 2,1 MVC
+# <a name="aspnet-core-21-mvc-samesite-no-loccookie-sample"></a>Ukázka SameSite 2,1 MVC pro ASP.NET Core cookie
 
-ASP.NET Core 2,1 obsahuje integrovanou podporu pro atribut [SameSite](https://www.owasp.org/index.php/SameSite) , ale byla zapsána do původního standardu. [Opravené chování](https://github.com/dotnet/aspnetcore/issues/8212) změnilo význam `SameSite.None` pro vygenerování atributu sameSite s hodnotou `None` , místo aby vůbec generoval hodnotu. Pokud nechcete vygenerovat hodnotu, můžete nastavit `SameSite` vlastnost na soubor cookie na hodnotu-1.
+ASP.NET Core 2,1 obsahuje integrovanou podporu pro atribut [SameSite](https://www.owasp.org/index.php/SameSite) , ale byla zapsána do původního standardu. [Opravené chování](https://github.com/dotnet/aspnetcore/issues/8212) změnilo význam `SameSite.None` pro vygenerování atributu sameSite s hodnotou `None` , místo aby vůbec generoval hodnotu. Pokud nechcete generovat hodnotu, můžete nastavit `SameSite` vlastnost na hodnotu cookie -1.
 
 [!INCLUDE[](~/includes/SameSiteIdentity.md)]
 
 ## <a name="writing-the-samesite-attribute"></a><a name="sampleCode"></a>Zápis atributu SameSite
 
-Následuje příklad, jak napsat atribut SameSite v souboru cookie:
+Následuje příklad, jak napsat atribut SameSite v cookie :
 
 ```c#
 var cookieOptions = new CookieOptions
@@ -52,9 +54,9 @@ var cookieOptions = new CookieOptions
 Response.Cookies.Append(CookieName, "cookieValue", cookieOptions);
 ```
 
-## <a name="setting-cookie-authentication-and-session-state-cookies"></a>Nastavení ověřování souborů cookie a souborů cookie stavu relace
+## <a name="setting-no-loccookie-authentication-and-session-state-no-loccookies"></a>Nastavení Cookie ověřování a stavu relace cookie s
 
-Ověřování souborů cookie, stav relace a [různé další komponenty](https://docs.microsoft.com/aspnet/core/security/samesite?view=aspnetcore-2.1) nastavují své možnosti sameSite prostřednictvím možností souborů cookie, například
+Cookieověřování, stav relace a [různé další komponenty](https://docs.microsoft.com/aspnet/core/security/samesite?view=aspnetcore-2.1) nastavují své možnosti sameSite prostřednictvím Cookie možností, například
 
 ```c#
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -73,21 +75,21 @@ services.AddSession(options =>
 });
 ```
 
-V předchozím kódu oba ověřování souborů cookie a stav relace nastaví jejich atribut sameSite na, který vygeneruje `None` atribut s `None` hodnotou a také nastaví atribut Secure na hodnotu true.
+V předchozím kódu obě ověřování i cookie stav relace nastaví jejich atribut sameSite na, který vygeneruje `None` atribut s `None` hodnotou a také nastaví atribut Secure na hodnotu true.
 
 ### <a name="run-the-sample"></a>Spuštění ukázky
 
-Pokud spustíte [ukázkový projekt](https://github.com/blowdart/AspNetSameSiteSamples/tree/master/AspNetCore21MVC), načtěte ladicí program prohlížeče na úvodní stránce a použijte jej k zobrazení kolekce souborů cookie pro daný web. Uděláte to tak, že kliknete na tlačítko Edge a Chrome a `F12` potom vyberete `Application` kartu a kliknete na adresu URL webu pod `Cookies` možností v `Storage` části.
+Pokud spustíte [ukázkový projekt](https://github.com/blowdart/AspNetSameSiteSamples/tree/master/AspNetCore21MVC), načtěte ladicí program prohlížeče na úvodní stránce a použijte jej k zobrazení cookie kolekce webu. Uděláte to tak, že kliknete na tlačítko Edge a Chrome a `F12` potom vyberete `Application` kartu a kliknete na adresu URL webu pod `Cookies` možností v `Storage` části.
 
-![Seznam souborů cookie ladicího programu prohlížeče](BrowserDebugger.png)
+![Ladicí program prohlížeče::: No-Loc (cookie)::: list](BrowserDebugger.png)
 
-Můžete vidět z obrázku, který je vytvořen souborem cookie vytvořeným v ukázce po kliknutí na tlačítko vytvořit soubor cookie SameSite má hodnotu atributu SameSite `Lax` , která odpovídá hodnotě nastavené v [ukázkovém kódu](#sampleCode).
+Pokud kliknete na tlačítko vytvořit SameSite, zobrazí se z obrázku nad ním, který je cookie vytvořený v ukázce Cookie , hodnota atributu SameSite `Lax` , která odpovídá hodnotě nastavené v [ukázkovém kódu](#sampleCode).
 
-## <a name="intercepting-cookies"></a><a name="interception"></a>Zachycení souborů cookie
+## <a name="intercepting-no-loccookies"></a><a name="interception"></a>Zachycení cookie s
 
-Aby bylo možné zachytit soubory cookie, abyste mohli upravit hodnotu None podle podpory v agentovi prohlížeče uživatele, musíte použít `CookiePolicy` middleware. Toto musí být umístěno do kanálu požadavků HTTP **před** všemi komponentami, které zapisují soubory cookie a nakonfigurované v rámci `ConfigureServices()` .
+Aby bylo možné zachytit cookie hodnotu None podle podpory v agentovi prohlížeče uživatele, je nutné použít `CookiePolicy` middleware. Toto musí být umístěno do kanálu požadavků HTTP **před** všemi komponentami, které zapisuje cookie a nakonfigurují v rámci `ConfigureServices()` .
 
-Pro vložení do kanálu použití `app.UseCookiePolicy()` v `Configure(IApplicationBuilder, IHostingEnvironment)` metodě v [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs). Příklad:
+Pro vložení do kanálu použití `app.UseCookiePolicy()` v `Configure(IApplicationBuilder, IHostingEnvironment)` metodě v [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs). Například:
 
 ```c#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -117,7 +119,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Pak v případě, že `ConfigureServices(IServiceCollection services)` jsou soubory cookie připojeny nebo smazány, v části Konfigurace zásad souborů cookie, které se mají volat na pomocnou třídu. Příklad:
+Pak v `ConfigureServices(IServiceCollection services)` konfiguraci cookie zásady, která se má volat na pomocnou třídu při cookie připojení nebo odstranění s. Například:
 
 ```c#
 public void ConfigureServices(IServiceCollection services)
@@ -148,7 +150,7 @@ private void CheckSameSite(HttpContext httpContext, CookieOptions options)
 
 Pomocná funkce `CheckSameSite(HttpContext, CookieOptions)` :
 
-* Je volána, když jsou soubory cookie připojeny k požadavku nebo odstraněny z požadavku.
+* Se volá, když cookie se připojí k žádosti nebo odstraněné z požadavku.
 * Kontroluje, zda `SameSite` je vlastnost nastavena na hodnotu `None` .
 * Pokud `SameSite` je nastaven na `None` a aktuální uživatelský agent je známý, že není podporována hodnota atributu None. Tato kontrolu se provádí pomocí třídy [SameSiteSupport](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/samesite/sample/snippets/SameSiteSupport.cs) :
   * Nastaví, aby `SameSite` neemitoval hodnotu nastavením vlastnosti na.`(SameSiteMode)(-1)`

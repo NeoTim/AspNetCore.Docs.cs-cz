@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,24 +17,24 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/hubs
-ms.openlocfilehash: 1757d205b583c8b3f3bbf845594d7228f8d45175
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: bd7432fc29d0cda003abed1f0e522bdddf2e4efc
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408549"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022209"
 ---
-# <a name="use-hubs-in-signalr-for-aspnet-core"></a>Použití Center v SignalR pro ASP.NET Core
+# <a name="use-hubs-in-no-locsignalr-for-aspnet-core"></a>Použití Center v SignalR pro ASP.NET Core
 
 Od [Rachel Appel](https://twitter.com/rachelappel) a [Kevin Griffin](https://twitter.com/1kevgriff)
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ ) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="what-is-a-signalr-hub"></a>Co je SignalR centrum
+## <a name="what-is-a-no-locsignalr-hub"></a>Co je SignalR centrum
 
 SignalRRozhraní API Center umožňuje volat metody v připojených klientech ze serveru. V kódu serveru definujete metody, které jsou volány klientem. V kódu klienta definujete metody, které jsou volány ze serveru. SignalRpostará se o všechno na pozadí, které umožňuje komunikaci mezi klientem a serverem od klientů po straně klienta.
 
-## <a name="configure-signalr-hubs"></a>Konfigurovat SignalR centra
+## <a name="configure-no-locsignalr-hubs"></a>Konfigurovat SignalR centra
 
 SignalRMiddleware vyžaduje některé služby, které jsou nakonfigurované voláním `services.AddSignalR` .
 
@@ -97,7 +99,7 @@ Můžete zadat návratový typ a parametry, včetně složitých typů a polí, 
 
 `Hub.Context`obsahuje také následující metody:
 
-| Metoda | Description |
+| Metoda | Popis |
 | ------ | ----------- |
 | `GetHttpContext` | Vrátí `HttpContext` pro připojení, nebo `null` Pokud připojení není přidruženo k požadavku HTTP. V případě připojení HTTP můžete použít tuto metodu k získání informací, jako jsou hlavičky HTTP a řetězce dotazů. |
 | `Abort` | Přeruší připojení. |
@@ -114,7 +116,7 @@ Můžete zadat návratový typ a parametry, včetně složitých typů a polí, 
 
 `Hub.Clients`obsahuje také následující metody:
 
-| Metoda | Description |
+| Metoda | Popis |
 | ------ | ----------- |
 | `AllExcept` | Volá metodu na všech připojených klientech s výjimkou zadaných připojení. |
 | `Client` | Volá metodu pro určitého připojeného klienta. |
@@ -207,4 +209,4 @@ Pokud máte výjimečnou podmínku *, kterou chcete* rozšířit na klienta, mů
 
 * [Úvod k ASP.NET CoreSignalR](xref:signalr/introduction)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
-* [Publikování aplikací do Azure](xref:signalr/publish-to-azure-web-app)
+* [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

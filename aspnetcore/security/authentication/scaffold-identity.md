@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/1/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: a8ca520d84d382b95cd4c0e2962ba4e5c922049e
-ms.sourcegitcommit: 3544941682869734ea0113e24e02ed0ec9e1a9ec
+ms.openlocfilehash: 4404a5513d9dc989e50c904f3e7863de59991939
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2020
-ms.locfileid: "86464563"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022326"
 ---
-# <a name="scaffold-identity-in-aspnet-core-projects"></a>Generování uživatelského rozhraní Identity v ASP.NET Corech projektech
+# <a name="scaffold-no-locidentity-in-aspnet-core-projects"></a>Generování uživatelského rozhraní Identity v ASP.NET Corech projektech
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -52,7 +54,7 @@ Předchozí kód odhlásí kód, který je duplikován v *oblasti/ Identity / Id
 
 Aplikace, které byly vytvořeny pomocí jednotlivých účtů ***, by obvykle neměly vytvářet*** nový kontext dat.
 
-## <a name="scaffold-identity-into-an-empty-project"></a>Uživatelské rozhraní Identity do prázdného projektu
+## <a name="scaffold-no-locidentity-into-an-empty-project"></a>Uživatelské rozhraní Identity do prázdného projektu
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
@@ -64,7 +66,7 @@ Aktualizujte `Startup` třídu podobným kódem jako v následujícím příklad
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu bez existující autorizace
+## <a name="scaffold-no-locidentity-into-a-no-locrazor-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu bez existující autorizace
 
 <!--  Updated for 3.0
 set projNam=RPnoAuth
@@ -117,7 +119,7 @@ Volitelné: přidejte do souboru rozložení částečnou přihlašování ( `_L
 
 [!code-cshtml[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
-## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu s autorizací
+## <a name="scaffold-no-locidentity-into-a-no-locrazor-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu s autorizací
 
 <!--
 Use >=2.1: dotnet new webapp -au Individual -o RPauth
@@ -134,7 +136,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
 
-## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC bez existující autorizace
+## <a name="scaffold-no-locidentity-into-an-mvc-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC bez existující autorizace
 
 <!--
 set projNam=MvcNoAuth
@@ -168,7 +170,7 @@ Aktualizujte `Startup` třídu podobným kódem jako v následujícím příklad
 
 [!INCLUDE[](~/includes/scaffold-identity/hsts.md)]
 
-## <a name="scaffold-identity-into-an-mvc-project-with-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC s autorizací
+## <a name="scaffold-no-locidentity-into-an-mvc-project-with-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC s autorizací
 
 <!--
 dotnet new mvc -au Individual -o MvcAuth
@@ -180,7 +182,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-## <a name="scaffold-identity-into-a-blazor-server-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do Blazor Server projektu bez existující autorizace
+## <a name="scaffold-no-locidentity-into-a-no-locblazor-server-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do Blazor Server projektu bez existující autorizace
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
@@ -194,7 +196,7 @@ Identityje nakonfigurovaný v *oblasti/ Identity / Identity HostingStartup.cs*. 
 
 Tokeny lze předat součástem:
 
-* Když jsou ověřovací tokeny zřízené a uložené do ověřovacího souboru cookie, dají se předat součástem.
+* Při zřizování ověřovacích tokenů a jejich uložení do ověřování je cookie možné je předat součástem.
 * Razorkomponenty nemůžou používat `HttpContext` přímo, takže neexistuje žádný způsob, jak získat [token pro padělání žádostí](xref:security/anti-request-forgery) o odeslání na Identity koncový bod odhlašovacího objektu na adrese `/Identity/Account/Logout` . Token XSRF lze předat komponentám.
 
 Další informace naleznete v tématu <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>.
@@ -293,11 +295,11 @@ Do `MainLayout` komponenty (*Shared/MainLayout. Razor*) přidejte `LoginDisplay`
 
 Vzhledem k tomu Blazor Server Razor , že nástroj používá stránky stránky Identity , styl uživatelského rozhraní se změní, když návštěvník prochází mezi Identity stránkami a komponentami. Máte dvě možnosti, jak adresovat incongruous styly:
 
-#### <a name="build-identity-components"></a>IdentityKomponenty sestavení
+#### <a name="build-no-locidentity-components"></a>IdentityKomponenty sestavení
 
 Přístup k používání komponent Identity místo stránek je vytvoření Identity komponent. Vzhledem `SignInManager` `UserManager` k tomu, že součásti nejsou podporovány v Razor součástech, použijte koncové body rozhraní API v Blazor Server aplikaci ke zpracování akcí uživatelských účtů.
 
-#### <a name="use-a-custom-layout-with-blazor-app-styles"></a>Použití vlastního rozložení pomocí Blazor stylů aplikací
+#### <a name="use-a-custom-layout-with-no-locblazor-app-styles"></a>Použití vlastního rozložení pomocí Blazor stylů aplikací
 
 IdentityRozložení a styly stránek lze upravit tak, aby vytvořily stránky, které používají výchozí Blazor motiv.
 
@@ -362,7 +364,7 @@ V souboru *Pages/Shared/layout. cshtml* proveďte následující změny:
   <script src="_framework/blazor.server.js"></script>
   ```
 
-## <a name="scaffold-identity-into-a-blazor-server-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Blazor Server projektu s autorizací
+## <a name="scaffold-no-locidentity-into-a-no-locblazor-server-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Blazor Server projektu s autorizací
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
@@ -370,7 +372,7 @@ Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity / Identi
 
 <a name="full"></a>
 
-## <a name="create-full-identity-ui-source"></a>Vytvořit úplný Identity zdroj uživatelského rozhraní
+## <a name="create-full-no-locidentity-ui-source"></a>Vytvořit úplný Identity zdroj uživatelského rozhraní
 
 Chcete-li zachovat úplnou kontrolu nad Identity uživatelským rozhraním, spusťte modul pro Identity generování uživatelského rozhraní a vyberte možnost **přepsat všechny soubory**.
 
@@ -414,7 +416,7 @@ V této části se dozvíte, jak zakázat stránku registrace, ale přístup mů
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Příklad:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -476,7 +478,7 @@ Následující osnovy kódu přidávají uživatele:
 
 Podobný přístup je možné vyřídit v produkčních scénářích.
 
-## <a name="prevent-publish-of-static-identity-assets"></a>Zabránit publikování statických Identity prostředků
+## <a name="prevent-publish-of-static-no-locidentity-assets"></a>Zabránit publikování statických Identity prostředků
 
 Chcete-li zabránit publikování statických Identity prostředků do kořenového adresáře webu, přečtěte si téma <xref:security/authentication/identity#prevent-publish-of-static-identity-assets> .
 
@@ -501,7 +503,7 @@ Doporučujeme používat systém správy zdrojového kódu, který zobrazuje roz
 > [!NOTE]
 > Služby jsou vyžadovány při použití [dvou ověření](xref:security/authentication/identity-enable-qrcodes), [potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)a dalších funkcí zabezpečení s nástrojem Identity . Služby nebo zástupné procedury služby nejsou generovány při generování uživatelského rozhraní Identity . Služby, které umožňují tyto funkce povolit, je nutné přidat ručně. Podívejte se například na příkaz [vyžadovat potvrzení e-mailu](xref:security/authentication/accconfirm#require-email-confirmation).
 
-## <a name="scaffold-identity-into-an-empty-project"></a>Uživatelské rozhraní Identity do prázdného projektu
+## <a name="scaffold-no-locidentity-into-an-empty-project"></a>Uživatelské rozhraní Identity do prázdného projektu
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
@@ -513,7 +515,7 @@ Do třídy přidejte následující zvýrazněná volání `Startup` :
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-## <a name="scaffold-identity-into-a-razor-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu bez existující autorizace
+## <a name="scaffold-no-locidentity-into-a-no-locrazor-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu bez existující autorizace
 
 <!--  Updated for 3.0
 set projNam=RPnoAuth
@@ -558,7 +560,7 @@ Volitelné: přidejte do souboru rozložení částečnou přihlašování ( `_L
 
 [!code-cshtml[](scaffold-identity/sample/_Layout.cshtml?highlight=37)]
 
-## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu s autorizací
+## <a name="scaffold-no-locidentity-into-a-no-locrazor-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu s autorizací
 
 <!--
 Use >=2.1: dotnet new webapp -au Individual -o RPauth
@@ -575,7 +577,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
 
-## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC bez existující autorizace
+## <a name="scaffold-no-locidentity-into-an-mvc-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC bez existující autorizace
 
 <!--
 set projNam=MvcNoAuth
@@ -609,7 +611,7 @@ Zavolat [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuil
 
 [!INCLUDE[](~/includes/scaffold-identity/hsts.md)]
 
-## <a name="scaffold-identity-into-an-mvc-project-with-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC s autorizací
+## <a name="scaffold-no-locidentity-into-an-mvc-project-with-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC s autorizací
 
 <!--
 dotnet new mvc -au Individual -o MvcAuth
@@ -625,7 +627,7 @@ Odstraňte *stránky nebo sdílenou* složku a soubory v této složce.
 
 <a name="full"></a>
 
-## <a name="create-full-identity-ui-source"></a>Vytvořit úplný Identity zdroj uživatelského rozhraní
+## <a name="create-full-no-locidentity-ui-source"></a>Vytvořit úplný Identity zdroj uživatelského rozhraní
 
 Chcete-li zachovat úplnou kontrolu nad Identity uživatelským rozhraním, spusťte modul pro Identity generování uživatelského rozhraní a vyberte možnost **přepsat všechny soubory**.
 
@@ -667,7 +669,7 @@ Pokud <xref:Microsoft.AspNetCore.Identity.PasswordOptions> jsou nakonfigurovány
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Příklad:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"

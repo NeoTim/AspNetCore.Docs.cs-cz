@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/response
-ms.openlocfilehash: 5c3314991d05ea868fe9190bb3a0206b27fd920f
-ms.sourcegitcommit: b06511252f165dd4590ba9b5beca4153fa220779
+ms.openlocfilehash: 7d2d563eef60cb8eead95c6792bcac2cda16a859
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/27/2020
-ms.locfileid: "85459763"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021338"
 ---
 # <a name="response-caching-in-aspnet-core"></a>Ukládání odpovědí do mezipaměti v ASP.NET Core
 
@@ -41,7 +43,7 @@ Pro ukládání do mezipaměti na straně serveru, které následuje za specifik
 
 | Směrnici                                                       | Akce |
 | --------------------------------------------------------------- | ------ |
-| [republik](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | Mezipaměť může ukládat odpověď. |
+| [public](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | Mezipaměť může ukládat odpověď. |
 | [private](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | Odpověď nesmí být uložena sdílenou mezipamětí. Soukromá mezipaměť může uložit a znovu použít odpověď. |
 | [Maximální stáří](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | Klient nepřijme odpověď, jejíž stáří je větší než zadaný počet sekund. Příklady: `max-age=60` (60 sekund), `max-age=2592000` (1 měsíc) |
 | [No – mezipaměť](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **V případě požadavků**: mezipaměť nesmí k uspokojení požadavku použít uloženou odpověď. Zdrojový server znovu vygeneruje odpověď pro klienta a middleware aktualizuje uloženou odpověď v mezipaměti.<br><br>**Na odpovědích**: odpověď nesmí být použita pro následné žádosti bez ověření na zdrojovém serveru. |
@@ -51,7 +53,7 @@ Další hlavičky mezipaměti, které hrají roli v mezipaměti, jsou uvedeny v 
 
 | Záhlaví                                                     | Funkce |
 | ---------------------------------------------------------- | -------- |
-| [Věk](https://tools.ietf.org/html/rfc7234#section-5.1)     | Odhad doby v sekundách, po jejímž uplynutí byla odpověď generována nebo úspěšně ověřena na zdrojovém serveru. |
+| [Stáří](https://tools.ietf.org/html/rfc7234#section-5.1)     | Odhad doby v sekundách, po jejímž uplynutí byla odpověď generována nebo úspěšně ověřena na zdrojovém serveru. |
 | [Expires](https://tools.ietf.org/html/rfc7234#section-5.3) | Čas, po jehož uplynutí je odpověď považována za zastaralou. |
 | [Pragma](https://tools.ietf.org/html/rfc7234#section-5.4)  | Existuje pro zpětnou kompatibilitu s mezipamětí HTTP/1.0 pro `no-cache` chování nastavení. Pokud `Cache-Control` je hlavička k dispozici, `Pragma` záhlaví je ignorováno. |
 | [Toho](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | Určuje, že odpověď uložená v mezipaměti nesmí být odeslána, pokud se všechna `Vary` pole hlaviček shodují v původní žádosti odpovědi v mezipaměti i v nové žádosti. |
@@ -66,7 +68,7 @@ Při použití [middleware pro ukládání odpovědí](xref:performance/caching/
 
 ## <a name="other-caching-technology-in-aspnet-core"></a>Další technologie pro ukládání do mezipaměti v ASP.NET Core
 
-### <a name="in-memory-caching"></a>Ukládání do mezipaměti webového serveru
+### <a name="in-memory-caching"></a>Ukládání do mezipaměti v paměti
 
 Ukládání do mezipaměti v paměti používá paměť serveru k ukládání dat uložených v mezipaměti. Tento typ ukládání do mezipaměti je vhodný pro jeden server nebo víc serverů pomocí *relací s rychlým cvičením*. Rychlé relace znamenají, že požadavky klienta jsou vždycky směrovány na stejný server ke zpracování.
 

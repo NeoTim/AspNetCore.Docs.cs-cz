@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: bf041965b009d5c10b96ad4f2a349c6efb346eb5
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3fb524748b9e2aa2c12b64f67a7960c4f0f911b0
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408159"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88021156"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>Co je nového v ASP.NET Core 2,1
 
@@ -38,7 +40,7 @@ SignalRbylo přepsáno pro ASP.NET Core 2,1. ASP.NET Core SignalR obsahuje řadu
 
 Další informace najdete v tématu [ASP.NET Core SignalR ](xref:signalr/introduction).
 
-## <a name="razor-class-libraries"></a>Razorknihovny tříd
+## <a name="no-locrazor-class-libraries"></a>Razorknihovny tříd
 
 ASP.NET Core 2,1 usnadňuje sestavování a zahrnutí Razor uživatelského rozhraní na základě knihovny a jejich sdílení napříč více projekty. Nová Razor sada SDK umožňuje sestavovat Razor soubory do projektu knihovny tříd, který může být zabalen do balíčku NuGet. Zobrazení a stránky v knihovnách jsou automaticky zjišťovány a aplikace je může přepsat aplikací. Integrací Razor kompilace do sestavení:
 
@@ -47,7 +49,7 @@ ASP.NET Core 2,1 usnadňuje sestavování a zahrnutí Razor uživatelského rozh
 
 Další informace najdete v tématu [vytvoření opakovaně použitelného uživatelského rozhraní pomocí Razor projektu knihovny tříd](xref:razor-pages/ui-class).
 
-## <a name="identity-ui-library--scaffolding"></a>IdentityKnihovna uživatelského rozhraní & generování uživatelského rozhraní
+## <a name="no-locidentity-ui-library--scaffolding"></a>IdentityKnihovna uživatelského rozhraní & generování uživatelského rozhraní
 
 ASP.NET Core 2,1 poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které zahrnují, Identity můžou použít nový generátor, Identity aby selektivně přidal zdrojový kód obsažený v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL.
 
@@ -153,13 +155,13 @@ Další informace najdete v tématu [obecný hostitel .NET](xref:fundamentals/ho
 
 Úhlová šablona je založena na úhlů CLI a šablony s reakce jsou založené na aplikaci Create-reagují-App.
 
-Další informace naleznete v tématu:
+Další informace:
 
 * <xref:spa/angular>
 * <xref:spa/react>
 * <xref:spa/react-with-redux>
 
-## <a name="razor-pages-search-for-razor-assets"></a>RazorStránky vyhledávající Razor prostředky
+## <a name="no-locrazor-pages-search-for-no-locrazor-assets"></a>RazorStránky vyhledávající Razor prostředky
 
 V 2,1 Razor budou stránky hledat Razor prostředky (například rozložení a částečné) v následujících adresářích v uvedeném pořadí:
 
@@ -167,7 +169,7 @@ V 2,1 Razor budou stránky hledat Razor prostředky (například rozložení a �
 1. */Pages/Shared/*
 1. */Views/Shared/*
 
-## <a name="razor-pages-in-an-area"></a>RazorStránky v oblasti
+## <a name="no-locrazor-pages-in-an-area"></a>RazorStránky v oblasti
 
 RazorStránky teď podporují [oblasti](xref:mvc/controllers/areas). Pokud chcete zobrazit příklad oblastí, vytvořte novou Razor stránku webové aplikace s jednotlivými uživatelskými účty. RazorWebové aplikace stránky s jednotlivými uživatelskými účty zahrnuje */areas/ Identity /Pages*.
 

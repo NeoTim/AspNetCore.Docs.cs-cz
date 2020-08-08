@@ -5,6 +5,8 @@ description: Tento článek popisuje, jak přizpůsobit základní datový model
 ms.author: avickers
 ms.date: 07/01/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,20 +15,20 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 3a5bac0e3e34602b1f8a85a7bcde1ba92b372607
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 4e6d91de013755f1ae998e36481f4c3b659270ae
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399163"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88022001"
 ---
-# <a name="identity-model-customization-in-aspnet-core"></a>IdentityPřizpůsobení modelu v ASP.NET Core
+# <a name="no-locidentity-model-customization-in-aspnet-core"></a>IdentityPřizpůsobení modelu v ASP.NET Core
 
 Od [Arthur Vickers](https://github.com/ajcvickers)
 
 ASP.NET Core Identity poskytuje rozhraní pro správu a ukládání uživatelských účtů v aplikacích ASP.NET Core. Identityse přidá do projektu, když jsou **jednotlivé uživatelské účty** vybrané jako ověřovací mechanismus. Ve výchozím nastavení Identity využívá základní datový model Entity Framework (EF). Tento článek popisuje, jak model přizpůsobit Identity .
 
-## <a name="identity-and-ef-core-migrations"></a>Identitya EF Core migrace
+## <a name="no-locidentity-and-ef-core-migrations"></a>Identitya EF Core migrace
 
 Před prozkoumáním modelu je užitečné pochopit, jak Identity funguje s [EF Core migrací](/ef/core/managing-schemas/migrations/) pro vytvoření a aktualizaci databáze. Na nejvyšší úrovni je tento proces:
 
@@ -52,13 +54,13 @@ Když se vytvoří nová aplikace Identity , kroky 1 a 2 se už dokončí. To zn
 
 Předchozí kroky opakujte, protože se v modelu provedou změny.
 
-## <a name="the-identity-model"></a>IdentityModel
+## <a name="the-no-locidentity-model"></a>IdentityModel
 
 ### <a name="entity-types"></a>Typy entit
 
 IdentityModel se skládá z následujících typů entit.
 
-|Typ entity|Description                                                  |
+|Typ entity|Popis                                                  |
 |-----------|-------------------------------------------------------------|
 |`User`     |Představuje uživatele.                                         |
 |`Role`     |Představuje roli.                                           |
@@ -355,7 +357,7 @@ Update *Pages/Shared/_LoginPartial. cshtml* a nahraďte `IdentityUser` `Applicat
 @inject UserManager<ApplicationUser> UserManager
 ```
 
-Aktualizujte *oblasti/ Identity /IdentityHostingStartup.cs* nebo `Startup.ConfigureServices` nahraďte `IdentityUser` `ApplicationUser` .
+Aktualizujte *oblasti/ Identity / Identity HostingStartup.cs* nebo `Startup.ConfigureServices` nahraďte `IdentityUser` pomocí `ApplicationUser` .
 
 ```csharp
 services.AddIdentity<ApplicationUser>()
@@ -363,7 +365,7 @@ services.AddIdentity<ApplicationUser>()
         .AddDefaultUI();
 ```
 
-V ASP.NET Core 2,1 nebo novější, Identity je k dispozici jako Razor Knihovna tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání metody <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> . Pokud se generátor Identity použil k přidání Identity souborů do projektu, odeberte volání `AddDefaultUI` . Další informace naleznete v tématu:
+V ASP.NET Core 2,1 nebo novější, Identity je k dispozici jako Razor Knihovna tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání metody <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> . Pokud se generátor Identity použil k přidání Identity souborů do projektu, odeberte volání `AddDefaultUI` . Další informace:
 
 * [GenerováníIdentity](xref:security/authentication/scaffold-identity)
 * [Přidání, stažení a odstranění vlastních uživatelských datIdentity](xref:security/authentication/add-user-data)
@@ -985,7 +987,7 @@ services
 
 Pokyny k přidávání navigačních vlastností do typů entit najdete v předchozích příkladech.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:security/authentication/scaffold-identity>
 
