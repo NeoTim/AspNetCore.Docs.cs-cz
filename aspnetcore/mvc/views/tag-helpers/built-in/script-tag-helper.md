@@ -6,6 +6,8 @@ description: Seznamte se s atributy pomocníka značky skriptu ASP.NET Core a ro
 ms.custom: mvc
 ms.date: 12/02/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,24 +16,24 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
-ms.openlocfilehash: b9b90c1c40fccbc7bb6b6c9050bd525b5fa8cd92
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b2f10b8230c1292614927d61c1e6d997dcb5640c
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407405"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020220"
 ---
-# <a name="script-tag-helper-in-aspnet-core"></a><span data-ttu-id="88bdf-103">Pomocník značek Script v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="88bdf-103">Script Tag Helper in ASP.NET Core</span></span>
+# <a name="script-tag-helper-in-aspnet-core"></a><span data-ttu-id="49c11-103">Pomocník značek Script v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="49c11-103">Script Tag Helper in ASP.NET Core</span></span>
 
-<span data-ttu-id="88bdf-104">Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="88bdf-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="49c11-104">Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="49c11-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="88bdf-105">[Pomocník značek Script](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) vygeneruje odkaz na primární soubor nebo soubor skriptu.</span><span class="sxs-lookup"><span data-stu-id="88bdf-105">The [Script Tag Helper](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) generates a link to a primary or fall back script file.</span></span> <span data-ttu-id="88bdf-106">Obvykle je soubor primárního skriptu na [Content Delivery Network](/office365/enterprise/content-delivery-networks#what-exactly-is-a-cdn) (CDN).</span><span class="sxs-lookup"><span data-stu-id="88bdf-106">Typically the primary script file is on a [Content Delivery Network](/office365/enterprise/content-delivery-networks#what-exactly-is-a-cdn) (CDN).</span></span>
+<span data-ttu-id="49c11-105">[Pomocník značek Script](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) vygeneruje odkaz na primární soubor nebo soubor skriptu.</span><span class="sxs-lookup"><span data-stu-id="49c11-105">The [Script Tag Helper](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) generates a link to a primary or fall back script file.</span></span> <span data-ttu-id="49c11-106">Obvykle je soubor primárního skriptu na [Content Delivery Network](/office365/enterprise/content-delivery-networks#what-exactly-is-a-cdn) (CDN).</span><span class="sxs-lookup"><span data-stu-id="49c11-106">Typically the primary script file is on a [Content Delivery Network](/office365/enterprise/content-delivery-networks#what-exactly-is-a-cdn) (CDN).</span></span>
 
 [!INCLUDE[](~/includes/cdn.md)]
 
-<span data-ttu-id="88bdf-107">Pomocná značka skriptu umožňuje zadat síť CDN pro soubor skriptu a zálohu, pokud CDN není k dispozici.</span><span class="sxs-lookup"><span data-stu-id="88bdf-107">The Script Tag Helper allows you to specify a CDN for the script file and a fallback when the CDN is not available.</span></span> <span data-ttu-id="88bdf-108">Pomocník značek Script poskytuje výkonnou výhodu sítě CDN s odolností místního hostování.</span><span class="sxs-lookup"><span data-stu-id="88bdf-108">The Script Tag Helper provides the performance advantage of a CDN with the robustness of local hosting.</span></span>
+<span data-ttu-id="49c11-107">Pomocná značka skriptu umožňuje zadat síť CDN pro soubor skriptu a zálohu, pokud CDN není k dispozici.</span><span class="sxs-lookup"><span data-stu-id="49c11-107">The Script Tag Helper allows you to specify a CDN for the script file and a fallback when the CDN is not available.</span></span> <span data-ttu-id="49c11-108">Pomocník značek Script poskytuje výkonnou výhodu sítě CDN s odolností místního hostování.</span><span class="sxs-lookup"><span data-stu-id="49c11-108">The Script Tag Helper provides the performance advantage of a CDN with the robustness of local hosting.</span></span>
 
-<span data-ttu-id="88bdf-109">Následující Razor kód ukazuje `script` element s Fallback:</span><span class="sxs-lookup"><span data-stu-id="88bdf-109">The following Razor markup shows a `script` element with a fallback:</span></span>
+<span data-ttu-id="49c11-109">Následující Razor kód ukazuje `script` element s Fallback:</span><span class="sxs-lookup"><span data-stu-id="49c11-109">The following Razor markup shows a `script` element with a fallback:</span></span>
 
 ```html
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -42,21 +44,21 @@ ms.locfileid: "85407405"
 </script>
 ```
 
-<span data-ttu-id="88bdf-110">Nepoužívejte `<script>` atribut [pozdržet](https://developer.mozilla.org/docs/Web/HTML/Element/script) elementu pro odložení načtení skriptu CDN.</span><span class="sxs-lookup"><span data-stu-id="88bdf-110">Don't use the `<script>` element's [defer](https://developer.mozilla.org/docs/Web/HTML/Element/script) attribute to defer loading the CDN script.</span></span> <span data-ttu-id="88bdf-111">Pomocník značek Script vykresluje JavaScript, který okamžitě spustí výraz [ASP-Fallback-test](#asp-fallback-test) .</span><span class="sxs-lookup"><span data-stu-id="88bdf-111">The Script Tag Helper renders JavaScript that immediately executes the [asp-fallback-test](#asp-fallback-test) expression.</span></span> <span data-ttu-id="88bdf-112">Pokud je načítání skriptu CDN odložené, výraz se nezdařil.</span><span class="sxs-lookup"><span data-stu-id="88bdf-112">The expression fails if loading the CDN script is deferred.</span></span>
+<span data-ttu-id="49c11-110">Nepoužívejte `<script>` atribut [pozdržet](https://developer.mozilla.org/docs/Web/HTML/Element/script) elementu pro odložení načtení skriptu CDN.</span><span class="sxs-lookup"><span data-stu-id="49c11-110">Don't use the `<script>` element's [defer](https://developer.mozilla.org/docs/Web/HTML/Element/script) attribute to defer loading the CDN script.</span></span> <span data-ttu-id="49c11-111">Pomocník značek Script vykresluje JavaScript, který okamžitě spustí výraz [ASP-Fallback-test](#asp-fallback-test) .</span><span class="sxs-lookup"><span data-stu-id="49c11-111">The Script Tag Helper renders JavaScript that immediately executes the [asp-fallback-test](#asp-fallback-test) expression.</span></span> <span data-ttu-id="49c11-112">Pokud je načítání skriptu CDN odložené, výraz se nezdařil.</span><span class="sxs-lookup"><span data-stu-id="49c11-112">The expression fails if loading the CDN script is deferred.</span></span>
 
-## <a name="commonly-used-script-tag-helper-attributes"></a><span data-ttu-id="88bdf-113">Běžně používané pomocné atributy značek skriptů</span><span class="sxs-lookup"><span data-stu-id="88bdf-113">Commonly used Script Tag Helper attributes</span></span>
+## <a name="commonly-used-script-tag-helper-attributes"></a><span data-ttu-id="49c11-113">Běžně používané pomocné atributy značek skriptů</span><span class="sxs-lookup"><span data-stu-id="49c11-113">Commonly used Script Tag Helper attributes</span></span>
 
-<span data-ttu-id="88bdf-114">Viz [Pomocník značek Script](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) pro všechny pomocné atributy, vlastnosti a metody značky skriptu.</span><span class="sxs-lookup"><span data-stu-id="88bdf-114">See [Script Tag Helper](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) for all the Script Tag Helper attributes, properties, and methods.</span></span>
+<span data-ttu-id="49c11-114">Viz [Pomocník značek Script](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) pro všechny pomocné atributy, vlastnosti a metody značky skriptu.</span><span class="sxs-lookup"><span data-stu-id="49c11-114">See [Script Tag Helper](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) for all the Script Tag Helper attributes, properties, and methods.</span></span>
 
-### <a name="asp-fallback-test"></a><span data-ttu-id="88bdf-115">ASP – Fallback-test</span><span class="sxs-lookup"><span data-stu-id="88bdf-115">asp-fallback-test</span></span>
+### <a name="asp-fallback-test"></a><span data-ttu-id="49c11-115">ASP – Fallback-test</span><span class="sxs-lookup"><span data-stu-id="49c11-115">asp-fallback-test</span></span>
 
-<span data-ttu-id="88bdf-116">Metoda skriptu definovaná v primárním skriptu pro použití pro záložní test.</span><span class="sxs-lookup"><span data-stu-id="88bdf-116">The script method defined in the primary script to use for the fallback test.</span></span> <span data-ttu-id="88bdf-117">Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackTestExpression>.</span><span class="sxs-lookup"><span data-stu-id="88bdf-117">For more information, see <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackTestExpression>.</span></span>
+<span data-ttu-id="49c11-116">Metoda skriptu definovaná v primárním skriptu pro použití pro záložní test.</span><span class="sxs-lookup"><span data-stu-id="49c11-116">The script method defined in the primary script to use for the fallback test.</span></span> <span data-ttu-id="49c11-117">Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackTestExpression>.</span><span class="sxs-lookup"><span data-stu-id="49c11-117">For more information, see <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackTestExpression>.</span></span>
 
-### <a name="asp-fallback-src"></a><span data-ttu-id="88bdf-118">ASP – Fallback – src</span><span class="sxs-lookup"><span data-stu-id="88bdf-118">asp-fallback-src</span></span>
+### <a name="asp-fallback-src"></a><span data-ttu-id="49c11-118">ASP – Fallback – src</span><span class="sxs-lookup"><span data-stu-id="49c11-118">asp-fallback-src</span></span>
 
-<span data-ttu-id="88bdf-119">Adresa URL značky skriptu, na kterou se má přejít v případě, že primární z nich selhala</span><span class="sxs-lookup"><span data-stu-id="88bdf-119">The URL of a Script tag to fallback to in the case the primary one fails.</span></span> <span data-ttu-id="88bdf-120">Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackSrc>.</span><span class="sxs-lookup"><span data-stu-id="88bdf-120">For more information, see <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackSrc>.</span></span>
+<span data-ttu-id="49c11-119">Adresa URL značky skriptu, na kterou se má přejít v případě, že primární z nich selhala</span><span class="sxs-lookup"><span data-stu-id="49c11-119">The URL of a Script tag to fallback to in the case the primary one fails.</span></span> <span data-ttu-id="49c11-120">Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackSrc>.</span><span class="sxs-lookup"><span data-stu-id="49c11-120">For more information, see <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackSrc>.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="88bdf-121">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="88bdf-121">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="49c11-121">Další materiály</span><span class="sxs-lookup"><span data-stu-id="49c11-121">Additional resources</span></span>
 
 * <xref:mvc/views/tag-helpers/intro>
 * <xref:mvc/controllers/areas>
