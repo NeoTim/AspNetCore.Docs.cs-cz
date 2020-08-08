@@ -5,6 +5,8 @@ description: ''
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/actions
-ms.openlocfilehash: 0c91edc947b1a17f2dd36b281afe348aa8611bd7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 05985acb559f63eb5f1d9854041be737291a3809
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406911"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019908"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>Zpracování požadavků s řadiči ve službě ASP.NET Core MVC
 
@@ -85,7 +87,7 @@ Většina pomocných metod v této kategorii zahrnuje `ContentType` vlastnost, k
 
 V této kategorii existují dva typy výsledků: [zobrazení](xref:mvc/views/overview) a [formátovaná odpověď](xref:web-api/advanced/formatting).
 
-* **Zobrazit**
+* **Zobrazení**
 
     Tento typ vrátí zobrazení, které používá model pro vykreslení kódu HTML. Například `return View(customer);` předává model do zobrazení pro datovou vazbu.
 
@@ -108,7 +110,7 @@ Aplikace obvykle sdílí části svého pracovního postupu. Mezi příklady pat
 Většinu atributů filtru, jako `[Authorize]` je například, lze použít na úrovni řadiče nebo akce v závislosti na požadované úrovni členitosti.
 
 Zpracování chyb a ukládání odpovědí do mezipaměti často souvisí mezi různými aspekty:
-* [Ošetření chyb](xref:mvc/controllers/filters#exception-filters)
+* [Zpracování chyb](xref:mvc/controllers/filters#exception-filters)
 * [Ukládání odpovědí do mezipaměti](xref:performance/caching/response)
 
 Mnoho obav v průřezech se dá zpracovat pomocí filtrů nebo vlastního [middlewaru](xref:fundamentals/middleware/index).

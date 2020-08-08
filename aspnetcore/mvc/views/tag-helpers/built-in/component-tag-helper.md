@@ -6,6 +6,8 @@ description: Naučte se používat ASP.NET Core pomocníka značek komponenty k 
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: c088cb7dd4f446b6a42c63357ccf2a080d852382
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 09291b537e35d00df6f8006aaccdf4db12acfaea
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399241"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018686"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>Pomocná značka komponenty v ASP.NET Core
 
@@ -160,7 +162,7 @@ Předchozí příklad předpokládá, že `MyComponent` je komponenta ve *sdíle
 * Je předem vykreslen na stránku.
 * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
 
-| Režim vykreslování | Description |
+| Režim vykreslování | Popis |
 | ----------- | ----------- |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí komponentu do statického HTML a obsahuje značku pro Blazor Server aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor Server aplikaci. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
@@ -170,7 +172,7 @@ I když stránky a zobrazení mohou používat komponenty, není tato konverzace
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper>
 * <xref:mvc/views/tag-helpers/intro>

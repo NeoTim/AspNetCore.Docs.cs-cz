@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/04/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: 96d24940af6c591e3c02bfa26ed9d7d6ea60d27d
-ms.sourcegitcommit: d00a200bc8347af794b24184da14ad5c8b6bba9a
+ms.openlocfilehash: 11d0c514dd15e787224510991ffb81680c9fc479
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86869975"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019339"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -207,7 +209,7 @@ Každý kontroler, který dědí ze <xref:Microsoft.AspNetCore.Mvc.Controller> z
 
 Například v ukázce ke stažení `MySampleActionFilter` se použije globálně při spuštění.
 
-`TestController`:
+Pomocná rutina `TestController`:
 
 * Aplikuje `SampleActionFilterAttribute` ( `[SampleActionFilter]` ) na `FilterTest2` akci.
 * Přepisuje `OnActionExecuting` a `OnActionExecuted` .
@@ -279,7 +281,7 @@ Kanál filtru může být v krátkém okruhu nastavením <xref:Microsoft.AspNetC
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Filters/ShortCircuitingResourceFilterAttribute.cs?name=snippet)]
 
-V následujícím kódu, `ShortCircuitingResourceFilter` a jako `AddHeader` cíl filtru i cílovou `SomeResource` metodu Action. `ShortCircuitingResourceFilter`:
+V následujícím kódu, `ShortCircuitingResourceFilter` a jako `AddHeader` cíl filtru i cílovou `SomeResource` metodu Action. Pomocná rutina `ShortCircuitingResourceFilter`:
 
 * Nejprve se spustí, protože se jedná o filtr prostředků a `AddHeader` je filtr akcí.
 * Krátké okruhy zbývajícího kanálu.
@@ -288,7 +290,7 @@ Proto `AddHeader` Filtr pro akci nikdy neběží `SomeResource` . Toto chování
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-## <a name="dependency-injection"></a>Injektáž závislosti
+## <a name="dependency-injection"></a>Injektáž závislostí
 
 Filtry lze přidat podle typu nebo podle instance. Pokud je přidána instance, bude tato instance použita pro každý požadavek. Pokud je přidán typ, je aktivován typ. Filtr aktivovaný typu znamená:
 
@@ -746,7 +748,7 @@ Tato posloupnost zobrazuje:
 * Filtr metod je vnořený do filtru kontroleru.
 * Filtr kontroleru je vnořený do globálního filtru.
 
-### <a name="controller-and-razor-page-level-filters"></a>Filtry na Razor úrovni řadiče a stránky
+### <a name="controller-and-no-locrazor-page-level-filters"></a>Filtry na Razor úrovni řadiče a stránky
 
 Každý kontroler, který dědí ze <xref:Microsoft.AspNetCore.Mvc.Controller> základní třídy, zahrnuje metody [Controller. OnActionExecuting](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuting*), [Controller. OnActionExecutionAsync](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecutionAsync*)a [Controller. OnActionExecuted](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuted*) 
  `OnActionExecuted` . Tyto metody:
@@ -758,7 +760,7 @@ Každý kontroler, který dědí ze <xref:Microsoft.AspNetCore.Mvc.Controller> z
 
 Například v ukázce ke stažení `MySampleActionFilter` se použije globálně při spuštění.
 
-`TestController`:
+Pomocná rutina `TestController`:
 
 * Aplikuje `SampleActionFilterAttribute` ( `[SampleActionFilter]` ) na `FilterTest2` akci.
 * Přepisuje `OnActionExecuting` a `OnActionExecuted` .
@@ -811,7 +813,7 @@ Kanál filtru může být v krátkém okruhu nastavením <xref:Microsoft.AspNetC
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/ShortCircuitingResourceFilterAttribute.cs?name=snippet)]
 
-V následujícím kódu, `ShortCircuitingResourceFilter` a jako `AddHeader` cíl filtru i cílovou `SomeResource` metodu Action. `ShortCircuitingResourceFilter`:
+V následujícím kódu, `ShortCircuitingResourceFilter` a jako `AddHeader` cíl filtru i cílovou `SomeResource` metodu Action. Pomocná rutina `ShortCircuitingResourceFilter`:
 
 * Nejprve se spustí, protože se jedná o filtr prostředků a `AddHeader` je filtr akcí.
 * Krátké okruhy zbývajícího kanálu.
@@ -820,7 +822,7 @@ Proto `AddHeader` Filtr pro akci nikdy neběží `SomeResource` . Toto chování
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
-## <a name="dependency-injection"></a>Injektáž závislosti
+## <a name="dependency-injection"></a>Injektáž závislostí
 
 Filtry lze přidat podle typu nebo podle instance. Pokud je přidána instance, bude tato instance použita pro každý požadavek. Pokud je přidán typ, je aktivován typ. Filtr aktivovaný typu znamená:
 

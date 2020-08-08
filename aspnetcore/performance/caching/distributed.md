@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/distributed
-ms.openlocfilehash: 56c67178bd5c63f08a812357a4f8e672dd483994
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 64a4b6f606a4f5f8e73ef08f53cbb6e4003245aa
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405390"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020675"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>Distribuované ukládání do mezipaměti v ASP.NET Core
 
@@ -134,7 +136,7 @@ Konfigurace NCache:
 
 1. Nainstalujte [NCache Open Source NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/).
 1. Nakonfigurujte cluster mezipaměti v [Client. ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html).
-1. Přidejte následující kód do `Startup.ConfigureServices` :
+1. Do souboru `Startup.ConfigureServices` přidejte následující kód:
 
    ```csharp
    services.AddNCacheDistributedCache(configuration =>    
@@ -304,7 +306,7 @@ Konfigurace NCache:
 
 1. Nainstalujte [NCache Open Source NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/).
 1. Nakonfigurujte cluster mezipaměti v [Client. ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html).
-1. Přidejte následující kód do `Startup.ConfigureServices` :
+1. Do souboru `Startup.ConfigureServices` přidejte následující kód:
 
    ```csharp
    services.AddNCacheDistributedCache(configuration =>    
@@ -480,7 +482,7 @@ Konfigurace NCache:
 
 1. Nainstalujte [NCache Open Source NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/).
 1. Nakonfigurujte cluster mezipaměti v [Client. ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html).
-1. Přidejte následující kód do `Startup.ConfigureServices` :
+1. Do souboru `Startup.ConfigureServices` přidejte následující kód:
 
    ```csharp
    services.AddNCacheDistributedCache(configuration =>    

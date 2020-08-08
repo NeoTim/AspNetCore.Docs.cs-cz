@@ -5,6 +5,8 @@ description: Část 2 série kurzů na Razor stránkách.
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 053e35e78b2bf58fded49c9a2860060d6a81c544
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6b50f46863a6dabb01bcf0976a42abb504e6f7b7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408107"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020454"
 ---
-# <a name="part-2-add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Část 2 – Přidání modelu do Razor aplikace stránky v ASP.NET Core
+# <a name="part-2-add-a-model-to-a-no-locrazor-pages-app-in-aspnet-core"></a>Část 2 – Přidání modelu do Razor aplikace stránky v ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -38,7 +40,7 @@ Třídy modelu se označují jako třídy POCO (z "objektů CLR v prostém Old")
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Klikněte pravým tlačítkem na projekt **RazorPagesMovie** > **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
+Klikněte pravým tlačítkem na projekt ** Razor PagesMovie** > **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
 
 Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat**  >  **třídu**. Pojmenujte **film**třídy.
 
@@ -55,7 +57,7 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat**  >  **t�
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* V oblast řešení klikněte pravým tlačítkem na projekt **RazorPagesMovie** a pak vyberte **Přidat** > **novou složku...**. Pojmenujte *modely*složek.
+* V oblast řešení klikněte pravým tlačítkem na projekt ** Razor PagesMovie** a pak vyberte **Přidat** > **novou složku...**. Pojmenujte *modely*složek.
 * Klikněte pravým tlačítkem na složku *modely* a pak vyberte **Přidat** > **nový soubor...**.
 * V dialogovém okně **nový soubor** :
 
@@ -90,9 +92,9 @@ V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte *
 
 Dokončete dialog **Přidat Razor stránky pomocí Entity Framework (CRUD)** :
 
-* V rozevíracím seznamu **třída modelu** vyberte **video (RazorPagesMovie. Models)**.
-* V řádku **třídy kontextu dat** vyberte **+** znaménko (plus) a změňte vygenerovaný název z RazorPagesMovie.** Modely**. RazorPagesMovieContext na RazorPagesMovie. **Data**. RazorPagesMovieContext. [Tato změna](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) se nevyžaduje. Vytvoří třídu kontextu databáze se správným oborem názvů.
-* Vyberte možnost **Přidat**.
+* V rozevíracím seznamu **třída modelu** vyberte **video ( Razor PagesMovie. Models)**.
+* V řádku **třídy kontextu dat** vyberte **+** znaménko (plus) a změňte vygenerovaný název z Razor PagesMovie.** Modely**. Razor PagesMovieContext na Razor PagesMovie.** Data**. Razor PagesMovieContext. [Tato změna](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) se nevyžaduje. Vytvoří třídu kontextu databáze se správným oborem názvů.
+* Vyberte **Přidat**.
 
 ![Obrázek z předchozích instrukcí.](model/_static/3/arp.png)
 
@@ -144,9 +146,9 @@ V dialogovém okně **nové generování uživatelského rozhraní** vyberte mo�
 
 Dokončete dialog **Přidat Razor stránky pomocí Entity Framework (CRUD)** :
 
-* V rozevíracím seznamu **třída modelu** vyberte nebo zadejte **video (RazorPagesMovie. Models)**.
-* Do řádku **Třída kontextu dat** zadejte název nové třídy, RazorPagesMovie. **Data**. RazorPagesMovieContext. [Tato změna](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) se nevyžaduje. Vytvoří třídu kontextu databáze se správným oborem názvů.
-* Vyberte možnost **Přidat**.
+* V rozevíracím seznamu **třída modelu** vyberte nebo zadejte **video ( Razor PagesMovie. Models)**.
+* Do řádku **Třída kontextu dat** zadejte název nové třídy, Razor PagesMovie.** Data**. Razor PagesMovieContext. [Tato změna](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) se nevyžaduje. Vytvoří třídu kontextu databáze se správným oborem názvů.
+* Vyberte **Přidat**.
 
 ![Obrázek z předchozích instrukcí.](model/_static/arpMac.png)
 
@@ -171,7 +173,7 @@ Předchozí příkaz přidá nástroje Entity Framework Core pro .NET Core CLI.
 Proces generování uživatelského rozhraní vytváří a aktualizuje následující soubory:
 
 * *Stránky/filmy*: vytvořit, odstranit, podrobnosti, upravit a index.
-* *Data/RazorPagesMovieContext. cs*
+* *Data/ Razor PagesMovieContext.cs*
 
 ### <a name="updated"></a>Aktualizováno
 
@@ -184,7 +186,7 @@ Vytvořené a aktualizované soubory jsou vysvětleny v další části.
 Proces generování uživatelského rozhraní vytváří a aktualizuje následující soubory:
 
 * *Stránky/filmy*: vytvořit, odstranit, podrobnosti, upravit a index.
-* *Data/RazorPagesMovieContext. cs*
+* *Data/ Razor PagesMovieContext.cs*
 
 ### <a name="updated"></a>Aktualizováno
 
@@ -319,7 +321,7 @@ Třídy modelu se označují jako třídy POCO (z "objektů CLR v prostém Old")
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Klikněte pravým tlačítkem na projekt **RazorPagesMovie** > **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
+Klikněte pravým tlačítkem na projekt ** Razor PagesMovie** > **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
 
 Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat**  >  **třídu**. Pojmenujte **film**třídy.
 
@@ -336,7 +338,7 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat**  >  **t�
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* V Průzkumník řešení klikněte pravým tlačítkem na projekt **RazorPagesMovie** a pak vyberte **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
+* V Průzkumník řešení klikněte pravým tlačítkem na projekt ** Razor PagesMovie** a pak vyberte **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
 * Klikněte pravým tlačítkem na složku *modely* a pak vyberte **Přidat** > **nový soubor**.
 * V dialogovém okně **nový soubor** :
 
@@ -375,9 +377,9 @@ Dokončete dialog **Přidat Razor stránky pomocí Entity Framework (CRUD)** :
 to use Data, it should not use models. That will make the namespace the same for the VS version and the CLI version
 -->
 
-* V rozevíracím seznamu **třída modelu** vyberte **video (RazorPagesMovie. Models)**.
-* V řádku **Třída kontextu dat** vyberte **+** znaménko (plus) a přijměte vygenerovaný název **RazorPagesMovie. Models. RazorPagesMovieContext**.
-* Vyberte možnost **Přidat**.
+* V rozevíracím seznamu **třída modelu** vyberte **video ( Razor PagesMovie. Models)**.
+* V řádku **Třída kontextu dat** vyberte **+** znaménko (plus) a přijměte vygenerovaný název ** Razor PagesMovie. Models. Razor PagesMovieContext**.
+* Vyberte **Přidat**.
 
 ![Obrázek z předchozích instrukcí.](model/_static/arp.png)
 
@@ -422,8 +424,8 @@ V dialogovém okně **Přidat nové generování uživatelského rozhraní** vyb
 Dokončete dialog **Přidat Razor stránky pomocí Entity Framework (CRUD)** :
 
 * V rozevíracím seznamu **třída modelu** vyberte nebo zadejte **video**.
-* V řádku **třídy kontextu dat** zadejte vyberte **RazorPagesMovieContext** . tím se vytvoří nová třída kontextu databáze se správným oborem názvů. V takovém případě bude **RazorPagesMovie. Models. RazorPagesMovieContext**.
-* Vyberte možnost **Přidat**.
+* V řádku **třídy kontextu dat** zadejte vyberte ** Razor PagesMovieContext** . tím se vytvoří nová třída kontextu databáze se správným oborem názvů. V takovém případě bude ** Razor PagesMovie. Models. Razor PagesMovieContext**.
+* Vyberte **Přidat**.
 
 ![Obrázek z předchozích instrukcí.](model/_static/arpMac.png)
 
@@ -436,7 +438,7 @@ Proces generování uživatelského rozhraní vytváří a aktualizuje následuj
 ### <a name="files-created"></a>Vytvořené soubory
 
 * *Stránky/filmy*: vytvořit, odstranit, podrobnosti, upravit a index.
-* *Data/RazorPagesMovieContext. cs*
+* *Data/ Razor PagesMovieContext.cs*
 
 ### <a name="file-updated"></a>Soubor aktualizován
 
@@ -466,7 +468,7 @@ Add-Migration Initial
 Update-Database
 ```
 
-`Add-Migration`Příkaz vygeneruje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext` (v souboru *RazorPagesMovieContext.cs* ). `InitialCreate`Argument slouží k pojmenování migrace. Můžete použít libovolný název, ale podle konvence je použit název, který popisuje migraci. Další informace naleznete v tématu <xref:data/ef-mvc/migrations>.
+`Add-Migration`Příkaz vygeneruje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext` (v souboru * Razor PagesMovieContext.cs* ). `InitialCreate`Argument slouží k pojmenování migrace. Můžete použít libovolný název, ale podle konvence je použit název, který popisuje migraci. Další informace naleznete v tématu <xref:data/ef-mvc/migrations>.
 
 `Update-Database`Příkaz spustí `Up` metodu v souboru *migrations/ \<time-stamp> _InitialCreate. cs* . `Up`Metoda vytvoří databázi.
 

@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 291897b06d3d8294bc170996683f36532712ebe4
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f7a440a13891cd51226cad12924cfc65684632ea
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399007"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020181"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>Trvalé další deklarace identity a tokeny od externích zprostředkovatelů v ASP.NET Core
 
@@ -57,7 +59,7 @@ Zadejte seznam oprávnění, která se mají načíst ze zprostředkovatele, zad
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
-| Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
+| Partnerský vztah Microsoftu | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
 V ukázkové aplikaci `userinfo.profile` je obor Google automaticky přidán rozhraním, když <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> je volána na portálu <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder> . Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu `https://www.googleapis.com/auth/user.birthday.read` je přidaný obor Google, aby bylo možné načíst narozeniny uživatele:
@@ -80,19 +82,19 @@ V ukázkové aplikaci `OnPostConfirmationAsync` (*account/ExternalLogin. cshtml.
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
-Ve výchozím nastavení jsou deklarace identity uživatele uloženy v ověřovacím souboru cookie. Pokud je soubor cookie ověřování příliš velký, může dojít k selhání aplikace z těchto důvodů:
+Ve výchozím nastavení jsou deklarace identity uživatele uloženy v ověřování cookie . Pokud je ověřování cookie moc velké, může to způsobit selhání aplikace z těchto důvodů:
 
-* Prohlížeč zjistí, že hlavička souboru cookie je příliš dlouhá.
+* Prohlížeč zjistí, že cookie Hlavička je příliš dlouhá.
 * Celková velikost požadavku je příliš velká.
 
 Pokud se pro zpracování uživatelských požadavků vyžaduje velké množství uživatelských dat:
 
 * Omezte počet a velikost deklarací identity uživatelů pro zpracování žádostí jenom na to, co aplikace vyžaduje.
-* <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> K ukládání identit napříč požadavky použijte vlastníky pro middleware ověřování souborů cookie. Zachovat velké množství informací o identitě na serveru, zatímco do klienta odesílá jenom malý klíč identifikátoru relace.
+* Využijte vlastní <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> pro Cookie ověřování middlewaru <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> k ukládání identit napříč požadavky. Zachovat velké množství informací o identitě na serveru, zatímco do klienta odesílá jenom malý klíč identifikátoru relace.
 
 ## <a name="save-the-access-token"></a>Uložení přístupového tokenu
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*>definuje, jestli se mají <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> po úspěšné autorizaci ukládat tokeny přístupu a aktualizace. `SaveTokens`je nastavené na výchozí hodnotu, `false` aby se snížila velikost konečného ověřovacího souboru cookie.
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*>definuje, jestli se mají <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> po úspěšné autorizaci ukládat tokeny přístupu a aktualizace. `SaveTokens`je nastavené na výchozí hodnotu, `false` aby se snížila velikost konečného ověření cookie .
 
 Ukázková aplikace nastaví hodnotu `SaveTokens` na `true` v <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> :
 
@@ -197,7 +199,7 @@ Zadejte seznam oprávnění, která se mají načíst ze zprostředkovatele, zad
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
-| Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
+| Partnerský vztah Microsoftu | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
 V ukázkové aplikaci `userinfo.profile` je obor Google automaticky přidán rozhraním, když <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> je volána na portálu <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder> . Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu `https://www.googleapis.com/auth/user.birthday.read` je přidaný obor Google, aby bylo možné načíst narozeniny uživatele:
@@ -220,19 +222,19 @@ V ukázkové aplikaci `OnPostConfirmationAsync` (*account/ExternalLogin. cshtml.
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
-Ve výchozím nastavení jsou deklarace identity uživatele uloženy v ověřovacím souboru cookie. Pokud je soubor cookie ověřování příliš velký, může dojít k selhání aplikace z těchto důvodů:
+Ve výchozím nastavení jsou deklarace identity uživatele uloženy v ověřování cookie . Pokud je ověřování cookie moc velké, může to způsobit selhání aplikace z těchto důvodů:
 
-* Prohlížeč zjistí, že hlavička souboru cookie je příliš dlouhá.
+* Prohlížeč zjistí, že cookie Hlavička je příliš dlouhá.
 * Celková velikost požadavku je příliš velká.
 
 Pokud se pro zpracování uživatelských požadavků vyžaduje velké množství uživatelských dat:
 
 * Omezte počet a velikost deklarací identity uživatelů pro zpracování žádostí jenom na to, co aplikace vyžaduje.
-* <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> K ukládání identit napříč požadavky použijte vlastníky pro middleware ověřování souborů cookie. Zachovat velké množství informací o identitě na serveru, zatímco do klienta odesílá jenom malý klíč identifikátoru relace.
+* Využijte vlastní <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> pro Cookie ověřování middlewaru <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> k ukládání identit napříč požadavky. Zachovat velké množství informací o identitě na serveru, zatímco do klienta odesílá jenom malý klíč identifikátoru relace.
 
 ## <a name="save-the-access-token"></a>Uložení přístupového tokenu
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*>definuje, jestli se mají <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> po úspěšné autorizaci ukládat tokeny přístupu a aktualizace. `SaveTokens`je nastavené na výchozí hodnotu, `false` aby se snížila velikost konečného ověřovacího souboru cookie.
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*>definuje, jestli se mají <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> po úspěšné autorizaci ukládat tokeny přístupu a aktualizace. `SaveTokens`je nastavené na výchozí hodnotu, `false` aby se snížila velikost konečného ověření cookie .
 
 Ukázková aplikace nastaví hodnotu `SaveTokens` na `true` v <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> :
 

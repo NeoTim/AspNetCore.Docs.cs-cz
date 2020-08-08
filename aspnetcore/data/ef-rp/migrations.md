@@ -5,6 +5,8 @@ description: Čtvrtá část Razor stránek a Entity Framework řady kurzů.
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 7d326bd5d8204d98e2f13b433f49fd740557905f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ebdcf5605e8b4067c52841b138184e51668f9c25
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405676"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019648"
 ---
-# <a name="part-4-razor-pages-with-ef-core-migrations-in-aspnet-core"></a>4. část Razor stránky s migracemi EF Core v ASP.NET Core
+# <a name="part-4-no-locrazor-pages-with-ef-core-migrations-in-aspnet-core"></a>4. část Razor stránky s migracemi EF Core v ASP.NET Core
 
 Tím, že [Dykstra](https://github.com/tdykstra), [Jan P Smith](https://twitter.com/thereformedprog)a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -136,7 +138,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 * Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.
 * Spuštění `dotnet ef database update` ze kontrolovaného prostředí.
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Pokud aplikace používá SQL Server LocalDB a zobrazí následující výjimku:
 
@@ -301,7 +303,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 
 EF Core používá `__MigrationsHistory` tabulku k zobrazení, jestli je potřeba spustit nějaké migrace. Pokud je databáze aktuální, nespustí se žádná migrace.
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Stáhněte [dokončenou aplikaci](
 https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations).

@@ -6,6 +6,8 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
 ms.date: 12/18/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/model-binding
-ms.openlocfilehash: b3dcb3a80e8d5150d8513ef558531749d0884568
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6ec531a04a220f75f5793cb2c7b5232908dbd883
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400151"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019154"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
@@ -155,13 +157,13 @@ Neplatí `[FromBody]` pro více než jeden parametr na metodu Action. Jakmile je
 
 ### <a name="additional-sources"></a>Další zdroje
 
-Zdrojová data jsou k dispozici pro systém vázání modelů podle *zprostředkovatelů hodnot*. Můžete zapisovat a registrovat vlastní poskytovatele hodnot, který získá data pro vazbu modelu z jiných zdrojů. Například můžete chtít data ze souborů cookie nebo stavu relace. Načtení dat z nového zdroje:
+Zdrojová data jsou k dispozici pro systém vázání modelů podle *zprostředkovatelů hodnot*. Můžete zapisovat a registrovat vlastní poskytovatele hodnot, který získá data pro vazbu modelu z jiných zdrojů. Například můžete chtít data ze cookie stavu s nebo relace. Načtení dat z nového zdroje:
 
 * Vytvořte třídu, která implementuje `IValueProvider` .
 * Vytvořte třídu, která implementuje `IValueProviderFactory` .
 * Zaregistrujte třídu factory v `Startup.ConfigureServices` .
 
-Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices` :
+Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získá hodnoty z cookie s. Zde je registrační kód v `Startup.ConfigureServices` :
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=4)]
 
@@ -206,7 +208,7 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Datum a čas](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
 * [Notaci](xref:System.ComponentModel.DecimalConverter)
-* [Klepat](xref:System.ComponentModel.DoubleConverter)
+* [dvojité](xref:System.ComponentModel.DoubleConverter)
 * [Výčet](xref:System.ComponentModel.EnumConverter)
 * [Hlavních](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter), [Int32](xref:System.ComponentModel.Int32Converter), [Int64](xref:System.ComponentModel.Int64Converter)
@@ -641,13 +643,13 @@ Neplatí `[FromBody]` pro více než jeden parametr na metodu Action. Jakmile je
 
 ### <a name="additional-sources"></a>Další zdroje
 
-Zdrojová data jsou k dispozici pro systém vázání modelů podle *zprostředkovatelů hodnot*. Můžete zapisovat a registrovat vlastní poskytovatele hodnot, který získá data pro vazbu modelu z jiných zdrojů. Například můžete chtít data ze souborů cookie nebo stavu relace. Načtení dat z nového zdroje:
+Zdrojová data jsou k dispozici pro systém vázání modelů podle *zprostředkovatelů hodnot*. Můžete zapisovat a registrovat vlastní poskytovatele hodnot, který získá data pro vazbu modelu z jiných zdrojů. Například můžete chtít data ze cookie stavu s nebo relace. Načtení dat z nového zdroje:
 
 * Vytvořte třídu, která implementuje `IValueProvider` .
 * Vytvořte třídu, která implementuje `IValueProviderFactory` .
 * Zaregistrujte třídu factory v `Startup.ConfigureServices` .
 
-Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices` :
+Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získá hodnoty z cookie s. Zde je registrační kód v `Startup.ConfigureServices` :
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=3)]
 
@@ -692,7 +694,7 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Datum a čas](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
 * [Notaci](xref:System.ComponentModel.DecimalConverter)
-* [Klepat](xref:System.ComponentModel.DoubleConverter)
+* [dvojité](xref:System.ComponentModel.DoubleConverter)
 * [Výčet](xref:System.ComponentModel.EnumConverter)
 * [Hlavních](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter), [Int32](xref:System.ComponentModel.Int32Converter), [Int64](xref:System.ComponentModel.Int64Converter)
@@ -964,7 +966,7 @@ Vazbu modelu lze vyvolat ručně pomocí <xref:Microsoft.AspNetCore.Mvc.Controll
 
 Název tohoto atributu se řídí vzorem atributů vazby modelu, které určují zdroj dat. Nejedná se ale o vazbu dat od poskytovatele hodnot. Získává instanci typu z kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Jeho účelem je poskytnout alternativu k injektáže konstruktoru, pokud potřebujete službu pouze v případě, že je volána konkrétní metoda.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:mvc/models/validation>
 * <xref:mvc/advanced/custom-model-binding>

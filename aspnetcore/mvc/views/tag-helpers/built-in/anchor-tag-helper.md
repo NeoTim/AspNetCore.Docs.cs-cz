@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/13/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: af0f07a0f50a79f25b6a14459402f9dd8b59dae2
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 25f1716b5c80492edb72bc9555954c9c93c02a49
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408250"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018763"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>Pomocný objekt příznaku kotvy v ASP.NET Core
 
@@ -181,7 +183,7 @@ Značky hash jsou užitečné při sestavování aplikací na straně klienta. J
 
 Atribut [Area ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Area*) nastavuje název oblasti použitý k nastavení příslušné trasy. V následujících příkladech je znázorněno, jak `asp-area` atribut způsobuje přemapování tras.
 
-#### <a name="usage-in-razor-pages"></a>Použití na Razor stránkách
+#### <a name="usage-in-no-locrazor-pages"></a>Použití na Razor stránkách
 
 RazorOblasti stránek jsou podporovány v ASP.NET Core 2,1 nebo novějším.
 
@@ -211,7 +213,7 @@ Generovaný kód HTML:
 > Chcete-li podporovat oblasti v Razor aplikaci Pages, proveďte jednu z následujících `Startup.ConfigureServices` akcí:
 >
 > * Nastavte [verzi kompatibility](xref:mvc/compatibility-version) na 2,1 nebo novější.
-> * Vlastnost [RazorPagesOptions. AllowAreas](xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.AllowAreas*) nastavte na `true` :
+> * Vlastnost [ Razor PagesOptions. AllowAreas](xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.AllowAreas*) nastavte na `true` :
 >
 >   [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_AllowAreas)]
 
@@ -315,7 +317,7 @@ Generovaný kód HTML:
 <a href="/Attendee?attendeeid=12&handler=Profile">Attendee Profile</a>
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:mvc/controllers/areas>
 * <xref:razor-pages/index>

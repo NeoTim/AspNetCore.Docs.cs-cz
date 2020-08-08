@@ -5,6 +5,8 @@ description: Třetí část série kurzů na Razor stránkách.
 ms.author: riande
 ms.date: 08/17/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 898f3be045755a0ee14c738b6ffc104408ded7b6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f8942e52b3b438817e3d1041a2c6b568eb662469
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407769"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020389"
 ---
-# <a name="part-3-scaffolded-razor-pages-in-aspnet-core"></a>Část 3, vygenerované Razor stránky v ASP.NET Core
+# <a name="part-3-scaffolded-no-locrazor-pages-in-aspnet-core"></a>Část 3, vygenerované Razor stránky v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -72,7 +74,7 @@ Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
 
 ### <a name="the-layout-page"></a>Stránka rozložení
 
-Vyberte odkazy nabídky (**RazorPagesMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *Pages/Shared/_Layout. cshtml* . Otevřete soubor *stránky/Shared/_Layout. cshtml* .
+Vyberte odkazy nabídky (** Razor PagesMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *Pages/Shared/_Layout. cshtml* . Otevřete soubor *stránky/Shared/_Layout. cshtml* .
 
 Šablony [rozložení](xref:mvc/views/layout) umožňují, aby rozložení kontejneru HTML bylo:
 
@@ -104,7 +106,7 @@ changing in in the next step.
 
 ### <a name="update-the-layout"></a>Aktualizovat rozložení
 
-Změňte `<title>` prvek v souboru *Pages/Shared/_Layout. cshtml* tak, aby se místo **RazorPagesMovie**zobrazoval **film** .
+Změňte `<title>` prvek v souboru *Pages/Shared/_Layout. cshtml* tak, aby se místo ** Razor PagesMovie**zobrazoval **film** .
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
 
@@ -153,7 +155,7 @@ Pokud dojde k nějakým chybám modelu, formulář se znovu zobrazí spolu se v�
 
 Pokud nedochází k žádným chybám modelu, data se uloží a prohlížeč se přesměruje na stránku indexu.
 
-### <a name="the-create-razor-page"></a>Stránka pro vytvoření Razor
+### <a name="the-create-no-locrazor-page"></a>Stránka pro vytvoření Razor
 
 Prověřte stránku *stránky/filmy/vytvořit soubor. cshtml* Razor :
 
@@ -263,7 +265,7 @@ Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
 
 ### <a name="the-layout-page"></a>Stránka rozložení
 
-Vyberte odkazy nabídky (**RazorPagesMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *Pages/Shared/_Layout. cshtml* . Otevřete soubor *stránky/Shared/_Layout. cshtml* .
+Vyberte odkazy nabídky (** Razor PagesMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *Pages/Shared/_Layout. cshtml* . Otevřete soubor *stránky/Shared/_Layout. cshtml* .
 
 Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte `@RenderBody()` řádek. `RenderBody`je zástupný symbol, kde jsou všechna zobrazení pro konkrétní stránku, která vytvoříte, *zabalena* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **stránky/soukromí. cshtml** se vykreslí uvnitř `RenderBody` metody.
 
@@ -290,7 +292,7 @@ changing in in the next step.
 
 ### <a name="update-the-layout"></a>Aktualizovat rozložení
 
-Změňte `<title>` prvek v souboru *Pages/Shared/_Layout. cshtml* tak, aby se místo **RazorPagesMovie**zobrazoval **film** .
+Změňte `<title>` prvek v souboru *Pages/Shared/_Layout. cshtml* tak, aby se místo ** Razor PagesMovie**zobrazoval **film** .
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
 
@@ -339,7 +341,7 @@ Pokud dojde k nějakým chybám modelu, formulář se znovu zobrazí spolu se v�
 
 Pokud nedochází k žádným chybám modelu, data se uloží a prohlížeč se přesměruje na stránku indexu.
 
-### <a name="the-create-razor-page"></a>Stránka pro vytvoření Razor
+### <a name="the-create-no-locrazor-page"></a>Stránka pro vytvoření Razor
 
 Prověřte stránku *stránky/filmy/vytvořit soubor. cshtml* Razor :
 

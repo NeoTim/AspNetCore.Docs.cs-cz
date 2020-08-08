@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
-ms.openlocfilehash: 4d8981b8bdf2e1341b5943745b901efd867d2e5e
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a877078356b54a3d0bba6a1be24307e6e1c075c8
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399358"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018595"
 ---
 # <a name="image-tag-helper-in-aspnet-core"></a>Pomocník značek obrázku v ASP.NET Core
 
@@ -66,6 +68,6 @@ Hodnota přiřazená parametru `v` je hodnota hash *asplogo.png* souboru na disk
 
 Pomocník značek image používá poskytovatele mezipaměti na místním webovém serveru k uložení vypočtené `Sha512` hodnoty hash daného souboru. Pokud se soubor vyžádá víckrát, hodnota hash se nepřepočítá. V případě, že `Sha512` je vypočtena hodnota hash souboru, je mezipaměť zrušena platností sledovacího procesu souboru připojeného k souboru. Při změně souboru na disku se vypočítává nový hash a ukládá do mezipaměti.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:performance/caching/memory>

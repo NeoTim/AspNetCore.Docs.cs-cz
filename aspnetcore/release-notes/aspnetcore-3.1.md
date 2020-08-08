@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/12/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,22 +16,22 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 92804d168381526100ddb8a368f71d201bd4cad9
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 68373c39461be896a52627e21577fdda89cbb661
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407665"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019585"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>Co je nového v ASP.NET Core 3,1
 
 Tento článek popisuje nejvýznamnější změny v ASP.NET Core 3,1 s odkazy na příslušnou dokumentaci.
 
-## <a name="partial-class-support-for-razor-components"></a>Podpora částečné třídy pro Razor součásti
+## <a name="partial-class-support-for-no-locrazor-components"></a>Podpora částečné třídy pro Razor součásti
 
 Razorkomponenty se nyní generují jako částečné třídy. Kód pro Razor komponentu lze zapsat pomocí souboru kódu na pozadí definovaného jako dílčí třídy namísto definice veškerého kódu pro komponentu v jednom souboru. Další informace naleznete v tématu [Podpora částečné třídy](xref:blazor/components/index#partial-class-support).
 
-## <a name="blazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>BlazorPomocná komponenta značek komponenty a předání parametrů komponentám nejvyšší úrovně
+## <a name="no-locblazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>BlazorPomocná komponenta značek komponenty a předání parametrů komponentám nejvyšší úrovně
 
 V Blazor with ASP.NET Core 3,0 byly komponenty vykresleny do stránek a zobrazení pomocí pomocníka jazyka HTML ( `Html.RenderComponentAsync` ). V ASP.NET Core 3,1 vykreslete komponentu ze stránky nebo zobrazení pomocí nového pomocníka značky komponenty:
 
@@ -56,11 +58,11 @@ Další informace najdete v tématu [integrace součástí do Razor stránek a a
 
 [!code-csharp[](sample/Program.cs?name=snippet)]
 
-## <a name="breaking-changes-for-samesite-cookies"></a>Průlomové změny pro soubory cookie SameSite
+## <a name="breaking-changes-for-samesite-no-loccookies"></a>Průlomové změny pro SameSite cookie s
 
-Chování souborů cookie SameSite bylo změněno tak, aby odráželo nadcházející změny prohlížeče. To může mít vliv na scénáře ověřování, jako je AzureAd, OpenIdConnect nebo WsFederation. Další informace naleznete v tématu <xref:security/samesite>.
+Chování SameSite s se cookie změnilo tak, aby odráželo nadcházející změny prohlížeče. To může mít vliv na scénáře ověřování, jako je AzureAd, OpenIdConnect nebo WsFederation. Další informace naleznete v tématu <xref:security/samesite>.
 
-## <a name="prevent-default-actions-for-events-in-blazor-apps"></a>Zakázat výchozí akce pro události v Blazor aplikacích
+## <a name="prevent-default-actions-for-events-in-no-locblazor-apps"></a>Zakázat výchozí akce pro události v Blazor aplikacích
 
 `@on{EVENT}:preventDefault`Chcete-li zabránit výchozí akci pro událost, použijte atribut direktiva. V následujícím příkladu je znemožněna výchozí akce zobrazení znaku klíče v textovém poli:
 
@@ -70,7 +72,7 @@ Chování souborů cookie SameSite bylo změněno tak, aby odráželo nadcházej
 
 Další informace najdete v tématu [prevence výchozích akcí](xref:blazor/components/event-handling#prevent-default-actions).
 
-## <a name="stop-event-propagation-in-blazor-apps"></a>Zastavit šíření událostí v Blazor aplikacích
+## <a name="stop-event-propagation-in-no-locblazor-apps"></a>Zastavit šíření událostí v Blazor aplikacích
 
 `@on{EVENT}:stopPropagation`Pro zastavení šíření události použijte atribut direktiva. V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na události z podřízeného `<div>` objektu z rozšiřování do nadřazené položky `<div>` :
 
@@ -90,7 +92,7 @@ Další informace najdete v tématu [prevence výchozích akcí](xref:blazor/com
 
 Další informace najdete v tématu [zastavení šíření událostí](xref:blazor/components/event-handling#stop-event-propagation).
 
-## <a name="detailed-errors-during-blazor-app-development"></a>Podrobné chyby při Blazor vývoji aplikací
+## <a name="detailed-errors-during-no-locblazor-app-development"></a>Podrobné chyby při Blazor vývoji aplikací
 
 Když Blazor aplikace nefunguje správně během vývoje, při řešení potíží a řešení těchto potíží získá podrobné informace o chybě z aplikace. Když dojde k chybě, Blazor aplikace zobrazí v dolní části obrazovky žlutý pruh:
 

@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/introduction
-ms.openlocfilehash: bf41d5a756c988b239824c19ef7a9d177a93a4a1
-ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
+ms.openlocfilehash: b29711e8e1ef1558731ba58ca2ff14000af19ca2
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/07/2020
-ms.locfileid: "87913828"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019353"
 ---
 # <a name="aspnet-core-data-protection"></a>Ochrana dat ASP.NET Core
 
@@ -31,7 +33,7 @@ Sada ASP.NET Core Data Protection Stack je navržena tak, aby sloužila jako dlo
 
 Celkový příkaz problému může být stručně uveden v jedné větě: Potřebuji zachovat důvěryhodné informace pro pozdější načtení, ale nedůvěřujete tak mechanismu trvalosti. Ve webových případech to může být zapsáno jako "Potřebuji k výměně důvěryhodného stavu prostřednictvím nedůvěryhodného klienta".
 
-Kanonickým příkladem může být ověřovací soubor cookie nebo nosný token. Server vygeneruje token "jsem Groot a má oprávnění xyz" a předá ho klientovi. V některých budoucích kalendářních verzích klienta předloží token zpátky na server, ale server potřebuje určitý druh záruky, že klient nezfalšovaný token. Proto první požadavek: pravost (označuje se také jako integrita, kontrola proti falšování).
+Kanonický příklad představuje ověřování cookie nebo nosný token. Server vygeneruje token "jsem Groot a má oprávnění xyz" a předá ho klientovi. V některých budoucích kalendářních verzích klienta předloží token zpátky na server, ale server potřebuje určitý druh záruky, že klient nezfalšovaný token. Proto první požadavek: pravost (označuje se také jako integrita, kontrola proti falšování).
 
 Vzhledem k tomu, že trvalý stav je důvěryhodný pro server, předpokládáme, že tento stav může obsahovat informace, které jsou specifické pro operační prostředí. Může to být ve formě cesty k souboru, oprávnění, popisovače nebo jiného nepřímých odkazů nebo některých jiných dat specifických pro server. Tyto informace by obecně neměly být zveřejněné nedůvěryhodnému klientovi. Proto druhý požadavek: důvěrnost.
 

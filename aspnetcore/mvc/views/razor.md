@@ -5,6 +5,8 @@ description: Přečtěte si o Razor syntaxi značek pro vkládání kódu založ
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: ba778c45c9a6f608b50a17a9f8c6d50484dbf07c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 4b418c53535965eae6b41f3297b0c6336fb993d5
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405897"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020584"
 ---
-# <a name="razor-syntax-reference-for-aspnet-core"></a>RazorReferenční informace k syntaxi pro ASP.NET Core
+# <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>RazorReferenční informace k syntaxi pro ASP.NET Core
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Taylor Mullen](https://twitter.com/ntaylormullen)a [Dan Vicarel](https://github.com/Rabadash8820)
 
@@ -30,7 +32,7 @@ Razorje syntaxe značek pro vložení kódu založeného na serveru na webové s
 
 Výchozí Razor jazyk je HTML. Vykreslování HTML ze Razor značek se neliší od vykreslování HTML ze souboru HTML. Kód HTML v souborech *. cshtml* Razor je vykreslen serverem beze změny.
 
-## <a name="razor-syntax"></a>Razorsyntaktick
+## <a name="no-locrazor-syntax"></a>Razorsyntaktick
 
 Razorpodporuje jazyk C# a používá `@` symbol k přechodu z formátu HTML do C#. Razorvyhodnotí výrazy jazyka C# a vykresluje je ve výstupu HTML.
 
@@ -54,7 +56,7 @@ Atributy HTML a obsah obsahující e-mailové adresy se symbol nepovažují `@` 
 <a href="mailto:Support@contoso.com">Support@contoso.com</a>
 ```
 
-## <a name="implicit-razor-expressions"></a>Implicitní Razor výrazy
+## <a name="implicit-no-locrazor-expressions"></a>Implicitní Razor výrazy
 
 Implicitní Razor výrazy začínají `@` následováním kódu jazyka C#:
 
@@ -82,7 +84,7 @@ Předchozí kód vygeneruje chybu kompilátoru podobný jednomu z následující
 
 Volání obecných metod musí být zabalena do [explicitního Razor výrazu](#explicit-razor-expressions) nebo [ Razor bloku kódu](#razor-code-blocks).
 
-## <a name="explicit-razor-expressions"></a>Explicitní Razor výrazy
+## <a name="explicit-no-locrazor-expressions"></a>Explicitní Razor výrazy
 
 Explicitní Razor výrazy se skládají ze `@` symbolu s vyrovnanými závorkami. Chcete-li vykreslit čas posledního týdne, Razor je použit následující kód:
 
@@ -155,7 +157,7 @@ Kód vykresluje následující kód HTML:
 <span>Hello World</span>
 ```
 
-## <a name="razor-code-blocks"></a>Razorbloky kódu
+## <a name="no-locrazor-code-blocks"></a>Razorbloky kódu
 
 Razorbloky kódu začínají na `@` a jsou uzavřeny v `{}` . Na rozdíl od výrazů není kód C# uvnitř bloků kódu vykreslen. Bloky kódu a výrazy v zobrazení sdílejí stejný obor a jsou definovány v pořadí:
 
@@ -660,7 +662,7 @@ Pro Razor příklad stránek zobrazených v následující tabulce:
 * *Stránky/_ViewImports. cshtml* obsahuje `@namespace Hello.World` .
 * Každá stránka má `Hello.World` jako kořen oboru názvů IT.
 
-| stránka                                        | Obor názvů                             |
+| Stránka                                        | Obor názvů                             |
 | ------------------------------------------- | ------------------------------------- |
 | *Pages/index. cshtml*                        | `Hello.World`                         |
 | *Pages/MorePages/Page. cshtml*               | `Hello.World.MorePages`               |
@@ -672,7 +674,7 @@ Pokud má více souborů importu `@namespace` direktivu, soubor, který je nejbl
 
 Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@namespace Another.Planet` (nebo soubor *Pages/MorePages/EvenMorePages/Page. cshtml* obsahuje `@namespace Another.Planet` ), výsledek je zobrazen v následující tabulce.
 
-| stránka                                        | Obor názvů               |
+| Stránka                                        | Obor názvů               |
 | ------------------------------------------- | ----------------------- |
 | *Pages/index. cshtml*                        | `Hello.World`           |
 | *Pages/MorePages/Page. cshtml*               | `Hello.World.MorePages` |
@@ -777,7 +779,7 @@ Odkazy na součásti ( `@ref` ) poskytují způsob, jak odkazovat na instanci ko
 
 ::: moniker-end
 
-## <a name="templated-razor-delegates"></a>Zástupci přidaných šablon Razor
+## <a name="templated-no-locrazor-delegates"></a>Zástupci přidaných šablon Razor
 
 Razoršablony umožňují definovat fragment uživatelského rozhraní v následujícím formátu:
 
@@ -888,9 +890,9 @@ Existují tři direktivy, které se týkají [pomocníků značek](xref:mvc/view
 | [`@removeTagHelper`](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | Odebere pomocníky značek dříve přidané ze zobrazení. |
 | [`@tagHelperPrefix`](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | Určuje předponu značky pro povolení podpory značek pomocníka a k explicitnímu použití pomocníka značek. |
 
-## <a name="razor-reserved-keywords"></a>Razorvyhrazená klíčová slova
+## <a name="no-locrazor-reserved-keywords"></a>Razorvyhrazená klíčová slova
 
-### <a name="razor-keywords"></a>Razorklíčov
+### <a name="no-locrazor-keywords"></a>Razorklíčov
 
 * `page`(Vyžaduje ASP.NET Core 2,1 nebo novější)
 * `namespace`
@@ -902,7 +904,7 @@ Existují tři direktivy, které se týkají [pomocníků značek](xref:mvc/view
 
 RazorKlíčová slova jsou uvozena znakem `@(Razor Keyword)` (například `@(functions)` ).
 
-### <a name="c-razor-keywords"></a>RazorKlíčová slova jazyka C#
+### <a name="c-no-locrazor-keywords"></a>RazorKlíčová slova jazyka C#
 
 * `case`
 * `do`
@@ -921,11 +923,11 @@ RazorKlíčová slova jsou uvozena znakem `@(Razor Keyword)` (například `@(fun
 
 RazorKlíčová slova jazyka C# musí mít dvojité uvození řídicím znakem `@(@C# Razor Keyword)` (například `@(@case)` ). První `@` řídí Razor analyzátor. Druhý `@` řídí analyzátor jazyka C#.
 
-### <a name="reserved-keywords-not-used-by-razor"></a>Vyhrazená klíčová slova, která nepoužíváRazor
+### <a name="reserved-keywords-not-used-by-no-locrazor"></a>Vyhrazená klíčová slova, která nepoužíváRazor
 
 * `class`
 
-## <a name="inspect-the-razor-c-class-generated-for-a-view"></a>Kontrola Razor třídy jazyka C# vygenerované pro zobrazení
+## <a name="inspect-the-no-locrazor-c-class-generated-for-a-view"></a>Kontrola Razor třídy jazyka C# vygenerované pro zobrazení
 
 ::: moniker range=">= aspnetcore-2.1"
 

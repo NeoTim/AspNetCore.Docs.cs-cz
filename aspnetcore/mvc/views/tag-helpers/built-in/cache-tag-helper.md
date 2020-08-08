@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-ms.openlocfilehash: 65d8bbcdaed76a308b924ba024219e8f520bb585
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 7d2ff774b7654993e2cd9b126db252f81a3032d3
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399280"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018751"
 ---
 # <a name="cache-tag-helper-in-aspnet-core-mvc"></a>Pomocná značka značky v ASP.NET Core MVC
 
@@ -163,15 +165,15 @@ routes.MapRoute(
 </cache>
 ```
 
-### <a name="vary-by-cookie"></a>různé – podle souborů cookie
+### <a name="vary-by-no-loccookie"></a>různé – podlecookie
 
 | Typ atributu | Příklady                                                                         |
 | -------------- | -------------------------------------------------------------------------------- |
 | Řetězec         | `.AspNetCore.Identity.Application`, `.AspNetCore.Identity.Application,HairColor` |
 
-`vary-by-cookie`přijímá seznam názvů souborů cookie oddělených čárkami, které aktivují aktualizaci mezipaměti, když se změní hodnoty souboru cookie.
+`vary-by-cookie`přijme seznam názvů oddělených čárkami cookie , které při změně hodnot spouštějí aktualizaci mezipaměti cookie .
 
-Následující příklad monitoruje soubor cookie přidružený k ASP.NET Core Identity . Při ověření uživatele spustí změna v Identity souboru cookie aktualizaci mezipaměti:
+V následujícím příkladu je sledována cookie přidružená k ASP.NET Core Identity . Když je uživatel ověřený, změna v Identity cookie aktivační události spustí aktualizaci mezipaměti:
 
 ```cshtml
 <cache vary-by-cookie=".AspNetCore.Identity.Application">
@@ -195,7 +197,7 @@ Následující příklad sleduje aktuálně přihlášeného uživatele, aby akt
 </cache>
 ```
 
-Použití tohoto atributu udržuje obsah v mezipaměti prostřednictvím cyklu přihlášení a odhlášení. Pokud je hodnota nastavena na `true` , cyklus ověřování neověřuje mezipaměť pro ověřeného uživatele. Platnost mezipaměti je zrušena, protože při ověření uživatele je vygenerována nová jedinečná hodnota souboru cookie. Mezipaměť je udržována pro anonymní stav, pokud není přítomen žádný soubor cookie nebo vypršela platnost souboru cookie. Pokud uživatel **není ověřený,** zachová se mezipaměť.
+Použití tohoto atributu udržuje obsah v mezipaměti prostřednictvím cyklu přihlášení a odhlášení. Pokud je hodnota nastavena na `true` , cyklus ověřování neověřuje mezipaměť pro ověřeného uživatele. Platnost mezipaměti je zrušena, protože cookie při ověření uživatele je vygenerována nová jedinečná hodnota. Mezipaměť je udržována pro anonymní stav, pokud cookie není přítomna nebo cookie vypršela její platnost. Pokud uživatel **není ověřený,** zachová se mezipaměť.
 
 ### <a name="vary-by"></a>různé – podle
 
@@ -248,7 +250,7 @@ Příklad:
 
 Pomocník značek cache je závislý na [službě mezipaměť paměti](xref:performance/caching/memory). Pomocník značek cache přidá službu, pokud nebyla přidána.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:performance/caching/memory>
 * <xref:security/authentication/identity>

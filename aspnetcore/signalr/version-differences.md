@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.date: 11/21/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,18 +16,18 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/version-differences
-ms.openlocfilehash: b5b5686f87d6e511672f6a50db7be8e2613a8a9e
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: f52bf6c82cd5125e0905d9bcbda5dd5499d6455e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060147"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020038"
 ---
-# <a name="differences-between-aspnet-signalr-and-aspnet-core-signalr"></a>Rozdíly mezi ASP.NET SignalR a ASP.NET CoreSignalR
+# <a name="differences-between-aspnet-no-locsignalr-and-aspnet-core-no-locsignalr"></a>Rozdíly mezi ASP.NET SignalR a ASP.NET CoreSignalR
 
 ASP.NET Core SignalR není kompatibilní s klienty nebo servery pro ASP.NET SignalR . Tento článek obsahuje podrobnosti o funkcích, které byly v ASP.NET Core odebrány nebo změněny SignalR .
 
-## <a name="how-to-identify-the-signalr-version"></a>Jak identifikovat SignalR verzi
+## <a name="how-to-identify-the-no-locsignalr-version"></a>Jak identifikovat SignalR verzi
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -147,7 +149,7 @@ V ASP.NET Core byl SignalR Model připojení zjednodušený. Připojení se vytv
 
 ASP.NET Core SignalR teď podporuje [streamování dat](xref:signalr/streaming) z rozbočovače na klienta.
 
-### <a name="state"></a>Stav
+### <a name="state"></a>State
 
 Byla odebrána možnost předat libovolný stav mezi klienty a centrem (často označovaným jako `HubState` ) a také podporovat zprávy o průběhu. V tuto chvíli není k dispozici žádný protějšek serverů proxy hub.
 

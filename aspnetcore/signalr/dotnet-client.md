@@ -7,6 +7,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/14/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 54e86479b9f9f0acc861769f9ab78958f79acfd3
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a03598f887d628c8a2b6720d99826d4aef4e52fa
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400138"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019999"
 ---
-# <a name="aspnet-core-signalr-net-client"></a>SignalRKlient rozhraní ASP.NET Core .NET
+# <a name="aspnet-core-no-locsignalr-net-client"></a>SignalRKlient rozhraní ASP.NET Core .NET
 
 SignalRKlientská knihovna ASP.NET Core .NET umožňuje komunikaci s SignalR rozbočovači z aplikací .NET.
 
@@ -30,7 +32,7 @@ SignalRKlientská knihovna ASP.NET Core .NET umožňuje komunikaci s SignalR roz
 
 Ukázka kódu v tomto článku je aplikace WPF, která používá SignalR klienta rozhraní ASP.NET Core .NET.
 
-## <a name="install-the-signalr-net-client-package"></a>Instalace SignalR balíčku klienta .NET
+## <a name="install-the-no-locsignalr-net-client-package"></a>Instalace SignalR balíčku klienta .NET
 
 [Microsoft. AspNetCore. SignalR . ](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)Pro klienty rozhraní .NET se vyžaduje balíček klienta, aby se mohl připojit k SignalR rozbočovačům.
 
@@ -266,5 +268,5 @@ Zpracování chyb pomocí příkazu try-catch. Zkontrolujte `Exception` objekt a
 
 * [Centra](xref:signalr/hubs)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
-* [Publikování aplikací do Azure](xref:signalr/publish-to-azure-web-app)
+* [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
 * [SignalRDokumentace k serveru se službou Azure](/azure/azure-signalr/signalr-concept-serverless-development-config)

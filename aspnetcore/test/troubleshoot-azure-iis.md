@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 17ada36c40997353528f922bece5acc34ce760d2
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 7b82947c40d8e3fb46042ee5a3a32af9126623c9
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445382"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020025"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Řešení potíží s ASP.NET Core v Azure App Service a IIS
 
@@ -251,7 +253,7 @@ Mnoho chyb při spuštění nevytváří užitečné informace v protokolu udál
 **Aktuální verze**
 
 1. `cd d:\home\site\wwwroot`
-1. Spusťte aplikaci:
+1. Spusťte aplikaci: 
    * Pokud aplikace je [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd):
 
      ```dotnetcli
@@ -338,7 +340,7 @@ Zakázat protokolování ladění, pokud je dokončeno odstraňování potíží
 Chcete-li zakázat rozšířený protokol ladění, proveďte jednu z následujících akcí:
 
 * Odeberte `<handlerSettings>` soubor z *web.config* místně a aplikaci znovu nasaďte.
-* Pomocí konzoly Kudu upravte soubor *web.config* a odeberte `<handlerSettings>` oddíl. Uložte soubor.
+* Pomocí konzoly Kudu upravte soubor *web.config* a odeberte `<handlerSettings>` oddíl. Soubor uložte.
 
 Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>.
 
@@ -450,7 +452,7 @@ Zakázat protokolování stdout při odstraňování potíží:
 
 1. Upravte soubor *web.config* .
 1. Nastavte **stdoutLogEnabled** na `false` .
-1. Uložte soubor.
+1. Soubor uložte.
 
 Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.
 
@@ -734,7 +736,7 @@ Mnoho chyb při spuštění nevytváří užitečné informace v protokolu udál
 **Aktuální verze**
 
 1. `cd d:\home\site\wwwroot`
-1. Spusťte aplikaci:
+1. Spusťte aplikaci: 
    * Pokud aplikace je [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd):
 
      ```dotnetcli
@@ -831,7 +833,7 @@ Zakázat protokolování ladění, pokud je dokončeno odstraňování potíží
 Chcete-li zakázat rozšířený protokol ladění, proveďte jednu z následujících akcí:
 
 * Odeberte `<handlerSettings>` soubor z *web.config* místně a aplikaci znovu nasaďte.
-* Pomocí konzoly Kudu upravte soubor *web.config* a odeberte `<handlerSettings>` oddíl. Uložte soubor.
+* Pomocí konzoly Kudu upravte soubor *web.config* a odeberte `<handlerSettings>` oddíl. Soubor uložte.
 
 Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs>.
 
@@ -943,7 +945,7 @@ Zakázat protokolování stdout při odstraňování potíží:
 
 1. Upravte soubor *web.config* .
 1. Nastavte **stdoutLogEnabled** na `false` .
-1. Uložte soubor.
+1. Soubor uložte.
 
 Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.
 
@@ -1212,7 +1214,7 @@ Mnoho chyb při spuštění nevytváří užitečné informace v protokolu udál
 **Aktuální verze**
 
 1. `cd d:\home\site\wwwroot`
-1. Spusťte aplikaci:
+1. Spusťte aplikaci: 
    * Pokud aplikace je [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd):
 
      ```dotnetcli
@@ -1392,7 +1394,7 @@ Zakázat protokolování stdout při odstraňování potíží:
 
 1. Upravte soubor *web.config* .
 1. Nastavte **stdoutLogEnabled** na `false` .
-1. Uložte soubor.
+1. Soubor uložte.
 
 Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection>.
 

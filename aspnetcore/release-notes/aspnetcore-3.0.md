@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: cebfc88a8a8313bfd975001b50db6e41b6939aed
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: 10741cfc701bf261484b9e6c73a2347e2dd7083d
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87819138"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019831"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -72,7 +74,7 @@ Komponenty v Blazor jsou obvykle vytvořeny pomocí Razor syntaxe, přirozeného
   * Formát binární serializace.
 * Poskytuje funkce, jako například:
 
-  * Ověřování uživatelů
+  * Ověřování
   * Obousměrné streamování a řízení toku.
   * Zrušení a vypršení časového limitu.
 
@@ -402,7 +404,7 @@ Další informace naleznete v tématu <xref:security/authentication/windowsauth>
 
 Šablony uživatelského rozhraní webu ( Razor stránky, MVC s kontrolérem a zobrazeními) mají následující odebrané:
 
-* Uživatelské rozhraní pro vyjádření souhlasu souborů cookie již není zahrnuto. Pokud chcete povolit funkci vyjádření souhlasu souborů cookie v aplikaci vygenerovanou šablonou ASP.NET Core 3,0, přečtěte si téma <xref:security/gdpr> .
+* cookieUživatelské rozhraní pro vyjádření souhlasu již není zahrnuto. Pokud chcete povolit cookie funkci souhlasu v aplikaci vygenerovanou šablonou ASP.NET Core 3,0, přečtěte si téma <xref:security/gdpr> .
 * Skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN. Další informace najdete v tématu o [skriptech a souvisejících statických prostředcích se teď odkazuje jako na místní soubory namísto použití sítě CDN v závislosti na aktuálním prostředí (ASPNET/AspNetCore.Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350).
 
 Úhlová šablona se aktualizovala tak, aby používala úhlové 8.

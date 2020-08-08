@@ -6,6 +6,8 @@ description: Seznamte se s atributy pomocníka značky skriptu ASP.NET Core a ro
 ms.custom: mvc
 ms.date: 12/02/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
-ms.openlocfilehash: b9b90c1c40fccbc7bb6b6c9050bd525b5fa8cd92
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b2f10b8230c1292614927d61c1e6d997dcb5640c
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407405"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88020220"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>Pomocník značek Script v ASP.NET Core
 
@@ -56,7 +58,7 @@ Metoda skriptu definovaná v primárním skriptu pro použití pro záložní te
 
 Adresa URL značky skriptu, na kterou se má přejít v případě, že primární z nich selhala Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackSrc>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:mvc/views/tag-helpers/intro>
 * <xref:mvc/controllers/areas>

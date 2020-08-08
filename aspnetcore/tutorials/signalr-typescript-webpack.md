@@ -6,6 +6,8 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 02/10/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 49d185ce941d5f8e841224e7de3b72b8350a1c47
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 48b59fea5da3872fb29cacd9edbedd14de9e602f
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407899"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88019414"
 ---
-# <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>Použití ASP.NET Core SignalR s TypeScript a webpackem
+# <a name="use-aspnet-core-no-locsignalr-with-typescript-and-webpack"></a>Použití ASP.NET Core SignalR s TypeScript a webpackem
 
 Od [Sébastien Sougnez](https://twitter.com/ssougnez) a [Scott Addie](https://twitter.com/Scott_Addie)
 
@@ -72,7 +74,7 @@ Nakonfigurujte aplikaci Visual Studio tak, aby vyhledala npm v proměnné prost�
 Konfigurace sady Visual Studio byla dokončena.
 
 1. Použijte možnost **soubor**  >  **Nový**  >  **projekt** a vyberte šablonu **webové aplikace ASP.NET Core** . Vyberte **Další**.
-1. Pojmenujte projekt *SignalRWebPack*a vyberte **vytvořit**.
+1. Pojmenujte projekt * SignalR Webpack*a vyberte **vytvořit**.
 1. V rozevíracím seznamu cílové rozhraní vyberte *.NET Core* a v rozevíracím seznamu rozhraní vyberte *ASP.NET Core 3,1* . Vyberte **prázdnou** šablonu a vyberte **vytvořit**.
 
 Přidejte `Microsoft.TypeScript.MSBuild` balíček do projektu:
@@ -90,8 +92,8 @@ dotnet new web -o SignalRWebPack
 code -r SignalRWebPack
 ```
 
-* `dotnet new`Příkaz vytvoří prázdnou ASP.NET Core webovou aplikaci v adresáři *SignalRWebPack* .
-* `code`Příkaz otevře složku *SignalRWebPack* v aktuální instanci Visual Studio Code.
+* `dotnet new`Příkaz vytvoří prázdnou ASP.NET Core webovou aplikaci v adresáři * SignalR Webpack* .
+* `code`Příkaz otevře složku nástroje * SignalR Webpack* v aktuální instanci Visual Studio Code.
 
 V **integrovaném terminálu**spusťte následující příkaz .NET Core CLI:
 
@@ -200,11 +202,11 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
    [!code-csharp[Startup](signalr-typescript-webpack/sample/3.x/Startup.cs?name=snippet_UseSignalR&highlight=3)]
 
-1. V `Startup.ConfigureServices` volejte volání [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_).
+1. V `Startup.ConfigureServices` zavolejte [Přidat SignalR ](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_).
 
    [!code-csharp[Startup](signalr-typescript-webpack/sample/3.x/Startup.cs?name=snippet_AddSignalR)]
 
-1. Vytvořte nový adresář *s názvem* hub v kořenovém adresáři projektu *SignalRWebPack/* pro uložení SignalR centra.
+1. V kořenovém adresáři projektu vytvořte nový *adresář s názvem* Hubs * SignalR a* uložte ho SignalR .
 
 1. Vytvořte centra rozbočovačů */ChatHub. cs* s následujícím kódem:
 
@@ -328,7 +330,7 @@ Nakonfigurujte aplikaci Visual Studio tak, aby vyhledala npm v proměnné prost�
 Konfigurace sady Visual Studio byla dokončena. Je čas vytvořit projekt.
 
 1. Použijte možnost **soubor** > **Nový** > **projekt** a vyberte šablonu **webové aplikace ASP.NET Core** .
-1. Pojmenujte projekt *SignalRWebPack*a vyberte **vytvořit**.
+1. Pojmenujte projekt * SignalR Webpack*a vyberte **vytvořit**.
 1. V rozevíracím seznamu cílové rozhraní vyberte *.NET Core* a v rozevíracím seznamu rozhraní vyberte *ASP.NET Core 2,2* . Vyberte **prázdnou** šablonu a vyberte **vytvořit**.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
@@ -339,7 +341,7 @@ V **integrovaném terminálu**spusťte následující příkaz:
 dotnet new web -o SignalRWebPack
 ```
 
-Prázdná webová aplikace ASP.NET Core, která cílí na .NET Core, se vytvoří v adresáři *SignalRWebPack* .
+Prázdná webová aplikace ASP.NET Core, která cílí na .NET Core, se vytvoří v adresáři * SignalR Webpack* .
 
 ---
 
@@ -436,7 +438,7 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Předchozí kód umožňuje serveru vyhledat a obsluhovat soubor *index.html* , ať už uživatel zadá svou úplnou adresu URL nebo kořenovou adresu URL webové aplikace.
 
-1. Zavolejte [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_) v `Startup.ConfigureServices` . Přidá SignalR služby do projektu.
+1. Zavolejte [Přidat SignalR ](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_) do `Startup.ConfigureServices` . Přidá SignalR služby do projektu.
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_AddSignalR)]
 
@@ -530,7 +532,7 @@ Ověřte, že aplikace funguje s následujícím postupem.
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:signalr/javascript-client>
 * <xref:signalr/hubs>

@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: 700370fd11a0df40a45c47e8c378d5bdd0c60009
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: cd6624d107fb19da92a7e58a747cc85e876a6ba4
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212691"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018634"
 ---
-# <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>RazorStránky s Entity Framework Core v ASP.NET Core – kurz 1 z 8
+# <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>RazorStránky s Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
 [Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -364,7 +366,7 @@ Tento pracovní postup funguje dobře v rané fázi vývoje, když se schéma ry
 
 Později v rámci série kurzů odstraníte databázi, kterou vytvořil, `EnsureCreated` a místo toho použijete migrace. Databázi vytvořenou nástrojem `EnsureCreated` nelze aktualizovat pomocí migrací.
 
-### <a name="test-the-app"></a>Testování aplikace
+### <a name="test-the-app"></a>Otestování aplikace
 
 * Spusťte aplikaci.
 * Vyberte odkaz **Students** a pak **vytvořte nový**.
@@ -498,7 +500,7 @@ Uživatelé můžou zobrazit a aktualizovat informace o studentech, kurzech a in
 
 Styl uživatelského rozhraní tohoto webu je blízko toho, co vygenerovaly předdefinované šablony. Tento kurz se zaměřuje na EF Core se Razor stránkami, nikoli v uživatelském rozhraní.
 
-## <a name="create-the-contosouniversity-razor-pages-web-app"></a>Vytvoření Razor webové aplikace ContosoUniversity Pages
+## <a name="create-the-contosouniversity-no-locrazor-pages-web-app"></a>Vytvoření Razor webové aplikace ContosoUniversity Pages
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -671,9 +673,9 @@ Následující kód ukazuje aktualizovaný soubor *program.cs* .
 
 `EnsureCreated`je pohodlná v brzké fázi vývoje, když se schéma rychle vyvíjí. Později v kurzu se databáze odstraní a použijí se migrace.
 
-### <a name="test-the-app"></a>Testování aplikace
+### <a name="test-the-app"></a>Otestování aplikace
 
-Spusťte aplikaci a přijměte zásady souborů cookie. Tato aplikace neuchovává osobní údaje. Informace o zásadách souborů cookie najdete v tématu [Podpora pro EU obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+Spusťte aplikaci a přijměte tuto cookie zásadu. Tato aplikace neuchovává osobní údaje. Informace o cookie zásadách najdete v tématu Podpora pro [EU obecné nařízení O ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
 * Vyberte odkaz **Students** a pak **vytvořte nový**.
 * Otestujte odkazy Upravit, Podrobnosti a Odstranit.
@@ -771,7 +773,7 @@ V dalším kurzu se přezkoumávají základní operace CRUD (vytváření, čte
 
 
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=P7iTtQnkrNs)
 
