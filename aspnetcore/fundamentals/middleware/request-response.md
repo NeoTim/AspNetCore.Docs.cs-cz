@@ -7,6 +7,8 @@ ms.author: jukotali
 ms.custom: mvc
 ms.date: 5/29/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/request-response
-ms.openlocfilehash: b6fc7a115cb0f4696d10bf036eadb59028dfb605
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: da863ac5ecf649adffe8a3d13838be2ac1f748c2
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404129"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016957"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>Operace žádosti a odpovědi v ASP.NET Core
 
@@ -30,7 +32,7 @@ Tento článek vysvětluje, jak číst z textu žádosti a zapisovat do těla od
 
 Pro tělo žádosti a odpovědi jsou k dispozici dvě abstrakce: <xref:System.IO.Stream> a <xref:System.IO.Pipelines.Pipe> . Pro čtení požadavku <xref:Microsoft.AspNetCore.Http.HttpRequest.Body?displayProperty=nameWithType> je <xref:System.IO.Stream> a `HttpRequest.BodyReader` <xref:System.IO.Pipelines.PipeReader> . Pro zápis odpovědí <xref:Microsoft.AspNetCore.Http.HttpResponse.Body?displayProperty=nameWithType> je <xref:System.IO.Stream> a `HttpResponse.BodyWriter` <xref:System.IO.Pipelines.PipeWriter> .
 
-[Kanály](/dotnet/standard/io/pipelines) se doporučují přes streamy. Datové proudy můžou být pro některé jednoduché operace jednodušší, ale kanály mají výkonnou výhodu a je možné je ve většině scénářů snadněji používat. ASP.NET Core začne používat kanály místo interního streamování. Mezi příklady patří:
+[Kanály](/dotnet/standard/io/pipelines) se doporučují přes streamy. Datové proudy můžou být pro některé jednoduché operace jednodušší, ale kanály mají výkonnou výhodu a je možné je ve většině scénářů snadněji používat. ASP.NET Core začne používat kanály místo interního streamování. Příklady:
 
 * `FormReader`
 * `TextReader`

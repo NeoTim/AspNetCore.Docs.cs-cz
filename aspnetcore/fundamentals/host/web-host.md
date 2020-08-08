@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/web-host
-ms.openlocfilehash: 630191948a9013e88853ee1a31d15f2964b4a7f4
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 06135d57ca6d0bceb9c53af61cc9aaca2ec46f30
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399410"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017282"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core webového hostitele
 
@@ -207,7 +209,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseContentRoot("c:\\<content-root>")
 ```
 
-Další informace naleznete v tématu:
+Další informace:
 
 * [Základy: kořenový adresář obsahu](xref:fundamentals/index#content-root)
 * [Webový kořenový adresář](#web-root)
@@ -404,7 +406,7 @@ WebHost.CreateDefaultBuilder(args)
     .UseWebRoot("public")
 ```
 
-Další informace naleznete v tématu:
+Další informace:
 
 * [Základy: web root](xref:fundamentals/index#web-root)
 * [Kořen obsahu](#content-root)
@@ -977,7 +979,7 @@ WebHost.CreateDefaultBuilder(args)
     })
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/linux-nginx>

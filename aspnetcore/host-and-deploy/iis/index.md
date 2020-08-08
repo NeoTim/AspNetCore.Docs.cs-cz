@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/7/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 951ae53876edf345af1a3eb32cb9be1b9668fa53
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0594303f3ae8c57a0a7776900e6b2a6781c919db
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404168"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015826"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostování ASP.NET Core ve Windows se službou IIS
 
@@ -354,7 +356,7 @@ Při nasazování aplikací na servery s [nasazení webu](/iis/install/installin
 
 1. Potvrďte, že identita modelu procesu má správná oprávnění.
 
-   Pokud se výchozí identita fondu aplikací (**modelu procesu**  >  **Identity** ) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
+   Pokud se výchozí identita fondu aplikací (**modelu procesu**  >  **Identity** ) změní z **applicationPool Identity ** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
 
 **Konfigurace ověřování systému Windows (volitelné)**  
 Další informace najdete v tématu [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
@@ -414,9 +416,9 @@ Soubory ve složce pro nasazení jsou zamčené, když je aplikace spuštěná. 
 
 Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené. 
+* U cookie tokenů ověřování na základě jsou neověřené. 
 * Uživatelé se musí znovu přihlásit na svůj další požadavek. 
-* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core MVC TempData cookie s](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete v rámci služby IIS nakonfigurovat ochranu dat a zachovat přitom klíčového prstence, použijte **některý** z následujících přístupů:
 
@@ -510,9 +512,9 @@ Izolaci fondu aplikací určuje model hostování:
 
 Dialogové okno **Přidat web** do služby IIS je ve výchozím nastavení nastaveno na jeden fond aplikací na aplikaci. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
-## <a name="application-pool-identity"></a>Fond aplikacíIdentity
+## <a name="application-pool-no-locidentity"></a>Fond aplikacíIdentity
 
-Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na použití **ApplicationPoolIdentity**:
+Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na **použití Identity applicationPool**:
 
 ![Dialogové okno Upřesnit nastavení fondu aplikací](index/_static/apppool-identity.png)
 
@@ -954,7 +956,7 @@ Při nasazování aplikací na servery s [nasazení webu](/iis/install/installin
 
 1. Potvrďte, že identita modelu procesu má správná oprávnění.
 
-   Pokud se výchozí identita fondu aplikací (**modelu procesu**  >  **Identity** ) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
+   Pokud se výchozí identita fondu aplikací (**modelu procesu**  >  **Identity** ) změní z **applicationPool Identity ** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
 
 **Konfigurace ověřování systému Windows (volitelné)**  
 Další informace najdete v tématu [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
@@ -1014,9 +1016,9 @@ Soubory ve složce pro nasazení jsou zamčené, když je aplikace spuštěná. 
 
 Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené. 
+* U cookie tokenů ověřování na základě jsou neověřené. 
 * Uživatelé se musí znovu přihlásit na svůj další požadavek. 
-* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core MVC TempData cookie s](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete v rámci služby IIS nakonfigurovat ochranu dat a zachovat přitom klíčového prstence, použijte **některý** z následujících přístupů:
 
@@ -1110,9 +1112,9 @@ Izolaci fondu aplikací určuje model hostování:
 
 Dialogové okno **Přidat web** do služby IIS je ve výchozím nastavení nastaveno na jeden fond aplikací na aplikaci. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
-## <a name="application-pool-identity"></a>Fond aplikacíIdentity
+## <a name="application-pool-no-locidentity"></a>Fond aplikacíIdentity
 
-Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na použití **ApplicationPoolIdentity**:
+Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na **použití Identity applicationPool**:
 
 ![Dialogové okno Upřesnit nastavení fondu aplikací](index/_static/apppool-identity.png)
 
@@ -1522,7 +1524,7 @@ Při nasazování aplikací na servery s [nasazení webu](/iis/install/installin
 
 1. Potvrďte, že identita modelu procesu má správná oprávnění.
 
-   Pokud se výchozí identita fondu aplikací (**modelu procesu**  >  **Identity** ) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
+   Pokud se výchozí identita fondu aplikací (**modelu procesu**  >  **Identity** ) změní z **applicationPool Identity ** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
 
 **Konfigurace ověřování systému Windows (volitelné)**  
 Další informace najdete v tématu [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
@@ -1582,9 +1584,9 @@ Soubory ve složce pro nasazení jsou zamčené, když je aplikace spuštěná. 
 
 Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené. 
+* U cookie tokenů ověřování na základě jsou neověřené. 
 * Uživatelé se musí znovu přihlásit na svůj další požadavek. 
-* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core MVC TempData cookie s](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete v rámci služby IIS nakonfigurovat ochranu dat a zachovat přitom klíčového prstence, použijte **některý** z následujících přístupů:
 
@@ -1706,9 +1708,9 @@ Aplikace ASP.NET Core jsou nakonfigurovány pomocí jiných poskytovatelů konfi
 
 Při hostování více webů na serveru doporučujeme vzájemně izolovat aplikace tím, že spustíte každou aplikaci ve svém vlastním fondu aplikací. Do této konfigurace se nastaví dialogové okno **Přidat web** do služby IIS. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
-## <a name="application-pool-identity"></a>Fond aplikacíIdentity
+## <a name="application-pool-no-locidentity"></a>Fond aplikacíIdentity
 
-Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na použití **ApplicationPoolIdentity**:
+Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na **použití Identity applicationPool**:
 
 ![Dialogové okno Upřesnit nastavení fondu aplikací](index/_static/apppool-identity.png)
 

@@ -5,6 +5,8 @@ description: Naučte se diagnostikovat problémy s lokalizací v ASP.NET Corech 
 ms.author: riande
 ms.date: 01/24/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/troubleshoot-aspnet-core-localization
-ms.openlocfilehash: 48f75b4fbfdb2078f07efeffd8d4105366998876
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 801ae3a708d23308cbf909ceeace160e3c0db1bd
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407080"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016463"
 ---
 # <a name="troubleshoot-aspnet-core-localization"></a>Řešení potíží s ASP.NET Core lokalizací
 
@@ -58,7 +60,7 @@ Mezi běžné příčiny nenalezených prostředků patří:
 - Prostředek chybí v části `resx` pro některé jazyky, ale existuje v jiných.
 - Pokud pořád máte problémy, podívejte se na zprávy protokolu lokalizace (které jsou na `Debug` úrovni protokolu), kde najdete další podrobnosti o chybějících prostředcích.
 
-_**Pomocný parametr:** Při použití nástroje `CookieRequestCultureProvider` Ověřte, že jednoduché uvozovky nejsou použity s kulturami uvnitř hodnoty souboru cookie lokalizace. Například `c='en-UK'|uic='en-US'` je neplatná hodnota souboru cookie, zatímco `c=en-UK|uic=en-US` je platná._
+_**Pomocný parametr:** Při použití nástroje `CookieRequestCultureProvider` Ověřte, že jednoduché uvozovky nejsou použity s kulturami v rámci hodnoty lokalizace cookie . Například `c='en-UK'|uic='en-US'` je neplatná cookie hodnota, zatímco `c=en-UK|uic=en-US` je platná._
 
 ## <a name="resources--class-libraries-issues"></a>Zdroje & problémy knihoven tříd
 

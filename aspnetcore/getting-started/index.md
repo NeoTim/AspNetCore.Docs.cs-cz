@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/07/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: getting-started
-ms.openlocfilehash: b88460cdff5d8c30c6a28afdb4f67e8e0b6b819c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 74df2ade64e0821dcbb28252e8a637f81d15e375
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403362"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016476"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
@@ -101,7 +103,7 @@ dotnet watch run
 
 Jakmile příkazové prostředí ukáže, že aplikace začala, přejděte na adresu `https://localhost:5001` .
 
-## <a name="edit-a-razor-page"></a>Úprava Razor stránky
+## <a name="edit-a-no-locrazor-page"></a>Úprava Razor stránky
 
 Otevřete *pages/index. cshtml* a upravte a uložte stránku s následujícím zvýrazněným označením:
 

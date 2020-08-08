@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: e2aff39db621ea6e71dce1f1560b1aa70fa865f0
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d0116a50051c1e9ddc9783e0102a3b32fb20cdce
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404090"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016450"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>Podpora WebSockets v ASP.NET Core
 
@@ -182,7 +184,7 @@ Povolení podpory protokolu WebSocket v systému Windows Server 2012 nebo nověj
 1. Rozbalte **webový server (IIS)** ve stromu **role** , rozbalte možnost **webový server**a poté rozbalte položku **vývoj aplikací**.
 1. Vyberte **protokol WebSocket**. Vyberte **Další**.
 1. Pokud nepotřebujete další funkce, vyberte **Další**.
-1. Vyberte **Nainstalovat**.
+1. Vyberte **Install** (Nainstalovat).
 1. Až se instalace dokončí, kliknutím na **Zavřít** ukončete průvodce.
 
 Povolení podpory protokolu WebSocket v systému Windows 8 nebo novějším:

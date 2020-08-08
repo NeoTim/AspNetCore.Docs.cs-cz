@@ -5,6 +5,8 @@ description: 7. část Razor stránek a Entity Framework řady kurzů.
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: b442a4ce1f63c047c123315626f559155fd06424
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 3807c52bb843c4d6403e8236fde50c034a8d1e2b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060134"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017737"
 ---
-# <a name="part-7-razor-pages-with-ef-core-in-aspnet-core---update-related-data"></a>Část 7, Razor stránky s EF Core v ASP.NET Core aktualizace dat souvisejících s aktualizací
+# <a name="part-7-no-locrazor-pages-with-ef-core-in-aspnet-core---update-related-data"></a>Část 7, Razor stránky s EF Core v ASP.NET Core aktualizace dat souvisejících s aktualizací
 
 [Dykstra](https://github.com/tdykstra)a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -65,7 +67,7 @@ Předcházející kód:
 * Nástroj používá `TryUpdateModelAsync` k zabránění [přestavení](xref:data/ef-rp/crud#overposting).
 * Odebere `ViewData["DepartmentID"]` . `DepartmentNameSL`ze základní třídy je model silného typu a bude použit Razor stránkou. Modely silného typu jsou upřednostňovány přes slabě zadaná. Další informace najdete v tématu [slabě zadaná data (ViewData a ViewBag)](xref:mvc/views/overview#VD_VB).
 
-### <a name="update-the-course-create-razor-page"></a>Aktualizace stránky pro vytvoření kurzu Razor
+### <a name="update-the-course-create-no-locrazor-page"></a>Aktualizace stránky pro vytvoření kurzu Razor
 
 Aktualizovat *stránky/kurzy/vytvořit. cshtml* s následujícím kódem:
 
@@ -92,7 +94,7 @@ Aktualizovat *stránky/kurzy/upravit. cshtml. cs* s následujícím kódem:
 
 Změny jsou podobné těm, které byly provedeny v modelu vytvoření stránky. V předchozím kódu `PopulateDepartmentsDropDownList` předává ID oddělení, které v rozevíracím seznamu vybere toto oddělení.
 
-### <a name="update-the-course-edit-razor-page"></a>Aktualizace stránky pro úpravu kurzu Razor
+### <a name="update-the-course-edit-no-locrazor-page"></a>Aktualizace stránky pro úpravu kurzu Razor
 
 Aktualizovat *stránky/kurzy/upravit. cshtml* pomocí následujícího kódu:
 
@@ -120,7 +122,7 @@ Udělejte stejnou změnu v souboru *Pages/kurzy/details. cshtml. cs* :
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Details.cshtml.cs?highlight=28)]
 
-### <a name="update-the-course-razor-pages"></a>Aktualizace stránek kurzu Razor
+### <a name="update-the-course-no-locrazor-pages"></a>Aktualizace stránek kurzu Razor
 
 Aktualizovat *stránky/kurzy/odstranit. cshtml* pomocí následujícího kódu:
 
@@ -197,7 +199,7 @@ Předcházející kód:
 * Volání `UpdateInstructorCourses` v aplikaci `OnPostAsync` aplikují informace z zaškrtávacích políček na upravované entity instruktorů.
 * Volání `PopulateAssignedCourseData` a `UpdateInstructorCourses` v `OnPostAsync` případě `TryUpdateModel` neúspěchu. Tato volání metody obnoví přiřazená data kurzu zadaná na stránce, když se znovu zobrazí s chybovou zprávou.
 
-### <a name="update-the-instructor-edit-razor-page"></a>Aktualizace stránky pro úpravu instruktorů Razor
+### <a name="update-the-instructor-edit-no-locrazor-page"></a>Aktualizace stránky pro úpravu instruktorů Razor
 
 Aktualizovat *stránky/instruktory/upravit. cshtml* pomocí následujícího kódu:
 

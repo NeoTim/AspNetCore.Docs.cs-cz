@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 4/17/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 26aef561ba299403df0dad9893fecd5e2a15ab0e
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 7f662aac3714e49e6a3a63175415a1a63b0940c2
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86213003"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017425"
 ---
 # <a name="net-generic-host"></a>Obecný hostitel .NET
 
@@ -33,7 +35,7 @@ ms.locfileid: "86213003"
 *Hostitel* je objekt, který zapouzdřuje prostředky aplikace, jako například:
 
 * Vkládání závislostí (DI)
-* Protokolování
+* protokolování
 * Konfigurace
 * `IHostedService`implementaci
 
@@ -225,7 +227,7 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-Další informace najdete tady:
+Další informace:
 
 * [Základy: kořenový adresář obsahu](xref:fundamentals/index#content-root)
 * [WebRoot](#webroot)
@@ -407,7 +409,7 @@ webBuilder.UseStartup<Startup>();
 
 ### <a name="urls"></a>Adresy URL
 
-Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokoly, na kterých má Server naslouchat požadavky. Například `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
+Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokoly, na kterých má Server naslouchat požadavky. Například, `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
 
 **Klíč**:`urls`  
 **Zadejte**:`string`  
@@ -437,7 +439,7 @@ Chcete-li nastavit tuto hodnotu, použijte proměnnou prostředí nebo zavolejte
 webBuilder.UseWebRoot("public");
 ```
 
-Další informace najdete tady:
+Další informace:
 
 * [Základy: web root](xref:fundamentals/index#web-root)
 * [ContentRoot](#contentroot)
@@ -613,7 +615,7 @@ Pokud cesta neexistuje, hostitele se nepodaří spustit.
 
 Další informace najdete v tématu [základy: kořen obsahu](xref:fundamentals/index#content-root).
 
-### <a name="environment"></a>Environment
+### <a name="environment"></a>Prostředí
 
 Nastaví [prostředí](xref:fundamentals/environments)aplikace.
 
@@ -1010,7 +1012,7 @@ public class MyClass
 *Hostitel* je objekt, který zapouzdřuje prostředky aplikace, jako například:
 
 * Vkládání závislostí (DI)
-* Protokolování
+* protokolování
 * Konfigurace
 * `IHostedService`implementaci
 
@@ -1200,7 +1202,7 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-Další informace najdete tady:
+Další informace:
 
 * [Základy: kořenový adresář obsahu](xref:fundamentals/index#content-root)
 * [WebRoot](#webroot)
@@ -1395,7 +1397,7 @@ webBuilder.UseStartup<Startup>();
 
 ### <a name="urls"></a>Adresy URL
 
-Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokoly, na kterých má Server naslouchat požadavky. Například `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
+Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokoly, na kterých má Server naslouchat požadavky. Například, `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
 
 **Klíč**:`urls`  
 **Zadejte**:`string`  
@@ -1425,7 +1427,7 @@ Chcete-li nastavit tuto hodnotu, použijte proměnnou prostředí nebo zavolejte
 webBuilder.UseWebRoot("public");
 ```
 
-Další informace najdete tady:
+Další informace:
 
 * [Základy: web root](xref:fundamentals/index#web-root)
 * [ContentRoot](#contentroot)
@@ -1500,6 +1502,6 @@ public class Program
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:fundamentals/host/hosted-services>

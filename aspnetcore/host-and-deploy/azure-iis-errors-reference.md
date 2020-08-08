@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 1b0402ceccde0f2410ac29e9c6a251110c81eafa
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8f21e02409a04b06c06dff5b0a113b0f21d59090
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408133"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015865"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
 
@@ -173,7 +175,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
   Další informace najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
-* Ujistěte se, že **Application Pool** > je **model procesu** fondu aplikací > **Identity** nastavený na **ApplicationPoolIdentity** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
+* Ujistěte se, že **Application Pool** > je **model procesu** fondu aplikací > **Identity** nastavený na **applicationPool Identity ** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
 
 * Pokud jste odinstalovali ASP.NET Core hostující balíček a nainstalovali jste starší verzi hostujícího balíčku, *applicationHost.config* soubor neobsahuje část pro modul ASP.NET Core. Otevřete *applicationHost.config* v umístění *% windir%/system32/Inetsrv/config* a vyhledejte `<configuration><configSections><sectionGroup name="system.webServer">` skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
 
@@ -451,7 +453,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
   Další informace najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
-* Ujistěte se, že **Application Pool** > je **model procesu** fondu aplikací > **Identity** nastavený na **ApplicationPoolIdentity** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
+* Ujistěte se, že **Application Pool** > je **model procesu** fondu aplikací > **Identity** nastavený na **applicationPool Identity ** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
 
 * Pokud jste odinstalovali ASP.NET Core hostující balíček a nainstalovali jste starší verzi hostujícího balíčku, *applicationHost.config* soubor neobsahuje část pro modul ASP.NET Core. Otevřete *applicationHost.config* v umístění *% windir%/system32/Inetsrv/config* a vyhledejte `<configuration><configSections><sectionGroup name="system.webServer">` skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
 

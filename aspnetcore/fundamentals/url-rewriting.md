@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/16/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: dbdb7cd86218fd9ba63ae4ac2aa516836d4fd1a1
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 9f7eb15271a0b7adb3964b4fe039497bda7fef08
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944292"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016541"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware pro přepis adres URL v ASP.NET Core
 
@@ -204,9 +206,9 @@ Pravidlo přepsaného zápisu `^rewrite-rule/(\d+)/(\d+)` odpovídá pouze cest�
 
 | Cesta                              | Shoda |
 | --------------------------------- | :---: |
-| `/rewrite-rule/1234/5678`         | Yes   |
-| `/my-cool-rewrite-rule/1234/5678` | No    |
-| `/anotherrewrite-rule/1234/5678`  | No    |
+| `/rewrite-rule/1234/5678`         | Ano   |
+| `/my-cool-rewrite-rule/1234/5678` | Ne    |
+| `/anotherrewrite-rule/1234/5678`  | Ne    |
 
 Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)` . `\d`Značí *shodu s číslicí (číslem)*. Znaménko plus ( `+` ) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2` . Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678` . Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 
@@ -558,9 +560,9 @@ Pravidlo přepsaného zápisu `^rewrite-rule/(\d+)/(\d+)` odpovídá pouze cest�
 
 | Cesta                              | Shoda |
 | --------------------------------- | :---: |
-| `/rewrite-rule/1234/5678`         | Yes   |
-| `/my-cool-rewrite-rule/1234/5678` | No    |
-| `/anotherrewrite-rule/1234/5678`  | No    |
+| `/rewrite-rule/1234/5678`         | Ano   |
+| `/my-cool-rewrite-rule/1234/5678` | Ne    |
+| `/anotherrewrite-rule/1234/5678`  | Ne    |
 
 Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)` . `\d`Značí *shodu s číslicí (číslem)*. Znaménko plus ( `+` ) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2` . Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678` . Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 

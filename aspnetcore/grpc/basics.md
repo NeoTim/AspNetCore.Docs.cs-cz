@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 07/09/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/basics
-ms.openlocfilehash: a99e5c78e291469bdce5c2b5cfa6eec86caa9735
-ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
+ms.openlocfilehash: 782343341b8b08b469179c73000a78d1dc5a05ed
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2020
-ms.locfileid: "86176299"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016281"
 ---
 # <a name="grpc-services-with-c"></a>gRPC Services s využitím C\#
 
@@ -92,7 +94,7 @@ Ve výchozím nastavení jsou prostředky serveru a klienta generovány pro kaž
 
 Podobně je atribut nastaven na hodnotu `Client` v klientských projektech.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:grpc/index>
 * <xref:tutorials/grpc/grpc-start>

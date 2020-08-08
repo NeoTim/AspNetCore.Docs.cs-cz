@@ -5,6 +5,8 @@ description: Přečtěte si, jak se jedná o funkci ASP.NET MVC, která slouží
 ms.author: riande
 ms.date: 03/21/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/areas
-ms.openlocfilehash: f4471f54e92b940ecb0eabab82f03e0c77a0509f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: af765eebfa8bfd147bd3b721508b5794d15d64a7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406404"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018439"
 ---
 # <a name="areas-in-aspnet-core"></a>Oblasti v ASP.NET Core
 
@@ -162,7 +164,7 @@ Následující kód změní výchozí složku oblasti z `"Areas"` na `"MyAreas"`
 
 <a name="arp"></a>
 
-## <a name="areas-with-razor-pages"></a>Oblasti se Razor stránkami
+## <a name="areas-with-no-locrazor-pages"></a>Oblasti se Razor stránkami
 
 Oblasti se Razor stránkami vyžadují `Areas/<area name>/Pages` složku v kořenovém adresáři aplikace. Pro [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples)se používá tato struktura složek:
 
@@ -179,7 +181,7 @@ Oblasti se Razor stránkami vyžadují `Areas/<area name>/Pages` složku v koře
           * Informace
           * Index
 
-### <a name="link-generation-with-razor-pages-and-areas"></a>Generování odkazů pomocí Razor stránek a oblastí
+### <a name="link-generation-with-no-locrazor-pages-and-areas"></a>Generování odkazů pomocí Razor stránek a oblastí
 
 Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas) zobrazuje generaci odkazů se zadanou oblastí (například `asp-area="Products"` ):
 
@@ -222,7 +224,7 @@ V předchozím souboru je obor názvů a `@addTagHelper` direktiva importován d
 
 Další informace najdete v tématech [Správa oboru pomocníka značek](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope) a [Import sdílených direktiv](xref:mvc/views/layout#importing-shared-directives).
 
-### <a name="shared-layout-for-razor-pages-areas"></a>Sdílené rozložení pro Razor oblasti stránek
+### <a name="shared-layout-for-no-locrazor-pages-areas"></a>Sdílené rozložení pro Razor oblasti stránek
 
 Chcete-li sdílet společné rozložení pro celou aplikaci, přesuňte *_ViewStart. cshtml* do kořenové složky aplikace.
 
@@ -349,7 +351,7 @@ Následující kód změní výchozí složku oblasti z `"Areas"` na `"MyAreas"`
 
 <a name="arp"></a>
 
-## <a name="areas-with-razor-pages"></a>Oblasti se Razor stránkami
+## <a name="areas-with-no-locrazor-pages"></a>Oblasti se Razor stránkami
 
 Oblasti se Razor stránkami vyžadují `Areas/<area name>/Pages` složku v kořenovém adresáři aplikace. Pro [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)se používá tato struktura složek:
 
@@ -366,7 +368,7 @@ Oblasti se Razor stránkami vyžadují `Areas/<area name>/Pages` složku v koře
           * Informace
           * Index
 
-### <a name="link-generation-with-razor-pages-and-areas"></a>Generování odkazů pomocí Razor stránek a oblastí
+### <a name="link-generation-with-no-locrazor-pages-and-areas"></a>Generování odkazů pomocí Razor stránek a oblastí
 
 Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas) zobrazuje generaci odkazů se zadanou oblastí (například `asp-area="Products"` ):
 
@@ -411,7 +413,7 @@ V předchozím souboru je obor názvů a `@addTagHelper` direktiva importován d
 
 Další informace najdete v tématech [Správa oboru pomocníka značek](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope) a [Import sdílených direktiv](xref:mvc/views/layout#importing-shared-directives).
 
-### <a name="shared-layout-for-razor-pages-areas"></a>Sdílené rozložení pro Razor oblasti stránek
+### <a name="shared-layout-for-no-locrazor-pages-areas"></a>Sdílené rozložení pro Razor oblasti stránek
 
 Chcete-li sdílet společné rozložení pro celou aplikaci, přesuňte *_ViewStart. cshtml* do kořenové složky aplikace.
 

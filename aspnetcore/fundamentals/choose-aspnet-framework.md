@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 02/12/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,18 +16,18 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/choose-between-aspnet-and-aspnetcore
-ms.openlocfilehash: 73495ea851cdfe5d3588b347e75f0af6adacc02e
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 29596f1d974d585570af5ad686ff6be4b1f9b837
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404935"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017490"
 ---
 # <a name="choose-between-aspnet-4x-and-aspnet-core"></a>Vyberte ASP.NET 4. x a ASP.NET Core
 
 ASP.NET Core je přepracování ASP.NET 4. x. V tomto článku jsou uvedeny rozdíly mezi nimi.
 
-## <a name="aspnet-core"></a>ASP.NET Core
+## <a name="aspnet-core"></a>Jádro ASP.NET
 
 ASP.NET Core je open source architektura pro různé platformy pro vytváření moderních cloudových webových aplikací ve Windows, macOS nebo Linux.
 
@@ -39,7 +41,7 @@ ASP.NET 4. x je vyspělý rámec, který poskytuje služby potřebné k sestaven
 
 Následující tabulka porovnává ASP.NET Core ASP.NET 4. x.
 
-| ASP.NET Core | ASP.NET 4.x |
+| Jádro ASP.NET | ASP.NET 4.x |
 |---|---|
 |Sestavení pro Windows, macOS nebo Linux|Sestavení pro Windows|
 |[ Razor Stránky](xref:razor-pages/index) jsou doporučeným přístupem k vytvoření webového uživatelského rozhraní ASP.NET Core 2. x. Viz také [MVC](xref:mvc/overview), [webové rozhraní API](xref:tutorials/first-web-api)a [SignalR](xref:signalr/introduction) .|Použití [webových formulářů](/aspnet/web-forms), [SignalR](/aspnet/signalr) , [MVC](/aspnet/mvc), [webového rozhraní API](/aspnet/web-api/), [webhooků](/aspnet/webhooks/)nebo [webových stránek](/aspnet/web-pages)|

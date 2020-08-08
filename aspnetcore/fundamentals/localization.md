@@ -5,6 +5,8 @@ description: Přečtěte si, jak ASP.NET Core poskytuje služby a middleware pro
 ms.author: riande
 ms.date: 11/30/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: 412cd7a39a0eed6800e15d235102ed367da5f746
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: 9fd68d3b412c2cef6125c657653f605689ca6e70
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793478"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017217"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -247,7 +249,7 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají přístup k hlavičkám souborů cookie nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
+Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
    `http://localhost:5000/?culture=es-MX&ui-culture=es-MX`
 
@@ -257,13 +259,13 @@ Pokud předáte pouze jeden z těchto dvou ( `culture` nebo `ui-culture` ), zpro
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
 
-Produkční aplikace často poskytují mechanismus pro nastavení jazykové verze pomocí souboru cookie ASP.NET Core jazykové verze. Pomocí `MakeCookieValue` metody vytvořte soubor cookie.
+Produkční aplikace často poskytují mechanismus pro nastavení jazykové verze s ASP.NET Coreovou kulturou cookie . Použijte `MakeCookieValue` metodu k vytvoření cookie .
 
-`CookieRequestCultureProvider` `DefaultCookieName` Vrátí výchozí název souboru cookie, který se používá ke sledování informací o preferované jazykové verzi uživatele. Výchozí název souboru cookie je `.AspNetCore.Culture` .
+`CookieRequestCultureProvider` `DefaultCookieName` Vrátí výchozí název, který cookie slouží ke sledování informací o preferované jazykové verzi uživatele. Výchozí cookie název je `.AspNetCore.Culture` .
 
-Formát souboru cookie je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a `uic` je například `UICulture` :
+cookieFormát je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a je například `uic` `UICulture` :
 
 ```
 c=en-UK|uic=en-US
@@ -330,7 +332,7 @@ Soubor *views/Shared/_SelectLanguagePartial. cshtml* se přidá do `footer` odd�
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Shared/_Layout.cshtml?range=43-56&highlight=10)]
 
-`SetLanguage`Metoda nastaví soubor cookie jazykové verze.
+`SetLanguage`Metoda nastaví jazykovou verzi cookie .
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 
@@ -601,7 +603,7 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají přístup k hlavičkám souborů cookie nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
+Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -613,13 +615,13 @@ Pokud předáte pouze jeden z těchto dvou ( `culture` nebo `ui-culture` ), zpro
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
 
-Produkční aplikace často poskytují mechanismus pro nastavení jazykové verze pomocí souboru cookie ASP.NET Core jazykové verze. Pomocí `MakeCookieValue` metody vytvořte soubor cookie.
+Produkční aplikace často poskytují mechanismus pro nastavení jazykové verze s ASP.NET Coreovou kulturou cookie . Použijte `MakeCookieValue` metodu k vytvoření cookie .
 
-`CookieRequestCultureProvider` `DefaultCookieName` Vrátí výchozí název souboru cookie, který se používá ke sledování informací o preferované jazykové verzi uživatele. Výchozí název souboru cookie je `.AspNetCore.Culture` .
+`CookieRequestCultureProvider` `DefaultCookieName` Vrátí výchozí název, který cookie slouží ke sledování informací o preferované jazykové verzi uživatele. Výchozí cookie název je `.AspNetCore.Culture` .
 
-Formát souboru cookie je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a `uic` je například `UICulture` :
+cookieFormát je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a je například `uic` `UICulture` :
 
 ```
 c=en-UK|uic=en-US
@@ -686,7 +688,7 @@ Soubor *views/Shared/_SelectLanguagePartial. cshtml* se přidá do `footer` odd�
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Shared/_Layout.cshtml?range=43-56&highlight=10)]
 
-`SetLanguage`Metoda nastaví soubor cookie jazykové verze.
+`SetLanguage`Metoda nastaví jazykovou verzi cookie .
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 
@@ -956,7 +958,7 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají přístup k hlavičkám souborů cookie nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
+Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -968,13 +970,13 @@ Pokud předáte pouze jeden z těchto dvou ( `culture` nebo `ui-culture` ), zpro
 http://localhost:5000/?culture=es-MX
 ```
 
-### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
+### <a name="no-loccookierequestcultureprovider"></a>CookieRequestCultureProvider
 
-Produkční aplikace často poskytují mechanismus pro nastavení jazykové verze pomocí souboru cookie ASP.NET Core jazykové verze. Pomocí `MakeCookieValue` metody vytvořte soubor cookie.
+Produkční aplikace často poskytují mechanismus pro nastavení jazykové verze s ASP.NET Coreovou kulturou cookie . Použijte `MakeCookieValue` metodu k vytvoření cookie .
 
-`CookieRequestCultureProvider` `DefaultCookieName` Vrátí výchozí název souboru cookie, který se používá ke sledování informací o preferované jazykové verzi uživatele. Výchozí název souboru cookie je `.AspNetCore.Culture` .
+`CookieRequestCultureProvider` `DefaultCookieName` Vrátí výchozí název, který cookie slouží ke sledování informací o preferované jazykové verzi uživatele. Výchozí cookie název je `.AspNetCore.Culture` .
 
-Formát souboru cookie je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a `uic` je například `UICulture` :
+cookieFormát je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a je například `uic` `UICulture` :
 
 ```
 c=en-UK|uic=en-US
@@ -1064,7 +1066,7 @@ Soubor *views/Shared/_SelectLanguagePartial. cshtml* se přidá do `footer` odd�
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Shared/_Layout.cshtml?range=43-56&highlight=10)]
 
-`SetLanguage`Metoda nastaví soubor cookie jazykové verze.
+`SetLanguage`Metoda nastaví jazykovou verzi cookie .
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/HomeController.cs?range=57-67)]
 

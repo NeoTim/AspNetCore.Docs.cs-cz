@@ -5,6 +5,8 @@ description: 2. část Razor stránek a Entity Framework řady kurzů.
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/crud
-ms.openlocfilehash: 46846d99230620e45d8a2baab46df320425cfb6c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f205e7741c8e901e9219bec2028c7bee98129161
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401204"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88018361"
 ---
-# <a name="part-2-razor-pages-with-ef-core-in-aspnet-core---crud"></a>Část 2, Razor stránky s EF Core v ASP.NET Core-CRUD
+# <a name="part-2-no-locrazor-pages-with-ef-core-in-aspnet-core---crud"></a>Část 2, Razor stránky s EF Core v ASP.NET Core-CRUD
 
 Tím, že [Dykstra](https://github.com/tdykstra), [Jan P Smith](https://twitter.com/thereformedprog)a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -393,7 +395,7 @@ Předchozí kód načte vybranou entitu a pak zavolá metodu [Remove](/dotnet/ap
 * Výjimka databáze je zachycena.
 * Metoda Delete Pages `OnGetAsync` je volána s `saveChangesError=true` .
 
-### <a name="update-the-delete-razor-page"></a>Aktualizace stránky pro odstranění Razor
+### <a name="update-the-delete-no-locrazor-page"></a>Aktualizace stránky pro odstranění Razor
 
 Na stránku odstranit přidejte následující zvýrazněnou chybovou zprávu Razor .
 <!--

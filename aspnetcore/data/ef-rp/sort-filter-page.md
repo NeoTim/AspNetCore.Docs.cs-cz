@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 496221bb4e34e1f9e4177d1934786a77d8c9b411
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 5bfea63cc1ff85adbe5ce572858b78a8e86b2280
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212533"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017724"
 ---
-# <a name="part-3-razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a>Část 3 Razor : stránky s EF Core v ASP.NET Core řazení, filtrování, stránkování
+# <a name="part-3-no-locrazor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a>Část 3 Razor : stránky s EF Core v ASP.NET Core řazení, filtrování, stránkování
 
 Tím, že [Dykstra](https://github.com/tdykstra), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Jan P Smith](https://twitter.com/thereformedprog)
 
@@ -41,7 +43,7 @@ Nahraďte kód na *stránkách/Students/index. cshtml. cs* následujícím kóde
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_All&highlight=21-24,26,28-52)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Přidá vlastnosti, které obsahují parametry řazení.
 * Změní název `Student` vlastnosti na `Students` .
@@ -84,7 +86,7 @@ Nahraďte kód v *Students/index. cshtml*s následujícím kódem. Změny jsou z
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml?highlight=5,8,17-19,22,25-27,33)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Přidá hypertextové odkazy `LastName` do `EnrollmentDate` záhlaví sloupců a.
 * Používá informace v `NameSort` a `DateSort` k nastavení hypertextových odkazů s aktuálními hodnotami pořadí řazení.
@@ -109,7 +111,7 @@ Nahraďte kód v *Students/index. cshtml. cs* následujícím kódem pro přidá
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml.cs?name=snippet_All&highlight=28,33,37-41)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Přidá `searchString` parametr do `OnGetAsync` metody a uloží hodnotu parametru do `CurrentFilter` Vlastnosti. Hodnota hledaného řetězce se přijímá z textového pole, které se přidalo v další části.
 * Přidá do příkazu LINQ `Where` klauzuli. `Where`Klauzule vybere pouze studenty, jejichž křestní jméno nebo příjmení obsahuje hledaný řetězec. Příkaz LINQ se spustí pouze v případě, že existuje hodnota, která se má vyhledat.
@@ -134,7 +136,7 @@ Došlo ke snížení výkonu pro volání `ToUpper` . `ToUpper`Kód přidá funk
 
 Další informace najdete v tématu [jak použít dotaz nerozlišující malá a velká písmena se zprostředkovatelem SQLite](https://github.com/aspnet/EntityFrameworkCore/issues/11414).
 
-### <a name="update-the-razor-page"></a>Aktualizovat Razor stránku
+### <a name="update-the-no-locrazor-page"></a>Aktualizovat Razor stránku
 
 Nahraďte kód na *stránkách/Students/index. cshtml* a vytvořte tak tlačítko **hledání** a roztříděte Chrome.
 
@@ -148,7 +150,7 @@ Otestujte aplikaci:
 
 * Vyberte **Hledat**.
 
-Všimněte si, že adresa URL obsahuje hledaný řetězec. Zde je příklad:
+Všimněte si, že adresa URL obsahuje hledaný řetězec. Například:
 
 ```
 https://localhost:<port>/Students?SearchString=an
@@ -180,7 +182,7 @@ Nahraďte kód v *Students/index. cshtml. cs* a přidejte stránkování.
 
 [!code-csharp[Main](intro/samples/cu30/Pages/Students/Index.cshtml.cs?name=snippet_All&highlight=26,28-29,31,34-41,68-70)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Změní typ `Students` vlastnosti z `IList<Student>` na `PaginatedList<Student>` .
 * Přidá index stránky, aktuální `sortOrder` a `currentFilter` do `OnGetAsync` podpisu metody.
@@ -211,7 +213,7 @@ Pokud se hledaný řetězec změní během stránkování, stránka je resetová
 
   Dvě otazníky po `pageIndex` v `PaginatedList.CreateAsync` volání reprezentují [operátor slučování null](/dotnet/csharp/language-reference/operators/null-conditional-operator). Operátor slučování null definuje výchozí hodnotu pro typ s možnou hodnotou null. Výraz `(pageIndex ?? 1)` znamená, že vrátí hodnotu, `pageIndex` Pokud má hodnotu. Pokud `pageIndex` hodnota nemá, vrátí hodnotu 1.
 
-### <a name="add-paging-links-to-the-razor-page"></a>Přidat odkazy na stránkování na Razor stránku
+### <a name="add-paging-links-to-the-no-locrazor-page"></a>Přidat odkazy na stránkování na Razor stránku
 
 Nahraďte kód v *Students/index. cshtml* následujícím kódem. Změny jsou zvýrazněny:
 
@@ -247,7 +249,7 @@ Vytvořte *SchoolViewModels/EnrollmentDateGroup. cs* s následujícím kódem:
 
 [!code-csharp[Main](intro/samples/cu30/Models/SchoolViewModels/EnrollmentDateGroup.cs)]
 
-### <a name="create-the-razor-page"></a>Vytvoření Razor stránky
+### <a name="create-the-no-locrazor-page"></a>Vytvoření Razor stránky
 
 Vytvořte *stránky/o souboru. cshtml* pomocí následujícího kódu:
 
@@ -339,7 +341,7 @@ Nahraďte kód v *Students/index. cshtml*s následujícím zvýrazněným kódem
 
 [!code-cshtml[](intro/samples/cu21/Pages/Students/Index2.cshtml?highlight=17-19,25-27)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Přidá hypertextové odkazy `LastName` do `EnrollmentDate` záhlaví sloupců a.
 * Používá informace v `NameSort` a `DateSort` k nastavení hypertextových odkazů s aktuálními hodnotami pořadí řazení.
@@ -371,7 +373,7 @@ Aktualizujte *studenty/index. cshtml. cs* `OnGetAsync` pomocí následujícího 
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilter&highlight=1,5,9-13)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Přidá `searchString` parametr do `OnGetAsync` metody. Hodnota hledaného řetězce se přijímá z textového pole, které se přidalo v další části.
 * Přidáno do příkazu LINQ `Where` klauzule. `Where`Klauzule vybere pouze studenty, jejichž křestní jméno nebo příjmení obsahuje hledaný řetězec. Příkaz LINQ se spustí pouze v případě, že existuje hodnota, která se má vyhledat.
@@ -467,7 +469,7 @@ Pokud se hledaný řetězec změní během stránkování, stránka je resetová
 
 Dvě otazníky v `PaginatedList.CreateAsync` reprezentují [operátor slučování s hodnotou null](/dotnet/csharp/language-reference/operators/null-conditional-operator). Operátor slučování null definuje výchozí hodnotu pro typ s možnou hodnotou null. Výraz `(pageIndex ?? 1)` znamená, že vrátí hodnotu, `pageIndex` Pokud má hodnotu. Pokud `pageIndex` hodnota nemá, vrátí hodnotu 1.
 
-## <a name="add-paging-links-to-the-student-razor-page"></a>Přidat odkazy na stránkování na stránku studenta Razor
+## <a name="add-paging-links-to-the-student-no-locrazor-page"></a>Přidat odkazy na stránkování na stránku studenta Razor
 
 Aktualizujte značky v *Students/index. cshtml*. Změny jsou zvýrazněny:
 
@@ -521,7 +523,7 @@ Aktualizujte soubor *stránky/o. cshtml. cs* následujícím kódem:
 
 Příkaz LINQ seskupuje entity studenta podle data registrace, vypočítá počet entit v každé skupině a uloží výsledky do kolekce `EnrollmentDateGroup` objektů zobrazení modelu.
 
-### <a name="modify-the-about-razor-page"></a>Úprava stránky o produktu Razor
+### <a name="modify-the-about-no-locrazor-page"></a>Úprava stránky o produktu Razor
 
 Nahraďte kód v souboru *Pages/About. cshtml* následujícím kódem:
 
@@ -533,7 +535,7 @@ Pokud narazíte na problémy, které nemůžete vyřešit, Stáhněte si [dokon�
 
 ![O stránce](sort-filter-page/_static/about.png)
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Ladění zdrojového kódu ASP.NET Core 2. x](https://github.com/dotnet/AspNetCore.Docs/issues/4155)
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=MDs7PFpoMqI)

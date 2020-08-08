@@ -7,6 +7,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/09/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/http-requests
-ms.openlocfilehash: fb9001c06228b4290ca1e0c7cfb6b1338f431cd6
-ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
+ms.openlocfilehash: ef6ed0911c2615ea543b1c2cea31a9a453f0c604
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/30/2020
-ms.locfileid: "87444115"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017230"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -359,18 +361,18 @@ Předchozí přístupy vyřeší problémy se správou prostředků, které se `
 - `SocketsHttpHandler`Sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler`Cyklická připojení jsou na základě toho, `PooledConnectionLifetime` aby se předešlo zastaralým problémům s DNS.
 
-### <a name="cookies"></a>Soubory cookie
+### <a name="no-loccookies"></a>Cookiepracují
 
-Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
+Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují cookie s, zvažte jednu z těchto akcí:
 
- - Zakázání automatického zpracování souborů cookie
+ - Zákaz automatického cookie zpracování
  - Opakované`IHttpClientFactory`
 
-Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického zpracování souborů cookie:
+Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického cookie zpracování:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -421,7 +423,7 @@ V následujícím příkladu:
   var response = client.GetAsync(...);
   ```
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
@@ -677,18 +679,18 @@ Předchozí přístupy vyřeší problémy se správou prostředků, které se `
 - `SocketsHttpHandler`Sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler`Cyklická připojení jsou na základě toho, `PooledConnectionLifetime` aby se předešlo zastaralým problémům s DNS.
 
-### <a name="cookies"></a>Soubory cookie
+### <a name="no-loccookies"></a>Cookiepracují
 
-Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
+Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují cookie s, zvažte jednu z těchto akcí:
 
- - Zakázání automatického zpracování souborů cookie
+ - Zákaz automatického cookie zpracování
  - Opakované`IHttpClientFactory`
 
-Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického zpracování souborů cookie:
+Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického cookie zpracování:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -723,7 +725,7 @@ V následujícím příkladu:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
@@ -744,7 +746,7 @@ Je <xref:System.Net.Http.IHttpClientFactory> možné zaregistrovat a použít ke
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Projekty, které cílí na .NET Framework vyžadují instalaci balíčku [Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet. Projekty, které cílí na .NET Core a odkazují na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) , už `Microsoft.Extensions.Http` balíček obsahuje.
 
@@ -985,18 +987,18 @@ Předchozí přístupy vyřeší problémy se správou prostředků, které se `
 - `SocketsHttpHandler`Sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler`Cyklická připojení jsou na základě toho, `PooledConnectionLifetime` aby se předešlo zastaralým problémům s DNS.
 
-### <a name="cookies"></a>Soubory cookie
+### <a name="no-loccookies"></a>Cookiepracují
 
-Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
+Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují cookie s, zvažte jednu z těchto akcí:
 
- - Zakázání automatického zpracování souborů cookie
+ - Zákaz automatického cookie zpracování
  - Opakované`IHttpClientFactory`
 
-Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického zpracování souborů cookie:
+Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického cookie zpracování:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -1048,7 +1050,7 @@ V následujícím příkladu:
   var response = client.GetAsync(...);
   ```
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)

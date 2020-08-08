@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/15/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 7b0212ce6463d00a4c5cc87e2b36e1e7e7c5a54e
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: 560f25c9acabe2860bcaaddcdb42e2b15842a29d
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445408"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017074"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -93,7 +95,7 @@ Následující `Startup.Configure` metoda přidává do doporučeného pořadí 
 V předchozím kódu:
 
 * Middleware, které se nepřidaly při vytváření nové webové aplikace s [jednotlivými účty uživatele](xref:security/authentication/identity) , jsou zakomentovány.
-* Ne každý middleware potřebuje přejít v tomto přesném pořadí, ale mnoho do něj. Příklad:
+* Ne každý middleware potřebuje přejít v tomto přesném pořadí, ale mnoho do něj. Například:
   * `UseCors`, `UseAuthentication` a `UseAuthorization` musí jít v uvedeném pořadí.
   * `UseCors`v současné době `UseResponseCaching` se musí před [touto chybou](https://github.com/dotnet/aspnetcore/issues/23218)přecházet.
 
@@ -108,11 +110,11 @@ Následující `Startup.Configure` metoda přidává komponenty middlewaru pro b
      * Middleware HSTS (HTTP Strict Transport Security Protocol) ( <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts%2A> ) přidá `Strict-Transport-Security` hlavičku.
 1. Middleware () přesměrování protokolu HTTPS ( <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection%2A> ) přesměruje požadavky HTTP na https.
 1. Soubor middleware () statických souborů ( <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A> ) vrací statické soubory a další zpracování žádostí o krátkodobé okruhy.
-1. Middleware zásad souborů cookie ( <xref:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy%2A> ) v aplikaci vyhovuje nařízením v rámci EU obecné nařízení o ochraně osobních údajů (GDPR).
+1. CookieMiddleware zásad ( <xref:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy%2A> ) aplikace v souladu s pravidly pro EU obecné nařízení o ochraně osobních údajů (GDPR).
 1. Směrování middleware ( <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting%2A> ) pro směrování požadavků.
 1. Middleware ověřování ( <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication%2A> ) se pokusí ověřit uživatele předtím, než budou mít přístup k zabezpečeným prostředkům.
 1. Middleware autorizace ( <xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization%2A> ) opravňuje uživatele k přístupu k zabezpečeným prostředkům.
-1. Middleware relace ( <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession%2A> ) vytváří a udržuje stav relace. Pokud aplikace používá stav relace, volejte middleware relace za middlewarem zásad souborů cookie a před middlewarem MVC.
+1. Middleware relace ( <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession%2A> ) vytváří a udržuje stav relace. Pokud aplikace používá stav relace, volejte middleware relace po Cookie middlewaru zásad a před middlewarem MVC.
 1. Middleware směrování koncového bodu ( <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> s <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages%2A> ) pro přidání Razor koncových bodů stránek do kanálu požadavků.
 
 <!--
@@ -200,7 +202,7 @@ Další informace o jednostránkové naleznete v příručkách pro [reakce](xre
 
 V následující tabulce jsou uvedeny žádosti a odpovědi z `http://localhost:1234` použití předchozího kódu.
 
-| Request             | Odpověď                     |
+| Žádost             | Odpověď                     |
 | ------------------- | ---------------------------- |
 | localhost: 1234      | Hello z delegáta bez mapy. |
 | localhost: 1234/Map1 | Mapování testu 1                   |
@@ -232,7 +234,7 @@ app.Map("/level1", level1App => {
 
 V následující tabulce jsou uvedeny žádosti a odpovědi z `http://localhost:1234` použití předchozího kódu:
 
-| Request                       | Odpověď                     |
+| Žádost                       | Odpověď                     |
 | ----------------------------- | ---------------------------- |
 | localhost: 1234                | Hello z delegáta bez mapy. |
 | localhost: 1234/? větev = hlavní | Použitá větev = hlavní         |
@@ -249,9 +251,9 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 
 | Middleware | Popis | Objednání |
 | ---------- | ----------- | ----- |
-| [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
+| [Ověřování](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
 | [Autorizace](xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization%2A) | Poskytuje podporu autorizace. | Hned po ověřovacím middlewaru. |
-| [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite` . | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
+| [CookiePolitických](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro cookie pole, například `secure` a `SameSite` . | Před middlewarem, který vydává problémy cookie s. Příklady: ověřování, relace, MVC (TempData). |
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. `UseCors`v současné době `UseResponseCaching` se musí před [touto chybou](https://github.com/dotnet/aspnetcore/issues/23218)přecházet.|
 | [Diagnostika](xref:fundamentals/error-handling) | Několik samostatných middlewarů, které poskytují stránku s výjimkou vývojářů, zpracování výjimek, stránky stavového kódu a výchozí webovou stránku pro nové aplikace. | Před komponenty, které generují chyby. Terminál pro výjimky nebo pro výchozí webovou stránku pro nové aplikace |
 | [Předávaná záhlaví](xref:host-and-deploy/proxy-load-balancer) | Přepošle hlavičky proxy na aktuální požadavek. | Před komponenty, které používají aktualizované pole. Příklady: schéma, hostitel, IP adresa klienta, metoda. |
@@ -353,9 +355,9 @@ Následující `Startup.Configure` metoda přidává komponenty middlewaru pro b
      * Middleware HSTS (HTTP Strict Transport Security Protocol) ( <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts%2A> ) přidá `Strict-Transport-Security` hlavičku.
 1. Middleware () přesměrování protokolu HTTPS ( <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection%2A> ) přesměruje požadavky HTTP na https.
 1. Soubor middleware () statických souborů ( <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A> ) vrací statické soubory a další zpracování žádostí o krátkodobé okruhy.
-1. Middleware zásad souborů cookie ( <xref:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy%2A> ) v aplikaci vyhovuje nařízením v rámci EU obecné nařízení o ochraně osobních údajů (GDPR).
+1. CookieMiddleware zásad ( <xref:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy%2A> ) aplikace v souladu s pravidly pro EU obecné nařízení o ochraně osobních údajů (GDPR).
 1. Middleware ověřování ( <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication%2A> ) se pokusí ověřit uživatele předtím, než budou mít přístup k zabezpečeným prostředkům.
-1. Middleware relace ( <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession%2A> ) vytváří a udržuje stav relace. Pokud aplikace používá stav relace, volejte middleware relace za middlewarem zásad souborů cookie a před middlewarem MVC.
+1. Middleware relace ( <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession%2A> ) vytváří a udržuje stav relace. Pokud aplikace používá stav relace, volejte middleware relace po Cookie middlewaru zásad a před middlewarem MVC.
 1. MVC ( <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> ) pro přidání MVC do kanálu požadavků.
 
 ```csharp
@@ -413,7 +415,7 @@ Nakonfigurujte kanál HTTP pomocí <xref:Microsoft.AspNetCore.Builder.UseExtensi
 
 V následující tabulce jsou uvedeny žádosti a odpovědi z `http://localhost:1234` použití předchozího kódu.
 
-| Request             | Odpověď                     |
+| Žádost             | Odpověď                     |
 | ------------------- | ---------------------------- |
 | localhost: 1234      | Hello z delegáta bez mapy. |
 | localhost: 1234/Map1 | Mapování testu 1                   |
@@ -428,7 +430,7 @@ Při `Map` použití se odpovídající segmenty cesty odeberou z `HttpRequest.P
 
 V následující tabulce jsou uvedeny žádosti a odpovědi z `http://localhost:1234` použití předchozího kódu.
 
-| Request                       | Odpověď                     |
+| Žádost                       | Odpověď                     |
 | ----------------------------- | ---------------------------- |
 | localhost: 1234                | Hello z delegáta bez mapy. |
 | localhost: 1234/? větev = hlavní | Použitá větev = hlavní         |
@@ -456,8 +458,8 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 
 | Middleware | Popis | Objednání |
 | ---------- | ----------- | ----- |
-| [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
-| [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite` . | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
+| [Ověřování](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
+| [CookiePolitických](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro cookie pole, například `secure` a `SameSite` . | Před middlewarem, který vydává problémy cookie s. Příklady: ověřování, relace, MVC (TempData). |
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. |
 | [Diagnostika](xref:fundamentals/error-handling) | Několik samostatných middlewarů, které poskytují stránku s výjimkou vývojářů, zpracování výjimek, stránky stavového kódu a výchozí webovou stránku pro nové aplikace. | Před komponenty, které generují chyby. Terminál pro výjimky nebo pro výchozí webovou stránku pro nové aplikace |
 | [Předávaná záhlaví](xref:host-and-deploy/proxy-load-balancer) | Přepošle hlavičky proxy na aktuální požadavek. | Před komponenty, které používají aktualizované pole. Příklady: schéma, hostitel, IP adresa klienta, metoda. |

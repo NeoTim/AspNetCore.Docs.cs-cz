@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/5/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/httpcontext
-ms.openlocfilehash: d4512c9fa136e518fa0230c0cf9c607519eed6d8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2b8ac1d6c6cdeee14b74c5b14206bff51982c711
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399449"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88017243"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>Přístup HttpContext v ASP.NET Core
 
 Aplikace ASP.NET Core přístup `HttpContext` prostřednictvím <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> rozhraní a jeho výchozí implementace <xref:Microsoft.AspNetCore.Http.HttpContextAccessor> . Je nutné použít pouze `IHttpContextAccessor` v případě, že potřebujete přístup ke `HttpContext` službě v rámci služby.
 
-## <a name="use-httpcontext-from-razor-pages"></a>Použití HttpContext ze Razor stránek
+## <a name="use-httpcontext-from-no-locrazor-pages"></a>Použití HttpContext ze Razor stránek
 
 RazorStránky <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> zpřístupňují <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> vlastnost:
 
@@ -42,9 +44,9 @@ public class AboutModel : PageModel
 }
 ```
 
-## <a name="use-httpcontext-from-a-razor-view"></a>Použití HttpContext ze Razor zobrazení
+## <a name="use-httpcontext-from-a-no-locrazor-view"></a>Použití HttpContext ze Razor zobrazení
 
-Razorzobrazení zpřístupňují `HttpContext` přímo přes vlastnost [RazorPage. Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) v zobrazení. Následující příklad načte aktuální uživatelské jméno v intranetové aplikaci pomocí ověřování systému Windows:
+Razorzobrazení zpřístupňují `HttpContext` přímo přes vlastnost [ Razor Page. Context](xref:Microsoft.AspNetCore.Mvc.Razor.RazorPage.Context) v zobrazení. Následující příklad načte aktuální uživatelské jméno v intranetové aplikaci pomocí ověřování systému Windows:
 
 ```cshtml
 @{
@@ -173,6 +175,6 @@ public class EmailController : Controller
 }
 ```
 
-## <a name="blazor-and-shared-state"></a>Blazora sdílený stav
+## <a name="no-locblazor-and-shared-state"></a>Blazora sdílený stav
 
 [!INCLUDE[](~/includes/blazor-security/blazor-shared-state.md)]

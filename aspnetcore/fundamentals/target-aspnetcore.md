@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/16/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/target-aspnetcore
-ms.openlocfilehash: 1c794092b856a916a318956d7cfb357d46a22d1d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a6c20c61f7f33706e620fcbc239b2cc4bace15f0
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399644"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88016489"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>Použití rozhraní API ASP.NET Core v knihovně tříd
 
@@ -48,7 +50,7 @@ Chcete-li odkazovat ASP.NET Core, přidejte následující `<FrameworkReference>
 
 Odkazování ASP.NET Core tímto způsobem je podporováno pouze pro projekty cílené na .NET Core 3. x.
 
-## <a name="include-blazor-extensibility"></a>Zahrnout Blazor rozšiřitelnost
+## <a name="include-no-locblazor-extensibility"></a>Zahrnout Blazor rozšiřitelnost
 
 Blazorpodporuje WebAssembly (WASM) a [modely hostování](xref:blazor/hosting-models)serverů. Pokud neexistuje konkrétní důvod, knihovna [ Razor komponent](xref:blazor/components/index) by měla podporovat oba modely hostování. RazorKnihovna komponent musí používat [Microsoft. NET. SDK. Razor Sada SDK](xref:razor-pages/sdk).
 
@@ -109,7 +111,7 @@ V této části najdete popis doporučení pro knihovny, které zahrnují:
 
 Tato část se nezabývá cílením na podporu více verzí MVC. Pokyny k podpoře více verzí ASP.NET Core najdete v tématu [Podpora více verzí ASP.NET Core](#support-multiple-aspnet-core-versions).
 
-### <a name="razor-views-or-razor-pages"></a>Razorzobrazení nebo Razor stránky
+### <a name="no-locrazor-views-or-no-locrazor-pages"></a>Razorzobrazení nebo Razor stránky
 
 Projekt, který obsahuje [ Razor zobrazení](xref:mvc/views/overview) nebo [ Razor stránky](xref:razor-pages/index) , musí používat [Microsoft. NET. SDK. Razor Sada SDK](xref:razor-pages/sdk).
 
