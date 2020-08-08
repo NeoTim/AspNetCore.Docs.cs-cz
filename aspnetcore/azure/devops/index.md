@@ -6,6 +6,8 @@ ms.author: casoper
 ms.date: 08/07/2018
 ms.custom: mvc, seodec18
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/index
-ms.openlocfilehash: 138a8e04e057e5679c3d2b84d5351a3a4ab7cd8c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 10df1eab6de064b824ce067aff3ecc07e81c38fd
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400346"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88012264"
 ---
 # <a name="devops-with-aspnet-core-and-azure"></a>DevOps s využitím ASP.NET Core a Azure
 
@@ -53,7 +55,7 @@ Zjistěte, kde získat nástroje používané v této příručce.
 
 Seznamte se s různými způsoby nasazení ASP.NET Core aplikace do Azure App Service.
 
-### <a name="continuous-integration-and-deployment"></a>[Průběžná integrace a nasazování](xref:azure/devops/cicd)
+### <a name="continuous-integration-and-deployment"></a>[Průběžná integrace a nasazování](xref:azure/devops/cicd)
 
 Pomocí GitHubu, Azure DevOps Services a Azure můžete vytvořit komplexní řešení pro průběžnou integraci a nasazení pro vaši aplikaci ASP.NET Core.
 

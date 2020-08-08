@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: 7b19ac9170fc99a3524fedda419bd03498aa999a
-ms.sourcegitcommit: b0fa7ff0cb158277df61bcd08058a81222c3fe10
+ms.openlocfilehash: d2ebb5d3c3a1c3629a5bf563aecfd6fc147715d6
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/07/2020
-ms.locfileid: "87913779"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014019"
 ---
 # <a name="aspnet-core-no-locblazor-authentication-and-authorization"></a>ASP.NET Core Blazor ověřování a autorizace
 
@@ -40,7 +42,7 @@ Blazor WebAssemblyaplikace běží na klientovi. Autorizace se používá *jenom
 > [!NOTE]
 > <xref:Microsoft.AspNetCore.Identity.SignInManager%601>a <xref:Microsoft.AspNetCore.Identity.UserManager%601> nejsou podporovány v Razor součástech.
 
-## <a name="authentication"></a>Authentication
+## <a name="authentication"></a>Ověřování
 
 Blazorpoužívá k vytvoření identity uživatele existující mechanismy ověřování ASP.NET Core. Přesný mechanismus závisí na tom, jak Blazor je aplikace hostována, Blazor WebAssembly nebo Blazor Server .
 
@@ -59,7 +61,7 @@ Další informace o vytváření aplikací a konfigurace najdete v tématu <xref
 
 ### <a name="no-locblazor-server-authentication"></a>Blazor Serverpřihlašovací
 
-Blazor Serveraplikace pracují s připojením v reálném čase vytvořeným pomocí SignalR . [Ověřování v SignalR aplikacích založených na ověřování](xref:signalr/authn-and-authz) se zpracovává při navázání připojení. Ověřování může být založené na souboru cookie nebo nějakém jiném nosným tokenu.
+Blazor Serveraplikace pracují s připojením v reálném čase vytvořeným pomocí SignalR . [Ověřování v SignalR aplikacích založených na ověřování](xref:signalr/authn-and-authz) se zpracovává při navázání připojení. Ověřování může být založené na cookie nebo nějakém jiném nosným tokenu.
 
 Integrovaná <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> Služba pro Blazor Server aplikace získává data o stavu ověřování z ASP.NET Core `HttpContext.User` . To je způsob, jakým se stav ověřování integruje se stávajícími mechanismy ověřování ASP.NET Core.
 
@@ -491,7 +493,7 @@ Je možné, že projekt nebyl vytvořen pomocí Blazor Server šablony s povolen
 
 <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> `Task<` <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState> `>` Doplní kaskádový parametr, který zase získá z podkladové <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> služby di.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/index>
 * <xref:security/authentication/windowsauth>

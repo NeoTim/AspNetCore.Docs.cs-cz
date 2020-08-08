@@ -6,6 +6,8 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/index
-ms.openlocfilehash: bd9f991a2aba32cbbeb193ad422005f910e6795b
-ms.sourcegitcommit: ca6a1f100c1a3f59999189aa962523442dd4ead1
+ms.openlocfilehash: 203d77a2caaba9156419a04754fe162dd57052c1
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/30/2020
-ms.locfileid: "87444068"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88012706"
 ---
 # <a name="introduction-to-no-locrazor-pages-in-aspnet-core"></a>Úvod do Razor stránek v ASP.NET Core
 
@@ -33,7 +35,7 @@ Pokud hledáte kurz, který používá přístup k modelovým zobrazením, pře�
 
 Tento dokument popisuje úvodní Razor stránky. Nejedná se o podrobný kurz. Pokud zjistíte, že některé části jsou moc pokročilé, přečtěte si téma Začínáme [se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start). Přehled ASP.NET Core najdete v [úvodu k ASP.NET Core](xref:index).
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -264,7 +266,7 @@ Soubor *Edit.cshtml.cs* :
 
 [!code-csharp[](index/3.0sample/RazorPagesContacts/Pages/Customers/Edit.cshtml.cs?name=snippet)]
 
-## <a name="validation"></a>Ověřování
+## <a name="validation"></a>Ověřování vstupů (validace)
 
 Ověřovací pravidla:
 
@@ -440,13 +442,13 @@ Aplikace má následující strukturu souborů nebo složek:
     * *Upravit. cshtml*
     * *Soubor Index.cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který slouží k přístupu na předchozí stránku. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Příklad:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který slouží k přístupu na předchozí stránku. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Například:
 
 * `Url.Page("./Index", ...)`
 * `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-Absolutní název stránky `/Index` se používá ke generování adres URL na stránce *pages/index. cshtml* . Příklad:
+Absolutní název stránky `/Index` se používá ke generování adres URL na stránce *pages/index. cshtml* . Například:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`
@@ -599,7 +601,7 @@ Přidat <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuild
 
 [!code-csharp[](index/3.0sample/RazorPagesContacts/StartupWithRazorPagesRoot.cs?name=snippet)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * Viz Začínáme [se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start), které jsou založeny na tomto úvodu.
 * [Autorizovat atributy a Razor stránky](xref:security/authorization/simple#aarp)
@@ -626,7 +628,7 @@ Pokud hledáte kurz, který používá přístup k modelovým zobrazením, pře�
 
 Tento dokument popisuje úvodní Razor stránky. Nejedná se o podrobný kurz. Pokud zjistíte, že některé části jsou moc pokročilé, přečtěte si téma Začínáme [se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start). Přehled ASP.NET Core najdete v [úvodu k ASP.NET Core](xref:index).
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -956,7 +958,7 @@ Aplikace má následující strukturu souborů nebo složek:
     * *Upravit. cshtml*
     * *Soubor Index.cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Příklad:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Například:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`
@@ -1122,7 +1124,7 @@ services.AddMvc()
     .WithRazorPagesRoot("/path/to/razor/pages");
 ```
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Autorizovat atributy a Razor stránky](xref:security/authorization/simple#aarp)
 * <xref:index>

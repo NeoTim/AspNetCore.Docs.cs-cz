@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/index
-ms.openlocfilehash: 79022af0e6ee1294e12c21492bc81bc40482a3fb
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1084cdb9120b1b40acd21fa2de45c7f280337da3
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403960"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015592"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>ASP.NET Core hostitele a nasazení
 
@@ -71,7 +73,7 @@ Nasazení často vyžaduje další úlohy kromě kopírování výstupu z [dotne
 
 Pomocí [funkce Publikovat web](xref:tutorials/publish-to-azure-webapp-using-vs) nebo [integrovanou podporu pro Git](xref:host-and-deploy/azure-apps/azure-continuous-deployment)je možné aplikace nasadit přímo ze sady Visual Studio do Azure App Service. Azure DevOps Services podporuje [průběžné nasazování do Azure App Service](/azure/devops/pipelines/targets/webapp). Další informace najdete v tématu [DevOps with ASP.NET Core a Azure](xref:azure/devops/index).
 
-## <a name="publish-to-azure"></a>Publikování aplikací do Azure
+## <a name="publish-to-azure"></a>Publikování do Azure
 
 <xref:tutorials/publish-to-azure-webapp-using-vs>Pokyny k publikování aplikace do Azure pomocí sady Visual Studio najdete v tématu. K dispozici je další příklad [Vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet).
 
@@ -149,7 +151,7 @@ Nasazení často vyžaduje další úlohy kromě kopírování výstupu z [dotne
 
 Pomocí [funkce Publikovat web](xref:tutorials/publish-to-azure-webapp-using-vs) nebo [integrovanou podporu pro Git](xref:host-and-deploy/azure-apps/azure-continuous-deployment)je možné aplikace nasadit přímo ze sady Visual Studio do Azure App Service. Azure DevOps Services podporuje [průběžné nasazování do Azure App Service](/azure/devops/pipelines/targets/webapp). Další informace najdete v tématu [DevOps with ASP.NET Core a Azure](xref:azure/devops/index).
 
-## <a name="publish-to-azure"></a>Publikování aplikací do Azure
+## <a name="publish-to-azure"></a>Publikování do Azure
 
 <xref:tutorials/publish-to-azure-webapp-using-vs>Pokyny k publikování aplikace do Azure pomocí sady Visual Studio najdete v tématu. K dispozici je další příklad [Vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet).
 

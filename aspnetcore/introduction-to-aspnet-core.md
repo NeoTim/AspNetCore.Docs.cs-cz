@@ -6,6 +6,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/17/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: index
-ms.openlocfilehash: 2ad97dd7eb38b4cb69fa7af5ae1e1d1837a97443
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 9cf721b381d3c4c737c15225edcf7918dd1fcf5b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944558"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015345"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -76,7 +78,7 @@ Pro Úvod k vývoji ASP.NET Corech aplikací doporučujeme následující poslou
 
 1. Postupujte podle kurzu pro typ aplikace, který chcete vyvíjet nebo udržovat.
 
-   |Typ aplikace  |Scénář  |Kurz  |
+   |Typ aplikace  |Scénář  |Tutoriál  |
    |----------|----------|----------|
    |Webová aplikace                   | Nový vývoj webového uživatelského rozhraní na straně serveru |[Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
@@ -87,7 +89,7 @@ Pro Úvod k vývoji ASP.NET Corech aplikací doporučujeme následující poslou
 
 1. Postupujte podle kurzu, který ukazuje, jak získat základní přístup k datům.
 
-   |Scénář  |Kurz  |
+   |Scénář  |Tutoriál  |
    |----------|----------|
    |Nový vývoj        |[RazorStránky s Entity Framework Core](xref:data/ef-rp/intro) |
    |Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro) |
@@ -164,7 +166,7 @@ Jako úvod do vývoje aplikací ASP.NET Core doporučujeme následující poslou
 
 1. Postupujte podle kurzu pro typ aplikace, kterou chcete vyvíjet nebo udržovat.
 
-   |Typ aplikace  |Scénář  |Kurz  |
+   |Typ aplikace  |Scénář  |Tutoriál  |
    |----------|----------|----------|
    |Webová aplikace                   | Vývoj nové aplikace        |[Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
@@ -173,7 +175,7 @@ Jako úvod do vývoje aplikací ASP.NET Core doporučujeme následující poslou
 
 1. Postupujte podle kurzu, který ukazuje, jak získat základní přístup k datům.
 
-   |Scénář  |Kurz  |
+   |Scénář  |Tutoriál  |
    |----------|----------|
    | Vývoj nové aplikace        |[RazorStránky s Entity Framework Core](xref:data/ef-rp/intro) |
    | Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro) |
@@ -244,7 +246,7 @@ Další informace najdete v článku [Příspěvky k dokumentaci rozhraní ASP.N
 
 ## <a name="next-steps"></a>Další kroky
 
-Další informace najdete v následujících materiálech:
+Další informace naleznete v následujících zdrojích:
 
 * <xref:getting-started>
 * <xref:tutorials/publish-to-azure-webapp-using-vs>

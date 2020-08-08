@@ -5,6 +5,8 @@ description: Naučte se migrovat ověřování a identitu z projektu ASP.NET MVC
 ms.author: riande
 ms.date: 3/22/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,22 +15,22 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/identity
-ms.openlocfilehash: 995de894bc77c4db5e5683b36e691b0c5a3463d3
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8a6cc1e612dbf59dc2db2eca165dd1a03ab92f81
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403752"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014929"
 ---
-# <a name="migrate-authentication-and-identity-to-aspnet-core"></a>Migrace ověřování a Identity ASP.NET Core
+# <a name="migrate-authentication-and-no-locidentity-to-aspnet-core"></a>Migrace ověřování a Identity ASP.NET Core
 
 [Steve Smith](https://ardalis.com/)
 
 V předchozím článku jsme [migrovali konfiguraci z projektu ASP.NET MVC na ASP.NET Core MVC](xref:migration/configuration). V tomto článku migrujeme funkce registrace, přihlašování a správy uživatelů.
 
-## <a name="configure-identity-and-membership"></a>Konfigurace Identity a členství
+## <a name="configure-no-locidentity-and-membership"></a>Konfigurace Identity a členství
 
-V ASP.NET MVC jsou funkce ověřování a identity nakonfigurované pomocí ASP.NET Identity v *Startup.Auth.cs* a *IdentityConfig.cs*, které jsou umístěné ve složce *app_start* . Ve ASP.NET Core MVC jsou tyto funkce nakonfigurované v *Startup.cs*.
+V ASP.NET MVC jsou funkce ověřování a identity nakonfigurované pomocí ASP.NET Identity v *Startup.Auth.cs* a * Identity config.cs*, které jsou umístěné ve složce *app_start* . Ve ASP.NET Core MVC jsou tyto funkce nakonfigurované v *Startup.cs*.
 
 Nainstalujte následující balíčky NuGet:
 
@@ -53,7 +55,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-V tomto okamžiku existují dva typy, na které se odkazuje ve výše uvedeném kódu, který jsme ještě nemigrovali z projektu ASP.NET MVC: `ApplicationDbContext` a `ApplicationUser` . Vytvořte novou složku *modelů* v projektu ASP.NET Core a přidejte do ní dvě třídy odpovídající těmto typům. Verze ASP.NET MVC těchto tříd najdete v */Models/IdentityModels.cs*, ale v migrovaném projektu budeme používat jeden soubor na třídu, protože to je mnohem jasné.
+V tomto okamžiku existují dva typy, na které se odkazuje ve výše uvedeném kódu, který jsme ještě nemigrovali z projektu ASP.NET MVC: `ApplicationDbContext` a `ApplicationUser` . Vytvořte novou složku *modelů* v projektu ASP.NET Core a přidejte do ní dvě třídy odpovídající těmto typům. Verze ASP.NET MVC těchto tříd najdete ve */Models/ Identity Models.cs*, ale v migrovaném projektu budeme používat jeden soubor na třídu, protože to je mnohem jasné.
 
 *ApplicationUser.cs*:
 

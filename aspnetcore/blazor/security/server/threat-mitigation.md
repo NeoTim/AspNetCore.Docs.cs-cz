@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/05/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/threat-mitigation
-ms.openlocfilehash: 4477b16d0d35fb90c35d17852f4639676d76aa02
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2637645da9db7d52668c6a36c822df25520ff1f1
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402283"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013811"
 ---
-# <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>Pokyny pro zmírnění hrozeb pro ASP.NET CoreBlazor Server
+# <a name="threat-mitigation-guidance-for-aspnet-core-no-locblazor-server"></a>Pokyny pro zmírnění hrozeb pro ASP.NET CoreBlazor Server
 
 [Javier Calvarro Nelson](https://github.com/javiercn)
 
@@ -37,7 +39,7 @@ V omezených prostředích, jako jsou v podnikových sítích nebo intranetech, 
 * Neplatí v omezeném prostředí.
 * Nestojí za implementaci, protože bezpečnostní riziko je nízké v omezeném prostředí.
 
-## <a name="blazor-and-shared-state"></a>Blazora sdílený stav
+## <a name="no-locblazor-and-shared-state"></a>Blazora sdílený stav
 
 [!INCLUDE[](~/includes/blazor-security/blazor-shared-state.md)]
 
@@ -103,7 +105,7 @@ Ve výchozím nastavení se počet připojení na uživatele pro aplikaci nijak 
 
 Útoky DoS (Denial of Service) zahrnují klienta, který způsobuje, že server vyčerpá jeden nebo víc svých prostředků, takže aplikace nebude k dispozici. Blazor Serveraplikace zahrnují některá výchozí omezení a spoléhají na jiné ASP.NET Core a SignalR omezení ochrany proti útokům DOS nastaveným na <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions> .
 
-| Blazor Serveromezení aplikace | Description | Výchozí |
+| Blazor Serveromezení aplikace | Popis | Výchozí |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitMaxRetained> | Maximální počet odpojených okruhů, které daný server uchovává v paměti. | 100 |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitRetentionPeriod> | Maximální doba, po kterou je odpojený okruh uložený v paměti předtím, než se rozpustí. | 3 minuty |
@@ -112,7 +114,7 @@ Ve výchozím nastavení se počet připojení na uživatele pro aplikaci nijak 
 
 Nastavte maximální velikost zprávy pro jednu příchozí zprávu centra pomocí <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions> .
 
-| SignalRa omezení ASP.NET Core | Description | Výchozí |
+| SignalRa omezení ASP.NET Core | Popis | Výchozí |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions.MaximumReceiveMessageSize?displayProperty=nameWithType> | Velikost zprávy pro jednotlivou zprávu | 32 KB |
 

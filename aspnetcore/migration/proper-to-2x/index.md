@@ -5,6 +5,8 @@ description: Dodržení pokynů k migraci stávajících ASP.NET MVC nebo webov�
 ms.author: scaddie
 ms.date: 10/18/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 1530a5e6cc4b241b916ed7c64587b515186cc6ca
-ms.sourcegitcommit: d306407dc5bfe6fdfbac482214b3f59371b582bc
+ms.openlocfilehash: defdb190acf915eaa7c4aa8469ee47888f771526
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/04/2020
-ms.locfileid: "85951935"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014916"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET na ASP.NET Core
 
@@ -163,9 +165,9 @@ Například prostředek obrázku ve složce *wwwroot/images* je přístupný pro
 > [!NOTE]
 > Podrobnější informace o obsluze statických souborů v ASP.NET Core najdete v tématu [statické soubory](xref:fundamentals/static-files).
 
-## <a name="multi-value-cookies"></a>Soubory cookie s více hodnotami
+## <a name="multi-value-no-loccookies"></a>S více hodnotami cookie
 
-[Soubory cookie s více hodnotami](xref:System.Web.HttpCookie.Values) nejsou v ASP.NET Core podporovány. Vytvoří jeden soubor cookie na hodnotu.
+V ASP.NET Core nejsou podporovány [hodnoty cookie s více hodnotami](xref:System.Web.HttpCookie.Values) . Vytvořte jednu cookie na hodnotu.
 
 ## <a name="partial-app-migration"></a>Migrace částečné aplikace
 

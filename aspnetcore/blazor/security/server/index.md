@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/02/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,20 +17,20 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: 69a24fc955a0f2fb524ec817eb50372052f538a1
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 4dc9040b9410304eb33e5df7c47db2f9a42152d3
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944253"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013993"
 ---
-# <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečení Blazor Server aplikací ASP.NET Core
+# <a name="secure-aspnet-core-no-locblazor-server-apps"></a>Zabezpečení Blazor Server aplikací ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex)
 
 Blazor Serveraplikace jsou konfigurovány pro zabezpečení stejným způsobem jako aplikace ASP.NET Core. Další informace najdete v článcích v části <xref:security/index> . Témata v tomto přehledu se vztahují konkrétně na Blazor Server . 
 
-## <a name="blazor-server-project-template"></a>Blazor ServerŠablona projektu
+## <a name="no-locblazor-server-project-template"></a>Blazor ServerŠablona projektu
 
 Blazor ServerŠablonu projektu lze nakonfigurovat pro ověřování při vytvoření projektu.
 
@@ -57,7 +59,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 Přípustné hodnoty ověřování ( `{AUTHENTICATION}` ) jsou uvedeny v následující tabulce.
 
-| Mechanismus ověřování | Description |
+| Mechanismus ověřování | Popis |
 | ------------------------ | ----------- |
 | `None`výchozí         | Bez ověřování |
 | `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET CoreIdentity |
@@ -91,7 +93,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 Přípustné hodnoty ověřování ( `{AUTHENTICATION}` ) jsou uvedeny v následující tabulce.
 
-| Mechanismus ověřování | Description |
+| Mechanismus ověřování | Popis |
 | ------------------------ | ----------- |
 | `None`výchozí         | Bez ověřování |
 | `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET CoreIdentity |
@@ -109,7 +111,7 @@ Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new
 
 ---
 
-## <a name="scaffold-identity"></a>GenerováníIdentity
+## <a name="scaffold-no-locidentity"></a>GenerováníIdentity
 
 Uživatelské rozhraní Identity do Blazor Server projektu:
 

@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/10/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: afad542a18a357a77f4542511a3d2c3108dbfb31
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 97039ac1c7bcd6a1ff7b53e1579c623b26564d26
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059770"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014890"
 ---
-# <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-identity"></a>Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0Identity
+# <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-no-locidentity"></a>Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0Identity
 
 Od [Petr Levin](https://isaaclevin.com)
 
@@ -38,14 +40,14 @@ Před ASP.NET 2,0 bylo vývojářům uděleno vytváření celého procesu ově�
 
 Chcete-li migrovat existující aplikace na ASP.NET Core 2,0 Identity , musí být data v těchto tabulkách migrována do tabulek používaných novým Identity schématem.
 
-## <a name="aspnet-core-identity-20-schema"></a>IdentitySchéma ASP.NET Core 2,0
+## <a name="aspnet-core-no-locidentity-20-schema"></a>IdentitySchéma ASP.NET Core 2,0
 
 ASP.NET Core 2,0 odpovídá [Identity](/aspnet/identity/index) principu zavedenému v ASP.NET 4,5. I když je zásada sdílená, implementace mezi architekturami se liší i mezi verzemi ASP.NET Core (viz [migrace ověřování a Identity ASP.NET Core 2,0](xref:migration/1x-to-2x/index)).
 
 Nejrychlejší způsob, jak zobrazit schéma pro ASP.NET Core 2,0, Identity je vytvoření nové aplikace ASP.NET Core 2,0. Postupujte podle těchto kroků v aplikaci Visual Studio 2017:
 
 1. Vyberte **soubor**  >  **Nový**  >  **projekt**.
-1. Vytvořte nový projekt **ASP.NET Core webové aplikace** s názvem *CoreIdentitySample*.
+1. Vytvořte nový projekt **ASP.NET Core webové aplikace** s názvem *Core Identity Sample*.
 1. V rozevíracím seznamu vyberte **ASP.NET Core 2,0** a potom vyberte **Webová aplikace**. Tato šablona vytvoří aplikaci [ Razor stránky](xref:razor-pages/index) . Než kliknete na **OK**, klikněte na **změnit ověřování**.
 1. Vyberte **jednotlivé uživatelské účty** pro Identity šablony. Nakonec klikněte na **OK**a pak na **OK**. Visual Studio vytvoří projekt pomocí Identity šablony ASP.NET Core.
 1. Vyberte **nástroje**  >  **Správce balíčků NuGet**  >  **Konzola správce balíčků** a otevřete tak okno **konzoly Správce balíčků** (PMC).
@@ -67,7 +69,7 @@ Nejrychlejší způsob, jak zobrazit schéma pro ASP.NET Core 2,0, Identity je v
 
     `Update-Database`Příkaz vytvořil databázi zadanou se schématem a všemi daty potřebnými k inicializaci aplikace. Následující obrázek znázorňuje strukturu tabulky, která je vytvořená pomocí předchozích kroků.
 
-    ![IdentityTabulky](identity/_static/identity-tables.png)
+    ![::: No-Loc (identita)::: Tables](identity/_static/identity-tables.png)
 
 ## <a name="migrate-the-schema"></a>Migrace schématu
 
@@ -103,7 +105,7 @@ Existují drobné rozdíly v strukturách tabulek a polích pro členství i ASP
 |`RoleId`                 |`string`  |`RoleId`      |`string`                   |
 |`UserId`                 |`string`  |`UserId`      |`string`                   |
 
-Při vytváření migračního skriptu pro *uživatele* a *role*odkázat na předchozí tabulky mapování. Následující příklad předpokládá, že máte na databázovém serveru dvě databáze. Jedna databáze obsahuje existující schéma členství ASP.NET a data. Druhá databáze *CoreIdentitySample* byla vytvořena pomocí kroků popsaných výše. K dispozici jsou vložené komentáře pro další podrobnosti.
+Při vytváření migračního skriptu pro *uživatele* a *role*odkázat na předchozí tabulky mapování. Následující příklad předpokládá, že máte na databázovém serveru dvě databáze. Jedna databáze obsahuje existující schéma členství ASP.NET a data. Druhá *základní Identity ukázková* databáze byla vytvořena pomocí kroků popsaných výše. K dispozici jsou vložené komentáře pro další podrobnosti.
 
 ```sql
 -- THIS SCRIPT NEEDS TO RUN FROM THE CONTEXT OF THE MEMBERSHIP DB

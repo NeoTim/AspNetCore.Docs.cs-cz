@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/14/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 1312ae531b0acb0ce09137cc2bae6299ddda5c32
-ms.sourcegitcommit: e6b3dd344521ce320d5c2121bbc27c211df87e57
+ms.openlocfilehash: a145cfd551650445f9ff35259cbedf71ebb686f0
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/19/2020
-ms.locfileid: "86468844"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014591"
 ---
-# <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
+# <a name="create-and-use-aspnet-core-no-locrazor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex), [Daniel Skořepa](https://github.com/danroth27)a [Tobias Bartsch](https://www.aveo-solutions.com/)
 
@@ -34,7 +36,7 @@ Blazoraplikace jsou sestavené pomocí *komponent*. Součást je samostatně obs
 
 Komponenty jsou implementovány v [Razor](xref:mvc/views/razor) souborech komponenty ( `.razor` ) pomocí kombinace kódu jazyka C# a HTML. Komponenta v Blazor je formálně označována jako * Razor Komponenta*.
 
-### <a name="razor-syntax"></a>Razorsyntaktick
+### <a name="no-locrazor-syntax"></a>Razorsyntaktick
 
 Razorkomponenty v Blazor aplikacích výrazně používají Razor syntaxi. Pokud nejste obeznámeni s Razor jazykem označení, doporučujeme <xref:mvc/views/razor> před pokračováním číst.
 
@@ -796,7 +798,7 @@ Následující příklad ukazuje použití `MarkupString` typu pro přidání bl
 }
 ```
 
-## <a name="razor-templates"></a>Razoršablony
+## <a name="no-locrazor-templates"></a>Razoršablony
 
 Fragmenty vykreslování lze definovat pomocí Razor syntaxe šablony. RazorŠablony představují způsob, jak definovat fragment uživatelského rozhraní a předpokládat následující formát:
 

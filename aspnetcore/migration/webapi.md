@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 05/26/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/webapi
-ms.openlocfilehash: 530455c85c4c869f06ba795d9fb63dcfd1c8d5cf
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 4888de6ad55037be540cb62b6e4f02878e2b57ab
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407223"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014812"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>Migrace z webového rozhraní API ASP.NET do ASP.NET Core
 
@@ -142,7 +144,7 @@ Nakonfigurujte směrování následujícím způsobem:
     * Použijte [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) atribut pro `GetAllProducts` akci.
     * Použijte `[HttpGet("{id}")]` atribut pro `GetProduct` akci.
 
-Spusťte migrovaný projekt a přejděte na adresu `/api/products` . Zobrazí se úplný seznam tří produktů. Přejděte na `/api/products/1`. Zobrazí se první produkt.
+Spusťte migrovaný projekt a přejděte na adresu `/api/products` . Zobrazí se úplný seznam tří produktů. Přejděte na adresu `/api/products/1`. Zobrazí se první produkt.
 
 ## <a name="additional-resources"></a>Další zdroje
 
@@ -255,7 +257,7 @@ Nakonfigurujte směrování následujícím způsobem:
     * Použijte [`[HttpGet]`](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) atribut pro `GetAllProducts` akci.
     * Použijte `[HttpGet("{id}")]` atribut pro `GetProduct` akci.
 
-Spusťte migrovaný projekt a přejděte na adresu `/api/products` . Zobrazí se úplný seznam tří produktů. Přejděte na `/api/products/1`. Zobrazí se první produkt.
+Spusťte migrovaný projekt a přejděte na adresu `/api/products` . Zobrazí se úplný seznam tří produktů. Přejděte na adresu `/api/products/1`. Zobrazí se první produkt.
 
 ## <a name="compatibility-shim"></a>Překrytí kompatibility
 
@@ -288,7 +290,7 @@ Použití překrytí kompatibility:
 1. Zaregistrujte služby překrytí kompatibility s využitím kontejneru DI aplikace voláním `services.AddMvc().AddWebApiConventions()` v `Startup.ConfigureServices` .
 1. Definujte trasy specifické pro webové rozhraní API pomocí ve `MapWebApiRoute` `IRouteBuilder` `IApplicationBuilder.UseMvc` volání aplikace.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:web-api/index>
 * <xref:web-api/action-return-types>

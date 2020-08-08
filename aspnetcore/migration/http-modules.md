@@ -5,6 +5,8 @@ description: ''
 ms.author: riande
 ms.date: 12/07/2016
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/http-modules
-ms.openlocfilehash: 362dd16db358f7ceb6730bde908fff9854c73a84
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 92672b2d05ee6bbdfcf0255ae14529a5c28c41b7
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403648"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014981"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>Migrace obslužných rutin a modulů HTTP do ASP.NET Core middlewaru
 
@@ -291,7 +293,7 @@ Poskytuje jedinečné ID pro každý požadavek. Je velmi užitečné zahrnout d
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Host)]
 
-**HttpContext. Request. cookies** se převede na:
+**HttpContext. Request. Cookie s** se překládá na:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Cookies)]
 
@@ -374,9 +376,9 @@ public async Task Invoke(HttpContext httpContext)
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetHeaders)]
 
-**HttpContext. Response. cookies**
+**HttpContext. Response. Cookie pracují**
 
-Soubory cookie se cestují do prohlížeče v hlavičce odpovědi *souborového souboru cookie* . V důsledku toho odeslání souborů cookie vyžaduje stejné zpětné volání, které se používá k odesílání hlaviček odpovědí:
+Cookies Cestujte do prohlížeče v hlavičce *Set- Cookie * Response. V důsledku toho odesílání cookie s vyžaduje stejné zpětné volání jako při odesílání hlaviček odpovědí:
 
 ```csharp
 public async Task Invoke(HttpContext httpContext)

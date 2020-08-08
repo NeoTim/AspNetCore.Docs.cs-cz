@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/25/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/integrate-components-into-razor-pages-and-mvc-apps
-ms.openlocfilehash: a28c43ed68adb7af9c30f7ae62872811361d8f9c
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: 7abf15b240c0acdae159784a8863b2988758c916
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87819090"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014552"
 ---
 # <a name="integrate-aspnet-core-no-locrazor-components-into-no-locrazor-pages-and-mvc-apps"></a>Integrace Razor součástí ASP.NET Core do Razor stránek a aplikací MVC
 
@@ -149,7 +151,7 @@ Podpora směrování Razor komponent v Razor aplikacích Pages:
    });
    ```
 
-1. Přidejte do aplikace směrovatelné součásti. Příklad:
+1. Přidejte do aplikace směrovatelné součásti. Například:
 
    ```razor
    @page "/counter"
@@ -232,7 +234,7 @@ Podpora směrování Razor komponent v aplikacích MVC:
    });
    ```
 
-1. Vytvořte `Pages` složku a přidejte do ní komponenty s funkcí směrování. Příklad:
+1. Vytvořte `Pages` složku a přidejte do ní komponenty s funkcí směrování. Například:
 
    ```razor
    @page "/counter"

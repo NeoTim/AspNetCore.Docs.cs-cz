@@ -5,6 +5,8 @@ description: Tento článek popisuje nejběžnější kroky pro migraci ASP.NET 
 ms.author: scaddie
 ms.date: 06/21/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -13,14 +15,14 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: dacf6fa7191f51f36b9ba65a90746a26f958fc03
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 46f10df25235b532f188eda2a079aef71070cd6d
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408666"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015287"
 ---
-# <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>Migrace ověřování a Identity ASP.NET Core 2,0
+# <a name="migrate-authentication-and-no-locidentity-to-aspnet-core-20"></a>Migrace ověřování a Identity ASP.NET Core 2,0
 
 [Scottem Addie](https://github.com/scottaddie) a [Hao Kung](https://github.com/HaoK)
 
@@ -86,19 +88,19 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 
 Níže jsou uvedené 2,0 pokyny k migraci pro každé hlavní schéma ověřování.
 
-### <a name="cookie-based-authentication"></a>Ověřování na základě souborů cookie
+### <a name="no-loccookie-based-authentication"></a>Cookieověřování na základě
 
 Vyberte jednu z následujících dvou možností a proveďte potřebné změny v *Startup.cs*:
 
-1. Použít soubory cookie sIdentity
+1. Použít s cookie sIdentity
     - Nahraďte `UseIdentity` `UseAuthentication` v `Configure` metodě:
 
         ```csharp
         app.UseAuthentication();
         ```
 
-    - Voláním `AddIdentity` metody v `ConfigureServices` metodě přidejte ověřovací služby souborů cookie.
-    - Volitelně můžete vyvolat `ConfigureApplicationCookie` metodu nebo `ConfigureExternalCookie` v `ConfigureServices` metodě pro vylepšení Identity nastavení souborů cookie.
+    - `AddIdentity` `ConfigureServices` Chcete-li přidat ověřovací služby, volejte metodu v metodě cookie .
+    - Volitelně můžete vyvolat `ConfigureApplicationCookie` metodu nebo `ConfigureExternalCookie` v `ConfigureServices` metodě pro vylepšení Identity cookie nastavení.
 
         ```csharp
         services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -108,7 +110,7 @@ Vyberte jednu z následujících dvou možností a proveďte potřebné změny v
         services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
         ```
 
-2. Používat soubory cookie bezIdentity
+2. Použít cookie s bezIdentity
     - Nahraďte `UseCookieAuthentication` volání metody v `Configure` metodě pomocí `UseAuthentication` :
 
         ```csharp
@@ -277,7 +279,7 @@ V 2,0 byly tyto dvě vlastnosti odebrány jako vlastnosti v jednotlivých `Authe
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 ```
 
-V předchozím fragmentu kódu je výchozí schéma nastaveno na `CookieAuthenticationDefaults.AuthenticationScheme` ("soubory cookie").
+V předchozím fragmentu kódu je výchozí schéma nastaveno na `CookieAuthenticationDefaults.AuthenticationScheme` (" Cookie s").
 
 Alternativně můžete pomocí přetížené verze `AddAuthentication` metody nastavit více než jednu vlastnost. V následujícím příkladu přetížené metody je výchozí schéma nastaveno na `CookieAuthenticationDefaults.AuthenticationScheme` . Schéma ověřování může být případně zadáno v rámci svých individuálních `[Authorize]` atributů nebo zásad autorizace.
 
@@ -293,7 +295,7 @@ Definujte výchozí schéma v 2,0, pokud je splněna jedna z následujících po
 - Chcete, aby byl uživatel automaticky přihlášen
 - `[Authorize]`Zásady ověřování použijete bez zadání schémat.
 
-Výjimkou z tohoto pravidla je `AddIdentity` metoda. Tato metoda přidá soubory cookie pro vás a nastaví výchozí ověřování a schémata pro dotaz na soubor cookie aplikace `IdentityConstants.ApplicationScheme` . Kromě toho nastaví výchozí schéma přihlášení na externí soubor cookie `IdentityConstants.ExternalScheme` .
+Výjimkou z tohoto pravidla je `AddIdentity` metoda. Tato metoda přidá cookie za vás a nastaví výchozí schémata ověřování a ověření pro aplikaci cookie `IdentityConstants.ApplicationScheme` . Kromě toho nastaví výchozí schéma přihlášení na externí cookie `IdentityConstants.ExternalScheme` .
 
 <a name="obsolete-interface"></a>
 
@@ -342,11 +344,11 @@ Další informace naleznete v tématu <xref:security/authentication/windowsauth>
 
 <a name="identity-cookie-options"></a>
 
-## <a name="identitycookieoptions-instances"></a>Instance IdentityCookieOptions
+## <a name="no-locidentityno-loccookieoptions-instances"></a>IdentityCookieInstance možností
 
-Vedlejší efekt 2,0 změn je místo instancí možností souborů cookie přepínač pomocí pojmenovaných možností. Možnost přizpůsobení Identity názvů schémat souborů cookie se odebere.
+Vedlejší efekt 2,0 změn je místo instancí možností přepínač pomocí pojmenovaných možností cookie . Možnost přizpůsobení Identity cookie názvů schémat se odebere.
 
-Například projekty 1. x používají [Injektáže konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) k předání `IdentityCookieOptions` parametru do *AccountController.cs* a *ManageController.cs*. K externímu schématu ověřování souborů cookie se dostanete ze zadané instance:
+Například projekty 1. x používají [Injektáže konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) k předání `IdentityCookieOptions` parametru do *AccountController.cs* a *ManageController.cs*. K externímu cookie schématu ověřování se dostanete ze zadané instance:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor&highlight=4,11)]
 
@@ -368,7 +370,7 @@ V projektech 2,0 nahraďte předchozí kód následujícím kódem. `IdentityCon
 
 <a name="navigation-properties"></a>
 
-## <a name="add-identityuser-poco-navigation-properties"></a>Přidat vlastnosti navigace IdentityUser POCO
+## <a name="add-no-locidentityuser-poco-navigation-properties"></a>Přidat Identity vlastnosti navigace POCO uživatele
 
 Byla odebrána základní navigační vlastnost Entity Framework (EF) základního `IdentityUser` POCO (prostý starý objekt CLR). Pokud váš projekt 1. x tyto vlastnosti používá, přidejte je ručně zpátky do projektu 2,0:
 

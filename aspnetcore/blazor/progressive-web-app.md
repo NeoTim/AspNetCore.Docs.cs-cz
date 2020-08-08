@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: 237a8fceb75ba724625f018cf94c8d5bc5acfdad
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 1c33a3abd2ebee60a4025d4598495d276663dc9b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402582"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014162"
 ---
-# <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET CoreBlazor WebAssembly
+# <a name="build-progressive-web-applications-with-aspnet-core-no-locblazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET CoreBlazor WebAssembly
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
@@ -69,13 +71,13 @@ V případě potřeby lze aplikaci PWA nakonfigurovat pro aplikaci vytvořenou z
 
 Při návštěvě aplikace vytvořené pomocí šablony PWA mají uživatelé možnost instalovat aplikaci do nabídky Start, Dock nebo Home v operačním systému. Způsob, jakým je tato možnost uvedená, závisí na prohlížeči uživatele. Při použití prohlížečů založených na desktopových Chromech, jako je například Edge nebo Chrome, se na panelu Adresa URL zobrazí tlačítko **Přidat** . Jakmile uživatel vybere tlačítko **Přidat** , obdrží potvrzovací dialog:
 
-![Diaglog potvrzení na Google Chrome prezentuje uživateli tlačítko pro instalaci aplikace MyBlazorPwa.](progressive-web-app/_static/image2.png)
+![Diaglog potvrzení na Google Chrome prezentuje uživateli tlačítko pro instalaci pro aplikaci My::: No-Loc (Blazor):::P WA.](progressive-web-app/_static/image2.png)
 
 V systému iOS můžou Návštěvníci nainstalovat aplikaci PWA pomocí tlačítka pro **sdílení** v prohlížeči Safari a její možnosti **Přidat do homescreen** . V Chrome pro Android by uživatelé měli vybrat tlačítko **nabídky** v pravém horním rohu a potom **Přidat na domovskou obrazovku**.
 
 Po instalaci se aplikace zobrazí ve vlastním okně bez adresního řádku:
 
-![Aplikace MyBlazorPwa běží na Google Chrome bez adresního řádku.](progressive-web-app/_static/image3.png)
+![Aplikace My::: No-Loc (Blazor):::P WA běží na Google Chrome bez adresního řádku.](progressive-web-app/_static/image3.png)
 
 Chcete-li přizpůsobit název okna, barevné schéma, ikonu nebo jiné podrobnosti, Prohlédněte si `manifest.json` soubor v `wwwroot` adresáři projektu. Schéma tohoto souboru je definováno webovými standardy. Další informace najdete v tématu [MDN web Docs: manifest webové aplikace](https://developer.mozilla.org/docs/Web/Manifest).
 

@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/30/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: cb0a8737fb975db285986d18b995e488f09580e8
-ms.sourcegitcommit: 37f6f2e13ceb4eae268d20973d76e4b83acf6a24
+ms.openlocfilehash: 225916411550cc8e89c604e1426316843bb0ff52
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526287"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014539"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core laděníBlazor WebAssembly
 
@@ -76,6 +78,10 @@ Ladění Blazor WebAssembly aplikace v aplikaci Visual Studio:
 
 1. Vytvořte novou ASP.NET Core hostovanou Blazor WebAssembly aplikaci.
 1. Stisknutím klávesy <kbd>F5</kbd> spusťte aplikaci v ladicím programu.
+
+   > [!NOTE]
+   > **Spuštění bez ladění** (<kbd>CTRL</kbd> + <kbd>F5</kbd>) není podporováno.
+
 1. Nastavte zarážku v `Pages/Counter.razor` `IncrementCount` metodě.
 1. Přejděte na **`Counter`** kartu a vyberte tlačítko, kde se má zarážka opakovat:
 
@@ -116,10 +122,13 @@ Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
    Pokud obdržíte oznámení:
 
    * Potvrďte, že je nainstalovaná nejnovější [rozšíření C# pro Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) . Pokud chcete zkontrolovat nainstalovaná rozšíření, **View**otevřete  >  **rozšíření** zobrazení z řádku nabídek nebo vyberte ikonu **rozšíření** na postranním panelu **aktivita** .
-   * Potvrďte, že je povolené ladění v jazyce JavaScript verze Preview. Otevřete nastavení z řádku nabídek (**File**  >  **Preferences**  >  **Nastavení**předvoleb souborů). Hledání pomocí klíčových slov `debug preview` . Ve výsledcích hledání potvrďte, že je zaškrtnuto políčko pro **ladění > JavaScript: použít verzi Preview** .
+   * Potvrďte, že je povolené ladění v jazyce JavaScript verze Preview. Otevřete nastavení z řádku nabídek (**File**  >  **Preferences**  >  **Nastavení**předvoleb souborů). Hledání pomocí klíčových slov `debug preview` . Ve výsledcích hledání potvrďte, že je zaškrtnuto políčko pro **ladění > JavaScript: použít verzi Preview** . Pokud není k dispozici možnost Povolit ladění ve verzi Preview, upgradujte na nejnovější verzi VS Code nebo nainstalujte [rozšíření ladicího programu jazyka JavaScript](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly) (VS Code verze 1,46 nebo starší).
    * Znovu načtěte okno.
 
 1. Spusťte ladění pomocí klávesových zkratek <kbd>F5</kbd> nebo položky nabídky.
+
+   > [!NOTE]
+   > **Běh bez ladění** (<kbd>CTRL</kbd> + <kbd>F5</kbd>) není podporovaný.
 
 1. Po zobrazení výzvy vyberte možnost ** Blazor WebAssembly ladění** pro spuštění ladění.
 

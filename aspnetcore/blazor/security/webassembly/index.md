@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/16/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: 8d75852c74b33fe538d05c5945829e0726a5030f
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: fef638d592cacfe2f4f67e522900979993905859
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87818817"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013590"
 ---
 # <a name="secure-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core zabezpečeníBlazor WebAssembly
 
@@ -34,11 +36,11 @@ Blazor WebAssemblypodporuje ověřování a autorizaci aplikací pomocí OIDC pr
 
 Podpora ověřování v nástroji Blazor WebAssembly je postavená na `oidc-client.js` knihovně, která se používá ke zpracování podrobností o podkladovém protokolu ověřování.
 
-K dispozici jsou další možnosti ověřování jednostránkové, jako je například použití souborů cookie SameSite. Technický návrh pro se ale v Blazor WebAssembly aplikacích OAuth a OIDC vyplatí jako nejlepší možnost pro ověřování v Blazor WebAssembly aplikacích. [Ověřování založené na tokenech](xref:security/anti-request-forgery#token-based-authentication) založené na [webových tokenech JSON (JWTs)](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html) bylo vybráno při [ověřování pomocí souborů cookie](xref:security/anti-request-forgery#cookie-based-authentication) pro funkční a bezpečnostní účely:
+Další možnosti pro ověřování jednostránkové existují, jako je například použití SameSite cookie s. Technický návrh pro se ale v Blazor WebAssembly aplikacích OAuth a OIDC vyplatí jako nejlepší možnost pro ověřování v Blazor WebAssembly aplikacích. [Ověřování založené na tokenech](xref:security/anti-request-forgery#token-based-authentication) na základě [webových tokenů JSON (JWTs)](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html) bylo vybráno pro účely funkčnosti a zabezpečení [ cookie na základě ověření](xref:security/anti-request-forgery#cookie-based-authentication) :
 
 * Použití protokolu založeného na tokenu nabízí menší prostor pro útoky, protože tokeny se neodesílají v rámci všech požadavků.
 * Koncové body serveru nevyžadují ochranu proti [padělání žádostí mezi lokalitami (CSRF)](xref:security/anti-request-forgery) , protože tokeny se odesílají explicitně. To vám umožní hostovat Blazor WebAssembly aplikace souběžně s aplikacemi MVC nebo Razor stránky.
-* Tokeny mají užší oprávnění než soubory cookie. Například tokeny nelze použít ke správě uživatelského účtu nebo změně hesla uživatele, pokud nejsou tyto funkce explicitně implementovány.
+* Tokeny mají užší oprávnění než cookie s. Například tokeny nelze použít ke správě uživatelského účtu nebo změně hesla uživatele, pokud nejsou tyto funkce explicitně implementovány.
 * Tokeny mají krátkou životnost, jednu hodinu ve výchozím nastavení, což omezuje okno útoku. Tokeny je také možné kdykoli odvolat.
 * Samostatná JWTs nabízí záruky pro klienta a server o procesu ověřování. Například klient má prostředky ke zjištění a ověření, že tokeny, které obdrží, jsou legitimní a byly vygenerovány jako součást daného ověřovacího procesu. Pokud se třetí strana pokusí o přepnutí tokenu uprostřed procesu ověřování, může klient detekovat přepínaný token a vyhnout se jeho použití.
 * Tokeny s protokolem OAuth a OIDC nespoléhají na správné chování uživatelského agenta, aby bylo zajištěno, že je aplikace zabezpečená.

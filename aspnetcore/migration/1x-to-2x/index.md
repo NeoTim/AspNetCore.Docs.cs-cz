@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: 97fe2f36aed4a2ac60a7ffc30ede5e682a838e5e
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: cad1cd868ef8c972d7e0fbfec79cd1d8b49c3b6e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408692"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015332"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>Migrace z ASP.NET Core 1. x na 2,0
 
@@ -164,7 +166,7 @@ Od 2,0 se nejedná o špatný postup, který se dá dělat `BuildWebHost` s výj
 
 <a name="view-compilation"></a>
 
-## <a name="review-razor-view-compilation-setting"></a>Kontrola Razor nastavení kompilace zobrazení
+## <a name="review-no-locrazor-view-compilation-setting"></a>Kontrola Razor nastavení kompilace zobrazení
 
 Rychlejší čas spuštění aplikace a menší publikované sady mají největší důležitost. Z těchto důvodů je ve výchozím nastavení povoleno [ Razor zobrazení kompilace](xref:mvc/views/view-compilation) v ASP.NET Core 2,0.
 
@@ -198,7 +200,7 @@ Pokud používáte sadu Application Insights SDK přímo, pokračujte v tomto p�
 
 <a name="auth-and-identity"></a>
 
-## <a name="adopt-authenticationidentity-improvements"></a>Přijmout ověřování/ Identity vylepšení
+## <a name="adopt-authenticationno-locidentity-improvements"></a>Přijmout ověřování/ Identity vylepšení
 
 ASP.NET Core 2,0 má nový model ověřování a řadu významných změn, které se ASP.NET Core Identity . Pokud jste vytvořili projekt s povolenými jednotlivými uživatelskými účty, nebo pokud jste ručně přidali ověřování Identity , přečtěte si téma [migrace ověřování a Identity ASP.NET Core 2,0](xref:migration/1x-to-2x/identity-2x).
 

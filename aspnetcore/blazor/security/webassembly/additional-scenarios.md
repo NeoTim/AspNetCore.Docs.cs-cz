@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/03/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 81ab2bb139dfcbea712d4eb51acfc9d7f6767d46
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: 15531c39a66a9f6dfd0f5c20cf960e4db5a78074
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87818830"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013798"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly Další scénáře zabezpečení
 
@@ -444,7 +446,7 @@ Další informace o možnostech načtení rozhraní API naleznete v tématu [MDN
 
 ## <a name="cross-origin-resource-sharing-cors"></a>Sdílení prostředků mezi zdroji (CORS)
 
-Při odesílání přihlašovacích údajů (souborů cookie autorizace/hlaviček) na žádostech CORS `Authorization` musí být záhlaví povoleno zásadami CORS.
+Při odesílání přihlašovacích údajů (autorizace cookie s/záhlavími) na žádostech CORS `Authorization` musí být záhlaví povoleno zásadami CORS.
 
 Následující zásady zahrnují konfiguraci pro:
 
@@ -467,13 +469,13 @@ Další informace najdete v tématu <xref:security/cors> a součásti testera po
 
 ## <a name="handle-token-request-errors"></a>Zpracování chyb požadavků na tokeny
 
-Když se jedna stránková aplikace (SPA) ověřuje uživatele pomocí OpenID Connect (OIDC), stav ověřování se udržuje místně v zabezpečeném uživatelském rozhraní (SPA) a ve Identity zprostředkovateli (IP) ve formě souboru cookie relace, který je nastavený jako uživatel, který poskytuje svoje přihlašovací údaje.
+Když se jedna stránková aplikace (SPA) ověřuje uživatele pomocí OpenID Connect (OIDC), stav ověřování se udržuje místně v zabezpečeném uživatelském rozhraní (SPA) a v Identity poskytovateli (IP) ve formě relace cookie , která je nastavená jako výsledek uživatele, který poskytuje svoje přihlašovací údaje.
 
 Tokeny, které jsou pro uživatele vysílané, jsou obvykle platné po krátkou dobu přibližně jedna hodina, takže klientská aplikace musí pravidelně načítat nové tokeny. V opačném případě se uživatel odhlásí po vypršení platnosti udělených tokenů. Ve většině případů můžou klienti OIDC zřizovat nové tokeny, aniž by museli znovu ověřovat uživatele díky stavu ověřování nebo "relaci", která se udržuje v rámci IP adresy.
 
 V některých případech může klient získat token bez zásahu uživatele, například pokud z nějakého důvodu se uživatel výslovně odhlásí z IP adresy. K tomuto scénáři dochází, pokud uživatel navštíví `https://login.microsoftonline.com` a odhlásí. V těchto scénářích aplikace neví hned, že se uživatel odhlásil. Libovolný token, který může klient obsahovat, již nemusí být platný. Klient navíc nemůže zřídit nový token bez zásahu uživatele po vypršení platnosti tohoto tokenu.
 
-Tyto scénáře nejsou specifické pro ověřování založené na tokenech. Jsou součástí charakteru jednostránkové. ZABEZPEČENÉ ověřování pomocí souborů cookie také nedokáže volat rozhraní API serveru, pokud je soubor cookie ověření odebrán.
+Tyto scénáře nejsou specifické pro ověřování založené na tokenech. Jsou součástí charakteru jednostránkové. ZABEZPEČENÉ ověřování pomocí protokolu cookie s použitím s také neumožňuje volat rozhraní API serveru, pokud cookie je ověření odebráno.
 
 Když aplikace provede volání rozhraní API k chráněným prostředkům, musíte mít na paměti následující informace:
 

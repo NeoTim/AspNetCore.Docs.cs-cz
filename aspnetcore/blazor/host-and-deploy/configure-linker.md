@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/configure-linker
-ms.openlocfilehash: 568efe9971aefc11841c42789ac7f2af3004003f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e76d25dbbf5c7a166e5f58a5ad1f9b5a2ecacf79
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402699"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014250"
 ---
-# <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace linkeru pro ASP.NET CoreBlazor
+# <a name="configure-the-linker-for-aspnet-core-no-locblazor"></a>Konfigurace linkeru pro ASP.NET CoreBlazor
 
 Od [Luke Latham](https://github.com/guardrex)
 
@@ -122,7 +124,7 @@ Chcete-li určit, která sestavení I18N jsou zachována, nastavte `<BlazorWebAs
 | `all`            | Všechna sestavení, která jsou součástí |
 | `cjk`            | `I18N.CJK.dll`          |
 | `mideast`        | `I18N.MidEast.dll`      |
-| `none`výchozí | Žádná                    |
+| `none`výchozí | Žádné                    |
 | `other`          | `I18N.Other.dll`        |
 | `rare`           | `I18N.Rare.dll`         |
 | `west`           | `I18N.West.dll`         |
@@ -131,6 +133,6 @@ Oddělte více hodnot pomocí čárky (například `mideast,west` ).
 
 Další informace najdete v tématu [i18n: knihovna rozhraní Pnetlib pro mezinárodní navýšení (mono/mono úložiště GitHub)](https://github.com/mono/mono/tree/master/mcs/class/I18N).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:blazor/webassembly-performance-best-practices#intermediate-language-il-linking>

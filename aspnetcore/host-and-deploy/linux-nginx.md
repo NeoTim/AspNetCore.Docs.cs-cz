@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/09/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 8038c63200c7c9aaadb9e0e7a68ae315ff620197
-ms.sourcegitcommit: 384833762c614851db653b841cc09fbc944da463
+ms.openlocfilehash: f6a777ab796da42402fae4f77ecc028efa2d6039
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86445291"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015540"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -40,7 +42,7 @@ Tato příručka:
 * Zajistí, aby se webová aplikace spouštěla při spuštění jako démon.
 * Nakonfiguruje Nástroj pro správu procesů, který vám může pomáhat s restartováním webové aplikace.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 1. Přístup k serveru Ubuntu 16,04 se standardním uživatelským účtem s oprávněním sudo.
 1. Nainstalujte modul runtime .NET Core na server.
@@ -299,13 +301,13 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="data-protection"></a>Ochrana dat
 
-[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
+[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například cookie middlewaru) a ochrany proti padělání žádostí mezi lokalitami (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
 
 Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené.
+* U cookie tokenů ověřování na základě jsou neověřené.
 * Uživatelé se musí znovu přihlásit na svůj další požadavek.
-* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core MVC TempData cookie s](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete nakonfigurovat ochranu dat, aby zachovala a zašifroval klíč Ring, přečtěte si:
 
@@ -412,7 +414,7 @@ Zmírnění útoků Clickjacking:
    ```
 
    Přidejte řádek `add_header X-Frame-Options "SAMEORIGIN";`.
-1. Uložte soubor.
+1. Soubor uložte.
 1. Restartujte Nginx.
 
 #### <a name="mime-type-sniffing"></a>Sledování typu MIME

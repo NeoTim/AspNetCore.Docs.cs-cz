@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/08/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: 3b477b45ae70c6ad66578fbf0ed18589cecbec8d
-ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
+ms.openlocfilehash: ce09acc5d123db90e48e95df01770b64f85a848d
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2020
-ms.locfileid: "86147740"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013746"
 ---
-# <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor WebAssembly samostatné aplikace v ASP.NET Core s využitím Azure Active Directory B2C
+# <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor WebAssembly samostatné aplikace v ASP.NET Core s využitím Azure Active Directory B2C
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
@@ -89,7 +91,7 @@ Umístění výstupu zadané s `-o|--output` možností vytvoří složku projek
 Po vytvoření aplikace byste měli mít tyto možnosti:
 
 * Přihlaste se k aplikaci pomocí uživatelského účtu AAD.
-* Vyžádá přístupové tokeny pro rozhraní API Microsoftu. Další informace naleznete v tématech:
+* Vyžádá přístupové tokeny pro rozhraní API Microsoftu. Další informace:
   * [Obory přístupového tokenu](#access-token-scopes)
   * [Rychlý Start: Konfigurace aplikace k vystavení webových rozhraní API](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
 

@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 07/23/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 5db6ab3d790257c677c0a4ed7e605eb39c2982ed
-ms.sourcegitcommit: cc845634a490c49ff869c89b6e422b6d65d0e886
+ms.openlocfilehash: a29ee483a68211d779b167fe167deea917c26f70
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2020
-ms.locfileid: "87159720"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013408"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Statické prostředky sady prostředků a minimalizuje v ASP.NET Core
 
@@ -211,7 +213,7 @@ V tomto příkladu všechny úlohy, které jsou definovány v rámci cílového 
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Použití nástroje Grunt](xref:client-side/using-grunt)
 * [Používání více prostředí](xref:fundamentals/environments)

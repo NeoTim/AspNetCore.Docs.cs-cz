@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 1d24ebe900dfcdeb8b7bcc97f1d212deea9cecae
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 59b6e4cb2f466594d8a105a239e175e9c7b37ad8
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402725"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014241"
 ---
-# <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor globalizace a lokalizace
+# <a name="aspnet-core-no-locblazor-globalization-and-localization"></a>ASP.NET Core Blazor globalizace a lokalizace
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
@@ -81,20 +83,20 @@ Blazor Serveraplikace jsou lokalizovány pomocí [middleware lokalizace](xref:fu
 
 Tuto jazykovou verzi lze nastavit pomocí jednoho z následujících přístupů:
 
-* [Soubory cookie](#cookies)
+* [Cookiepracují](#cookies)
 * [Poskytnutí uživatelského rozhraní pro výběr jazykové verze](#provide-ui-to-choose-the-culture)
 
 Další informace a příklady naleznete v tématu <xref:fundamentals/localization> .
 
-#### <a name="cookies"></a>Soubory cookie
+#### <a name="no-loccookies"></a>Cookiepracují
 
-Soubor cookie lokalizační kultury může zachovat jazykovou verzi uživatele. Middleware lokalizace přečte soubor cookie při následných požadavcích na nastavení jazykové verze uživatele. 
+Jazyková verze lokalizace cookie může zachovat jazykovou verzi uživatele. Middleware lokalizace přečte cookie při následujících požadavcích na nastavení jazykové verze uživatele. 
 
-Použití souboru cookie zajistí, že připojení protokolu WebSocket dokáže správně rozšířit jazykovou verzi. Pokud jsou schémata lokalizací založena na cestě URL nebo řetězci dotazu, nemusí být schopná pracovat s objekty WebSockets, takže nepůjde zachovat jazykovou verzi. Proto je doporučený přístup použití souboru cookie lokalizační kultury.
+Použití nástroje cookie zajistí, že připojení protokolu WebSocket dokáže správně rozšířit jazykovou verzi. Pokud jsou schémata lokalizací založena na cestě URL nebo řetězci dotazu, nemusí být schopná pracovat s objekty WebSockets, takže nepůjde zachovat jazykovou verzi. Proto je doporučený přístup použití jazykové verze lokalizace cookie .
 
-Pokud je jazyková verze uložena v souboru cookie lokalizace, je možné použít jakoukoli techniku k přiřazení jazykové verze. Pokud už aplikace má zavedené lokalizační schéma pro ASP.NET Core na straně serveru, pokračujte v používání stávající infrastruktury lokalizace a nastavte soubor cookie lokalizační kultury v rámci schématu aplikace.
+Pokud je jazyková verze trvale v lokalizaci, lze použít jakoukoli techniku k přiřazení jazykové verze cookie . Pokud už aplikace má zavedené lokalizační schéma pro ASP.NET Core na straně serveru, pokračujte v používání stávající infrastruktury lokalizace a nastavte jazykovou verzi lokalizace cookie v rámci schématu aplikace.
 
-Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v souboru cookie, který lze přečíst pomocí middleware Localization. Vytvořte Razor v `Pages/_Host.cshtml` souboru výraz hned v otevírací `<body>` značce:
+Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v cookie , kterou lze přečíst pomocí middleware Localization. Vytvořte Razor v `Pages/_Host.cshtml` souboru výraz hned v otevírací `<body>` značce:
 
 ```cshtml
 @using System.Globalization
@@ -120,18 +122,18 @@ Lokalizace je zpracována aplikací v následující posloupnosti událostí:
 
 1. Prohlížeč pošle do aplikace počáteční požadavek HTTP.
 1. Jazyková verze je přiřazena pomocí middleware Localization.
-1. RazorVýraz na `_Host` stránce ( `_Host.cshtml` ) zachovává jazykovou verzi v souboru cookie jako součást odpovědi.
+1. RazorVýraz na `_Host` stránce ( `_Host.cshtml` ) zachovává jazykovou verzi v rámci cookie odpovědi.
 1. Prohlížeč otevře připojení pomocí protokolu WebSocket a vytvoří interaktivní Blazor Server relaci.
-1. Middleware lokalizace přečte soubor cookie a přiřadí jazykovou verzi.
+1. Middleware lokalizace přečte cookie a přiřadí jazykovou verzi.
 1. Blazor ServerRelace začíná správnou jazykovou verzí.
 
 #### <a name="provide-ui-to-choose-the-culture"></a>Poskytnutí uživatelského rozhraní pro výběr jazykové verze
 
 K poskytnutí uživatelského rozhraní, které uživateli umožní vybrat jazykovou verzi, se doporučuje *přístup založený na přesměrování* . Proces se podobá tomu, co se stane ve webové aplikaci, když se uživatel pokusí o přístup k zabezpečenému prostředku. Uživatel se přesměruje na přihlašovací stránku a pak se přesměruje zpátky na původní prostředek. 
 
-Aplikace zachovává vybranou jazykovou verzi uživatele prostřednictvím přesměrování na kontroler. Řadič Nastaví vybranou jazykovou verzi uživatele na soubor cookie a přesměruje uživatele zpět na původní identifikátor URI.
+Aplikace zachovává vybranou jazykovou verzi uživatele prostřednictvím přesměrování na kontroler. Řadič Nastaví vybranou jazykovou verzi uživatele na cookie a přesměruje uživatele zpět na původní identifikátor URI.
 
-Vytvořte koncový bod HTTP na serveru pro nastavení vybrané jazykové verze uživatele v souboru cookie a proveďte přesměrování zpátky na původní identifikátor URI:
+Vytvořte koncový bod HTTP na serveru pro nastavení vybrané jazykové verze uživatele v cookie a proveďte přesměrování zpátky na původní identifikátor URI:
 
 ```csharp
 [Route("[controller]/[action]")]
@@ -201,6 +203,6 @@ Následující komponenta ukazuje příklad, jak provést počáteční přesmě
 }
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:fundamentals/localization>

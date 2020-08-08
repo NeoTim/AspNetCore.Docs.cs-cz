@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc, seoapril2019
 ms.date: 06/19/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 30f11a137e711b1cf7a8b036af92fbb5fa2a1f05
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ad543087243658f09a23e4f6d957d0c6aa77b361
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402569"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014175"
 ---
-# <a name="introduction-to-aspnet-core-blazor"></a>Úvod do ASP.NET CoreBlazor
+# <a name="introduction-to-aspnet-core-no-locblazor"></a>Úvod do ASP.NET CoreBlazor
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
@@ -118,7 +120,7 @@ Spuštění kódu .NET ve webových prohlížečích je umožněno webovým [ses
 
 Kód webového sestavení má přístup k úplným funkcím prohlížeče prostřednictvím JavaScriptu, označovanému jako *interoperabilita JavaScriptu* (nebo *zprostředkovatel komunikace s JavaScriptem*). Kód .NET spuštěný pomocí webového sestavení v prohlížeči se spouští v izolovaném prostoru JavaScript v prohlížeči s ochranou, že izolovaný prostor poskytuje proti škodlivým akcím v klientském počítači.
 
-![Blazor WebAssemblyspustí kód .NET v prohlížeči pomocí webového sestavení.](index/_static/blazor-webassembly.png)
+![::: No-Loc (Blazor WebAssembly)::: spustí kód .NET v prohlížeči pomocí webového sestavení.](index/_static/blazor-webassembly.png)
 
 Když Blazor WebAssembly je aplikace sestavená a spuštěná v prohlížeči:
 
@@ -140,7 +142,7 @@ Modul runtime zpracovává odeslání událostí uživatelského rozhraní z pro
 
 Připojení, které používá Blazor Server ke komunikaci s prohlížečem, slouží také ke zpracování volání interoperability JavaScript.
 
-![Blazor Serverspustí na serveru .NET code a komunikuje s model DOM (Document Object Model) v klientovi přes SignalR připojení.](index/_static/blazor-server.png)
+![::: No-Loc (Blazor Server)::: spustí .NET kód na serveru a spolupracuje s model DOM (Document Object Model) na klientovi přes::: No-Loc (signál)::: Connection](index/_static/blazor-server.png)
 
 ## <a name="javascript-interop"></a>Interoperabilita JavaScriptu
 

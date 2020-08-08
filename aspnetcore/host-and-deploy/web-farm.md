@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 13c4a8e287e4b62a1429f67fbe83ff5b0dc65f52
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 58409b5c47d71c96ece6f4ecfab6f18df47f798b
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408276"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015436"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>Hostitelská ASP.NET Core ve webové farmě
 
@@ -70,8 +72,8 @@ Následující scénáře nevyžadují další konfiguraci, ale závisejí na te
 | -------- | ------------------- |
 | Ověřování | Ochrana dat (viz <xref:security/data-protection/configuration/overview> ).<br><br>Další informace naleznete v tématech <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. |
 | Identity | Ověřování a konfigurace databáze.<br><br>Další informace naleznete v tématu <xref:security/authentication/identity>. |
-| Relace | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview> ) a ukládání do mezipaměti (viz <xref:performance/caching/distributed> ).<br><br>Další informace najdete v tématu [Správa stavu a relace: stav relace](xref:fundamentals/app-state#session-state). |
-| TempData | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview> ) nebo relace (viz [Správa relace a stav: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [Správa stavu a relace: TempData](xref:fundamentals/app-state#tempdata). |
+| Relace | Ochrana dat (šifrované cookie s) (viz <xref:security/data-protection/configuration/overview> ) a ukládání do mezipaměti (viz <xref:performance/caching/distributed> ).<br><br>Další informace najdete v tématu [Správa stavu a relace: stav relace](xref:fundamentals/app-state#session-state). |
+| TempData | Ochrana dat (šifrované cookie s) (viz <xref:security/data-protection/configuration/overview> ) nebo relace (viz [Správa relace a stav: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [Správa stavu a relace: TempData](xref:fundamentals/app-state#tempdata). |
 | Ochrana proti padělání | Ochrana dat (viz <xref:security/data-protection/configuration/overview> ).<br><br>Další informace naleznete v tématu <xref:security/anti-request-forgery>. |
 
 ## <a name="troubleshoot"></a>Řešení potíží
@@ -80,11 +82,11 @@ Následující scénáře nevyžadují další konfiguraci, ale závisejí na te
 
 Pokud není pro prostředí webové farmy nakonfigurovaná ochrana dat nebo ukládání do mezipaměti, dojde při zpracování požadavků k přerušované chybě. K tomu dochází, protože uzly nesdílejí stejné prostředky a požadavky uživatelů nejsou vždy směrovány zpět do stejného uzlu.
 
-Vezměte v úvahu uživatele, který se přihlásí do aplikace pomocí ověřování souborem cookie. Uživatel se přihlásí do aplikace na jednom uzlu webové farmy. Pokud bude další požadavek doručen do stejného uzlu, ve kterém se přihlásil, aplikace dokáže dešifrovat soubor cookie ověřování a povolit přístup k prostředku aplikace. Pokud jejich další požadavek dorazí na jiný uzel, aplikace nemůže dešifrovat ověřovací soubor cookie z uzlu, ve kterém se uživatel přihlásil, a autorizace požadovaného prostředku se nezdařila.
+Vezměte uživatele, který se do aplikace přihlásí pomocí cookie ověřování. Uživatel se přihlásí do aplikace na jednom uzlu webové farmy. Pokud bude příští požadavek doručen do stejného uzlu, ve kterém se přihlásil, aplikace dokáže dešifrovat ověřování cookie a povolit přístup k prostředku aplikace. Pokud jejich další požadavek dorazí na jiný uzel, aplikace nemůže dešifrovat ověřování cookie z uzlu, ke kterému se uživatel přihlásil, a autorizace požadovaného prostředku se nezdařila.
 
 Pokud dojde k **občasnému**výskytu některého z následujících příznaků, je obvykle zaznamenána nesprávná ochrana dat nebo konfigurace ukládání do mezipaměti pro prostředí webové farmy:
 
-* Přerušení ověřování: ověřovací soubor cookie je nesprávně nakonfigurovaný nebo ho nejde dešifrovat. OAuth (Facebook, Microsoft, Twitter) nebo OpenIdConnect přihlášení selžou s chybou korelace se nezdařila.
+* Přerušení ověřování: ověřování cookie je nesprávně nakonfigurované nebo není možné dešifrovat. OAuth (Facebook, Microsoft, Twitter) nebo OpenIdConnect přihlášení selžou s chybou korelace se nezdařila.
 * Přerušení autorizace: dojde Identity ke ztrátě.
 * Stav relace ztratí data.
 * Položky uložené v mezipaměti zmizí.

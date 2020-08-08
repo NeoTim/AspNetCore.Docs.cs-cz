@@ -7,6 +7,8 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 3a42ce1773bef74fab35884025765d147c534dd2
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 36b0c913db3c2b6c2c834d33b0ea8665f3e25814
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403219"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88012965"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
 
@@ -57,7 +59,7 @@ V tomto kurzu jste:
   * **ASP.NET a webové vývojové** úlohy
   * **Vývojová úloha .NET Core pro různé platformy**
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Pokud narazíte na problém, který nelze vyřešit, můžete řešení obecně najít porovnáním kódu s [dokončeným projektem](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final). Seznam běžných chyb a jejich řešení najdete v [části věnované řešení potíží v posledním kurzu v řadě](advanced.md#common-errors). Pokud tam nenajdete, co potřebujete, můžete odeslat otázku do StackOverflow.com pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
@@ -262,7 +264,7 @@ Automatické vytváření metod a zobrazení akcí CRUD se označuje jako genero
 
   * **Pomocí Entity Framework vyberte kontroler MVC se zobrazeními**.
 
-  * Klikněte na tlačítko **Add** (Přidat). Zobrazí se dialogové okno **Přidat kontroler MVC se Entity Framework zobrazeními** .
+  * Klikněte na **Přidat**. Zobrazí se dialogové okno **Přidat kontroler MVC se Entity Framework zobrazeními** .
 
     ![Student pro generování uživatelského rozhraní](intro/_static/scaffold-student2.png)
 
@@ -272,7 +274,7 @@ Automatické vytváření metod a zobrazení akcí CRUD se označuje jako genero
 
   * Přijměte výchozí **StudentsController** jako název.
 
-  * Klikněte na tlačítko **Add** (Přidat).
+  * Klikněte na **Přidat**.
 
   Když kliknete na tlačítko **Přidat**, modul generování uživatelského rozhraní sady Visual Studio vytvoří soubor *StudentsController.cs* a sadu zobrazení (soubory *. cshtml* ), které pracují s řadičem.
 

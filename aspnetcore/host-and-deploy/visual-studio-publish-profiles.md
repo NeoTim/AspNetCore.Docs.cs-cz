@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/28/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 7ad85de1a566c993e59203a5efe31458f3acdc53
-ms.sourcegitcommit: 5a36758cca2861aeb10840093e46d273a6e6e91d
+ms.openlocfilehash: 1c4b1def75a76b8392427fd6916a7b5927737cac
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/28/2020
-ms.locfileid: "87303622"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88015449"
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>Publikační profily sady Visual Studio (. pubxml) pro nasazení aplikace ASP.NET Core
 
@@ -78,7 +80,7 @@ Pokud projekt ASP.NET Core odkazuje `Microsoft.NET.Sdk.Web` v souboru projektu, 
 
 ## <a name="basic-command-line-publishing"></a>Základní publikování z příkazového řádku
 
-Publikování z příkazového řádku funguje na všech platformách podporovaných .NET Core a nevyžaduje sadu Visual Studio. V následujících příkladech se příkaz [dotnet publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI spouští z adresáře projektu (který obsahuje soubor *. csproj* ). Pokud složka projektu není aktuálním pracovním adresářem, explicitně předejte cestu k souboru projektu. Příklad:
+Publikování z příkazového řádku funguje na všech platformách podporovaných .NET Core a nevyžaduje sadu Visual Studio. V následujících příkladech se příkaz [dotnet publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI spouští z adresáře projektu (který obsahuje soubor *. csproj* ). Pokud složka projektu není aktuálním pracovním adresářem, explicitně předejte cestu k souboru projektu. Například:
 
 ```dotnetcli
 dotnet publish C:\Webs\Web1
@@ -461,7 +463,7 @@ Zvýrazněný kód ukazuje následující příklad:
 
 [!code-xml[](visual-studio-publish-profiles/samples/Web1.pubxml?highlight=18-23)]
 
-Předchozí příklad používá `ResolvedFileToPublish` položku, jejíž výchozí chování je vždy kopírovat soubory, které jsou zadány v `Include` atributu do publikované lokality. Přepište výchozí chování zahrnutím `<CopyToPublishDirectory>` podřízeného prvku s vnitřním textem buď `Never` nebo `PreserveNewest` . Příklad:
+Předchozí příklad používá `ResolvedFileToPublish` položku, jejíž výchozí chování je vždy kopírovat soubory, které jsou zadány v `Include` atributu do publikované lokality. Přepište výchozí chování zahrnutím `<CopyToPublishDirectory>` podřízeného prvku s vnitřním textem buď `Never` nebo `PreserveNewest` . Například:
 
 ```xml
 <ResolvedFileToPublish Include="..\ReadMe2.md">
@@ -497,7 +499,7 @@ Přidejte `<AllowUntrustedCertificate>` vlastnost s hodnotou `True` do profilu p
 
 ## <a name="the-kudu-service"></a>Služba Kudu
 
-Pokud chcete zobrazit soubory ve Azure App Service nasazení webové aplikace, použijte [službu Kudu](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service). Přidejte `scm` token do názvu webové aplikace. Příklad:
+Pokud chcete zobrazit soubory ve Azure App Service nasazení webové aplikace, použijte [službu Kudu](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service). Přidejte `scm` token do názvu webové aplikace. Například:
 
 | URL                                    | Výsledek       |
 | -------------------------------------- | ------------ |

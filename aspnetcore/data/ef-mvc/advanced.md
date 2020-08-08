@@ -7,6 +7,8 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: ebeb581cf79f2d2ab60de7df43d042fa3185cd32
-ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
+ms.openlocfilehash: 36b45339f7c3f79eca20a3467c10e896f260601f
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86212732"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88012979"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: informace o pokročilých scénářích – ASP.NET MVC pomocí EF Core
 
@@ -181,7 +183,7 @@ Entity Framework určuje, jak se entita změnila (takže se aktualizace musí od
 
 * ChangeTracker. Entries
 
-Pokud sledujete velký počet entit a v rámci smyčky několikrát voláte jednu z těchto metod, můžete dosáhnout výrazného zlepšení výkonu tím, že se při automatickém vypnutí automatického zjišťování změn použije `ChangeTracker.AutoDetectChangesEnabled` vlastnost. Zde je příklad:
+Pokud sledujete velký počet entit a v rámci smyčky několikrát voláte jednu z těchto metod, můžete dosáhnout výrazného zlepšení výkonu tím, že se při automatickém vypnutí automatického zjišťování změn použije `ChangeTracker.AutoDetectChangesEnabled` vlastnost. Například:
 
 ```csharp
 _context.ChangeTracker.AutoDetectChangesEnabled = false;
@@ -261,7 +263,7 @@ Ověřte připojovací řetězec. Pokud jste soubor databáze odstranili ručně
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 Další informace o EF Core najdete v dokumentaci k [Entity Framework Core](/ef/core). K dispozici je také kniha: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
 

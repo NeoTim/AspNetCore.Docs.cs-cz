@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/18/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: bdea9f2fe5c552b56414bb49588733c8dc2a34db
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d6446447a51e22b7df1289e7ef20a4a6381c2b20
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400216"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88012524"
 ---
-# <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor pokročilé scénáře
+# <a name="aspnet-core-no-locblazor-advanced-scenarios"></a>ASP.NET Core Blazor pokročilé scénáře
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-## <a name="blazor-server-circuit-handler"></a>Blazor ServerObslužná rutina okruhu
+## <a name="no-locblazor-server-circuit-handler"></a>Blazor ServerObslužná rutina okruhu
 
 Blazor Serverumožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
 
@@ -166,13 +168,13 @@ V případě, že se kód spustí poprvé, `someFlag` v případě `true` , že 
 | Sequence | Typ      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
-| 1        | Textový uzel | 1 sekunda |
+| 1        | Textový uzel | Second |
 
 Představte si, že se `someFlag` `false` zobrazí a značka se znovu vykreslí. Tentokrát Tvůrce získá:
 
 | Sequence | Typ       | Data   |
 | :------: | ---------- | :----: |
-| 1        | Textový uzel  | 1 sekunda |
+| 1        | Textový uzel  | Second |
 
 Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci `0` byla odebrána, takže generuje následující *skript*triviálního úprav:
 
@@ -198,13 +200,13 @@ Teď je první výstup:
 | Sequence | Typ      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
-| 1        | Textový uzel | 1 sekunda |
+| 1        | Textový uzel | Second |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag`je `false` ve druhém vykreslování a výstup je:
 
 | Sequence | Typ      | Data   |
 | :------: | --------- | ------ |
-| 0        | Textový uzel | 1 sekunda |
+| 0        | Textový uzel | Second |
 
 Tentokrát rozdílový algoritmus uvidí, že došlo ke *dvěma* změnám, a algoritmus generuje následující skript pro úpravy:
 
@@ -223,7 +225,7 @@ Toto je triviální příklad. Ve složitějších případech se složitými a 
 * Pokud jsou pořadová čísla pevně zakódované, rozdílový algoritmus vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou nepodstatné. Jednou z oprávněných možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit podle hodnoty nebo stovky (případně z upřednostňovaného intervalu). 
 * Blazorpoužívá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdílování je mnohem rychlejší při použití pořadových čísel a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře, který vytváří `.razor` soubory.
 
-## <a name="perform-large-data-transfers-in-blazor-server-apps"></a>Provádění rozsáhlých přenosů dat v Blazor Server aplikacích
+## <a name="perform-large-data-transfers-in-no-locblazor-server-apps"></a>Provádění rozsáhlých přenosů dat v Blazor Server aplikacích
 
 V některých scénářích je nutné přenášet velké objemy dat mezi jazykem JavaScript a Blazor . K přenosu velkých objemů dat se obvykle dochází v těchto případech:
 

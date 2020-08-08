@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/server
-ms.openlocfilehash: e59579046ecbfdbb4cca79bfb0e39d299e26913c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e7c8627cd27fd30288b4bcfa1ac2ffe3e9b46e29
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402595"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014214"
 ---
-# <a name="host-and-deploy-blazor-server"></a>Hostitel a nasazeníBlazor Server
+# <a name="host-and-deploy-no-locblazor-server"></a>Hostitel a nasazeníBlazor Server
 
 Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)
 
@@ -54,13 +56,13 @@ Pokyny k vytváření zabezpečených a škálovatelných Blazor serverových ap
 
 Každý okruh používá pro minimální aplikaci *Hello World*ve stylu přibližně 250 kB paměti. Velikost okruhu závisí na kódu aplikace a požadavcích na údržbu stavu přidružených k jednotlivým součástem. Doporučujeme změřit požadavky na prostředky během vývoje vaší aplikace a infrastruktury, ale následující směrný plán může být výchozím bodem plánování cíle nasazení: Pokud očekáváte, že vaše aplikace bude podporovat 5 000 souběžných uživatelů, zvažte rozpočtování aspoň 1,3 GB paměti serveru do aplikace (nebo ~ 273 KB na uživatele).
 
-### <a name="signalr-configuration"></a>SignalRrozšířeného
+### <a name="no-locsignalr-configuration"></a>SignalRrozšířeného
 
 Blazor Serveraplikace používají ASP.NET Core SignalR ke komunikaci s prohlížečem. [ SignalR podmínky hostování a škálování](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor Server aplikace.
 
 Blazorfunguje nejlépe při použití WebSockets jako SignalR přenosu z důvodu nižší latence, spolehlivosti a [zabezpečení](xref:signalr/security). Dlouhé cyklické dotazování se používá, SignalR když nejsou objekty WebSocket k dispozici nebo když je aplikace explicitně nakonfigurovaná tak, aby používala dlouhé cyklické dotazování. Při nasazování do Azure App Service nakonfigurujte aplikaci tak, aby používala objekty WebSocket v nastaveních Azure Portal služby. Podrobnosti o konfiguraci aplikace pro Azure App Service najdete v [ SignalR pokynech k publikování](xref:signalr/publish-to-azure-web-app).
 
-#### <a name="azure-signalr-service"></a>SignalRSlužba Azure
+#### <a name="azure-no-locsignalr-service"></a>SignalRSlužba Azure
 
 Pro aplikace doporučujeme používat [ SignalR službu Azure](/azure/azure-signalr) Blazor Server . Služba umožňuje horizontální navýšení kapacity Blazor Server aplikace na velký počet souběžných SignalR připojení. Kromě toho SignalR globální dostupnost a vysoce výkonná datová centra služby významně pomáhají při snižování latence z důvodu geografické oblasti. Konfigurace aplikace (a volitelně zřízení) pro SignalR službu Azure:
 

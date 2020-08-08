@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/27/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/class-libraries
-ms.openlocfilehash: 8293d61f88f53e55d94b114ca2143fdfb6fd8468
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: 0bace66e0aab41cf31e18fe9f86dbf9bbcf59447
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87819064"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014695"
 ---
 # <a name="aspnet-core-no-locrazor-components-class-libraries"></a>RazorKnihovny tříd ASP.NET Core komponenty
 
@@ -59,7 +61,7 @@ Stejně jako komponenty jsou běžné typy .NET, komponenty poskytované RCL jso
 >
 > Ručně přidejte soubor do kořenového adresáře vygenerovaného projektu.
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 1. Použijte šablonu ** Razor knihovny tříd** ( `razorclasslib` ) s [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazem v příkazovém prostředí. V následujícím příkladu je vytvořen RCL s názvem `ComponentLibrary` . Složka, která je uložena, `ComponentLibrary` je vytvořena automaticky při spuštění příkazu:
 
@@ -178,7 +180,7 @@ dotnet pack
 
 Nahrajte balíček do NuGet pomocí [`dotnet nuget push`](/dotnet/core/tools/dotnet-nuget-push) příkazu v příkazovém prostředí.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:razor-pages/ui-class>
 * [Přidání konfiguračního souboru linkeru XML do knihovny](xref:blazor/host-and-deploy/configure-linker#add-an-xml-linker-configuration-file-to-a-library)

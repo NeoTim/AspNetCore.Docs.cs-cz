@@ -6,6 +6,8 @@ ms.author: scaddie
 ms.date: 10/24/2018
 ms.custom: mvc, seodec18
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/cicd
-ms.openlocfilehash: 0edded18d766d6f2af08f6be5dbecbfd52a14a35
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 780d233014c26e37886d6bc5bd8fcb23d857dff0
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400554"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88012614"
 ---
-# <a name="continuous-integration-and-deployment"></a>Průběžná integrace a nasazování
+# <a name="continuous-integration-and-deployment"></a>Průběžná integrace a nasazování
 
 V předchozí kapitole jste pro aplikaci pro čtení jednoduchých informačních kanálů vytvořili místní úložiště Git. V této kapitole publikujete tento kód do úložiště GitHub a vytvoříte kanál Azure DevOps Services pomocí Azure Pipelines. Kanál umožňuje průběžné sestavení a nasazení aplikace. Jakékoli potvrzení do úložiště GitHubu aktivuje sestavení a nasazení do přípravného slotu webové aplikace Azure.
 
@@ -289,7 +291,7 @@ Kliknutím na úlohu přepnutí slotu se odhalí Tato konfigurace úlohy:
 
 K dispozici jsou údaje o předplatném, skupině prostředků, typu služby, názvu webové aplikace a slotu nasazení. Zaškrtávací políčko **swap s výrobou** je zaškrtnuté. V důsledku toho se bity nasazené do *přípravného* slotu odsadí do produkčního prostředí.
 
-## <a name="additional-reading"></a>Další čtení
+## <a name="additional-reading"></a>Další materiály ke čtení
 
 * [Vytvoření prvního kanálu pomocí Azure Pipelines](/azure/devops/pipelines/get-started-yaml)
 * [Projekt sestavení a .NET Core](/azure/devops/pipelines/languages/dotnet-core)

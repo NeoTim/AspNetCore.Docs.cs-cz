@@ -7,6 +7,8 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/15/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/index
-ms.openlocfilehash: d8c1d340a05ebdddffcdebad400b44e31159bc28
-ms.sourcegitcommit: 84150702757cf7a7b839485382420e8db8e92b9c
+ms.openlocfilehash: 8a5172db22a17138f7462d140fd97316586e5282
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/05/2020
-ms.locfileid: "87818895"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88014201"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor"></a>ASP.NET Core hostitele a nasazeníBlazor
 
@@ -41,7 +43,7 @@ Aplikace jsou publikované pro nasazení v konfiguraci vydání.
 1. Vyberte **sestavení**  >  **publikovat do složky**.
 1. Potvrďte, že složka obdrží publikované prostředky a vyberte **`Publish`** .
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 [`dotnet publish`](/dotnet/core/tools/dotnet-publish)K publikování aplikace s konfigurací vydané verze použijte příkaz:
 

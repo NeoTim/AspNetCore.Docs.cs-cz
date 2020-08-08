@@ -7,6 +7,8 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 02/06/2020
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -15,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: spa/angular
-ms.openlocfilehash: 1c91f1adadca8b339e4daf33207ca60008679810
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ce29d891b0fba2581d352637c2ae50ac792b785e
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401776"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88013161"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>Použití šablony úhlového projektu s ASP.NET Core
 
@@ -129,7 +131,7 @@ Když spustíte aplikaci ASP.NET Core, nespustí se server úhlů CLI. Místo to
 
 ### <a name="pass-data-from-net-code-into-typescript-code"></a>Předání dat z kódu .NET do kódu TypeScript
 
-Během služby SSR budete možná chtít předat data z vaší aplikace ASP.NET Core do své aplikace v úhlovém požadavku. Můžete třeba předat informace cookie nebo něco přečíst z databáze. Provedete to tak, že upravíte třídu *Startup* . Ve zpětném volání pro `UseSpaPrerendering` nastavte hodnotu jako `options.SupplyData` následující:
+Během služby SSR budete možná chtít předat data z vaší aplikace ASP.NET Core do své aplikace v úhlovém požadavku. Můžete například předat cookie informace nebo něco číst z databáze. Provedete to tak, že upravíte třídu *Startup* . Ve zpětném volání pro `UseSpaPrerendering` nastavte hodnotu jako `options.SupplyData` následující:
 
 ```csharp
 options.SupplyData = (context, data) =>
@@ -157,6 +159,6 @@ Ve stejnou chvíli existují významné nevýhody povolování SSR. Přináší 
     }
     ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 * <xref:security/authentication/identity/spa>

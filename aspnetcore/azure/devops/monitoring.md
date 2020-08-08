@@ -6,6 +6,8 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 07/10/2019
 no-loc:
+- cookie
+- Cookie
 - Blazor
 - Blazor Server
 - Blazor WebAssembly
@@ -14,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/monitor
-ms.openlocfilehash: a94b1e0b5ce2a24cf22eb665c9bcd03c25ffa67f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 9e8b48df5a3ecf78e315c7f33b5ab75d6f329cc2
+ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400372"
+ms.lasthandoff: 08/08/2020
+ms.locfileid: "88012771"
 ---
 # <a name="monitor-and-debug"></a>Monitorování a ladění
 
@@ -141,7 +143,7 @@ V této části jste dokončili následující úlohy:
 * Informace o nastavení výstrah
 * Přečtěte si o vzdáleném ladění Azure App Service Web Apps.
 
-## <a name="additional-reading"></a>Další čtení
+## <a name="additional-reading"></a>Další materiály ke čtení
 
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
