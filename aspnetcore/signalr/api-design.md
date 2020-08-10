@@ -42,7 +42,7 @@ Klient jazyka JavaScript volá tuto metodu pomocí `invoke` následujícího pos
 
 [!code-typescript[CallWithOneParameter](api-design/sample/Samples.ts?name=CallWithOneParameter)]
 
-Pokud později přidáte druhý parametr do metody serveru, starší klienti tuto hodnotu parametru neposkytují. Například:
+Pokud později přidáte druhý parametr do metody serveru, starší klienti tuto hodnotu parametru neposkytují. Příklad:
 
 [!code-csharp[ParameterBasedNewVersion](api-design/sample/Samples.cs?name=ParameterBasedNewVersion)]
 

@@ -33,7 +33,7 @@ Jedním z způsobů, jak zabránit kolizím souborů cookie a dat lokality při 
 
 Při testování a řešení potíží s hostovanou aplikací Blazor se ujistěte, že jste spustili aplikaci z **`Server`** projektu. Například v aplikaci Visual Studio ověřte, že je serverový projekt zvýrazněný v **Průzkumník řešení** před spuštěním aplikace s některým z následujících přístupů:
 
-* Vyberte tlačítko **Spustit**.
+* Vyberte tlačítko **Run** (Spustit).
 * Použijte **ladění**  >  **Spustit ladění** z nabídky.
 * Stiskněte klávesu <kbd>F5</kbd>.
 

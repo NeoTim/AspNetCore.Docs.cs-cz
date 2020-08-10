@@ -71,7 +71,7 @@ Pro přístup k uživatelskému účtu a nastavení klíče použijeme [vzor mo�
 
 [!code-csharp[](2fa/sample/Web2FA/Services/SMSoptions.cs)]
 
-`SMSAccountIdentification` `SMSAccountPassword` `SMSAccountFrom` Pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets)nastavte a. Například:
+`SMSAccountIdentification` `SMSAccountPassword` `SMSAccountFrom` Pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets)nastavte a. Příklad:
 
 ```none
 C:/Web2FA/src/WebApp1>dotnet user-secrets set SMSAccountIdentification 12345

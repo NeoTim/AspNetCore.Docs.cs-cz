@@ -71,7 +71,7 @@ Existují mírné rozdíly mezi aplikací s reakci, kterou vytvořila Tato šabl
 
 ## <a name="install-npm-packages"></a>Instalace balíčků npm
 
-K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Například:
+K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Příklad:
 
 ```console
 cd ClientApp

@@ -79,7 +79,7 @@ Přejděte na rozhraní API produktu ( `http://localhost:<port number>/api/math/
 
 ## <a name="run-net-core-cli-commands-using-dotnet-watch"></a>Spouštění příkazů .NET Core CLI pomocí`dotnet watch`
 
-Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit pomocí příkazu `dotnet watch` . Například:
+Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit pomocí příkazu `dotnet watch` . Příklad:
 
 | Příkaz | Příkaz se sledováním |
 | ---- | ----- |
@@ -106,13 +106,13 @@ public static int Product(int a, int b)
 }
 ```
 
-Soubor uložte. Výstup konzoly indikuje, že `dotnet watch` zjistil změnu souboru a restartuje aplikaci.
+Uložte soubor. Výstup konzoly indikuje, že `dotnet watch` zjistil změnu souboru a restartuje aplikaci.
 
 Ověřování `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí správný výsledek.
 
 ## <a name="run-tests-using-dotnet-watch"></a>Spustit testy pomocí`dotnet watch`
 
-1. Změňte `Product` metodu *MathController.cs* zpět na vrácení součtu. Soubor uložte.
+1. Změňte `Product` metodu *MathController.cs* zpět na vrácení součtu. Uložte soubor.
 1. V příkazovém prostředí přejděte do složky *WebAppTests* .
 1. Spusťte [dotnet Restore](/dotnet/core/tools/dotnet-restore).
 1. Spusťte příkaz `dotnet watch test`. Jeho výstup označuje, že se test nezdařil a že sledovací proces čeká na změny souborů:
@@ -122,7 +122,7 @@ Ověřování `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí 
      Test Run Failed.
      ```
 
-1. Opravte `Product` kód metody tak, aby vrátil produkt. Soubor uložte.
+1. Opravte `Product` kód metody tak, aby vrátil produkt. Uložte soubor.
 
 `dotnet watch`zjistí změnu souboru a znovu spustí testy. Výstup konzoly indikuje úspěšné testy.
 

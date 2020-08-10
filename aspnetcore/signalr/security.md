@@ -32,7 +32,7 @@ Tento článek poskytuje informace o zabezpečení SignalR .
 
 ## <a name="cross-origin-resource-sharing"></a>Sdílení prostředků různého původu
 
-[Sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/) se dá použít k povolení připojení mezi zdroji SignalR v prohlížeči. Pokud je JavaScriptový kód hostovaný v jiné doméně než SignalR aplikace, musí být povolen [middleware CORS](xref:security/cors) , aby se JavaScript mohl připojit k SignalR aplikaci. Povoluje žádosti mezi zdroji jenom z domén, které důvěřujete nebo ovládáte. Například:
+[Sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/) se dá použít k povolení připojení mezi zdroji SignalR v prohlížeči. Pokud je JavaScriptový kód hostovaný v jiné doméně než SignalR aplikace, musí být povolen [middleware CORS](xref:security/cors) , aby se JavaScript mohl připojit k SignalR aplikaci. Povoluje žádosti mezi zdroji jenom z domén, které důvěřujete nebo ovládáte. Příklad:
 
 * Váš web je hostovaný na`http://www.example.com`
 * Vaše SignalR aplikace je hostována na`http://signalr.example.com`
@@ -122,7 +122,7 @@ V ASP.NET Core 2,1 a novějších lze ověření hlaviček dosáhnout pomocí vl
 
 ## <a name="access-token-logging"></a>Protokolování přístupového tokenu
 
-Při použití objektů WebSocket nebo událostí odesílaných serverem klientský prohlížeč odešle přístupový token do řetězce dotazu. Získání přístupového tokenu prostřednictvím řetězce dotazu je obecně bezpečné jako použití standardního `Authorization` záhlaví. K zajištění zabezpečeného koncového připojení mezi klientem a serverem vždy použijte protokol HTTPS. Mnohé webové servery protokolují adresu URL pro každý požadavek včetně řetězce dotazu. Protokolování adres URL může protokolovat přístupový token. ASP.NET Core zaznamená adresu URL pro každý požadavek ve výchozím nastavení, což bude obsahovat řetězec dotazu. Například:
+Při použití objektů WebSocket nebo událostí odesílaných serverem klientský prohlížeč odešle přístupový token do řetězce dotazu. Získání přístupového tokenu prostřednictvím řetězce dotazu je obecně bezpečné jako použití standardního `Authorization` záhlaví. K zajištění zabezpečeného koncového připojení mezi klientem a serverem vždy použijte protokol HTTPS. Mnohé webové servery protokolují adresu URL pro každý požadavek včetně řetězce dotazu. Protokolování adres URL může protokolovat přístupový token. ASP.NET Core zaznamená adresu URL pro každý požadavek ve výchozím nastavení, což bude obsahovat řetězec dotazu. Příklad:
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]

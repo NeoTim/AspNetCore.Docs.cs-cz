@@ -95,7 +95,7 @@ K dispozici jsou tyto balíčky, `Microsoft.AspNetCore.All` ale ne `Microsoft.As
 
 Pokud chcete přejít z `Microsoft.AspNetCore.All` na `Microsoft.AspNetCore.App` , pokud vaše aplikace používá rozhraní API z výše uvedených balíčků nebo balíčky, které tyto balíčky přidávají, přidejte odkazy na tyto balíčky v projektu.
 
-Všechny závislosti předchozích balíčků, které jinak nejsou závislé na, nejsou `Microsoft.AspNetCore.App` implicitně zahrnuté. Například:
+Všechny závislosti předchozích balíčků, které jinak nejsou závislé na, nejsou `Microsoft.AspNetCore.App` implicitně zahrnuté. Příklad:
 
 * `StackExchange.Redis`jako závislost`Microsoft.Extensions.Caching.Redis`
 * `Microsoft.ApplicationInsights`jako závislost`Microsoft.AspNetCore.ApplicationInsights.HostingStartup`

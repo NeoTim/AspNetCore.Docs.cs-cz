@@ -50,7 +50,7 @@ Trvalá připojení také využívají určitou další paměť, aby bylo možn�
 
 Těžké využívání prostředků souvisejících s připojením SignalR může ovlivnit jiné webové aplikace, které jsou hostovány na stejném serveru. Když SignalR se otevře a zobrazí poslední dostupná připojení TCP, další webové aplikace na stejném serveru také nemají k dispozici žádná další připojení.
 
-Pokud server nemá připojení, zobrazí se chyby náhodného soketu a chyby resetování připojení. Například:
+Pokud server nemá připojení, zobrazí se chyby náhodného soketu a chyby resetování připojení. Příklad:
 
 ```
 An attempt was made to access a socket in a way forbidden by its access permissions...
