@@ -163,9 +163,14 @@
         - name: Aplikace Web API >>
           displayName: tutorial
           href: /learn/modules/build-web-api-net-core/
-        - name: Mikroslužby nativní pro Cloud >>
-          displayName: 'tutorial, kubernetes, aks, acr, docker'
-          href: /learn/modules/microservices-aspnet-core/
+        - name: Mikroslužby nativní pro cloud
+          items:
+            - name: Vytváření a nasazování >>
+              displayName: 'tutorial, kubernetes, aks, acr, docker'
+              href: /learn/modules/microservices-aspnet-core/
+            - name: Implementace odolnosti proti chybám >>
+              displayName: 'tutorial, kubernetes, aks, acr, docker'
+              href: /learn/modules/microservices-resiliency-aspnet-core/
         - name: Přístup k datům >>
           displayName: 'tutorial, ef, entity framework'
           href: /learn/modules/persist-data-ef-core/
@@ -1191,6 +1196,8 @@
       uid: performance/diagnostic-tools
     - name: Zátěžové testování
       uid: test/loadtests
+    - name: Čítače událostí
+      href: /dotnet/core/diagnostics/event-counter-perf
 - name: Globalizace a lokalizace
   items:
     - name: Přehled
