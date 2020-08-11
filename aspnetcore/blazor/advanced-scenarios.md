@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: d6446447a51e22b7df1289e7ef20a4a6381c2b20
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4bd73acd821a8791d7f6cc93545edc2e39a6f2c7
+ms.sourcegitcommit: 68d03d1aee8906b53bda66f8f1e0747efc3007e6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012524"
+ms.lasthandoff: 08/10/2020
+ms.locfileid: "88051781"
 ---
 # <a name="aspnet-core-no-locblazor-advanced-scenarios"></a>ASP.NET Core Blazor pokročilé scénáře
 
@@ -97,7 +97,7 @@ Vezměte v úvahu následující `PetDetails` součást, kterou je možné ručn
 }
 ```
 
-V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `PetDetails` komponenty. Při volání <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> metod pro vytvoření komponent ( `OpenComponent` a `AddAttribute` ) jsou pořadová čísla čísla řádků zdrojového kódu. BlazorRozdílový algoritmus spoléhá na pořadová čísla, která odpovídají jedinečným řádkům kódu, nikoli rozdíl volání volání. Při vytváření komponenty s <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> metodami nekódujte pevně argumenty pro pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadového čísla může vést k špatnému výkonu.** Další informace naleznete v části [pořadové číslo se vztahuje na čísla řádků kódu a nikoli na oddíl pořadí provádění](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) .
+V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `PetDetails` komponenty. V <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> metodách s pořadovým číslem jsou pořadová čísla čísla řádků zdrojového kódu. BlazorRozdílový algoritmus spoléhá na pořadová čísla, která odpovídají jedinečným řádkům kódu, nikoli rozdíl volání volání. Při vytváření komponenty s <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> metodami nekódujte pevně argumenty pro pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadového čísla může vést k špatnému výkonu.** Další informace naleznete v části [pořadové číslo se vztahuje na čísla řádků kódu a nikoli na oddíl pořadí provádění](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) .
 
 `BuiltContent`část
 

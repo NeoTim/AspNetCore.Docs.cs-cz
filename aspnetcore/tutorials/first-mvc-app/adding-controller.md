@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 6a2c9fe6dde725129e293a3137c1281bfb1a30ef
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 46f8cbc5ef3d9fe00a5151160a9119f68a9fe572
+ms.sourcegitcommit: 68d03d1aee8906b53bda66f8f1e0747efc3007e6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021052"
+ms.lasthandoff: 08/10/2020
+ms.locfileid: "88051807"
 ---
 # <a name="part-2-add-a-controller-to-an-aspnet-core-mvc-app"></a>Část 2, přidání kontroleru do aplikace ASP.NET Core MVC
 
@@ -47,7 +47,7 @@ Tyto koncepty popisujeme v této sérii kurzů a ukážeme vám, jak je použít
 * V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat >** 
    ![ místní nabídku.](adding-controller/_static/add_controller.png)
 
-* V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte možnost **kontroler MVC – prázdné** .
+* V dialogovém okně **Přidat vygenerované uživatelské rozhraní** vyberte **třídu kontroleru – prázdné** .
 
   ![Přidat kontroler MVC a pojmenovat](adding-controller/_static/ac.png)
 
@@ -64,7 +64,7 @@ Vyberte ikonu **Průzkumníka** a potom klikněte na řídicí panel (klikněte 
 V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat > nový soubor**.
 ![Kontextová nabídka](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
 
-Vyberte **ASP.NET Core** a **třídu kontroleru MVC**.
+Vyberte třídu **ASP.NET Core** a **Controller**.
 
 Pojmenujte kontroler **HelloWorldController**.
 
