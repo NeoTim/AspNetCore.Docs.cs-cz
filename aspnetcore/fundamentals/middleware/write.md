@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/write
-ms.openlocfilehash: dd6a26d07e20f9795bbe3fbe6da59027e757782e
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 480120718959a364ce8008949c3b76c558c0e995
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016915"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130584"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>Zápis vlastního middlewaru ASP.NET Core
 
@@ -85,6 +85,8 @@ public class CustomMiddleware
 }
 ```
 
+[Možnosti životního cyklu a registrace](xref:fundamentals/dependency-injection#lifetime-and-registration-options) obsahují kompletní ukázku middlewaru s *oborem* služeb pro celou dobu života.
+
 ## <a name="middleware-extension-method"></a>Metoda rozšíření middlewaru
 
 Následující rozšiřující metoda zpřístupňuje middleware prostřednictvím <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> :
@@ -95,8 +97,9 @@ Následující kód volá middleware z `Startup.Configure` :
 
 [!code-csharp[](write/snapshot/Startup.cs?highlight=5)]
 
-## <a name="additional-resources"></a>Další materiály
+## <a name="additional-resources"></a>Další zdroje
 
+* [Možnosti životního cyklu a registrace](xref:fundamentals/dependency-injection#lifetime-and-registration-options) obsahují kompletní ukázku middlewaru s *rozsahem*, *přechodnými*a neplatnými službami typu *singleton* .
 * <xref:fundamentals/middleware/index>
 * <xref:test/middleware>
 * <xref:migration/http-modules>

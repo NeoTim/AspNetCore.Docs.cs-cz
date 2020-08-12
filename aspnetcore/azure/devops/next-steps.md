@@ -3,7 +3,7 @@ title: Další kroky – DevOps s využitím ASP.NET Core a Azure
 author: CamSoper
 description: Další způsoby učení pro DevOps s ASP.NET Core a Azure
 ms.author: casoper
-ms.custom: mvc, seodec18
+ms.custom: devx-track-csharp, mvc, seodec18
 ms.date: 10/24/2018
 no-loc:
 - cookie
@@ -16,16 +16,16 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/next-steps
-ms.openlocfilehash: feff73b307791c0a7ad8968b5145c0388df1ca10
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a9a6b0a588b7813f9d6e2b215630a1b9100be890
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012580"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130428"
 ---
 # <a name="next-steps"></a>Další kroky
 
-V této příručce jste vytvořili kanál DevOps pro ukázkovou aplikaci ASP.NET Core. Gratulujeme! Doufáme, že jste se naučili, jak publikovat ASP.NET Core webové aplikace a Azure App Service a automatizovat průběžnou integraci změn.
+V této příručce jste vytvořili kanál DevOps pro ukázkovou aplikaci ASP.NET Core. Blahopřejeme! Doufáme, že jste se naučili, jak publikovat ASP.NET Core webové aplikace a Azure App Service a automatizovat průběžnou integraci změn.
 
 Mimo hostování webů a DevOps má Azure rozsáhlou škálu služeb typu platforma jako služba (PaaS), které jsou užitečné pro ASP.NET Core vývojářům. Tato část poskytuje stručný přehled některých z nejčastěji používaných služeb.
 

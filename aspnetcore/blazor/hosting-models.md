@@ -5,7 +5,7 @@ description: Pochopení Blazor WebAssembly a Blazor Server hostování modelů.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 08/11/2020
 no-loc:
 - cookie
 - Cookie
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 0d2ee7862c5737a1e16335a5d5987779884d5536
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 14fa13bafa984c0ca7b9fd8cde538042cc0ec2cc
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014279"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130441"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 
@@ -32,13 +32,13 @@ Blazorje webová architektura navržená tak, aby běžela na straně klienta v 
 
 ## Blazor WebAssembly
 
-Hlavní hostující model pro Blazor je spuštěn na straně klienta v prohlížeči na webovém sestavení. BlazorAplikace, její závislosti a modul runtime .NET se stáhnou do prohlížeče. Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče. Aktualizace uživatelského rozhraní a zpracování událostí se vyskytují v rámci stejného procesu. Prostředky aplikace se nasazují jako statické soubory na webový server nebo službu, která je schopná obsluhovat statický obsah klientům.
+Hlavní hostující model pro Blazor je spuštěn na straně klienta v prohlížeči na webovém sestavení. BlazorAplikace, její závislosti a modul runtime .NET se stáhnou do prohlížeče. Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče. Aktualizace uživatelského rozhraní a zpracování událostí se vyskytují v rámci stejného procesu. Prostředky aplikace se nasazují jako statické soubory na webový server nebo službu, která je schopná obsluhovat statický obsah klientům. Vzhledem k tomu, že je aplikace vytvořená pro nasazení bez back-endu ASP.NET Core aplikace, nazývá se *samostatná Blazor WebAssembly aplikace*.
 
 ![::: No-Loc (Blazor WebAssembly):::: The::: No-Loc (Blazor)::: aplikace běží ve vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/blazor-webassembly.png)
 
 K vytvoření Blazor aplikace pomocí modelu hostování na straně klienta použijte šablonu ** Blazor WebAssembly aplikace** ( [`dotnet new blazorwasm`](/dotnet/core/tools/dotnet-new) ).
 
-Po výběru šablony ** Blazor WebAssembly aplikace** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core Hosted** ( [`dotnet new blazorwasm --hosted`](/dotnet/core/tools/dotnet-new) ). Aplikace ASP.NET Core zachovává Blazor aplikaci klientům. Blazor WebAssemblyAplikace může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo [SignalR](xref:signalr/introduction) ( <xref:tutorials/signalr-blazor-webassembly> ).
+Po výběru šablony ** Blazor WebAssembly aplikace** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core Hosted** ( [`dotnet new blazorwasm --hosted`](/dotnet/core/tools/dotnet-new) ). Aplikace ASP.NET Core zachovává Blazor aplikaci klientům. Aplikace s ASP.NET Core back-end se nazývá *hostovaná Blazor WebAssembly aplikace*. Blazor WebAssemblyAplikace může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo [SignalR](xref:signalr/introduction) ( <xref:tutorials/signalr-blazor-webassembly> ).
 
 Šablony obsahují `blazor.webassembly.js` skript, který zpracovává:
 

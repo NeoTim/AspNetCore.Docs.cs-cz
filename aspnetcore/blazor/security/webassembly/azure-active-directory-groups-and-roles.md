@@ -4,7 +4,7 @@ author: guardrex
 description: Naučte se konfigurovat Blazor WebAssembly , aby používaly Azure Active Directory skupiny a role.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
-ms.custom: mvc
+ms.custom: devx-track-csharp, mvc
 ms.date: 07/28/2020
 no-loc:
 - cookie
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: 6fe96616abf423df600bfdd7198e63198358e7a3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: bd0a7c5a905ae4888ea6ad326be5b16cbfaa10fc
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013785"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130402"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Skupiny Azure AD, role pro správu a uživatelsky definované role
 

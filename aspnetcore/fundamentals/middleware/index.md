@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 560f25c9acabe2860bcaaddcdb42e2b15842a29d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a9f158bf875da75afbccc1a6d226bc842fa1c62c
+ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017074"
+ms.lasthandoff: 08/12/2020
+ms.locfileid: "88130506"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -251,7 +251,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 
 | Middleware | Popis | Objednání |
 | ---------- | ----------- | ----- |
-| [Ověřování](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
+| [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
 | [Autorizace](xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization%2A) | Poskytuje podporu autorizace. | Hned po ověřovacím middlewaru. |
 | [CookiePolitických](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro cookie pole, například `secure` a `SameSite` . | Před middlewarem, který vydává problémy cookie s. Příklady: ověřování, relace, MVC (TempData). |
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. `UseCors`v současné době `UseResponseCaching` se musí před [touto chybou](https://github.com/dotnet/aspnetcore/issues/23218)přecházet.|
@@ -276,6 +276,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* [Možnosti životního cyklu a registrace](xref:fundamentals/dependency-injection#lifetime-and-registration-options) obsahují kompletní ukázku middlewaru s *rozsahem*, *přechodnými*a neplatnými službami typu *singleton* .
 * <xref:fundamentals/middleware/write>
 * <xref:test/middleware>
 * <xref:migration/http-modules>
@@ -458,7 +459,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 
 | Middleware | Popis | Objednání |
 | ---------- | ----------- | ----- |
-| [Ověřování](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
+| [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
 | [CookiePolitických](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro cookie pole, například `secure` a `SameSite` . | Před middlewarem, který vydává problémy cookie s. Příklady: ověřování, relace, MVC (TempData). |
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. |
 | [Diagnostika](xref:fundamentals/error-handling) | Několik samostatných middlewarů, které poskytují stránku s výjimkou vývojářů, zpracování výjimek, stránky stavového kódu a výchozí webovou stránku pro nové aplikace. | Před komponenty, které generují chyby. Terminál pro výjimky nebo pro výchozí webovou stránku pro nové aplikace |
