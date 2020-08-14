@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/static-files
-ms.openlocfilehash: 32f794d498533e846343831d2360e98939105fb1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b1f84a936ee1327498abce660cd64f8d7d0a2864
+ms.sourcegitcommit: ec41ab354952b75557240923756a8c2ac79b49f8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016672"
+ms.lasthandoff: 08/13/2020
+ms.locfileid: "88202791"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -117,8 +117,8 @@ Procházení adresářů je ve výchozím nastavení zakázáno z bezpečnostní
 
 Povolit procházení adresářů pomocí:
 
-* <xref:Microsoft.Extensions.DependencyInjection.DirectoryBrowserServiceExtensions.AddDirectoryBrowser%2A>v `Startup.ConfigureServices` .
-* <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser%2A>v `Startup.Configure` .
+* <xref:Microsoft.Extensions.DependencyInjection.DirectoryBrowserServiceExtensions.AddDirectoryBrowser%2A> v `Startup.ConfigureServices` .
+* <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser%2A> v `Startup.Configure` .
 
 [!code-csharp[](~/fundamentals/static-files/samples/3.x/StaticFilesSample/StartupBrowse.cs?name=snippet_ClassMembers&highlight=4,21-35)]
 
@@ -132,7 +132,7 @@ Nastavení výchozí stránky poskytuje návštěvníkům výchozí bod na webu.
 
 [!code-csharp[](~/fundamentals/static-files/samples/3.x/StaticFilesSample/StartupEmpty.cs?name=snippet_Configure&highlight=15)]
 
-`UseDefaultFiles`musí být volána předtím, než `UseStaticFiles` bude sloužit jako výchozí soubor. `UseDefaultFiles`je přepis adresy URL, který soubor neobsluhuje.
+`UseDefaultFiles` musí být volána předtím, než `UseStaticFiles` bude sloužit jako výchozí soubor. `UseDefaultFiles` je přepis adresy URL, který soubor neobsluhuje.
 
 `UseDefaultFiles`V rámci aplikace vyhledá požadavky na složku v `wwwroot` hledání:
 
@@ -153,7 +153,7 @@ Následující kód ukazuje `Startup.Configure` s předchozím kódem:
 
 ### <a name="usefileserver-for-default-documents"></a>UseFileServer pro výchozí dokumenty
 
-<xref:Microsoft.AspNetCore.Builder.FileServerExtensions.UseFileServer*>kombinuje funkce `UseStaticFiles` , `UseDefaultFiles` a volitelně `UseDirectoryBrowser` .
+<xref:Microsoft.AspNetCore.Builder.FileServerExtensions.UseFileServer*> kombinuje funkce `UseStaticFiles` , `UseDefaultFiles` a volitelně `UseDirectoryBrowser` .
 
 Volání `app.UseFileServer` pro povolení obsluhy statických souborů a výchozího souboru. Procházení adresářů není povoleno. Následující kód ukazuje `Startup.Configure` `UseFileServer` :
 
@@ -184,7 +184,7 @@ Následující kód povoluje obsluhu statických souborů, výchozí soubor a pr
 
 [!code-csharp[](~/fundamentals/static-files/samples/3.x/StaticFilesSample/StartupFileServer.cs?name=snippet_ClassMembers&highlight=4,21-31)]
 
-<xref:Microsoft.Extensions.DependencyInjection.DirectoryBrowserServiceExtensions.AddDirectoryBrowser%2A>musí být volána, pokud `EnableDirectoryBrowsing` je hodnota vlastnosti `true` .
+<xref:Microsoft.Extensions.DependencyInjection.DirectoryBrowserServiceExtensions.AddDirectoryBrowser%2A> musí být volána, pokud `EnableDirectoryBrowsing` je hodnota vlastnosti `true` .
 
 Pomocí hierarchie souborů a předchozího kódu adresy URL překládat následujícím způsobem:
 
@@ -197,7 +197,7 @@ Pokud v adresáři *MyStaticFiles* neexistuje žádný výchozí soubor s názve
 
 ![Seznam statických souborů](static-files/_static/db2.png)
 
-<xref:Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles*>a <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser*> provede přesměrování na straně klienta z cílového identifikátoru URI bez koncového `/` na cílový identifikátor URI s koncovou `/` . Například z `https://<hostname>/StaticFiles` na `https://<hostname>/StaticFiles/` . Relativní adresy URL v adresáři *StaticFiles* jsou neplatné bez koncového lomítka ( `/` ).
+<xref:Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles*> a <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser*> provede přesměrování na straně klienta z cílového identifikátoru URI bez koncového `/`  na cílový identifikátor URI s koncovou `/` . Například z `https://<hostname>/StaticFiles` na `https://<hostname>/StaticFiles/` . Relativní adresy URL v adresáři *StaticFiles* jsou neplatné bez koncového lomítka ( `/` ).
 
 ## <a name="fileextensioncontenttypeprovider"></a>FileExtensionContentTypeProvider
 
@@ -230,14 +230,14 @@ V předchozím kódu se jako obrázek vrátí požadavek na soubor s neznámým 
 
 ## <a name="serve-files-from-multiple-locations"></a>Obsluhovat soubory z více míst
 
-`UseStaticFiles`a `UseFileServer` jako výchozí pro poskytovatele souborů odkazující na `wwwroot` . Další instance `UseStaticFiles` a `UseFileServer` lze poskytnout jiným poskytovatelům souborů pro obsluhu souborů z jiných umístění. Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/15578).
+`UseStaticFiles` a `UseFileServer` jako výchozí pro poskytovatele souborů odkazující na `wwwroot` . Další instance `UseStaticFiles` a `UseFileServer` lze poskytnout jiným poskytovatelům souborů pro obsluhu souborů z jiných umístění. Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/15578).
 
 <a name="sc"></a>
 
 ### <a name="security-considerations-for-static-files"></a>Požadavky na zabezpečení pro statické soubory
 
 > [!WARNING]
-> `UseDirectoryBrowser`a `UseStaticFiles` můžou neúniky tajných kódů. Zakázání procházení adresářů v produkčním prostředí se důrazně doporučuje. Pečlivě zkontrolujte, které adresáře jsou povoleny prostřednictvím `UseStaticFiles` nebo `UseDirectoryBrowser` . Celý adresář a jeho podadresáře se stanou veřejně přístupnými. Ukládejte soubory vhodné pro poskytování veřejnosti ve vyhrazeném adresáři, jako je například `<content_root>/wwwroot` . Oddělte tyto soubory od zobrazení MVC, Razor stránek, konfiguračních souborů atd.
+> `UseDirectoryBrowser` a `UseStaticFiles` můžou neúniky tajných kódů. Zakázání procházení adresářů v produkčním prostředí se důrazně doporučuje. Pečlivě zkontrolujte, které adresáře jsou povoleny prostřednictvím `UseStaticFiles` nebo `UseDirectoryBrowser` . Celý adresář a jeho podadresáře se stanou veřejně přístupnými. Ukládejte soubory vhodné pro poskytování veřejnosti ve vyhrazeném adresáři, jako je například `<content_root>/wwwroot` . Oddělte tyto soubory od zobrazení MVC, Razor stránek, konfiguračních souborů atd.
 
 * Adresy URL obsahu vystaveného nástroji `UseDirectoryBrowser` a `UseStaticFiles` podléhají omezením malých a velkých písmen a znakům základního systému souborů. Například Windows rozlišuje malá a velká písmena, ale macOS a Linux ne.
 
@@ -374,7 +374,7 @@ Nastavení výchozí domovské stránky poskytuje návštěvníkům logický vý
 [!code-csharp[](static-files/samples/1.x/StaticFilesSample/StartupEmpty.cs?name=snippet_ConfigureMethod&highlight=3)]
 
 > [!IMPORTANT]
-> `UseDefaultFiles`musí být volána předtím, než `UseStaticFiles` bude sloužit jako výchozí soubor. `UseDefaultFiles`je přepis adresy URL, který soubor ve skutečnosti neobsluhuje. Povolte middleware statických souborů prostřednictvím nástroje `UseStaticFiles` za účelem obsluhy souboru.
+> `UseDefaultFiles` musí být volána předtím, než `UseStaticFiles` bude sloužit jako výchozí soubor. `UseDefaultFiles` je přepis adresy URL, který soubor ve skutečnosti neobsluhuje. Povolte middleware statických souborů prostřednictvím nástroje `UseStaticFiles` za účelem obsluhy souboru.
 
 S `UseDefaultFiles` , požadavky na hledání složky pro:
 
@@ -391,7 +391,7 @@ Následující kód změní výchozí název souboru na *mydefault.html*:
 
 ## <a name="usefileserver"></a>UseFileServer
 
-<xref:Microsoft.AspNetCore.Builder.FileServerExtensions.UseFileServer*>kombinuje funkce `UseStaticFiles` , `UseDefaultFiles` a volitelně `UseDirectoryBrowser` .
+<xref:Microsoft.AspNetCore.Builder.FileServerExtensions.UseFileServer*> kombinuje funkce `UseStaticFiles` , `UseDefaultFiles` a volitelně `UseDirectoryBrowser` .
 
 Následující kód povoluje obsluhu statických souborů a výchozího souboru. Procházení adresářů není povoleno.
 
@@ -420,7 +420,7 @@ Následující kód povoluje statické soubory, výchozí soubory a procházení
 
 [!code-csharp[](static-files/samples/1.x/StaticFilesSample/StartupUseFileServer.cs?name=snippet_ConfigureMethod&highlight=5-11)]
 
-`AddDirectoryBrowser`musí být volána, pokud `EnableDirectoryBrowsing` je hodnota vlastnosti `true` :
+`AddDirectoryBrowser` musí být volána, pokud `EnableDirectoryBrowsing` je hodnota vlastnosti `true` :
 
 [!code-csharp[](static-files/samples/1.x/StaticFilesSample/StartupUseFileServer.cs?name=snippet_ConfigureServicesMethod)]
 
@@ -436,7 +436,7 @@ Pokud v adresáři *MyStaticFiles* neexistuje žádný výchozí soubor s názve
 ![Seznam statických souborů](static-files/_static/db2.png)
 
 > [!NOTE]
-> <xref:Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles*>a <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser*> provede přesměrování na straně klienta z `http://{SERVER ADDRESS}/StaticFiles` (bez koncového lomítka) na `http://{SERVER ADDRESS}/StaticFiles/` (s koncovým lomítkem). Relativní adresy URL v adresáři *StaticFiles* jsou neplatné bez koncového lomítka.
+> <xref:Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles*> a <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser*> provede přesměrování na straně klienta z `http://{SERVER ADDRESS}/StaticFiles` (bez koncového lomítka) na `http://{SERVER ADDRESS}/StaticFiles/` (s koncovým lomítkem). Relativní adresy URL v adresáři *StaticFiles* jsou neplatné bez koncového lomítka.
 
 ## <a name="fileextensioncontenttypeprovider"></a>FileExtensionContentTypeProvider
 
@@ -445,6 +445,8 @@ Pokud v adresáři *MyStaticFiles* neexistuje žádný výchozí soubor s názve
 [!code-csharp[](static-files/samples/1.x/StaticFilesSample/StartupFileExtensionContentTypeProvider.cs?name=snippet_ConfigureMethod&highlight=3-12,19)]
 
 Viz [typy obsahu MIME](https://www.iana.org/assignments/media-types/media-types.xhtml).
+
+Informace o tom <xref:Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider> , jak používat vlastní nebo nakonfigurovat jinou <xref:Microsoft.AspNetCore.Builder.StaticFileOptions> aplikaci v Blazor serverových aplikacích, najdete v tématu <xref:blazor/fundamentals/additional-scenarios#static-files> .
 
 ## <a name="non-standard-content-types"></a>Nestandardní typy obsahu
 
@@ -461,12 +463,12 @@ V předchozím kódu se jako obrázek vrátí požadavek na soubor s neznámým 
 
 ## <a name="serve-files-from-multiple-locations"></a>Obsluhovat soubory z více míst
 
-`UseStaticFiles`a `UseFileServer` výchozím nastavením je poskytovatel souborů odkazující na *wwwroot*. Můžete poskytnout další instance `UseStaticFiles` a `UseFileServer` s dalšími poskytovateli souborů pro obsluhu souborů z jiných umístění. Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/15578).
+`UseStaticFiles` a `UseFileServer` výchozím nastavením je poskytovatel souborů odkazující na *wwwroot*. Můžete poskytnout další instance `UseStaticFiles` a `UseFileServer` s dalšími poskytovateli souborů pro obsluhu souborů z jiných umístění. Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/15578).
 
 ### <a name="considerations"></a>Požadavky
 
 > [!WARNING]
-> `UseDirectoryBrowser`a `UseStaticFiles` můžou neúniky tajných kódů. Zakázání procházení adresářů v produkčním prostředí se důrazně doporučuje. Pečlivě zkontrolujte, které adresáře jsou povoleny prostřednictvím `UseStaticFiles` nebo `UseDirectoryBrowser` . Celý adresář a jeho podadresáře se stanou veřejně přístupnými. Ukládejte soubory vhodné pro poskytování veřejnosti ve vyhrazeném adresáři, například * \<content_root> /wwwroot*. Oddělte tyto soubory od zobrazení MVC, Razor stránky (jenom 2. x), konfigurační soubory atd.
+> `UseDirectoryBrowser` a `UseStaticFiles` můžou neúniky tajných kódů. Zakázání procházení adresářů v produkčním prostředí se důrazně doporučuje. Pečlivě zkontrolujte, které adresáře jsou povoleny prostřednictvím `UseStaticFiles` nebo `UseDirectoryBrowser` . Celý adresář a jeho podadresáře se stanou veřejně přístupnými. Ukládejte soubory vhodné pro poskytování veřejnosti ve vyhrazeném adresáři, například * \<content_root> /wwwroot*. Oddělte tyto soubory od zobrazení MVC, Razor stránky (jenom 2. x), konfigurační soubory atd.
 
 * Adresy URL obsahu vystaveného nástroji `UseDirectoryBrowser` a `UseStaticFiles` podléhají omezením malých a velkých písmen a znakům základního systému souborů. Například Windows rozlišuje malá a velká písmena &mdash; MacOS a Linux.
 

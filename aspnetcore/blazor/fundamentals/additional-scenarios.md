@@ -5,7 +5,7 @@ description: Přečtěte si o dalších scénářích ASP.NET Core Blazor konfig
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/10/2020
+ms.date: 08/12/2020
 no-loc:
 - cookie
 - Cookie
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: dbad91e46a95d9ab5ec62d66e0d9a18938ff4520
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 618e451f5cb8a4e8eaf355d398fdeb80190cf559
+ms.sourcegitcommit: ec41ab354952b75557240923756a8c2ac79b49f8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014461"
+ms.lasthandoff: 08/13/2020
+ms.locfileid: "88202713"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
 
@@ -30,7 +30,7 @@ Od [Daniel Skořepa](https://github.com/danroth27), [MacKinnon Buck](https://git
 
 Tento článek popisuje konfiguraci modelu hostování.
 
-### <a name="no-locsignalr-cross-origin-negotiation-for-authentication"></a>SignalRvyjednávání mezi zdroji pro ověřování
+### <a name="no-locsignalr-cross-origin-negotiation-for-authentication"></a>SignalR vyjednávání mezi zdroji pro ověřování
 
 *Tato část se týká Blazor WebAssembly .*
 
@@ -102,7 +102,7 @@ Následující tabulka popisuje třídy CSS použité pro `components-reconnect-
 
 *Tato část se týká Blazor Server .*
 
-Blazor Serveraplikace se ve výchozím nastavení nastavují tak, aby se před vytvořením připojení klienta k serveru předvedlo uživatelské rozhraní na serveru. Tato stránka je nastavená na `_Host.cshtml` Razor stránce:
+Blazor Server aplikace se ve výchozím nastavení nastavují tak, aby se před vytvořením připojení klienta k serveru předvedlo uživatelské rozhraní na serveru. Tato stránka je nastavená na `_Host.cshtml` Razor stránce:
 
 ```cshtml
 <body>
@@ -114,7 +114,7 @@ Blazor Serveraplikace se ve výchozím nastavení nastavují tak, aby se před v
 </body>
 ```
 
-<xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode>nakonfiguruje, jestli součást:
+<xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> nakonfiguruje, jestli součást:
 
 * Je předem vykreslen na stránku.
 * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
@@ -166,7 +166,7 @@ Události připojení okruhu obslužné rutiny opětovného připojení lze upra
 Postup úpravy událostí připojení:
 
 * Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
-* Zaregistrujte zpětná volání pro změny připojení pro Vyřazená připojení ( `onConnectionDown` ) a zavedená nebo znovu vytvořená připojení ( `onConnectionUp` ). **Oba směry** `onConnectionDown` `onConnectionUp`musí být zadáno.
+* Zaregistrujte zpětná volání pro změny připojení pro Vyřazená připojení ( `onConnectionDown` ) a zavedená nebo znovu vytvořená připojení ( `onConnectionUp` ). **Oba směry** `onConnectionDown` `onConnectionUp` musí být zadáno.
 
 ```cshtml
     ...
@@ -263,6 +263,46 @@ Pokud se jedna z komponent rozhraní používá v podřízené komponentě, vykr
 
 * Může být upraveno stavem aplikace. Pevně kódovaná značka HTML nemůže být upravena stavem aplikace.
 * Je odebrán z kódu HTML, `<head>` Pokud již není vykreslena nadřazená komponenta.
+
+## <a name="static-files"></a>Statické soubory
+
+*Tato část se týká Blazor Server .*
+
+Pokud chcete vytvořit další mapování souborů pomocí <xref:Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider> nebo nakonfigurovat jinou <xref:Microsoft.AspNetCore.Builder.StaticFileOptions> , použijte **jeden** z následujících přístupů. V následujících příkladech `{EXTENSION}` je zástupný symbol Přípona souboru a `{CONTENT TYPE}` zástupný symbol je typ obsahu.
+
+* Nakonfigurujte možnosti prostřednictvím [Injektáže závislosti (di)](xref:blazor/fundamentals/dependency-injection) v `Startup.ConfigureServices` ( `Startup.cs` ) pomocí <xref:Microsoft.AspNetCore.Builder.StaticFileOptions> :
+
+  ```csharp
+  using Microsoft.AspNetCore.StaticFiles;
+
+  ...
+
+  var provider = new FileExtensionContentTypeProvider();
+  provider.Mappings["{EXTENSION}"] = "{CONTENT TYPE}";
+
+  services.Configure<StaticFileOptions>(options =>
+  {
+      options.ContentTypeProvider = provider;
+  });
+  ```
+
+  Vzhledem k tomu, že tento přístup nakonfiguruje stejného poskytovatele souborů používaného pro obsluhu, ujistěte se `blazor.server.js` , že vaše vlastní konfigurace nekoliduje s obsluhou `blazor.server.js` . Neodstraňujte například mapování pro soubory JavaScriptu konfigurací poskytovatele pomocí `provider.Mappings.Remove(".js")` .
+
+* Použijte dvě volání do <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles%2A> `Startup.Configure` ( `Startup.cs` ):
+  * Nakonfigurujte vlastního zprostředkovatele souborů v prvním volání pomocí <xref:Microsoft.AspNetCore.Builder.StaticFileOptions> .
+  * Druhý middleware slouží `blazor.server.js` k tomu, který používá výchozí konfiguraci statických souborů poskytovanou Blazor rozhraním.
+
+  ```csharp
+  using Microsoft.AspNetCore.StaticFiles;
+
+  ...
+
+  var provider = new FileExtensionContentTypeProvider();
+  provider.Mappings["{EXTENSION}"] = "{CONTENT TYPE}";
+
+  app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
+  app.UseStaticFiles();
+  ```
 
 ## <a name="additional-resources"></a>Další materiály
 

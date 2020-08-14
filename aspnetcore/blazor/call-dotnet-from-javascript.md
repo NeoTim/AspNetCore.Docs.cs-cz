@@ -1,11 +1,11 @@
 ---
-title: Volání metod .NET z funkcí JavaScriptu v ASP.NET CoreBlazor
+title: Volání metod .NET z funkcí JavaScriptu v ASP.NET Core Blazor
 author: guardrex
 description: Naučte se volat metody .NET z funkcí JavaScriptu v Blazor aplikacích.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/07/2020
+ms.date: 08/12/2020
 no-loc:
 - cookie
 - Cookie
@@ -17,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: 5a0731b45424ffd8560bb3b0d9123c686ae9e247
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 65a339bc7b246ab1825ad9bad5a2b5523259b488
+ms.sourcegitcommit: ec41ab354952b75557240923756a8c2ac79b49f8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012563"
+ms.lasthandoff: 08/13/2020
+ms.locfileid: "88202737"
 ---
-# <a name="call-net-methods-from-javascript-functions-in-aspnet-core-no-locblazor"></a>Volání metod .NET z funkcí JavaScriptu v ASP.NET CoreBlazor
+# <a name="call-net-methods-from-javascript-functions-in-aspnet-core-no-locblazor"></a>Volání metod .NET z funkcí JavaScriptu v ASP.NET Core Blazor
 
 [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Skořepa](https://github.com/danroth27), [Shashikant Rudrawadi](http://wisne.co)a [Luke Latham](https://github.com/guardrex)
 
@@ -129,7 +129,7 @@ Když je **`Trigger .NET instance method HelloHelper.SayHello`** vybráno tlač�
 }
 ```
 
-`CallHelloHelperSayHello`vyvolá funkci JavaScriptu `sayHello` s novou instancí `HelloHelper` .
+`CallHelloHelperSayHello` vyvolá funkci JavaScriptu `sayHello` s novou instancí `HelloHelper` .
 
 `JsInteropClasses/ExampleJsInterop.cs`:
 
@@ -233,11 +233,16 @@ Postup při volání metod .NET komponenty:
 * Pomocí `invokeMethod` funkce or `invokeMethodAsync` vytvořte statické volání metody do komponenty.
 * Statická metoda součásti zabalí volání své metody instance jako vyvolanou <xref:System.Action> .
 
+> [!NOTE]
+> Pro Blazor Server aplikace, ve kterých může být několik uživatelů souběžně používáno pomocí stejné komponenty, použijte pomocnou třídu k vyvolání instančních metod.
+>
+> Další informace naleznete v části [pomocná třída metody instance komponenty](#component-instance-method-helper-class) .
+
 V JavaScriptu na straně klienta:
 
 ```javascript
 function updateMessageCallerJS() {
-  DotNet.invokeMethod('{APP ASSEMBLY}', 'UpdateMessageCaller');
+  DotNet.invokeMethodAsync('{APP ASSEMBLY}', 'UpdateMessageCaller');
 }
 ```
 
@@ -279,7 +284,70 @@ Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace aplikace (např
 }
 ```
 
-V případě, že existuje několik komponent, z nichž každá má metody instance pro volání, použijte pomocnou třídu k vyvolání metod instancí <xref:System.Action> jednotlivých komponent.
+Předání argumentů metodě instance:
+
+* Přidejte parametry do vyvolání metody JS. V následujícím příkladu je do metody předán název. Do seznamu můžete podle potřeby přidat další parametry.
+
+  ```javascript
+  function updateMessageCallerJS(name) {
+    DotNet.invokeMethodAsync('{APP ASSEMBLY}', 'UpdateMessageCaller', name);
+  }
+  ```
+  
+  Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace aplikace (například `BlazorSample` ).
+
+* Zadejte správné typy <xref:System.Action> pro parametry. Zadejte seznam parametrů pro metody jazyka C#. Vyvolat <xref:System.Action> ( `UpdateMessage` ) s parametry ( `action.Invoke(name)` ).
+
+  `Pages/JSInteropComponent.razor`:
+
+  ```razor
+  @page "/JSInteropComponent"
+
+  <p>
+      Message: @message
+  </p>
+
+  <p>
+      <button onclick="updateMessageCallerJS('Sarah Jane')">
+          Call JS Method
+      </button>
+  </p>
+
+  @code {
+      private static Action<string> action;
+      private string message = "Select the button.";
+
+      protected override void OnInitialized()
+      {
+          action = UpdateMessage;
+      }
+
+      private void UpdateMessage(string name)
+      {
+          message = $"{name}, UpdateMessage Called!";
+          StateHasChanged();
+      }
+
+      [JSInvokable]
+      public static void UpdateMessageCaller(string name)
+      {
+          action.Invoke(name);
+      }
+  }
+  ```
+
+  Výstup `message` , když je vybráno tlačítko **metoda volání js** :
+
+  ```
+  Sarah Jane, UpdateMessage Called!
+  ```
+
+## <a name="component-instance-method-helper-class"></a>Pomocná třída metody instance komponenty
+
+Pomocná třída se používá k vyvolání metody instance jako <xref:System.Action> . Pomocné třídy jsou užitečné, když:
+
+* Na stejné stránce je vykresleno několik komponent stejného typu.
+* Blazor ServerPoužije se aplikace, ve které může souběžně používat součást více uživatelů.
 
 V následujícím příkladu:
 
@@ -388,5 +456,5 @@ Další informace najdete v následujících problémech:
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/call-javascript-from-dotnet>
-* [`InteropComponent.razor`Příklad (dotnet/AspNetCore, úložiště GitHub, větev vydané verze 3,1)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
+* [`InteropComponent.razor` Příklad (dotnet/AspNetCore, úložiště GitHub, větev vydané verze 3,1)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
 * [Provádění rozsáhlých přenosů dat v Blazor Server aplikacích](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)
