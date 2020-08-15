@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core laděníBlazor WebAssembly
+title: ASP.NET Core ladění Blazor WebAssembly
 author: guardrex
 description: Naučte se ladit Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
@@ -17,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 225916411550cc8e89c604e1426316843bb0ff52
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 838ed1a10ab3312e449782a29c305a976265550c
+ms.sourcegitcommit: 503b348e9046fcd969de85898394a1ea8274ec38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014539"
+ms.lasthandoff: 08/14/2020
+ms.locfileid: "88227589"
 ---
-# <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core laděníBlazor WebAssembly
+# <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core ladění Blazor WebAssembly
 
 [Daniel Skořepa](https://github.com/danroth27)
 
-Blazor WebAssemblyaplikace se dají ladit pomocí vývojářských nástrojů pro vývoj v prohlížečích založených na chromu (Edge/Chrome). Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
+Blazor WebAssembly aplikace se dají ladit pomocí vývojářských nástrojů pro vývoj v prohlížečích založených na chromu (Edge/Chrome). Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
 
 K dispozici jsou tyto scénáře:
 
@@ -80,7 +80,7 @@ Ladění Blazor WebAssembly aplikace v aplikaci Visual Studio:
 1. Stisknutím klávesy <kbd>F5</kbd> spusťte aplikaci v ladicím programu.
 
    > [!NOTE]
-   > **Spuštění bez ladění** (<kbd>CTRL</kbd> + <kbd>F5</kbd>) není podporováno.
+   > **Spuštění bez ladění** (<kbd>CTRL</kbd> + <kbd>F5</kbd>) není podporováno. Když je aplikace spuštěna v konfiguraci ladění, režie ladění vždy vede k omezení malého výkonu.
 
 1. Nastavte zarážku v `Pages/Counter.razor` `IncrementCount` metodě.
 1. Přejděte na **`Counter`** kartu a vyberte tlačítko, kde se má zarážka opakovat:
@@ -111,7 +111,7 @@ Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
 
 ## <a name="visual-studio-code"></a>Visual Studio Code
 
-### <a name="debug-standalone-no-locblazor-webassembly"></a>Samostatně laditBlazor WebAssembly
+### <a name="debug-standalone-no-locblazor-webassembly"></a>Samostatně ladit Blazor WebAssembly
 
 1. Otevřete samostatnou Blazor WebAssembly aplikaci v vs Code.
 
@@ -128,7 +128,7 @@ Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
 1. Spusťte ladění pomocí klávesových zkratek <kbd>F5</kbd> nebo položky nabídky.
 
    > [!NOTE]
-   > **Běh bez ladění** (<kbd>CTRL</kbd> + <kbd>F5</kbd>) není podporovaný.
+   > **Spuštění bez ladění** (<kbd>CTRL</kbd> + <kbd>F5</kbd>) není podporováno. Když je aplikace spuštěna v konfiguraci ladění, režie ladění vždy vede k omezení malého výkonu.
 
 1. Po zobrazení výzvy vyberte možnost ** Blazor WebAssembly ladění** pro spuštění ladění.
 
@@ -140,7 +140,7 @@ Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
 
    ![Čítač ladění v VS Code](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
 
-### <a name="debug-hosted-no-locblazor-webassembly"></a>Ladění je hostovanéBlazor WebAssembly
+### <a name="debug-hosted-no-locblazor-webassembly"></a>Ladění je hostované Blazor WebAssembly
 
 1. Otevřete Blazor WebAssembly složku řešení hostované aplikace v vs Code.
 
@@ -241,7 +241,7 @@ V předchozím příkladu `MyHostedApp.Server.dll` je sestavení *serverové* ap
 
 1. V kódu komponenty ( `.razor` soubory) a souborech kódu jazyka C# ( `.cs` ) jsou zarážky, které jste nastavili, zasaženy při spuštění kódu. Po stisknutí zarážky se provede krok (<kbd>F10</kbd>) prostřednictvím kódu nebo obnovení kódu (<kbd>F8</kbd>) normálně.
 
-Blazorposkytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Když se stiskne klávesová zkratka ladění, navede Blazor devtools Chrome na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
+Blazor poskytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Když se stiskne klávesová zkratka ladění, navede Blazor devtools Chrome na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
 
 ## <a name="browser-source-maps"></a>Mapy zdroje prohlížeče
 
