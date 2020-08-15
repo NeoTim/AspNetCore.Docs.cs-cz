@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/static-files
-ms.openlocfilehash: b1f84a936ee1327498abce660cd64f8d7d0a2864
-ms.sourcegitcommit: ec41ab354952b75557240923756a8c2ac79b49f8
+ms.openlocfilehash: 3dbc233cef752bbf593e677728aee7b9e93c1621
+ms.sourcegitcommit: 4df445e7d49a99f81625430f728c28e5d6bf2107
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2020
-ms.locfileid: "88202791"
+ms.lasthandoff: 08/15/2020
+ms.locfileid: "88253626"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -103,6 +103,19 @@ Statické soubory jsou veřejně ukládat do mezipaměti po dobu 600 sekund:
 ## <a name="static-file-authorization"></a>Autorizace statického souboru
 
 Middleware statických souborů neposkytuje kontroly autorizace. Všechny soubory obsluhované IT, včetně těch, které jsou v nástroji `wwwroot` , jsou veřejně přístupné. Pro obsluhu souborů na základě autorizace:
+
+* Ukládejte je mimo `wwwroot` a jakýkoliv adresář přístupný pro výchozí middleware se statickým souborem.
+* Zavolejte `UseStaticFiles` za `UseAuthorization` a zadejte cestu:
+
+  [!code-csharp[](static-files/samples/3.x/StaticFileAuth/Startup.cs?name=snippet2)]
+  
+  Předchozí sady přístupů vyžadují ověření uživatelů:
+
+  [!code-csharp[](static-files/samples/3.x/StaticFileAuth/Startup.cs?name=snippet1&highlight=20-99)]
+
+   [!INCLUDE[](~/includes/requireAuth.md)]
+
+Alternativní přístup k obsluze souborů na základě autorizace:
 
 * Ukládejte je mimo `wwwroot` a jakýkoliv adresář přístupný pro middleware statických souborů.
 * Obsluha prostřednictvím metody akce, na které se autorizace používá, a vrácení <xref:Microsoft.AspNetCore.Mvc.FileResult> objektu:

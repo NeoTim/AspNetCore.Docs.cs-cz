@@ -4,7 +4,7 @@ author: rick-anderson
 description: Naučte se vytvářet webové rozhraní API pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 2/25/2020
+ms.date: 08/13/2020
 no-loc:
 - cookie
 - Cookie
@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: ad6eac246e5bc7039158981bbe96036389512e4f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 15e5c838e6dae824a189f170b28730a63f8c3ea7
+ms.sourcegitcommit: 4df445e7d49a99f81625430f728c28e5d6bf2107
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019232"
+ms.lasthandoff: 08/15/2020
+ms.locfileid: "88253639"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -51,7 +51,7 @@ V tomto kurzu se vytvoří následující rozhraní API:
 |`GET /api/TodoItems` | Získat všechny položky úkolů | Žádné | Pole položek úkolů|
 |`GET /api/TodoItems/{id}` | Získat položku podle ID | Žádné | Položka úkolů|
 |`POST /api/TodoItems` | Přidat novou položku | Položka úkolů | Položka úkolů |
-|`PUT /api/TodoItems/{id}` | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádné |
+|`PUT /api/TodoItems/{id}` | Aktualizovat existující položku &nbsp; | Položka úkolů | Žádné |
 |`DELETE /api/TodoItems/{id}` &nbsp; &nbsp; | Odstranění položky &nbsp;&nbsp; | Žádné | Žádné|
 
 V následujícím diagramu vidíte návrh aplikace.
@@ -112,7 +112,7 @@ V následujícím diagramu vidíte návrh aplikace.
 
   ![macOS nové řešení](first-web-api-mac/_static/sln.png)
 
-* V Visual Studio pro Mac starší než verze 8,6 Vyberte rozhraní **.NET Core**  >  **App**  >  **API**  >  **Next**. V části verze 8,6 nebo novější vyberte **webové a konzolové**  >  **App**  >  **rozhraní API**aplikace  >  **Next** .
+* V Visual Studio pro Mac starší než verze 8,6 Vyberte rozhraní **.NET Core**  >  **App**  >  **API**  >  **Next**. V části verze 8,6 nebo novější vyberte **webové a konzolové**  >  **App**  >  **rozhraní API**aplikace  >  **Next**.
 
   ![Výběr šablony rozhraní API macOS](first-web-api-mac/_static/api_template.png)
 
@@ -293,7 +293,8 @@ Spusťte následující příkazy:
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool install --global dotnet-aspnet-codegenerator
-dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
+dotnet tool update -g Dotnet-aspnet-codegenerator
+dotnet-aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
 ```
 
 Předchozí příkazy:
@@ -324,6 +325,8 @@ Nahraďte příkaz return v `PostTodoItem` operátoru k použití operátoru [na
 
 Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](xref:Microsoft.AspNetCore.Mvc.HttpPostAttribute) atributem. Metoda získá hodnotu položky k seřízení z těla požadavku HTTP.
 
+Další informace najdete v tématu [Směrování atributů s atributy http [příkaz]](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes).
+
 <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*>Metoda:
 
 * Pokud je úspěšná, vrátí stavový kód HTTP 201. HTTP 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru.
@@ -348,6 +351,7 @@ V tomto kurzu se používá post k testování webového rozhraní API.
 
 * Vytvoří novou žádost.
 * Nastavte metodu HTTP na `POST` .
+* Nastavte identifikátor URI na `https://localhost:<port>/api/TodoItem` . Například, `https://localhost:5001/api/TodoItem`.
 * Vyberte kartu **tělo** .
 * Vyberte **nezpracovaný** přepínač.
 * Nastavte typ na **JSON (Application/JSON)**.
@@ -364,15 +368,15 @@ V tomto kurzu se používá post k testování webového rozhraní API.
 
   ![Poslat pomocí žádosti o vytvoření](first-web-api/_static/3/create.png)
 
-### <a name="test-the-location-header-uri"></a>Otestování identifikátoru URI hlavičky umístění
+### <a name="test-the-location-header-uri-with-postman"></a>Otestování identifikátoru URI hlaviček umístění pomocí metody post
 
 * V podokně **odpověď** vyberte kartu **hlavičky** .
 * Zkopírujte hodnotu hlavičky **umístění** :
 
   ![Karta hlavičky v konzole pro odesílání](first-web-api/_static/3/create.png)
 
-* Nastavte metodu, která má být ZÍSKÁNa.
-* Vložte identifikátor URI (například `https://localhost:5001/api/TodoItems/1` ).
+* Nastavte metodu HTTP na `GET` .
+* Nastavte identifikátor URI na `https://localhost:<port>/api/TodoItems/1` . Například, `https://localhost:5001/api/TodoItems/1`.
 * Vyberte **Poslat**.
 
 ## <a name="examine-the-get-methods"></a>Projděte si metody GET.
@@ -403,7 +407,7 @@ Odpověď podobná následující je vytvořena voláním metody `GetTodoItems` 
 
 * Vytvoří novou žádost.
 * Nastavte metodu HTTP na **Get**.
-* Nastavte adresu URL požadavku na `https://localhost:<port>/api/TodoItems` . Například, `https://localhost:5001/api/TodoItems`.
+* Nastavte identifikátor URI žádosti na `https://localhost:<port>/api/TodoItems` . Například, `https://localhost:5001/api/TodoItems`.
 * Nastavte v příspěvku **dva zobrazení podokna** .
 * Vyberte **Poslat**.
 
@@ -428,7 +432,7 @@ V následující `GetTodoItem` metodě `"{id}"` je proměnná zástupného symbo
 
 Návratový typ `GetTodoItems` `GetTodoItem` metod a je [ActionResult \<T> typ](xref:web-api/action-return-types#actionresultt-type). ASP.NET Core automaticky serializovat objekt do formátu [JSON](https://www.json.org/) a zapíše JSON do textu zprávy s odpovědí. Kód odpovědi pro tento návratový typ je 200, za předpokladu, že neexistují žádné neošetřené výjimky. Neošetřené výjimky jsou přeloženy na 5xx chyby.
 
-`ActionResult`návratové typy mohou představovat široké spektrum stavových kódů HTTP. Například `GetTodoItem` může vracet dvě různé stavové hodnoty:
+`ActionResult` návratové typy mohou představovat široké spektrum stavových kódů HTTP. Například `GetTodoItem` může vracet dvě různé stavové hodnoty:
 
 * Pokud žádná položka neodpovídá požadovanému ID, vrátí metoda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A> kód chyby 404.
 * V opačném případě metoda vrátí 200 text odpovědi JSON. `item`Výsledkem vrácení výsledků odpovědi HTTP 200.
@@ -439,7 +443,7 @@ Prohlédněte si metodu `PutTodoItem`:
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Update)]
 
-`PutTodoItem`se podobá `PostTodoItem` , s tím rozdílem, že používá Put http. Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html). V souladu se specifikací HTTP vyžaduje požadavek PUT klientovi, aby odesílal celou aktualizovanou entitu, a ne jenom změny. K podpoře částečných aktualizací použijte [opravu http](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).
+`PutTodoItem` se podobá `PostTodoItem` , s tím rozdílem, že používá Put http. Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html). V souladu se specifikací HTTP vyžaduje požadavek PUT klientovi, aby odesílal celou aktualizovanou entitu, a ne jenom změny. K podpoře částečných aktualizací použijte [opravu http](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).
 
 Pokud se zobrazí chyba při volání `PutTodoItem` , `GET` zajistěte, aby byla položka v databázi.
 
@@ -537,7 +541,7 @@ V tomto kurzu se vytvoří následující rozhraní API:
 |ZÍSKAT/api/TodoItems | Získat všechny položky úkolů | Žádné | Pole položek úkolů|
 |ZÍSKAT/api/TodoItems/{id} | Získat položku podle ID | Žádné | Položka úkolů|
 |PŘÍSPĚVEK/api/TodoItems | Přidat novou položku | Položka úkolů | Položka úkolů |
-|Vložit/api/TodoItems/{id} | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádné |
+|Vložit/api/TodoItems/{id} | Aktualizovat existující položku &nbsp; | Položka úkolů | Žádné |
 |Odstranit/api/TodoItems/{id} &nbsp;&nbsp; | Odstranění položky &nbsp;&nbsp; | Žádné | Žádné|
 
 V následujícím diagramu vidíte návrh aplikace.
@@ -775,7 +779,7 @@ V následující `GetTodoItem` metodě `"{id}"` je proměnná zástupného symbo
 
 Návratový typ `GetTodoItems` `GetTodoItem` metod a je [ActionResult \<T> typ](xref:web-api/action-return-types#actionresultt-type). ASP.NET Core automaticky serializovat objekt do formátu [JSON](https://www.json.org/) a zapíše JSON do textu zprávy s odpovědí. Kód odpovědi pro tento návratový typ je 200, za předpokladu, že neexistují žádné neošetřené výjimky. Neošetřené výjimky jsou přeloženy na 5xx chyby.
 
-`ActionResult`návratové typy mohou představovat široké spektrum stavových kódů HTTP. Například `GetTodoItem` může vracet dvě různé stavové hodnoty:
+`ActionResult` návratové typy mohou představovat široké spektrum stavových kódů HTTP. Například `GetTodoItem` může vracet dvě různé stavové hodnoty:
 
 * Pokud žádná položka neodpovídá požadovanému ID, vrátí metoda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A> kód chyby 404.
 * V opačném případě metoda vrátí 200 text odpovědi JSON. `item`Výsledkem vrácení výsledků odpovědi HTTP 200.
@@ -804,7 +808,7 @@ V tomto kurzu se používá post k testování webového rozhraní API.
 
 * Vytvoří novou žádost.
   * Nastavte metodu HTTP na **Get**.
-  * Nastavte adresu URL požadavku na `https://localhost:<port>/api/todo` . Například, `https://localhost:5001/api/todo`.
+  * Nastavte identifikátor URI žádosti na `https://localhost:<port>/api/todo` . Například, `https://localhost:5001/api/todo`.
 * Nastavte v příspěvku **dva zobrazení podokna** .
 * Vyberte **Poslat**.
 
@@ -830,6 +834,7 @@ Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](xref:Micro
 
 * Sestavte projekt.
 * V části post nastavte metodu HTTP na `POST` .
+* Nastavte identifikátor URI na `https://localhost:<port>/api/TodoItem` . Například, `https://localhost:5001/api/TodoItem`.
 * Vyberte kartu **tělo** .
 * Vyberte **nezpracovaný** přepínač.
 * Nastavte typ na **JSON (Application/JSON)**.
@@ -856,7 +861,7 @@ Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](xref:Micro
   ![Karta hlavičky v konzole pro odesílání](first-web-api/_static/pmc2.png)
 
 * Nastavte metodu, která má být ZÍSKÁNa.
-* Vložte identifikátor URI (například `https://localhost:5001/api/Todo/2` ).
+* Nastavte identifikátor URI na  `https://localhost:<port>/api/TodoItems/2` .Například  `https://localhost:5001/api/TodoItems/2` .
 * Vyberte **Poslat**.
 
 ## <a name="add-a-puttodoitem-method"></a>Přidat metodu PutTodoItem
@@ -865,7 +870,7 @@ Přidejte následující `PutTodoItem` metodu:
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Update)]
 
-`PutTodoItem`se podobá `PostTodoItem` , s tím rozdílem, že používá Put http. Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html). V souladu se specifikací HTTP vyžaduje požadavek PUT klientovi, aby odesílal celou aktualizovanou entitu, a ne jenom změny. K podpoře částečných aktualizací použijte [opravu http](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).
+`PutTodoItem` se podobá `PostTodoItem` , s tím rozdílem, že používá Put http. Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html). V souladu se specifikací HTTP vyžaduje požadavek PUT klientovi, aby odesílal celou aktualizovanou entitu, a ne jenom změny. K podpoře částečných aktualizací použijte [opravu http](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).
 
 Pokud se zobrazí chyba při volání `PutTodoItem` , `GET` zajistěte, aby byla položka v databázi.
 
