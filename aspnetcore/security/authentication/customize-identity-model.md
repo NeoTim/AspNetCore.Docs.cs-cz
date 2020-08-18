@@ -1,5 +1,5 @@
 ---
-title: IdentityPřizpůsobení modelu v ASP.NET Core
+title: Identity Přizpůsobení modelu v ASP.NET Core
 author: ajcvickers
 description: Tento článek popisuje, jak přizpůsobit základní datový model Entity Framework Core pro ASP.NET Core Identity .
 ms.author: avickers
@@ -15,20 +15,20 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 4e6d91de013755f1ae998e36481f4c3b659270ae
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7c325bbc96ad4a8c5e4686073266d730eb924c10
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022001"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504668"
 ---
-# <a name="no-locidentity-model-customization-in-aspnet-core"></a>IdentityPřizpůsobení modelu v ASP.NET Core
+# <a name="no-locidentity-model-customization-in-aspnet-core"></a>Identity Přizpůsobení modelu v ASP.NET Core
 
 Od [Arthur Vickers](https://github.com/ajcvickers)
 
-ASP.NET Core Identity poskytuje rozhraní pro správu a ukládání uživatelských účtů v aplikacích ASP.NET Core. Identityse přidá do projektu, když jsou **jednotlivé uživatelské účty** vybrané jako ověřovací mechanismus. Ve výchozím nastavení Identity využívá základní datový model Entity Framework (EF). Tento článek popisuje, jak model přizpůsobit Identity .
+ASP.NET Core Identity poskytuje rozhraní pro správu a ukládání uživatelských účtů v aplikacích ASP.NET Core. Identity se přidá do projektu, když jsou **jednotlivé uživatelské účty** vybrané jako ověřovací mechanismus. Ve výchozím nastavení Identity využívá základní datový model Entity Framework (EF). Tento článek popisuje, jak model přizpůsobit Identity .
 
-## <a name="no-locidentity-and-ef-core-migrations"></a>Identitya EF Core migrace
+## <a name="no-locidentity-and-ef-core-migrations"></a>Identity a EF Core migrace
 
 Před prozkoumáním modelu je užitečné pochopit, jak Identity funguje s [EF Core migrací](/ef/core/managing-schemas/migrations/) pro vytvoření a aktualizaci databáze. Na nejvyšší úrovni je tento proces:
 
@@ -82,7 +82,7 @@ IdentityModel se skládá z následujících typů entit.
 
 ### <a name="default-model-configuration"></a>Výchozí konfigurace modelu
 
-Identitydefinuje mnoho *kontextových tříd* , které dědí z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) ke konfiguraci a použití modelu. Tato konfigurace se provádí pomocí [rozhraní EF Core Code First Fluent API](/ef/core/modeling/) v metodě [OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating) třídy Context. Výchozí konfigurace:
+Identity definuje mnoho *kontextových tříd* , které dědí z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) ke konfiguraci a použití modelu. Tato konfigurace se provádí pomocí [rozhraní EF Core Code First Fluent API](/ef/core/modeling/) v metodě [OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating) třídy Context. Výchozí konfigurace:
 
 ```csharp
 builder.Entity<TUser>(b =>
@@ -207,7 +207,7 @@ builder.Entity<TUserRole>(b =>
 
 ### <a name="model-generic-types"></a>Obecné typy modelů
 
-Identitydefinuje výchozí typy modulu CLR ( [Common Language Runtime](/dotnet/standard/glossary#clr) ) pro každý z typů entit uvedených výše. Všechny tyto typy mají předponu *Identity* :
+Identity definuje výchozí typy modulu CLR ( [Common Language Runtime](/dotnet/standard/glossary#clr) ) pro každý z typů entit uvedených výše. Všechny tyto typy mají předponu *Identity* :
 
 * `IdentityUser`
 * `IdentityRole`
@@ -219,7 +219,7 @@ Identitydefinuje výchozí typy modulu CLR ( [Common Language Runtime](/dotnet/s
 
 Místo toho, aby tyto typy používaly přímo, lze typy použít jako základní třídy pro vlastní typy aplikace. `DbContext`Třídy definované pomocí Identity jsou obecné, takže různé typy CLR lze použít pro jeden nebo více typů entit v modelu. Tyto obecné typy také umožňují `User` změnit datový typ primární klíč (PK).
 
-Při použití Identity s podporou rolí <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> by měla být použita třída. Například:
+Při použití Identity s podporou rolí <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> by měla být použita třída. Příklad:
 
 ```csharp
 // Uses all the built-in Identity types
@@ -367,8 +367,8 @@ services.AddIdentity<ApplicationUser>()
 
 V ASP.NET Core 2,1 nebo novější, Identity je k dispozici jako Razor Knihovna tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání metody <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> . Pokud se generátor Identity použil k přidání Identity souborů do projektu, odeberte volání `AddDefaultUI` . Další informace:
 
-* [GenerováníIdentity](xref:security/authentication/scaffold-identity)
-* [Přidání, stažení a odstranění vlastních uživatelských datIdentity](xref:security/authentication/add-user-data)
+* [Generování Identity](xref:security/authentication/scaffold-identity)
+* [Přidání, stažení a odstranění vlastních uživatelských dat Identity](xref:security/authentication/add-user-data)
 
 ### <a name="change-the-primary-key-type"></a>Změnit typ primárního klíče
 
@@ -403,7 +403,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     ::: moniker-end
 
-    `Startup.ConfigureServices`je nutné aktualizovat, aby používala obecného uživatele:
+    `Startup.ConfigureServices` je nutné aktualizovat, aby používala obecného uživatele:
 
     ::: moniker range=">= aspnetcore-2.1"
 
@@ -434,7 +434,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     ::: moniker-end
 
-4. Pokud `ApplicationUser` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityUser` . Například:
+4. Pokud `ApplicationUser` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityUser` . Příklad:
 
     ::: moniker range="<= aspnetcore-1.1"
 
@@ -502,7 +502,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     ::: moniker-end
 
-5. Pokud `ApplicationRole` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityRole<TKey>` . Například:
+5. Pokud `ApplicationRole` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityRole<TKey>` . Příklad:
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Data/ApplicationRole.cs?name=snippet_ApplicationRole&highlight=4)]
 
@@ -561,7 +561,7 @@ builder.Entity<TUser>(b =>
 });
 ```
 
-FK pro tento vztah je zadáno jako `UserClaim.UserId` vlastnost. `HasMany`a `WithOne` jsou volány bez argumentů pro vytvoření vztahu bez vlastností navigace.
+FK pro tento vztah je zadáno jako `UserClaim.UserId` vlastnost. `HasMany` a `WithOne` jsou volány bez argumentů pro vytvoření vztahu bez vlastností navigace.
 
 Přidat navigační vlastnost k `ApplicationUser` , která umožňuje `UserClaims` odkazování na uživatele:
 
@@ -744,8 +744,8 @@ public class ApplicationDbContext
 Poznámky:
 
 * Tento příklad obsahuje také `UserRole` entitu JOIN, která je nutná k procházení relace m:n od uživatelů po role.
-* Nezapomeňte změnit typy vlastností navigace tak, aby odrážely, že `ApplicationXxx` se nyní používají typy namísto `IdentityXxx` typů.
-* Nezapomeňte použít `ApplicationXxx` v obecné `ApplicationContext` definici.
+* Nezapomeňte změnit typy vlastností navigace tak, aby odrážely, že `Application{...}` se nyní používají typy namísto `Identity{...}` typů.
+* Nezapomeňte použít `Application{...}` v obecné `ApplicationContext` definici.
 
 ### <a name="add-all-navigation-properties"></a>Přidat všechny navigační vlastnosti
 
@@ -951,7 +951,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ### <a name="map-to-a-different-schema"></a>Mapování na jiné schéma
 
-Schémata se můžou v různých poskytovatelích databáze chovat různě. V případě SQL Server se ve výchozím nastavení vytvoří všechny tabulky ve schématu *dbo* . Tabulky lze vytvořit v jiném schématu. Například:
+Schémata se můžou v různých poskytovatelích databáze chovat různě. V případě SQL Server se ve výchozím nastavení vytvoří všechny tabulky ve schématu *dbo* . Tabulky lze vytvořit v jiném schématu. Příklad:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: a03598f887d628c8a2b6720d99826d4aef4e52fa
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e27748e8267a931390f831119a3fd1d45e87745a
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019999"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504733"
 ---
 # <a name="aspnet-core-no-locsignalr-net-client"></a>SignalRKlient rozhraní ASP.NET Core .NET
 
@@ -110,7 +110,7 @@ connection.Reconnected += connectionId =>
 };
 ```
 
-`WithAutomaticReconnect()`neprovede konfiguraci `HubConnection` pro opakování počátečního spuštění, takže chyby spuštění je nutné zpracovat ručně:
+`WithAutomaticReconnect()` neprovede konfiguraci `HubConnection` pro opakování počátečního spuštění, takže chyby spuštění je nutné zpracovat ručně:
 
 ```csharp
 public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, CancellationToken token)
@@ -172,9 +172,9 @@ Vlastní chování se potom odliší od výchozího chování tím, že se zasta
 
 Pokud chcete ještě větší kontrolu nad časováním a počtem automatických pokusů o opětovné připojení, je třeba `WithAutomaticReconnect` přijmout objekt implementující `IRetryPolicy` rozhraní, které má jedinou metodu s názvem `NextRetryDelay` .
 
-`NextRetryDelay`přijímá jeden argument s typem `RetryContext` . `RetryContext`Má tři vlastnosti: `PreviousRetryCount` , `ElapsedTime` a `RetryReason` , které jsou a v `long` `TimeSpan` `Exception` uvedeném pořadí. Před prvním pokusem o opětovné připojení budou obě `PreviousRetryCount` i `ElapsedTime` nulové a bude `RetryReason` to výjimka, která způsobila ztrátu připojení. Po každém neúspěšném pokusu o opakování se bude `PreviousRetryCount` aktualizovat o jednu, `ElapsedTime` aby odrážela dobu strávenou opětovným připojením, a `RetryReason` bude výjimkou, která způsobila selhání posledního pokusu o opětovné připojení.
+`NextRetryDelay` přijímá jeden argument s typem `RetryContext` . `RetryContext`Má tři vlastnosti: `PreviousRetryCount` , `ElapsedTime` a `RetryReason` , které jsou a v `long` `TimeSpan` `Exception` uvedeném pořadí. Před prvním pokusem o opětovné připojení budou obě `PreviousRetryCount` i `ElapsedTime` nulové a bude `RetryReason` to výjimka, která způsobila ztrátu připojení. Po každém neúspěšném pokusu o opakování se bude `PreviousRetryCount` aktualizovat o jednu, `ElapsedTime` aby odrážela dobu strávenou opětovným připojením, a `RetryReason` bude výjimkou, která způsobila selhání posledního pokusu o opětovné připojení.
 
-`NextRetryDelay`musí vracet buď hodnotu TimeSpan představující čas čekání před dalším pokusem o opětovné připojení, nebo `null` by se `HubConnection` mělo zastavit opětovné připojení.
+`NextRetryDelay` musí vracet buď hodnotu TimeSpan představující čas čekání před dalším pokusem o opětovné připojení, nebo `null` by se `HubConnection` mělo zastavit opětovné připojení.
 
 ```csharp
 public class RandomRetryPolicy : IRetryPolicy
@@ -237,7 +237,7 @@ V `Closed` obslužné rutině, která restartuje připojení, zvažte možnost p
 
 ## <a name="call-hub-methods-from-client"></a>Volání metod centra z klienta
 
-`InvokeAsync`volá metody v centru. Předat název metody centra a všechny argumenty definované v metodě hub pro `InvokeAsync` . SignalRje asynchronní, takže použijte `async` a `await` při provádění volání.
+`InvokeAsync` volá metody v centru. Předat název metody centra a všechny argumenty definované v metodě hub pro `InvokeAsync` . SignalR je asynchronní, takže použijte `async` a `await` při provádění volání.
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
 
@@ -246,7 +246,7 @@ V `Closed` obslužné rutině, která restartuje připojení, zvažte možnost p
 `SendAsync`Metoda vrátí, `Task` která se dokončí při odeslání zprávy na server. Žádná návratová hodnota není k dispozici `Task` , protože nečeká na dokončení metody serveru. Jakékoli výjimky vyvolané u klienta při odeslání zprávy způsobují chybu `Task` . Použijte `await` `try...catch` syntaxi a ke zpracování chyb odesílání.
 
 > [!NOTE]
-> Pokud používáte SignalR službu Azure v režimu bez *serveru*, nemůžete volat metody centra z klienta. Další informace najdete v dokumentaci ke [ SignalR službě](/azure/azure-signalr/signalr-concept-serverless-development-config).
+> Volání metod rozbočovače z klienta je podporováno, pouze pokud používáte SignalR službu Azure ve *výchozím* režimu. Další informace najdete v tématu [Nejčastější dotazy (úložiště GitHub Azure-Signal)](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose).
 
 ## <a name="call-client-methods-from-hub"></a>Volání metod klienta z centra
 

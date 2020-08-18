@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 15531c39a66a9f6dfd0f5c20cf960e4db5a78074
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8cb09b9ecf8fc67652125e92aa15b484526c121e
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013798"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504655"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly Další scénáře zabezpečení
 
@@ -30,7 +30,7 @@ Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https:/
 
 ## <a name="attach-tokens-to-outgoing-requests"></a>Připojit tokeny k odchozím žádostem
 
-<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler>slouží <xref:System.Net.Http.DelegatingHandler> k připojení přístupových tokenů k odchozím <xref:System.Net.Http.HttpResponseMessage> instancím. Tokeny jsou získány pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider> služby, která je registrována rozhraním. Pokud token nelze získat, <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException> je vyvolána výjimka. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException>má <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException.Redirect%2A> metodu, která se dá použít k navigaci uživatele na poskytovatele identity za účelem získání nového tokenu.
+<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> slouží <xref:System.Net.Http.DelegatingHandler> k připojení přístupových tokenů k odchozím <xref:System.Net.Http.HttpResponseMessage> instancím. Tokeny jsou získány pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider> služby, která je registrována rozhraním. Pokud token nelze získat, <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException> je vyvolána výjimka. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException> má <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException.Redirect%2A> metodu, která se dá použít k navigaci uživatele na poskytovatele identity za účelem získání nového tokenu.
 
 Pro usnadnění pohodlí poskytuje rozhraní <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> předem nakonfigurovanou základní adresu aplikace jako autorizovanou adresu URL. **Přístupové tokeny se přidávají jenom v případě, že identifikátor URI žádosti spadá do základního identifikátoru URI aplikace.** Pokud neexistují odchozí identifikátory URI žádosti v rámci základního identifikátoru URI aplikace, použijte [vlastní `AuthorizationMessageHandler` třídu (*doporučeno*)](#custom-authorizationmessagehandler-class) nebo [Nakonfigurujte `AuthorizationMessageHandler` ](#configure-authorizationmessagehandler).
 
@@ -39,9 +39,9 @@ Pro usnadnění pohodlí poskytuje rozhraní <xref:Microsoft.AspNetCore.Componen
 
 V následujícím příkladu:
 
-* <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient%2A>přidá <xref:System.Net.Http.IHttpClientFactory> a související služby do kolekce služeb a nakonfiguruje s názvem <xref:System.Net.Http.HttpClient> ( `ServerAPI` ). <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType>je základní adresou identifikátoru URI prostředku při odesílání požadavků. <xref:System.Net.Http.IHttpClientFactory>je poskytováno [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) balíčkem NuGet.
+* <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient%2A> přidá <xref:System.Net.Http.IHttpClientFactory> a související služby do kolekce služeb a nakonfiguruje s názvem <xref:System.Net.Http.HttpClient> ( `ServerAPI` ). <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> je základní adresou identifikátoru URI prostředku při odesílání požadavků. <xref:System.Net.Http.IHttpClientFactory> je poskytováno [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) balíčkem NuGet.
 * <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler><xref:System.Net.Http.DelegatingHandler>slouží k připojení přístupových tokenů k odchozím <xref:System.Net.Http.HttpResponseMessage> instancím. Přístupové tokeny se přidávají jenom v případě, že identifikátor URI žádosti spadá do základního identifikátoru URI aplikace.
-* <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A?displayProperty=nameWithType>Vytvoří a nakonfiguruje <xref:System.Net.Http.HttpClient> instanci pro odchozí požadavky pomocí konfigurace, která odpovídá pojmenovanému <xref:System.Net.Http.HttpClient> ( `ServerAPI` ).
+* <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A?displayProperty=nameWithType> Vytvoří a nakonfiguruje <xref:System.Net.Http.HttpClient> instanci pro odchozí požadavky pomocí konfigurace, která odpovídá pojmenovanému <xref:System.Net.Http.HttpClient> ( `ServerAPI` ).
 
 ```csharp
 using System.Net.Http;
@@ -89,7 +89,7 @@ protected override async Task OnInitializedAsync()
 
 *Tento návod v této části se doporučuje pro klientské aplikace, které vytvářejí odchozí požadavky na identifikátory URI, které nejsou v rámci základního identifikátoru URI aplikace.*
 
-V následujícím příkladu vlastní třída rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> pro použití jako <xref:System.Net.Http.DelegatingHandler> pro <xref:System.Net.Http.HttpClient> . <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A>nakonfiguruje tuto obslužnou rutinu tak, aby schvalovala odchozí požadavky HTTP pomocí přístupového tokenu. Přístupový token je připojen pouze v případě, že alespoň jedna z autorizovaných adres URL je základem identifikátoru URI žádosti ( <xref:System.Net.Http.HttpRequestMessage.RequestUri?displayProperty=nameWithType> ).
+V následujícím příkladu vlastní třída rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> pro použití jako <xref:System.Net.Http.DelegatingHandler> pro <xref:System.Net.Http.HttpClient> . <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> nakonfiguruje tuto obslužnou rutinu tak, aby schvalovala odchozí požadavky HTTP pomocí přístupového tokenu. Přístupový token je připojen pouze v případě, že alespoň jedna z autorizovaných adres URL je základem identifikátoru URI žádosti ( <xref:System.Net.Http.HttpRequestMessage.RequestUri?displayProperty=nameWithType> ).
 
 ```csharp
 using Microsoft.AspNetCore.Components;
@@ -149,9 +149,9 @@ Nakonfigurovaná <xref:System.Net.Http.HttpClient> se používá k provádění 
 }
 ```
 
-### <a name="configure-authorizationmessagehandler"></a>Konfigurace`AuthorizationMessageHandler`
+### <a name="configure-authorizationmessagehandler"></a>Konfigurace `AuthorizationMessageHandler`
 
-<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler>dá se nakonfigurovat pomocí autorizovaných adres URL, oborů a návratové adresy URL pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> metody. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A>nakonfiguruje obslužnou rutinu pro autorizaci odchozích požadavků HTTP pomocí přístupového tokenu. Přístupový token je připojen pouze v případě, že alespoň jedna z autorizovaných adres URL je základem identifikátoru URI žádosti ( <xref:System.Net.Http.HttpRequestMessage.RequestUri?displayProperty=nameWithType> ). Pokud je identifikátor URI požadavku relativním identifikátorem URI, je v kombinaci s <xref:System.Net.Http.HttpClient.BaseAddress> .
+<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> dá se nakonfigurovat pomocí autorizovaných adres URL, oborů a návratové adresy URL pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> metody. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> nakonfiguruje obslužnou rutinu pro autorizaci odchozích požadavků HTTP pomocí přístupového tokenu. Přístupový token je připojen pouze v případě, že alespoň jedna z autorizovaných adres URL je základem identifikátoru URI žádosti ( <xref:System.Net.Http.HttpRequestMessage.RequestUri?displayProperty=nameWithType> ). Pokud je identifikátor URI požadavku relativním identifikátorem URI, je v kombinaci s <xref:System.Net.Http.HttpClient.BaseAddress> .
 
 V následujícím příkladu <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> nakonfiguruje <xref:System.Net.Http.HttpClient> v `Program.Main` ( `Program.cs` ):
 
@@ -176,7 +176,7 @@ Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného proj
 * Rozhraní <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ).
 * Adresa URL `authorizedUrls` pole
 
-## <a name="typed-httpclient"></a>Zadal`HttpClient`
+## <a name="typed-httpclient"></a>Zadal `HttpClient`
 
 Je možné definovat zadaného klienta, který zpracovává všechny aspekty získání HTTP a tokenu v rámci jedné třídy.
 
@@ -234,7 +234,7 @@ builder.Services.AddHttpClient<WeatherForecastClient>(
 
 Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného projektu <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ) je <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> ve výchozím nastavení přiřazeno.
 
-`FetchData`součást ( `Pages/FetchData.razor` ):
+`FetchData` součást ( `Pages/FetchData.razor` ):
 
 ```razor
 @inject WeatherForecastClient Client
@@ -352,12 +352,12 @@ if (tokenResult.TryGetToken(out var token))
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.TryGetToken%2A?displayProperty=nameWithType>Vrátí
+<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.TryGetToken%2A?displayProperty=nameWithType> Vrátí
 
-* `true`s nástrojem `token` pro použití.
-* `false`Pokud se token nenačte.
+* `true` s nástrojem `token` pro použití.
+* `false` Pokud se token nenačte.
 
-## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>`HttpClient`a `HttpRequestMessage` s možnostmi požadavku rozhraní API pro načtení
+## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>`HttpClient` a `HttpRequestMessage` s možnostmi požadavku rozhraní API pro načtení
 
 Při spuštění na WebAssembly v Blazor WebAssembly aplikaci [`HttpClient`](xref:fundamentals/http-requests) ([dokumentace k rozhraní API](xref:System.Net.Http.HttpClient)) a <xref:System.Net.Http.HttpRequestMessage> dá se použít k přizpůsobení požadavků. Můžete například zadat metodu HTTP a hlavičku požadavku. Následující komponenta vytvoří požadavek na `POST` koncový bod rozhraní API seznamu na serveru a zobrazí tělo odpovědi:
 
@@ -452,7 +452,7 @@ Následující zásady zahrnují konfiguraci pro:
 
 * Původ žádosti ( `http://localhost:5000` , `https://localhost:5001` ).
 * Libovolná metoda (příkaz).
-* `Content-Type`a `Authorization` hlavičky. Chcete-li pro vlastní hlavičku (například `x-custom-header` ), uveďte záhlaví při volání <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> .
+* `Content-Type` a `Authorization` hlavičky. Chcete-li pro vlastní hlavičku (například `x-custom-header` ), uveďte záhlaví při volání <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> .
 * Přihlašovací údaje nastavené kódem JavaScriptu na straně klienta ( `credentials` vlastnost je nastavena na hodnotu `include` ).
 
 ```csharp
@@ -697,7 +697,7 @@ builder.Services.AddSingleton<StateContainer>();
 
 ## <a name="customize-app-routes"></a>Přizpůsobení směrování aplikací
 
-Ve výchozím nastavení [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) Knihovna používá trasy, které jsou uvedeny v následující tabulce, pro reprezentace různých stavů ověřování.
+Ve výchozím nastavení [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) Knihovna používá trasy, které jsou uvedeny v následující tabulce, pro reprezentace různých stavů ověřování.
 
 | Trasa                            | Účel |
 | -------------------------------- | ------- |
@@ -715,7 +715,7 @@ Trasy zobrazené v předchozí tabulce lze konfigurovat prostřednictvím <xref:
 
 V následujícím příkladu jsou všechny cesty s předponou `/security` .
 
-`Authentication`součást ( `Pages/Authentication.razor` ):
+`Authentication` součást ( `Pages/Authentication.razor` ):
 
 ```razor
 @page "/security/{action}"
@@ -757,9 +757,9 @@ Pokud se rozhodnete tak učinit, můžete uživatelské rozhraní přerušit na 
 
 ## <a name="customize-the-authentication-user-interface"></a>Přizpůsobení uživatelského rozhraní ověřování
 
-<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView>obsahuje výchozí sadu částí uživatelského rozhraní pro každý stav ověřování. Každý stav lze přizpůsobit předáním vlastního <xref:Microsoft.AspNetCore.Components.RenderFragment> . K přizpůsobení zobrazeného textu během procesu prvotního přihlášení může změnit následující postup <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView> .
+<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView> obsahuje výchozí sadu částí uživatelského rozhraní pro každý stav ověřování. Každý stav lze přizpůsobit předáním vlastního <xref:Microsoft.AspNetCore.Components.RenderFragment> . K přizpůsobení zobrazeného textu během procesu prvotního přihlášení může změnit následující postup <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView> .
 
-`Authentication`součást ( `Pages/Authentication.razor` ):
+`Authentication` součást ( `Pages/Authentication.razor` ):
 
 ```razor
 @page "/security/{action}"

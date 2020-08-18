@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core zabezpečeníBlazor WebAssembly
+title: ASP.NET Core zabezpečení Blazor WebAssembly
 author: guardrex
 description: Naučte se zabezpečit Blazor aplikace WebAssemlby jako aplikace s jedním stránkou (jednostránkové).
 monikerRange: '>= aspnetcore-3.1'
@@ -17,22 +17,22 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: fef638d592cacfe2f4f67e522900979993905859
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: fe9bd270ce509e8389dd3d4f3f6f3a6dda03d425
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013590"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504538"
 ---
-# <a name="secure-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core zabezpečeníBlazor WebAssembly
+# <a name="secure-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core zabezpečení Blazor WebAssembly
 
 [Javier Calvarro Nelson](https://github.com/javiercn)
 
-Blazor WebAssemblyaplikace jsou zabezpečené stejným způsobem jako aplikace s jedním stránkou (jednostránkové). K ověřování uživatelů jednostránkové je k dispozici několik přístupů, ale nejběžnějším a komplexním přístupem je použití implementace založené na [protokolu OAuth 2,0](https://oauth.net/), jako je například [OPENID Connect (OIDC)](https://openid.net/connect/).
+Blazor WebAssembly aplikace jsou zabezpečené stejným způsobem jako aplikace s jedním stránkou (jednostránkové). K ověřování uživatelů jednostránkové je k dispozici několik přístupů, ale nejběžnějším a komplexním přístupem je použití implementace založené na [protokolu OAuth 2,0](https://oauth.net/), jako je například [OPENID Connect (OIDC)](https://openid.net/connect/).
 
 ## <a name="authentication-library"></a>Knihovna ověřování
 
-Blazor WebAssemblypodporuje ověřování a autorizaci aplikací pomocí OIDC prostřednictvím [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) knihovny. Knihovna poskytuje sadu primitivních hodnot pro bezproblémové ověřování proti ASP.NET Core back-endy. Knihovna se integruje ASP.NET Core Identity s podporou autorizace rozhraní API postavenou na [ Identity serveru](https://identityserver.io/). Knihovna se může ověřit u libovolného Identity poskytovatele (IP) třetí strany, který podporuje OIDC, kterým se říká poskytovatelé OpenID (OP).
+Blazor WebAssembly podporuje ověřování a autorizaci aplikací pomocí OIDC prostřednictvím [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication) knihovny. Knihovna poskytuje sadu primitivních hodnot pro bezproblémové ověřování proti ASP.NET Core back-endy. Knihovna se integruje ASP.NET Core Identity s podporou autorizace rozhraní API postavenou na [ Identity serveru](https://identityserver.io/). Knihovna se může ověřit u libovolného Identity poskytovatele (IP) třetí strany, který podporuje OIDC, kterým se říká poskytovatelé OpenID (OP).
 
 Podpora ověřování v nástroji Blazor WebAssembly je postavená na `oidc-client.js` knihovně, která se používá ke zpracování podrobností o podkladovém protokolu ověřování.
 
@@ -48,7 +48,7 @@ Další možnosti pro ověřování jednostránkové existují, jako je napřík
 
 ## <a name="authentication-process-with-oidc"></a>Proces ověřování pomocí OIDC
 
-[`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/)Knihovna nabízí několik primitivních primitiv pro implementaci ověřování a autorizaci pomocí OIDC. V rámci širokého hlediska funguje ověřování následujícím způsobem:
+[`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication)Knihovna nabízí několik primitivních primitiv pro implementaci ověřování a autorizaci pomocí OIDC. V rámci širokého hlediska funguje ověřování následujícím způsobem:
 
 * Když anonymní uživatel vybere tlačítko pro přihlášení nebo požádá o stránku s [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) použitým atributem, uživatel se přesměruje na přihlašovací stránku aplikace ( `/authentication/login` ).
 * Na přihlašovací stránce se knihovna ověřování připraví na přesměrování na koncový bod autorizace. Koncový bod autorizace je mimo Blazor WebAssembly aplikaci a je možné ho hostovat v samostatném zdroji. Koncový bod zodpovídá za zjištění, jestli je uživatel ověřený a který vydává jednu nebo více tokenů v reakci. Knihovna ověřování poskytuje zpětné volání přihlašovacího jména pro příjem ověřovací odpovědi.
@@ -113,6 +113,6 @@ Hostované Blazor WebAssembly aplikace:
 
 * [Azure Active Directory (AAD)](xref:blazor/security/webassembly/hosted-with-azure-active-directory)
 * [Azure Active Directory (AAD) B2C](xref:blazor/security/webassembly/hosted-with-azure-active-directory-b2c)
-* [IdentityWebServer](xref:blazor/security/webassembly/hosted-with-identity-server)
+* [Identity WebServer](xref:blazor/security/webassembly/hosted-with-identity-server)
 
 Další pokyny týkající se konfigurace najdete v tématu <xref:blazor/security/webassembly/additional-scenarios> .
