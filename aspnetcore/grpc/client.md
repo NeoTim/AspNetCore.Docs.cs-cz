@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 5aca81da34e5ed51b2dc4f404c1ba4d7377a422f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 65e386298af26d36900f13a5eb11aab7c012c2b0
+ms.sourcegitcommit: 756c78f6dbfa77c5d718969cdce20639b8ca0a17
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016242"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88515606"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>Volání služeb gRPC pomocí klienta .NET
 
@@ -73,7 +73,7 @@ Výkon a využití kanálu a klienta:
 * Kanál a klienti vytvořené z kanálu můžou být bezpečně využívány více vlákny.
 * Klienti vytvoření z kanálu můžou provádět víc souběžných volání.
 
-`GrpcChannel.ForAddress`není jedinou možností pro vytvoření klienta gRPC. Pokud voláte služby gRPC Services z aplikace ASP.NET Core, zvažte [integraci klientské továrny gRPC](xref:grpc/clientfactory). integrace gRPC s `HttpClientFactory` nabízí centralizovanou alternativu k vytváření klientů gRPC.
+`GrpcChannel.ForAddress` není jedinou možností pro vytvoření klienta gRPC. Pokud voláte služby gRPC Services z aplikace ASP.NET Core, zvažte [integraci klientské továrny gRPC](xref:grpc/clientfactory). integrace gRPC s `HttpClientFactory` nabízí centralizovanou alternativu k vytváření klientů gRPC.
 
 > [!NOTE]
 > Volání gRPC přes HTTP/2 s `Grpc.Net.Client` se v Xamarin v tuto chvíli nepodporuje. Pracujeme na vylepšení podpory protokolu HTTP/2 v budoucí verzi Xamarin. [Grpc. Core](https://www.nuget.org/packages/Grpc.Core) a [Grpc-web](xref:grpc/browser) představují životaschopné alternativy, které dnes fungují.
@@ -103,12 +103,12 @@ Console.WriteLine("Greeting: " + response.Message);
 
 Každá unární metoda služby v souboru * \* .* proč má za následek dvě metody .NET pro konkrétní typ klienta gRPC pro volání metody: asynchronní metodu a metodu blokování. Například `GreeterClient` existují dva způsoby volání `SayHello` :
 
-* `GreeterClient.SayHelloAsync`-volá `Greeter.SayHello` službu asynchronně. Může být očekáváno.
-* `GreeterClient.SayHello`-volá `Greeter.SayHello` službu a zablokuje se do dokončení. Nepoužívejte v asynchronním kódu.
+* `GreeterClient.SayHelloAsync` -volá `Greeter.SayHello` službu asynchronně. Může být očekáváno.
+* `GreeterClient.SayHello` -volá `Greeter.SayHello` službu a zablokuje se do dokončení. Nepoužívejte v asynchronním kódu.
 
 ### <a name="server-streaming-call"></a>Volání streamování serveru
 
-Volání streamování serveru začíná klientem, který odesílá zprávu požadavku. `ResponseStream.MoveNext()`přečte zprávy streamované ze služby. Volání streamování serveru je po `ResponseStream.MoveNext()` návratu dokončeno `false` .
+Volání streamování serveru začíná klientem, který odesílá zprávu požadavku. `ResponseStream.MoveNext()` přečte zprávy streamované ze služby. Volání streamování serveru je po `ResponseStream.MoveNext()` návratu dokončeno `false` .
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -136,7 +136,7 @@ await foreach (var response in call.ResponseStream.ReadAllAsync())
 
 ### <a name="client-streaming-call"></a>Volání streamování klientů
 
-Volání streamování klienta se spustí *bez* odeslání zprávy klientem. Klient nástroje může odeslat zprávy pomocí příkazu `RequestStream.WriteAsync` . Když klient dokončí posílání zpráv, `RequestStream.CompleteAsync` měla by se zavolat, aby službu informovaly. Volání je dokončeno, když služba vrátí zprávu odpovědi.
+Volání streamování klienta se spustí *bez* odeslání zprávy klientem. Klient nástroje může odeslat zprávy pomocí příkazu `RequestStream.WriteAsync` . Když klient dokončí posílání zpráv, `RequestStream.CompleteAsync()` měla by se zavolat, aby službu informovaly. Volání je dokončeno, když služba vrátí zprávu odpovědi.
 
 ```csharp
 var client = new Counter.CounterClient(channel);
@@ -188,6 +188,14 @@ Console.WriteLine("Disconnecting");
 await call.RequestStream.CompleteAsync();
 await readTask;
 ```
+
+Chcete-li dosáhnout nejlepšího výkonu a vyhnout se zbytečným chybám v klientech a službě, zkuste plynule volat obousměrné volání streamování. Obousměrné volání se dokončí řádným dodržením, když server dokončil čtení datového proudu požadavků a klient dokončil čtení streamu odpovědí. Předchozí ukázkové volání je jeden příklad obousměrného volání, které končí řádným ukončením. V volání klienta:
+
+1. Spustí nové obousměrné volání streamování voláním `EchoClient.Echo` .
+2. Vytvoří úlohu na pozadí ke čtení zpráv ze služby pomocí `ResponseStream.ReadAllAsync()` .
+3. Odesílá zprávy serveru pomocí `RequestStream.WriteAsync` .
+4. Upozorní server, na kterém dokončil odesílání zpráv `RequestStream.CompleteAsync()` .
+5. Počká, dokud úloha na pozadí nenačte všechny příchozí zprávy.
 
 Během volání obousměrného streamování může klient a služba kdykoli odesílat zprávy. Nejlepší klientská logika pro interakci s obousměrným voláním se liší v závislosti na logice služby.
 
