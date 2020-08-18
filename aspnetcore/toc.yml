@@ -426,6 +426,8 @@
           uid: blazor/webassembly-lazy-load-assemblies
         - name: Výkon WebAssembly
           uid: blazor/webassembly-performance-best-practices
+        - name: Test
+          uid: blazor/test
         - name: Webové aplikace PWA (Progressive Web Application)
           uid: blazor/progressive-web-app
         - name: Hostování a nasazení
@@ -438,6 +440,8 @@
               uid: blazor/host-and-deploy/server
             - name: Konfigurace Linkeru
               uid: blazor/host-and-deploy/configure-linker
+        - name: Server Blazor a EF Core
+          uid: blazor/blazor-server-ef-core
         - name: Pokročilé scénáře
           uid: blazor/advanced-scenarios
     - name: Vývoj klientské strany
@@ -945,7 +949,7 @@
   items:
     - name: Přehled
       uid: security/index
-    - name: Ověřování
+    - name: Authentication
       items:
         - name: Přehled
           uid: security/authentication/index
