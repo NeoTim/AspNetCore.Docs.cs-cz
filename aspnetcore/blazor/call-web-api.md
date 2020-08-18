@@ -1,5 +1,5 @@
 ---
-title: Volání webového rozhraní API z ASP.NET CoreBlazor WebAssembly
+title: Volání webového rozhraní API z ASP.NET Core Blazor WebAssembly
 author: guardrex
 description: Naučte se volat webové rozhraní API z Blazor WebAssembly aplikace pomocí pomocníků JSON, včetně vytváření žádostí o sdílení prostředků mezi zdroji (CORS).
 monikerRange: '>= aspnetcore-3.1'
@@ -17,21 +17,21 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: ef31d3d9b3914f3c86aa397ff214778fe295964b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f8c105624506d13f3ea8e963ceb49aeaf6d22a66
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012579"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504564"
 ---
-# <a name="call-a-web-api-from-aspnet-core-no-locblazor"></a>Volání webového rozhraní API z ASP.NET CoreBlazor
+# <a name="call-a-web-api-from-aspnet-core-no-locblazor"></a>Volání webového rozhraní API z ASP.NET Core Blazor
 
 Od [Luke Latham](https://github.com/guardrex), [Daniel Skořepa](https://github.com/danroth27)a [Juan de la Cruz](https://github.com/juandelacruz23)
 
 > [!NOTE]
-> Toto téma se týká Blazor WebAssembly . [Blazor Server](xref:blazor/hosting-models#blazor-server)aplikace volají webová rozhraní API pomocí <xref:System.Net.Http.HttpClient> instancí, které se obvykle vytvářejí pomocí <xref:System.Net.Http.IHttpClientFactory> . Pokyny, které se týkají Blazor Server , najdete v tématu <xref:fundamentals/http-requests> .
+> Toto téma se týká Blazor WebAssembly . [Blazor Server](xref:blazor/hosting-models#blazor-server) aplikace volají webová rozhraní API pomocí <xref:System.Net.Http.HttpClient> instancí, které se obvykle vytvářejí pomocí <xref:System.Net.Http.IHttpClientFactory> . Pokyny, které se týkají Blazor Server , najdete v tématu <xref:fundamentals/http-requests> .
 
-[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)aplikace volají webová rozhraní API pomocí předem nakonfigurované <xref:System.Net.Http.HttpClient> služby. Požadavky na sestavení, které mohou zahrnovat možnosti [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu, použití Blazor pomocníků JSON nebo s <xref:System.Net.Http.HttpRequestMessage> . <xref:System.Net.Http.HttpClient>Služba v Blazor WebAssembly aplikacích se zaměřuje na poskytování požadavků zpět na server původu. Pokyny v tomto tématu se vztahují jenom na Blazor WebAssembly aplikace.
+[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) aplikace volají webová rozhraní API pomocí předem nakonfigurované <xref:System.Net.Http.HttpClient> služby. Požadavky na sestavení, které mohou zahrnovat možnosti [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu, použití Blazor pomocníků JSON nebo s <xref:System.Net.Http.HttpRequestMessage> . <xref:System.Net.Http.HttpClient>Služba v Blazor WebAssembly aplikacích se zaměřuje na poskytování požadavků zpět na server původu. Pokyny v tomto tématu se vztahují jenom na Blazor WebAssembly aplikace.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample)): vyberte `BlazorWebAssemblySample` aplikaci.
 
@@ -42,7 +42,7 @@ Podívejte se na následující komponenty v `BlazorWebAssemblySample` ukázkov�
 
 ## <a name="packages"></a>Balíčky
 
-Odkázat na [`System.Net.Http.Json`](https://www.nuget.org/packages/System.Net.Http.Json/) balíček NuGet v souboru projektu.
+Odkázat na [`System.Net.Http.Json`](https://www.nuget.org/packages/System.Net.Http.Json) balíček NuGet v souboru projektu.
 
 ## <a name="add-the-httpclient-service"></a>Přidání služby HttpClient
 
@@ -62,7 +62,7 @@ V Blazor WebAssembly aplikaci [`HttpClient`](xref:fundamentals/http-requests) je
 
 Blazor ServerAplikace <xref:System.Net.Http.HttpClient> ve výchozím nastavení neobsahuje službu. Poskytněte <xref:System.Net.Http.HttpClient> aplikaci do aplikace pomocí [ `HttpClient` produkční infrastruktury](xref:fundamentals/http-requests).
 
-<xref:System.Net.Http.HttpClient>a pomocníkům JSON se taky používají k volání koncových bodů webového rozhraní API třetích stran. <xref:System.Net.Http.HttpClient>je implementováno pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) prohlížeče a podléhá jeho omezením, včetně vynucení stejných zásad původu.
+<xref:System.Net.Http.HttpClient> a pomocníkům JSON se taky používají k volání koncových bodů webového rozhraní API třetích stran. <xref:System.Net.Http.HttpClient> je implementováno pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) prohlížeče a podléhá jeho omezením, včetně vynucení stejných zásad původu.
 
 Základní adresa klienta je nastavena na adresu původního serveru. Vložení <xref:System.Net.Http.HttpClient> instance pomocí [`@inject`](xref:mvc/views/razor#inject) direktivy:
 
@@ -163,7 +163,7 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
   var content = response.Content.ReadFromJsonAsync<WeatherForecast>();
   ```
 
-<xref:System.Net.Http>zahrnuje další metody rozšíření pro posílání požadavků HTTP a příjem odpovědí HTTP. <xref:System.Net.Http.HttpClient.DeleteAsync%2A?displayProperty=nameWithType>slouží k odeslání požadavku HTTP DELETE webovému rozhraní API.
+<xref:System.Net.Http> zahrnuje další metody rozšíření pro posílání požadavků HTTP a příjem odpovědí HTTP. <xref:System.Net.Http.HttpClient.DeleteAsync%2A?displayProperty=nameWithType> slouží k odeslání požadavku HTTP DELETE webovému rozhraní API.
 
 V následujícím kódu `<button>` element Delete volá `DeleteItem` metodu. Vázaný `<input>` element poskytuje položku, `id` která se má odstranit. Kompletní příklad najdete v ukázkové aplikaci.
 
@@ -184,9 +184,9 @@ V následujícím kódu `<button>` element Delete volá `DeleteItem` metodu. Vá
 
 ## <a name="named-httpclient-with-ihttpclientfactory"></a>S názvem HttpClient s IHttpClientFactory
 
-<xref:System.Net.Http.IHttpClientFactory>podporují se služby a konfigurace s názvem <xref:System.Net.Http.HttpClient> .
+<xref:System.Net.Http.IHttpClientFactory> podporují se služby a konfigurace s názvem <xref:System.Net.Http.HttpClient> .
 
-Odkázat na [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http/) balíček NuGet v souboru projektu.
+Odkázat na [`Microsoft.Extensions.Http`](https://www.nuget.org/packages/Microsoft.Extensions.Http) balíček NuGet v souboru projektu.
 
 `Program.Main` (`Program.cs`):
 
@@ -195,7 +195,7 @@ builder.Services.AddHttpClient("ServerAPI", client =>
     client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 ```
 
-`FetchData`součást ( `Pages/FetchData.razor` ):
+`FetchData` součást ( `Pages/FetchData.razor` ):
 
 ```razor
 @inject IHttpClientFactory ClientFactory
@@ -263,7 +263,7 @@ builder.Services.AddHttpClient<WeatherForecastClient>(client =>
 
 Komponenty vkládají typ <xref:System.Net.Http.HttpClient> pro volání webového rozhraní API.
 
-`FetchData`součást ( `Pages/FetchData.razor` ):
+`FetchData` součást ( `Pages/FetchData.razor` ):
 
 ```razor
 @inject WeatherForecastClient Client

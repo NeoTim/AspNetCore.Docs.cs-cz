@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core hostitele a nasazeníBlazor WebAssembly
+title: ASP.NET Core hostitele a nasazení Blazor WebAssembly
 author: guardrex
 description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Core, stránek Content Delivery Networks (CDN), souborových serverů a GitHubu.
 monikerRange: '>= aspnetcore-3.1'
@@ -17,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 06059e0f9ff6a3f4073d8d01d1ac541c30ad1ab1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e66a470bf5bd23950bdb0ccf61c6743916ed9349
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014188"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504551"
 ---
-# <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core hostitele a nasazeníBlazor WebAssembly
+# <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core hostitele a nasazení Blazor WebAssembly
 
 Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), [Daniel Skořepa](https://github.com/danroth27), [Robert Adams](https://twitter.com/ben_a_adams)a [Safia Abdalla](https://safia.rocks)
 
@@ -45,7 +45,7 @@ Při Blazor WebAssembly publikování aplikace je výstup během publikování s
 * [Brotli](https://tools.ietf.org/html/rfc7932) (nejvyšší úroveň)
 * [GZIP](https://tools.ietf.org/html/rfc1952)
 
-Blazorspoléhá na hostitele, který obsluhuje příslušné komprimované soubory. Při použití hostovaného projektu ASP.NET Core je hostitelský projekt schopný provádět vyjednávání obsahu a obsluhovat staticky komprimované soubory. Při hostování Blazor WebAssembly samostatné aplikace může být nutné provést další práci, aby bylo zajištěno, že budou obsluhovány staticky komprimované soubory:
+Blazor spoléhá na hostitele, který obsluhuje příslušné komprimované soubory. Při použití hostovaného projektu ASP.NET Core je hostitelský projekt schopný provádět vyjednávání obsahu a obsluhovat staticky komprimované soubory. Při hostování Blazor WebAssembly samostatné aplikace může být nutné provést další práci, aby bylo zajištěno, že budou obsluhovány staticky komprimované soubory:
 
 * `web.config`Konfiguraci komprese služby IIS najdete v části [IIS: Brotli a komprese GZip](#brotli-and-gzip-compression) . 
 * Při hostování řešení statického hostování, které nepodporují vyjednávání se staticky komprimovaným souborem, jako jsou stránky GitHubu, zvažte konfiguraci aplikace pro načtení a dekódování Brotli komprimovaných souborů:
@@ -87,6 +87,12 @@ Chcete-li vypnout kompresi, přidejte `BlazorEnableCompression` do souboru proje
 </PropertyGroup>
 ```
 
+`BlazorEnableCompression`Vlastnost může být předána [`dotnet publish`](/dotnet/core/tools/dotnet-publish) příkazu s následující syntaxí v příkazovém prostředí:
+
+```dotnetcli
+dotnet publish -p:BlazorEnableCompression=false
+```
+
 ## <a name="rewrite-urls-for-correct-routing"></a>Přepište adresy URL pro správné směrování.
 
 Požadavky směrování na součásti stránky v Blazor WebAssembly aplikaci nejsou stejně jednoduché jako požadavky směrování v Blazor Server hostované aplikaci. Vezměte v úvahu Blazor WebAssembly aplikaci se dvěma součástmi:
@@ -98,7 +104,7 @@ Pokud je výchozí dokument aplikace požadován pomocí panelu Adresa prohlíž
 
 1. Prohlížeč vytvoří požadavek.
 1. Vrátí se výchozí stránka, což je obvykle `index.html` .
-1. `index.html`napředá aplikaci.
+1. `index.html` napředá aplikaci.
 1. Blazorse načte směrovač a Razor `Main` Komponenta se vykreslí.
 
 Na hlavní stránce vyberte odkaz na `About` komponentu na klientovi, protože Blazor směrovač zastaví v prohlížeči, aby odeslal požadavek na Internet `www.contoso.com` pro `About` a sloužil přímo vykreslené `About` součásti. Všechny požadavky na vnitřní koncové body *v Blazor WebAssembly aplikaci* fungují stejným způsobem: požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu. Směrovač zpracovává požadavky interně.
@@ -410,7 +416,7 @@ Samostatné prostředky nasazení jsou publikovány do `/bin/Release/{TARGET FRA
 
 ### <a name="azure-app-service"></a>Azure App Service
 
-Blazor WebAssemblyaplikace se dají nasadit do Azure App Services v systému Windows, které hostují aplikaci ve [službě IIS](#iis).
+Blazor WebAssembly aplikace se dají nasadit do Azure App Services v systému Windows, které hostují aplikaci ve [službě IIS](#iis).
 
 Nasazení samostatné Blazor WebAssembly aplikace do Azure App Service pro Linux není aktuálně podporováno. Image serveru pro Linux, která je hostitelem aplikace, není v tuto chvíli k dispozici. Pro povolení tohoto scénáře probíhá práce.
 
@@ -504,7 +510,7 @@ Hostování statického souboru [Azure Storage](/azure/storage/) umožňuje Blaz
 Když je u služby BLOB Service povolené hostování statických webů v účtu úložiště:
 
 * Nastavte **název dokumentu indexu** na `index.html` .
-* Nastavte **cestu k chybovému dokumentu** na `index.html` . Razorsoučásti a jiné koncové body, které nejsou v souboru, se neukládají na fyzických cestách ve statickém obsahu uloženém službou BLOB Service. Když se přijme žádost o jeden z těchto prostředků, kterou Blazor by měl směrovač zpracovat, chyba *404 – nenalezená* služba BLOB Service směruje požadavek na **cestu k chybovému dokumentu**. `index.html`Vrátí se objekt BLOB a Blazor směrovač načte a zpracuje cestu.
+* Nastavte **cestu k chybovému dokumentu** na `index.html` . Razor součásti a jiné koncové body, které nejsou v souboru, se neukládají na fyzických cestách ve statickém obsahu uloženém službou BLOB Service. Když se přijme žádost o jeden z těchto prostředků, kterou Blazor by měl směrovač zpracovat, chyba *404 – nenalezená* služba BLOB Service směruje požadavek na **cestu k chybovému dokumentu**. `index.html`Vrátí se objekt BLOB a Blazor směrovač načte a zpracuje cestu.
 
 Pokud nejsou za běhu načteny soubory z důvodu nevhodných typů MIME v `Content-Type` hlavičkách souborů, proveďte jednu z následujících akcí:
 
@@ -703,7 +709,7 @@ Při použití webu projektu namísto webu organizace aktualizujte `<base>` zna�
 
 ## <a name="configure-the-linker"></a>Konfigurace Linkeru
 
-Blazorprovede propojení s mezijazykem (IL) na každém sestavení vydaných verzí a odebere z výstupních sestavení zbytečné IL. Další informace naleznete v tématu <xref:blazor/host-and-deploy/configure-linker>.
+Blazor provede propojení s mezijazykem (IL) na každém sestavení vydaných verzí a odebere z výstupních sestavení zbytečné IL. Další informace naleznete v tématu <xref:blazor/host-and-deploy/configure-linker>.
 
 ## <a name="custom-boot-resource-loading"></a>Načítání vlastního spouštěcího prostředku
 
@@ -713,16 +719,16 @@ Blazor WebAssemblyAplikaci lze inicializovat pomocí `loadBootResource` funkce p
 * Načtěte komprimovaná sestavení pomocí požadavku HTTP a dekomprimujte je v klientovi pro hostitele, kteří nepodporují načítání komprimovaného obsahu ze serveru.
 * Aliasujte prostředky na jiný název tak, že každý požadavek přesměrujete `fetch` na nový název.
 
-`loadBootResource`parametry jsou uvedeny v následující tabulce.
+`loadBootResource` parametry jsou uvedeny v následující tabulce.
 
 | Parametr    | Popis |
 | ------------ | ----------- |
-| `type`       | Typ prostředku. Permissable typy: `assembly` , `pdb` , `dotnetjs` , `dotnetwasm` ,`timezonedata` |
+| `type`       | Typ prostředku. Permissable typy: `assembly` , `pdb` , `dotnetjs` , `dotnetwasm` , `timezonedata` |
 | `name`       | Název prostředku. |
 | `defaultUri` | Relativní nebo absolutní identifikátor URI prostředku. |
 | `integrity`  | Řetězec integrity představující očekávaný obsah v odpovědi |
 
-`loadBootResource`Vrátí některou z následujících možností pro přepsání procesu načítání:
+`loadBootResource` Vrátí některou z následujících možností pro přepsání procesu načítání:
 
 * Řetězec identifikátoru URI. V následujícím příkladu ( `wwwroot/index.html` ) jsou následující soubory obsluhovány ze sítě CDN v `https://my-awesome-cdn.com/` :
 

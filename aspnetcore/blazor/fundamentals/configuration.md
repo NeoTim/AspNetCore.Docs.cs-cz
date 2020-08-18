@@ -17,19 +17,19 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/configuration
-ms.openlocfilehash: 437e7be6b805ad836df60e831f5e0dc0bda4f5a5
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 159b6da106ab21946ae02a970a28e1f0309acf6c
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014448"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504577"
 ---
 # <a name="aspnet-core-no-locblazor-configuration"></a>BlazorKonfigurace ASP.NET Core
 
 > [!NOTE]
 > Toto téma se týká Blazor WebAssembly . Obecné pokyny týkající se konfigurace ASP.NET Core aplikace najdete v tématu <xref:fundamentals/configuration/index> .
 
-Blazor WebAssemblyNačte konfiguraci ze souborů nastavení aplikace ve výchozím nastavení:
+Blazor WebAssembly Načte konfiguraci ze souborů nastavení aplikace ve výchozím nastavení:
 
 * `wwwroot/appsettings.json`
 * `wwwroot/appsettings.{ENVIRONMENT}.json`
@@ -200,11 +200,13 @@ builder.Services.AddOidcAuthentication(options =>
 
 ## <a name="logging-configuration"></a>Konfigurace protokolování
 
-Přidat odkaz na balíček pro [`Microsoft.Extensions.Logging.Configuration`](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/) :
+Přidat odkaz na balíček pro [`Microsoft.Extensions.Logging.Configuration`](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration) :
 
 ```xml
 <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="{VERSION}" />
 ```
+
+Pro zástupný text je `{VERSION}` nejnovější stabilní verze balíčku, která odpovídá verzi sdílené architektury aplikace, nalezena v **historii verzí** balíčku na adrese [NuGet.org](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration).
 
 `wwwroot/appsettings.json`:
 

@@ -5,7 +5,7 @@ description: Naučte se ladit Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2020
+ms.date: 08/17/2020
 no-loc:
 - cookie
 - Cookie
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 7b5dac5c634ae3eef180ef2c7c7287da94342169
-ms.sourcegitcommit: 4df445e7d49a99f81625430f728c28e5d6bf2107
+ms.openlocfilehash: ac649b80a6cb1106de8acbb4764b53017afaa238
+ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/15/2020
-ms.locfileid: "88253574"
+ms.lasthandoff: 08/18/2020
+ms.locfileid: "88504590"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core ladění Blazor WebAssembly
 
@@ -42,7 +42,7 @@ K dispozici jsou tyto scénáře:
 Teď *nemůžete*:
 
 * Přerušit při neošetřených výjimkách.
-* Při spuštění aplikace se zarážky volání.
+* Zarážky volání během spouštění aplikace před spuštěním ladicího proxy serveru. To zahrnuje zarážky v `Program.Main` ( `Program.cs` ) a zarážky v [ `OnInitialized{Async}` metodách](xref:blazor/components/lifecycle#component-initialization-methods) komponent, které jsou načteny první stránkou požadovanou z aplikace.
 
 V nadcházejících vydáních budeme dál zlepšovat možnosti ladění.
 
