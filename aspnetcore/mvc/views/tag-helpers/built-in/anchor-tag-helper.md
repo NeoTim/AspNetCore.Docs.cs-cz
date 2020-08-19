@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/13/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: 25f1716b5c80492edb72bc9555954c9c93c02a49
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: fcb58e2e0bfc6598edeb8c7f79986c3faf84e316
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018763"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633926"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>Pomocný objekt příznaku kotvy v ASP.NET Core
 
@@ -185,7 +186,7 @@ Atribut [Area ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Area
 
 #### <a name="usage-in-no-locrazor-pages"></a>Použití na Razor stránkách
 
-RazorOblasti stránek jsou podporovány v ASP.NET Core 2,1 nebo novějším.
+Razor Oblasti stránek jsou podporovány v ASP.NET Core 2,1 nebo novějším.
 
 Vezměte v úvahu následující hierarchii adresářů:
 
@@ -251,7 +252,7 @@ Generovaný kód HTML:
 
 ### <a name="asp-protocol"></a>protokol ASP
 
-Atribut [ASP-Protocol](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Protocol*) je určen pro určení protokolu (například `https` ) v adrese URL. Například:
+Atribut [ASP-Protocol](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Protocol*) je určen pro určení protokolu (například `https` ) v adrese URL. Příklad:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspProtocol)]
 
@@ -265,7 +266,7 @@ Název hostitele v příkladu je localhost. Pomocník značek ukotvení použív
 
 ### <a name="asp-host"></a>ASP – hostitel
 
-Atribut [Host ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Host*) slouží k zadání názvu hostitele v adrese URL. Například:
+Atribut [Host ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Host*) slouží k zadání názvu hostitele v adrese URL. Příklad:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspHost)]
 

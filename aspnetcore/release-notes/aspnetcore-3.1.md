@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 68373c39461be896a52627e21577fdda89cbb661
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f25cb38a3390600664980933caaf1003b533b2b6
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019585"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627569"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>Co je nového v ASP.NET Core 3,1
 
@@ -29,9 +30,9 @@ Tento článek popisuje nejvýznamnější změny v ASP.NET Core 3,1 s odkazy na
 
 ## <a name="partial-class-support-for-no-locrazor-components"></a>Podpora částečné třídy pro Razor součásti
 
-Razorkomponenty se nyní generují jako částečné třídy. Kód pro Razor komponentu lze zapsat pomocí souboru kódu na pozadí definovaného jako dílčí třídy namísto definice veškerého kódu pro komponentu v jednom souboru. Další informace naleznete v tématu [Podpora částečné třídy](xref:blazor/components/index#partial-class-support).
+Razor komponenty se nyní generují jako částečné třídy. Kód pro Razor komponentu lze zapsat pomocí souboru kódu na pozadí definovaného jako dílčí třídy namísto definice veškerého kódu pro komponentu v jednom souboru. Další informace naleznete v tématu [Podpora částečné třídy](xref:blazor/components/index#partial-class-support).
 
-## <a name="no-locblazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>BlazorPomocná komponenta značek komponenty a předání parametrů komponentám nejvyšší úrovně
+## <a name="no-locblazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>Blazor Pomocná komponenta značek komponenty a předání parametrů komponentám nejvyšší úrovně
 
 V Blazor with ASP.NET Core 3,0 byly komponenty vykresleny do stránek a zobrazení pomocí pomocníka jazyka HTML ( `Html.RenderComponentAsync` ). V ASP.NET Core 3,1 vykreslete komponentu ze stránky nebo zobrazení pomocí nového pomocníka značky komponenty:
 
@@ -41,7 +42,7 @@ V Blazor with ASP.NET Core 3,0 byly komponenty vykresleny do stránek a zobrazen
 
 Pomocník HTML zůstane v ASP.NET Core 3,1 podporován, ale doporučuje se pomocník značek komponent.
 
-Blazor Serveraplikace teď můžou předat parametry na nejvyšší úrovni během počátečního vykreslování. Dříve jste mohli předat parametry do komponenty nejvyšší úrovně pomocí [RenderMode. static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static). V této verzi jsou podporovány obě [RenderMode. Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) i [RenderMode. ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) . Všechny zadané hodnoty parametrů jsou serializovány jako JSON a zahrnuty do počáteční odezvy.
+Blazor Server aplikace teď můžou předat parametry na nejvyšší úrovni během počátečního vykreslování. Dříve jste mohli předat parametry do komponenty nejvyšší úrovně pomocí [RenderMode. static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static). V této verzi jsou podporovány obě [RenderMode. Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) i [RenderMode. ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) . Všechny zadané hodnoty parametrů jsou serializovány jako JSON a zahrnuty do počáteční odezvy.
 
 Například fáze PreRender `Counter` komponentu s přírůstnou velikostí ( `IncrementAmount` ):
 

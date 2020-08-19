@@ -1,11 +1,12 @@
 ---
-title: Použít cookie ověřování bez ASP.NET CoreIdentity
+title: Použít cookie ověřování bez ASP.NET Core Identity
 author: rick-anderson
 description: Naučte se používat cookie ověřování bez ASP.NET Core Identity .
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 02/11/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,20 +17,20 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/cookie
-ms.openlocfilehash: 325bc3dcd48517d93d5f6f2d56e92651c780d759
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2e9eb58837d74343d8de6903372146570b43f330
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021884"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627140"
 ---
-# <a name="use-no-loccookie-authentication-without-aspnet-core-no-locidentity"></a>Použít cookie ověřování bez ASP.NET CoreIdentity
+# <a name="use-no-loccookie-authentication-without-no-locaspnet-core-identity"></a>Použít cookie ověřování bez ASP.NET Core Identity
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core Identity je úplný, plnohodnotný zprostředkovatel ověřování pro vytváření a správu přihlašovacích údajů. Nicméně je cookie možné použít zprostředkovatele ověřování založeného na použití bez ASP.NET Core Identity . Další informace naleznete v tématu <xref:security/authentication/identity>.
+ASP.NET Core Identity je úplný, plnohodnotný zprostředkovatel ověřování pro vytváření a správu přihlašovacích údajů. Nicméně cookie poskytovatele ověřování založeného na typu se ASP.NET Core Identity dá použít. Další informace naleznete v tématu <xref:security/authentication/identity>.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
@@ -43,7 +44,7 @@ V `Startup.ConfigureServices` metodě vytvořte služby ověřování middlewaru
 
 [!code-csharp[](cookie/samples/3.x/CookieSample/Startup.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme>předáno pro `AddAuthentication` Nastavení výchozího schématu ověřování pro aplikaci. `AuthenticationScheme`je užitečné v případě, že existuje více instancí cookie ověřování a vy chcete [autorizovat pomocí konkrétního schématu](xref:security/authorization/limitingidentitybyscheme). Nastavení `AuthenticationScheme` na [ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) poskytuje Cookie pro schéma hodnotu "s". Můžete dodat libovolnou řetězcovou hodnotu, která rozlišuje schéma.
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme> předáno pro `AddAuthentication` Nastavení výchozího schématu ověřování pro aplikaci. `AuthenticationScheme` je užitečné v případě, že existuje více instancí cookie ověřování a vy chcete [autorizovat pomocí konkrétního schématu](xref:security/authorization/limitingidentitybyscheme). Nastavení `AuthenticationScheme` na [ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) poskytuje Cookie pro schéma hodnotu "s". Můžete dodat libovolnou řetězcovou hodnotu, která rozlišuje schéma.
 
 Schéma ověřování aplikace se liší od cookie schématu ověřování aplikace. Pokud cookie není k dispozici schéma ověřování pro <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> , používá `CookieAuthenticationDefaults.AuthenticationScheme` (" Cookie s").
 
@@ -65,7 +66,7 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     });
 ```
 
-## <a name="no-loccookie-policy-middleware"></a>CookieMiddleware zásad
+## <a name="no-loccookie-policy-middleware"></a>Cookie Middleware zásad
 
 [ Cookie Middleware zásad](xref:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware) umožňuje cookie Možnosti zásad. Přidání middlewaru do kanálu zpracování aplikace je v pořádku &mdash; . týká se pouze podřízených komponent registrovaných v kanálu.
 
@@ -92,7 +93,7 @@ CookieNastavení middlewaru zásad pro `MinimumSameSitePolicy` může ovlivnit n
 | SameSiteMode. LAX      | SameSiteMode. None<br>SameSiteMode. LAX<br>SameSiteMode. Strict | SameSiteMode. LAX<br>SameSiteMode. LAX<br>SameSiteMode. Strict |
 | SameSiteMode. Strict   | SameSiteMode. None<br>SameSiteMode. LAX<br>SameSiteMode. Strict | SameSiteMode. Strict<br>SameSiteMode. Strict<br>SameSiteMode. Strict |
 
-## <a name="create-an-authentication-no-loccookie"></a>Vytvoření ověřovánícookie
+## <a name="create-an-authentication-no-loccookie"></a>Vytvoření ověřování cookie
 
 Chcete-li vytvořit cookie informace o uživatelích obsahující informace o uživateli, vytvořte <xref:System.Security.Claims.ClaimsPrincipal> . Informace o uživateli jsou serializovány a uloženy v cookie . 
 
@@ -102,9 +103,9 @@ Vytvořit <xref:System.Security.Claims.ClaimsIdentity> s libovolným vyžadovan�
 
 [!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]
 
-`SignInAsync`Vytvoří zašifrovaný objekt cookie a přidá ho k aktuální odpovědi. Pokud `AuthenticationScheme` není zadaný, použije se výchozí schéma.
+`SignInAsync` Vytvoří zašifrovaný objekt cookie a přidá ho k aktuální odpovědi. Pokud `AuthenticationScheme` není zadaný, použije se výchozí schéma.
 
-<xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.RedirectUri>se ve výchozím nastavení používá jenom pro několik specifických cest, například přihlašovací cesta a cesty odhlášení. Další informace najdete v tématu [ Cookie AuthenticationHandler source](https://github.com/dotnet/aspnetcore/blob/f2e6e6ff334176540ef0b3291122e359c2106d1a/src/Security/Authentication/Cookies/src/CookieAuthenticationHandler.cs#L334).
+<xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.RedirectUri> se ve výchozím nastavení používá jenom pro několik specifických cest, například přihlašovací cesta a cesty odhlášení. Další informace najdete v tématu [ Cookie AuthenticationHandler source](https://github.com/dotnet/aspnetcore/blob/f2e6e6ff334176540ef0b3291122e359c2106d1a/src/Security/Authentication/Cookies/src/CookieAuthenticationHandler.cs#L334).
 
 Systém [ochrany dat](xref:security/data-protection/using-data-protection) ASP.NET Core slouží k šifrování. Pro aplikaci hostovanou na více počítačích, Vyrovnávání zatížení napříč aplikacemi nebo při použití webové farmy [nakonfigurujte ochranu dat](xref:security/data-protection/configuration/overview) tak, aby používala stejný identifikátor Key Ring a App.
 
@@ -250,7 +251,7 @@ await HttpContext.SignInAsync(
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core Identity je úplný, plnohodnotný zprostředkovatel ověřování pro vytváření a správu přihlašovacích údajů. cookieMůžete ale použít poskytovatele ověřování ověřování založeného na ověřování bez ASP.NET Core Identity . Další informace naleznete v tématu <xref:security/authentication/identity>.
+ASP.NET Core Identity je úplný, plnohodnotný zprostředkovatel ověřování pro vytváření a správu přihlašovacích údajů. cookieZprostředkovatele ověřování typu ověřování založeného na ověřování však ASP.NET Core Identity nelze použít. Další informace naleznete v tématu <xref:security/authentication/identity>.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
@@ -264,7 +265,7 @@ V `Startup.ConfigureServices` metodě vytvořte službu ověřování middlewaru
 
 [!code-csharp[](cookie/samples/2.x/CookieSample/Startup.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme>předáno pro `AddAuthentication` Nastavení výchozího schématu ověřování pro aplikaci. `AuthenticationScheme`je užitečné v případě, že existuje více instancí cookie ověřování a vy chcete [autorizovat pomocí konkrétního schématu](xref:security/authorization/limitingidentitybyscheme). Nastavení `AuthenticationScheme` na [ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) poskytuje Cookie pro schéma hodnotu "s". Můžete dodat libovolnou řetězcovou hodnotu, která rozlišuje schéma.
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme> předáno pro `AddAuthentication` Nastavení výchozího schématu ověřování pro aplikaci. `AuthenticationScheme` je užitečné v případě, že existuje více instancí cookie ověřování a vy chcete [autorizovat pomocí konkrétního schématu](xref:security/authorization/limitingidentitybyscheme). Nastavení `AuthenticationScheme` na [ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) poskytuje Cookie pro schéma hodnotu "s". Můžete dodat libovolnou řetězcovou hodnotu, která rozlišuje schéma.
 
 Schéma ověřování aplikace se liší od cookie schématu ověřování aplikace. Pokud cookie není k dispozici schéma ověřování pro <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> , používá `CookieAuthenticationDefaults.AuthenticationScheme` (" Cookie s").
 
@@ -286,7 +287,7 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     });
 ```
 
-## <a name="no-loccookie-policy-middleware"></a>CookieMiddleware zásad
+## <a name="no-loccookie-policy-middleware"></a>Cookie Middleware zásad
 
 [ Cookie Middleware zásad](xref:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware) umožňuje cookie Možnosti zásad. Přidání middlewaru do kanálu zpracování aplikace je v pořádku &mdash; . týká se pouze podřízených komponent registrovaných v kanálu.
 
@@ -313,7 +314,7 @@ CookieNastavení middlewaru zásad pro `MinimumSameSitePolicy` může ovlivnit n
 | SameSiteMode. LAX      | SameSiteMode. None<br>SameSiteMode. LAX<br>SameSiteMode. Strict | SameSiteMode. LAX<br>SameSiteMode. LAX<br>SameSiteMode. Strict |
 | SameSiteMode. Strict   | SameSiteMode. None<br>SameSiteMode. LAX<br>SameSiteMode. Strict | SameSiteMode. Strict<br>SameSiteMode. Strict<br>SameSiteMode. Strict |
 
-## <a name="create-an-authentication-no-loccookie"></a>Vytvoření ověřovánícookie
+## <a name="create-an-authentication-no-loccookie"></a>Vytvoření ověřování cookie
 
 Chcete-li vytvořit cookie informace o uživatelích obsahující informace o uživateli, vytvořte <xref:System.Security.Claims.ClaimsPrincipal> . Informace o uživateli jsou serializovány a uloženy v cookie . 
 
@@ -321,7 +322,7 @@ Vytvořit <xref:System.Security.Claims.ClaimsIdentity> s libovolným vyžadovan�
 
 [!code-csharp[](cookie/samples/2.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet1)]
 
-`SignInAsync`Vytvoří zašifrovaný objekt cookie a přidá ho k aktuální odpovědi. Pokud `AuthenticationScheme` není zadaný, použije se výchozí schéma.
+`SignInAsync` Vytvoří zašifrovaný objekt cookie a přidá ho k aktuální odpovědi. Pokud `AuthenticationScheme` není zadaný, použije se výchozí schéma.
 
 Systém [ochrany dat](xref:security/data-protection/using-data-protection) ASP.NET Core slouží k šifrování. Pro aplikaci hostovanou na více počítačích, Vyrovnávání zatížení napříč aplikacemi nebo při použití webové farmy [nakonfigurujte ochranu dat](xref:security/data-protection/configuration/overview) tak, aby používala stejný identifikátor Key Ring a App.
 
@@ -465,7 +466,7 @@ await HttpContext.SignInAsync(
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:security/authorization/limitingidentitybyscheme>
 * <xref:security/authorization/claims>

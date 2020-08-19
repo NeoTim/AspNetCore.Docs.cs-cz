@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: bb29001e30578e0992e578c2f98cda82c5dcf185
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e03711d970c83c2b7d6cc76039cb0d556a751018
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018660"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628908"
 ---
 # <a name="part-8-no-locrazor-pages-with-ef-core-in-aspnet-core---concurrency"></a>Část 8, Razor stránky s EF Core v ASP.NET Core-concurrency
 
@@ -267,7 +268,7 @@ Následující kód ukazuje aktualizovanou stránku:
 V předchozím zvýrazněném kódu:
 
 * Hodnota v `Department.RowVersion` poli je to, co bylo v entitě v okamžiku, kdy byla původně načtena v žádosti o získání stránky pro úpravy. Hodnota je poskytnuta `OnPost` metodě pomocí skrytého pole na Razor stránce, které zobrazuje entitu, kterou chcete upravit. Hodnota skrytého pole je zkopírována do `Department.RowVersion` pořadače modelu.
-* `OriginalValue`je to, co EF Core bude používat v klauzuli WHERE. Předtím, než se spustí zvýrazněný řádek kódu, `OriginalValue` má hodnotu, která byla v databázi `FirstOrDefaultAsync` volána v této metodě, která se může lišit od toho, co bylo zobrazeno na stránce pro úpravy.
+* `OriginalValue` je to, co EF Core bude používat v klauzuli WHERE. Předtím, než se spustí zvýrazněný řádek kódu, `OriginalValue` má hodnotu, která byla v databázi `FirstOrDefaultAsync` volána v této metodě, která se může lišit od toho, co bylo zobrazeno na stránce pro úpravy.
 * Zvýrazněný kód zajišťuje, aby EF Core používal původní `RowVersion` hodnotu ze zobrazené `Department` entity v klauzuli WHERE příkazu SQL Update.
 
 Když dojde k chybě souběžnosti, následující zvýrazněný kód Získá hodnoty klienta (hodnoty odeslané do této metody) a hodnoty databáze.
@@ -293,7 +294,7 @@ Aktualizovat *stránky/oddělení/upravit. cshtml* pomocí následujícího kód
 Předcházející kód:
 
 * Aktualizuje `page` direktivu z `@page` na `@page "{id:int}"` .
-* Přidá verzi skrytého řádku. `RowVersion`je nutné přidat, aby postback navázal hodnotu.
+* Přidá verzi skrytého řádku. `RowVersion` je nutné přidat, aby postback navázal hodnotu.
 * Zobrazí poslední bajt `RowVersion` pro účely ladění.
 * Nahrazuje `ViewData` silným typem `InstructorNameSL` .
 
@@ -331,11 +332,11 @@ Aktualizujte *stránky/oddělení/odstraňte. cshtml. cs* s následujícím kód
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Delete.cshtml.cs)]
 
-Stránka odstranit detekuje konflikty souběžnosti, když se entita po jejím načtení změnila. `Department.RowVersion`je verze řádku v případě, že byla entita načtena. Když EF Core vytvoří příkaz SQL DELETE, zahrnuje klauzuli WHERE s `RowVersion` . Pokud příkaz SQL DELETE má vliv na nulové řádky:
+Stránka odstranit detekuje konflikty souběžnosti, když se entita po jejím načtení změnila. `Department.RowVersion` je verze řádku v případě, že byla entita načtena. Když EF Core vytvoří příkaz SQL DELETE, zahrnuje klauzuli WHERE s `RowVersion` . Pokud příkaz SQL DELETE má vliv na nulové řádky:
 
 * `RowVersion`Příkaz v příkazu SQL DELETE se v databázi neshoduje `RowVersion` .
 * Je vyvolána výjimka DbUpdateConcurrencyException.
-* `OnGetAsync`je volána pomocí `concurrencyError` .
+* `OnGetAsync` je volána pomocí `concurrencyError` .
 
 ### <a name="update-the-delete-page"></a>Aktualizace stránky pro odstranění
 
@@ -349,7 +350,7 @@ Předchozí kód provede následující změny:
 * Přidá chybovou zprávu.
 * Nahradí FirstMidName pomocí FullName v poli **správce** .
 * Změny `RowVersion` pro zobrazení posledního bajtu
-* Přidá verzi skrytého řádku. `RowVersion`je nutné přidat, aby postback navázal hodnotu.
+* Přidá verzi skrytého řádku. `RowVersion` je nutné přidat, aby postback navázal hodnotu.
 
 ### <a name="test-concurrency-conflicts"></a>Konflikty testů v souběžnosti
 
@@ -369,7 +370,7 @@ Prohlížeč zobrazí stránku index se změněnou hodnotou a aktualizovaným in
 
 Odstraňte testovací oddělení z druhé karty. Chyba souběžnosti se zobrazuje s aktuálními hodnotami z databáze. Kliknutím na **Odstranit** odstraníte entitu, pokud `RowVersion` se neaktualizovala.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Tokeny souběžnosti v EF Core](/ef/core/modeling/concurrency)
 * [Zpracování souběžnosti v EF Core](/ef/core/saving/concurrency)
@@ -462,7 +463,7 @@ K detekci konfliktů souběžnosti se do modelu přidá sloupec sledování [row
 
 DATABÁZE generuje pořadové `rowversion` číslo, které se zvýší při každé aktualizaci řádku. V `Update` příkazu nebo `Delete` `Where` obsahuje klauzule načtenou hodnotu `rowversion` . Pokud se změnil řádek, který se má aktualizovat:
 
-* `rowversion`neodpovídá načtené hodnotě.
+* `rowversion` neodpovídá načtené hodnotě.
 * `Update`Příkazy nebo `Delete` nenaleznou řádek, protože `Where` klauzule zahrnuje načtenou hodnotu `rowversion` .
 * `DbUpdateConcurrencyException`Je vyvolána výjimka.
 
@@ -564,7 +565,7 @@ Aby se zjistil problém souběžnosti, aktualizuje se [původní](/dotnet/api/mi
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_rv&highlight=24-999)]
 
-V předchozím kódu `Department.RowVersion` je hodnota, když byla entita načtena. `OriginalValue`je hodnota v databázi, která `FirstOrDefaultAsync` byla volána v této metodě.
+V předchozím kódu `Department.RowVersion` je hodnota, když byla entita načtena. `OriginalValue` je hodnota v databázi, která `FirstOrDefaultAsync` byla volána v této metodě.
 
 Následující kód Získá hodnoty klienta (hodnoty odeslané do této metody) a hodnoty databáze:
 
@@ -589,7 +590,7 @@ Aktualizovat *stránky/oddělení/upravit. cshtml* pomocí následujícího kód
 Předchozí kód:
 
 * Aktualizuje `page` direktivu z `@page` na `@page "{id:int}"` .
-* Přidá verzi skrytého řádku. `RowVersion`je nutné přidat, aby postback znovu váže hodnotu.
+* Přidá verzi skrytého řádku. `RowVersion` je nutné přidat, aby postback znovu váže hodnotu.
 * Zobrazí poslední bajt `RowVersion` pro účely ladění.
 * Nahrazuje `ViewData` silným typem `InstructorNameSL` .
 
@@ -629,11 +630,11 @@ Aktualizujte odstranit model stránky pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Delete.cshtml.cs)]
 
-Stránka odstranit detekuje konflikty souběžnosti, když se entita po jejím načtení změnila. `Department.RowVersion`je verze řádku v případě, že byla entita načtena. Když EF Core vytvoří příkaz SQL DELETE, zahrnuje klauzuli WHERE s `RowVersion` . Pokud příkaz SQL DELETE má vliv na nulové řádky:
+Stránka odstranit detekuje konflikty souběžnosti, když se entita po jejím načtení změnila. `Department.RowVersion` je verze řádku v případě, že byla entita načtena. Když EF Core vytvoří příkaz SQL DELETE, zahrnuje klauzuli WHERE s `RowVersion` . Pokud příkaz SQL DELETE má vliv na nulové řádky:
 
 * `RowVersion`Příkaz v příkazu SQL DELETE se v databázi neshoduje `RowVersion` .
 * Je vyvolána výjimka DbUpdateConcurrencyException.
-* `OnGetAsync`je volána pomocí `concurrencyError` .
+* `OnGetAsync` je volána pomocí `concurrencyError` .
 
 ### <a name="update-the-delete-page"></a>Aktualizace stránky pro odstranění
 
@@ -647,7 +648,7 @@ Předchozí kód provede následující změny:
 * Přidá chybovou zprávu.
 * Nahradí FirstMidName pomocí FullName v poli **správce** .
 * Změny `RowVersion` pro zobrazení posledního bajtu
-* Přidá verzi skrytého řádku. `RowVersion`je nutné přidat, aby postback znovu váže hodnotu.
+* Přidá verzi skrytého řádku. `RowVersion` je nutné přidat, aby postback znovu váže hodnotu.
 
 ### <a name="test-concurrency-conflicts-with-the-delete-page"></a>Souběžnost testů v konfliktu se stránkou odstranit
 
@@ -669,7 +670,7 @@ Odstraňte testovací oddělení z druhé karty. Chyba souběžnosti se zobrazuj
 
 Přečtěte si téma [dědičnosti](xref:data/ef-mvc/inheritance) způsobu dědění datového modelu.
 
-### <a name="additional-resources"></a>Další zdroje
+### <a name="additional-resources"></a>Další zdroje informací
 
 * [Tokeny souběžnosti v EF Core](/ef/core/modeling/concurrency)
 * [Zpracování souběžnosti v EF Core](/ef/core/saving/concurrency)

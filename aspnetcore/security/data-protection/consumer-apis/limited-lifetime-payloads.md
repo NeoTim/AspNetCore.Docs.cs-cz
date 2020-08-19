@@ -5,6 +5,7 @@ description: Přečtěte si, jak omezit životnost chráněné datové části p
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/limited-lifetime-payloads
-ms.openlocfilehash: c7bc86cd42a725f21cf66187c033376a8c5a9e65
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f76aca460c293b5f814ba10ee6c8ac68b3d147bb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014825"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634420"
 ---
 # <a name="limit-the-lifetime-of-protected-payloads-in-aspnet-core"></a>Omezte dobu života chráněných datových částí v ASP.NET Core
 
@@ -32,7 +33,7 @@ Aby bylo snazší pro naši cílovou skupinu pro vývojáře, balíček [Microso
 
 `ITimeLimitedDataProtector`Rozhraní je základní rozhraní pro ochranu a odemknutí datové části s časovým limitem pro časově omezená data. Chcete-li vytvořit instanci `ITimeLimitedDataProtector` , budete nejprve potřebovat instanci regulárního [IDataProtector](xref:security/data-protection/consumer-apis/overview) vytvořenou s konkrétním účelem. Jakmile `IDataProtector` je instance k dispozici, zavolejte `IDataProtector.ToTimeLimitedDataProtector` metodu rozšíření a vraťte ochranu s integrovanými možnostmi vypršení platnosti.
 
-`ITimeLimitedDataProtector`zpřístupňuje následující plochu rozhraní API a metody rozšíření:
+`ITimeLimitedDataProtector` zpřístupňuje následující plochu rozhraní API a metody rozšíření:
 
 * CreateProtector (řetězec pro účely): ITimeLimitedDataProtector – toto rozhraní API je podobné jako stávající `IDataProtectionProvider.CreateProtector` v tom, že je možné ho použít k vytvoření [řetězů účelu](xref:security/data-protection/consumer-apis/purpose-strings) z kořenového ochrany s časovým omezením.
 

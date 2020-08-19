@@ -1,11 +1,12 @@
 ---
-title: Začínáme s ASP.NET CoreSignalR
+title: Začínáme s ASP.NET Core SignalR
 author: bradygaster
 description: V tomto kurzu vytvoříte aplikaci Chat, která používá ASP.NET Core SignalR .
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/21/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: 51b9eae0d4746001696e0795467eaf4c0ab2c990
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e98cfc5e95233ce4d1001ab1225fc15e5fd23733
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022027"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634498"
 ---
-# <a name="tutorial-get-started-with-aspnet-core-no-locsignalr"></a>Kurz: Začínáme s ASP.NET CoreSignalR
+# <a name="tutorial-get-started-with-aspnet-core-no-locsignalr"></a>Kurz: Začínáme s ASP.NET Core SignalR
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -40,7 +41,7 @@ Na konci budete mít funkční chatovací aplikaci:
 
 ![::: No-Loc (Signaler)::: Ukázková aplikace](signalr/_static/3.x/signalr-get-started-finished.png)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -185,9 +186,9 @@ SignalRKnihovna serveru je součástí sdílené architektury ASP.NET Core 3,0. 
 
   `ChatHub`Třída dědí z SignalR `Hub` třídy. `Hub`Třída spravuje připojení, skupiny a zasílání zpráv.
 
-  `SendMessage`Metoda může být volána připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. SignalRkód je asynchronní pro zajištění maximální škálovatelnosti.
+  `SendMessage`Metoda může být volána připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. SignalR kód je asynchronní pro zajištění maximální škálovatelnosti.
 
-## <a name="configure-no-locsignalr"></a>KonfiguraceSignalR
+## <a name="configure-no-locsignalr"></a>Konfigurace SignalR
 
 SignalRServer musí být nakonfigurován na předávání SignalR požadavků SignalR .
 
@@ -249,7 +250,7 @@ SignalRServer musí být nakonfigurován na předávání SignalR požadavků Si
 
 > [!TIP]
 > * Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že jste umístili *signalr.js* do jiné složky, než je směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.
->   ![Chyba přisignalr.js nenalezena](signalr/_static/3.x/f12-console.png)
+>   ![ Chyba přisignalr.js nenalezena](signalr/_static/3.x/f12-console.png)
 > * Pokud se zobrazí chyba ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY v Chrome, spusťte tyto příkazy a aktualizujte svůj vývojový certifikát:
 >
 >   ```dotnetcli
@@ -271,7 +272,7 @@ V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pom
 > * Přidejte kód, který odesílá zprávy od libovolného klienta ke všem připojeným klientům.  
 Na konci budete mít funkční chatovací aplikaci: ![ ::: No-Loc (Signal)::: Ukázková aplikace](signalr/_static/2.x/signalr-get-started-finished.png)   
 
-## <a name="prerequisites"></a>Požadavky    
+## <a name="prerequisites"></a>Předpoklady    
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)   
 
@@ -418,9 +419,9 @@ SignalRKnihovna serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. K
 
   `ChatHub`Třída dědí z SignalR `Hub` třídy. `Hub`Třída spravuje připojení, skupiny a zasílání zpráv.  
 
-  `SendMessage`Metoda může být volána připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. SignalRkód je asynchronní pro zajištění maximální škálovatelnosti.    
+  `SendMessage`Metoda může být volána připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. SignalR kód je asynchronní pro zajištění maximální škálovatelnosti.    
 
-## <a name="configure-no-locsignalr"></a>KonfiguraceSignalR  
+## <a name="configure-no-locsignalr"></a>Konfigurace SignalR  
 
 SignalRServer musí být nakonfigurován na předávání SignalR požadavků SignalR .    
 
@@ -482,8 +483,8 @@ SignalRServer musí být nakonfigurován na předávání SignalR požadavků Si
 
 > [!TIP]    
 > Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že jste umístili *signalr.js* do jiné složky, než je směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.   
-> ![Chyba přisignalr.js nenalezena](signalr/_static/2.x/f12-console.png)    
-## <a name="additional-resources"></a>Další zdroje 
+> ![ Chyba přisignalr.js nenalezena](signalr/_static/2.x/f12-console.png)    
+## <a name="additional-resources"></a>Další zdroje informací 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=iKlVmu-r0JQ)   
 
 ::: moniker-end

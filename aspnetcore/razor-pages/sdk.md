@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 03/26/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/sdk
-ms.openlocfilehash: b960460a50558a11bc47f9a1844931aa32e3d696
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d11600af88d499d63adf9eae90d6deb929f9d92a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021416"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632912"
 ---
 # <a name="aspnet-core-no-locrazor-sdk"></a>RazorSada ASP.NET Core SDK
 
@@ -50,7 +51,7 @@ RazorSada SDK obsahuje `Content` položku s `Include` atributem nastaveným na `
 
 ::: moniker-end
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
@@ -118,7 +119,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | `RazorGenerate` | Prvky položky (soubory *. cshtml* ), které jsou vstupy pro generování kódu. |
 | `RazorComponent` | Prvky položky (soubory *. Razor* ), které jsou vstupy pro Razor generování kódu komponenty. |
 | `RazorCompile` | Prvky položky (soubory *. cs* ), které jsou vstupy pro Razor cíle kompilace. Toto použijte `ItemGroup` k určení dalších souborů, které mají být zkompilovány do Razor sestavení. |
-| `RazorTargetAssemblyAttribute` | Prvky položky použité pro kód generují atributy pro Razor sestavení. Například:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
+| `RazorTargetAssemblyAttribute` | Prvky položky použité pro kód generují atributy pro Razor sestavení. Příklad:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
 | `RazorEmbeddedResource` | Prvky položky přidané jako vložené prostředky do generovaného Razor sestavení. |
 
 ::: moniker range=">= aspnetcore-3.0"
@@ -171,7 +172,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 
 Další informace o vlastnostech naleznete v tématu [vlastnosti MSBuild](/visualstudio/msbuild/msbuild-properties).
 
-### <a name="targets"></a>Cíle
+### <a name="targets"></a>Targets
 
 RazorSada SDK definuje dva primární cíle:
 
@@ -185,7 +186,7 @@ RazorSada SDK definuje dva primární cíle:
 
 * V případě webové aplikace zajistěte, aby vaše aplikace byla cílena na `Microsoft.NET.Sdk.Web` sadu SDK.
 
-## <a name="no-locrazor-language-version"></a>Razorverze jazyka
+## <a name="no-locrazor-language-version"></a>Razor verze jazyka
 
 Při cílení na `Microsoft.NET.Sdk.Web` sadu SDK Razor je jazyková verze odvozena z verze cílového rozhraní Framework aplikace. Pro projekty `Microsoft.NET.Sdk.Razor` , které cílí na sadu SDK, nebo v případě, že aplikace vyžaduje jinou Razor verzi jazyka než odvozená hodnota, lze verzi nakonfigurovat nastavením `<RazorLangVersion>` vlastnosti v souboru projektu aplikace:
 
@@ -197,7 +198,7 @@ Při cílení na `Microsoft.NET.Sdk.Web` sadu SDK Razor je jazyková verze odvoz
 
 Razorverze jazyka je úzce integrovaná s verzí modulu runtime, pro který byl sestaven. Cílení na jazykovou verzi, která není navržena pro modul runtime, není podporována a nejspíš generuje chyby sestavení.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Přidání do formátu csproj pro .NET Core](/dotnet/core/tools/csproj)
 * [Společné položky projektu nástroje MSBuild](/visualstudio/msbuild/common-msbuild-project-items)

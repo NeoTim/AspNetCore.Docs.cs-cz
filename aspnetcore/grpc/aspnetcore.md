@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/03/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/aspnetcore
-ms.openlocfilehash: bd97ece1d42b1b90d0b8740e33924d80b91bf49a
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 11237c93832e095abb03d761773d213dfa336052
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016437"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633887"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>Služby gRPC s ASP.NET Core
 
@@ -29,7 +30,7 @@ Tento dokument ukazuje, jak začít s gRPC službami pomocí ASP.NET Core.
 
 [!INCLUDE[](~/includes/gRPCazure.md)]
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -132,7 +133,7 @@ Rozhraní gRPC API poskytuje přístup k některým datům zprávy HTTP/2, jako 
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService.cs?highlight=3-4&name=snippet)]
 
-`ServerCallContext`neposkytuje úplný přístup ke `HttpContext` všem rozhraním api ASP.NET. `GetHttpContext`Metoda rozšíření poskytuje úplný přístup k `HttpContext` reprezentující základní zprávu HTTP/2 v rozhraních API ASP.NET:
+`ServerCallContext` neposkytuje úplný přístup ke `HttpContext` všem rozhraním api ASP.NET. `GetHttpContext`Metoda rozšíření poskytuje úplný přístup k `HttpContext` reprezentující základní zprávu HTTP/2 v rozhraních API ASP.NET:
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService2.cs?highlight=6-7&name=snippet)]
 

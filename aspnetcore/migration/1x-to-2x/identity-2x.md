@@ -5,6 +5,7 @@ description: Tento článek popisuje nejběžnější kroky pro migraci ASP.NET 
 ms.author: scaddie
 ms.date: 06/21/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: 46f10df25235b532f188eda2a079aef71070cd6d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 63f2fadc328650063078339467e65c6b0e97a08e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015287"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634316"
 ---
 # <a name="migrate-authentication-and-no-locidentity-to-aspnet-core-20"></a>Migrace ověřování a Identity ASP.NET Core 2,0
 
@@ -92,7 +93,7 @@ Níže jsou uvedené 2,0 pokyny k migraci pro každé hlavní schéma ověřová
 
 Vyberte jednu z následujících dvou možností a proveďte potřebné změny v *Startup.cs*:
 
-1. Použít s cookie sIdentity
+1. Použít s cookie s Identity
     - Nahraďte `UseIdentity` `UseAuthentication` v `Configure` metodě:
 
         ```csharp
@@ -110,7 +111,7 @@ Vyberte jednu z následujících dvou možností a proveďte potřebné změny v
         services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
         ```
 
-2. Použít cookie s bezIdentity
+2. Použít cookie s bez Identity
     - Nahraďte `UseCookieAuthentication` volání metody v `Configure` metodě pomocí `UseAuthentication` :
 
         ```csharp
@@ -458,6 +459,6 @@ V projektech 2,0 se návratový typ změní na `IList<AuthenticationScheme>` . T
 
 <a name="additional-resources"></a>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 Další informace najdete v [diskuzi k problému ověření 2,0](https://github.com/aspnet/Security/issues/1338) na GitHubu.

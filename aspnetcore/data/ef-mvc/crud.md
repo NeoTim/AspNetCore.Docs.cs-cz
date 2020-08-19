@@ -7,6 +7,7 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 2c71ea0eaccf4daeb8937dd5839481a506864fbe
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c17461f8d1d43335230a967a4b62943c055c06b9
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012849"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629207"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: implementace funkce CRUD – ASP.NET MVC pomocí EF Core
 
@@ -40,7 +41,7 @@ V tomto kurzu jste:
 > * Aktualizace stránky pro odstranění
 > * Zavřít databázová připojení
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Začínáme s EF Core a ASP.NET Core MVC](intro.md)
 
@@ -128,9 +129,9 @@ Tento kód přidá entitu Student vytvořenou modelem ASP.NET Core MVC modelu do
 
 Odebrali jste `ID` z `Bind` atributu, protože ID je hodnota primárního klíče, kterou SQL Server automaticky nastaví při vložení řádku. Vstup od uživatele nenastavuje hodnotu ID.
 
-Kromě `Bind` atributu je blok try-catch jedinou změnou, kterou jste provedli v kódu generování. Pokud `DbUpdateException` je při ukládání změn zachycena výjimka, která je odvozena, zobrazí se obecná chybová zpráva. `DbUpdateException`výjimky jsou někdy způsobeny něčím externě pro aplikaci, nikoli při programování, takže se uživateli doporučuje akci opakovat. I když v této ukázce není implementované, aplikace produkční kvality by tuto výjimku zaznamenala. Další informace najdete v části **Log for Insight** v tématu [monitorování a telemetrie (vytváření skutečných cloudových aplikací s Azure)](/aspnet/aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/monitoring-and-telemetry).
+Kromě `Bind` atributu je blok try-catch jedinou změnou, kterou jste provedli v kódu generování. Pokud `DbUpdateException` je při ukládání změn zachycena výjimka, která je odvozena, zobrazí se obecná chybová zpráva. `DbUpdateException` výjimky jsou někdy způsobeny něčím externě pro aplikaci, nikoli při programování, takže se uživateli doporučuje akci opakovat. I když v této ukázce není implementované, aplikace produkční kvality by tuto výjimku zaznamenala. Další informace najdete v části **Log for Insight** v tématu [monitorování a telemetrie (vytváření skutečných cloudových aplikací s Azure)](/aspnet/aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/monitoring-and-telemetry).
 
-`ValidateAntiForgeryToken`Atribut pomáhá zabránit útokům na CSRF (mezi lokalitami). Token je automaticky vložen do zobrazení podle [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) a je obsažena v případě, že formulář odešle uživatel. Token je ověřen `ValidateAntiForgeryToken` atributem. Další informace o CSRF najdete v tématu [Ochrana proti padělání požadavků](../../security/anti-request-forgery.md).
+`ValidateAntiForgeryToken`Atribut pomáhá zabránit útokům na CSRF (mezi lokalitami). Token je automaticky vložen do zobrazení podle [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) a je obsažena v případě, že formulář odešle uživatel. Token je ověřen `ValidateAntiForgeryToken` atributem. Další informace naleznete v tématu <xref:security/anti-request-forgery>.
 
 <a id="overpost"></a>
 
@@ -281,7 +282,7 @@ Klikněte na **Odstranit**. Stránka index se zobrazí bez odstraněného studen
 
 Chcete-li uvolnit prostředky, které připojení k databázi obsahuje, je nutné instanci kontextu uvolnit co nejdříve, jakmile s ní budete hotovi. ASP.NET Core vestavěné [závislosti](../../fundamentals/dependency-injection.md) se postará o tento úkol za vás.
 
-V *Startup.cs*zavoláte [metodu rozšíření AddDbContext](https://github.com/aspnet/EntityFrameworkCore/blob/03bcb5122e3f577a84498545fcf130ba79a3d987/src/Microsoft.EntityFrameworkCore/EntityFrameworkServiceCollectionExtensions.cs) pro zřízení `DbContext` třídy v kontejneru ASP.NET Core di. Tato metoda nastavuje dobu platnosti služby na `Scoped` výchozí hodnotu. `Scoped`znamená, že doba života objektu kontextu se shoduje s časem životnosti webové žádosti a `Dispose` Metoda bude na konci webového požadavku volána automaticky.
+V *Startup.cs*zavoláte [metodu rozšíření AddDbContext](https://github.com/aspnet/EntityFrameworkCore/blob/03bcb5122e3f577a84498545fcf130ba79a3d987/src/Microsoft.EntityFrameworkCore/EntityFrameworkServiceCollectionExtensions.cs) pro zřízení `DbContext` třídy v kontejneru ASP.NET Core di. Tato metoda nastavuje dobu platnosti služby na `Scoped` výchozí hodnotu. `Scoped` znamená, že doba života objektu kontextu se shoduje s časem životnosti webové žádosti a `Dispose` Metoda bude na konci webového požadavku volána automaticky.
 
 ## <a name="handle-transactions"></a>Zpracování transakcí
 

@@ -6,6 +6,7 @@ description: Naučte se používat ASP.NET Core pomocníka značek komponenty k 
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: 09291b537e35d00df6f8006aaccdf4db12acfaea
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 1a0422da6bd48049cac73debe7d335da91e311be
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018686"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633913"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>Pomocná značka komponenty v ASP.NET Core
 
@@ -29,7 +30,7 @@ Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://githu
 
 Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte [pomocníka značek komponenty](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Postupujte podle pokynů v části *Příprava aplikace na používání součástí na stránkách a pohledech v* <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps#prepare-the-app> článku.
 
@@ -155,9 +156,9 @@ public class MyClass
     param-MyObject="@myObject" />
 ```
 
-Předchozí příklad předpokládá, že `MyComponent` je komponenta ve *sdílené* složce aplikace. Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace (například `@using BlazorSample` a `@using BlazorSample.Shared` ). `MyClass`je v oboru názvů aplikace.
+Předchozí příklad předpokládá, že `MyComponent` je komponenta ve *sdílené* složce aplikace. Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace (například `@using BlazorSample` a `@using BlazorSample.Shared` ). `MyClass` je v oboru názvů aplikace.
 
-<xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>nakonfiguruje, jestli součást:
+<xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> nakonfiguruje, jestli součást:
 
 * Je předem vykreslen na stránku.
 * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.

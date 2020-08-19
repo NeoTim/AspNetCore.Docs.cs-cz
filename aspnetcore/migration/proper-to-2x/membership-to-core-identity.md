@@ -1,11 +1,12 @@
 ---
-title: Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0Identity
+title: Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0 Identity
 author: isaac2004
 description: Naučte se migrovat existující aplikace ASP.NET pomocí ověřování členství na ASP.NET Core 2,0 Identity .
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/10/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,21 +17,21 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: 97039ac1c7bcd6a1ff7b53e1579c623b26564d26
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: de9d1e5f6f595269595212fbab60d12dfd5a29e4
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014890"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633640"
 ---
-# <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-no-locidentity"></a>Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0Identity
+# <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-no-locidentity"></a>Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0 Identity
 
 Od [Petr Levin](https://isaaclevin.com)
 
 Tento článek popisuje migraci schématu databáze pro aplikace ASP.NET pomocí ověřování členství na ASP.NET Core 2,0 Identity .
 
 > [!NOTE]
-> Tento dokument popisuje kroky potřebné k migraci schématu databáze pro aplikace založené na členství ASP.NET do schématu databáze používaného pro ASP.NET Core Identity . Další informace o migraci z ASP.NET ověřování na základě členství na ASP.NET najdete Identity v tématu [migrace stávající aplikace z členství SQL do ASP.NET Identity ](/aspnet/identity/overview/migrations/migrating-an-existing-website-from-sql-membership-to-aspnet-identity). Další informace o ASP.NET Core Identity najdete v tématu [úvod do Identity ASP.NET Core](xref:security/authentication/identity).
+> Tento dokument popisuje kroky potřebné k migraci schématu databáze pro aplikace založené na členství ASP.NET do schématu databáze používaného pro ASP.NET Core Identity . Další informace o migraci z ASP.NET ověřování na základě členství na ASP.NET najdete Identity v tématu [migrace stávající aplikace z členství SQL do ASP.NET Identity ](/aspnet/identity/overview/migrations/migrating-an-existing-website-from-sql-membership-to-aspnet-identity). Další informace o najdete v ASP.NET Core Identity tématu [úvod do Identity ASP.NET Core](xref:security/authentication/identity).
 
 ## <a name="review-of-membership-schema"></a>Kontrola schématu členství
 
@@ -40,7 +41,7 @@ Před ASP.NET 2,0 bylo vývojářům uděleno vytváření celého procesu ově�
 
 Chcete-li migrovat existující aplikace na ASP.NET Core 2,0 Identity , musí být data v těchto tabulkách migrována do tabulek používaných novým Identity schématem.
 
-## <a name="aspnet-core-no-locidentity-20-schema"></a>IdentitySchéma ASP.NET Core 2,0
+## <a name="no-locaspnet-core-identity-20-schema"></a>ASP.NET Core Identity schéma 2,0
 
 ASP.NET Core 2,0 odpovídá [Identity](/aspnet/identity/index) principu zavedenému v ASP.NET 4,5. I když je zásada sdílená, implementace mezi architekturami se liší i mezi verzemi ASP.NET Core (viz [migrace ověřování a Identity ASP.NET Core 2,0](xref:migration/1x-to-2x/index)).
 
@@ -49,7 +50,7 @@ Nejrychlejší způsob, jak zobrazit schéma pro ASP.NET Core 2,0, Identity je v
 1. Vyberte **soubor**  >  **Nový**  >  **projekt**.
 1. Vytvořte nový projekt **ASP.NET Core webové aplikace** s názvem *Core Identity Sample*.
 1. V rozevíracím seznamu vyberte **ASP.NET Core 2,0** a potom vyberte **Webová aplikace**. Tato šablona vytvoří aplikaci [ Razor stránky](xref:razor-pages/index) . Než kliknete na **OK**, klikněte na **změnit ověřování**.
-1. Vyberte **jednotlivé uživatelské účty** pro Identity šablony. Nakonec klikněte na **OK**a pak na **OK**. Visual Studio vytvoří projekt pomocí Identity šablony ASP.NET Core.
+1. Vyberte **jednotlivé uživatelské účty** pro Identity šablony. Nakonec klikněte na **OK**a pak na **OK**. Visual Studio vytvoří projekt pomocí ASP.NET Core Identity šablony.
 1. Vyberte **nástroje**  >  **Správce balíčků NuGet**  >  **Konzola správce balíčků** a otevřete tak okno **konzoly Správce balíčků** (PMC).
 1. Přejděte do kořenového adresáře projektu v PMC a spusťte příkaz [Entity Framework (EF) Core](/ef/core) `Update-Database` .
 
@@ -73,7 +74,7 @@ Nejrychlejší způsob, jak zobrazit schéma pro ASP.NET Core 2,0, Identity je v
 
 ## <a name="migrate-the-schema"></a>Migrace schématu
 
-Existují drobné rozdíly v strukturách tabulek a polích pro členství i ASP.NET Core Identity . Vzor se podstatně změnil pro ověřování nebo autorizaci pomocí aplikací ASP.NET a ASP.NET Core. Klíčové objekty, které se pořád používají, Identity jsou *Uživatelé* a *role*. Tady jsou mapování tabulek pro *uživatele*, *role*a *položka userroles může*.
+Existují drobné rozdíly v strukturách tabulek a polích pro členství a ASP.NET Core Identity . Vzor se podstatně změnil pro ověřování nebo autorizaci pomocí aplikací ASP.NET a ASP.NET Core. Klíčové objekty, které se pořád používají, Identity jsou *Uživatelé* a *role*. Tady jsou mapování tabulek pro *uživatele*, *role*a *položka userroles může*.
 
 ### <a name="users"></a>Uživatelé
 
@@ -88,7 +89,7 @@ Existují drobné rozdíly v strukturách tabulek a polích pro členství i ASP
 | `LockoutEnabled`                | `bit`   | `aspnet_Membership.IsLockedOut`                            | `bit`    |
 
 > [!NOTE]
-> Ne všechna mapování polí se podobají relacím 1:1 z členství do ASP.NET Core Identity . Předchozí tabulka přijímá výchozí schéma uživatele členství a mapuje je do Identity schématu ASP.NET Core. Všechna další vlastní pole, která byla použita pro členství, je nutné namapovat ručně. V tomto mapování není k dispozici žádná mapa hesel, protože mezi těmito dvěma kritérii hesla a resůl hesla nedojde k migraci. **Doporučuje se ponechat heslo jako null a požádat uživatele, aby obnovili hesla.** V ASP.NET Core Identity `LockoutEnd` by měl být v budoucnu nastavené na nějaké datum, pokud je uživatel uzamčený. Tato ukázka se zobrazí ve skriptu migrace.
+> Ne všechna mapování polí se podobají relacím 1:1 z členství ASP.NET Core Identity . Předchozí tabulka převezme výchozí schéma uživatele členství a namapuje ho do ASP.NET Core Identity schématu. Všechna další vlastní pole, která byla použita pro členství, je nutné namapovat ručně. V tomto mapování není k dispozici žádná mapa hesel, protože mezi těmito dvěma kritérii hesla a resůl hesla nedojde k migraci. **Doporučuje se ponechat heslo jako null a požádat uživatele, aby obnovili hesla.** V ASP.NET Core Identity nástroji `LockoutEnd` by mělo být nastaveno na nějaké datum v budoucnu, pokud je uživatel uzamčen. Tato ukázka se zobrazí ve skriptu migrace.
 
 ### <a name="roles"></a>Role
 
@@ -194,7 +195,7 @@ IF @@ERROR <> 0
 COMMIT TRANSACTION MigrateUsersAndRoles
 ```
 
-Po dokončení předchozího skriptu Identity se dříve vytvořená aplikace ASP.NET Core naplní uživateli členství. Uživatelé musí před přihlášením změnit svoje heslo.
+Po dokončení předchozího skriptu ASP.NET Core Identity se dříve vytvořená aplikace vyplní uživateli členství. Uživatelé musí před přihlášením změnit svoje heslo.
 
 > [!NOTE]
 > Pokud má systém členství uživatele s uživatelskými jmény, které neodpovídaly jejich e-mailové adrese, je nutné aplikaci vytvořenou dříve změnit. Výchozí šablona očekává `UserName` a `Email` bude stejná. V situacích, kdy se liší, je třeba změnit proces přihlášení, aby používal `UserName` místo `Email` .
@@ -205,4 +206,4 @@ Na `PageModel` stránce pro přihlášení, která se nachází na adrese *Pages
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu jste se naučili, jak přenést uživatele z členství SQL do ASP.NET Core 2,0 Identity . Další informace týkající se ASP.NET Core Identity najdete v tématu [Úvod Identity do ](xref:security/authentication/identity).
+V tomto kurzu jste se naučili, jak přenést uživatele z členství SQL do ASP.NET Core 2,0 Identity . Další informace o ASP.NET Core Identity najdete v tématu [Úvod do Identity ](xref:security/authentication/identity).

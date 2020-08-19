@@ -1,5 +1,5 @@
 ---
-title: SignalRPožadavky na návrh rozhraní API
+title: SignalR Požadavky na návrh rozhraní API
 author: anurse
 description: Naučte se navrhovat SignalR rozhraní API pro kompatibilitu mezi verzemi vaší aplikace.
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: anurse
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/api-design
-ms.openlocfilehash: ef0285c611bd41d7fe686a4b370b6daae9be9174
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4a838c3a051476bd3d281e133d08b643656ae3b7
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018985"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632899"
 ---
-# <a name="no-locsignalr-api-design-considerations"></a>SignalRPožadavky na návrh rozhraní API
+# <a name="no-locsignalr-api-design-considerations"></a>SignalR Požadavky na návrh rozhraní API
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 

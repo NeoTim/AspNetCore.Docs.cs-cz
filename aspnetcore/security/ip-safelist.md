@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/ip-safelist
-ms.openlocfilehash: 75c1ea3a6087f89a200d1f73b1ff65080c819ccd
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 621be5351acb251335a42f57e8ea670af1b35a87
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021767"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634446"
 ---
 # <a name="client-ip-safelist-for-aspnet-core"></a>IP adresa klienta Safelist pro ASP.NET Core
 
@@ -32,7 +33,7 @@ Tento článek ukazuje tři způsoby implementace IP adresy Safelist (označovan
 
 * Middleware pro kontrolu vzdálené IP adresy každého požadavku.
 * Filtry akcí MVC pro kontrolu vzdálené IP adresy žádostí o konkrétní řadiče nebo metody akcí.
-* RazorStránky filtrují, aby kontrolovaly vzdálené IP adresy žádostí o Razor stránky.
+* Razor Stránky filtrují, aby kontrolovaly vzdálené IP adresy žádostí o Razor stránky.
 
 V každém případě je řetězec, který obsahuje schválené IP adresy klienta, uložen v nastavení aplikace. Middleware nebo filtr:
 
@@ -66,7 +67,7 @@ Middleware analyzuje řetězec do pole a vyhledá vzdálenou IP adresu v poli. P
 
 ## <a name="action-filter"></a>Filtr akcí
 
-Pokud chcete řízení přístupu řízenému Safelist pro konkrétní řadiče MVC nebo metody akcí, použijte filtr akcí. Například:
+Pokud chcete řízení přístupu řízenému Safelist pro konkrétní řadiče MVC nebo metody akcí, použijte filtr akcí. Příklad:
 
 [!code-csharp[](ip-safelist/samples/Shared/ClientIpSafelistComponents/Filters/ClientIpCheckActionFilter.cs?name=snippet_ClassOnly)]
 
@@ -101,9 +102,9 @@ V ukázkové aplikaci se filtr akcí aplikuje na `Get` metodu akce kontroleru. P
 
 * Příkaz žádosti HTTP jiný než GET, `AdminSafeListMiddleware` middleware OVĚŘÍ IP adresu klienta.
 
-## <a name="no-locrazor-pages-filter"></a>RazorFiltr stránek
+## <a name="no-locrazor-pages-filter"></a>Razor Filtr stránek
 
-Pokud chcete ovládací prvek přístupu řízený Safelist pro Razor aplikaci Pages, použijte Razor filtr stránky. Například:
+Pokud chcete ovládací prvek přístupu řízený Safelist pro Razor aplikaci Pages, použijte Razor filtr stránky. Příklad:
 
 [!code-csharp[](ip-safelist/samples/Shared/ClientIpSafelistComponents/Filters/ClientIpCheckPageFilter.cs?name=snippet_ClassOnly)]
 
@@ -128,7 +129,7 @@ dbug: ClientIpSafelistComponents.Filters.ClientIpCheckPageFilter[0]
       Remote IpAddress: ::1
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/middleware/index>
 * [Filtry akcí](xref:mvc/controllers/filters#action-filters)

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/06/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/cascading-values-and-parameters
-ms.openlocfilehash: 1ee30a84e0869f6b9ee937648eb87bd41e8702e3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8cb2bd5f19a4cc21671a0b077d4ef0fda2e30455
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014708"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628583"
 ---
 # <a name="aspnet-core-no-locblazor-cascading-values-and-parameters"></a>ASP.NET Core Blazor kaskádové hodnoty a parametry
 
@@ -47,9 +48,9 @@ public class ThemeInfo
 
 Komponenta předchůdce může poskytnout kaskádovou hodnotu pomocí komponenty kaskádová hodnota. <xref:Microsoft.AspNetCore.Components.CascadingValue%601>Komponenta zabalí podstrom hierarchie komponent a poskytne jednu hodnotu všem součástem v rámci daného podstromu.
 
-Například ukázková aplikace určuje informace o motivu ( `ThemeInfo` ) v jednom z rozložení aplikace jako kaskádový parametr pro všechny komponenty, které tvoří tělo `@Body` Vlastnosti. `ButtonClass`má přiřazenou hodnotu `btn-success` v součásti rozložení. Každá odvozená komponenta může tuto vlastnost spotřebovat prostřednictvím `ThemeInfo` kaskádového objektu.
+Například ukázková aplikace určuje informace o motivu ( `ThemeInfo` ) v jednom z rozložení aplikace jako kaskádový parametr pro všechny komponenty, které tvoří tělo `@Body` Vlastnosti. `ButtonClass` má přiřazenou hodnotu `btn-success` v součásti rozložení. Každá odvozená komponenta může tuto vlastnost spotřebovat prostřednictvím `ThemeInfo` kaskádového objektu.
 
-`CascadingValuesParametersLayout`část
+`CascadingValuesParametersLayout` část
 
 ```razor
 @inherits LayoutComponentBase
@@ -79,7 +80,7 @@ Chcete-li použít kaskádové hodnoty, komponenty deklaruje kaskádové paramet
 
 V ukázkové aplikaci `CascadingValuesParametersTheme` váže komponenta `ThemeInfo` kaskádovou hodnotu k kaskádovým parametrům. Parametr slouží k nastavení třídy CSS pro jedno z tlačítek zobrazených komponentou.
 
-`CascadingValuesParametersTheme`část
+`CascadingValuesParametersTheme` část
 
 ```razor
 @page "/cascadingvaluesparameterstheme"
@@ -190,12 +191,12 @@ Ukázková aplikace má `ITab` rozhraní, které implementuje karty:
 
 Podřízené `Tab` součásti nejsou explicitně předány jako parametry do `TabSet` . Místo toho jsou podřízené `Tab` součásti součástí podřízeného obsahu `TabSet` . `TabSet`Pořád ale potřebuje znát každou `Tab` komponentu, aby mohla vykreslovat hlavičky a aktivní kartu. Chcete-li povolit tuto koordinaci bez nutnosti dalšího kódu, `TabSet` komponenta *může poskytnout sebe sama jako kaskádovou hodnotu* , která je následně vyzvednuta podřízenými `Tab` součástmi.
 
-`TabSet`část
+`TabSet` část
 
 [!code-razor[](../common/samples/3.x/BlazorWebAssemblySample/Components/TabSet.razor)]
 
 Podřízené `Tab` komponenty zachytí objekt obsahující `TabSet` jako kaskádový parametr, takže `Tab` komponenty přidávají sebe sama do `TabSet` souřadnice a, na které karty jsou aktivní.
 
-`Tab`část
+`Tab` část
 
 [!code-razor[](../common/samples/3.x/BlazorWebAssemblySample/Components/Tab.razor)]

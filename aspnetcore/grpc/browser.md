@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 06/30/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/browser
-ms.openlocfilehash: f995fdaee1009ff51359df720c39d664aea6e3b1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8d1f761731ab3840d009eba1ff5316808bafec40
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016268"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634407"
 ---
 # <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
@@ -120,18 +121,18 @@ Předcházející kód:
 * Nakonfiguruje kanál tak, aby používal gRPC-Web.
 * Vytvoří klienta a provede volání pomocí kanálu.
 
-`GrpcWebHandler`má následující možnosti konfigurace:
+`GrpcWebHandler` má následující možnosti konfigurace:
 
 * **InnerHandler**: základní <xref:System.Net.Http.HttpMessageHandler> , který vytváří požadavek gRPC http, například `HttpClientHandler` .
 * **GrpcWebMode**: typ výčtu, který určuje, zda je GRPC požadavek `Content-Type` http `application/grpc-web` nebo `application/grpc-web-text` .
-    * `GrpcWebMode.GrpcWeb`Konfiguruje obsah, který se má odeslat bez kódování. Výchozí hodnota.
-    * `GrpcWebMode.GrpcWebText`Konfiguruje obsah tak, aby byl kódovaný v kódování Base64. Vyžaduje se pro volání streamování serveru v prohlížečích.
+    * `GrpcWebMode.GrpcWeb` Konfiguruje obsah, který se má odeslat bez kódování. Výchozí hodnota.
+    * `GrpcWebMode.GrpcWebText` Konfiguruje obsah tak, aby byl kódovaný v kódování Base64. Vyžaduje se pro volání streamování serveru v prohlížečích.
 * **HttpVersion**: protokol HTTP `Version` použitý k nastavení [zprávy HttpRequestMessage. Version](xref:System.Net.Http.HttpRequestMessage.Version) na podkladové žádosti HTTP gRPC. gRPC-web nevyžaduje konkrétní verzi a nepřepisuje výchozí, pokud není zadaný.
 
 > [!IMPORTANT]
 > Vygenerované klienty gRPC mají synchronizační a asynchronní metody pro volání unárních metod. Například `SayHello` je synchronizován a `SayHelloAsync` je asynchronní. Volání metody synchronizace v Blazor WebAssembly aplikaci způsobí, že aplikace přestane reagovat. Asynchronní metody musí být vždy použity v Blazor WebAssembly .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [gRPC pro webového klienta GitHub Project](https://github.com/grpc/grpc-web)
 * <xref:security/cors>

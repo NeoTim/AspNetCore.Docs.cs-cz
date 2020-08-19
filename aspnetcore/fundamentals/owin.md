@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/owin
-ms.openlocfilehash: e6069e5051530e88c43d99758d891b53c9f35233
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d766ba3387edbfb9298b6f3cf8a485738b7d7139
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016892"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628596"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřete web interface for .NET (OWIN) s ASP.NET Core
 
@@ -109,9 +110,9 @@ Servery založené na OWIN můžou hostovat aplikace ASP.NET Core. Jeden takový
 
 [!code-csharp[](owin/sample/src/NowinSample/Program.cs?highlight=15)]
 
-`IServer`je rozhraní, které vyžaduje `Features` vlastnost a `Start` metodu.
+`IServer` je rozhraní, které vyžaduje `Features` vlastnost a `Start` metodu.
 
-`Start`zodpovídá za konfiguraci a spuštění serveru, který v tomto případě provádí řada volání rozhraní Fluent API, která nastavila adresy přeložené z IServerAddressesFeature. Všimněte si, že konfigurace Fluent `_builder` proměnné určuje, že požadavky budou zpracovávány `appFunc` definované dříve v metodě. Tato `Func` metoda se volá u každé žádosti o zpracování příchozích požadavků.
+`Start` zodpovídá za konfiguraci a spuštění serveru, který v tomto případě provádí řada volání rozhraní Fluent API, která nastavila adresy přeložené z IServerAddressesFeature. Všimněte si, že konfigurace Fluent `_builder` proměnné určuje, že požadavky budou zpracovávány `appFunc` definované dříve v metodě. Tato `Func` metoda se volá u každé žádosti o zpracování příchozích požadavků.
 
 Přidáme také `IWebHostBuilder` rozšíření, které usnadňuje přidání a konfiguraci serveru Nowin.
 
@@ -323,7 +324,7 @@ OWIN závisí na `IDictionary<string,object>` objektu, který komunikuje informa
 | protokolu WebSocket. ClientCloseStatus | `int` | Volitelné |
 | protokolu WebSocket. ClientCloseDescription | `String` | Volitelné |
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Middleware](xref:fundamentals/middleware/index)
 * [Servery](xref:fundamentals/servers/index)

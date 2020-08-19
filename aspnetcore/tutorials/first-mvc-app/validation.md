@@ -5,6 +5,7 @@ description: Část 9 série kurzů na ASP.NET Core MVC
 ms.author: riande
 ms.date: 04/13/2017
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/validation
-ms.openlocfilehash: 43e8fbb46a3154cf2c4a50cc1683defeb5f898b6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c6904606cfe82a6c3a375667b2b2fcae0ab31d26
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020779"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628635"
 ---
 # <a name="part-9-add-validation-to-an-aspnet-core-mvc-app"></a>Část 9 – Přidání ověření do aplikace ASP.NET Core MVC
 
@@ -97,7 +98,7 @@ Otevřete soubor *Movie.cs* a prověřte `Movie` třídu. `System.ComponentModel
 
 `DataType`Atributy poskytují nápovědu pouze pro modul zobrazení k formátování dat (a poskytování prvků nebo atributů, například `<a>` pro adresu URL a `<a href="mailto:EmailAddress.com">` pro e-mail. Můžete použít `RegularExpression` atribut k ověření formátu dat. `DataType`Atribut slouží k určení datového typu, který je konkrétnější než vnitřní typ databáze, ale nejedná se o atributy ověřování. V tomto případě chceme sledovat pouze datum, nikoli čas. `DataType`Výčet poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. `DataType`Atribut může také povolit aplikaci automatické poskytování funkcí specifických pro typ. Například `mailto:` odkaz lze vytvořit pro `DataType.EmailAddress` a `DataType.Date` v prohlížečích, které podporují HTML5, lze zadat selektor data. `DataType`Atributy generují atributy HTML 5 `data-` (s vyslovnou datovou pomlčkou), které mohou prohlížeče formátu HTML 5 pochopit. `DataType`Atributy neposkytují **not** žádné ověřování.
 
-`DataType.Date`neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech založených na serveru `CultureInfo` .
+`DataType.Date` neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech založených na serveru `CultureInfo` .
 
 `DisplayFormat`Atribut slouží k explicitnímu zadání formátu data:
 
@@ -129,7 +130,7 @@ Následující kód ukazuje kombinování atributů na jednom řádku:
 
 V další části série si projdeme aplikaci a provedeme některá vylepšení automaticky generovaných `Details` a `Delete` metod.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Práce s formuláři](xref:mvc/views/working-with-forms)
 * [Globalizace a lokalizace](xref:fundamentals/localization)

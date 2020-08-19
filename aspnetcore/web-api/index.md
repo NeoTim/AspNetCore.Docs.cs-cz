@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 07/20/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/index
-ms.openlocfilehash: 7c59867f6d6fbf0f4d8207eb5d2919967d825e8b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 594d3dcbf55ed0a3476bb580df8e122cedb1dcd3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021299"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634368"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytváření webových rozhraní API pomocí ASP.NET Core
 
@@ -48,7 +49,7 @@ Webové rozhraní API se skládá z jedné nebo více tříd kontroleru, které 
 
 ::: moniker-end
 
-Nevytvářejte kontroler webového rozhraní API odvozením z <xref:Microsoft.AspNetCore.Mvc.Controller> třídy. `Controller`je odvozen z `ControllerBase` a přidává podporu pro zobrazení, aby bylo možné zpracovávat webové stránky, nikoli požadavky webového rozhraní API. Toto pravidlo má výjimku: Pokud plánujete použít stejný kontroler pro obě zobrazení a webová rozhraní API, odvodit je od `Controller` .
+Nevytvářejte kontroler webového rozhraní API odvozením z <xref:Microsoft.AspNetCore.Mvc.Controller> třídy. `Controller` je odvozen z `ControllerBase` a přidává podporu pro zobrazení, aby bylo možné zpracovávat webové stránky, nikoli požadavky webového rozhraní API. Toto pravidlo má výjimku: Pokud plánujete použít stejný kontroler pro obě zobrazení a webová rozhraní API, odvodit je od `Controller` .
 
 `ControllerBase`Třída poskytuje mnoho vlastností a metod, které jsou užitečné pro zpracování požadavků HTTP. Například `ControllerBase.CreatedAtAction` vrátí stavový kód 201:
 
@@ -162,7 +163,7 @@ namespace WebApiSample
 
 ## <a name="attribute-routing-requirement"></a>Požadavek na směrování atributu
 
-`[ApiController]`Atribut dělá směrování požadavku. Například:
+`[ApiController]`Atribut dělá směrování požadavku. Příklad:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -230,7 +231,7 @@ V případě kompatibility verze 2,2 nebo novější je výchozí typ odpovědi 
 
 ::: moniker-end
 
-Chcete-li zajistit konzistenci automatických a vlastních odpovědí, zavolejte <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem%2A> metodu místo <xref:System.Web.Http.ApiController.BadRequest%2A> . `ValidationProblem`Vrátí <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> objekt a také automatickou odpověď.
+Chcete-li zajistit konzistenci automatických a vlastních odpovědí, zavolejte <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem%2A> metodu místo <xref:System.Web.Http.ApiController.BadRequest%2A> . `ValidationProblem` Vrátí <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> objekt a také automatickou odpověď.
 
 ### <a name="log-automatic-400-responses"></a>Protokolovat automatické odpovědi 400
 
@@ -272,7 +273,7 @@ Zdrojový atribut vazby definuje umístění, kde je nalezena hodnota parametru 
 |[`[FromServices]`](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) | Služba požadavku byla vložena jako parametr akce. |
 
 > [!WARNING]
-> Nepoužívejte `[FromRoute]` , pokud hodnoty mohou obsahovat `%2f` (to znamená `/` ). `%2f`nedá se odsekvencit na `/` . Použijte `[FromQuery]` , pokud hodnota může obsahovat `%2f` .
+> Nepoužívejte `[FromRoute]` , pokud hodnoty mohou obsahovat `%2f` (to znamená `/` ). `%2f` nedá se odsekvencit na `/` . Použijte `[FromQuery]` , pokud hodnota může obsahovat `%2f` .
 
 Bez atributů `[ApiController]` nebo atributů vazby `[FromQuery]` , ASP.NET Core modul runtime se pokusí použít komplexní pořadač objektového modelu. Pořadač komplexního objektového modelu získává data od zprostředkovatelů hodnot v definovaném pořadí.
 
@@ -282,32 +283,32 @@ V následujícím příkladu `[FromQuery]` atribut označuje, že `discontinuedO
 
 `[ApiController]`Atribut použije odvozená pravidla pro výchozí zdroje dat parametrů akce. Tato pravidla vám umožní určit ruční identifikaci zdrojů vazby použitím atributů u parametrů akce. Pravidla odvození zdroje vazby se chovají následujícím způsobem:
 
-* `[FromBody]`je odvozený pro parametry komplexního typu. Výjimka na `[FromBody]` odvozený pravidlo je jakýkoli komplexní, vestavěný typ se speciálním významem, například <xref:Microsoft.AspNetCore.Http.IFormCollection> a <xref:System.Threading.CancellationToken> . Kód odvození zdroje vazby ignoruje tyto speciální typy.
-* `[FromForm]`je odvozený pro parametry akce typu <xref:Microsoft.AspNetCore.Http.IFormFile> a <xref:Microsoft.AspNetCore.Http.IFormFileCollection> . Není odvozený pro žádné jednoduché nebo uživatelsky definované typy.
-* `[FromRoute]`je odvozen pro všechny názvy parametrů akce, které odpovídají parametru v šabloně trasy. Když parametr akce odpovídá víc než jedna trasa, bude se brát v úvahu jakákoli hodnota trasy `[FromRoute]` .
-* `[FromQuery]`je odvozen pro všechny ostatní parametry akce.
+* `[FromBody]` je odvozený pro parametry komplexního typu. Výjimka na `[FromBody]` odvozený pravidlo je jakýkoli komplexní, vestavěný typ se speciálním významem, například <xref:Microsoft.AspNetCore.Http.IFormCollection> a <xref:System.Threading.CancellationToken> . Kód odvození zdroje vazby ignoruje tyto speciální typy.
+* `[FromForm]` je odvozený pro parametry akce typu <xref:Microsoft.AspNetCore.Http.IFormFile> a <xref:Microsoft.AspNetCore.Http.IFormFileCollection> . Není odvozený pro žádné jednoduché nebo uživatelsky definované typy.
+* `[FromRoute]` je odvozen pro všechny názvy parametrů akce, které odpovídají parametru v šabloně trasy. Když parametr akce odpovídá víc než jedna trasa, bude se brát v úvahu jakákoli hodnota trasy `[FromRoute]` .
+* `[FromQuery]` je odvozen pro všechny ostatní parametry akce.
 
 ### <a name="frombody-inference-notes"></a>Poznámky k odvozování FromBody
 
-`[FromBody]`není odvozen pro jednoduché typy, jako například `string` nebo `int` . Proto `[FromBody]` by měl být atribut použit pro jednoduché typy, pokud je tato funkce potřebná.
+`[FromBody]` není odvozen pro jednoduché typy, jako například `string` nebo `int` . Proto `[FromBody]` by měl být atribut použit pro jednoduché typy, pokud je tato funkce potřebná.
 
 Pokud má akce více než jeden parametr vázaný z těla požadavku, je vyvolána výjimka. Například všechny následující signatury metody Action způsobují výjimku:
 
-* `[FromBody]`odvozeno v obou případech, protože se jedná o komplexní typy.
+* `[FromBody]` odvozeno v obou případech, protože se jedná o komplexní typy.
 
   ```csharp
   [HttpPost]
   public IActionResult Action1(Product product, Order order)
   ```
 
-* `[FromBody]`atribut na jednom, odvozený na druhém, protože se jedná o komplexní typ.
+* `[FromBody]` atribut na jednom, odvozený na druhém, protože se jedná o komplexní typ.
 
   ```csharp
   [HttpPost]
   public IActionResult Action2(Product product, [FromBody] Order order)
   ```
 
-* `[FromBody]`atribut na obou.
+* `[FromBody]` atribut na obou.
 
   ```csharp
   [HttpPost]
@@ -377,7 +378,7 @@ V akci kontroleru zvažte následující kód:
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
 
-`NotFound`Metoda vytvoří stavový kód HTTP 404 s `ProblemDetails` tělem. Například:
+`NotFound`Metoda vytvoří stavový kód HTTP 404 s `ProblemDetails` tělem. Příklad:
 
 ```json
 {

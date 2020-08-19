@@ -5,6 +5,7 @@ description: V této sérii kurzů se dozvíte, jak používat Razor stránky v 
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 5fb841de2fa9a04cf05aaf08f255041ee1952638
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: db05b8243b91a936a6ed72b0445e0770d44df014
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021091"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634576"
 ---
 # <a name="tutorial-get-started-with-no-locrazor-pages-in-aspnet-core"></a>Kurz: Začínáme se Razor stránkami v ASP.NET Core
 
@@ -46,7 +47,7 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
 ![Stránka domů nebo index](razor-pages-start/_static/home2.2.png)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -190,7 +191,7 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
 ![Stránka domů nebo index](razor-pages-start/_static/home2.2.png)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -360,7 +361,7 @@ Obsahuje vstupní bod pro program. Další informace naleznete v tématu <xref:f
 
 Obsahuje kód, který konfiguruje chování aplikace, například zda vyžaduje souhlas cookie s. Další informace naleznete v tématu <xref:fundamentals/startup>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
 
