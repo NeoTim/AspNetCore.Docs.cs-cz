@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,25 +18,25 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/environments
-ms.openlocfilehash: 8a672b3d2aff4dd2b80465b0f6dac038d299eaa9
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 5f9de91eeab932dd139abdd1bf2eedadc8d396b5
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014422"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628258"
 ---
-# <a name="aspnet-core-no-locblazor-environments"></a><span data-ttu-id="4bfb1-103">ASP.NET Core Blazor prostředí</span><span class="sxs-lookup"><span data-stu-id="4bfb1-103">ASP.NET Core Blazor environments</span></span>
+# <a name="aspnet-core-no-locblazor-environments"></a><span data-ttu-id="d36f6-103">ASP.NET Core Blazor prostředí</span><span class="sxs-lookup"><span data-stu-id="d36f6-103">ASP.NET Core Blazor environments</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="4bfb1-104">Toto téma se týká Blazor WebAssembly .</span><span class="sxs-lookup"><span data-stu-id="4bfb1-104">This topic applies to Blazor WebAssembly.</span></span> <span data-ttu-id="4bfb1-105">Obecné pokyny týkající se konfigurace ASP.NET Core aplikace najdete v tématu <xref:fundamentals/environments> .</span><span class="sxs-lookup"><span data-stu-id="4bfb1-105">For general guidance on ASP.NET Core app configuration, see <xref:fundamentals/environments>.</span></span>
+> <span data-ttu-id="d36f6-104">Toto téma se týká Blazor WebAssembly .</span><span class="sxs-lookup"><span data-stu-id="d36f6-104">This topic applies to Blazor WebAssembly.</span></span> <span data-ttu-id="d36f6-105">Obecné pokyny týkající se konfigurace ASP.NET Core aplikace najdete v tématu <xref:fundamentals/environments> .</span><span class="sxs-lookup"><span data-stu-id="d36f6-105">For general guidance on ASP.NET Core app configuration, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="4bfb1-106">Při místním spuštění aplikace je prostředí standardně vyvíjené.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-106">When running an app locally, the environment defaults to Development.</span></span> <span data-ttu-id="4bfb1-107">Při publikování aplikace je prostředí standardně v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-107">When the app is published, the environment defaults to Production.</span></span>
+<span data-ttu-id="d36f6-106">Při místním spuštění aplikace je prostředí standardně vyvíjené.</span><span class="sxs-lookup"><span data-stu-id="d36f6-106">When running an app locally, the environment defaults to Development.</span></span> <span data-ttu-id="d36f6-107">Při publikování aplikace je prostředí standardně v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="d36f6-107">When the app is published, the environment defaults to Production.</span></span>
 
-<span data-ttu-id="4bfb1-108">Hostovaná Blazor WebAssembly aplikace vybírá prostředí ze serveru prostřednictvím middleware, který toto prostředí komunikuje do prohlížeče přidáním `blazor-environment` hlavičky.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-108">A hosted Blazor WebAssembly app picks up the environment from the server via a middleware that communicates the environment to the browser by adding the `blazor-environment` header.</span></span> <span data-ttu-id="4bfb1-109">Hodnota hlavičky je prostředí.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-109">The value of the header is the environment.</span></span> <span data-ttu-id="4bfb1-110">Hostovaná Blazor aplikace a serverová aplikace sdílejí stejné prostředí.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-110">The hosted Blazor app and the server app share the same environment.</span></span> <span data-ttu-id="4bfb1-111">Další informace, včetně postupu konfigurace prostředí, najdete v tématu <xref:fundamentals/environments> .</span><span class="sxs-lookup"><span data-stu-id="4bfb1-111">For more information, including how to configure the environment, see <xref:fundamentals/environments>.</span></span>
+<span data-ttu-id="d36f6-108">Hostovaná Blazor WebAssembly aplikace vybírá prostředí ze serveru prostřednictvím middleware, který toto prostředí komunikuje do prohlížeče přidáním `blazor-environment` hlavičky.</span><span class="sxs-lookup"><span data-stu-id="d36f6-108">A hosted Blazor WebAssembly app picks up the environment from the server via a middleware that communicates the environment to the browser by adding the `blazor-environment` header.</span></span> <span data-ttu-id="d36f6-109">Hodnota hlavičky je prostředí.</span><span class="sxs-lookup"><span data-stu-id="d36f6-109">The value of the header is the environment.</span></span> <span data-ttu-id="d36f6-110">Hostovaná Blazor aplikace a serverová aplikace sdílejí stejné prostředí.</span><span class="sxs-lookup"><span data-stu-id="d36f6-110">The hosted Blazor app and the server app share the same environment.</span></span> <span data-ttu-id="d36f6-111">Další informace, včetně postupu konfigurace prostředí, najdete v tématu <xref:fundamentals/environments> .</span><span class="sxs-lookup"><span data-stu-id="d36f6-111">For more information, including how to configure the environment, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="4bfb1-112">Pro samostatnou spuštěnou aplikaci, která je spuštěna místně, vývojový server přidá `blazor-environment` hlavičku pro určení vývojového prostředí.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-112">For a standalone app running locally, the development server adds the `blazor-environment` header to specify the Development environment.</span></span> <span data-ttu-id="4bfb1-113">Chcete-li určit prostředí pro jiná hostující prostředí, přidejte `blazor-environment` hlavičku.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-113">To specify the environment for other hosting environments, add the `blazor-environment` header.</span></span>
+<span data-ttu-id="d36f6-112">Pro samostatnou spuštěnou aplikaci, která je spuštěna místně, vývojový server přidá `blazor-environment` hlavičku pro určení vývojového prostředí.</span><span class="sxs-lookup"><span data-stu-id="d36f6-112">For a standalone app running locally, the development server adds the `blazor-environment` header to specify the Development environment.</span></span> <span data-ttu-id="d36f6-113">Chcete-li určit prostředí pro jiná hostující prostředí, přidejte `blazor-environment` hlavičku.</span><span class="sxs-lookup"><span data-stu-id="d36f6-113">To specify the environment for other hosting environments, add the `blazor-environment` header.</span></span>
 
-<span data-ttu-id="4bfb1-114">V následujícím příkladu pro IIS přidejte vlastní hlavičku do publikovaného `web.config` souboru.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-114">In the following example for IIS, add the custom header to the published `web.config` file.</span></span> <span data-ttu-id="4bfb1-115">`web.config`Soubor se nachází ve `bin/Release/{TARGET FRAMEWORK}/publish` složce:</span><span class="sxs-lookup"><span data-stu-id="4bfb1-115">The `web.config` file is located in the `bin/Release/{TARGET FRAMEWORK}/publish` folder:</span></span>
+<span data-ttu-id="d36f6-114">V následujícím příkladu pro IIS přidejte vlastní hlavičku do publikovaného `web.config` souboru.</span><span class="sxs-lookup"><span data-stu-id="d36f6-114">In the following example for IIS, add the custom header to the published `web.config` file.</span></span> <span data-ttu-id="d36f6-115">`web.config`Soubor se nachází ve `bin/Release/{TARGET FRAMEWORK}/publish` složce:</span><span class="sxs-lookup"><span data-stu-id="d36f6-115">The `web.config` file is located in the `bin/Release/{TARGET FRAMEWORK}/publish` folder:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -54,9 +55,9 @@ ms.locfileid: "88014422"
 ```
 
 > [!NOTE]
-> <span data-ttu-id="4bfb1-116">Chcete-li použít vlastní `web.config` soubor pro službu IIS, která není přepsána při publikování aplikace do `publish` složky, přečtěte si téma <xref:blazor/host-and-deploy/webassembly#use-a-custom-webconfig> .</span><span class="sxs-lookup"><span data-stu-id="4bfb1-116">To use a custom `web.config` file for IIS that isn't overwritten when the app is published to the `publish` folder, see <xref:blazor/host-and-deploy/webassembly#use-a-custom-webconfig>.</span></span>
+> <span data-ttu-id="d36f6-116">Chcete-li použít vlastní `web.config` soubor pro službu IIS, která není přepsána při publikování aplikace do `publish` složky, přečtěte si téma <xref:blazor/host-and-deploy/webassembly#use-a-custom-webconfig> .</span><span class="sxs-lookup"><span data-stu-id="d36f6-116">To use a custom `web.config` file for IIS that isn't overwritten when the app is published to the `publish` folder, see <xref:blazor/host-and-deploy/webassembly#use-a-custom-webconfig>.</span></span>
 
-<span data-ttu-id="4bfb1-117">Získání prostředí aplikace v součásti vložením <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> a čtením <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.Environment> vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="4bfb1-117">Obtain the app's environment in a component by injecting <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> and reading the <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.Environment> property:</span></span>
+<span data-ttu-id="d36f6-117">Získání prostředí aplikace v součásti vložením <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> a čtením <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.Environment> vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="d36f6-117">Obtain the app's environment in a component by injecting <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> and reading the <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.Environment> property:</span></span>
 
 ```razor
 @page "/"
@@ -68,7 +69,7 @@ ms.locfileid: "88014422"
 <p>Environment: @HostEnvironment.Environment</p>
 ```
 
-<span data-ttu-id="4bfb1-118">Během spouštění <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder> zpřístupňuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder.HostEnvironment> vlastnost prostřednictvím vlastnosti, která vývojářům umožňuje mít v kódu logiku konkrétního prostředí:</span><span class="sxs-lookup"><span data-stu-id="4bfb1-118">During startup, the <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder> exposes the <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> through the <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder.HostEnvironment> property, which enables developers to have environment-specific logic in their code:</span></span>
+<span data-ttu-id="d36f6-118">Během spouštění <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder> zpřístupňuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder.HostEnvironment> vlastnost prostřednictvím vlastnosti, která vývojářům umožňuje mít v kódu logiku konkrétního prostředí:</span><span class="sxs-lookup"><span data-stu-id="d36f6-118">During startup, the <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder> exposes the <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> through the <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder.HostEnvironment> property, which enables developers to have environment-specific logic in their code:</span></span>
 
 ```csharp
 if (builder.HostEnvironment.Environment == "Custom")
@@ -77,7 +78,7 @@ if (builder.HostEnvironment.Environment == "Custom")
 };
 ```
 
-<span data-ttu-id="4bfb1-119">Následující rozšiřující metody umožňují kontrolu aktuálního prostředí pro názvy pro vývoj, produkci, přípravu a vlastní prostředí:</span><span class="sxs-lookup"><span data-stu-id="4bfb1-119">The following convenience extension methods permit checking the current environment for Development, Production, Staging, and custom environment names:</span></span>
+<span data-ttu-id="d36f6-119">Následující rozšiřující metody umožňují kontrolu aktuálního prostředí pro názvy pro vývoj, produkci, přípravu a vlastní prostředí:</span><span class="sxs-lookup"><span data-stu-id="d36f6-119">The following convenience extension methods permit checking the current environment for Development, Production, Staging, and custom environment names:</span></span>
 
 * `IsDevelopment()`
 * `IsProduction()`
@@ -96,8 +97,8 @@ if (builder.HostEnvironment.IsEnvironment("Custom"))
 };
 ```
 
-<span data-ttu-id="4bfb1-120"><xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType>Vlastnost lze použít při spuštění, když <xref:Microsoft.AspNetCore.Components.NavigationManager> není služba k dispozici.</span><span class="sxs-lookup"><span data-stu-id="4bfb1-120">The <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> property can be used during startup when the <xref:Microsoft.AspNetCore.Components.NavigationManager> service isn't available.</span></span>
+<span data-ttu-id="d36f6-120"><xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType>Vlastnost lze použít při spuštění, když <xref:Microsoft.AspNetCore.Components.NavigationManager> není služba k dispozici.</span><span class="sxs-lookup"><span data-stu-id="d36f6-120">The <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.BaseAddress?displayProperty=nameWithType> property can be used during startup when the <xref:Microsoft.AspNetCore.Components.NavigationManager> service isn't available.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="4bfb1-121">Další materiály</span><span class="sxs-lookup"><span data-stu-id="4bfb1-121">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="d36f6-121">Další materiály</span><span class="sxs-lookup"><span data-stu-id="d36f6-121">Additional resources</span></span>
 
 * <xref:fundamentals/environments>

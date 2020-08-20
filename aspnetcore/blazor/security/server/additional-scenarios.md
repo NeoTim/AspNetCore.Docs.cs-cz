@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,22 +18,22 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/additional-scenarios
-ms.openlocfilehash: 16896577c56c638cae6824c58f4d3a6ce1489458
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 62cf16e3e495e3e9a015a3be4e7fffd6a3ce08bc
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014006"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626464"
 ---
-# <a name="aspnet-core-no-locblazor-server-additional-security-scenarios"></a><span data-ttu-id="569fb-103">ASP.NET Core Blazor Server Další scénáře zabezpečení</span><span class="sxs-lookup"><span data-stu-id="569fb-103">ASP.NET Core Blazor Server additional security scenarios</span></span>
+# <a name="aspnet-core-no-locblazor-server-additional-security-scenarios"></a><span data-ttu-id="cb96a-103">ASP.NET Core Blazor Server Další scénáře zabezpečení</span><span class="sxs-lookup"><span data-stu-id="cb96a-103">ASP.NET Core Blazor Server additional security scenarios</span></span>
 
-<span data-ttu-id="569fb-104">[Javier Calvarro Nelson](https://github.com/javiercn)</span><span class="sxs-lookup"><span data-stu-id="569fb-104">By [Javier Calvarro Nelson](https://github.com/javiercn)</span></span>
+<span data-ttu-id="cb96a-104">[Javier Calvarro Nelson](https://github.com/javiercn)</span><span class="sxs-lookup"><span data-stu-id="cb96a-104">By [Javier Calvarro Nelson](https://github.com/javiercn)</span></span>
 
-## <a name="pass-tokens-to-a-no-locblazor-server-app"></a><span data-ttu-id="569fb-105">Předání tokenů do Blazor Server aplikace</span><span class="sxs-lookup"><span data-stu-id="569fb-105">Pass tokens to a Blazor Server app</span></span>
+## <a name="pass-tokens-to-a-no-locblazor-server-app"></a><span data-ttu-id="cb96a-105">Předání tokenů do Blazor Server aplikace</span><span class="sxs-lookup"><span data-stu-id="cb96a-105">Pass tokens to a Blazor Server app</span></span>
 
-<span data-ttu-id="569fb-106">Tokeny, které jsou k dispozici mimo Razor součásti v Blazor Server aplikaci, mohou být předány komponentám s přístupem popsaným v této části.</span><span class="sxs-lookup"><span data-stu-id="569fb-106">Tokens available outside of the Razor components in a Blazor Server app can be passed to components with the approach described in this section.</span></span> <span data-ttu-id="569fb-107">Vzorový kód, včetně kompletního `Startup.ConfigureServices` příkladu, najdete v tématu [předávání tokenů do Blazor aplikace na straně serveru](https://github.com/javiercn/blazor-server-aad-sample).</span><span class="sxs-lookup"><span data-stu-id="569fb-107">For sample code, including a complete `Startup.ConfigureServices` example, see the [Passing tokens to a server-side Blazor application](https://github.com/javiercn/blazor-server-aad-sample).</span></span>
+<span data-ttu-id="cb96a-106">Tokeny, které jsou k dispozici mimo Razor součásti v Blazor Server aplikaci, mohou být předány komponentám s přístupem popsaným v této části.</span><span class="sxs-lookup"><span data-stu-id="cb96a-106">Tokens available outside of the Razor components in a Blazor Server app can be passed to components with the approach described in this section.</span></span> <span data-ttu-id="cb96a-107">Vzorový kód, včetně kompletního `Startup.ConfigureServices` příkladu, najdete v tématu [předávání tokenů do Blazor aplikace na straně serveru](https://github.com/javiercn/blazor-server-aad-sample).</span><span class="sxs-lookup"><span data-stu-id="cb96a-107">For sample code, including a complete `Startup.ConfigureServices` example, see the [Passing tokens to a server-side Blazor application](https://github.com/javiercn/blazor-server-aad-sample).</span></span>
 
-<span data-ttu-id="569fb-108">Ověřte Blazor Server aplikaci stejně, jako byste použili běžné Razor stránky nebo aplikace MVC.</span><span class="sxs-lookup"><span data-stu-id="569fb-108">Authenticate the Blazor Server app as you would with a regular Razor Pages or MVC app.</span></span> <span data-ttu-id="569fb-109">Zřídí a uloží tokeny do ověřování cookie .</span><span class="sxs-lookup"><span data-stu-id="569fb-109">Provision and save the tokens to the authentication cookie.</span></span> <span data-ttu-id="569fb-110">Například:</span><span class="sxs-lookup"><span data-stu-id="569fb-110">For example:</span></span>
+<span data-ttu-id="cb96a-108">Ověřte Blazor Server aplikaci stejně, jako byste použili běžné Razor stránky nebo aplikace MVC.</span><span class="sxs-lookup"><span data-stu-id="cb96a-108">Authenticate the Blazor Server app as you would with a regular Razor Pages or MVC app.</span></span> <span data-ttu-id="cb96a-109">Zřídí a uloží tokeny do ověřování cookie .</span><span class="sxs-lookup"><span data-stu-id="cb96a-109">Provision and save the tokens to the authentication cookie.</span></span> <span data-ttu-id="cb96a-110">Příklad:</span><span class="sxs-lookup"><span data-stu-id="cb96a-110">For example:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -50,7 +51,7 @@ services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =
 });
 ```
 
-<span data-ttu-id="569fb-111">Definujte třídu, která bude předána počátečnímu stavu aplikace pomocí tokenů přístupu a aktualizace:</span><span class="sxs-lookup"><span data-stu-id="569fb-111">Define a class to pass in the initial app state with the access and refresh tokens:</span></span>
+<span data-ttu-id="cb96a-111">Definujte třídu, která bude předána počátečnímu stavu aplikace pomocí tokenů přístupu a aktualizace:</span><span class="sxs-lookup"><span data-stu-id="cb96a-111">Define a class to pass in the initial app state with the access and refresh tokens:</span></span>
 
 ```csharp
 public class InitialApplicationState
@@ -60,7 +61,7 @@ public class InitialApplicationState
 }
 ```
 
-<span data-ttu-id="569fb-112">Definujte službu **oboru** poskytovatele tokenů, kterou lze v Blazor aplikaci použít k vyřešení tokenů z [Injektáže vkládání závislostí (di)](xref:blazor/fundamentals/dependency-injection):</span><span class="sxs-lookup"><span data-stu-id="569fb-112">Define a **scoped** token provider service that can be used within the Blazor app to resolve the tokens from [dependency injection (DI)](xref:blazor/fundamentals/dependency-injection):</span></span>
+<span data-ttu-id="cb96a-112">Definujte službu **oboru** poskytovatele tokenů, kterou lze v Blazor aplikaci použít k vyřešení tokenů z [Injektáže vkládání závislostí (di)](xref:blazor/fundamentals/dependency-injection):</span><span class="sxs-lookup"><span data-stu-id="cb96a-112">Define a **scoped** token provider service that can be used within the Blazor app to resolve the tokens from [dependency injection (DI)](xref:blazor/fundamentals/dependency-injection):</span></span>
 
 ```csharp
 public class TokenProvider
@@ -70,7 +71,7 @@ public class TokenProvider
 }
 ```
 
-<span data-ttu-id="569fb-113">V nástroji `Startup.ConfigureServices` přidejte služby pro:</span><span class="sxs-lookup"><span data-stu-id="569fb-113">In `Startup.ConfigureServices`, add services for:</span></span>
+<span data-ttu-id="cb96a-113">V nástroji `Startup.ConfigureServices` přidejte služby pro:</span><span class="sxs-lookup"><span data-stu-id="cb96a-113">In `Startup.ConfigureServices`, add services for:</span></span>
 
 * `IHttpClientFactory`
 * `TokenProvider`
@@ -80,7 +81,7 @@ services.AddHttpClient();
 services.AddScoped<TokenProvider>();
 ```
 
-<span data-ttu-id="569fb-114">V `_Host.cshtml` souboru vytvořte instanci a `InitialApplicationState` a předejte ji jako parametr do aplikace:</span><span class="sxs-lookup"><span data-stu-id="569fb-114">In the `_Host.cshtml` file, create and instance of `InitialApplicationState` and pass it as a parameter to the app:</span></span>
+<span data-ttu-id="cb96a-114">V `_Host.cshtml` souboru vytvořte instanci a `InitialApplicationState` a předejte ji jako parametr do aplikace:</span><span class="sxs-lookup"><span data-stu-id="cb96a-114">In the `_Host.cshtml` file, create and instance of `InitialApplicationState` and pass it as a parameter to the app:</span></span>
 
 ```cshtml
 @using Microsoft.AspNetCore.Authentication
@@ -101,7 +102,7 @@ services.AddScoped<TokenProvider>();
 </app>
 ```
 
-<span data-ttu-id="569fb-115">V `App` součásti ( `App.razor` ) vyřešte službu a inicializujte ji s daty z parametru:</span><span class="sxs-lookup"><span data-stu-id="569fb-115">In the `App` component (`App.razor`), resolve the service and initialize it with the data from the parameter:</span></span>
+<span data-ttu-id="cb96a-115">V `App` součásti ( `App.razor` ) vyřešte službu a inicializujte ji s daty z parametru:</span><span class="sxs-lookup"><span data-stu-id="cb96a-115">In the `App` component (`App.razor`), resolve the service and initialize it with the data from the parameter:</span></span>
 
 ```razor
 @inject TokenProvider TokenProvider
@@ -122,7 +123,7 @@ services.AddScoped<TokenProvider>();
 }
 ```
 
-<span data-ttu-id="569fb-116">V rámci služby, která vytváří požadavek na zabezpečený rozhraní API, zajistěte vložení poskytovatele tokenu a načtěte token pro volání rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="569fb-116">In the service that makes a secure API request, inject the token provider and retrieve the token to call the API:</span></span>
+<span data-ttu-id="cb96a-116">V rámci služby, která vytváří požadavek na zabezpečený rozhraní API, zajistěte vložení poskytovatele tokenu a načtěte token pro volání rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="cb96a-116">In the service that makes a secure API request, inject the token provider and retrieve the token to call the API:</span></span>
 
 ```csharp
 public class WeatherForecastService
@@ -152,9 +153,9 @@ public class WeatherForecastService
 }
 ```
 
-## <a name="set-the-authentication-scheme"></a><span data-ttu-id="569fb-117">Nastavení schématu ověřování</span><span class="sxs-lookup"><span data-stu-id="569fb-117">Set the authentication scheme</span></span>
+## <a name="set-the-authentication-scheme"></a><span data-ttu-id="cb96a-117">Nastavení schématu ověřování</span><span class="sxs-lookup"><span data-stu-id="cb96a-117">Set the authentication scheme</span></span>
 
-<span data-ttu-id="569fb-118">Pro aplikaci, která používá více než jeden middleware ověřování a má tedy více než jedno schéma ověřování, Blazor může být používané schéma explicitně nastaveno v konfiguraci koncového bodu systému `Startup.Configure` .</span><span class="sxs-lookup"><span data-stu-id="569fb-118">For an app that uses more than one Authentication Middleware and thus has more than one authentication scheme, the scheme that Blazor uses can be explicitly set in the endpoint configuration of `Startup.Configure`.</span></span> <span data-ttu-id="569fb-119">Následující příklad nastaví Azure Active Directory schéma:</span><span class="sxs-lookup"><span data-stu-id="569fb-119">The following example sets the Azure Active Directory scheme:</span></span>
+<span data-ttu-id="cb96a-118">Pro aplikaci, která používá více než jeden middleware ověřování a má tedy více než jedno schéma ověřování, Blazor může být používané schéma explicitně nastaveno v konfiguraci koncového bodu systému `Startup.Configure` .</span><span class="sxs-lookup"><span data-stu-id="cb96a-118">For an app that uses more than one Authentication Middleware and thus has more than one authentication scheme, the scheme that Blazor uses can be explicitly set in the endpoint configuration of `Startup.Configure`.</span></span> <span data-ttu-id="cb96a-119">Následující příklad nastaví Azure Active Directory schéma:</span><span class="sxs-lookup"><span data-stu-id="cb96a-119">The following example sets the Azure Active Directory scheme:</span></span>
 
 ```csharp
 endpoints.MapBlazorHub().RequireAuthorization(
@@ -164,9 +165,9 @@ endpoints.MapBlazorHub().RequireAuthorization(
     });
 ```
 
-## <a name="use-openid-connect-oidc-v20-endpoints"></a><span data-ttu-id="569fb-120">Použití koncových bodů OpenID Connect (OIDC) v 2.0</span><span class="sxs-lookup"><span data-stu-id="569fb-120">Use OpenID Connect (OIDC) v2.0 endpoints</span></span>
+## <a name="use-openid-connect-oidc-v20-endpoints"></a><span data-ttu-id="cb96a-120">Použití koncových bodů OpenID Connect (OIDC) v 2.0</span><span class="sxs-lookup"><span data-stu-id="cb96a-120">Use OpenID Connect (OIDC) v2.0 endpoints</span></span>
 
-<span data-ttu-id="569fb-121">Knihovna a šablony ověřování Blazor používají koncové body OpenID Connect (OIDC) v 1.0.</span><span class="sxs-lookup"><span data-stu-id="569fb-121">The authentication library and Blazor templates use OpenID Connect (OIDC) v1.0 endpoints.</span></span> <span data-ttu-id="569fb-122">Pokud chcete použít koncový bod v 2.0, nakonfigurujte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> možnost v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> :</span><span class="sxs-lookup"><span data-stu-id="569fb-122">To use a v2.0 endpoint, configure the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> option in the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions>:</span></span>
+<span data-ttu-id="cb96a-121">Knihovna a šablony ověřování Blazor používají koncové body OpenID Connect (OIDC) v 1.0.</span><span class="sxs-lookup"><span data-stu-id="cb96a-121">The authentication library and Blazor templates use OpenID Connect (OIDC) v1.0 endpoints.</span></span> <span data-ttu-id="cb96a-122">Pokud chcete použít koncový bod v 2.0, nakonfigurujte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> možnost v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> :</span><span class="sxs-lookup"><span data-stu-id="cb96a-122">To use a v2.0 endpoint, configure the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority?displayProperty=nameWithType> option in the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions>:</span></span>
 
 ```csharp
 services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, 
@@ -176,7 +177,7 @@ services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme,
     }
 ```
 
-<span data-ttu-id="569fb-123">Případně může být nastavení provedeno v souboru nastavení aplikace ( `appsettings.json` ):</span><span class="sxs-lookup"><span data-stu-id="569fb-123">Alternatively, the setting can be made in the app settings (`appsettings.json`) file:</span></span>
+<span data-ttu-id="cb96a-123">Případně může být nastavení provedeno v souboru nastavení aplikace ( `appsettings.json` ):</span><span class="sxs-lookup"><span data-stu-id="cb96a-123">Alternatively, the setting can be made in the app settings (`appsettings.json`) file:</span></span>
 
 ```json
 {
@@ -187,12 +188,12 @@ services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme,
 }
 ```
 
-<span data-ttu-id="569fb-124">Pokud se označení segmentu pro autoritu nehodí pro poskytovatele OIDC aplikace, jako je třeba u jiných poskytovatelů než AAD, nastavte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> vlastnost přímo.</span><span class="sxs-lookup"><span data-stu-id="569fb-124">If tacking on a segment to the authority isn't appropriate for the app's OIDC provider, such as with non-AAD providers, set the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> property directly.</span></span> <span data-ttu-id="569fb-125">Buď nastavte vlastnost v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> nebo v souboru nastavení aplikace s <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> klíčem.</span><span class="sxs-lookup"><span data-stu-id="569fb-125">Either set the property in <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> or in the app settings file with the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> key.</span></span>
+<span data-ttu-id="cb96a-124">Pokud se označení segmentu pro autoritu nehodí pro poskytovatele OIDC aplikace, jako je třeba u jiných poskytovatelů než AAD, nastavte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> vlastnost přímo.</span><span class="sxs-lookup"><span data-stu-id="cb96a-124">If tacking on a segment to the authority isn't appropriate for the app's OIDC provider, such as with non-AAD providers, set the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> property directly.</span></span> <span data-ttu-id="cb96a-125">Buď nastavte vlastnost v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> nebo v souboru nastavení aplikace s <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> klíčem.</span><span class="sxs-lookup"><span data-stu-id="cb96a-125">Either set the property in <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> or in the app settings file with the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> key.</span></span>
 
-### <a name="code-changes"></a><span data-ttu-id="569fb-126">Změny kódu</span><span class="sxs-lookup"><span data-stu-id="569fb-126">Code changes</span></span>
+### <a name="code-changes"></a><span data-ttu-id="cb96a-126">Změny kódu</span><span class="sxs-lookup"><span data-stu-id="cb96a-126">Code changes</span></span>
 
-* <span data-ttu-id="569fb-127">Seznam deklarací identity v tokenu ID se mění pro koncové body verze 2.0.</span><span class="sxs-lookup"><span data-stu-id="569fb-127">The list of claims in the ID token changes for v2.0 endpoints.</span></span> <span data-ttu-id="569fb-128">Další informace najdete v tématu [Proč aktualizace pro Microsoft Identity Platform (v 2.0)?](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison)</span><span class="sxs-lookup"><span data-stu-id="569fb-128">For more information, see [Why update to Microsoft identity platform (v2.0)?](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison)</span></span> <span data-ttu-id="569fb-129">v dokumentaci k Azure.</span><span class="sxs-lookup"><span data-stu-id="569fb-129">in the Azure documentation.</span></span>
-* <span data-ttu-id="569fb-130">Vzhledem k tomu, že jsou prostředky zadány v oboru identifikátorů URI pro koncové body verze 2.0, odeberte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Resource?displayProperty=nameWithType> nastavení vlastnosti v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> :</span><span class="sxs-lookup"><span data-stu-id="569fb-130">Since resources are specified in scope URIs for v2.0 endpoints, remove the the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Resource?displayProperty=nameWithType> property setting in <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions>:</span></span>
+* <span data-ttu-id="cb96a-127">Seznam deklarací identity v tokenu ID se mění pro koncové body verze 2.0.</span><span class="sxs-lookup"><span data-stu-id="cb96a-127">The list of claims in the ID token changes for v2.0 endpoints.</span></span> <span data-ttu-id="cb96a-128">Další informace najdete v tématu [Proč aktualizace pro Microsoft Identity Platform (v 2.0)?](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison)</span><span class="sxs-lookup"><span data-stu-id="cb96a-128">For more information, see [Why update to Microsoft identity platform (v2.0)?](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison)</span></span> <span data-ttu-id="cb96a-129">v dokumentaci k Azure.</span><span class="sxs-lookup"><span data-stu-id="cb96a-129">in the Azure documentation.</span></span>
+* <span data-ttu-id="cb96a-130">Vzhledem k tomu, že jsou prostředky zadány v oboru identifikátorů URI pro koncové body verze 2.0, odeberte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Resource?displayProperty=nameWithType> nastavení vlastnosti v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> :</span><span class="sxs-lookup"><span data-stu-id="cb96a-130">Since resources are specified in scope URIs for v2.0 endpoints, remove the the <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Resource?displayProperty=nameWithType> property setting in <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions>:</span></span>
 
   ```csharp
   services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options => 
@@ -223,4 +224,4 @@ services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme,
 }
 ```
 
-<span data-ttu-id="569fb-131">Identifikátor URI ID aplikace můžete najít v popisu registrace aplikace poskytovatele OIDC.</span><span class="sxs-lookup"><span data-stu-id="569fb-131">You can find the App ID URI to use in the OIDC provider app registration description.</span></span>
+<span data-ttu-id="cb96a-131">Identifikátor URI ID aplikace můžete najít v popisu registrace aplikace poskytovatele OIDC.</span><span class="sxs-lookup"><span data-stu-id="cb96a-131">You can find the App ID URI to use in the OIDC provider app registration description.</span></span>
