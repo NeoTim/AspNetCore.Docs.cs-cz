@@ -1,5 +1,5 @@
 ---
-title: Opožděné načtení sestavení v ASP.NET CoreBlazor WebAssembly
+title: Opožděné načtení sestavení v ASP.NET Core Blazor WebAssembly
 author: guardrex
 description: Zjistěte, jak se v aplikacích ASP.NET Core opožděně načítat sestavení Blazor WebAssembly .
 monikerRange: '>= aspnetcore-5.0'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/16/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-lazy-load-assemblies
-ms.openlocfilehash: 0ce03badccad4e06aa3c316580ab82be38a806c6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 31e6c9638d3262d3cb0a5e0fbcf34d24e2d1e91c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013369"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625801"
 ---
-# <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>Opožděné načtení sestavení v ASP.NET CoreBlazor WebAssembly
+# <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>Opožděné načtení sestavení v ASP.NET Core Blazor WebAssembly
 
 Od [Safia Abdalla](https://safia.rocks) a [Luke Latham](https://github.com/guardrex)
 
-Blazor WebAssemblyvýkon spuštění aplikace lze zlepšit odložením načítání některých sestavení aplikace, dokud nejsou požadovány, což se nazývá *opožděné načítání*. Například sestavení, která jsou použita pouze k vykreslení jedné součásti, lze nastavit tak, aby se načetla pouze v případě, že uživatel přejde k této součásti. Po načtení jsou sestavení uložená v mezipaměti na straně klienta a jsou dostupná pro všechny budoucí navigace.
+Blazor WebAssembly výkon spuštění aplikace lze zlepšit odložením načítání některých sestavení aplikace, dokud nejsou požadovány, což se nazývá *opožděné načítání*. Například sestavení, která jsou použita pouze k vykreslení jedné součásti, lze nastavit tak, aby se načetla pouze v případě, že uživatel přejde k této součásti. Po načtení jsou sestavení uložená v mezipaměti na straně klienta a jsou dostupná pro všechny budoucí navigace.
 
 Blazorfunkce opožděného načítání umožňuje označit sestavení aplikace pro opožděné načítání, které načte sestavení během běhu, když uživatel přejde na konkrétní trasu. Tato funkce se skládá ze změn v souboru projektu a změn ve směrovači aplikace.
 
@@ -77,19 +78,19 @@ V `Router` součásti aplikace ( `App.razor` ):
 
 Pokud `OnNavigateAsync` zpětné volání vyvolá neošetřenou výjimku, je vyvolána [ Blazor Chyba uživatelského rozhraní](xref:blazor/fundamentals/handle-errors#detailed-errors-during-development) .
 
-### <a name="assembly-load-logic-in-onnavigateasync"></a>Logika načtení sestavení v`OnNavigateAsync`
+### <a name="assembly-load-logic-in-onnavigateasync"></a>Logika načtení sestavení v `OnNavigateAsync`
 
-`OnNavigateAsync`má `NavigationContext` parametr, který poskytuje informace o aktuální asynchronní události navigace, včetně cílové cesty ( `Path` ) a tokenu zrušení ( `CancellationToken` ):
+`OnNavigateAsync` má `NavigationContext` parametr, který poskytuje informace o aktuální asynchronní události navigace, včetně cílové cesty ( `Path` ) a tokenu zrušení ( `CancellationToken` ):
 
 * `Path`Vlastnost je cílová cesta uživatele relativní vzhledem k základní cestě aplikace, jako je například `/robot` .
-* `CancellationToken`Lze použít ke sledování zrušení asynchronní úlohy. `OnNavigateAsync`automaticky zruší aktuálně běžící navigační úkol, když uživatel přejde na jinou stránku.
+* `CancellationToken`Lze použít ke sledování zrušení asynchronní úlohy. `OnNavigateAsync` automaticky zruší aktuálně běžící navigační úkol, když uživatel přejde na jinou stránku.
 
 Uvnitř `OnNavigateAsync` , implementujte logiku pro určení sestavení, která se mají načíst. Vaše možnosti jsou:
 
 * Podmíněné kontroly v rámci `OnNavigateAsync` metody.
 * Vyhledávací tabulka, která mapuje trasy k názvům sestavení, vložena do komponenty nebo implementována v rámci [`@code`](xref:mvc/views/razor#code) bloku.
 
-`LazyAssemblyLoader`je služba typu Singleton poskytovaná rozhraním pro načítání sestavení. Vložit `LazyAssemblyLoader` do `Router` komponenty:
+`LazyAssemblyLoader` je služba typu Singleton poskytovaná rozhraním pro načítání sestavení. Vložit `LazyAssemblyLoader` do `Router` komponenty:
 
 ```razor
 ...
@@ -130,7 +131,7 @@ Při načítání sestavení, která mohou trvat několik sekund, `Router` můž
 ...
 ```
 
-### <a name="handle-cancellations-in-onnavigateasync"></a>Zpracovat zrušení v`OnNavigateAsync`
+### <a name="handle-cancellations-in-onnavigateasync"></a>Zpracovat zrušení v `OnNavigateAsync`
 
 `NavigationContext`Objekt předaný `OnNavigateAsync` zpětnému volání obsahuje `CancellationToken` sadu, která je nastavena, když dojde k nové události navigace. `OnNavigateAsync`Zpětné volání musí vyvolat, když je tento token zrušení nastaven tak, aby se nepokračovalo `OnNavigateAsync` v provádění zpětného volání u zastaralé navigace.
 

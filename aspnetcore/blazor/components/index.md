@@ -5,8 +5,9 @@ description: Naučte se vytvářet a používat Razor komponenty, včetně toho,
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/14/2020
+ms.date: 08/19/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: a145cfd551650445f9ff35259cbedf71ebb686f0
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6ee767ee76b622e15a1dc5a7fe2f3e05f03dabd0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014591"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628492"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
@@ -30,15 +31,15 @@ Od [Luke Latham](https://github.com/guardrex), [Daniel Skořepa](https://github.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Blazoraplikace jsou sestavené pomocí *komponent*. Součást je samostatně obsažený blok uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenta obsahuje značky HTML a logiku zpracování potřebnou k vkládání dat nebo reakci na události uživatelského rozhraní. Komponenty jsou flexibilní a odlehčené. Můžou být vnořené, opakovaně používané a sdílené mezi projekty.
+Blazor aplikace jsou sestavené pomocí *komponent*. Součást je samostatně obsažený blok uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenta obsahuje značky HTML a logiku zpracování potřebnou k vkládání dat nebo reakci na události uživatelského rozhraní. Komponenty jsou flexibilní a odlehčené. Můžou být vnořené, opakovaně používané a sdílené mezi projekty.
 
 ## <a name="component-classes"></a>Třídy komponent
 
 Komponenty jsou implementovány v [Razor](xref:mvc/views/razor) souborech komponenty ( `.razor` ) pomocí kombinace kódu jazyka C# a HTML. Komponenta v Blazor je formálně označována jako * Razor Komponenta*.
 
-### <a name="no-locrazor-syntax"></a>Razorsyntaktick
+### <a name="no-locrazor-syntax"></a>Razor syntaktick
 
-Razorkomponenty v Blazor aplikacích výrazně používají Razor syntaxi. Pokud nejste obeznámeni s Razor jazykem označení, doporučujeme <xref:mvc/views/razor> před pokračováním číst.
+Razor komponenty v Blazor aplikacích výrazně používají Razor syntaxi. Pokud nejste obeznámeni s Razor jazykem označení, doporučujeme <xref:mvc/views/razor> před pokračováním číst.
 
 Při přístupu k obsahu v Razor syntaxi věnujte zvláštní pozornost následujícím oddílům:
 
@@ -67,8 +68,8 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 
 Členy součásti lze použít jako součást logiky vykreslování komponenty pomocí výrazů jazyka C#, které začínají na `@` . Například pole C# se vykreslí pomocí předpony `@` na název pole. Následující příklad vyhodnocuje a vykresluje:
 
-* `headingFontStyle`do hodnoty vlastnosti CSS pro `font-style` .
-* `headingText`k obsahu `<h1>` elementu.
+* `headingFontStyle` do hodnoty vlastnosti CSS pro `font-style` .
+* `headingText` k obsahu `<h1>` elementu.
 
 ```razor
 <h1 style="font-style:@headingFontStyle">@headingText</h1>
@@ -79,11 +80,11 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 }
 ```
 
-Po prvním vykreslení komponenty vygeneruje komponenta znovu svůj strom vykreslování v reakci na události. Blazorpak porovná nový strom vykreslování s předchozí a aplikuje všechny úpravy model DOM (Document Object Model) v prohlížeči (DOM).
+Po prvním vykreslení komponenty vygeneruje komponenta znovu svůj strom vykreslování v reakci na události. Blazor pak porovná nový strom vykreslování s předchozí a aplikuje všechny úpravy model DOM (Document Object Model) v prohlížeči (DOM).
 
 Komponenty jsou běžné třídy jazyka C# a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, se obvykle nacházejí ve `Pages` složce. Komponenty mimo stránku jsou často umístěny do `Shared` složky nebo vlastní složky přidané do projektu.
 
-### <a name="namespaces"></a>Jmenné prostory
+### <a name="namespaces"></a>Obory názvů
 
 Obor názvů komponenty obvykle je odvozen z kořenového oboru názvů aplikace a umístění komponenty (složka) v rámci aplikace. Pokud je kořenový obor názvů aplikace `BlazorSample` a součást se nachází `Counter` ve `Pages` složce:
 
@@ -104,7 +105,7 @@ Na součásti lze také odkazovat pomocí jejich plně kvalifikovaných názvů,
 
 Obor názvů komponenty, která se vytvořila, Razor je založený na (v pořadí podle priority):
 
-* [`@namespace`][8]označení v Razor souboru ( `.razor` ) značky ( `@namespace BlazorSample.MyNamespace` ).
+* [`@namespace`][8] označení v Razor souboru ( `.razor` ) značky ( `@namespace BlazorSample.MyNamespace` ).
 * Projekt `RootNamespace` v souboru projektu ( `<RootNamespace>BlazorSample</RootNamespace>` ).
 * Název projektu, pořízený z názvu souboru projektu ( `.csproj` ) a cesta z kořenového adresáře projektu k součásti. Například rozhraní překládá `{PROJECT ROOT}/Pages/Index.razor` ( `BlazorSample.csproj` ) na obor názvů `BlazorSample.Pages` . Komponenty následují pravidla vazeb názvů C#. Pro `Index` komponentu v tomto příkladu komponenty v oboru jsou všechny komponenty:
   * Ve stejné složce, `Pages` .
@@ -119,9 +120,9 @@ Obor názvů komponenty, která se vytvořila, Razor je založený na (v pořad�
 
 ### <a name="partial-class-support"></a>Podpora částečné třídy
 
-Razorkomponenty jsou generovány jako částečné třídy. Razorkomponenty jsou vytvořeny jedním z následujících přístupů:
+Razor komponenty jsou generovány jako částečné třídy. Razor komponenty jsou vytvořeny jedním z následujících přístupů:
 
-* Kód jazyka C# je definován v [`@code`][1] bloku s označením HTML a Razor kódem v jednom souboru. Blazoršablony definují své Razor komponenty pomocí tohoto přístupu.
+* Kód jazyka C# je definován v [`@code`][1] bloku s označením HTML a Razor kódem v jednom souboru. Blazor šablony definují své Razor komponenty pomocí tohoto přístupu.
 * Kód jazyka C# je umístěn v souboru kódu na pozadí, který je definován jako částečná třída.
 
 Následující příklad ukazuje výchozí `Counter` komponentu s [`@code`][1] blokem v aplikaci vygenerovanou ze Blazor šablony. Kód HTML kódu Razor a kód jazyka C# jsou ve stejném souboru:
@@ -190,7 +191,7 @@ using Microsoft.AspNetCore.Components.Web;
 ```
 
 > [!IMPORTANT]
-> [`@using`][2]direktivy v `_Imports.razor` souboru jsou aplikovány pouze na Razor soubory ( `.razor` ), nikoli soubory jazyka C# ( `.cs` ).
+> [`@using`][2] direktivy v `_Imports.razor` souboru jsou aplikovány pouze na Razor soubory ( `.razor` ), nikoli soubory jazyka C# ( `.cs` ).
 
 ### <a name="specify-a-base-class"></a>Zadat základní třídu
 
@@ -265,7 +266,7 @@ V následujícím příkladu z ukázkové aplikace `ParentComponent` nastaví ho
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
 > [!WARNING]
-> Nevytvářejte komponenty, které zapisují do vlastních *parametrů komponenty*, místo toho použijte soukromé pole. Další informace naleznete v části [Nevytvářet komponenty, které jsou zapsány do jejich vlastních vlastností parametrů](#dont-create-components-that-write-to-their-own-parameter-properties) .
+> Nevytvářejte komponenty, které zapisují do vlastních *parametrů komponenty* , když je obsah komponenty vykreslen pomocí <xref:Microsoft.AspNetCore.Components.RenderFragment> , použijte místo toho soukromé pole. Další informace najdete v části [přepsané parametry `RenderFragment` ](#overwritten-parameters-with-renderfragment) v oddílu.
 
 ## <a name="child-content"></a>Podřízený obsah
 
@@ -317,28 +318,20 @@ V následujícím příkladu první `<input>` prvek ( `id="useIndividualParams"`
 
 ```razor
 <input id="useIndividualParams"
-       maxlength="@Maxlength"
-       placeholder="@Placeholder"
-       required="@Required"
-       size="@Size" />
+       maxlength="@maxlength"
+       placeholder="@placeholder"
+       required="@required"
+       size="@size" />
 
 <input id="useAttributesDict"
        @attributes="InputAttributes" />
 
 @code {
-    [Parameter]
-    public string Maxlength { get; set; } = "10";
+    public string maxlength = "10";
+    public string placeholder = "Input placeholder text";
+    public string required = "required";
+    public string size = "50";
 
-    [Parameter]
-    public string Placeholder { get; set; } = "Input placeholder text";
-
-    [Parameter]
-    public string Required { get; set; } = "required";
-
-    [Parameter]
-    public string Size { get; set; } = "50";
-
-    [Parameter]
     public Dictionary<string, object> InputAttributes { get; set; } =
         new Dictionary<string, object>()
         {
@@ -350,7 +343,7 @@ V následujícím příkladu první `<input>` prvek ( `id="useIndividualParams"`
 }
 ```
 
-Typ parametru musí být implementován `IEnumerable<KeyValuePair<string, object>>` pomocí řetězcových klíčů. Použití `IReadOnlyDictionary<string, object>` je také možností v tomto scénáři.
+Typ parametru musí implementovat `IEnumerable<KeyValuePair<string, object>>` nebo `IReadOnlyDictionary<string, object>` s klíči řetězce.
 
 Vykreslené `<input>` elementy pomocí obou přístupů jsou identické:
 
@@ -377,7 +370,7 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí [
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues>Vlastnost on [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> . Typ vlastnosti používaný pomocí <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
+<xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues>Vlastnost on [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> . Typ vlastnosti používaný pomocí <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>` nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
 
 Pozice [`@attributes`][3] relativní vzhledem k poloze atributů elementu je důležitá. Když [`@attributes`][3] jsou splatted na elementu, atributy jsou zpracovávány zprava doleva (poslední až první). Vezměte v úvahu následující příklad komponenty, která využívá `Child` komponentu:
 
@@ -433,10 +426,10 @@ Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, a
 * Definujte pole stejného typu jako podřízená komponenta.
 
 ```razor
-<MyLoginDialog @ref="loginDialog" ... />
+<CustomLoginDialog @ref="loginDialog" ... />
 
 @code {
-    private MyLoginDialog loginDialog;
+    private CustomLoginDialog loginDialog;
 
     private void OnSomething()
     {
@@ -474,7 +467,7 @@ Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachyc
 
 ## <a name="synchronization-context"></a>Kontext synchronizace
 
-Blazorpoužívá kontext synchronizace ( <xref:System.Threading.SynchronizationContext> ) k vykonání jediného logického vlákna provádění. [Metody životního cyklu](xref:blazor/components/lifecycle) komponenty a všechna zpětná volání událostí, která jsou vyvolána, Blazor jsou spouštěna v kontextu synchronizace.
+Blazor používá kontext synchronizace ( <xref:System.Threading.SynchronizationContext> ) k vykonání jediného logického vlákna provádění. [Metody životního cyklu](xref:blazor/components/lifecycle) komponenty a všechna zpětná volání událostí, která jsou vyvolána, Blazor jsou spouštěna v kontextu synchronizace.
 
 Blazor Serverkontext synchronizace se pokouší emulovat prostředí s jedním vláknem tak, aby přesně odpovídal modelu webového sestavení v prohlížeči, který je jediným vláknem. V jakémkoli daném časovém okamžiku se práce provádí v přesně jednom vlákně, což dává dojem o jednom logickém vlákně. Žádné dvě operace se neprovádějí současně.
 
@@ -556,7 +549,7 @@ Zaregistrujte `NotifierService` :
 }
 ```
 
-V předchozím příkladu `NotifierService` vyvolá `OnNotify` metodu komponenty mimo Blazor kontext synchronizace. `InvokeAsync`slouží k přepnutí do správného kontextu a vykreslení vykreslování do fronty.
+V předchozím příkladu `NotifierService` vyvolá `OnNotify` metodu komponenty mimo Blazor kontext synchronizace. `InvokeAsync` slouží k přepnutí do správného kontextu a vykreslení vykreslování do fronty.
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>Použití \@ klíče k řízení uchovávání prvků a komponent
 
@@ -578,7 +571,7 @@ Uvažujte následující příklad:
 
 Obsah `People` kolekce se může změnit vloženými, odstraněnými nebo znovu seřazenými položkami. Když se komponenta znovu vykreslí, může se tato `<DetailsEditor>` součást změnit, aby přijímala jiné `Details` hodnoty parametrů. To může způsobit složitější revykreslování, než se očekávalo. V některých případech může reprodukce vést k viditelným rozdílům v chování, jako je například ztracený fokus elementu.
 
-Proces mapování lze řídit pomocí [`@key`][5] atributu direktiva. [`@key`][5]způsobí, že rozdílový algoritmus garantuje zachování prvků nebo komponent na základě hodnoty klíče:
+Proces mapování lze řídit pomocí [`@key`][5] atributu direktiva. [`@key`][5] způsobí, že rozdílový algoritmus garantuje zachování prvků nebo komponent na základě hodnoty klíče:
 
 ```csharp
 @foreach (var person in People)
@@ -632,12 +625,12 @@ Obecně dává smysl pro zadání jednoho z následujících typů hodnot pro [`
 
 Zajistěte, aby hodnoty použité pro [`@key`][5] nekolidovat. Pokud jsou v rámci stejného nadřazeného prvku zjištěny hodnoty konfliktu, Blazor vyvolá výjimku, protože nemůže deterministické namapovat staré prvky nebo součásti na nové prvky nebo komponenty. Používejte pouze jedinečné hodnoty, například instance objektů nebo hodnoty primárního klíče.
 
-## <a name="dont-create-components-that-write-to-their-own-parameter-properties"></a>Nevytvářejte komponenty, které zapisují do vlastností vlastního parametru.
+## <a name="overwritten-parameters-with-renderfragment"></a>Přepsání parametrů s `RenderFragment`
 
 Parametry jsou přepsány za následující podmínky:
 
 * Obsah podřízené komponenty je vykreslen pomocí <xref:Microsoft.AspNetCore.Components.RenderFragment> .
-* <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>je volána v nadřazené komponentě.
+* <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> je volána v nadřazené komponentě.
 
 Parametry jsou resetovány, protože nadřazená komponenta je znovu vygenerována <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> , když je volána, a podřízené součásti jsou zadány nové hodnoty parametrů.
 
@@ -647,17 +640,13 @@ Vezměte v úvahu následující `Expander` komponentu:
 * Přepíná zobrazení podřízeného obsahu s parametrem součásti.
 
 ```razor
-<div @onclick="@Toggle" class="card text-white bg-success mb-3">
+<div @onclick="@Toggle" class="card bg-light mb-3" style="width:30rem">
     <div class="card-body">
-        <div class="panel-heading">
-            <h2>Toggle (<code>Expanded</code> = @Expanded)</h2>
-        </div>
+        <h2 class="card-title">Toggle (<code>Expanded</code> = @Expanded)</h2>
 
         @if (Expanded)
         {
-            <div class="card-text">
-                @ChildContent
-            </div>
+            <p class="card-text">@ChildContent</p>
         }
     </div>
 </div>
@@ -703,17 +692,13 @@ Následující revidovaná `Expander` součást:
 * Pomocí soukromého pole udržuje stav interního přepínání.
 
 ```razor
-<div @onclick="@Toggle" class="card text-white bg-success mb-3">
+<div @onclick="@Toggle" class="card bg-light mb-3" style="width:30rem">
     <div class="card-body">
-        <div class="panel-heading">
-            <h2>Toggle (<code>expanded</code> = @expanded)</h2>
-        </div>
+        <h2 class="card-title">Toggle (<code>expanded</code> = @expanded)</h2>
 
         @if (expanded)
         {
-            <div class="card-text">
-                @ChildContent
-            </div>
+            <p class="card-text">@ChildContent</p>
         }
     </div>
 </div>
@@ -798,9 +783,9 @@ Následující příklad ukazuje použití `MarkupString` typu pro přidání bl
 }
 ```
 
-## <a name="no-locrazor-templates"></a>Razoršablony
+## <a name="no-locrazor-templates"></a>Razor šablony
 
-Fragmenty vykreslování lze definovat pomocí Razor syntaxe šablony. RazorŠablony představují způsob, jak definovat fragment uživatelského rozhraní a předpokládat následující formát:
+Fragmenty vykreslování lze definovat pomocí Razor syntaxe šablony. Razor Šablony představují způsob, jak definovat fragment uživatelského rozhraní a předpokládat následující formát:
 
 ```razor
 @<{HTML tag}>...</{HTML tag}>
@@ -842,13 +827,13 @@ Použijte základní cestu ( `/` ) pro odkaz na webový kořenový adresář pro
 <img alt="Company logo" src="/images/logo.png" />
 ```
 
-Razorkomponenty **nepodporují** vlnové lomítko ( `~/` ).
+Razor komponenty **nepodporují** vlnové lomítko ( `~/` ).
 
 Informace o nastavení základní cesty aplikace najdete v tématu <xref:blazor/host-and-deploy/index#app-base-path> .
 
 ## <a name="tag-helpers-arent-supported-in-components"></a>V součástech nejsou podporovány pomocníky značek.
 
-[`Tag Helpers`](xref:mvc/views/tag-helpers/intro)nepodporuje se v Razor součástech ( `.razor` soubory). Chcete-li poskytnout funkci, jako je například Pomocník pro Blazor vytváření značek, vytvořte komponentu se stejnou funkcí jako pomocník značek a místo ní použijte komponentu.
+[`Tag Helpers`](xref:mvc/views/tag-helpers/intro) nepodporuje se v Razor součástech ( `.razor` soubory). Chcete-li poskytnout funkci, jako je například Pomocník pro Blazor vytváření značek, vytvořte komponentu se stejnou funkcí jako pomocník značek a místo ní použijte komponentu.
 
 ## <a name="scalable-vector-graphics-svg-images"></a>Obrázky ve formátu SVG (Scalable Vector Graphics)
 
@@ -868,7 +853,7 @@ Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů
 
 Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg>` značku umístíte přímo do souboru komponenty ( `.razor` ), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů ještě není podporováno. Například `<use>` značky nejsou aktuálně dodržovány a [`@bind`][10] nelze je použít s některými značkami SVG. Další informace naleznete v tématu [Podpora SVG in Blazor (dotnet/aspnetcore #18271)](https://github.com/dotnet/aspnetcore/issues/18271).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:blazor/security/server/threat-mitigation>: Obsahuje pokyny pro vytváření Blazor Server aplikací, které se musí soupeří s vyčerpáním prostředků.
 

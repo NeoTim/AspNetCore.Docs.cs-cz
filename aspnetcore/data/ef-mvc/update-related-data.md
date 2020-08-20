@@ -7,6 +7,7 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 215cf04e882c438eac3fb74ee7cd582e96ddaeb7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 356536a22f11ca5db6cfa9cda79598ec8aa03e18
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018023"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625268"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Aktualizace souvisejících dat – ASP.NET MVC pomocí EF Core
 
@@ -43,7 +44,7 @@ V tomto kurzu jste:
 > * Aktualizace stránky pro odstranění
 > * Přidání umístění Office a kurzů k vytvoření stránky
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Čtení souvisejících dat](read-related-data.md)
 
@@ -111,7 +112,7 @@ Spusťte aplikaci, vyberte kartu **kurzy** , klikněte na **vytvořit novou**a z
 
 ![Stránka vytvoření kurzu](update-related-data/_static/course-create.png)
 
-Klikněte na **Vytvořit**. Stránka s rejstříkem kurzů se zobrazí spolu s novým kurzem přidaným do seznamu. Název oddělení v seznamu stránek indexu pochází z navigační vlastnosti, která ukazuje, že relace byla správně vytvořena.
+Klikněte na možnost **Vytvořit**. Stránka s rejstříkem kurzů se zobrazí spolu s novým kurzem přidaným do seznamu. Název oddělení v seznamu stránek indexu pochází z navigační vlastnosti, která ukazuje, že relace byla správně vytvořena.
 
 V kurzu na stránce s rejstříkem kurzů klikněte na **Upravit** .
 

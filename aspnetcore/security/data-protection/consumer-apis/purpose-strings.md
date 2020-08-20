@@ -5,6 +5,7 @@ description: Přečtěte si, jak se v rozhraních API ochrany ASP.NET Corech dat
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/purpose-strings
-ms.openlocfilehash: 33139f6e5e36aed2cb54738fbd2487969844edc7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 1119c45570338f629a3ab7adbd43361529aa23e7
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018400"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626919"
 ---
 # <a name="purpose-strings-in-aspnet-core"></a>Řetězce účelu v ASP.NET Core
 

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/09/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: 8756fa5b85deb3a30991062942803e701e5e0792
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b557f1d1650b3deadcda679f300b1bc45a6202e7
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015813"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627374"
 ---
 # <a name="aspnet-core-directory-structure"></a>Struktura ASP.NET Core Directory
 
@@ -47,7 +48,7 @@ Adresář *Publisher* představuje *kořenovou cestu obsahu*, která se označuj
 
 Adresář *wwwroot* , pokud je k dispozici, obsahuje pouze statické prostředky.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [dotnet publish](/dotnet/core/tools/dotnet-publish)
 * [Nasazení aplikace .NET Core](/dotnet/core/deploying/)
@@ -100,7 +101,7 @@ Adresář *protokolů* lze pro nasazení vytvořit pomocí jednoho z následují
 
 Adresář nasazení vyžaduje oprávnění ke čtení/spouštění. Adresář *protokolů* vyžaduje oprávnění ke čtení a zápisu. Další adresáře, ve kterých jsou soubory napsány, vyžadují oprávnění ke čtení a zápisu.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [dotnet publish](/dotnet/core/tools/dotnet-publish)
 * [Nasazení aplikace .NET Core](/dotnet/core/deploying/)

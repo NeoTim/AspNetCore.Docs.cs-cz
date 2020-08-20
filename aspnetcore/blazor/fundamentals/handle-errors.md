@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/23/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/handle-errors
-ms.openlocfilehash: 5f7112d9a072f28d387e07bdf69ec0b7595ff6b4
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: dfe6f1ac79732d158e31fb5250645d4ff98d1c0b
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014435"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628336"
 ---
 # <a name="handle-errors-in-aspnet-core-no-locblazor-apps"></a>Zpracování chyb v Blazor aplikacích ASP.NET Core
 
@@ -89,14 +90,14 @@ V Blazor Server aplikaci si přizpůsobte prostředí v `Pages/_Host.cshtml` sou
 
 ## <a name="how-a-no-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Způsob, jakým Blazor Server aplikace reaguje na neošetřené výjimky
 
-Blazor Serverje stavový rámec. I když uživatelé pracují s aplikací, udržují připojení k serveru známému jako *okruh*. Okruh obsahuje aktivní instance komponent a mnoho dalších aspektů stavu, například:
+Blazor Server je stavový rámec. I když uživatelé pracují s aplikací, udržují připojení k serveru známému jako *okruh*. Okruh obsahuje aktivní instance komponent a mnoho dalších aspektů stavu, například:
 
 * Poslední Vykreslený výstup komponent.
 * Aktuální sada delegátů zpracovávajících události, které mohou být aktivovány událostmi na straně klienta.
 
 Pokud uživatel otevře aplikaci na více kartách prohlížeče, má několik nezávislých okruhů.
 
-Blazorzpracovává většinu neošetřených výjimek jako závažného okruhu, ve kterém se vyskytují. Pokud je okruh ukončen z důvodu neošetřené výjimky, uživatel může pokračovat v interakci s aplikací pouze tak, že znovu načte stránku, aby vytvořila nový okruh. Nejsou ovlivněny okruhy mimo tu, která je ukončená, což jsou okruhy pro ostatní uživatele nebo jiné karty prohlížeče. Tento scénář je podobný aplikaci klasické pracovní plochy, při které dojde k chybě. Chybná aplikace se musí restartovat, ale ostatní aplikace to neovlivní.
+Blazor zpracovává většinu neošetřených výjimek jako závažného okruhu, ve kterém se vyskytují. Pokud je okruh ukončen z důvodu neošetřené výjimky, uživatel může pokračovat v interakci s aplikací pouze tak, že znovu načte stránku, aby vytvořila nový okruh. Nejsou ovlivněny okruhy mimo tu, která je ukončená, což jsou okruhy pro ostatní uživatele nebo jiné karty prohlížeče. Tento scénář je podobný aplikaci klasické pracovní plochy, při které dojde k chybě. Chybná aplikace se musí restartovat, ale ostatní aplikace to neovlivní.
 
 Okruh se ukončí, když dojde k neošetřené výjimce z následujících důvodů:
 
@@ -133,7 +134,7 @@ Rozhraní a kód aplikace mohou aktivovat neošetřené výjimky v žádném z n
 * [Obslužné rutiny událostí](#event-handlers)
 * [Vyřazení součásti](#component-disposal)
 * [Interoperabilita JavaScriptu](#javascript-interop)
-* [Blazor Serverpřevykreslování](#blazor-server-prerendering)
+* [Blazor Server převykreslování](#blazor-server-prerendering)
 
 Předchozí neošetřené výjimky jsou popsány v následujících částech tohoto článku.
 
@@ -161,7 +162,7 @@ V následujícím příkladu, který <xref:Microsoft.AspNetCore.Components.Compo
 
 * Výjimka vyvolaná v `ProductRepository.GetProductByIdAsync` metodě je zpracována [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazem.
 * Po `catch` spuštění bloku:
-  * `loadFailed`je nastaven na `true` , který se používá k zobrazení chybové zprávy uživateli.
+  * `loadFailed` je nastaven na `true` , který se používá k zobrazení chybové zprávy uživateli.
   * Chyba je zaznamenána do protokolu.
 
 [!code-razor[](handle-errors/samples_snapshot/3.x/product-details.razor?highlight=11,27-39)]
@@ -203,7 +204,7 @@ Další informace o vyřazení součástí najdete v tématu <xref:blazor/compon
 
 ### <a name="javascript-interop"></a>Interoperabilita JavaScriptu
 
-<xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType>umožňuje kódu .NET provádět asynchronní volání prostředí JavaScript Runtime v prohlížeči uživatele.
+<xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> umožňuje kódu .NET provádět asynchronní volání prostředí JavaScript Runtime v prohlížeči uživatele.
 
 Následující podmínky se vztahují na zpracování chyb pomocí <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> :
 
@@ -223,9 +224,9 @@ Další informace najdete v následujících článcích:
 * <xref:blazor/call-javascript-from-dotnet>
 * <xref:blazor/call-dotnet-from-javascript>
 
-### <a name="no-locblazor-server-prerendering"></a>Blazor Serverpředvykreslování
+### <a name="no-locblazor-server-prerendering"></a>Blazor Server předvykreslování
 
-Blazorkomponenty mohou být předem vykresleny pomocí [pomocníka tag komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper) , aby byly vykreslené značky HTML vráceny jako součást počátečního požadavku HTTP uživatele. Funguje to takto:
+Blazor komponenty mohou být předem vykresleny pomocí [pomocníka tag komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper) , aby byly vykreslené značky HTML vráceny jako součást počátečního požadavku HTTP uživatele. Funguje to takto:
 
 * Vytváření nového okruhu pro všechny předem vykreslené komponenty, které jsou součástí stejné stránky.
 * Generování počátečního kódu HTML.

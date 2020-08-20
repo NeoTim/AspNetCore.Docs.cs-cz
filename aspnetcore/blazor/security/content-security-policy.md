@@ -1,5 +1,5 @@
 ---
-title: Vynutili zásady zabezpečení obsahu pro ASP.NET CoreBlazor
+title: Vynutili zásady zabezpečení obsahu pro ASP.NET Core Blazor
 author: guardrex
 description: Naučte se používat zásady zabezpečení obsahu (CSP) s aplikacemi ASP.NET Core Blazor k ochraně proti útokům skriptování mezi weby (XSS).
 monikerRange: '>= aspnetcore-3.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/content-security-policy
-ms.openlocfilehash: bbe4bf1b0999d66471743c9efa1a9a9f121f2e05
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 09f4cb5ba11feb7d81a410dd3869f9863d104d0e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014033"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627842"
 ---
-# <a name="enforce-a-content-security-policy-for-aspnet-core-no-locblazor"></a>Vynutili zásady zabezpečení obsahu pro ASP.NET CoreBlazor
+# <a name="enforce-a-content-security-policy-for-aspnet-core-no-locblazor"></a>Vynutili zásady zabezpečení obsahu pro ASP.NET Core Blazor
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
@@ -163,7 +164,7 @@ Otestujte a aktualizujte zásady aplikace při každé vydané verzi.
   * Postup úpravy zásady tak, aby umožňovaly blokovanou položku.
 * Zásady jsou zcela účinné pouze v případě, že prohlížeč klienta podporuje všechny zahrnuté direktivy. Aktuální matici podpory prohlížeče najdete v tématu [použití: Content-Security-Policy](https://caniuse.com/#search=Content-Security-Policy).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [MDN web Docs: Content-Security-Policy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy)
 * [Úroveň zásad zabezpečení obsahu 2](https://www.w3.org/TR/CSP2/)

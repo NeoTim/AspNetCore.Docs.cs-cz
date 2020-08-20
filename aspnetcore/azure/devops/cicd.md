@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.date: 10/24/2018
 ms.custom: devx-track-csharp, mvc, seodec18
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/cicd
-ms.openlocfilehash: 26ca6c416691c75c4bad73dca4c8383325af025d
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: 3632f1c4bd419aae08105005de3d81fc2cb9e410
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130468"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625879"
 ---
 # <a name="continuous-integration-and-deployment"></a>Průběžná integrace a nasazování
 
@@ -109,7 +110,7 @@ Existují tři samostatné kroky pro dokončení. Provedením kroků v následuj
 
     ![Vybrat zdroj – GitHub](media/cicd/vsts-select-source.png)
 
-1. Aby mohl Azure DevOps získat přístup k úložišti GitHubu, vyžaduje se autorizace. Do textového pole **název připojení** zadejte *<GitHub_username> připojení GitHubu* . Například:
+1. Aby mohl Azure DevOps získat přístup k úložišti GitHubu, vyžaduje se autorizace. Do textového pole **název připojení** zadejte *<GitHub_username> připojení GitHubu* . Příklad:
 
     ![Název připojení GitHubu](media/cicd/vsts-repo-authz.png)
 

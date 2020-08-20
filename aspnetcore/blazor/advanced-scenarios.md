@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/18/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,20 +18,20 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: 4bd73acd821a8791d7f6cc93545edc2e39a6f2c7
-ms.sourcegitcommit: 68d03d1aee8906b53bda66f8f1e0747efc3007e6
+ms.openlocfilehash: ce1786f644d1c0a70487f44ec3051de8189c5381
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/10/2020
-ms.locfileid: "88051781"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625320"
 ---
 # <a name="aspnet-core-no-locblazor-advanced-scenarios"></a>ASP.NET Core Blazor pokročilé scénáře
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-## <a name="no-locblazor-server-circuit-handler"></a>Blazor ServerObslužná rutina okruhu
+## <a name="no-locblazor-server-circuit-handler"></a>Blazor Server Obslužná rutina okruhu
 
-Blazor Serverumožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
+Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
 
 ```csharp
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí s
 
 ## <a name="manual-rendertreebuilder-logic"></a>Ruční logika RenderTreeBuilder
 
-<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder>poskytuje metody pro práci s komponentami a prvky, včetně sestavování komponent ručně v kódu jazyka C#.
+<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> poskytuje metody pro práci s komponentami a prvky, včetně sestavování komponent ručně v kódu jazyka C#.
 
 > [!NOTE]
 > Použití aplikace <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> k vytvoření komponent je pokročilý scénář. Poškozená komponenta (například značka neuzavřeného označení) může mít za následek nedefinované chování.
@@ -99,7 +100,7 @@ Vezměte v úvahu následující `PetDetails` součást, kterou je možné ručn
 
 V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `PetDetails` komponenty. V <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> metodách s pořadovým číslem jsou pořadová čísla čísla řádků zdrojového kódu. BlazorRozdílový algoritmus spoléhá na pořadová čísla, která odpovídají jedinečným řádkům kódu, nikoli rozdíl volání volání. Při vytváření komponenty s <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> metodami nekódujte pevně argumenty pro pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadového čísla může vést k špatnému výkonu.** Další informace naleznete v části [pořadové číslo se vztahuje na čísla řádků kódu a nikoli na oddíl pořadí provádění](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) .
 
-`BuiltContent`část
+`BuiltContent` část
 
 ```razor
 @page "/BuiltContent"
@@ -137,7 +138,7 @@ V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>Pořadová čísla se vztahují na čísla řádků kódu a nikoli na pořadí provádění.
 
-Razorsoubory komponent ( `.razor` ) jsou vždy kompilovány. Kompilace je potenciální výhodou pro interpretaci kódu, protože krok kompilace lze použít k vložení informací, které zvyšují výkon aplikace za běhu.
+Razor soubory komponent ( `.razor` ) jsou vždy kompilovány. Kompilace je potenciální výhodou pro interpretaci kódu, protože krok kompilace lze použít k vložení informací, které zvyšují výkon aplikace za běhu.
 
 Hlavní příklad těchto vylepšení zahrnuje *pořadová čísla*. Pořadová čísla označují modul runtime, ze kterého výstupy pocházejí, ze kterých se liší a seřazené řádky kódu. Modul runtime používá tyto informace k vygenerování efektivních rozdílů stromu v lineárním čase, což je mnohem rychlejší než obvykle pro obecný rozdílový algoritmus stromu.
 
@@ -202,7 +203,7 @@ Teď je první výstup:
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | Second |
 
-Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag`je `false` ve druhém vykreslování a výstup je:
+Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je `false` ve druhém vykreslování a výstup je:
 
 | Sequence | Typ      | Data   |
 | :------: | --------- | ------ |
@@ -223,7 +224,7 @@ Toto je triviální příklad. Ve složitějších případech se složitými a 
 * Rozhraní nemůže automaticky vytvořit vlastní pořadová čísla za běhu, protože potřebné informace neexistují, pokud není zachycena v době kompilace.
 * Nepište dlouhé bloky ručně implementované <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logiky. Preferovat `.razor` soubory a umožněte kompilátoru, aby se zabývat pořadovým číslem. Pokud se nemůžete vyhnout manuální <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logice, rozdělte dlouhé bloky kódu do menších částí zabalených v <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A> / <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> voláních. Každá oblast má vlastní oddělený prostor pořadových čísel, takže v každé oblasti můžete restartovat z nuly (nebo jakéhokoli jiného libovolného čísla).
 * Pokud jsou pořadová čísla pevně zakódované, rozdílový algoritmus vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou nepodstatné. Jednou z oprávněných možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit podle hodnoty nebo stovky (případně z upřednostňovaného intervalu). 
-* Blazorpoužívá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdílování je mnohem rychlejší při použití pořadových čísel a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře, který vytváří `.razor` soubory.
+* Blazor používá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdílování je mnohem rychlejší při použití pořadových čísel a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře, který vytváří `.razor` soubory.
 
 ## <a name="perform-large-data-transfers-in-no-locblazor-server-apps"></a>Provádění rozsáhlých přenosů dat v Blazor Server aplikacích
 

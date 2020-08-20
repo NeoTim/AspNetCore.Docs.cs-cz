@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 04/17/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 8aa94bd1f33d1dd8ce8e7f50468ed60b4ccb2515
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 618bb60ea382437b2787adb814f319b1f0cea4ca
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019934"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626529"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -37,7 +38,7 @@ Některé typy výsledků akce jsou specifické pro konkrétní formát, napří
 
 Akce není nutná k vrácení určitého konkrétního typu. ASP.NET Core podporuje návratovou hodnotu objektu.  Výsledky z akcí, které vracejí objekty, které nejsou <xref:Microsoft.AspNetCore.Mvc.IActionResult> typy, jsou serializovány pomocí příslušné <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> implementace. Další informace naleznete v tématu <xref:web-api/action-return-types>.
 
-Integrovaná pomocná metoda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*> vrací data ve formátu JSON:[!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_get)]
+Integrovaná pomocná metoda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*> vrací data ve formátu JSON: [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_get)]
 
 Ukázka stažení vrátí seznam autorů. Pomocí nástrojů pro vývojáře v prohlížeči F12 nebo [příspěvku](https://www.getpostman.com/tools) s předchozím kódem:
 
@@ -145,7 +146,7 @@ services.AddControllers().AddJsonOptions(options =>
 });
 ```
 
-Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Například:
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Příklad:
 
 ```csharp
 public IActionResult Get()
@@ -184,7 +185,7 @@ services.AddControllers().AddNewtonsoftJson(options =>
 });
 ```
 
-Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Například:
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Příklad:
 
 ```csharp
 public IActionResult Get()
@@ -240,7 +241,7 @@ Některé speciální případy jsou implementovány pomocí integrovaných form
 
 Bez rozhraní `StringOutputFormatter` , předdefinované formáty formátování JSON `string` vrátí typy. Pokud je vestavěný formátovací modul JSON odebraný a je k dispozici formátovací modul XML, vrátí typy formátování formátovací kód XML `string` . V opačném případě `string` návratové typy vrátí `406 Not Acceptable` .
 
-Bez `HttpNoContentOutputFormatter` objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Například:
+Bez `HttpNoContentOutputFormatter` objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Příklad:
 
 * Formátovací modul JSON vrátí odpověď s tělem `null` .
 * Formátovací modul XML vrátí prázdný element XML s `xsi:nil="true"` nastaveným atributem.
@@ -252,7 +253,7 @@ Klienti mohou požádat o konkrétní formát v rámci adresy URL, například:
 * V řetězci dotazu nebo v části cesty.
 * Pomocí přípony souboru specifické pro formát, jako je například. XML nebo. JSON.
 
-Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Například:
+Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Příklad:
 
 [!code-csharp[](./formatting/sample/Controllers/ProductsController.cs?name=snippet)]
 

@@ -5,6 +5,7 @@ description: Zjistěte, jak nahradit parametr machineKey v ASP.NET, aby bylo mo�
 ms.author: riande
 ms.date: 04/06/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/compatibility/replacing-machinekey
-ms.openlocfilehash: 6b98244f9f288101a971257c9dab50d8895b8881
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8cae0b8f1c4582e272061ff87868b32568dfe595
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018205"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625567"
 ---
 # <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>Nahraďte ASP.NET machineKey v ASP.NET Core
 

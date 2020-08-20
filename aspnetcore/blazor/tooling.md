@@ -1,5 +1,5 @@
 ---
-title: Nástroje pro ASP.NET CoreBlazor
+title: Nástroje pro ASP.NET Core Blazor
 author: guardrex
 description: Přečtěte si informace o nástrojích dostupných pro sestavování Blazor aplikací.
 monikerRange: '>= aspnetcore-3.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -18,14 +19,14 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
-ms.openlocfilehash: 077d8943e424df4d5a14950dfadc2dd73d2ce4d6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d7e3743d12c235c20cc27f6a3263e2994a9e160a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013395"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625827"
 ---
-# <a name="tooling-for-aspnet-core-no-locblazor"></a>Nástroje pro ASP.NET CoreBlazor
+# <a name="tooling-for-aspnet-core-no-locblazor"></a>Nástroje pro ASP.NET Core Blazor
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 

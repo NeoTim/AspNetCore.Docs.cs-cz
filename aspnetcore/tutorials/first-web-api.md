@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: 15e5c838e6dae824a189f170b28730a63f8c3ea7
-ms.sourcegitcommit: 4df445e7d49a99f81625430f728c28e5d6bf2107
+ms.openlocfilehash: ce0dfdf1ce88b55790d33918a2d20bc19a09b288
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/15/2020
-ms.locfileid: "88253639"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626893"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -58,7 +59,7 @@ V následujícím diagramu vidíte návrh aplikace.
 
 ![Klient je reprezentován polem vlevo. Odešle požadavek a přijme odpověď z aplikace, pole nakreslené na pravé straně. V poli aplikace tři čtverečky reprezentují kontroler, model a vrstvu přístupu k datům. Požadavek přichází do kontroleru aplikace a operace čtení/zápisu probíhají mezi kontrolérem a vrstvou přístupu k datům. Model je serializován a vrácen klientovi v odpovědi.](first-web-api/_static/architecture.png)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -351,7 +352,7 @@ V tomto kurzu se používá post k testování webového rozhraní API.
 
 * Vytvoří novou žádost.
 * Nastavte metodu HTTP na `POST` .
-* Nastavte identifikátor URI na `https://localhost:<port>/api/TodoItem` . Například, `https://localhost:5001/api/TodoItem`.
+* Nastavte identifikátor URI na `https://localhost:<port>/api/TodoItems` . Například, `https://localhost:5001/api/TodoItems`.
 * Vyberte kartu **tělo** .
 * Vyberte **nezpracovaný** přepínač.
 * Nastavte typ na **JSON (Application/JSON)**.
@@ -386,7 +387,7 @@ Tyto metody implementují dva koncové body GET:
 * `GET /api/TodoItems`
 * `GET /api/TodoItems/{id}`
 
-Otestujte aplikaci voláním dvou koncových bodů z prohlížeče nebo po odeslání. Například:
+Otestujte aplikaci voláním dvou koncových bodů z prohlížeče nebo po odeslání. Příklad:
 
 * `https://localhost:5001/api/TodoItems`
 * `https://localhost:5001/api/TodoItems/1`
@@ -548,7 +549,7 @@ V následujícím diagramu vidíte návrh aplikace.
 
 ![Klient je reprezentován polem vlevo. Odešle požadavek a přijme odpověď z aplikace, pole nakreslené na pravé straně. V poli aplikace tři čtverečky reprezentují kontroler, model a vrstvu přístupu k datům. Požadavek přichází do kontroleru aplikace a operace čtení/zápisu probíhají mezi kontrolérem a vrstvou přístupu k datům. Model je serializován a vrácen klientovi v odpovědi.](first-web-api/_static/architecture.png)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -743,7 +744,7 @@ Tyto metody implementují dva koncové body GET:
 
 Pokud je pořád spuštěná, zastavte aplikaci. Pak ji znovu spusťte, aby obsahovala nejnovější změny.
 
-Otestujte aplikaci voláním dvou koncových bodů z prohlížeče. Například:
+Otestujte aplikaci voláním dvou koncových bodů z prohlížeče. Příklad:
 
 * `https://localhost:<port>/api/todo`
 * `https://localhost:<port>/api/todo/1`
@@ -967,7 +968,7 @@ Odstranění položky úkolů je provedeno nastavením `type` při volání AJAX
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 [Zobrazit nebo stáhnout vzorový kód pro tento kurz](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples). Viz [Jak stáhnout](xref:index#how-to-download-a-sample).
 

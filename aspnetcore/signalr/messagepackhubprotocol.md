@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/13/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/messagepackhubprotocol
-ms.openlocfilehash: 8e590c87f75d35cbafde1adbc87dea9c45eac92d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ab9bd11e37182f5b24db5595d5d050f4cc0e32da
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022547"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626646"
 ---
 # <a name="use-messagepack-hub-protocol-in-no-locsignalr-for-aspnet-core"></a>Použití protokolu MessagePack hub v SignalR pro ASP.NET Core
 
@@ -32,7 +33,7 @@ Tento článek předpokládá, že čtenář je obeznámen s tématy popsanými 
 
 ## <a name="what-is-messagepack"></a>Co je MessagePack?
 
-[MessagePack](https://msgpack.org/index.html) je rychlý a kompaktní binární formát serializace. To je užitečné v případě, že je důležité mít vliv na výkon a šířku pásma, protože vytváří menší zprávy ve srovnání se [JSON](https://www.json.org/). Binární zprávy jsou nečitelný při prohlížení síťových trasování a protokolů, pokud nejsou bajty předávány pomocí MessagePack analyzátoru. SignalRmá integrovanou podporu formátu MessagePack a poskytuje rozhraní API pro použití klientem a serverem.
+[MessagePack](https://msgpack.org/index.html) je rychlý a kompaktní binární formát serializace. To je užitečné v případě, že je důležité mít vliv na výkon a šířku pásma, protože vytváří menší zprávy ve srovnání se [JSON](https://www.json.org/). Binární zprávy jsou nečitelný při prohlížení síťových trasování a protokolů, pokud nejsou bajty předávány pomocí MessagePack analyzátoru. SignalR má integrovanou podporu formátu MessagePack a poskytuje rozhraní API pro použití klientem a serverem.
 
 ## <a name="configure-messagepack-on-the-server"></a>Konfigurace MessagePack na serveru
 
@@ -131,7 +132,7 @@ public class ChatMessage
 }
 ```
 
-Při odesílání z klienta jazyka JavaScript je nutné použít `PascalCased` názvy vlastností, protože velikost písmen se musí přesně shodovat s třídou jazyka C#. Například:
+Při odesílání z klienta jazyka JavaScript je nutné použít `PascalCased` názvy vlastností, protože velikost písmen se musí přesně shodovat s třídou jazyka C#. Příklad:
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
@@ -197,7 +198,7 @@ Tento článek předpokládá, že čtenář je obeznámen s tématy popsanými 
 
 ## <a name="what-is-messagepack"></a>Co je MessagePack?
 
-[MessagePack](https://msgpack.org/index.html) je rychlý a kompaktní binární formát serializace. To je užitečné v případě, že je důležité mít vliv na výkon a šířku pásma, protože vytváří menší zprávy ve srovnání se [JSON](https://www.json.org/). Binární zprávy jsou nečitelný při prohlížení síťových trasování a protokolů, pokud nejsou bajty předávány pomocí MessagePack analyzátoru. SignalRmá vestavěnou podporu pro formát MessagePack a poskytuje rozhraní API pro použití klientem a serverem.
+[MessagePack](https://msgpack.org/index.html) je rychlý a kompaktní binární formát serializace. To je užitečné v případě, že je důležité mít vliv na výkon a šířku pásma, protože vytváří menší zprávy ve srovnání se [JSON](https://www.json.org/). Binární zprávy jsou nečitelný při prohlížení síťových trasování a protokolů, pokud nejsou bajty předávány pomocí MessagePack analyzátoru. SignalR má vestavěnou podporu pro formát MessagePack a poskytuje rozhraní API pro použití klientem a serverem.
 
 ## <a name="configure-messagepack-on-the-server"></a>Konfigurace MessagePack na serveru
 
@@ -306,7 +307,7 @@ public class ChatMessage
 }
 ```
 
-Při odesílání z klienta jazyka JavaScript je nutné použít `PascalCased` názvy vlastností, protože velikost písmen se musí přesně shodovat s třídou jazyka C#. Například:
+Při odesílání z klienta jazyka JavaScript je nutné použít `PascalCased` názvy vlastností, protože velikost písmen se musí přesně shodovat s třídou jazyka C#. Příklad:
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
@@ -372,7 +373,7 @@ Tento článek předpokládá, že čtenář je obeznámen s tématy popsanými 
 
 ## <a name="what-is-messagepack"></a>Co je MessagePack?
 
-[MessagePack](https://msgpack.org/index.html) je rychlý a kompaktní binární formát serializace. To je užitečné v případě, že je důležité mít vliv na výkon a šířku pásma, protože vytváří menší zprávy ve srovnání se [JSON](https://www.json.org/). Binární zprávy jsou nečitelný při prohlížení síťových trasování a protokolů, pokud nejsou bajty předávány pomocí MessagePack analyzátoru. SignalRmá vestavěnou podporu pro formát MessagePack a poskytuje rozhraní API pro použití klientem a serverem.
+[MessagePack](https://msgpack.org/index.html) je rychlý a kompaktní binární formát serializace. To je užitečné v případě, že je důležité mít vliv na výkon a šířku pásma, protože vytváří menší zprávy ve srovnání se [JSON](https://www.json.org/). Binární zprávy jsou nečitelný při prohlížení síťových trasování a protokolů, pokud nejsou bajty předávány pomocí MessagePack analyzátoru. SignalR má vestavěnou podporu pro formát MessagePack a poskytuje rozhraní API pro použití klientem a serverem.
 
 ## <a name="configure-messagepack-on-the-server"></a>Konfigurace MessagePack na serveru
 
@@ -481,7 +482,7 @@ public class ChatMessage
 }
 ```
 
-Při odesílání z klienta jazyka JavaScript je nutné použít `PascalCased` názvy vlastností, protože velikost písmen se musí přesně shodovat s třídou jazyka C#. Například:
+Při odesílání z klienta jazyka JavaScript je nutné použít `PascalCased` názvy vlastností, protože velikost písmen se musí přesně shodovat s třídou jazyka C#. Příklad:
 
 ```javascript
 connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });

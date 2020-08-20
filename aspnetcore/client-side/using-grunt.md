@@ -5,6 +5,7 @@ description: Použití grunt v ASP.NET Core
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: client-side/using-grunt
-ms.openlocfilehash: 019f31c1a6fa3a33783f78f2fee71f710642ce6d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e8e4459f7fe496135d6cfd7f4ff52511a5e1c064
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013200"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628024"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>Použití grunt v ASP.NET Core
 
@@ -291,6 +292,6 @@ Vytvoří vazby `watch` tak, že se spustí při každém otevření sady Visual
 
 Uvolněte a znovu načtěte projekt. Po opětovném načtení projektu se úloha kukátka začne automaticky spouštět.
 
-## <a name="summary"></a>Souhrn
+## <a name="summary"></a>Shrnutí
 
 Grunt je výkonný Spouštěč úloh, který se dá použít k automatizaci většiny úloh sestavení klientů. Grunt využívá NPM k doručování svých balíčků a funkcí pro integraci nástrojů se sadou Visual Studio. Průzkumník Spouštěče úloh sady Visual Studio detekuje změny konfiguračních souborů a poskytuje praktické rozhraní pro spouštění úkolů, zobrazení spuštěných úloh a vázání úloh k událostem sady Visual Studio.

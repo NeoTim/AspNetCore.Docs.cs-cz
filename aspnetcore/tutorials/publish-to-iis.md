@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/03/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: fc8573625328fe18970cd6bcd5627b71680d5ca7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 34707def9728211b9c2aa36d255f2467d1e3d661
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020233"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627790"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>Publikování aplikace ASP.NET Core ve službě IIS
 
@@ -35,7 +36,7 @@ Tento kurz se zabývá následujícími tématy:
 > * Vytvořte web IIS ve Správci služby IIS.
 > * Nasaďte aplikaci ASP.NET Core.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [.NET Core SDK](/dotnet/core/sdk) nainstalované na vývojovém počítači.
 * Windows Server nakonfigurovaný pomocí role serveru **webový server (IIS)** . Pokud váš server není nakonfigurovaný na hostování webů se službou IIS, postupujte podle pokynů v části *Konfigurace služby IIS* v <xref:host-and-deploy/iis/index#iis-configuration> článku a pak se vraťte k tomuto kurzu.
@@ -125,7 +126,7 @@ Další informace o hostování ASP.NET Corech aplikací ve službě IIS najdete
 > [!div class="nextstepaction"]
 > <xref:host-and-deploy/iis/index>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 ### <a name="articles-in-the-aspnet-core-documentation-set"></a>Články v sadě dokumentace k ASP.NET Core
 

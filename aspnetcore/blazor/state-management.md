@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -18,12 +19,12 @@ no-loc:
 - SignalR
 uid: blazor/state-management
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 28ca3b5c4472dc21e709d01705dc64168107ca61
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 43794fad36efe44cad6fbb2f1a1cae293a2ddad1
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013551"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625957"
 ---
 # <a name="aspnet-core-no-locblazor-state-management"></a>BlazorSpráva stavu ASP.NET Core
 
@@ -74,7 +75,7 @@ V případě trvalé trvalosti dat, která zahrnuje více uživatelů a zaříze
 
 Po uložení dat se stav uživatele zachová a bude dostupný v jakékoli nové relaci prohlížeče.
 
-Vzhledem k tomu Blazor WebAssembly , že aplikace běží zcela v prohlížeči uživatele, vyžadují další míry pro přístup k zabezpečeným externím systémům, jako jsou služby úložiště a databáze. Blazor WebAssemblyaplikace jsou zabezpečené stejným způsobem jako aplikace s jedním stránkou (jednostránkové). Aplikace obvykle ověřuje uživatele prostřednictvím [OAuth](https://oauth.net) / [OpenID Connect (OIDC)](https://openid.net/connect/) a pak spolupracuje se službami úložiště a databázemi prostřednictvím volání webového rozhraní API do aplikace na straně serveru. Aplikace na straně serveru vypravuje přenos dat mezi Blazor WebAssembly aplikací a službou úložiště nebo databází. Blazor WebAssemblyAplikace udržuje dočasné připojení k aplikaci na straně serveru, zatímco aplikace na straně serveru má trvalé připojení k úložišti.
+Vzhledem k tomu Blazor WebAssembly , že aplikace běží zcela v prohlížeči uživatele, vyžadují další míry pro přístup k zabezpečeným externím systémům, jako jsou služby úložiště a databáze. Blazor WebAssembly aplikace jsou zabezpečené stejným způsobem jako aplikace s jedním stránkou (jednostránkové). Aplikace obvykle ověřuje uživatele prostřednictvím [OAuth](https://oauth.net) / [OpenID Connect (OIDC)](https://openid.net/connect/) a pak spolupracuje se službami úložiště a databázemi prostřednictvím volání webového rozhraní API do aplikace na straně serveru. Aplikace na straně serveru vypravuje přenos dat mezi Blazor WebAssembly aplikací a službou úložiště nebo databází. Blazor WebAssemblyAplikace udržuje dočasné připojení k aplikaci na straně serveru, zatímco aplikace na straně serveru má trvalé připojení k úložišti.
 
 Další informace naleznete v následujících zdrojích:
 
@@ -102,23 +103,23 @@ Informace o definování vzorů adres URL pomocí [`@page`](xref:mvc/views/razor
 
 Pro přechodná data, která uživatel aktivně vytváří, se běžně používané umístění úložiště nachází v prohlížeči [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) a [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) kolekcích:
 
-* `localStorage`je vymezen v okně prohlížeče. Pokud uživatel stránku znovu načte nebo zavře a znovu otevře prohlížeč, stav přetrvává. Pokud uživatel otevře více karet prohlížeče, stav se sdílí napříč kartami. Data přetrvají do `localStorage` doby, než je explicitně zrušeno.
-* `sessionStorage`je vymezen na kartu prohlížeče. Pokud uživatel znovu načte kartu, stav se přetrvá. Pokud uživatel zavře kartu nebo prohlížeč, dojde ke ztrátě stavu. Pokud uživatel otevře více karet prohlížeče, každá karta má svou vlastní nezávislou verzi dat.
+* `localStorage` je vymezen v okně prohlížeče. Pokud uživatel stránku znovu načte nebo zavře a znovu otevře prohlížeč, stav přetrvává. Pokud uživatel otevře více karet prohlížeče, stav se sdílí napříč kartami. Data přetrvají do `localStorage` doby, než je explicitně zrušeno.
+* `sessionStorage` je vymezen na kartu prohlížeče. Pokud uživatel znovu načte kartu, stav se přetrvá. Pokud uživatel zavře kartu nebo prohlížeč, dojde ke ztrátě stavu. Pokud uživatel otevře více karet prohlížeče, každá karta má svou vlastní nezávislou verzi dat.
 
 > [!NOTE]
-> `localStorage`a `sessionStorage` dá se použít v Blazor WebAssembly aplikacích, ale jenom pomocí psaní vlastního kódu nebo pomocí balíčku třetí strany.
+> `localStorage` a `sessionStorage` dá se použít v Blazor WebAssembly aplikacích, ale jenom pomocí psaní vlastního kódu nebo pomocí balíčku třetí strany.
 
-Obecně `sessionStorage` je bezpečnější použít. `sessionStorage`Vyhněte se riziku, že uživatel otevře více karet a narazí na následující:
+Obecně `sessionStorage` je bezpečnější použít. `sessionStorage` Vyhněte se riziku, že uživatel otevře více karet a narazí na následující:
 
 * Chyby v úložišti stavů napříč kartami.
 * Matoucí chování, když karta Přepisuje stav jiných karet.
 
-`localStorage`je lepší volbou, pokud aplikace musí zachovat stav v rámci zavírání a znovu otevřít prohlížeč.
+`localStorage` je lepší volbou, pokud aplikace musí zachovat stav v rámci zavírání a znovu otevřít prohlížeč.
 
 > [!WARNING]
 > Uživatelé mohou zobrazit nebo manipulovat s daty uloženými v `localStorage` a `sessionStorage` .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Uložení stavu aplikace před operací ověřování](xref:blazor/security/webassembly/additional-scenarios#save-app-state-before-an-authentication-operation)
 * <xref:blazor/call-web-api>
@@ -128,7 +129,7 @@ Obecně `sessionStorage` je bezpečnější použít. `sessionStorage`Vyhněte s
 
 ::: zone pivot="server"
 
-Blazor Serverje stavová architektura aplikace. Ve většině případů aplikace udržuje připojení k serveru. Stav uživatele je uložený v paměti serveru v *okruhu*. 
+Blazor Server je stavová architektura aplikace. Ve většině případů aplikace udržuje připojení k serveru. Stav uživatele je uložený v paměti serveru v *okruhu*. 
 
 Příklady stavu uživatele uchovávaného v okruhu zahrnují:
 
@@ -201,15 +202,15 @@ Informace o definování vzorů adres URL pomocí [`@page`](xref:mvc/views/razor
 
 Pro přechodná data, která uživatel aktivně vytváří, se běžně používané umístění úložiště nachází v prohlížeči [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) a [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) kolekcích:
 
-* `localStorage`je vymezen v okně prohlížeče. Pokud uživatel stránku znovu načte nebo zavře a znovu otevře prohlížeč, stav přetrvává. Pokud uživatel otevře více karet prohlížeče, stav se sdílí napříč kartami. Data přetrvají do `localStorage` doby, než je explicitně zrušeno.
-* `sessionStorage`je vymezen na kartu prohlížeče. Pokud uživatel znovu načte kartu, stav se přetrvá. Pokud uživatel zavře kartu nebo prohlížeč, dojde ke ztrátě stavu. Pokud uživatel otevře více karet prohlížeče, každá karta má svou vlastní nezávislou verzi dat.
+* `localStorage` je vymezen v okně prohlížeče. Pokud uživatel stránku znovu načte nebo zavře a znovu otevře prohlížeč, stav přetrvává. Pokud uživatel otevře více karet prohlížeče, stav se sdílí napříč kartami. Data přetrvají do `localStorage` doby, než je explicitně zrušeno.
+* `sessionStorage` je vymezen na kartu prohlížeče. Pokud uživatel znovu načte kartu, stav se přetrvá. Pokud uživatel zavře kartu nebo prohlížeč, dojde ke ztrátě stavu. Pokud uživatel otevře více karet prohlížeče, každá karta má svou vlastní nezávislou verzi dat.
 
-Obecně `sessionStorage` je bezpečnější použít. `sessionStorage`Vyhněte se riziku, že uživatel otevře více karet a narazí na následující:
+Obecně `sessionStorage` je bezpečnější použít. `sessionStorage` Vyhněte se riziku, že uživatel otevře více karet a narazí na následující:
 
 * Chyby v úložišti stavů napříč kartami.
 * Matoucí chování, když karta Přepisuje stav jiných karet.
 
-`localStorage`je lepší volbou, pokud aplikace musí zachovat stav v rámci zavírání a znovu otevřít prohlížeč.
+`localStorage` je lepší volbou, pokud aplikace musí zachovat stav v rámci zavírání a znovu otevřít prohlížeč.
 
 Upozornění pro použití úložiště prohlížeče:
 
@@ -264,7 +265,7 @@ private async Task IncrementCount()
 }
 ```
 
-Ve větších a realističtějších aplikacích je ukládání jednotlivých polí nepravděpodobné. Pro aplikace je pravděpodobnější ukládání celých objektů modelu, které zahrnují komplexní stav. `ProtectedSessionStore`automaticky serializace a deserializace dat JSON pro ukládání komplexních objektů stavu.
+Ve větších a realističtějších aplikacích je ukládání jednotlivých polí nepravděpodobné. Pro aplikace je pravděpodobnější ukládání celých objektů modelu, které zahrnují komplexní stav. `ProtectedSessionStore` automaticky serializace a deserializace dat JSON pro ukládání komplexních objektů stavu.
 
 V předchozím příkladu kódu `currentCount` se data ukládají jako `sessionStorage['count']` v prohlížeči uživatele. Data nejsou uložená v prostém textu, ale místo toho jsou chráněná pomocí ASP.NET Core ochrany dat. Zašifrovaná data lze zkontrolovat, pokud `sessionStorage['count']` je vyhodnocena v konzole pro vývojáře v prohlížeči.
 
@@ -278,7 +279,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-Pokud parametry komponenty obsahují stav navigace, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte `null` nevýsledek v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> , nikoli <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> . <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>se volá pouze jednou při prvním vytvoření instance komponenty. <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>není voláno později, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace naleznete v tématu <xref:blazor/components/lifecycle>.
+Pokud parametry komponenty obsahují stav navigace, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte `null` nevýsledek v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> , nikoli <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> . <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> se volá pouze jednou při prvním vytvoření instance komponenty. <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> není voláno později, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace naleznete v tématu <xref:blazor/components/lifecycle>.
 
 > [!WARNING]
 > Příklady v této části fungují pouze v případě, že server nemá povolené předvykreslování. Pokud je povoleno předvykreslování, je vygenerována chyba s vysvětlením, že volání interoperability JavaScriptu nelze vydat, protože součást je předem vykreslena.
@@ -316,7 +317,7 @@ Během předvykreslování:
 * Interaktivní připojení k prohlížeči uživatele neexistuje.
 * Prohlížeč ještě nemá stránku, ve které může spustit kód jazyka JavaScript.
 
-`localStorage`nebo `sessionStorage` nejsou během předvykreslování k dispozici. Pokud se komponenta pokusí pracovat s úložištěm, je vygenerována chyba s vysvětlením, že volání interoperability JavaScriptu nelze vydat, protože součást je předem vykreslena.
+`localStorage` nebo `sessionStorage` nejsou během předvykreslování k dispozici. Pokud se komponenta pokusí pracovat s úložištěm, je vygenerována chyba s vysvětlením, že volání interoperability JavaScriptu nelze vydat, protože součást je předem vykreslena.
 
 Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předvykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah do té doby, než `localStorage` `sessionStorage` je k dispozici.
 
@@ -465,7 +466,7 @@ Chcete-li zachovat mnoho různých stavových objektů a využívat různé podm
 ASP.NET Core chráněné úložiště prohlížeče využívá [ASP.NET Core ochrany dat](xref:security/data-protection/introduction) pro [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) a [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) .
 
 > [!WARNING]
-> `Microsoft.AspNetCore.ProtectedBrowserStorage`je nepodporovaný, experimentální balíček nevhodný pro produkční použití.
+> `Microsoft.AspNetCore.ProtectedBrowserStorage` je nepodporovaný, experimentální balíček nevhodný pro produkční použití.
 >
 > Balíček je dostupný jenom v aplikacích ASP.NET Core 3,1 Blazor Server .
 
@@ -510,7 +511,7 @@ private async Task IncrementCount()
 }
 ```
 
-Ve větších a realističtějších aplikacích je ukládání jednotlivých polí nepravděpodobné. Pro aplikace je pravděpodobnější ukládání celých objektů modelu, které zahrnují komplexní stav. `ProtectedSessionStore`automaticky serializace a deserializace dat JSON.
+Ve větších a realističtějších aplikacích je ukládání jednotlivých polí nepravděpodobné. Pro aplikace je pravděpodobnější ukládání celých objektů modelu, které zahrnují komplexní stav. `ProtectedSessionStore` automaticky serializace a deserializace dat JSON.
 
 V předchozím příkladu kódu `currentCount` se data ukládají jako `sessionStorage['count']` v prohlížeči uživatele. Data nejsou uložená v prostém textu, ale místo toho jsou chráněná pomocí ASP.NET Core ochrany dat. Zašifrovaná data lze zkontrolovat, pokud `sessionStorage['count']` je vyhodnocena v konzole pro vývojáře v prohlížeči.
 
@@ -523,7 +524,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-Pokud parametry komponenty obsahují stav navigace, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> , nikoli <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> . <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>se volá pouze jednou při prvním vytvoření instance komponenty. <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>není voláno později, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace naleznete v tématu <xref:blazor/components/lifecycle>.
+Pokud parametry komponenty obsahují stav navigace, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> , nikoli <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> . <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> se volá pouze jednou při prvním vytvoření instance komponenty. <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> není voláno později, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace naleznete v tématu <xref:blazor/components/lifecycle>.
 
 > [!WARNING]
 > Příklady v této části fungují pouze v případě, že server nemá povolené předvykreslování. Pokud je povoleno předvykreslování, je vygenerována chyba s vysvětlením, že volání interoperability JavaScriptu nelze vydat, protože součást je předem vykreslena.
@@ -561,7 +562,7 @@ Během předvykreslování:
 * Interaktivní připojení k prohlížeči uživatele neexistuje.
 * Prohlížeč ještě nemá stránku, ve které může spustit kód jazyka JavaScript.
 
-`localStorage`nebo `sessionStorage` nejsou během předvykreslování k dispozici. Pokud se komponenta pokusí pracovat s úložištěm, je vygenerována chyba s vysvětlením, že volání interoperability JavaScriptu nelze vydat, protože součást je předem vykreslena.
+`localStorage` nebo `sessionStorage` nejsou během předvykreslování k dispozici. Pokud se komponenta pokusí pracovat s úložištěm, je vygenerována chyba s vysvětlením, že volání interoperability JavaScriptu nelze vydat, protože součást je předem vykreslena.
 
 Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předvykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah do té doby, než `localStorage` `sessionStorage` je k dispozici.
 

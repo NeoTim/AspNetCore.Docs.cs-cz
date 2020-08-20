@@ -6,6 +6,7 @@ ms.author: riserrad
 ms.custom: devx-track-csharp, mvc
 ms.date: 07/10/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: 28074d64e9d4d0ec35af06e8b6daae939e316b2b
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: 113ebbefe338f49738095633c95ee3327b615078
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130207"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627894"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>Publikování aplikace ASP.NET Core do Azure pomocí Visual Studio Code
 
@@ -84,7 +85,7 @@ Pokud příkaz níže nefunguje, ověřte, jestli je instalace správně nakonfi
 ### <a name="through-visual-studio-code-interface"></a>Přes Visual Studio Code rozhraní
 
 - Otevřete Visual Studio Code.
-- V nabídce vyberte`File > Open Folder`
+- V nabídce vyberte `File > Open Folder`
 - Vyberte kořen složky, ve které jste vytvořili projekt MVC.
 
 Po otevření složky projektu se zobrazí zpráva oznamující, že chybí požadované prostředky k sestavení a ladění. Pokud je chcete přidat, přijměte ji.
@@ -127,7 +128,7 @@ Využívá se rozšíření Azure App Service pro Visual Studio Code. k publikov
 
 ### <a name="if-youre-creating-a-new-web-app"></a>Pokud vytváříte novou webovou aplikaci
 
-- Klikněte pravým tlačítkem na `publish` složku a vyberte`Deploy to Web App...`
+- Klikněte pravým tlačítkem na `publish` složku a vyberte `Deploy to Web App...`
 - Vyberte předplatné, ve kterém chcete vytvořit webovou aplikaci.
 - Vyberte `Create New Web App`
 - Zadejte název webové aplikace.
@@ -142,7 +143,7 @@ Po kliknutí na `Browse Website` něj přejdete pomocí výchozího prohlížeč
 
 ### <a name="if-youre-deploying-to-an-existing-web-app"></a>Pokud provádíte nasazení do existující webové aplikace
 
-- Klikněte pravým tlačítkem na `publish` složku a vyberte`Deploy to Web App...`
+- Klikněte pravým tlačítkem na `publish` složku a vyberte `Deploy to Web App...`
 - Výběr předplatného, které se nachází v existující webové aplikaci
 - Vyberte webovou aplikaci ze seznamu.
 - Visual Studio Code se vás zeptá, jestli chcete přepsat existující obsah. Kliknutím `Deploy` potvrďte
@@ -155,7 +156,7 @@ Rozšíření nasadí aktualizovaný obsah do webové aplikace. Až to bude hoto
 
 - [Vytvoření prvního kanálu Azure DevOps](/azure/devops/pipelines/create-first-pipeline)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 - [Azure App Service](/azure/app-service/app-service-web-overview)
 - [Skupiny prostředků Azure](/azure/azure-resource-manager/resource-group-overview#resource-groups)

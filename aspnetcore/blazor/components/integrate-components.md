@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/25/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/integrate-components-into-razor-pages-and-mvc-apps
-ms.openlocfilehash: 7abf15b240c0acdae159784a8863b2988758c916
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e2045d7d169e81c85f4c7dbd97357455ecd70ea3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014552"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628479"
 ---
 # <a name="integrate-aspnet-core-no-locrazor-components-into-no-locrazor-pages-and-mvc-apps"></a>Integrace Razor součástí ASP.NET Core do Razor stránek a aplikací MVC
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-Razorkomponenty lze integrovat do Razor stránek a aplikací MVC. Po vykreslení stránky nebo zobrazení mohou být komponenty předem vykresleny ve stejnou dobu.
+Razor komponenty lze integrovat do Razor stránek a aplikací MVC. Po vykreslení stránky nebo zobrazení mohou být komponenty předem vykresleny ve stejnou dobu.
 
 Po [přípravě aplikace](#prepare-the-app)použijte pokyny v následujících částech v závislosti na požadavcích aplikace:
 
@@ -127,7 +128,7 @@ Podpora směrování Razor komponent v Razor aplikacích Pages:
 
    Komponenty používají `_Layout.cshtml` pro své rozložení sdílený soubor.
 
-   <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>nakonfiguruje, jestli `App` součást:
+   <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> nakonfiguruje, jestli `App` součást:
 
    * Je předem vykreslen na stránku.
    * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
@@ -151,7 +152,7 @@ Podpora směrování Razor komponent v Razor aplikacích Pages:
    });
    ```
 
-1. Přidejte do aplikace směrovatelné součásti. Například:
+1. Přidejte do aplikace směrovatelné součásti. Příklad:
 
    ```razor
    @page "/counter"
@@ -201,7 +202,7 @@ Podpora směrování Razor komponent v aplikacích MVC:
 
    Komponenty používají `_Layout.cshtml` pro své rozložení sdílený soubor.
    
-   <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>nakonfiguruje, jestli `App` součást:
+   <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode> nakonfiguruje, jestli `App` součást:
 
    * Je předem vykreslen na stránku.
    * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
@@ -234,7 +235,7 @@ Podpora směrování Razor komponent v aplikacích MVC:
    });
    ```
 
-1. Vytvořte `Pages` složku a přidejte do ní komponenty s funkcí směrování. Například:
+1. Vytvořte `Pages` složku a přidejte do ní komponenty s funkcí směrování. Příklad:
 
    ```razor
    @page "/counter"

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/memory
-ms.openlocfilehash: 131fd5f2d09b20814cbd557d6b6d873ce15501db
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c4d21992695828e81e03eca92f167c0a3d69c724
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021221"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627283"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť v paměti v ASP.NET Core
 
@@ -35,7 +36,7 @@ Autor – [Rick Anderson](https://twitter.com/RickAndMSFT), [Jan Luo](https://gi
 
 Ukládání do mezipaměti může významně zlepšit výkon a škálovatelnost aplikace tím, že zkracuje práci potřebnou k vygenerování obsahu. Ukládání do mezipaměti funguje nejlépe s daty, která se mění zřídka **a** jsou nákladné pro generování. Ukládání do mezipaměti vytváří kopii dat, která může být vrácena mnohem rychleji než ze zdroje. Aplikace by měly být napsány a testovány, aby **nikdy nebyly** závislé na datech uložených v mezipaměti.
 
-ASP.NET Core podporuje několik různých mezipamětí. Nejjednodušší mezipaměť je založena na [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache). `IMemoryCache`představuje mezipaměť uloženou v paměti webového serveru. Aplikace spuštěné na serverové farmě (více serverů) by měly zajistit, aby relace byly při použití mezipaměti v paměti rychlé. Relace typu Sticky se zajišťují, aby následné požadavky z klienta přešly na stejný server. Například Azure Web Apps používá [Směrování žádostí o aplikace](https://www.iis.net/learn/extensions/planning-for-arr) (ARR) ke směrování všech dalších požadavků na stejný server.
+ASP.NET Core podporuje několik různých mezipamětí. Nejjednodušší mezipaměť je založena na [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache). `IMemoryCache` představuje mezipaměť uloženou v paměti webového serveru. Aplikace spuštěné na serverové farmě (více serverů) by měly zajistit, aby relace byly při použití mezipaměti v paměti rychlé. Relace typu Sticky se zajišťují, aby následné požadavky z klienta přešly na stejný server. Například Azure Web Apps používá [Směrování žádostí o aplikace](https://www.iis.net/learn/extensions/planning-for-arr) (ARR) ke směrování všech dalších požadavků na stejný server.
 
 Nesticky relace ve webové farmě vyžadují [distribuovanou mezipaměť](distributed.md) , aby nedocházelo k problémům s konzistencí mezipaměti. Pro některé aplikace může distribuovaná mezipaměť podporovat větší škálování než mezipaměť v paměti. Použití distribuované mezipaměti přesměruje paměť mezipaměti do externího procesu.
 
@@ -43,7 +44,7 @@ Mezipaměť v paměti může ukládat libovolný objekt. Rozhraní distribuovan�
 
 ## <a name="systemruntimecachingmemorycache"></a>System. Runtime. Caching/MemoryCache
 
-<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache>([Balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
+<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache> ([Balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
 
 * .NET Standard 2,0 nebo novější.
 * Jakákoli [implementace .NET](/dotnet/standard/net-standard#net-implementation-support) , která cílí na .NET Standard 2,0 nebo novější. Například ASP.NET Core 2,0 nebo novější.
@@ -120,7 +121,7 @@ Následující ukázka:
 
 `MemoryCache`Instance může volitelně určovat a vymáhat omezení velikosti. Omezení velikosti mezipaměti nemá definovanou měrnou jednotku, protože mezipaměť nemá žádný mechanismus pro měření velikosti položek. Pokud je nastaven limit velikosti mezipaměti, musí všechny položky určovat velikost. Modul runtime ASP.NET Core neomezuje velikost mezipaměti na základě tlaku paměti. Velikost mezipaměti můžete omezit na vývojáře. Zadaná velikost je v jednotkách, které vývojář zvolí.
 
-Například:
+Příklad:
 
 * Pokud byla webová aplikace primárně do mezipaměti řetězců, každá velikost položky mezipaměti může být délka řetězce.
 * Aplikace může určit velikost všech položek jako 1 a limit velikosti je počet položek.
@@ -134,13 +135,13 @@ Následující kód vytvoří pevnou velikost jednotky <xref:Microsoft.Extension
 
 [!code-csharp[](memory/sample/RPcache/Services/MyMemoryCache.cs?name=snippet)]
 
-`SizeLimit`nemá jednotky. Položky v mezipaměti musí určovat velikost v jakémkoli z jednotek, které považují za nejvhodnější, pokud byl nastaven limit velikosti mezipaměti. Všichni uživatelé instance mezipaměti by měli používat stejný systém jednotek. Záznam nebude uložen do mezipaměti, pokud součet velikostí záznamů uložených v mezipaměti překročí hodnotu zadanou parametrem `SizeLimit` . Pokud není nastavené žádné omezení velikosti mezipaměti, bude velikost mezipaměti nastavená u položky ignorována.
+`SizeLimit` nemá jednotky. Položky v mezipaměti musí určovat velikost v jakémkoli z jednotek, které považují za nejvhodnější, pokud byl nastaven limit velikosti mezipaměti. Všichni uživatelé instance mezipaměti by měli používat stejný systém jednotek. Záznam nebude uložen do mezipaměti, pokud součet velikostí záznamů uložených v mezipaměti překročí hodnotu zadanou parametrem `SizeLimit` . Pokud není nastavené žádné omezení velikosti mezipaměti, bude velikost mezipaměti nastavená u položky ignorována.
 
 Následující kód se registruje v `MyMemoryCache` kontejneru [Injektáže pro vkládání závislostí](xref:fundamentals/dependency-injection) .
 
 [!code-csharp[](memory/3.0sample/RPcache/Startup.cs?name=snippet)]
 
-`MyMemoryCache`je vytvořen jako nezávislá mezipaměť paměti pro součásti, které mají informace o této velikosti omezené mezipaměti a také o tom, jak správně nastavit velikost položky mezipaměti.
+`MyMemoryCache` je vytvořen jako nezávislá mezipaměť paměti pro součásti, které mají informace o této velikosti omezené mezipaměti a také o tom, jak správně nastavit velikost položky mezipaměti.
 
 Následující kód používá `MyMemoryCache` :
 
@@ -152,7 +153,7 @@ Velikost položky mezipaměti lze nastavit pomocí <xref:Microsoft.Extensions.Ca
 
 ### <a name="memorycachecompact"></a>MemoryCache. Compact
 
-`MemoryCache.Compact`pokusí se odebrat zadané procento mezipaměti v následujícím pořadí:
+`MemoryCache.Compact` pokusí se odebrat zadané procento mezipaměti v následujícím pořadí:
 
 * Všechny položky, jejichž platnost vypršela.
 * Položky podle priority. Nejprve se odeberou položky s nejnižší prioritou.
@@ -194,7 +195,7 @@ Použití <xref:System.Threading.CancellationTokenSource> Možnosti umožňuje v
 
 Použijte [službu na pozadí](xref:fundamentals/host/hosted-services) , například <xref:Microsoft.Extensions.Hosting.IHostedService> k aktualizaci mezipaměti. Služba na pozadí může přepočítat položky a pak je přiřadit do mezipaměti pouze v případě, že jsou připravené.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>
@@ -224,7 +225,7 @@ Mezipaměť v paměti může ukládat libovolný objekt. Rozhraní distribuovan�
 
 ## <a name="systemruntimecachingmemorycache"></a>System. Runtime. Caching/MemoryCache
 
-<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache>([Balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
+<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache> ([Balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
 
 * .NET Standard 2,0 nebo novější.
 * Jakákoli [implementace .NET](/dotnet/standard/net-standard#net-implementation-support) , která cílí na .NET Standard 2,0 nebo novější. Například ASP.NET Core 2,0 nebo novější.
@@ -256,7 +257,7 @@ Vyžádejte `IMemoryCache` instanci v konstruktoru:
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ctor)]
 
-`IMemoryCache`vyžaduje balíček NuGet [Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/), který je k dispozici ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
+`IMemoryCache` vyžaduje balíček NuGet [Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/), který je k dispozici ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
 Následující kód používá [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__) ke kontrole, zda je čas v mezipaměti. Pokud čas není uložen v mezipaměti, je vytvořena nová položka a přidána do mezipaměti se [sadou](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_).
 
@@ -296,7 +297,7 @@ Následující ukázka:
 
 `MemoryCache`Instance může volitelně určovat a vymáhat omezení velikosti. Omezení velikosti mezipaměti nemá definovanou měrnou jednotku, protože mezipaměť nemá žádný mechanismus pro měření velikosti položek. Pokud je nastaven limit velikosti mezipaměti, musí všechny položky určovat velikost. Modul runtime ASP.NET Core neomezuje velikost mezipaměti na základě tlaku paměti. Velikost mezipaměti můžete omezit na vývojáře. Zadaná velikost je v jednotkách, které vývojář zvolí.
 
-Například:
+Příklad:
 
 * Pokud byla webová aplikace primárně do mezipaměti řetězců, každá velikost položky mezipaměti může být délka řetězce.
 * Aplikace může určit velikost všech položek jako 1 a limit velikosti je počet položek.
@@ -310,13 +311,13 @@ Následující kód vytvoří pevnou velikost jednotky <xref:Microsoft.Extension
 
 [!code-csharp[](memory/sample/RPcache/Services/MyMemoryCache.cs?name=snippet)]
 
-`SizeLimit`nemá jednotky. Položky v mezipaměti musí určovat velikost v jakémkoli z jednotek, které považují za nejvhodnější, pokud byl nastaven limit velikosti mezipaměti. Všichni uživatelé instance mezipaměti by měli používat stejný systém jednotek. Záznam nebude uložen do mezipaměti, pokud součet velikostí záznamů uložených v mezipaměti překročí hodnotu zadanou parametrem `SizeLimit` . Pokud není nastavené žádné omezení velikosti mezipaměti, bude velikost mezipaměti nastavená u položky ignorována.
+`SizeLimit` nemá jednotky. Položky v mezipaměti musí určovat velikost v jakémkoli z jednotek, které považují za nejvhodnější, pokud byl nastaven limit velikosti mezipaměti. Všichni uživatelé instance mezipaměti by měli používat stejný systém jednotek. Záznam nebude uložen do mezipaměti, pokud součet velikostí záznamů uložených v mezipaměti překročí hodnotu zadanou parametrem `SizeLimit` . Pokud není nastavené žádné omezení velikosti mezipaměti, bude velikost mezipaměti nastavená u položky ignorována.
 
 Následující kód se registruje v `MyMemoryCache` kontejneru [Injektáže pro vkládání závislostí](xref:fundamentals/dependency-injection) .
 
 [!code-csharp[](memory/sample/RPcache/Startup.cs?name=snippet&highlight=5)]
 
-`MyMemoryCache`je vytvořen jako nezávislá mezipaměť paměti pro součásti, které mají informace o této velikosti omezené mezipaměti a také o tom, jak správně nastavit velikost položky mezipaměti.
+`MyMemoryCache` je vytvořen jako nezávislá mezipaměť paměti pro součásti, které mají informace o této velikosti omezené mezipaměti a také o tom, jak správně nastavit velikost položky mezipaměti.
 
 Následující kód používá `MyMemoryCache` :
 
@@ -328,7 +329,7 @@ Velikost položky mezipaměti lze nastavit podle [velikosti](/dotnet/api/microso
 
 ### <a name="memorycachecompact"></a>MemoryCache. Compact
 
-`MemoryCache.Compact`pokusí se odebrat zadané procento mezipaměti v následujícím pořadí:
+`MemoryCache.Compact` pokusí se odebrat zadané procento mezipaměti v následujícím pořadí:
 
 * Všechny položky, jejichž platnost vypršela.
 * Položky podle priority. Nejprve se odeberou položky s nejnižší prioritou.

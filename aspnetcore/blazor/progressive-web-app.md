@@ -1,5 +1,5 @@
 ---
-title: Sestavování progresivních webových aplikací pomocí ASP.NET CoreBlazor WebAssembly
+title: Sestavování progresivních webových aplikací pomocí ASP.NET Core Blazor WebAssembly
 author: guardrex
 description: Naučte se vytvářet Blazor progresivní webové aplikace (PWA), které používají moderní funkce prohlížeče, aby se chovala jako desktopová aplikace.
 monikerRange: '>= aspnetcore-3.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: 1c33a3abd2ebee60a4025d4598495d276663dc9b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 230b2a801a76e2d719fba8e2b97fddb0b32a9634
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014162"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627959"
 ---
-# <a name="build-progressive-web-applications-with-aspnet-core-no-locblazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET CoreBlazor WebAssembly
+# <a name="build-progressive-web-applications-with-aspnet-core-no-locblazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Core Blazor WebAssembly
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
-Progresivní webová aplikace (PWA) je obvykle jediná stránková aplikace (SPA), která používá moderní rozhraní API a možnosti prohlížeče, aby se choval jako desktopová aplikace. Blazor WebAssemblyje webová platforma webové aplikace založená na standardech, takže může používat libovolné rozhraní API prohlížeče, včetně rozhraní API PWA potřebných pro následující funkce:
+Progresivní webová aplikace (PWA) je obvykle jediná stránková aplikace (SPA), která používá moderní rozhraní API a možnosti prohlížeče, aby se choval jako desktopová aplikace. Blazor WebAssembly je webová platforma webové aplikace založená na standardech, takže může používat libovolné rozhraní API prohlížeče, včetně rozhraní API PWA potřebných pro následující funkce:
 
 * Pracujete offline a okamžitě se načítají nezávisle na rychlosti sítě.
 * Spuštění ve vlastním okně aplikace, ne pouze v okně prohlížeče.
@@ -161,8 +162,8 @@ Pokud Razor komponenty aplikace spoléhají na požadavky na data z back-endové
 
 Zvažte, co se stane, když uživatel poprvé přejde na adresu URL, například `/counter` nebo na jiný přímý odkaz v aplikaci. V těchto případech nechcete vracet obsah uložený v mezipaměti jako `/counter` , ale místo toho musí prohlížeč načíst obsah uložený v mezipaměti jako `/index.html` při spuštění Blazor WebAssembly aplikace. Tyto počáteční požadavky se označují jako požadavky na *navigaci* , a to na rozdíl od:
 
-* `subresource`požadavky na obrázky, šablony stylů nebo jiné soubory.
-* `fetch/XHR`požadavky na data rozhraní API.
+* `subresource` požadavky na obrázky, šablony stylů nebo jiné soubory.
+* `fetch/XHR` požadavky na data rozhraní API.
 
 Výchozí pracovní proces služby obsahuje zvláštní případovou logiku pro požadavky na navigaci. Pracovník služby tyto požadavky vyřeší tak, že vrátí obsah uložený v mezipaměti pro `/index.html` , bez ohledu na požadovanou adresu URL. Tato logika je implementována ve `onFetch` funkci v rámci `service-worker.published.js` .
 
@@ -295,8 +296,8 @@ Vytvoření offline aplikace PWA, která komunikuje s ověřováním:
 
 * `OfflineAccountClaimsPrincipalFactory` (`Client/Data/OfflineAccountClaimsPrincipalFactory.cs`)
 * `LocalVehiclesStore` (`Client/Data/LocalVehiclesStore.cs`)
-* `LoginStatus`součást ( `Client/Shared/LoginStatus.razor` )
+* `LoginStatus` součást ( `Client/Shared/LoginStatus.razor` )
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
-* [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)
+* [SignalR vyjednávání mezi zdroji pro ověřování](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)

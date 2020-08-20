@@ -5,6 +5,7 @@ description: 2. část Razor stránek a Entity Framework řady kurzů.
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/crud
-ms.openlocfilehash: f205e7741c8e901e9219bec2028c7bee98129161
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a6a99d736a60a55b81eb7e852413dc52b733d2fb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018361"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627530"
 ---
 # <a name="part-2-no-locrazor-pages-with-ef-core-in-aspnet-core---crud"></a>Část 2, Razor stránky s EF Core v ASP.NET Core-CRUD
 
@@ -52,7 +53,7 @@ Nahraďte `OnGetAsync` metodu následujícím kódem pro čtení dat zápisu pro
 
 Metody [include](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.include) a [ThenInclude](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.theninclude#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_ThenInclude__3_Microsoft_EntityFrameworkCore_Query_IIncludableQueryable___0_System_Collections_Generic_IEnumerable___1___System_Linq_Expressions_Expression_System_Func___1___2___) způsobují, že kontext načte `Student.Enrollments` vlastnost navigace a v rámci každé registrace `Enrollment.Course` vlastnost navigace. Tyto metody jsou podrobně prověřeny v kurzu [čtení souvisejících dat](xref:data/ef-rp/read-related-data) .
 
-Metoda [AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) vylepšuje výkon ve scénářích, kde vracené entity nejsou aktualizovány v aktuálním kontextu. `AsNoTracking`je popsána dále v tomto kurzu.
+Metoda [AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) vylepšuje výkon ve scénářích, kde vracené entity nejsou aktualizovány v aktuálním kontextu. `AsNoTracking` je popsána dále v tomto kurzu.
 
 ### <a name="display-enrollments"></a>Zobrazit registrace
 
@@ -66,7 +67,7 @@ Spusťte aplikaci, vyberte kartu **Students** a klikněte na odkaz **Podrobnosti
 
 ### <a name="ways-to-read-one-entity"></a>Způsoby, jak číst jednu entitu
 
-Vygenerovaný kód používá [FirstOrDefaultAsync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Threading_CancellationToken_) ke čtení jedné entity. Tato metoda vrátí hodnotu null, pokud není nic nalezeno. v opačném případě vrátí první nalezený řádek, který splňuje kritéria filtru dotazu. `FirstOrDefaultAsync`je všeobecně lepší volbou než u následujících alternativ:
+Vygenerovaný kód používá [FirstOrDefaultAsync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Threading_CancellationToken_) ke čtení jedné entity. Tato metoda vrátí hodnotu null, pokud není nic nalezeno. v opačném případě vrátí první nalezený řádek, který splňuje kritéria filtru dotazu. `FirstOrDefaultAsync` je všeobecně lepší volbou než u následujících alternativ:
 
 * [SingleOrDefaultAsync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.singleordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_SingleOrDefaultAsync__1_System_Linq_IQueryable___0__System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_) – vyvolá výjimku, pokud existuje více než jedna entita, která vyhovuje filtru dotazu. Chcete-li zjistit, zda dotaz vrátil více než jeden řádek, nástroj se `SingleOrDefaultAsync` pokusí načíst více řádků. Tato doplňková práce není nutná, pokud dotaz může vracet pouze jednu entitu, stejně jako při vyhledávání jedinečného klíče.
 * [FindAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.findasync#Microsoft_EntityFrameworkCore_DbContext_FindAsync_System_Type_System_Object___) – najde entitu s primárním klíčem (PK). Pokud je entita s PK sledována kontextem, je vrácena bez požadavku na databázi. Tato metoda je optimalizovaná pro vyhledání jedné entity, ale nemůžete volat `Include` pomocí `FindAsync` .  Takže pokud jsou potřeba související data, `FirstOrDefaultAsync` je lepší volbou.
@@ -124,7 +125,7 @@ Následující kód používá `StudentVM` model zobrazení k vytvoření novéh
 
 [!code-csharp[Main](intro/samples/cu30snapshots/2-crud/Pages/Students/CreateVM.cshtml.cs?name=snippet_OnPostAsync)]
 
-Metoda [NastavitHodnotu](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues.setvalues#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyValues_SetValues_System_Object_) nastaví hodnoty tohoto objektu čtením hodnot z jiného objektu [PropertyValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues) . `SetValues`používá spárování názvů vlastností. Typ modelu zobrazení nemusí být v souvislosti s typem modelu, stačí mít vlastnosti, které odpovídají.
+Metoda [NastavitHodnotu](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues.setvalues#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyValues_SetValues_System_Object_) nastaví hodnoty tohoto objektu čtením hodnot z jiného objektu [PropertyValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues) . `SetValues` používá spárování názvů vlastností. Typ modelu zobrazení nemusí být v souvislosti s typem modelu, stačí mít vlastnosti, které odpovídají.
 
 Použití `StudentVM` vyžaduje, aby byl [vytvořen. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/2-crud/Pages/Students/CreateVM.cshtml) pro použití `StudentVM` spíše než `Student` .
 
@@ -136,8 +137,8 @@ Na *stránce Pages/Students/Edit. cshtml. cs*, nahraďte `OnGetAsync` `OnPostAsy
 
 Změny kódu jsou podobné na stránce vytvořit s několika výjimkami:
 
-* `FirstOrDefaultAsync`byl nahrazen pomocí [FindAsync](/dotnet/api/microsoft.entityframeworkcore.dbset-1.findasync). Pokud nepotřebujete zahrnout související data, `FindAsync` je efektivnější.
-* `OnPostAsync`má `id` parametr.
+* `FirstOrDefaultAsync` byl nahrazen pomocí [FindAsync](/dotnet/api/microsoft.entityframeworkcore.dbset-1.findasync). Pokud nepotřebujete zahrnout související data, `FindAsync` je efektivnější.
+* `OnPostAsync` má `id` parametr.
 * Aktuální student se načte z databáze místo vytvoření prázdného studenta.
 
 Spusťte aplikaci a otestujte ji vytvořením a úpravou studenta.
@@ -170,7 +171,7 @@ Nahraďte kód na *stránkách/Students/DELETE. cshtml. cs* následujícím kód
 
 [!code-csharp[Main](intro/samples/cu30/Pages/Students/Delete.cshtml.cs?name=snippet_All&highlight=20,22,30,38-41,53-71)]
 
-Předchozí kód přidá volitelný parametr `saveChangesError` do `OnGetAsync` signatury metody. `saveChangesError`označuje, zda byla metoda volána po neúspěšném odstranění objektu student. Operace odstranění může selhat kvůli přechodným problémům se sítí. Přechodné chyby sítě jsou pravděpodobnější, když je databáze v cloudu. `saveChangesError`Parametr je false při volání stránky Delete `OnGetAsync` z uživatelského rozhraní. Kdy `OnGetAsync` je volána nástrojem `OnPostAsync` (protože operace odstranění se nezdařila), má `saveChangesError` parametr hodnotu true.
+Předchozí kód přidá volitelný parametr `saveChangesError` do `OnGetAsync` signatury metody. `saveChangesError` označuje, zda byla metoda volána po neúspěšném odstranění objektu student. Operace odstranění může selhat kvůli přechodným problémům se sítí. Přechodné chyby sítě jsou pravděpodobnější, když je databáze v cloudu. `saveChangesError`Parametr je false při volání stránky Delete `OnGetAsync` z uživatelského rozhraní. Kdy `OnGetAsync` je volána nástrojem `OnPostAsync` (protože operace odstranění se nezdařila), má `saveChangesError` parametr hodnotu true.
 
 `OnPostAsync`Metoda načte vybranou entitu a pak zavolá metodu [Remove](/dotnet/api/microsoft.entityframeworkcore.dbcontext.remove#Microsoft_EntityFrameworkCore_DbContext_Remove_System_Object_) pro nastavení stavu entity na `Deleted` . Při `SaveChanges` volání metody je vygenerován příkaz SQL DELETE. Pokud se chyba `Remove` nezdařila:
 
@@ -204,18 +205,18 @@ Generovaný kód používá následující vzor pro stránky vytvořit, upravit 
 * Získejte a zobrazte požadovaná data metodou HTTP GET `OnGetAsync` .
 * Uložte změny dat pomocí metody HTTP POST `OnPostAsync` .
 
-Stránka index a podrobnosti načte a zobrazí požadovaná data metodou HTTP GET.`OnGetAsync`
+Stránka index a podrobnosti načte a zobrazí požadovaná data metodou HTTP GET. `OnGetAsync`
 
 ## <a name="singleordefaultasync-vs-firstordefaultasync"></a>SingleOrDefaultAsync vs. FirstOrDefaultAsync
 
 Vygenerovaný kód používá [FirstOrDefaultAsync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Threading_CancellationToken_), což je obecně upřednostňováno nad [SingleOrDefaultAsync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.singleordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_SingleOrDefaultAsync__1_System_Linq_IQueryable___0__System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_).
 
- `FirstOrDefaultAsync`je efektivnější než `SingleOrDefaultAsync` při načítání jedné entity:
+ `FirstOrDefaultAsync` je efektivnější než `SingleOrDefaultAsync` při načítání jedné entity:
 
 * Pokud kód nepotřebuje ověřit, že dotaz nemá více než jednu entitu.
-* `SingleOrDefaultAsync`Načte více dat a nepotřebnou práci.
-* `SingleOrDefaultAsync`vyvolá výjimku, pokud existuje více než jedna entita, která odpovídá části filtru.
-* `FirstOrDefaultAsync`nevyvolá, pokud existuje více než jedna entita, která odpovídá části filtru.
+* `SingleOrDefaultAsync` Načte více dat a nepotřebnou práci.
+* `SingleOrDefaultAsync` vyvolá výjimku, pokud existuje více než jedna entita, která odpovídá části filtru.
+* `FirstOrDefaultAsync` nevyvolá, pokud existuje více než jedna entita, která odpovídá části filtru.
 
 <a name="FindAsync"></a>
 
@@ -265,7 +266,7 @@ Generovaný kód stránky indexu studentů neobsahuje `Enrollments` vlastnost. V
 
 Metody [include](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.include) a [ThenInclude](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.theninclude#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_ThenInclude__3_Microsoft_EntityFrameworkCore_Query_IIncludableQueryable___0_System_Collections_Generic_IEnumerable___1___System_Linq_Expressions_Expression_System_Func___1___2___) způsobují, že kontext načte `Student.Enrollments` vlastnost navigace a v rámci každé registrace `Enrollment.Course` vlastnost navigace. Tyto metody jsou podrobně prověřeny v kurzu pro data související s čtením.
 
-Metoda [AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) zvyšuje výkon ve scénářích, kdy se vracené entity v aktuálním kontextu neaktualizují. `AsNoTracking`je popsána dále v tomto kurzu.
+Metoda [AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) zvyšuje výkon ve scénářích, kdy se vracené entity v aktuálním kontextu neaktualizují. `AsNoTracking` je popsána dále v tomto kurzu.
 
 ### <a name="display-related-enrollments-on-the-details-page"></a>Zobrazit související registrace na stránce s podrobnostmi
 
@@ -293,7 +294,7 @@ Projděte si kód [TryUpdateModelAsync](/dotnet/api/microsoft.aspnetcore.mvc.con
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Create.cshtml.cs?name=snippet_TryUpdateModelAsync)]
 
-V předchozím kódu se nástroj `TryUpdateModelAsync<Student>` pokusí aktualizovat `emptyStudent` objekt pomocí publikovaných hodnot formuláře z vlastnosti [PageContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.pagecontext#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_PageContext) v [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel). `TryUpdateModelAsync`aktualizuje pouze uvedené vlastnosti ( `s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate` ).
+V předchozím kódu se nástroj `TryUpdateModelAsync<Student>` pokusí aktualizovat `emptyStudent` objekt pomocí publikovaných hodnot formuláře z vlastnosti [PageContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.pagecontext#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_PageContext) v [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel). `TryUpdateModelAsync` aktualizuje pouze uvedené vlastnosti ( `s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate` ).
 
 V předchozí ukázce:
 
@@ -330,7 +331,7 @@ Následující kód používá `StudentVM` model zobrazení k vytvoření novéh
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/CreateVM.cshtml.cs?name=snippet_OnPostAsync)]
 
-Metoda [NastavitHodnotu](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues.setvalues#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyValues_SetValues_System_Object_) nastaví hodnoty tohoto objektu čtením hodnot z jiného objektu [PropertyValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues) . `SetValues`používá spárování názvů vlastností. Typ modelu zobrazení nemusí být v souvislosti s typem modelu, stačí mít vlastnosti, které odpovídají.
+Metoda [NastavitHodnotu](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues.setvalues#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyValues_SetValues_System_Object_) nastaví hodnoty tohoto objektu čtením hodnot z jiného objektu [PropertyValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues) . `SetValues` používá spárování názvů vlastností. Typ modelu zobrazení nemusí být v souvislosti s typem modelu, stačí mít vlastnosti, které odpovídají.
 
 Použití `StudentVM` vyžaduje, aby bylo [CreateVM. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21/Pages/Students/CreateVM.cshtml) Aktualizováno pro použití `StudentVM` spíše než `Student` .
 
@@ -344,9 +345,9 @@ Aktualizujte model stránky pro stránku pro úpravy. Hlavní změny jsou zvýra
 
 Změny kódu jsou podobné na stránce vytvořit s několika výjimkami:
 
-* `OnPostAsync`má volitelný `id` parametr.
+* `OnPostAsync` má volitelný `id` parametr.
 * Aktuální student se načte z databáze místo vytvoření prázdného studenta.
-* `FirstOrDefaultAsync`byl nahrazen pomocí [FindAsync](/dotnet/api/microsoft.entityframeworkcore.dbset-1.findasync). `FindAsync`je vhodná volba při výběru entity z primárního klíče. Další informace najdete v tématu [FindAsync](#FindAsync) .
+* `FirstOrDefaultAsync` byl nahrazen pomocí [FindAsync](/dotnet/api/microsoft.entityframeworkcore.dbset-1.findasync). `FindAsync` je vhodná volba při výběru entity z primárního klíče. Další informace najdete v tématu [FindAsync](#FindAsync) .
 
 ### <a name="test-the-edit-and-create-pages"></a>Testování stránek pro úpravy a vytváření
 
@@ -382,7 +383,7 @@ Nahraďte metodu `OnGetAsync` následujícím kódem:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Delete.cshtml.cs?name=snippet_OnGetAsync&highlight=1,9,17-20)]
 
-Předchozí kód obsahuje volitelný parametr `saveChangesError` . `saveChangesError`označuje, zda byla metoda volána po neúspěšném odstranění objektu student. Operace odstranění může selhat kvůli přechodným problémům se sítí. Přechodné chyby sítě jsou pravděpodobnější v cloudu. `saveChangesError`je false, pokud je stránka odstranění `OnGetAsync` volána z uživatelského rozhraní. Kdy `OnGetAsync` je volána nástrojem `OnPostAsync` (protože operace odstranění se nezdařila), má `saveChangesError` parametr hodnotu true.
+Předchozí kód obsahuje volitelný parametr `saveChangesError` . `saveChangesError` označuje, zda byla metoda volána po neúspěšném odstranění objektu student. Operace odstranění může selhat kvůli přechodným problémům se sítí. Přechodné chyby sítě jsou pravděpodobnější v cloudu. `saveChangesError`je false, pokud je stránka odstranění `OnGetAsync` volána z uživatelského rozhraní. Kdy `OnGetAsync` je volána nástrojem `OnPostAsync` (protože operace odstranění se nezdařila), má `saveChangesError` parametr hodnotu true.
 
 ### <a name="the-delete-pages-onpostasync-method"></a>Metoda Delete Pages OnPostAsync
 
@@ -419,7 +420,7 @@ Každá Razor Stránka musí obsahovat `@page` direktivu.
 
 
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=K4X1MT2jt6o)
 

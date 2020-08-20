@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: devx-track-csharp, mvc
 ms.date: 07/28/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: bd0a7c5a905ae4888ea6ad326be5b16cbfaa10fc
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: 50d019897310f9edd560069137ab73b39d780be8
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130402"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626230"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Skupiny Azure AD, role pro správu a uživatelsky definované role
 
 Od [Luke Latham](https://github.com/guardrex) a [Javier Calvarro Nelson](https://github.com/javiercn)
 
-Azure Active Directory (AAD) poskytuje několik autorizačních přístupů, které lze kombinovat s ASP.NET Core Identity :
+Azure Active Directory (AAD) poskytuje několik autorizačních přístupů, které je možné kombinovat ASP.NET Core Identity :
 
 * Uživatelem definované skupiny
   * Zabezpečení
@@ -54,14 +55,14 @@ Pokud chcete povolit Graph API volání, poskytněte samostatnou nebo klientskou
 * `Directory.ReadWrite.All`
 * `Directory.AccessAsUser.All`
 
-`Directory.Read.All`je oprávnění s minimálním oprávněním a je použito pro příklad popsaný v tomto článku.
+`Directory.Read.All` je oprávnění s minimálním oprávněním a je použito pro příklad popsaný v tomto článku.
 
 ## <a name="user-defined-groups-and-built-in-administrative-roles"></a>Uživatelsky definované skupiny a předdefinované role pro správu
 
 Postup konfigurace aplikace v Azure Portal k poskytnutí `groups` deklarace identity členství najdete v následujících článcích Azure. Přiřaďte uživatele k uživatelem definovaným skupinám AAD a integrovaným rolím pro správu.
 
 * [Role používající skupiny zabezpečení Azure AD](/azure/architecture/multitenant-identity/app-roles#roles-using-azure-ad-security-groups)
-* [`groupMembershipClaims`přidělen](/azure/active-directory/develop/reference-app-manifest#groupmembershipclaims-attribute)
+* [`groupMembershipClaims` přidělen](/azure/active-directory/develop/reference-app-manifest#groupmembershipclaims-attribute)
 
 V následujících příkladech se předpokládá, že je uživatel přiřazený k předdefinované roli *správce fakturace* AAD.
 

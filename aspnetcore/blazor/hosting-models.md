@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/11/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 14fa13bafa984c0ca7b9fd8cde538042cc0ec2cc
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: 53293ae9780129530ce5a41639e19284f47aa245
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130441"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628076"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 
 Od [Daniel Skořepa](https://github.com/danroth27)
 
-Blazorje webová architektura navržená tak, aby běžela na straně klienta v prohlížeči [na bázi .NET](https://webassembly.org/)runtime ( *Blazor WebAssembly* ) nebo na straně serveru v ASP.NET Core ( *Blazor Server* ). Bez ohledu na model hostování jsou modely aplikací a komponent *stejné*.
+Blazor je webová architektura navržená tak, aby běžela na straně klienta v prohlížeči [na bázi .NET](https://webassembly.org/)runtime ( *Blazor WebAssembly* ) nebo na straně serveru v ASP.NET Core ( *Blazor Server* ). Bez ohledu na model hostování jsou modely aplikací a komponent *stejné*.
 
 ## Blazor WebAssembly
 
@@ -102,7 +103,7 @@ Když Razor je vykreslena stránka nebo zobrazení, každý řádek Razor kódu 
 * Celá stránka se znovu vykreslí do textu HTML.
 * Stránka je odeslána klientovi.
 
-BlazorAplikace se skládá z opakovaně použitelných prvků uživatelského rozhraní s názvem *Components*. Komponenta obsahuje kód, značky a další komponenty jazyka C#. Když je vykreslena komponenta, Blazor vytvoří graf zahrnutých komponent podobně jako HTML nebo XML model DOM (Document Object Model) (DOM). Tento graf obsahuje stav součásti uložený ve vlastnostech a polích. Blazorvyhodnotí graf komponent pro vytvoření binární reprezentace značky. Binární formát může být:
+BlazorAplikace se skládá z opakovaně použitelných prvků uživatelského rozhraní s názvem *Components*. Komponenta obsahuje kód, značky a další komponenty jazyka C#. Když je vykreslena komponenta, Blazor vytvoří graf zahrnutých komponent podobně jako HTML nebo XML model DOM (Document Object Model) (DOM). Tento graf obsahuje stav součásti uložený ve vlastnostech a polích. Blazor vyhodnotí graf komponent pro vytvoření binární reprezentace značky. Binární formát může být:
 
 * Byl převeden na text HTML (během předvykreslování &dagger; ).
 * Slouží k efektivní aktualizaci značek během pravidelného vykreslování.
@@ -124,9 +125,9 @@ Blazor ServerAplikace je postavená na [ SignalR ASP.NET Core ](xref:signalr/int
 
 Každá obrazovka prohlížeče (karta prohlížeče nebo IFRAME), která je připojená k Blazor Server aplikaci, používá SignalR připojení. Toto je ještě další důležité rozdíly ve srovnání s typickými aplikacemi vygenerovanými serverem. V aplikaci vykreslené serverem se při otevření stejné aplikace v několika obrazovkách prohlížeče obvykle nepřevádí na další požadavky na prostředky na serveru. V Blazor Server aplikaci Každá obrazovka prohlížeče vyžaduje samostatný okruh a samostatné instance stavu součásti, které má server spravovat.
 
-Blazorv důsledku toho se má zavřít karta prohlížeče nebo přejít na externí adresu URL s *řádným* ukončením. V případě řádného ukončení se okruh a přidružené prostředky ihned uvolňují. Klient se může také bez problémů odpojit, například kvůli přerušení sítě. Blazor Serverukládá odpojené okruhy pro Konfigurovatelný interval, aby se klient mohl znovu připojit.
+Blazor v důsledku toho se má zavřít karta prohlížeče nebo přejít na externí adresu URL s *řádným* ukončením. V případě řádného ukončení se okruh a přidružené prostředky ihned uvolňují. Klient se může také bez problémů odpojit, například kvůli přerušení sítě. Blazor Server ukládá odpojené okruhy pro Konfigurovatelný interval, aby se klient mohl znovu připojit.
 
-Blazor Serverumožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Další informace naleznete v tématu <xref:blazor/advanced-scenarios#blazor-server-circuit-handler>.
+Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Další informace naleznete v tématu <xref:blazor/advanced-scenarios#blazor-server-circuit-handler>.
 
 ### <a name="ui-latency"></a>Latence uživatelského rozhraní
 
@@ -136,16 +137,16 @@ Pro podnikovou aplikaci, která je omezená jenom na soukromou podnikovou síť,
 
 Využití paměti může také přispět k latenci aplikace. Zvýšení využití paměti vede k častému uvolňování paměti nebo paměti stránkování na disk, přičemž obě tyto čítače zvyšují výkon aplikace a následně zvyšují latenci uživatelského rozhraní.
 
-Blazor Serveraplikace by měly být optimalizované pro minimalizaci latence uživatelského rozhraní tím, že se sníží latence sítě a využití paměti. Přístup k měření latence sítě najdete v tématu <xref:blazor/host-and-deploy/server#measure-network-latency> . Další informace o systémech SignalR a Blazor najdete v těchto tématech:
+Blazor Server aplikace by měly být optimalizované pro minimalizaci latence uživatelského rozhraní tím, že se sníží latence sítě a využití paměti. Přístup k měření latence sítě najdete v tématu <xref:blazor/host-and-deploy/server#measure-network-latency> . Další informace o systémech SignalR a Blazor najdete v těchto tématech:
 
 * <xref:blazor/host-and-deploy/server>
 * <xref:blazor/security/server/threat-mitigation>
 
 ### <a name="connection-to-the-server"></a>Připojení k serveru
 
-Blazor Serveraplikace vyžadují aktivní SignalR připojení k serveru. Pokud dojde ke ztrátě připojení, aplikace se pokusí znovu připojit k serveru. Pokud je stav klienta stále v paměti, klientská relace pokračuje bez ztráty stavu.
+Blazor Server aplikace vyžadují aktivní SignalR připojení k serveru. Pokud dojde ke ztrátě připojení, aplikace se pokusí znovu připojit k serveru. Pokud je stav klienta stále v paměti, klientská relace pokračuje bez ztráty stavu.
 
-Blazor ServerAplikace se předem vykreslí jako odpověď na první požadavek klienta, který nastaví stav uživatelského rozhraní na serveru. Když se klient pokusí vytvořit SignalR připojení, klient se musí znovu připojit ke stejnému serveru. Blazor Serveraplikace, které používají více než jeden back-end Server, by měly implementovat *rychlé relace* pro SignalR připojení.
+Blazor ServerAplikace se předem vykreslí jako odpověď na první požadavek klienta, který nastaví stav uživatelského rozhraní na serveru. Když se klient pokusí vytvořit SignalR připojení, klient se musí znovu připojit ke stejnému serveru. Blazor Server aplikace, které používají více než jeden back-end Server, by měly implementovat *rychlé relace* pro SignalR připojení.
 
 Pro aplikace doporučujeme používat [ SignalR službu Azure](/azure/azure-signalr) Blazor Server . Služba umožňuje horizontální navýšení kapacity Blazor Server aplikace na velký počet souběžných SignalR připojení. Relace Sticky je pro službu Azure povolené nastavením SignalR `ServerStickyMode` Možnosti služby nebo hodnoty konfigurace na `Required` . Další informace naleznete v tématu <xref:blazor/host-and-deploy/server#signalr-configuration>.
 

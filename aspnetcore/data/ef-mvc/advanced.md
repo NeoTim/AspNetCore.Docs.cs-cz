@@ -7,6 +7,7 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 36b45339f7c3f79eca20a3467c10e896f260601f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 9f02165f54d3cd3328496710dc92ebc86c4640d6
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012979"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626828"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: informace o pokročilých scénářích – ASP.NET MVC pomocí EF Core
 
@@ -41,7 +42,7 @@ V tomto kurzu jste:
 > * Další informace o EF Core zdrojového kódu a vývojářských plánech
 > * Naučte se používat dynamickou technologii LINQ ke zjednodušení kódu
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Implementovat dědičnost](inheritance.md)
 
@@ -183,7 +184,7 @@ Entity Framework určuje, jak se entita změnila (takže se aktualizace musí od
 
 * ChangeTracker. Entries
 
-Pokud sledujete velký počet entit a v rámci smyčky několikrát voláte jednu z těchto metod, můžete dosáhnout výrazného zlepšení výkonu tím, že se při automatickém vypnutí automatického zjišťování změn použije `ChangeTracker.AutoDetectChangesEnabled` vlastnost. Například:
+Pokud sledujete velký počet entit a v rámci smyčky několikrát voláte jednu z těchto metod, můžete dosáhnout výrazného zlepšení výkonu tím, že se při automatickém vypnutí automatického zjišťování změn použije `ChangeTracker.AutoDetectChangesEnabled` vlastnost. Příklad:
 
 ```csharp
 _context.ChangeTracker.AutoDetectChangesEnabled = false;
@@ -263,7 +264,7 @@ Ověřte připojovací řetězec. Pokud jste soubor databáze odstranili ručně
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 Další informace o EF Core najdete v dokumentaci k [Entity Framework Core](/ef/core). K dispozici je také kniha: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
 

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: 428186b1a0ee0c1527eedcd91d3a061053f814fc
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: dfb807d5e8d8b949feb0ea87f7f6bcecd04817e8
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015800"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627322"
 ---
 # <a name="docker-images-for-aspnet-core"></a>Image Docker pro ASP.NET Core
 
@@ -50,7 +51,7 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
 
    Ukázka používá tuto image ke spuštění aplikace. Image obsahuje modul runtime a knihovny ASP.NET Core a je optimalizovaný pro spuštěné aplikace v produkčním prostředí. Bitová kopie je navržena pro rychlost nasazení a spouštění aplikací, takže je optimalizován výkon sítě z registru Docker na hostitele Docker. Do kontejneru se zkopírují jenom binární soubory a obsah potřebný ke spuštění aplikace. Obsah je připravený ke spuštění, což umožňuje nejrychlejší čas od `Docker run` spuštění aplikace. Dynamická kompilace kódu není v modelu Docker nutná.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 ::: moniker range="< aspnetcore-3.0"
 
 * [Sada .NET Core 2,2 SDK](https://dotnet.microsoft.com/download/dotnet-core)
@@ -258,7 +259,7 @@ Jak je uvedeno v předchozím souboru Dockerfile, `*.csproj` soubory se zkopíru
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Docker – příkaz buildu](https://docs.docker.com/engine/reference/commandline/build)
 * [Příkaz Spustit jako Docker](https://docs.docker.com/engine/reference/commandline/run)

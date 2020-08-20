@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 07/16/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,16 +17,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 7a23f2b17cc8fb3a4989b9fddd5c128add13db5b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 54780e2d67c70d945fd875c41c8d6483aa358bbf
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021949"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627192"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
-`Microsoft.AspNetCore.Authentication.Certificate`obsahuje implementaci podobnou [ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) pro ASP.NET Core. Ověřování certifikátu se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Přesněji platí, že se jedná o obslužnou rutinu ověřování, která certifikát ověřuje, a pak poskytuje událost, kde můžete tento certifikát vyřešit na `ClaimsPrincipal` . 
+`Microsoft.AspNetCore.Authentication.Certificate` obsahuje implementaci podobnou [ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) pro ASP.NET Core. Ověřování certifikátu se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Přesněji platí, že se jedná o obslužnou rutinu ověřování, která certifikát ověřuje, a pak poskytuje událost, kde můžete tento certifikát vyřešit na `ClaimsPrincipal` . 
 
 [Nakonfigurujte server](#configure-your-server-to-require-certificates) pro ověřování pomocí certifikátu, jako IIS, Kestrel, Azure Web Apps nebo cokoli jiného, co používáte.
 
@@ -46,7 +47,7 @@ Do webové aplikace přidejte odkaz na balíček [Microsoft. AspNetCore. Authent
 
 Pokud se ověření nepovede, vrátí tato obslužná rutina `403 (Forbidden)` odpověď místo `401 (Unauthorized)` toho, jak byste mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
 
-Přidejte také `app.UseAuthentication();` do `Startup.Configure` metody. V opačném případě nebude `HttpContext.User` nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Například:
+Přidejte také `app.UseAuthentication();` do `Startup.Configure` metody. V opačném případě nebude `HttpContext.User` nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Příklad:
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -103,25 +104,25 @@ Předchozí příklad ukazuje výchozí způsob, jak přidat ověřování certi
 
 ### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = Chained, SelfSigned nebo All (zřetězené | SelfSigned)
 
-Výchozí hodnota:`CertificateTypes.Chained`
+Výchozí hodnota: `CertificateTypes.Chained`
 
 Tato kontrola ověří, zda je povolen pouze příslušný typ certifikátu. Pokud aplikace používá certifikáty podepsané svým držitelem, musí být tato možnost nastavená na `CertificateTypes.All` nebo `CertificateTypes.SelfSigned` .
 
 ### <a name="validatecertificateuse"></a>ValidateCertificateUse
 
-Výchozí hodnota:`true`
+Výchozí hodnota: `true`
 
 Tato kontrola ověří, že certifikát prezentovaný klientem má rozšířené použití klíče (EKU) ověřování klienta (EKU) nebo žádný rozšířená použití klíče. Pokud se jako specifikace nezadá žádné rozšířené použití klíče, považují se všechny rozšířená použití klíče za platné.
 
 ### <a name="validatevalidityperiod"></a>ValidateValidityPeriod
 
-Výchozí hodnota:`true`
+Výchozí hodnota: `true`
 
 Tato kontrola ověří, že se certifikát nachází v období platnosti. U každé žádosti obslužná rutina zajišťuje, že platnost certifikátu, který byl platný při jeho předložení, vypršela během aktuální relace.
 
 ### <a name="revocationflag"></a>RevocationFlag
 
-Výchozí hodnota:`X509RevocationFlag.ExcludeRoot`
+Výchozí hodnota: `X509RevocationFlag.ExcludeRoot`
 
 Příznak, který určuje, které certifikáty v řetězci mají být zkontrolovány pro odvolání.
 
@@ -129,7 +130,7 @@ Kontroly odvolání se provádějí jenom v případě, že je certifikát zřet
 
 ### <a name="revocationmode"></a>RevocationMode
 
-Výchozí hodnota:`X509RevocationMode.Online`
+Výchozí hodnota: `X509RevocationMode.Online`
 
 Příznak, který určuje, jak se provádí kontroly odvolání.
 
@@ -325,7 +326,7 @@ private static byte[] StringToByteArray(string hex)
 }
 ```
 
-`Startup.Configure`Metoda pak přidá middleware. `UseCertificateForwarding`je volána před voláním `UseAuthentication` a `UseAuthorization` :
+`Startup.Configure`Metoda pak přidá middleware. `UseCertificateForwarding` je volána před voláním `UseAuthentication` a `UseAuthorization` :
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -642,7 +643,7 @@ Následující přístup podporuje volitelné klientské certifikáty:
     * [Kestrel](/fundamentals/servers/kestrel):
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
-      * Poznámka Kestrel v současné době nepodporuje u jedné vazby více konfigurací TLS, budete potřebovat dvě vazby s jedinečnými IP adresami nebo porty. Sihttps://github.com/dotnet/runtime/issues/31097
+      * Poznámka Kestrel v současné době nepodporuje u jedné vazby více konfigurací TLS, budete potřebovat dvě vazby s jedinečnými IP adresami nebo porty. Si https://github.com/dotnet/runtime/issues/31097
     * IIS
       * [Hostování služby IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
       * [Konfigurace zabezpečení služby IIS](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
@@ -654,4 +655,4 @@ Následující přístup podporuje volitelné klientské certifikáty:
 
 Ponechte dotazy, komentáře a další zpětnou vazbu k volitelným klientským certifikátům v [tomto problému diskuze GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/18720) .
 
-&dagger;Indikace názvu serveru (SNI) je rozšíření TLS, které zahrnuje virtuální doménu jako součást vyjednávání SSL. To efektivně znamená, že k identifikaci koncového bodu sítě lze použít název virtuální domény nebo název hostitele.
+&dagger; Indikace názvu serveru (SNI) je rozšíření TLS, které zahrnuje virtuální doménu jako součást vyjednávání SSL. To efektivně znamená, že k identifikaci koncového bodu sítě lze použít název virtuální domény nebo název hostitele.

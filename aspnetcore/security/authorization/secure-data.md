@@ -1,11 +1,12 @@
 ---
 title: Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
 author: rick-anderson
-description: Naučte se vytvářet ASP.NET Core webové aplikace s uživatelskými daty chráněnými autorizací. Zahrnuje protokol HTTPS, ověřování, zabezpečení ASP.NET Core Identity .
+description: Naučte se vytvářet ASP.NET Core webové aplikace s uživatelskými daty chráněnými autorizací. Zahrnuje protokol HTTPS, ověřování, zabezpečení, ASP.NET Core Identity .
 ms.author: riande
 ms.date: 7/18/2020
 ms.custom: mvc, seodec18
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/secure-data
-ms.openlocfilehash: 44777369693f9eb29d78c3ba638db2e692f430ae
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 5f86e514ee6339888171d83ab3117e9b3fcf107e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021182"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627816"
 ---
 # <a name="create-an-aspnet-core-web-app-with-user-data-protected-by-authorization"></a>Vytvoření webové aplikace v ASP.NET Core s uživatelskými daty chráněnými autorizací
 
@@ -73,12 +74,12 @@ Ukázka obsahuje následující obslužné rutiny autorizace:
 * `ContactManagerAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty.
 * `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Tento kurz je pokročilý. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
-* [Ověřování](xref:security/authentication/identity)
+* [Authentication](xref:security/authentication/identity)
 * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
 * [Autorizace](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
@@ -103,7 +104,7 @@ Pomocí [Identity](xref:security/authentication/identity) ID uživatele ASP.NET 
 
 [!code-csharp[](secure-data/samples/final3/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID`je ID uživatele z `AspNetUser` tabulky v [Identity](xref:security/authentication/identity) databázi. `Status`Pole určuje, jestli je kontakt viditelný pro obecné uživatele.
+`OwnerID` je ID uživatele z `AspNetUser` tabulky v [Identity](xref:security/authentication/identity) databázi. `Status`Pole určuje, jestli je kontakt viditelný pro obecné uživatele.
 
 Vytvořte novou migraci a aktualizujte databázi:
 
@@ -112,7 +113,7 @@ dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-no-locidentity"></a>Přidat služby rolí doIdentity
+### <a name="add-role-services-to-no-locidentity"></a>Přidat služby rolí do Identity
 
 Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:
 
@@ -134,7 +135,7 @@ Zásady nouzového ověřování:
 
 Nastavení zásady nouzového ověřování, aby vyžadovala ověření uživatelů, chrání nově přidané Razor stránky a řadiče. Pokud je ve výchozím nastavení vyžadováno ověřování, je bezpečnější než spoléhání na nové řadiče a Razor stránky pro zahrnutí `[Authorize]` atributu.
 
-<xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions>Třída také obsahuje <xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.DefaultPolicy?displayProperty=nameWithType> . `DefaultPolicy`Je zásada použitá u `[Authorize]` atributu, pokud není zadána žádná zásada. `[Authorize]`neobsahuje pojmenovanou zásadu (na rozdíl od) `[Authorize(PolicyName="MyPolicy")]` .
+<xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions>Třída také obsahuje <xref:Microsoft.AspNetCore.Authorization.AuthorizationOptions.DefaultPolicy?displayProperty=nameWithType> . `DefaultPolicy`Je zásada použitá u `[Authorize]` atributu, pokud není zadána žádná zásada. `[Authorize]` neobsahuje pojmenovanou zásadu (na rozdíl od) `[Authorize(PolicyName="MyPolicy")]` .
 
 Další informace o zásadách najdete v tématu <xref:security/authorization/policies> .
 
@@ -181,11 +182,11 @@ Přidejte ID uživatele správce a `ContactStatus` ke kontaktům. Poznamenejte s
 `ContactIsOwnerAuthorizationHandler`Kontext volání [. Úspěšné](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) , pokud je aktuální ověřený uživatel vlastníkem kontaktu. Obslužné rutiny autorizace obecně:
 
 * Vrátí `context.Succeed` se, pokud jsou splněny požadavky.
-* Vrátí se `Task.CompletedTask` , pokud nejsou splněné požadavky. `Task.CompletedTask`není úspěch nebo neúspěch &mdash; , umožňuje spuštění dalších obslužných rutin autorizace.
+* Vrátí se `Task.CompletedTask` , pokud nejsou splněné požadavky. `Task.CompletedTask` není úspěch nebo neúspěch &mdash; , umožňuje spuštění dalších obslužných rutin autorizace.
 
 Pokud potřebujete explicitně selhat, vraťte [kontext. Selhání](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
 
-Aplikace umožňuje vlastníkům kontaktů upravit/odstranit/vytvořit vlastní data. `ContactIsOwnerAuthorizationHandler`není nutné kontrolovat operaci předanou parametrem požadavku.
+Aplikace umožňuje vlastníkům kontaktů upravit/odstranit/vytvořit vlastní data. `ContactIsOwnerAuthorizationHandler` není nutné kontrolovat operaci předanou parametrem požadavku.
 
 ### <a name="create-a-manager-authorization-handler"></a>Vytvoření obslužné rutiny autorizace Správce
 
@@ -205,7 +206,7 @@ Služby používající Entity Framework Core musí být registrovány pro [vkl�
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet_defaultPolicy&highlight=23-99)]
 
-`ContactAdministratorsAuthorizationHandler`a `ContactManagerAuthorizationHandler` jsou přidány jako singleton. Jsou typu Singleton, protože nepoužívají EF a všechny potřebné informace jsou v `Context` parametru `HandleRequirementAsync` metody.
+`ContactAdministratorsAuthorizationHandler` a `ContactManagerAuthorizationHandler` jsou přidány jako singleton. Jsou typu Singleton, protože nepoužívají EF a všechny potřebné informace jsou v `Context` parametru `HandleRequirementAsync` metody.
 
 ## <a name="support-authorization"></a>Autorizace podpory
 
@@ -332,9 +333,9 @@ Snadný způsob, jak otestovat dokončenou aplikaci, je spustit tři různé pro
 
 | Uživatel                | Podsazený aplikací | Možnosti                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
-| manager@contoso.com | Ano               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
-| admin@contoso.com   | Ano               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
+| test@example.com    | No                | Upravit nebo odstranit vlastní data.                |
+| manager@contoso.com | Yes               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
+| admin@contoso.com   | Yes               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
 
 V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstranění a úpravy v kontaktní osobě správce. Vložením těchto odkazů do prohlížeče testovacího uživatele ověříte, že testovací uživatel nemůže tyto operace provést.
 
@@ -343,7 +344,7 @@ V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstraně
 * Vytvoření Razor aplikace Pages s názvem "ContactManager"
   * Vytvořte aplikaci pomocí **individuálních uživatelských účtů**.
   * Pojmenujte ho "ContactManager", aby se obor názvů shodoval s oborem názvů použitým v ukázce.
-  * `-uld`Určuje LocalDB místo SQLite.
+  * `-uld` Určuje LocalDB místo SQLite.
 
   ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
@@ -427,12 +428,12 @@ Ukázka obsahuje následující obslužné rutiny autorizace:
 * `ContactManagerAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty.
 * `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Tento kurz je pokročilý. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
-* [Ověřování](xref:security/authentication/identity)
+* [Authentication](xref:security/authentication/identity)
 * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
 * [Autorizace](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
@@ -457,7 +458,7 @@ Pomocí [Identity](xref:security/authentication/identity) ID uživatele ASP.NET 
 
 [!code-csharp[](secure-data/samples/final2.1/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID`je ID uživatele z `AspNetUser` tabulky v [Identity](xref:security/authentication/identity) databázi. `Status`Pole určuje, jestli je kontakt viditelný pro obecné uživatele.
+`OwnerID` je ID uživatele z `AspNetUser` tabulky v [Identity](xref:security/authentication/identity) databázi. `Status`Pole určuje, jestli je kontakt viditelný pro obecné uživatele.
 
 Vytvořte novou migraci a aktualizujte databázi:
 
@@ -466,7 +467,7 @@ dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-no-locidentity"></a>Přidat služby rolí doIdentity
+### <a name="add-role-services-to-no-locidentity"></a>Přidat služby rolí do Identity
 
 Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:
 
@@ -517,11 +518,11 @@ Vytvořte složku *autorizace* a `ContactIsOwnerAuthorizationHandler` v ní vytv
 `ContactIsOwnerAuthorizationHandler`Kontext volání [. Úspěšné](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) , pokud je aktuální ověřený uživatel vlastníkem kontaktu. Obslužné rutiny autorizace obecně:
 
 * Vrátí `context.Succeed` se, pokud jsou splněny požadavky.
-* Vrátí se `Task.CompletedTask` , pokud nejsou splněné požadavky. `Task.CompletedTask`není úspěch nebo neúspěch &mdash; , umožňuje spuštění dalších obslužných rutin autorizace.
+* Vrátí se `Task.CompletedTask` , pokud nejsou splněné požadavky. `Task.CompletedTask` není úspěch nebo neúspěch &mdash; , umožňuje spuštění dalších obslužných rutin autorizace.
 
 Pokud potřebujete explicitně selhat, vraťte [kontext. Selhání](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
 
-Aplikace umožňuje vlastníkům kontaktů upravit/odstranit/vytvořit vlastní data. `ContactIsOwnerAuthorizationHandler`není nutné kontrolovat operaci předanou parametrem požadavku.
+Aplikace umožňuje vlastníkům kontaktů upravit/odstranit/vytvořit vlastní data. `ContactIsOwnerAuthorizationHandler` není nutné kontrolovat operaci předanou parametrem požadavku.
 
 ### <a name="create-a-manager-authorization-handler"></a>Vytvoření obslužné rutiny autorizace Správce
 
@@ -541,7 +542,7 @@ Služby používající Entity Framework Core musí být registrovány pro [vkl�
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet_defaultPolicy&highlight=27-99)]
 
-`ContactAdministratorsAuthorizationHandler`a `ContactManagerAuthorizationHandler` jsou přidány jako singleton. Jsou typu Singleton, protože nepoužívají EF a všechny potřebné informace jsou v `Context` parametru `HandleRequirementAsync` metody.
+`ContactAdministratorsAuthorizationHandler` a `ContactManagerAuthorizationHandler` jsou přidány jako singleton. Jsou typu Singleton, protože nepoužívají EF a všechny potřebné informace jsou v `Context` parametru `HandleRequirementAsync` metody.
 
 ## <a name="support-authorization"></a>Autorizace podpory
 
@@ -659,9 +660,9 @@ Snadný způsob, jak otestovat dokončenou aplikaci, je spustit tři různé pro
 
 | Uživatel                | Podsazený aplikací | Možnosti                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
-| manager@contoso.com | Ano               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
-| admin@contoso.com   | Ano               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
+| test@example.com    | No                | Upravit nebo odstranit vlastní data.                |
+| manager@contoso.com | Yes               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
+| admin@contoso.com   | Yes               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
 
 V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstranění a úpravy v kontaktní osobě správce. Vložením těchto odkazů do prohlížeče testovacího uživatele ověříte, že testovací uživatel nemůže tyto operace provést.
 
@@ -670,7 +671,7 @@ V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstraně
 * Vytvoření Razor aplikace Pages s názvem "ContactManager"
   * Vytvořte aplikaci pomocí **individuálních uživatelských účtů**.
   * Pojmenujte ho "ContactManager", aby se obor názvů shodoval s oborem názvů použitým v ukázce.
-  * `-uld`Určuje LocalDB místo SQLite.
+  * `-uld` Určuje LocalDB místo SQLite.
 
   ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
@@ -712,7 +713,7 @@ Otestujte, že aplikace dosazený databázi. Pokud je ve službě Contact DB ně
 
 <a name="secure-data-add-resources-label"></a>
 
-### <a name="additional-resources"></a>Další zdroje
+### <a name="additional-resources"></a>Další zdroje informací
 
 * [Vytvoření webové aplikace .NET Core využívající SQL Database ve službě Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
 * [ASP.NET Core autorizačního prostředí](https://github.com/blowdart/AspNetAuthorizationWorkshop). Tato laboratoř obsahuje další podrobnosti o funkcích zabezpečení, které jsou představené v tomto kurzu.

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/24/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: f8c105624506d13f3ea8e963ceb49aeaf6d22a66
-ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
+ms.openlocfilehash: cffd9e33636f98d50300de851d696ae753c10a0d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/18/2020
-ms.locfileid: "88504564"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625333"
 ---
 # <a name="call-a-web-api-from-aspnet-core-no-locblazor"></a>Volání webového rozhraní API z ASP.NET Core Blazor
 
@@ -320,7 +321,7 @@ Další informace o CORS se zabezpečenými požadavky v Blazor aplikacích najd
 
 Obecné informace o CORS s ASP.NET Core aplikacemi najdete v tématu <xref:security/cors> .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:blazor/security/webassembly/additional-scenarios>: Obsahuje pokrytí použití <xref:System.Net.Http.HttpClient> pro zabezpečené požadavky webového rozhraní API.
 * <xref:fundamentals/http-requests>

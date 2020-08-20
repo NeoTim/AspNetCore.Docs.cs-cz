@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: 736288b6e7d2e9be7f23f6df02183a813951eb56
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d3bae9cd5b4a5c7315c795229c7eafbf1e44e22d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014721"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627582"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>Pomocné komponenty značek v ASP.NET Core
 
@@ -50,11 +51,11 @@ V rámci `<head>` elementu HTML se soubory CSS běžně importují pomocí `<lin
 
 V předchozím kódu:
 
-* `AddressStyleTagHelperComponent`implementuje <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent> . Abstrakce:
+* `AddressStyleTagHelperComponent` implementuje <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent> . Abstrakce:
   * Umožňuje inicializaci třídy s <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext> .
   * Povoluje použití pomocných komponent značek k přidání nebo úpravě prvků HTML.
-* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.Order*>Vlastnost definuje pořadí, ve kterém se komponenty vykreslují. `Order`je nutné v případě, že je v aplikaci více použití komponent pomocníka značek.
-* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.ProcessAsync*>Porovná <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.TagName*> hodnotu vlastnosti kontextu spuštění s hodnotou `head` . Pokud se porovnání vyhodnotí jako true, obsah `_style` pole je vložen do `<head>` elementu HTML.
+* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.Order*>Vlastnost definuje pořadí, ve kterém se komponenty vykreslují. `Order` je nutné v případě, že je v aplikaci více použití komponent pomocníka značek.
+* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.ProcessAsync*> Porovná <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.TagName*> hodnotu vlastnosti kontextu spuštění s hodnotou `head` . Pokud se porovnání vyhodnotí jako true, obsah `_style` pole je vložen do `<head>` elementu HTML.
 
 ### <a name="inject-into-html-body-element"></a>Vložit do prvku textu HTML
 
@@ -86,7 +87,7 @@ Pokud není třída pomocné komponenty značky spravovaná pomocí <xref:Micros
 
 Pokud komponenta pomocníka značek není zaregistrovaná v DI, může být zaregistrovaná ze Razor stránky stránky nebo zobrazení MVC. Tato technika se používá pro řízení vloženého kódu a pořadí provádění komponent ze Razor souboru.
 
-`ITagHelperComponentManager`slouží k přidání pomocných komponent značek nebo jejich odebrání z aplikace. Následující kód demonstruje tuto techniku s `AddressTagHelperComponent` :
+`ITagHelperComponentManager` slouží k přidání pomocných komponent značek nebo jejich odebrání z aplikace. Následující kód demonstruje tuto techniku s `AddressTagHelperComponent` :
 
 [!code-cshtml[](th-components/samples/RazorPagesSample/Pages/Contact.cshtml?name=snippet_ITagHelperComponentManager)]
 
@@ -95,7 +96,7 @@ V předchozím kódu:
 * `@inject`Direktiva poskytuje instanci `ITagHelperComponentManager` . Instance je přiřazena k proměnné s názvem `manager` pro přístup k podřízené položce v Razor souboru.
 * Instance `AddressTagHelperComponent` je přidána do kolekce komponent pomocníka značek aplikace.
 
-`AddressTagHelperComponent`je upraveno tak, aby vyhovovalo konstruktoru, který přijímá `markup` `order` parametry a:
+`AddressTagHelperComponent` je upraveno tak, aby vyhovovalo konstruktoru, který přijímá `markup` `order` parametry a:
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressTagHelperComponent.cs?name=snippet_Constructor)]
 

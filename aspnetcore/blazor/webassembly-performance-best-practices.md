@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/25/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 64205dcf7aeecbe594b0164a7966b7f96bcca68b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 819947be90e7f09c7ba853df1af1f3c7066c0219
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013356"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625814"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a>Blazor WebAssemblyOsvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -46,7 +47,7 @@ Většina aplikací nevyžaduje jemně odstupňovaný ovládací prvek, ale <xre
 
 V následujícím příkladu:
 
-* <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>je přepsána a nastavena na hodnotu <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> pole, které je zpočátku `false` při načtení součásti.
+* <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> je přepsána a nastavena na hodnotu <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> pole, které je zpočátku `false` při načtení součásti.
 * Když je vybráno tlačítko, <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> je nastaveno na `true` , což vynutí, aby se komponenta znovu vykreslila s aktualizovanou `currentCount` .
 * Ihned po <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> opětovném vygenerování nastaví hodnotu <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> zpět na, `false` aby se zabránilo dalšímu novému vygenerování, až do okamžiku, kdy bude tlačítko příště vybráno.
 
@@ -82,8 +83,8 @@ Komponenty nabízejí pohodlný přístup k vytvoření opakovaně použitelnýc
 
 Například mřížka nebo seznam, který vykresluje stovky řádků obsahujících komponenty, je náročné na vykreslování procesoru. Zvažte možnost Virtualizovat rozložení mřížky nebo seznamu tak, aby se v určitou dobu vykreslila pouze podmnožina komponent. Příklad vykreslování podmnožiny komponent naleznete v následujících součástech v [ `Virtualization` ukázkové aplikaci (ASPNET/Samples úložiště GitHub)](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Virtualization):
 
-* `Virtualize`Component ( [`Shared/Virtualize.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs) ): komponenta napsaná v jazyce C#, která implementuje <xref:Microsoft.AspNetCore.Components.ComponentBase> pro vykreslení sady datových řádků počasí na základě posouvání uživatele.
-* `FetchData`Component ( [`Pages/FetchData.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Pages/FetchData.razor) ): používá `Virtualize` komponentu k zobrazení 25 řádků dat počasí současně.
+* `Virtualize` Component ( [`Shared/Virtualize.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs) ): komponenta napsaná v jazyce C#, která implementuje <xref:Microsoft.AspNetCore.Components.ComponentBase> pro vykreslení sady datových řádků počasí na základě posouvání uživatele.
+* `FetchData` Component ( [`Pages/FetchData.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Pages/FetchData.razor) ): používá `Virtualize` komponentu k zobrazení 25 řádků dat počasí současně.
 
 ## <a name="avoid-javascript-interop-to-marshal-data"></a>Vyhněte se interoperabilitě JavaScriptu při zařazování dat
 
@@ -97,9 +98,9 @@ Pokyny k migraci najdete v tématu [Postup migrace z `Newtonsoft.Json` na `Syste
 
 ## <a name="use-synchronous-and-unmarshalled-js-interop-apis-where-appropriate"></a>V případě potřeby použijte synchronní a nezařazené rozhraní API pro interoperabilitu JS.
 
-Blazor WebAssemblynabízí dvě další verze nástroje <xref:Microsoft.JSInterop.IJSRuntime> nad jedinou verzí dostupnou pro Blazor Server aplikace:
+Blazor WebAssembly nabízí dvě další verze nástroje <xref:Microsoft.JSInterop.IJSRuntime> nad jedinou verzí dostupnou pro Blazor Server aplikace:
 
-* <xref:Microsoft.JSInterop.IJSInProcessRuntime>umožňuje vyvolání volání interoperability JS synchronně, což má méně režie než asynchronní verze:
+* <xref:Microsoft.JSInterop.IJSInProcessRuntime> umožňuje vyvolání volání interoperability JS synchronně, což má méně režie než asynchronní verze:
 
   ```razor
   @inject IJSRuntime JS
@@ -114,7 +115,7 @@ Blazor WebAssemblynabízí dvě další verze nástroje <xref:Microsoft.JSIntero
   }
   ```
 
-* <xref:Microsoft.JSInterop.WebAssembly.WebAssemblyJSRuntime>povoluje volání Interop v nezařazeném JS:
+* <xref:Microsoft.JSInterop.WebAssembly.WebAssemblyJSRuntime> povoluje volání Interop v nezařazeném JS:
 
   ```javascript
   function jsInteropCall() {
@@ -154,7 +155,7 @@ Načíst sestavení za běhu, když jsou sestavení požadována trasou. Další
 
 ### <a name="compression"></a>Komprese
 
-Při Blazor WebAssembly publikování aplikace je výstup během publikování staticky komprimován, aby se snížila velikost aplikace a odstranila se režie pro kompresi za běhu. Blazorspoléhá na server, aby provedl negotation obsahu a sloužil staticky komprimovaným souborům.
+Při Blazor WebAssembly publikování aplikace je výstup během publikování staticky komprimován, aby se snížila velikost aplikace a odstranila se režie pro kompresi za běhu. Blazor spoléhá na server, aby provedl negotation obsahu a sloužil staticky komprimovaným souborům.
 
 Po nasazení aplikace ověřte, jestli aplikace obsluhuje komprimované soubory. Zkontrolujte kartu síť v Vývojářské nástroje prohlížeče a ověřte, zda jsou soubory obsluhovány `Content-Encoding: br` nebo `Content-Encoding: gz` . Pokud hostitel neobsluhuje komprimované soubory, postupujte podle pokynů v tématu <xref:blazor/host-and-deploy/webassembly#compression> .
 

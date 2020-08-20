@@ -1,5 +1,5 @@
 ---
-title: RazorSměrování stránek a konvence aplikací v ASP.NET Core
+title: Razor Směrování stránek a konvence aplikací v ASP.NET Core
 author: rick-anderson
 description: Seznamte se s tím, jak konvence poskytovatelů modelů směrování a aplikací umožňují řídit směrování, zjišťování a zpracování stránky.
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: 5fbb72d2195ca9fc1494f15ba0045cbb2707f72c
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: fc639178fc29438e16ad0989e61bd8dd32cf7590
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019505"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625489"
 ---
-# <a name="no-locrazor-pages-route-and-app-conventions-in-aspnet-core"></a>RazorSměrování stránek a konvence aplikací v ASP.NET Core
+# <a name="no-locrazor-pages-route-and-app-conventions-in-aspnet-core"></a>Razor Směrování stránek a konvence aplikací v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -44,7 +45,7 @@ Existují vyhrazená slova, která nelze použít jako segmenty směrování neb
 | [Konvence akcí při směrování stránky](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidejte šablonu směrování do stránek ve složce a na jednu stránku. |
 | [Konvence akcí modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (filtrovat třídu, lambda výraz nebo objekt pro vytváření filtru)</li></ul> | Umožňuje přidat záhlaví na stránky ve složce, přidat záhlaví na jednu stránku a nakonfigurovat [objekt pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) tak, aby přidal hlavičku na stránky aplikace. |
 
-RazorKonvence stránek jsou konfigurovány pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddRazorPages%2A> přetížení, které konfiguruje <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions> v `Startup.ConfigureServices` . Následující příklady konvence jsou vysvětleny dále v tomto tématu:
+Razor Konvence stránek jsou konfigurovány pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddRazorPages%2A> přetížení, které konfiguruje <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions> v `Startup.ConfigureServices` . Následující příklady konvence jsou vysvětleny dále v tomto tématu:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -86,7 +87,7 @@ Zpracování směrování je zřízené podle konvence:
 
 Pokud je to možné, vyhněte se v závislosti na zavedeném pořadí zpracování směrování. Obecně směrování vybírá správnou trasu s odpovídající adresou URL. Pokud musíte nastavit vlastnosti směrování `Order` na správně směrované požadavky, schéma směrování aplikace je pravděpodobně matoucí pro klienty a křehké na údržbu. Vyhledejte zjednodušené schéma směrování aplikace. Ukázková aplikace vyžaduje explicitní pořadí zpracování tras, které předvádí několik scénářů směrování pomocí jedné aplikace. Měli byste se však pokusit vyhnout postup nastavení trasy `Order` v produkčních aplikacích.
 
-RazorSměrování stránek a směrování kontroléru MVC sdílí implementaci. Informace o pořadí směrování v tématech MVC jsou k dispozici při [směrování na akce kontroleru: trasy atributů řazení](xref:mvc/controllers/routing#ordering-attribute-routes).
+Razor Směrování stránek a směrování kontroléru MVC sdílí implementaci. Informace o pořadí směrování v tématech MVC jsou k dispozici při [směrování na akce kontroleru: trasy atributů řazení](xref:mvc/controllers/routing#ordering-attribute-routes).
 
 ## <a name="model-conventions"></a>Modelové konvence
 
@@ -108,7 +109,7 @@ Ukázková aplikace přidá `{globalTemplate?}` šablonu směrování na všechn
 
 Pokud je to možné, nenastavte `Order` , které výsledky mají `Order = 0` . Pro výběr správné trasy se spoléhá na směrování.
 
-RazorMožnosti stránek, jako je například přidání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> , jsou přidány při Razor Přidání stránek do kolekce služeb v nástroji `Startup.ConfigureServices` . Příklad najdete v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
+Razor Možnosti stránek, jako je například přidání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> , jsou přidány při Razor Přidání stránek do kolekce služeb v nástroji `Startup.ConfigureServices` . Příklad najdete v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -186,7 +187,7 @@ Trasy stránky generované ASP.NET Core lze přizpůsobit pomocí transformátor
 
 `PageRouteTransformerConvention`Konvence modelu směrování stránky aplikuje transformátor parametrů na složku a název souboru segmentů automaticky generovaných tras stránky v aplikaci. Například Razor soubor stránek na */Pages/SubscriptionManagement/ViewAll.cshtml* by měl svou trasu přepsanou z `/SubscriptionManagement/ViewAll` do `/subscription-management/view-all` .
 
-`PageRouteTransformerConvention`transformuje automaticky generované segmenty stránky trasy, které pocházejí ze Razor složky a názvu souboru stránky. Netransformuje segmenty směrování přidané s `@page` direktivou. Konvence také netransformuje trasy, které přidal <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> .
+`PageRouteTransformerConvention` transformuje automaticky generované segmenty stránky trasy, které pocházejí ze Razor složky a názvu souboru stránky. Netransformuje segmenty směrování přidané s `@page` direktivou. Konvence také netransformuje trasy, které přidal <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> .
 
 `PageRouteTransformerConvention`Je zaregistrován jako možnost v `Startup.ConfigureServices` :
 
@@ -208,7 +209,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="configure-a-page-route"></a>Konfigurace trasy stránky
 
-Slouží <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> ke konfiguraci směrování na stránku na zadané cestě stránky. Vygenerované odkazy na stránku používají zadanou trasu. `AddPageRoute`slouží `AddPageRouteModelConvention` k vytvoření trasy.
+Slouží <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> ke konfiguraci směrování na stránku na zadané cestě stránky. Vygenerované odkazy na stránku používají zadanou trasu. `AddPageRoute` slouží `AddPageRouteModelConvention` k vytvoření trasy.
 
 Ukázková aplikace vytvoří trasu `/TheContactPage` pro *kontakt. cshtml*:
 
@@ -266,13 +267,13 @@ Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte
 
 **Konfigurace filtru**
 
-<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*>nakonfiguruje zadaný filtr na použití. Můžete implementovat třídu filtru, ale ukázková aplikace ukazuje, jak implementovat filtr ve výrazu lambda, který je implementován na pozadí jako objekt pro vytváření, který vrací filtr:
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> nakonfiguruje zadaný filtr na použití. Můžete implementovat třídu filtru, ale ukázková aplikace ukazuje, jak implementovat filtr ve výrazu lambda, který je implementován na pozadí jako objekt pro vytváření, který vrací filtr:
 
 [!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet8)]
 
 Model webové aplikace se používá ke kontrole relativní cesty pro segmenty, které vedou ke stránce Page2 ve složce *OtherPages* . Pokud podmínka projde, přidá se hlavička. V takovém případě se `EmptyFilter` použije.
 
-`EmptyFilter`je [Filtr akcí](xref:mvc/controllers/filters#action-filters). Vzhledem k tomu, že filtry akcí jsou ignorovány Razor stránkami, `EmptyFilter` nemá žádný vliv na zamýšlenou cestu, pokud cesta neobsahuje `OtherPages/Page2` .
+`EmptyFilter` je [Filtr akcí](xref:mvc/controllers/filters#action-filters). Vzhledem k tomu, že filtry akcí jsou ignorovány Razor stránkami, `EmptyFilter` nemá žádný vliv na zamýšlenou cestu, pokud cesta neobsahuje `OtherPages/Page2` .
 
 Vyžádejte si ukázkovou stránku Page2 na stránce a prohlédněte `localhost:5000/OtherPages/Page2` si záhlaví a podívejte se na výsledek:
 
@@ -280,7 +281,7 @@ Vyžádejte si ukázkovou stránku Page2 na stránce a prohlédněte `localhost:
 
 **Konfigurace objektu pro vytváření filtrů**
 
-<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*>nakonfiguruje určený objekt pro vytváření na použití [filtrů](xref:mvc/controllers/filters) na všechny Razor stránky.
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> nakonfiguruje určený objekt pro vytváření na použití [filtrů](xref:mvc/controllers/filters) na všechny Razor stránky.
 
 Ukázková aplikace poskytuje příklad použití [objektu pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) přidáním hlavičky, se `FilterFactoryHeader` dvěma hodnotami na stránkách aplikace:
 
@@ -300,7 +301,7 @@ Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte
 
 Filtr stránky ( <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> ) je filtr, který se vztahuje na Razor stránky. Další informace najdete v tématu [metody filtrování pro Razor stránky](xref:razor-pages/filter).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:security/authorization/razor-pages-authorization>
 * <xref:mvc/controllers/areas#areas-with-razor-pages>
@@ -325,7 +326,7 @@ Existují vyhrazená slova, která nelze použít jako segmenty směrování neb
 | [Konvence akcí při směrování stránky](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidejte šablonu směrování do stránek ve složce a na jednu stránku. |
 | [Konvence akcí modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (filtrovat třídu, lambda výraz nebo objekt pro vytváření filtru)</li></ul> | Umožňuje přidat záhlaví na stránky ve složce, přidat záhlaví na jednu stránku a nakonfigurovat [objekt pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) tak, aby přidal hlavičku na stránky aplikace. |
 
-RazorKonvence stránek jsou přidány a nakonfigurovány pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> metody rozšíření pro <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> kolekci služeb ve `Startup` třídě. Následující příklady konvence jsou vysvětleny dále v tomto tématu:
+Razor Konvence stránek jsou přidány a nakonfigurovány pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> metody rozšíření pro <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> kolekci služeb ve `Startup` třídě. Následující příklady konvence jsou vysvětleny dále v tomto tématu:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -368,7 +369,7 @@ Zpracování směrování je zřízené podle konvence:
 
 Pokud je to možné, vyhněte se v závislosti na zavedeném pořadí zpracování směrování. Obecně směrování vybírá správnou trasu s odpovídající adresou URL. Pokud musíte nastavit vlastnosti směrování `Order` na správně směrované požadavky, schéma směrování aplikace je pravděpodobně matoucí pro klienty a křehké na údržbu. Vyhledejte zjednodušené schéma směrování aplikace. Ukázková aplikace vyžaduje explicitní pořadí zpracování tras, které předvádí několik scénářů směrování pomocí jedné aplikace. Měli byste se však pokusit vyhnout postup nastavení trasy `Order` v produkčních aplikacích.
 
-RazorSměrování stránek a směrování kontroléru MVC sdílí implementaci. Informace o pořadí směrování v tématech MVC jsou k dispozici při [směrování na akce kontroleru: trasy atributů řazení](xref:mvc/controllers/routing#ordering-attribute-routes).
+Razor Směrování stránek a směrování kontroléru MVC sdílí implementaci. Informace o pořadí směrování v tématech MVC jsou k dispozici při [směrování na akce kontroleru: trasy atributů řazení](xref:mvc/controllers/routing#ordering-attribute-routes).
 
 ## <a name="model-conventions"></a>Modelové konvence
 
@@ -390,7 +391,7 @@ Ukázková aplikace přidá `{globalTemplate?}` šablonu směrování na všechn
 
 Pokud je to možné, nenastavte `Order` , které výsledky mají `Order = 0` . Pro výběr správné trasy se spoléhá na směrování.
 
-RazorMožnosti stránek, jako je například přidání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> , jsou přidány při přidání MVC do kolekce služby v nástroji `Startup.ConfigureServices` . Příklad najdete v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
+Razor Možnosti stránek, jako je například přidání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> , jsou přidány při přidání MVC do kolekce služby v nástroji `Startup.ConfigureServices` . Příklad najdete v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -468,7 +469,7 @@ Trasy stránky generované ASP.NET Core lze přizpůsobit pomocí transformátor
 
 `PageRouteTransformerConvention`Konvence modelu směrování stránky aplikuje transformátor parametrů na složku a název souboru segmentů automaticky generovaných tras stránky v aplikaci. Například Razor soubor stránek na */Pages/SubscriptionManagement/ViewAll.cshtml* by měl svou trasu přepsanou z `/SubscriptionManagement/ViewAll` do `/subscription-management/view-all` .
 
-`PageRouteTransformerConvention`transformuje automaticky generované segmenty stránky trasy, které pocházejí ze Razor složky a názvu souboru stránky. Netransformuje segmenty směrování přidané s `@page` direktivou. Konvence také netransformuje trasy, které přidal <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> .
+`PageRouteTransformerConvention` transformuje automaticky generované segmenty stránky trasy, které pocházejí ze Razor složky a názvu souboru stránky. Netransformuje segmenty směrování přidané s `@page` direktivou. Konvence také netransformuje trasy, které přidal <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> .
 
 `PageRouteTransformerConvention`Je zaregistrován jako možnost v `Startup.ConfigureServices` :
 
@@ -498,7 +499,7 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ## <a name="configure-a-page-route"></a>Konfigurace trasy stránky
 
-Slouží <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> ke konfiguraci směrování na stránku na zadané cestě stránky. Vygenerované odkazy na stránku používají zadanou trasu. `AddPageRoute`slouží `AddPageRouteModelConvention` k vytvoření trasy.
+Slouží <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> ke konfiguraci směrování na stránku na zadané cestě stránky. Vygenerované odkazy na stránku používají zadanou trasu. `AddPageRoute` slouží `AddPageRouteModelConvention` k vytvoření trasy.
 
 Ukázková aplikace vytvoří trasu `/TheContactPage` pro *kontakt. cshtml*:
 
@@ -556,13 +557,13 @@ Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte
 
 **Konfigurace filtru**
 
-<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*>nakonfiguruje zadaný filtr na použití. Můžete implementovat třídu filtru, ale ukázková aplikace ukazuje, jak implementovat filtr ve výrazu lambda, který je implementován na pozadí jako objekt pro vytváření, který vrací filtr:
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> nakonfiguruje zadaný filtr na použití. Můžete implementovat třídu filtru, ale ukázková aplikace ukazuje, jak implementovat filtr ve výrazu lambda, který je implementován na pozadí jako objekt pro vytváření, který vrací filtr:
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet8)]
 
 Model webové aplikace se používá ke kontrole relativní cesty pro segmenty, které vedou ke stránce Page2 ve složce *OtherPages* . Pokud podmínka projde, přidá se hlavička. V takovém případě se `EmptyFilter` použije.
 
-`EmptyFilter`je [Filtr akcí](xref:mvc/controllers/filters#action-filters). Vzhledem k tomu, že filtry akcí jsou ignorovány Razor stránkami, `EmptyFilter` nemá žádný vliv na zamýšlenou cestu, pokud cesta neobsahuje `OtherPages/Page2` .
+`EmptyFilter` je [Filtr akcí](xref:mvc/controllers/filters#action-filters). Vzhledem k tomu, že filtry akcí jsou ignorovány Razor stránkami, `EmptyFilter` nemá žádný vliv na zamýšlenou cestu, pokud cesta neobsahuje `OtherPages/Page2` .
 
 Vyžádejte si ukázkovou stránku Page2 na stránce a prohlédněte `localhost:5000/OtherPages/Page2` si záhlaví a podívejte se na výsledek:
 
@@ -570,7 +571,7 @@ Vyžádejte si ukázkovou stránku Page2 na stránce a prohlédněte `localhost:
 
 **Konfigurace objektu pro vytváření filtrů**
 
-<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*>nakonfiguruje určený objekt pro vytváření na použití [filtrů](xref:mvc/controllers/filters) na všechny Razor stránky.
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> nakonfiguruje určený objekt pro vytváření na použití [filtrů](xref:mvc/controllers/filters) na všechny Razor stránky.
 
 Ukázková aplikace poskytuje příklad použití [objektu pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) přidáním hlavičky, se `FilterFactoryHeader` dvěma hodnotami na stránkách aplikace:
 
@@ -590,7 +591,7 @@ Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte
 
 Filtr stránky ( <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> ) je filtr, který se vztahuje na Razor stránky. Další informace najdete v tématu [metody filtrování pro Razor stránky](xref:razor-pages/filter).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:security/authorization/razor-pages-authorization>
 * <xref:mvc/controllers/areas#areas-with-razor-pages>
@@ -615,7 +616,7 @@ Existují vyhrazená slova, která nelze použít jako segmenty směrování neb
 | [Konvence akcí při směrování stránky](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidejte šablonu směrování do stránek ve složce a na jednu stránku. |
 | [Konvence akcí modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (filtrovat třídu, lambda výraz nebo objekt pro vytváření filtru)</li></ul> | Umožňuje přidat záhlaví na stránky ve složce, přidat záhlaví na jednu stránku a nakonfigurovat [objekt pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) tak, aby přidal hlavičku na stránky aplikace. |
 
-RazorKonvence stránek jsou přidány a nakonfigurovány pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> metody rozšíření pro <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> kolekci služeb ve `Startup` třídě. Následující příklady konvence jsou vysvětleny dále v tomto tématu:
+Razor Konvence stránek jsou přidány a nakonfigurovány pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> metody rozšíření pro <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> kolekci služeb ve `Startup` třídě. Následující příklady konvence jsou vysvětleny dále v tomto tématu:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -658,7 +659,7 @@ Zpracování směrování je zřízené podle konvence:
 
 Pokud je to možné, vyhněte se v závislosti na zavedeném pořadí zpracování směrování. Obecně směrování vybírá správnou trasu s odpovídající adresou URL. Pokud musíte nastavit vlastnosti směrování `Order` na správně směrované požadavky, schéma směrování aplikace je pravděpodobně matoucí pro klienty a křehké na údržbu. Vyhledejte zjednodušené schéma směrování aplikace. Ukázková aplikace vyžaduje explicitní pořadí zpracování tras, které předvádí několik scénářů směrování pomocí jedné aplikace. Měli byste se však pokusit vyhnout postup nastavení trasy `Order` v produkčních aplikacích.
 
-RazorSměrování stránek a směrování kontroléru MVC sdílí implementaci. Informace o pořadí směrování v tématech MVC jsou k dispozici při [směrování na akce kontroleru: trasy atributů řazení](xref:mvc/controllers/routing#ordering-attribute-routes).
+Razor Směrování stránek a směrování kontroléru MVC sdílí implementaci. Informace o pořadí směrování v tématech MVC jsou k dispozici při [směrování na akce kontroleru: trasy atributů řazení](xref:mvc/controllers/routing#ordering-attribute-routes).
 
 ## <a name="model-conventions"></a>Modelové konvence
 
@@ -680,7 +681,7 @@ Ukázková aplikace přidá `{globalTemplate?}` šablonu směrování na všechn
 
 Pokud je to možné, nenastavte `Order` , které výsledky mají `Order = 0` . Pro výběr správné trasy se spoléhá na směrování.
 
-RazorMožnosti stránek, jako je například přidání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> , jsou přidány při přidání MVC do kolekce služby v nástroji `Startup.ConfigureServices` . Příklad najdete v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
+Razor Možnosti stránek, jako je například přidání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> , jsou přidány při přidání MVC do kolekce služby v nástroji `Startup.ConfigureServices` . Příklad najdete v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -754,7 +755,7 @@ Požádejte o stránku ukázek o stránce `localhost:5000/About/GlobalRouteValue
 
 ## <a name="configure-a-page-route"></a>Konfigurace trasy stránky
 
-Slouží <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> ke konfiguraci směrování na stránku na zadané cestě stránky. Vygenerované odkazy na stránku používají zadanou trasu. `AddPageRoute`slouží `AddPageRouteModelConvention` k vytvoření trasy.
+Slouží <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> ke konfiguraci směrování na stránku na zadané cestě stránky. Vygenerované odkazy na stránku používají zadanou trasu. `AddPageRoute` slouží `AddPageRouteModelConvention` k vytvoření trasy.
 
 Ukázková aplikace vytvoří trasu `/TheContactPage` pro *kontakt. cshtml*:
 
@@ -812,13 +813,13 @@ Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte
 
 **Konfigurace filtru**
 
-<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*>nakonfiguruje zadaný filtr na použití. Můžete implementovat třídu filtru, ale ukázková aplikace ukazuje, jak implementovat filtr ve výrazu lambda, který je implementován na pozadí jako objekt pro vytváření, který vrací filtr:
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> nakonfiguruje zadaný filtr na použití. Můžete implementovat třídu filtru, ale ukázková aplikace ukazuje, jak implementovat filtr ve výrazu lambda, který je implementován na pozadí jako objekt pro vytváření, který vrací filtr:
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet8)]
 
 Model webové aplikace se používá ke kontrole relativní cesty pro segmenty, které vedou ke stránce Page2 ve složce *OtherPages* . Pokud podmínka projde, přidá se hlavička. V takovém případě se `EmptyFilter` použije.
 
-`EmptyFilter`je [Filtr akcí](xref:mvc/controllers/filters#action-filters). Vzhledem k tomu, že filtry akcí jsou ignorovány Razor stránkami, `EmptyFilter` nemá žádný vliv na zamýšlenou cestu, pokud cesta neobsahuje `OtherPages/Page2` .
+`EmptyFilter` je [Filtr akcí](xref:mvc/controllers/filters#action-filters). Vzhledem k tomu, že filtry akcí jsou ignorovány Razor stránkami, `EmptyFilter` nemá žádný vliv na zamýšlenou cestu, pokud cesta neobsahuje `OtherPages/Page2` .
 
 Vyžádejte si ukázkovou stránku Page2 na stránce a prohlédněte `localhost:5000/OtherPages/Page2` si záhlaví a podívejte se na výsledek:
 
@@ -826,7 +827,7 @@ Vyžádejte si ukázkovou stránku Page2 na stránce a prohlédněte `localhost:
 
 **Konfigurace objektu pro vytváření filtrů**
 
-<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*>nakonfiguruje určený objekt pro vytváření na použití [filtrů](xref:mvc/controllers/filters) na všechny Razor stránky.
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> nakonfiguruje určený objekt pro vytváření na použití [filtrů](xref:mvc/controllers/filters) na všechny Razor stránky.
 
 Ukázková aplikace poskytuje příklad použití [objektu pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) přidáním hlavičky, se `FilterFactoryHeader` dvěma hodnotami na stránkách aplikace:
 

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/23/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 68fc4c9bd516948eeb2c46c67fdb5bde7cfeefca
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f41b41194f597505d775c95f1e65960c2f827e3b
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014149"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628011"
 ---
 # <a name="aspnet-core-no-locblazor-layouts"></a>ASP.NET Core Blazor rozložení
 
@@ -73,7 +74,7 @@ Určením rozložení přímo v součásti dojde k přepsání *výchozí sady r
 
 ## <a name="centralized-layout-selection"></a>Centralizovaný výběr rozložení
 
-Každá složka aplikace může volitelně obsahovat soubor šablony s názvem `_Imports.razor` . Kompilátor obsahuje direktivy uvedené v souboru Imports ve všech Razor šablonách ve stejné složce a rekurzivně ve všech jejích podsložkách. Proto soubor, `_Imports.razor` který obsahuje `@layout MyCoolLayout` , zajistí, aby všechny součásti ve složce používaly `MyCoolLayout` . Nemusíte opakovaně přidávat `@layout MyCoolLayout` do všech `.razor` souborů ve složce a v jejích podsložkách. `@using`direktivy jsou také aplikovány na komponenty stejným způsobem.
+Každá složka aplikace může volitelně obsahovat soubor šablony s názvem `_Imports.razor` . Kompilátor obsahuje direktivy uvedené v souboru Imports ve všech Razor šablonách ve stejné složce a rekurzivně ve všech jejích podsložkách. Proto soubor, `_Imports.razor` který obsahuje `@layout MyCoolLayout` , zajistí, aby všechny součásti ve složce používaly `MyCoolLayout` . Nemusíte opakovaně přidávat `@layout MyCoolLayout` do všech `.razor` souborů ve složce a v jejích podsložkách. `@using` direktivy jsou také aplikovány na komponenty stejným způsobem.
 
 Následující `_Imports.razor` soubor importuje:
 
@@ -98,11 +99,11 @@ Následující příklad ukazuje, jak použít vnořená rozložení. `EpisodesC
 
 [!code-razor[](layouts/sample_snapshot/3.x/EpisodesComponent.razor?highlight=1)]
 
-`MasterListLayout.razor`Soubor poskytuje `MasterListLayout` . Rozložení odkazuje na jiné rozložení, `MasterLayout` , kde je vykresleno. `EpisodesComponent`je vykreslen, kde `@Body` se zobrazí:
+`MasterListLayout.razor`Soubor poskytuje `MasterListLayout` . Rozložení odkazuje na jiné rozložení, `MasterLayout` , kde je vykresleno. `EpisodesComponent` je vykreslen, kde `@Body` se zobrazí:
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
-Nakonec `MasterLayout` `MasterLayout.razor` obsahuje prvky rozložení na nejvyšší úrovni, jako je záhlaví, hlavní nabídka a zápatí. `MasterListLayout`tam, `EpisodesComponent` kde se zobrazí, se vykreslí `@Body` :
+Nakonec `MasterLayout` `MasterLayout.razor` obsahuje prvky rozložení na nejvyšší úrovni, jako je záhlaví, hlavní nabídka a zápatí. `MasterListLayout` tam, `EpisodesComponent` kde se zobrazí, se vykreslí `@Body` :
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 

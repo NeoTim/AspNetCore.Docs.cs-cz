@@ -6,6 +6,7 @@ ms.author: casoper
 ms.custom: devx-track-csharp, mvc, seodec18
 ms.date: 07/10/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/monitor
-ms.openlocfilehash: 98d7c820b20f4f4c6b57f283ef718ce056dcdcae
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: d5d5189563760cb8a61c188436caa3838e75a31e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130493"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626906"
 ---
 # <a name="monitor-and-debug"></a>Monitorování a ladění
 
@@ -90,7 +91,7 @@ Při použití aplikace se shromažďují data. Výběrem **aktualizovat** znovu
 
 Application Insights poskytuje užitečné informace na straně serveru bez další konfigurace. Pokud chcete získat co nejvíc hodnot z Application Insights, [Instrumentujte svoji aplikaci pomocí Application Insights SDK](/azure/application-insights/app-insights-asp-net-core). Když je služba správně nakonfigurovaná, poskytuje kompletní monitorování mezi webovým serverem a prohlížečem, včetně výkonu na straně klienta. Další informace najdete v dokumentaci k [Application Insights](/azure/application-insights/app-insights-overview).
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Protokoly webového serveru a aplikace jsou ve výchozím nastavení ve Azure App Service zakázané. Povolte protokoly pomocí následujících kroků:
 

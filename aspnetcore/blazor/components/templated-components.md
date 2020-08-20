@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/18/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/templated-components
-ms.openlocfilehash: 408fc433dd6c81ac84f2198465b3191441ad0fc4
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 293154658e9d39166213c0a465bed1166ba39b54
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014513"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628349"
 ---
 # <a name="aspnet-core-no-locblazor-templated-components"></a>BlazorKomponenty ASP.NET Core šablonou
 
@@ -35,9 +36,9 @@ Komponenty se šablonami jsou komponenty, které přijímají jednu nebo více �
 
 ## <a name="template-parameters"></a>Parametry šablony
 
-Komponenta se šablonou je definována zadáním jednoho nebo více parametrů součásti typu <xref:Microsoft.AspNetCore.Components.RenderFragment> nebo <xref:Microsoft.AspNetCore.Components.RenderFragment%601> . Fragment vykreslování představuje segment uživatelského rozhraní, které se má vykreslit. <xref:Microsoft.AspNetCore.Components.RenderFragment%601>převezme parametr typu, který lze zadat při vyvolání fragmentu vykreslování.
+Komponenta se šablonou je definována zadáním jednoho nebo více parametrů součásti typu <xref:Microsoft.AspNetCore.Components.RenderFragment> nebo <xref:Microsoft.AspNetCore.Components.RenderFragment%601> . Fragment vykreslování představuje segment uživatelského rozhraní, které se má vykreslit. <xref:Microsoft.AspNetCore.Components.RenderFragment%601> převezme parametr typu, který lze zadat při vyvolání fragmentu vykreslování.
 
-`TableTemplate`část
+`TableTemplate` část
 
 [!code-razor[](../common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
 

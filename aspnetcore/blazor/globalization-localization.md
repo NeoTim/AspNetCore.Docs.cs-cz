@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,25 +18,25 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 59b6e4cb2f466594d8a105a239e175e9c7b37ad8
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: deb68b50f408532af22d20ba9b06a9ee3eccb335
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014241"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628219"
 ---
 # <a name="aspnet-core-no-locblazor-globalization-and-localization"></a>ASP.NET Core Blazor globalizace a lokalizace
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-Razorkomponenty lze zpřístupnit uživatelům v různých jazykových verzích a jazycích. K dispozici jsou následující scénáře globalizace a lokalizace rozhraní .NET:
+Razor komponenty lze zpřístupnit uživatelům v různých jazykových verzích a jazycích. K dispozici jsou následující scénáře globalizace a lokalizace rozhraní .NET:
 
 * . Systém prostředků netto
 * Formátování čísla a data specifické pro jazykovou verzi
 
 V současné době se podporuje omezená sada scénářů lokalizace ASP.NET Core:
 
-* <xref:Microsoft.Extensions.Localization.IStringLocalizer>a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> *jsou podporované* v Blazor aplikacích.
+* <xref:Microsoft.Extensions.Localization.IStringLocalizer> a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> *jsou podporované* v Blazor aplikacích.
 * <xref:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer><xref:Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer>lokalizace datových poznámek, a jsou ASP.NET Core scénáře MVC a **nejsou** v Blazor aplikacích podporovány.
 
 Další informace naleznete v tématu <xref:fundamentals/localization>.
@@ -46,7 +47,7 @@ Blazor[`@bind`](xref:mvc/views/razor#bind)funkce provádí formáty a analyzuje 
 
 K aktuální jazykové verzi je možné přistupovat z <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName> Vlastnosti.
 
-<xref:System.Globalization.CultureInfo.InvariantCulture?displayProperty=nameWithType>se používá pro následující typy polí ( `<input type="{TYPE}" />` ):
+<xref:System.Globalization.CultureInfo.InvariantCulture?displayProperty=nameWithType> se používá pro následující typy polí ( `<input type="{TYPE}" />` ):
 
 * `date`
 * `number`
@@ -63,13 +64,13 @@ Následující typy polí mají specifické požadavky na formátování a aktu�
 * `month`
 * `week`
 
-[`@bind`](xref:mvc/views/razor#bind)podporuje `@bind:culture` parametr <xref:System.Globalization.CultureInfo?displayProperty=fullName> pro zajištění analýzy a formátování hodnoty. Specifikace jazykové verze není doporučena při použití `date` `number` typů polí a. `date`a `number` mají integrovanou Blazor podporu, která poskytuje požadovanou jazykovou verzi.
+[`@bind`](xref:mvc/views/razor#bind) podporuje `@bind:culture` parametr <xref:System.Globalization.CultureInfo?displayProperty=fullName> pro zajištění analýzy a formátování hodnoty. Specifikace jazykové verze není doporučena při použití `date` `number` typů polí a. `date` a `number` mají integrovanou Blazor podporu, která poskytuje požadovanou jazykovou verzi.
 
 ## <a name="localization"></a>Lokalizace
 
 ### Blazor WebAssembly
 
-Blazor WebAssemblyaplikace nastavily jazykovou verzi pomocí [Předvolby jazyka](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)uživatele.
+Blazor WebAssembly aplikace nastavily jazykovou verzi pomocí [Předvolby jazyka](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)uživatele.
 
 Chcete-li explicitně konfigurovat jazykovou verzi, nastavte <xref:System.Globalization.CultureInfo.DefaultThreadCurrentCulture?displayProperty=nameWithType> a <xref:System.Globalization.CultureInfo.DefaultThreadCurrentUICulture?displayProperty=nameWithType> v `Program.Main` .
 
@@ -79,7 +80,7 @@ I když jazyková verze, která je standardně Blazor vybrána, může být pro 
 
 ### Blazor Server
 
-Blazor Serveraplikace jsou lokalizovány pomocí [middleware lokalizace](xref:fundamentals/localization#localization-middleware). Middleware vybere vhodnou jazykovou verzi pro uživatele, kteří žádají o prostředky z aplikace.
+Blazor Server aplikace jsou lokalizovány pomocí [middleware lokalizace](xref:fundamentals/localization#localization-middleware). Middleware vybere vhodnou jazykovou verzi pro uživatele, kteří žádají o prostředky z aplikace.
 
 Tuto jazykovou verzi lze nastavit pomocí jednoho z následujících přístupů:
 

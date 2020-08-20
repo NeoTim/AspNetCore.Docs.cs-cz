@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 07/09/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/basics
-ms.openlocfilehash: 782343341b8b08b469179c73000a78d1dc5a05ed
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 61ac7b84ec6a5eeb344cbf6f9a6712366be7d3c9
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016281"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88627075"
 ---
 # <a name="grpc-services-with-c"></a>gRPC Services s využitím C\#
 
@@ -42,7 +43,7 @@ Předpokládejme například, že soubor *....* je použit v části Začínáme
 
 * Definuje `Greeter` službu.
 * `Greeter`Služba definuje `SayHello` volání.
-* `SayHello`odešle `HelloRequest` zprávu a obdrží `HelloReply` zprávu:
+* `SayHello` odešle `HelloRequest` zprávu a obdrží `HelloReply` zprávu:
 
 [!code-protobuf[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Protos/greet.proto)]
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
@@ -55,7 +56,7 @@ Soubor * \* ....* je obsažen v projektu přidáním do `<Protobuf>` skupiny pol
 
 Ve výchozím nastavení `<Protobuf>` odkaz vygeneruje konkrétního klienta a základní třídu služby. Atribut referenčního prvku `GrpcServices` lze použít k omezení generování prostředků jazyka C#. Platné `GrpcServices` Možnosti jsou:
 
-* `Both`(výchozí, není-li k dispozici)
+* `Both` (výchozí, není-li k dispozici)
 * `Server`
 * `Client`
 * `None`

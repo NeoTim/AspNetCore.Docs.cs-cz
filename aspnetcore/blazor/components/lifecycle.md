@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/06/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 601bb218df989c15c631633be26501ae426fab52
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d1a17f26ac89a2d1d722e37faf3a90f735b23f94
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014565"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628440"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
 
@@ -34,7 +35,7 @@ BlazorRozhraní zahrnuje synchronní a asynchronní metody životního cyklu. P�
 
 ### <a name="before-parameters-are-set"></a>Před nastavením parametrů
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A>nastaví parametry zadané nadřazeným prvkem komponenty ve stromu vykreslování:
+<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> nastaví parametry zadané nadřazeným prvkem komponenty ve stromu vykreslování:
 
 ```csharp
 public override async Task SetParametersAsync(ParameterView parameters)
@@ -45,7 +46,7 @@ public override async Task SetParametersAsync(ParameterView parameters)
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.ParameterView>obsahuje celou sadu hodnot parametrů pokaždé, když <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> je volána.
+<xref:Microsoft.AspNetCore.Components.ParameterView> obsahuje celou sadu hodnot parametrů pokaždé, když <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> je volána.
 
 Výchozí implementace <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> sady nastaví hodnotu každé vlastnosti s [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) atributem nebo, který má odpovídající hodnotu v <xref:Microsoft.AspNetCore.Components.ParameterView> . Parametry, které nemají odpovídající hodnotu v, <xref:Microsoft.AspNetCore.Components.ParameterView> jsou ponechány beze změny.
 
@@ -55,7 +56,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 ### <a name="component-initialization-methods"></a>Inicializační metody komponenty
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> jsou vyvolány při inicializaci komponenty po přijetí počátečních parametrů z své nadřazené komponenty v <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> . 
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> jsou vyvolány při inicializaci komponenty po přijetí počátečních parametrů z své nadřazené komponenty v <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A> . 
 
 Použijte <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> , když komponenta provede asynchronní operaci a měla by se aktualizovat po dokončení operace.
 
@@ -77,7 +78,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-Blazor Serveraplikace, které [proprerender volání jejich obsahu](xref:blazor/fundamentals/additional-scenarios#render-mode) <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> **_dvakrát_**:
+Blazor Server aplikace, které [proprerender volání jejich obsahu](xref:blazor/fundamentals/additional-scenarios#render-mode) <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> **_dvakrát_**:
 
 * Jednou, když je komponenta zpočátku vykreslena jako součást stránky.
 * Podruhé, když prohlížeč vytvoří připojení zpátky k serveru.
@@ -90,7 +91,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 ### <a name="after-parameters-are-set"></a>Po nastavení parametrů
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A>nebo <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> se nazývají:
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> nebo <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> se nazývají:
 
 * Po inicializaci komponenty v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> nebo <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> .
 * Po opětovném vykreslení nadřazené komponenty a dodání:
@@ -118,7 +119,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 ### <a name="after-component-render"></a>Po vykreslení komponenty
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> jsou volány po dokončení vykreslování součásti. V tuto chvíli se naplní odkazy na element a komponentu. Tuto fázi použijte k provedení dalších kroků inicializace pomocí vykresleného obsahu, jako je například aktivace knihoven JavaScript třetích stran, které pracují s vykreslenými prvky modelu DOM.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> jsou volány po dokončení vykreslování součásti. V tuto chvíli se naplní odkazy na element a komponentu. Tuto fázi použijte k provedení dalších kroků inicializace pomocí vykresleného obsahu, jako je například aktivace knihoven JavaScript třetích stran, které pracují s vykreslenými prvky modelu DOM.
 
 `firstRender`Parametr pro <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> :
 
@@ -150,7 +151,7 @@ protected override void OnAfterRender(bool firstRender)
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> *nejsou volány při předvykreslování na serveru.*
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> *nejsou volány při předvykreslování na serveru.*
 
 Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vyřazení. Další informace najdete v části věnované [odstraňování `IDisposable` komponent](#component-disposal-with-idisposable) .
 
@@ -167,7 +168,7 @@ protected override bool ShouldRender()
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>je volána při každém vygenerování součásti.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> je volána při každém vygenerování součásti.
 
 I když <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> je přepsat, komponenta je vždy zpočátku vykreslena.
 
@@ -175,9 +176,9 @@ Další informace naleznete v tématu <xref:blazor/webassembly-performance-best-
 
 ## <a name="state-changes"></a>Změny stavu
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>upozorní komponentu, že její stav se změnil. V případě potřeby volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> způsobí, že se komponenta znovu vykreslí.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> upozorní komponentu, že její stav se změnil. V případě potřeby volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> způsobí, že se komponenta znovu vykreslí.
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>se nazývá automaticky pro <xref:Microsoft.AspNetCore.Components.EventCallback> metody. Další informace naleznete v tématu <xref:blazor/components/event-handling#eventcallback>.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> se nazývá automaticky pro <xref:Microsoft.AspNetCore.Components.EventCallback> metody. Další informace naleznete v tématu <xref:blazor/components/event-handling#eventcallback>.
 
 ## <a name="handle-incomplete-async-actions-at-render"></a>Zpracovat nedokončené asynchronní akce při vykreslení
 
@@ -185,7 +186,7 @@ Asynchronní akce provedené v událostech životního cyklu nemusí být před 
 
 V `FetchData` komponentě Blazor šablony <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> je přepsáno na asynchronně příjem dat předpovědi ( `forecasts` ). V takovém případě `forecasts` `null` se uživateli zobrazí zpráva o načítání. Po `Task` <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> úspěšném dokončení se komponenta znovu vykreslí s aktualizovaným stavem.
 
-`Pages/FetchData.razor`v Blazor Server šabloně:
+`Pages/FetchData.razor` v Blazor Server šabloně:
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
@@ -276,7 +277,7 @@ Pokud komponenta implementuje <xref:System.IDisposable> , je [ `Dispose` Metoda]
 ```
 
 > [!NOTE]
-> Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> v `Dispose` není podporováno. <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
+> Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> v `Dispose` není podporováno. <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
 
 Zruší odběr obslužných rutin událostí z událostí .NET. Následující příklady [ Blazor formulářů](xref:blazor/forms-validation) ukazují, jak odpojovat obslužnou rutinu události v `Dispose` metodě:
 
@@ -308,8 +309,8 @@ Implementace vzorové práce na pozadí v součásti:
 
 V následujícím příkladu:
 
-* `await Task.Delay(5000, cts.Token);`představuje dlouhodobě běžící asynchronní práci na pozadí.
-* `BackgroundResourceMethod`představuje dlouhotrvající metodu na pozadí, která by neměla být spuštěna, pokud `Resource` je uvolněna před voláním metody.
+* `await Task.Delay(5000, cts.Token);` představuje dlouhodobě běžící asynchronní práci na pozadí.
+* `BackgroundResourceMethod` představuje dlouhotrvající metodu na pozadí, která by neměla být spuštěna, pokud `Resource` je uvolněna před voláním metody.
 
 ```razor
 @implements IDisposable

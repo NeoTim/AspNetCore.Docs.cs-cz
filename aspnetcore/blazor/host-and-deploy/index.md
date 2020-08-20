@@ -1,5 +1,5 @@
 ---
-title: ASP.NET Core hostitele a nasazeníBlazor
+title: ASP.NET Core hostitele a nasazení Blazor
 author: guardrex
 description: Objevte, jak hostovat a nasazovat Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/15/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/index
-ms.openlocfilehash: 8a5172db22a17138f7462d140fd97316586e5282
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7bde61b0ff1d122b449ccc9d7ea9629fc8fb6108
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014201"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628089"
 ---
-# <a name="host-and-deploy-aspnet-core-no-locblazor"></a>ASP.NET Core hostitele a nasazeníBlazor
+# <a name="host-and-deploy-aspnet-core-no-locblazor"></a>ASP.NET Core hostitele a nasazení Blazor
 
 Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)
 
@@ -36,7 +37,7 @@ Aplikace jsou publikované pro nasazení v konfiguraci vydání.
 
 1. V navigačním panelu vyberte **sestavení**  >  **publikovat {aplikace}** .
 1. Vyberte *cíl publikování*. Chcete-li publikovat místně, vyberte **Složka**.
-1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte **`Publish`** tlačítko.
+1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte tlačítko **`Publish`**.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
@@ -83,7 +84,7 @@ Chcete-li zadat konfiguraci pro Blazor základní cestu aplikace `https://www.co
 <base href="/CoolApp/">
 ```
 
-Blazor Serveraplikace navíc nastaví základní cestu na straně serveru voláním <xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*> v kanálu žádosti aplikace `Startup.Configure` :
+Blazor Server aplikace navíc nastaví základní cestu na straně serveru voláním <xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*> v kanálu žádosti aplikace `Startup.Configure` :
 
 ```csharp
 app.UsePathBase("/CoolApp");

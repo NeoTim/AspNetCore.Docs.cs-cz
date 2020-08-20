@@ -1,5 +1,5 @@
 ---
-title: Konfigurace linkeru pro ASP.NET CoreBlazor
+title: Konfigurace linkeru pro ASP.NET Core Blazor
 author: guardrex
 description: Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/configure-linker
-ms.openlocfilehash: e76d25dbbf5c7a166e5f58a5ad1f9b5a2ecacf79
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 27a7edf0de1acc107d324afe07db63624615e550
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014250"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628128"
 ---
-# <a name="configure-the-linker-for-aspnet-core-no-locblazor"></a>Konfigurace linkeru pro ASP.NET CoreBlazor
+# <a name="configure-the-linker-for-aspnet-core-no-locblazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
 
 Od [Luke Latham](https://github.com/guardrex)
 
-Blazor WebAssemblyprovádí propojování v [prostředním jazyce (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení za účelem oříznutí nepotřebného Il z výstupních sestavení aplikace. Linker je při sestavování konfigurace ladění zakázán. Aby bylo možné linker povolit, musí aplikace sestavit v konfiguraci vydání. Při nasazování aplikací doporučujeme sestavovat v vydaných verzích Blazor WebAssembly . 
+Blazor WebAssembly provádí propojování v [prostředním jazyce (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení za účelem oříznutí nepotřebného Il z výstupních sestavení aplikace. Linker je při sestavování konfigurace ladění zakázán. Aby bylo možné linker povolit, musí aplikace sestavit v konfiguraci vydání. Při nasazování aplikací doporučujeme sestavovat v vydaných verzích Blazor WebAssembly . 
 
 Propojení aplikace se optimalizuje pro velikost, ale může mít škodlivé účinky. Aplikace, které používají reflexi nebo související dynamické funkce, mohou být při oříznutí přerušeny, protože linker neví o tomto dynamickém chování a nemůže určit obecně, které typy jsou požadovány pro reflexi za běhu. Aby bylo možné tyto aplikace oříznout, musí být linker informován o jakýchkoli typech vyžadovaných odrazem v kódu a v balíčcích nebo architekturách, na kterých aplikace závisí. 
 
@@ -124,7 +125,7 @@ Chcete-li určit, která sestavení I18N jsou zachována, nastavte `<BlazorWebAs
 | `all`            | Všechna sestavení, která jsou součástí |
 | `cjk`            | `I18N.CJK.dll`          |
 | `mideast`        | `I18N.MidEast.dll`      |
-| `none`výchozí | Žádné                    |
+| `none` výchozí | Žádné                    |
 | `other`          | `I18N.Other.dll`        |
 | `rare`           | `I18N.Rare.dll`         |
 | `west`           | `I18N.West.dll`         |

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/02/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,20 +18,20 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: 4dc9040b9410304eb33e5df7c47db2f9a42152d3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ba9fe3c0149679fa5760c0c9214cd426f1804c31
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013993"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88626451"
 ---
 # <a name="secure-aspnet-core-no-locblazor-server-apps"></a>Zabezpečení Blazor Server aplikací ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex)
 
-Blazor Serveraplikace jsou konfigurovány pro zabezpečení stejným způsobem jako aplikace ASP.NET Core. Další informace najdete v článcích v části <xref:security/index> . Témata v tomto přehledu se vztahují konkrétně na Blazor Server . 
+Blazor Server aplikace jsou konfigurovány pro zabezpečení stejným způsobem jako aplikace ASP.NET Core. Další informace najdete v článcích v části <xref:security/index> . Témata v tomto přehledu se vztahují konkrétně na Blazor Server . 
 
-## <a name="no-locblazor-server-project-template"></a>Blazor ServerŠablona projektu
+## <a name="no-locblazor-server-project-template"></a>Blazor Server Šablona projektu
 
 Blazor ServerŠablonu projektu lze nakonfigurovat pro ověřování při vytvoření projektu.
 
@@ -61,8 +62,8 @@ Přípustné hodnoty ověřování ( `{AUTHENTICATION}` ) jsou uvedeny v násled
 
 | Mechanismus ověřování | Popis |
 | ------------------------ | ----------- |
-| `None`výchozí         | Bez ověřování |
-| `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET CoreIdentity |
+| `None` výchozí         | Bez ověřování |
+| `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET Core Identity |
 | `IndividualB2C`          | Uživatelé uložení v [Azure AD B2C](xref:security/authentication/azure-ad-b2c) |
 | `SingleOrg`              | Ověřování organizace pro jednoho tenanta |
 | `MultiOrg`               | Ověřování organizace pro více tenantů |
@@ -95,8 +96,8 @@ Přípustné hodnoty ověřování ( `{AUTHENTICATION}` ) jsou uvedeny v násled
 
 | Mechanismus ověřování | Popis |
 | ------------------------ | ----------- |
-| `None`výchozí         | Bez ověřování |
-| `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET CoreIdentity |
+| `None` výchozí         | Bez ověřování |
+| `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET Core Identity |
 | `IndividualB2C`          | Uživatelé uložení v [Azure AD B2C](xref:security/authentication/azure-ad-b2c) |
 | `SingleOrg`              | Ověřování organizace pro jednoho tenanta |
 | `MultiOrg`               | Ověřování organizace pro více tenantů |
@@ -111,7 +112,7 @@ Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new
 
 ---
 
-## <a name="scaffold-no-locidentity"></a>GenerováníIdentity
+## <a name="scaffold-no-locidentity"></a>Generování Identity
 
 Uživatelské rozhraní Identity do Blazor Server projektu:
 

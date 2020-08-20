@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/20/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: client-side/libman/libman-vs
-ms.openlocfilehash: 2dc944ffd4307aa108a54b70d58f298c26959ce0
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 77cfced18edd9db5be21265469b42f32e3de274d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013343"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88625671"
 ---
 # <a name="use-libman-with-aspnet-core-in-visual-studio"></a>Použití LibMan s ASP.NET Core v aplikaci Visual Studio
 
@@ -36,7 +37,7 @@ Visual Studio obsahuje integrovanou podporu pro [LibMan](xref:client-side/libman
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/client-side/libman/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje ASP.NET a webu**
 
@@ -79,7 +80,7 @@ Pomocí těchto kroků nainstalujete knihovnu na straně klienta:
   |Složka *stránky* v projektu                 |*Stránky/jQuery/*       |
 
 * Klikněte na tlačítko **instalovat** a Stáhněte soubory podle konfigurace v *libman.js*.
-* Podrobnosti o instalaci najdete v informačním kanálu **Správce knihovny** v okně **výstup** . Například:
+* Podrobnosti o instalaci najdete v informačním kanálu **Správce knihovny** v okně **výstup** . Příklad:
 
   ```console
   Restore operation started...
@@ -170,7 +171,7 @@ Ruční obnovení souborů knihovny:
 I když je spuštěná operace obnovení:
 
 * Ikona Centrum stavu úloh (TSC) na stavovém řádku sady Visual Studio bude animovaná a spustí se *operace obnovení*. Po kliknutí na ikonu se zobrazí popis známých úloh na pozadí.
-* Zprávy se odešlou do stavového řádku a do informačního kanálu **Správce knihovny** v okně **výstup** . Například:
+* Zprávy se odešlou do stavového řádku a do informačního kanálu **Správce knihovny** v okně **výstup** . Příklad:
 
   ```console
   Restore operation started...
@@ -195,7 +196,7 @@ Aby nedocházelo k neúmyslnému odebrání souborů bez knihoven, operace čiš
 I když je spuštěná operace čištění:
 
 * Ikona čítače TSC na stavovém řádku sady Visual Studio bude animovaná a spustí se *operace čtení klientských knihoven*. Po kliknutí na ikonu se zobrazí popis známých úloh na pozadí.
-* Zprávy jsou odesílány do stavového řádku a kanálu **Správce knihovny** v okně **výstup** . Například:
+* Zprávy jsou odesílány do stavového řádku a kanálu **Správce knihovny** v okně **výstup** . Příklad:
 
 ```console
 Clean libraries operation started...
@@ -234,12 +235,12 @@ LibMan vyhledá verzi knihovny novější než verze nainstalovaná. Může doj�
 
 * Pokud je k dispozici předběžná verze novější než nainstalovaná verze, zobrazí se předběžná verze.
 
-Pokud chcete downgradovat na starší verzi knihovny, upravtelibman.jsručně *v* souboru. Po uložení souboru se LibMan [operace obnovení](#restore-library-files):
+Pokud chcete downgradovat na starší verzi knihovny, upravtelibman.jsručně * v* souboru. Po uložení souboru se LibMan [operace obnovení](#restore-library-files):
 
 * Odstraní nadbytečné soubory z předchozí verze.
 * Přidá nové a aktualizované soubory z nové verze.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:client-side/libman/libman-cli>
 * [Úložiště GitHub LibMan](https://github.com/aspnet/LibraryManager)
