@@ -6,6 +6,7 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
 ms.date: 12/18/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/model-binding
-ms.openlocfilehash: 6ec531a04a220f75f5793cb2c7b5232908dbd883
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ec36ff6d646e0554550a4372389aed89aa267b1f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019154"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633978"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
@@ -65,7 +66,7 @@ Rozhraní potom zavolá `GetById` metodu, která předá 2 pro `id` parametr a `
 
 V předchozím příkladu jsou cíle vazby modelů parametry metod, které jsou jednoduché typy. Cíle mohou být také vlastnostmi komplexního typu. Po úspěšném vytvoření vazby každé vlastnosti dojde k [ověření modelu](xref:mvc/models/validation) pro danou vlastnost. Záznam o tom, jaká data jsou vázána na model a všechny chyby vazby nebo ověřování, jsou uloženy v [ControllerBase. ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) nebo [PageModel. ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState). Chcete-li zjistit, zda byl tento proces úspěšný, aplikace zkontroluje příznak [ModelState. IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) .
 
-## <a name="targets"></a>Cíle
+## <a name="targets"></a>Targets
 
 Vazba modelu se pokusí najít hodnoty pro následující typy cílů:
 
@@ -108,11 +109,11 @@ Pro každý cílový parametr nebo vlastnost jsou zdroje prohledávány v pořad
 
 Pokud výchozí zdroj není správný, použijte k určení zdroje jeden z následujících atributů:
 
-* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)– Načte hodnoty z řetězce dotazu. 
-* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)– Načte hodnoty z dat směrování.
-* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)– Získá hodnoty z publikovaných polí formuláře.
-* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)– Načte hodnoty z textu žádosti.
-* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)– Získá hodnoty z hlaviček protokolu HTTP.
+* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) – Načte hodnoty z řetězce dotazu. 
+* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) – Načte hodnoty z dat směrování.
+* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) – Získá hodnoty z publikovaných polí formuláře.
+* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) – Načte hodnoty z textu žádosti.
+* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) – Získá hodnoty z hlaviček protokolu HTTP.
 
 Tyto atributy:
 
@@ -207,7 +208,7 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Char](xref:System.ComponentModel.CharConverter)
 * [Datum a čas](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
-* [Notaci](xref:System.ComponentModel.DecimalConverter)
+* [Decimal](xref:System.ComponentModel.DecimalConverter)
 * [dvojité](xref:System.ComponentModel.DoubleConverter)
 * [Výčet](xref:System.ComponentModel.EnumConverter)
 * [Hlavních](xref:System.ComponentModel.GuidConverter)
@@ -273,30 +274,16 @@ Vazba modelu začne prohledáním zdrojů klíče `Instructor.ID` . Pokud se nen
 
 K dispozici je několik předdefinovaných atributů pro řízení vazeb modelu komplexních typů:
 
+* `[Bind]`
 * `[BindRequired]`
 * `[BindNever]`
-* `[Bind]`
 
-> [!NOTE]
-> Tyto atributy ovlivňují vazbu modelu, když jsou publikovaná data formuláře zdrojem hodnot. Neovlivňují vstupní formátovací moduly, které zpracovávají odeslané texty JSON a XML požadavku. Vstupní formátovací moduly jsou vysvětleny [dále v tomto článku](#input-formatters).
->
-> Viz také diskuze o `[Required]` atributu v [ověřování modelu](xref:mvc/models/validation#required-attribute).
-
-### <a name="bindrequired-attribute"></a>[BindRequired] – atribut
-
-Dá se použít jenom pro vlastnosti modelu, nikoli na parametry metody. Způsobí, že vazba modelu přidá chybu stavu modelu, pokud pro vlastnost modelu neproběhne vazba. Tady je příklad:
-
-[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
-
-### <a name="bindnever-attribute"></a>[BindNever] – atribut
-
-Dá se použít jenom pro vlastnosti modelu, nikoli na parametry metody. Zabraňuje vazbě modelu v nastavení vlastnosti modelu. Tady je příklad:
-
-[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
+> [!WARNING]
+> Tyto atributy ovlivňují vazbu modelu, když jsou publikovaná data formuláře zdrojem hodnot. Neovlivňují ***vstupní*** formátovací moduly, které zpracovávají odeslané texty JSON a XML požadavku. Vstupní formátovací moduly jsou vysvětleny [dále v tomto článku](#input-formatters).
 
 ### <a name="bind-attribute"></a>[BIND] – atribut
 
-Lze použít pro třídu nebo parametr metody. Určuje, které vlastnosti modelu by měly být zahrnuty ve vazbě modelu.
+Lze použít pro třídu nebo parametr metody. Určuje, které vlastnosti modelu by měly být zahrnuty ve vazbě modelu. `[Bind]` nemá ***vliv na*** vstupní formátovací moduly.
 
 V následujícím příkladu `Instructor` jsou při volání jakékoli obslužné rutiny nebo metody akce vázány pouze zadané vlastnosti modelu:
 
@@ -314,9 +301,23 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
 `[Bind]`Atribut lze použít k ochraně před přeúčtováním ve scénářích *vytváření* . Nefunguje dobře v scénářích úprav, protože vyloučené vlastnosti jsou nastavené na hodnotu null nebo výchozí hodnota místo toho, aby byla ponechána beze změny. Pro obranu před přeúčtováním se doporučuje zobrazit modely namísto `[Bind]` atributu. Další informace najdete v části [Poznámka k zabezpečení týkající se přestavování](xref:data/ef-mvc/crud#security-note-about-overposting).
 
+### <a name="bindrequired-attribute"></a>[BindRequired] – atribut
+
+Dá se použít jenom pro vlastnosti modelu, nikoli na parametry metody. Způsobí, že vazba modelu přidá chybu stavu modelu, pokud pro vlastnost modelu neproběhne vazba. Tady je příklad:
+
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
+
+Viz také diskuze o `[Required]` atributu v [ověřování modelu](xref:mvc/models/validation#required-attribute).
+
+### <a name="bindnever-attribute"></a>[BindNever] – atribut
+
+Dá se použít jenom pro vlastnosti modelu, nikoli na parametry metody. Zabraňuje vazbě modelu v nastavení vlastnosti modelu. Tady je příklad:
+
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
+
 ## <a name="collections"></a>Kolekce
 
-Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Například:
+Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
 
 * Předpokládejme, že parametr, který má být svázán, je pole s názvem `selectedCourses` :
 
@@ -361,7 +362,7 @@ Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shod
 
 ## <a name="dictionaries"></a>Slovníky
 
-V případě `Dictionary` cílů vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Například:
+V případě `Dictionary` cílů vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
 
 * Předpokládejme, že cílový parametr je `Dictionary<int, string>` pojmenovaný `selectedCourses` :
 
@@ -406,7 +407,7 @@ Na rozdíl od hodnoty, které pocházejí z dat formuláře, procházejí převo
 
 Aby zprostředkovatel hodnoty trasy ASP.NET Core a zprostředkovatel hodnoty řetězce dotazu prošly převodem závislým na jazykové verzi:
 
-* Zdědit z<xref:Microsoft.AspNetCore.Mvc.ModelBinding.IValueProviderFactory>
+* Zdědit z <xref:Microsoft.AspNetCore.Mvc.ModelBinding.IValueProviderFactory>
 * Kopírování kódu z [QueryStringValueProviderFactory](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs) nebo [RouteValueValueProviderFactory](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/RouteValueProviderFactory.cs)
 * Nahraďte [hodnotu jazykové verze](https://github.com/dotnet/AspNetCore/blob/e625fe29b049c60242e8048b4ea743cca65aa7b5/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs#L30) předanou konstruktoru zprostředkovatele hodnoty pomocí [CultureInfo. CurrentCulture.](xref:System.Globalization.CultureInfo.CurrentCulture)
 * V možnostech MVC nahraďte výchozí továrnu poskytovatele hodnot pomocí nového:
@@ -494,7 +495,7 @@ Vazbu modelu lze vyvolat ručně pomocí <xref:Microsoft.AspNetCore.Mvc.Controll
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
 
-<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*>používá zprostředkovatele hodnot k získání dat z textu formuláře, řetězce dotazu a dat směrování. `TryUpdateModelAsync`je obvykle: 
+<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*>  používá zprostředkovatele hodnot k získání dat z textu formuláře, řetězce dotazu a dat směrování. `TryUpdateModelAsync` je obvykle: 
 
 * Používá se pro Razor stránky a aplikace MVC pomocí řadičů a zobrazení k tomu, aby se zabránilo přeúčtování.
 * Nepoužívá se s webovým rozhraním API, pokud se nevyužívá pro data formulářů, řetězce dotazů a data směrování. Koncové body webového rozhraní API, které využívají [Formátovací moduly vstupu](#input-formatters) JSON k deserializaci těla požadavku do objektu.
@@ -505,7 +506,7 @@ Další informace najdete v tématu [TryUpdateModelAsync](xref:data/ef-rp/crud#T
 
 Název tohoto atributu se řídí vzorem atributů vazby modelu, které určují zdroj dat. Nejedná se ale o vazbu dat od poskytovatele hodnot. Získává instanci typu z kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Jeho účelem je poskytnout alternativu k injektáže konstruktoru, pokud potřebujete službu pouze v případě, že je volána konkrétní metoda.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:mvc/models/validation>
 * <xref:mvc/advanced/custom-model-binding>
@@ -551,7 +552,7 @@ Rozhraní potom zavolá `GetById` metodu, která předá 2 pro `id` parametr a `
 
 V předchozím příkladu jsou cíle vazby modelů parametry metod, které jsou jednoduché typy. Cíle mohou být také vlastnostmi komplexního typu. Po úspěšném vytvoření vazby každé vlastnosti dojde k [ověření modelu](xref:mvc/models/validation) pro danou vlastnost. Záznam o tom, jaká data jsou vázána na model a všechny chyby vazby nebo ověřování, jsou uloženy v [ControllerBase. ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) nebo [PageModel. ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState). Chcete-li zjistit, zda byl tento proces úspěšný, aplikace zkontroluje příznak [ModelState. IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) .
 
-## <a name="targets"></a>Cíle
+## <a name="targets"></a>Targets
 
 Vazba modelu se pokusí najít hodnoty pro následující typy cílů:
 
@@ -594,11 +595,11 @@ Pro každý cílový parametr nebo vlastnost jsou zdroje prohledávány v pořad
 
 Pokud výchozí zdroj není správný, použijte k určení zdroje jeden z následujících atributů:
 
-* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)– Načte hodnoty z řetězce dotazu. 
-* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)– Načte hodnoty z dat směrování.
-* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)– Získá hodnoty z publikovaných polí formuláře.
-* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)– Načte hodnoty z textu žádosti.
-* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)– Získá hodnoty z hlaviček protokolu HTTP.
+* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) – Načte hodnoty z řetězce dotazu. 
+* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) – Načte hodnoty z dat směrování.
+* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) – Získá hodnoty z publikovaných polí formuláře.
+* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) – Načte hodnoty z textu žádosti.
+* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) – Získá hodnoty z hlaviček protokolu HTTP.
 
 Tyto atributy:
 
@@ -693,7 +694,7 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Char](xref:System.ComponentModel.CharConverter)
 * [Datum a čas](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
-* [Notaci](xref:System.ComponentModel.DecimalConverter)
+* [Decimal](xref:System.ComponentModel.DecimalConverter)
 * [dvojité](xref:System.ComponentModel.DoubleConverter)
 * [Výčet](xref:System.ComponentModel.EnumConverter)
 * [Hlavních](xref:System.ComponentModel.GuidConverter)
@@ -802,7 +803,7 @@ public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor 
 
 ## <a name="collections"></a>Kolekce
 
-Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Například:
+Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
 
 * Předpokládejme, že parametr, který má být svázán, je pole s názvem `selectedCourses` :
 
@@ -847,7 +848,7 @@ Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shod
 
 ## <a name="dictionaries"></a>Slovníky
 
-V případě `Dictionary` cílů vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Například:
+V případě `Dictionary` cílů vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
 
 * Předpokládejme, že cílový parametr je `Dictionary<int, string>` pojmenovaný `selectedCourses` :
 
@@ -892,7 +893,7 @@ Na rozdíl od hodnoty, které pocházejí z dat formuláře, procházejí převo
 
 Aby zprostředkovatel hodnoty trasy ASP.NET Core a zprostředkovatel hodnoty řetězce dotazu prošly převodem závislým na jazykové verzi:
 
-* Zdědit z<xref:Microsoft.AspNetCore.Mvc.ModelBinding.IValueProviderFactory>
+* Zdědit z <xref:Microsoft.AspNetCore.Mvc.ModelBinding.IValueProviderFactory>
 * Kopírování kódu z [QueryStringValueProviderFactory](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs) nebo [RouteValueValueProviderFactory](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/RouteValueProviderFactory.cs)
 * Nahraďte [hodnotu jazykové verze](https://github.com/dotnet/AspNetCore/blob/e625fe29b049c60242e8048b4ea743cca65aa7b5/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs#L30) předanou konstruktoru zprostředkovatele hodnoty pomocí [CultureInfo. CurrentCulture.](xref:System.Globalization.CultureInfo.CurrentCulture)
 * V možnostech MVC nahraďte výchozí továrnu poskytovatele hodnot pomocí nového:

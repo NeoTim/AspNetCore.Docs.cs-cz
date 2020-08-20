@@ -5,6 +5,7 @@ description: Seznamte se s hierarchií řetězců pro účely a víceklientské 
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/purpose-strings-multitenancy
-ms.openlocfilehash: 4d442d3020c0d67b40ebd101442e5c84dcd4dbc6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 65799c10b8e810853023c094b95ccafa0d71eb8b
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022222"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632080"
 ---
 # <a name="purpose-hierarchy-and-multi-tenancy-in-aspnet-core"></a>Hierarchie účelů a víceklientské aplikace v ASP.NET Core
 

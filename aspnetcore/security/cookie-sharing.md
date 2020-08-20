@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cookie-sharing
-ms.openlocfilehash: f4762871cbae77f690d8478e1342e0d53918eb51
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6ac808d11790ae27e82606b442ff215d95b93e41
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022196"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631365"
 ---
 # <a name="share-authentication-no-loccookies-among-aspnet-apps"></a>Sdílení ověřování cookie s mezi ASP.NET aplikacemi
 
@@ -35,16 +36,16 @@ V následujících příkladech:
 * Název ověřování cookie je nastaven na běžnou hodnotu `.AspNet.SharedCookie` .
 * `AuthenticationType`Je nastaven `Identity.Application` buď explicitně, nebo jako výchozí.
 * Běžný název aplikace se používá k tomu, aby systém ochrany dat mohl sdílet klíče ochrany dat ( `SharedCookieApp` ).
-* `Identity.Application`slouží jako schéma ověřování. Bez ohledu na to, jaké schéma se používá, je potřeba ho konzistentně používat *v rámci a napříč* sdílenými cookie aplikacemi buď jako výchozí schéma, nebo explicitně nastavením. Schéma se používá při šifrování a dešifrování cookie s, takže v aplikacích je nutné použít konzistentní schéma.
+* `Identity.Application` slouží jako schéma ověřování. Bez ohledu na to, jaké schéma se používá, je potřeba ho konzistentně používat *v rámci a napříč* sdílenými cookie aplikacemi buď jako výchozí schéma, nebo explicitně nastavením. Schéma se používá při šifrování a dešifrování cookie s, takže v aplikacích je nutné použít konzistentní schéma.
 * Používá se společné umístění úložiště [klíčů pro ochranu dat](xref:security/data-protection/implementation/key-management) .
   * V ASP.NET Core aplikace <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.PersistKeysToFileSystem*> se používá k nastavení umístění úložiště klíčů.
-  * V .NET Framework aplikace Cookie používá middleware ověřování implementaci <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider> . `DataProtectionProvider`poskytuje služby ochrany dat pro šifrování a dešifrování cookie dat datové části ověřování. `DataProtectionProvider`Instance je izolovaná od systému ochrany dat, který používají jiné části aplikace. [DataProtectionProvider. Create (System. IO. DirectoryInfo, Action \<IDataProtectionBuilder> )](xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider.Create*) přijme a <xref:System.IO.DirectoryInfo> určí umístění pro úložiště klíčů ochrany dat.
-* `DataProtectionProvider`vyžaduje balíček NuGet [Microsoft. AspNetCore. DataProtection. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) :
+  * V .NET Framework aplikace Cookie používá middleware ověřování implementaci <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider> . `DataProtectionProvider` poskytuje služby ochrany dat pro šifrování a dešifrování cookie dat datové části ověřování. `DataProtectionProvider`Instance je izolovaná od systému ochrany dat, který používají jiné části aplikace. [DataProtectionProvider. Create (System. IO. DirectoryInfo, Action \<IDataProtectionBuilder> )](xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider.Create*) přijme a <xref:System.IO.DirectoryInfo> určí umístění pro úložiště klíčů ochrany dat.
+* `DataProtectionProvider` vyžaduje balíček NuGet [Microsoft. AspNetCore. DataProtection. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) :
   * V aplikacích ASP.NET Core 2. x odkazují na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
   * V .NET Framework aplikace přidejte odkaz na balíček do [Microsoft. AspNetCore. DataProtection. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/).
-* <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*>Nastaví běžný název aplikace.
+* <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*> Nastaví běžný název aplikace.
 
-## <a name="share-authentication-no-loccookies-with-aspnet-core-no-locidentity"></a>Sdílet ověřování s cookie ASP.NET CoreIdentity
+## <a name="share-authentication-no-loccookies-with-no-locaspnet-core-identity"></a>Sdílet ověřování cookie s ASP.NET Core Identity
 
 Při použití ASP.NET Core Identity :
 
@@ -64,9 +65,9 @@ services.ConfigureApplicationCookie(options => {
 });
 ```
 
-## <a name="share-authentication-no-loccookies-without-aspnet-core-no-locidentity"></a>Sdílet ověřování cookie s bez ASP.NET CoreIdentity
+## <a name="share-authentication-no-loccookies-without-no-locaspnet-core-identity"></a>Sdílet ověřování cookie s bez ASP.NET Core Identity
 
-Při použití cookie s přímo bez ASP.NET Core Identity nakonfigurujte ochranu a ověřování dat v `Startup.ConfigureServices` . V následujícím příkladu je typ ověřování nastaven na `Identity.Application` :
+Při použití cookie s přímo bez ASP.NET Core Identity toho nakonfigurujte ochranu a ověřování dat v `Startup.ConfigureServices` . V následujícím příkladu je typ ověřování nastaven na `Identity.Application` :
 
 ```csharp
 services.AddDataProtection()

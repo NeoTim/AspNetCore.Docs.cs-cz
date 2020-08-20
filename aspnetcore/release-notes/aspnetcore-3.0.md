@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 10741cfc701bf261484b9e6c73a2347e2dd7083d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a53ba22c301b04aafa1eeb53d91f82f90dab0bad
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019831"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631547"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -29,13 +30,13 @@ Tento článek popisuje nejvýznamnější změny v ASP.NET Core 3,0 s odkazy na
 
 ## Blazor
 
-Blazorje nová architektura v ASP.NET Core pro vytváření interaktivního webového uživatelského rozhraní na straně klienta pomocí .NET:
+Blazor je nová architektura v ASP.NET Core pro vytváření interaktivního webového uživatelského rozhraní na straně klienta pomocí .NET:
 
 * Vytvářejte bohatá interaktivní uživatelská rozhraní pomocí jazyka C# namísto JavaScriptu.
 * Sdílejte logiku aplikace na straně serveru a klienta napsanou v .NET.
 * Vykreslete uživatelské rozhraní jako HTML a CSS pro podporu pro rozsáhlou prohlížeč, včetně mobilních prohlížečů.
 
-Blazorscénáře podporované rozhraním:
+Blazor scénáře podporované rozhraním:
 
 * Opakovaně použitelné součásti uživatelského rozhraní ( Razor součásti)
 * Směrování na straně klienta
@@ -49,17 +50,17 @@ Další informace naleznete v tématu <xref:blazor/index>.
 
 ### Blazor Server
 
-Blazorodpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Serverposkytuje podporu pro hostování Razor komponent na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes SignalR připojení. Blazor Serverje podporován v ASP.NET Core 3,0.
+Blazor odpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Server poskytuje podporu pro hostování Razor komponent na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes SignalR připojení. Blazor Server je podporován v ASP.NET Core 3,0.
 
-### <a name="no-locblazor-webassembly-preview"></a>Blazor WebAssemblyTisk
+### <a name="no-locblazor-webassembly-preview"></a>Blazor WebAssembly Tisk
 
-Blazoraplikace je také možné spustit přímo v prohlížeči pomocí rozhraní .NET runtime založeného na WebAssembly. Blazor WebAssemblyje ve verzi Preview a *nepodporuje* se v ASP.NET Core 3,0. Blazor WebAssemblybude podporován v budoucí verzi ASP.NET Core.
+Blazor aplikace je také možné spustit přímo v prohlížeči pomocí rozhraní .NET runtime založeného na WebAssembly. Blazor WebAssembly je ve verzi Preview a *nepodporuje* se v ASP.NET Core 3,0. Blazor WebAssembly bude podporován v budoucí verzi ASP.NET Core.
 
-### <a name="no-locrazor-components"></a>Razorkonstrukční
+### <a name="no-locrazor-components"></a>Razor konstrukční
 
-Blazoraplikace jsou sestavené z komponent. Komponenty jsou samostatné bloky uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenty jsou normální třídy .NET, které definují logiku vykreslování uživatelského rozhraní a obslužné rutiny událostí na straně klienta. Můžete vytvářet bohatě interaktivní webové aplikace bez JavaScriptu.
+Blazor aplikace jsou sestavené z komponent. Komponenty jsou samostatné bloky uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenty jsou normální třídy .NET, které definují logiku vykreslování uživatelského rozhraní a obslužné rutiny událostí na straně klienta. Můžete vytvářet bohatě interaktivní webové aplikace bez JavaScriptu.
 
-Komponenty v Blazor jsou obvykle vytvořeny pomocí Razor syntaxe, přirozeného Blendu HTML a jazyka C#. Razorkomponenty jsou podobné Razor zobrazením stránky a MVC v tom, že obě používají Razor . Na rozdíl od stránek a zobrazení, které jsou založeny na modelu požadavek-odpověď, se komponenty používají konkrétně pro zpracování kompozice uživatelského rozhraní.
+Komponenty v Blazor jsou obvykle vytvořeny pomocí Razor syntaxe, přirozeného Blendu HTML a jazyka C#. Razor komponenty jsou podobné Razor zobrazením stránky a MVC v tom, že obě používají Razor . Na rozdíl od stránek a zobrazení, které jsou založeny na modelu požadavek-odpověď, se komponenty používají konkrétně pro zpracování kompozice uživatelského rozhraní.
 
 ## <a name="grpc"></a>gRPC
 
@@ -74,7 +75,7 @@ Komponenty v Blazor jsou obvykle vytvořeny pomocí Razor syntaxe, přirozeného
   * Formát binární serializace.
 * Poskytuje funkce, jako například:
 
-  * Ověřování
+  * Authentication
   * Obousměrné streamování a řízení toku.
   * Zrušení a vypršení časového limitu.
 
@@ -88,7 +89,7 @@ Další informace naleznete v tématu <xref:grpc/index>.
 
 ## SignalR
 
-Pokyny k migraci najdete v tématu [aktualizace SignalR kódu](xref:migration/22-to-30#signalr) . SignalRnyní používá `System.Text.Json` k serializaci nebo deserializaci zpráv JSON. Pokyny pro obnovení serializátoru založeného na systému najdete v tématu [Přepnutí na Newtonsoft.Js](xref:migration/22-to-30#switch-to-newtonsoftjson) `Newtonsoft.Json` .
+Pokyny k migraci najdete v tématu [aktualizace SignalR kódu](xref:migration/22-to-30#signalr) . SignalR nyní používá `System.Text.Json` k serializaci nebo deserializaci zpráv JSON. Pokyny pro obnovení serializátoru založeného na systému najdete v tématu [Přepnutí na Newtonsoft.Js](xref:migration/22-to-30#switch-to-newtonsoftjson) `Newtonsoft.Json` .
 
 V klientech JavaScript a .NET pro SignalR se podpora přidala pro automatické opětovné připojení. Ve výchozím nastavení se klient pokusí znovu připojit hned a v případě potřeby opakovat po 2, 10 a 30 sekundách. Pokud se klient úspěšně znovu připojí, obdrží nové ID připojení. Automatické opětovné připojení je výslovný souhlas:
 
@@ -142,7 +143,7 @@ connection.onreconnected((connectionId) => {
 });
 ```
 
-SignalR3,0 a novější poskytuje vlastní prostředek pro obslužné rutiny autorizace, pokud metoda rozbočovače vyžaduje autorizaci. Prostředek je instancí `HubInvocationContext` . `HubInvocationContext`Obsahuje:
+SignalR 3,0 a novější poskytuje vlastní prostředek pro obslužné rutiny autorizace, pokud metoda rozbočovače vyžaduje autorizaci. Prostředek je instancí `HubInvocationContext` . `HubInvocationContext`Obsahuje:
 
 * `HubCallerContext`
 * Název vyvolané metody centra
@@ -232,7 +233,7 @@ services
     });
 ```
 
-SignalRcentra používají [Směrování koncových bodů](xref:fundamentals/routing). SignalRpřipojení k rozbočovači bylo dříve provedeno explicitně:
+SignalR centra používají [Směrování koncových bodů](xref:fundamentals/routing). SignalR připojení k rozbočovači bylo dříve provedeno explicitně:
 
 ```csharp
 app.UseSignalR(routes =>
@@ -255,7 +256,7 @@ app.UseRouting(routes =>
 });
 ```
 
-SignalRcentra 3,0 se dají směrovat přes směrování koncových bodů. Se směrováním koncových bodů se obvykle dá nakonfigurovat všechny směrování v nástroji `UseRouting` :
+SignalR centra 3,0 se dají směrovat přes směrování koncových bodů. Se směrováním koncových bodů se obvykle dá nakonfigurovat všechny směrování v nástroji `UseRouting` :
 
 ```csharp
 app.UseRouting(routes =>
@@ -331,7 +332,7 @@ Následující seznam obsahuje nové Razor direktivy:
 
 ## <a name="no-locidentityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 podporuje ověřování a autorizaci pro webová rozhraní API a jednostránkové.
 
-ASP.NET Core 3,0 nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) s využitím podpory pro autorizaci webového rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelů se v kombinaci s [ Identity Server4](https://identityserver.io/) pro implementaci OpenID připojení.
+ASP.NET Core 3,0 nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) s využitím podpory pro autorizaci webového rozhraní API. ASP.NET Core Identitypro ověřování a ukládání uživatelů se v kombinaci s [ Identity Server4](https://identityserver.io/) pro implementaci OpenID Connect.
 
 IdentityServer4 je rozhraní OpenID Connect a OAuth 2,0 Framework pro ASP.NET Core 3,0. Umožňuje následující funkce zabezpečení:
 
@@ -487,7 +488,7 @@ Další informace najdete v následujících článcích:
 
 ## <a name="pipes-on-httpcontext"></a>Kanály na HttpContext
 
-Nyní je možné číst text žádosti a zapsat tělo odpovědi pomocí <xref:System.IO.Pipelines> rozhraní API. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader`vlastnost poskytuje objekt <xref:System.IO.Pipelines.PipeReader> , který lze použít ke čtení textu žádosti. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter`vlastnost poskytuje <xref:System.IO.Pipelines.PipeWriter> , kterou lze použít k zápisu textu odpovědi. `HttpRequest.BodyReader`je analogkou `HttpRequest.Body` datového proudu. `HttpResponse.BodyWriter`je analogkou `HttpResponse.Body` datového proudu.
+Nyní je možné číst text žádosti a zapsat tělo odpovědi pomocí <xref:System.IO.Pipelines> rozhraní API. Rozhraní <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader` vlastnost poskytuje objekt <xref:System.IO.Pipelines.PipeReader> , který lze použít ke čtení textu žádosti. Rozhraní <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter` vlastnost poskytuje <xref:System.IO.Pipelines.PipeWriter> , kterou lze použít k zápisu textu odpovědi. `HttpRequest.BodyReader` je analogkou `HttpRequest.Body` datového proudu. `HttpResponse.BodyWriter` je analogkou `HttpResponse.Body` datového proudu.
 
 <!-- indirectly related, https://github.com/dotnet/docs/pull/14414 won't be published by 9/23  -->
 
@@ -507,9 +508,9 @@ Další informace:
 
 ## <a name="forwarded-headers-middleware-improvements"></a>Vylepšení middlewaru u předávaných hlaviček
 
-V předchozích verzích ASP.NET Core volání <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> a <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> bylo problematické při nasazení do Azure Linux nebo za libovolný reverzní proxy server jiný než IIS. Oprava pro předchozí verze je popsána v [části dopředného schématu pro reverzní proxy servery se systémy Linux a non-IIS](xref:host-and-deploy/proxy-load-balancer#forward-the-scheme-for-linux-and-non-iis-reverse-proxies).
+V předchozích verzích ASP.NET Core volání <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> a  <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> bylo problematické při nasazení do Azure Linux nebo za libovolný reverzní proxy server jiný než IIS. Oprava pro předchozí verze je popsána v [části dopředného schématu pro reverzní proxy servery se systémy Linux a non-IIS](xref:host-and-deploy/proxy-load-balancer#forward-the-scheme-for-linux-and-non-iis-reverse-proxies).
 
-Tento scénář je opravený v ASP.NET Core 3,0. Hostitel povoluje [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options) , pokud `ASPNETCORE_FORWARDEDHEADERS_ENABLED` je proměnná prostředí nastavena na `true` . `ASPNETCORE_FORWARDEDHEADERS_ENABLED`je nastavené na `true` obrázky kontejnerů.
+Tento scénář je opravený v ASP.NET Core 3,0. Hostitel povoluje [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options) , pokud `ASPNETCORE_FORWARDEDHEADERS_ENABLED` je proměnná prostředí nastavena na `true` . `ASPNETCORE_FORWARDEDHEADERS_ENABLED` je nastavené na `true` obrázky kontejnerů.
 
 ## <a name="performance-improvements"></a>Vylepšení výkonu
 

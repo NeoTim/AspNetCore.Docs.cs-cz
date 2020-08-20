@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 10/17/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/dotnet-grpc
-ms.openlocfilehash: d41958d586f54d5944af187933f2b0248f763171
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 18d504d7a130aeaa9f8ab6cca6c92dab5febfae6
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016126"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633237"
 ---
 # <a name="manage-protobuf-references-with-dotnet-grpc"></a>Správa odkazů Protobuf pomocí dotnet-grpc
 
 Od [Jan Luo](https://github.com/juntaoluo)
 
-`dotnet-grpc`je globální nástroj .NET Core pro správu [Protobuf (*.* a)](xref:grpc/basics#proto-file) v rámci projektu .NET gRPC. Nástroj lze použít k přidání, aktualizaci, odebrání a výpisu odkazů Protobuf.
+`dotnet-grpc` je globální nástroj .NET Core pro správu [Protobuf (*.* a)](xref:grpc/basics#proto-file) v rámci projektu .NET gRPC. Nástroj lze použít k přidání, aktualizaci, odebrání a výpisu odkazů Protobuf.
 
 ## <a name="installation"></a>Instalace
 
@@ -39,7 +40,7 @@ dotnet tool install -g dotnet-grpc
 
 ## <a name="add-references"></a>Přidat odkazy
 
-`dotnet-grpc`lze použít k přidání odkazů Protobuf jako `<Protobuf />` položek do souboru *. csproj* :
+`dotnet-grpc` lze použít k přidání odkazů Protobuf jako `<Protobuf />` položek do souboru *. csproj* :
 
 ```xml
 <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
@@ -51,7 +52,7 @@ Odkazy na Protobuf slouží ke generování prostředků v jazyce C# a/nebo serv
 * Vytvoří odkaz Protobuf ze vzdáleného souboru zadaného adresou URL.
 * Zajistěte, aby se do projektu přidaly správné závislosti balíčků gRPC.
 
-Například `Grpc.AspNetCore` balíček se přidá do webové aplikace. `Grpc.AspNetCore`obsahuje gRPC Server a klientské knihovny a podporu nástrojů. `Grpc.Net.Client` `Grpc.Tools` `Google.Protobuf` Do konzolové aplikace jsou přidány také balíčky, a, které obsahují pouze klientské knihovny gRPC a podpora nástrojů.
+Například `Grpc.AspNetCore` balíček se přidá do webové aplikace. `Grpc.AspNetCore` obsahuje gRPC Server a klientské knihovny a podporu nástrojů. `Grpc.Net.Client` `Grpc.Tools` `Google.Protobuf` Do konzolové aplikace jsou přidány také balíčky, a, které obsahují pouze klientské knihovny gRPC a podpora nástrojů.
 
 ### <a name="add-file"></a>Přidat soubor
 

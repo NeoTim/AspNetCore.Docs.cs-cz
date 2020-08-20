@@ -5,6 +5,7 @@ description: Třetí část série kurzů na Razor stránkách.
 ms.author: riande
 ms.date: 08/17/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: f8942e52b3b438817e3d1041a2c6b568eb662469
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 9fc44d228a31b8ae6c78dc12988392806dd95823
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020389"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633432"
 ---
 # <a name="part-3-scaffolded-no-locrazor-pages-in-aspnet-core"></a>Část 3, vygenerované Razor stránky v ASP.NET Core
 
@@ -38,23 +39,23 @@ Projděte si model stránky *stránky/filmy/index. cshtml. cs* :
 
 [!code-csharp[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs)]
 
-RazorStránky jsou odvozeny z `PageModel` . Podle konvence `PageModel` je volána třída odvozená od třídy `<PageName>Model` . Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání na `RazorPagesMovieContext` stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování pomocí Entity Framework naleznete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
+Razor Stránky jsou odvozeny z `PageModel` . Podle konvence `PageModel` je volána třída odvozená od třídy `<PageName>Model` . Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání na `RazorPagesMovieContext` stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování pomocí Entity Framework naleznete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
 
-Když je vytvořena žádost pro stránku, `OnGetAsync` Metoda vrátí seznam filmů na Razor stránku. `OnGetAsync`nebo `OnGet` se volá k inicializaci stavu stránky. V tomto případě `OnGetAsync` získá seznam filmů a zobrazí je.
+Když je vytvořena žádost pro stránku, `OnGetAsync` Metoda vrátí seznam filmů na Razor stránku. `OnGetAsync` nebo `OnGet` se volá k inicializaci stavu stránky. V tomto případě `OnGetAsync` získá seznam filmů a zobrazí je.
 
 Při vrácení nebo vrácení se `OnGet` `void` `OnGetAsync` `Task` nepoužije žádný návratový příkaz. Pokud je návratový typ `IActionResult` nebo `Task<IActionResult>` , je nutné poskytnout návratový příkaz. Například metoda *Pages/video/Create. cshtml. cs* `OnPostAsync` :
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
-<a name="index"></a>Projděte stránku *stránky/filmy/index. cshtml* Razor :
+<a name="index"></a> Projděte stránku *stránky/filmy/index. cshtml* Razor :
 
 [!code-cshtml[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml)]
 
-Razormůže přejít z formátu HTML do jazyka C# nebo do Razor specifického kódu. `@`Je-li symbol následován [ Razor vyhrazeným klíčovým slovem](xref:mvc/views/razor#razor-reserved-keywords), přechází na Razor konkrétní značku, jinak přejde do jazyka C#.
+Razor může přejít z formátu HTML do jazyka C# nebo do Razor specifického kódu. `@`Je-li symbol následován [ Razor vyhrazeným klíčovým slovem](xref:mvc/views/razor#razor-reserved-keywords), přechází na Razor konkrétní značku, jinak přejde do jazyka C#.
 
 ### <a name="the-page-directive"></a>@pageDirektiva
 
-Tato `@page` Razor direktiva vytvoří soubor akce MVC, což znamená, že může zpracovávat požadavky. `@page`musí se jednat o první Razor direktivu na stránce. `@page`je příkladem přechodu na Razor konkrétní značku. Další informace najdete v tématu [ Razor syntaxe](xref:mvc/views/razor#razor-syntax) .
+Tato `@page` Razor direktiva vytvoří soubor akce MVC, což znamená, že může zpracovávat požadavky. `@page` musí se jednat o první Razor direktivu na stránce. `@page` je příkladem přechodu na Razor konkrétní značku. Další informace najdete v tématu [ Razor syntaxe](xref:mvc/views/razor#razor-syntax) .
 
 Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
 
@@ -81,7 +82,7 @@ Vyberte odkazy nabídky (** Razor PagesMovie**, **Home**a **Privacy**). Na každ
 * Zadáno na jednom místě.
 * Použito na více stránkách v lokalitě.
 
-Najděte `@RenderBody()` řádek. `RenderBody`je zástupný symbol, kde jsou všechna zobrazení konkrétní stránky zobrazena, *zabalena* na stránce rozložení. Například vyberte odkaz **osobních údajů** a zobrazení *stránky/soukromí. cshtml* je vykresleno uvnitř `RenderBody` metody.
+Najděte `@RenderBody()` řádek. `RenderBody` je zástupný symbol, kde jsou všechna zobrazení konkrétní stránky zobrazena, *zabalena* na stránce rozložení. Například vyberte odkaz **osobních údajů** a zobrazení *stránky/soukromí. cshtml* je vykresleno uvnitř `RenderBody` metody.
 
 <a name="vd"></a>
 
@@ -209,7 +210,7 @@ Modul generování uživatelského rozhraní vytvoří Razor značky pro každé
 
 Další informace o Pomocníkech značek `<form method="post">` , jako je, najdete [v tématu označení pomocníků značek v ASP.NET Core](xref:mvc/views/tag-helpers/intro).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 > [!div class="step-by-step"]
 > [Předchozí: Přidání modelu](xref:tutorials/razor-pages/model) 
@@ -231,21 +232,21 @@ Projděte si model stránky *stránky/filmy/index. cshtml. cs* :
 
 [!code-csharp[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs)]
 
-RazorStránky jsou odvozeny z `PageModel` . Podle konvence `PageModel` je volána třída odvozená od třídy `<PageName>Model` . Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání na `RazorPagesMovieContext` stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování pomocí Entity Framework naleznete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
+Razor Stránky jsou odvozeny z `PageModel` . Podle konvence `PageModel` je volána třída odvozená od třídy `<PageName>Model` . Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání na `RazorPagesMovieContext` stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování pomocí Entity Framework naleznete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
 
-Když je vytvořena žádost pro stránku, `OnGetAsync` Metoda vrátí seznam filmů na Razor stránku. `OnGetAsync`nebo `OnGet` je volána na Razor stránce pro inicializaci stavu stránky. V tomto případě `OnGetAsync` získá seznam filmů a zobrazí je.
+Když je vytvořena žádost pro stránku, `OnGetAsync` Metoda vrátí seznam filmů na Razor stránku. `OnGetAsync` nebo `OnGet` je volána na Razor stránce pro inicializaci stavu stránky. V tomto případě `OnGetAsync` získá seznam filmů a zobrazí je.
 
 Při vrácení nebo vrácení se `OnGet` `void` `OnGetAsync` `Task` nepoužije žádná návratová metoda. Pokud je návratový typ `IActionResult` nebo `Task<IActionResult>` , je nutné poskytnout návratový příkaz. Například metoda *Pages/video/Create. cshtml. cs* `OnPostAsync` :
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
-<a name="index"></a>Projděte stránku *stránky/filmy/index. cshtml* Razor :
+<a name="index"></a> Projděte stránku *stránky/filmy/index. cshtml* Razor :
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml)]
 
-Razormůže přejít z formátu HTML do jazyka C# nebo do Razor specifického kódu. `@`Je-li symbol následován [ Razor vyhrazeným klíčovým slovem](xref:mvc/views/razor#razor-reserved-keywords), přechází na Razor konkrétní značku, jinak přejde do jazyka C#.
+Razor může přejít z formátu HTML do jazyka C# nebo do Razor specifického kódu. `@`Je-li symbol následován [ Razor vyhrazeným klíčovým slovem](xref:mvc/views/razor#razor-reserved-keywords), přechází na Razor konkrétní značku, jinak přejde do jazyka C#.
 
-`@page` Razor Direktiva vytvoří soubor na akci MVC, což znamená, že může zpracovávat požadavky. `@page`musí se jednat o první Razor direktivu na stránce. `@page`je příkladem přechodu na Razor konkrétní značku. Další informace najdete v tématu [ Razor syntaxe](xref:mvc/views/razor#razor-syntax) .
+`@page` Razor Direktiva vytvoří soubor na akci MVC, což znamená, že může zpracovávat požadavky. `@page` musí se jednat o první Razor direktivu na stránce. `@page` je příkladem přechodu na Razor konkrétní značku. Další informace najdete v tématu [ Razor syntaxe](xref:mvc/views/razor#razor-syntax) .
 
 Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
 
@@ -267,7 +268,7 @@ Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
 
 Vyberte odkazy nabídky (** Razor PagesMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *Pages/Shared/_Layout. cshtml* . Otevřete soubor *stránky/Shared/_Layout. cshtml* .
 
-Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte `@RenderBody()` řádek. `RenderBody`je zástupný symbol, kde jsou všechna zobrazení pro konkrétní stránku, která vytvoříte, *zabalena* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **stránky/soukromí. cshtml** se vykreslí uvnitř `RenderBody` metody.
+Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte `@RenderBody()` řádek. `RenderBody` je zástupný symbol, kde jsou všechna zobrazení pro konkrétní stránku, která vytvoříte, *zabalena* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **stránky/soukromí. cshtml** se vykreslí uvnitř `RenderBody` metody.
 
 <a name="vd"></a>
 
@@ -375,7 +376,7 @@ Modul generování uživatelského rozhraní vytvoří Razor značky pro každé
 
 [Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) ( `<input asp-for="Movie.Title" class="form-control">` ) používá atributy [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) a vytváří atributy HTML potřebné pro ověření jQuery na straně klienta.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/zxgKjPYnOMM)
 

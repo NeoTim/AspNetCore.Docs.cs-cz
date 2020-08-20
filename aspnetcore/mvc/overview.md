@@ -5,6 +5,7 @@ description: Přečtěte si, jak ASP.NET Core MVC je bohatá architektura pro vy
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/overview
-ms.openlocfilehash: 64bee1966eff40e9057166adfafbf78d0cc5b6aa
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 29701506d9f6c1ff90081a548d524bc0deb65cda
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021442"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633614"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -77,7 +78,7 @@ ASP.NET Core MVC zahrnuje následující:
 * [Oblasti](#areas)
 * [Webová rozhraní API](#web-apis)
 * [Testovatelnosti](#testability)
-* [RazorZobrazit modul](#razor-view-engine)
+* [Razor Zobrazit modul](#razor-view-engine)
 * [Zobrazení silného typu](#strongly-typed-views)
 * [Pomocné rutiny značek](#tag-helpers)
 * [Zobrazit součásti](#view-components)
@@ -173,7 +174,7 @@ Aplikace může také používat [vkládání závislostí v souborech zobrazen�
 
 ### <a name="filters"></a>Filtry
 
-[Filtry](controllers/filters.md) , které vývojářům pomůžou zapouzdřit věci mimo průřez, jako je zpracování výjimek nebo autorizace. Filtry umožňují spuštění vlastní logiky před a po zpracování pro metody akcí a lze je nakonfigurovat tak, aby běžely v určitých bodech v rámci kanálu spuštění pro daný požadavek. Filtry lze použít u řadičů nebo akcí jako atributů (nebo je lze spustit globálně). `Authorize`V rámci rozhraní je zahrnuto několik filtrů (například). `[Authorize]`je atribut, který se používá k vytváření ověřovacích filtrů MVC.
+[Filtry](controllers/filters.md) , které vývojářům pomůžou zapouzdřit věci mimo průřez, jako je zpracování výjimek nebo autorizace. Filtry umožňují spuštění vlastní logiky před a po zpracování pro metody akcí a lze je nakonfigurovat tak, aby běžely v určitých bodech v rámci kanálu spuštění pro daný požadavek. Filtry lze použít u řadičů nebo akcí jako atributů (nebo je lze spustit globálně). `Authorize`V rámci rozhraní je zahrnuto několik filtrů (například). `[Authorize]` je atribut, který se používá k vytváření ověřovacích filtrů MVC.
 
 ```csharp
 [Authorize]
@@ -196,9 +197,9 @@ Pokud chcete povolit podporu pro multimédia, použijte generaci odkazů. Umož�
 
 Použití rozhraní a vkládání závislostí v rozhraní je vhodné pro testování částí a rozhraní zahrnuje funkce (jako je TestHost a inMemory Provider pro Entity Framework), které umožňují provádět i rychlé a snadné [testy integrace](xref:test/integration-tests) . Přečtěte si další informace o [testování logiky kontroleru](controllers/testing.md).
 
-### <a name="no-locrazor-view-engine"></a>RazorZobrazit modul
+### <a name="no-locrazor-view-engine"></a>Razor Zobrazit modul
 
-[ASP.NET Core zobrazení MVC](views/overview.md) používají k vykreslování zobrazení [ Razor modul zobrazení](views/razor.md) . Razorje kompaktní, expresně a jazyk kapalinového kódu pro definování zobrazení pomocí vloženého kódu jazyka C#. Razorslouží k dynamickému generování webového obsahu na serveru. Kód serveru můžete vyčistit pomocí obsahu a kódu na straně klienta.
+[ASP.NET Core zobrazení MVC](views/overview.md) používají k vykreslování zobrazení [ Razor modul zobrazení](views/razor.md) . Razor je kompaktní, expresně a jazyk kapalinového kódu pro definování zobrazení pomocí vloženého kódu jazyka C#. Razor slouží k dynamickému generování webového obsahu na serveru. Kód serveru můžete vyčistit pomocí obsahu a kódu na straně klienta.
 
 ```cshtml
 <ul>
@@ -212,7 +213,7 @@ Pomocí modulu Razor zobrazení můžete definovat [rozložení](views/layout.md
 
 ### <a name="strongly-typed-views"></a>Zobrazení silného typu
 
-Razorzobrazení v MVC můžou být na základě vašeho modelu silného typu. Řadiče můžou předat model silného typu k zobrazením, která umožňují, aby vaše zobrazení měla kontrolu typů a podporu technologie IntelliSense.
+Razor zobrazení v MVC můžou být na základě vašeho modelu silného typu. Řadiče můžou předat model silného typu k zobrazením, která umožňují, aby vaše zobrazení měla kontrolu typů a podporu technologie IntelliSense.
 
 Například následující zobrazení vykresluje model typu `IEnumerable<Product>` :
 
@@ -265,7 +266,7 @@ Značky pomocníků poskytují prostředí pro vývoj ve formátu HTML a bohatou
 
 Další informace naleznete v tématu <xref:mvc/compatibility-version>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [MyTested. AspNetCore. Mvc – knihovna testování Fluent pro ASP.NET Core MVC](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc): knihovna testování jednotek se silnými typy a poskytuje rozhraní Fluent pro testování MVC a webových aplikací API. (*Společnost Microsoft nespravuje ani nepodporuje.*)
 * <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>

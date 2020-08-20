@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/23/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/diagnostics
-ms.openlocfilehash: bf8068375da81288f2fbfa2c1bfafe97c03c70fc
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 5c4c05e74a8223db3ade03b067bd66921439c99f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016177"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633263"
 ---
 # <a name="logging-and-diagnostics-in-grpc-on-net"></a>Protokolování a diagnostika v gRPC v .NET
 
@@ -29,11 +30,11 @@ Od [James Newton – král](https://twitter.com/jamesnk)
 
 Tento článek poskytuje pokyny pro shromažďování diagnostických informací z aplikace gRPC, které vám pomůžou při řešení problémů. Probíraná témata zahrnují:
 
-* **Protokolování** strukturovaných protokolů zapsaných do [protokolování .NET Core](xref:fundamentals/logging/index). <xref:Microsoft.Extensions.Logging.ILogger>používá v aplikačních architekturách k zápisu protokolů a uživatelů pro vlastní protokolování v aplikaci.
+* **Protokolování** strukturovaných protokolů zapsaných do [protokolování .NET Core](xref:fundamentals/logging/index). <xref:Microsoft.Extensions.Logging.ILogger> používá v aplikačních architekturách k zápisu protokolů a uživatelů pro vlastní protokolování v aplikaci.
 * **Trasování** – události související s operací napsanou pomocí `DiaganosticSource` a `Activity` . Trasování ze zdroje diagnostiky se běžně používají ke shromažďování telemetrie aplikací pomocí knihoven, jako jsou [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-core) a [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet).
 * **Metriky** – reprezentace míry dat v časových intervalech, například požadavků za sekundu. Metriky jsou vydávány pomocí `EventCounter` nástroje a mohou být pozorovány pomocí nástroje příkazového řádku [dotnet-Counters](https://docs.microsoft.com/dotnet/core/diagnostics/dotnet-counters) nebo s [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/eventcounters).
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 gRPC Services a klient gRPC zapisují protokoly pomocí [protokolování .NET Core](xref:fundamentals/logging/index). Protokoly jsou vhodné ke spuštění, když potřebujete ladit neočekávané chování ve vašich aplikacích.
 
@@ -162,7 +163,7 @@ Nejjednodušší způsob, jak použít, `DiagnosticSource` je nakonfigurovat v a
 
 Trasování lze zobrazit ve spravované službě, jako je například Application Insights, nebo můžete zvolit spuštění vlastního systému distribuované vektorizace. OpenTelemetry podporuje export dat trasování do [Jaeger](https://www.jaegertracing.io/) a [Zipkin](https://zipkin.io/).
 
-`DiagnosticSource`může spotřebovávat události trasování v kódu pomocí `DiagnosticListener` . Informace o naslouchání diagnostickému zdroji pomocí kódu naleznete v [uživatelské příručce DiagnosticSource](https://github.com/dotnet/corefx/blob/d3942d4671919edb0cca6ddc1840190f524a809d/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md#consuming-data-with-diagnosticlistener).
+`DiagnosticSource` může spotřebovávat události trasování v kódu pomocí `DiagnosticListener` . Informace o naslouchání diagnostickému zdroji pomocí kódu naleznete v [uživatelské příručce DiagnosticSource](https://github.com/dotnet/corefx/blob/d3942d4671919edb0cca6ddc1840190f524a809d/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md#consuming-data-with-diagnosticlistener).
 
 > [!NOTE]
 > Knihovny telemetrie momentálně nezachycují gRPC specifickou `Grpc.Net.Client.GrpcOut` telemetrii. Práci pro zlepšení knihoven telemetrie, které zachytí toto trasování, pokračuje.

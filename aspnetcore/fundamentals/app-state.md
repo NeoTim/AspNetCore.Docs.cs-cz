@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/06/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/app-state
-ms.openlocfilehash: c05129c0f239fb28c83ab1c561dd910305eeb54b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 95035ec372ab6adb5bafb40f2b939c549ac6f839
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017633"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633809"
 ---
 # <a name="session-and-state-management-in-aspnet-core"></a>Správa relací a stavu v ASP.NET Core
 
@@ -112,7 +113,7 @@ Důležité je pořadí middlewaru.  Zavolejte `UseSession` za `UseRouting` a p�
 
 [HttpContext. Session](xref:Microsoft.AspNetCore.Http.HttpContext.Session) je k dispozici po nakonfigurování stavu relace.
 
-`HttpContext.Session`k ní nelze přistupovat před `UseSession` voláním.
+`HttpContext.Session` k ní nelze přistupovat před `UseSession` voláním.
 
 Novou relaci s novou relací cookie nelze vytvořit poté, co aplikace začne zapisovat do datového proudu odpovědí. Výjimka se zaznamená do protokolu webového serveru a nezobrazuje se v prohlížeči.
 
@@ -128,7 +129,7 @@ K přepsání výchozích hodnot relace použijte <xref:Microsoft.AspNetCore.Bui
 
 | Možnost | Popis |
 | ------ | ----------- |
-| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | Určuje nastavení použité k vytvoření cookie . <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name>Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> ( `.AspNetCore.Session` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path>Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> ( `/` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite>Výchozí hodnota je <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> ( `1` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly>Výchozí hodnota je `true` . <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential>Výchozí hodnota je `false` . |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | Určuje nastavení použité k vytvoření cookie . <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name> Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> ( `.AspNetCore.Session` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path> Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> ( `/` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> Výchozí hodnota je <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> ( `1` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> Výchozí hodnota je `true` . <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> Výchozí hodnota je `false` . |
 | <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout`Určuje, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu. Při každém přístupu k relaci se obnoví časový limit. Toto nastavení se vztahuje pouze na obsah relace, nikoli na cookie . Výchozí nastavení je 20 minut. |
 | <xref:Microsoft.AspNetCore.Builder.SessionOptions.IOTimeout> | Maximální doba, po kterou je možné načíst relaci z úložiště nebo ji zapsat zpět do úložiště. Toto nastavení se může vztahovat jenom na asynchronní operace. Tento časový limit se dá zakázat pomocí <xref:System.Threading.Timeout.InfiniteTimeSpan> . Výchozí hodnota je 1 minuta. |
 
@@ -140,7 +141,7 @@ Pokud chcete přepsat cookie výchozí nastavení relace, použijte <xref:Micros
 
 Tato aplikace používá <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> vlastnost k určení, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu v mezipaměti serveru. Tato vlastnost je nezávislá na cookie vypršení platnosti. Každý požadavek, který projde [middlewarem relace](xref:Microsoft.AspNetCore.Session.SessionMiddleware) , obnoví časový limit.
 
-Stav relace není *zamknutý*. Pokud se dvě požadavky současně pokoušejí změnit obsah relace, poslední požadavek přepíše první. `Session`je implementován jako *souvislá relace*, což znamená, že veškerý obsah je uložen společně. Když se dvě žádosti snaží změnit jiné hodnoty relace, může poslední požadavek přepsat změny relace provedené prvním.
+Stav relace není *zamknutý*. Pokud se dvě požadavky současně pokoušejí změnit obsah relace, poslední požadavek přepíše první. `Session` je implementován jako *souvislá relace*, což znamená, že veškerý obsah je uložen společně. Když se dvě žádosti snaží změnit jiné hodnoty relace, může poslední požadavek přepsat změny relace provedené prvním.
 
 ### <a name="set-and-get-session-values"></a>Nastavení a získání hodnot relace
 
@@ -148,7 +149,7 @@ Stav relace je k dispozici Razor z <xref:Microsoft.AspNetCore.Mvc.RazorPages.Pag
 
 `ISession`Implementace poskytuje několik metod rozšíření pro nastavení a načtení hodnot typu Integer a String. Rozšiřující metody jsou v <xref:Microsoft.AspNetCore.Http> oboru názvů.
 
-`ISession`metody rozšíření:
+`ISession` metody rozšíření:
 
 * [Get (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.Get%2A)
 * [GetInt32 (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetInt32%2A)
@@ -184,7 +185,7 @@ Následující příklad ukazuje, jak nastavit a získat serializovatelný objek
 
 ## <a name="tempdata"></a>TempData
 
-ASP.NET Core zpřístupňuje Razor stránky [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) nebo Controller <xref:Microsoft.AspNetCore.Mvc.Controller.TempData> . Tato vlastnost ukládá data, dokud je nepřečetla v jiné žádosti. Metody [Keep (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) a [prohlížet (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) lze použít k prohlédnutí dat bez odstranění na konci žádosti. [Uchová](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) označení všech položek ve slovníku pro uchování. `TempData`dojde
+ASP.NET Core zpřístupňuje Razor stránky [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) nebo Controller <xref:Microsoft.AspNetCore.Mvc.Controller.TempData> . Tato vlastnost ukládá data, dokud je nepřečetla v jiné žádosti. Metody [Keep (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) a [prohlížet (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) lze použít k prohlédnutí dat bez odstranění na konci žádosti. [Uchová](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) označení všech položek ve slovníku pro uchování. `TempData` dojde
 
 * Hodí se pro přesměrování, pokud se vyžadují data pro více než jeden požadavek.
 * Implementované `TempData` poskytovateli pomocí cookie nebo stav relace.
@@ -239,7 +240,7 @@ Chcete-li povolit zprostředkovatele TempData založeného na relaci, použijte 
 
 Omezené množství dat lze předat z jedné žádosti do druhé tím, že ji přidáte do řetězce dotazu nové žádosti. To je užitečné pro zachycení stavu trvalým způsobem, který umožňuje sdílet odkazy s vloženým stavem prostřednictvím e-mailu nebo sociálních sítí. Vzhledem k tomu, že řetězce dotazu URL jsou veřejné, nikdy nepoužívejte řetězce dotazů pro citlivá data.
 
-Kromě nezamýšleného sdílení, včetně dat v řetězcích dotazů, může aplikace vystavit útokům prostřednictvím [CSRF (mezi lokalitami)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) . Všechny zachované stavy relací musí chránit před CSRF útoky. Další informace najdete v tématu [prevence útoků proti falšování (XSRF/CSRF) žádostí mezi weby](xref:security/anti-request-forgery).
+Kromě nezamýšleného sdílení, včetně dat v řetězcích dotazů, může aplikace vystavit útokům prostřednictvím [CSRF (mezi lokalitami)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) . Všechny zachované stavy relací musí chránit před CSRF útoky. Další informace naleznete v tématu <xref:security/anti-request-forgery>.
 
 ## <a name="hidden-fields"></a>Skrytá pole
 
@@ -284,13 +285,13 @@ Pokud middleware relace nemůže uchovat relaci:
 
 Middleware relace může selhat při zachování relace, pokud není k dispozici záložní úložiště. Uživatel například ukládá v relaci nákupní košík. Uživatel přidá položku na košík, ale potvrzení se nezdařilo. Aplikace neví o selhání, takže oznamuje uživateli, že se položka přidala do svého košíku, což není pravda.
 
-Doporučený postup pro kontrolu chyb je zavolat, `await feature.Session.CommitAsync` Jakmile se aplikace dokončí zápisem do relace. <xref:Microsoft.AspNetCore.Http.ISession.CommitAsync*>vyvolá výjimku, pokud není záložní úložiště k dispozici. `CommitAsync`V případě chyby může aplikace zpracovat výjimku. <xref:Microsoft.AspNetCore.Http.ISession.LoadAsync*>Vyvolá se za stejných podmínek, když úložiště dat není k dispozici.
+Doporučený postup pro kontrolu chyb je zavolat, `await feature.Session.CommitAsync` Jakmile se aplikace dokončí zápisem do relace. <xref:Microsoft.AspNetCore.Http.ISession.CommitAsync*> vyvolá výjimku, pokud není záložní úložiště k dispozici. `CommitAsync`V případě chyby může aplikace zpracovat výjimku. <xref:Microsoft.AspNetCore.Http.ISession.LoadAsync*> Vyvolá se za stejných podmínek, když úložiště dat není k dispozici.
   
-## <a name="no-locsignalr-and-session-state"></a>SignalRa stav relace
+## <a name="no-locsignalr-and-session-state"></a>SignalR a stav relace
 
-SignalRaplikace by neměly pro ukládání informací používat stav relace. SignalRaplikace se můžou ukládat na stav připojení v `Context.Items` centru. <!-- https://github.com/aspnet/SignalR/issues/2139 -->
+SignalR aplikace by neměly pro ukládání informací používat stav relace. SignalR aplikace se můžou ukládat na stav připojení v `Context.Items` centru. <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 <xref:host-and-deploy/web-farm>
 ::: moniker-end
@@ -370,9 +371,9 @@ Následující kód ukazuje, jak nastavit zprostředkovatele relace v paměti s 
 
 Důležité je pořadí middlewaru. V předchozím příkladu `InvalidOperationException` dojde k výjimce při `UseSession` vyvolání po `UseMvc` . Další informace najdete v tématu [řazení middlewaru](xref:fundamentals/middleware/index#order).
 
-<xref:Microsoft.AspNetCore.Http.HttpContext.Session?displayProperty=nameWithType>je k dispozici po konfiguraci stavu relace.
+<xref:Microsoft.AspNetCore.Http.HttpContext.Session?displayProperty=nameWithType> je k dispozici po konfiguraci stavu relace.
 
-`HttpContext.Session`k ní nelze přistupovat před `UseSession` voláním.
+`HttpContext.Session` k ní nelze přistupovat před `UseSession` voláním.
 
 Novou relaci s novou relací cookie nelze vytvořit poté, co aplikace začne zapisovat do datového proudu odpovědí. Výjimka se zaznamená do protokolu webového serveru a nezobrazuje se v prohlížeči.
 
@@ -388,7 +389,7 @@ K přepsání výchozích hodnot relace použijte <xref:Microsoft.AspNetCore.Bui
 
 | Možnost | Popis |
 | ------ | ----------- |
-| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | Určuje nastavení použité k vytvoření cookie . <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name>Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> ( `.AspNetCore.Session` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path>Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> ( `/` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite>Výchozí hodnota je <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> ( `1` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly>Výchozí hodnota je `true` . <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential>Výchozí hodnota je `false` . |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | Určuje nastavení použité k vytvoření cookie . <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name> Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> ( `.AspNetCore.Session` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path> Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> ( `/` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> Výchozí hodnota je <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> ( `1` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> Výchozí hodnota je `true` . <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> Výchozí hodnota je `false` . |
 | <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout`Určuje, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu. Při každém přístupu k relaci se obnoví časový limit. Toto nastavení se vztahuje pouze na obsah relace, nikoli na cookie . Výchozí nastavení je 20 minut. |
 | <xref:Microsoft.AspNetCore.Builder.SessionOptions.IOTimeout> | Maximální doba, po kterou je možné načíst relaci z úložiště nebo ji zapsat zpět do úložiště. Toto nastavení se může vztahovat jenom na asynchronní operace. Tento časový limit se dá zakázat pomocí <xref:System.Threading.Timeout.InfiniteTimeSpan> . Výchozí hodnota je 1 minuta. |
 
@@ -400,7 +401,7 @@ Pokud chcete přepsat cookie výchozí nastavení relace, použijte `SessionOpti
 
 Tato aplikace používá <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> vlastnost k určení, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu v mezipaměti serveru. Tato vlastnost je nezávislá na cookie vypršení platnosti. Každý požadavek, který projde [middlewarem relace](xref:Microsoft.AspNetCore.Session.SessionMiddleware) , obnoví časový limit.
 
-Stav relace není *zamknutý*. Pokud se dvě požadavky současně pokoušejí změnit obsah relace, poslední požadavek přepíše první. `Session`je implementován jako *souvislá relace*, což znamená, že veškerý obsah je uložen společně. Když se dvě žádosti snaží změnit jiné hodnoty relace, může poslední požadavek přepsat změny relace provedené prvním.
+Stav relace není *zamknutý*. Pokud se dvě požadavky současně pokoušejí změnit obsah relace, poslední požadavek přepíše první. `Session` je implementován jako *souvislá relace*, což znamená, že veškerý obsah je uložen společně. Když se dvě žádosti snaží změnit jiné hodnoty relace, může poslední požadavek přepsat změny relace provedené prvním.
 
 ### <a name="set-and-get-session-values"></a>Nastavení a získání hodnot relace
 
@@ -408,7 +409,7 @@ Stav relace je k dispozici Razor z <xref:Microsoft.AspNetCore.Mvc.RazorPages.Pag
 
 `ISession`Implementace poskytuje několik metod rozšíření pro nastavení a načtení hodnot typu Integer a String. Metody rozšíření jsou v <xref:Microsoft.AspNetCore.Http> oboru názvů (přidání `using Microsoft.AspNetCore.Http;` příkazu pro získání přístupu k metodám rozšíření) při odkazování na balíček [Microsoft. AspNetCore. http. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.Http.Extensions/) v projektu. Oba balíčky jsou součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
-`ISession`metody rozšíření:
+`ISession` metody rozšíření:
 
 * [Get (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.Get%2A)
 * [GetInt32 (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetInt32%2A)
@@ -444,7 +445,7 @@ Následující příklad ukazuje, jak nastavit a získat serializovatelný objek
 
 ## <a name="tempdata"></a>TempData
 
-ASP.NET Core zpřístupňuje Razor stránky [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) nebo Controller <xref:Microsoft.AspNetCore.Mvc.Controller.TempData> . Tato vlastnost ukládá data, dokud je nepřečetla v jiné žádosti. Metody [Keep (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) a [prohlížet (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) lze použít k prohlédnutí dat bez odstranění na konci požadavku. [Keep ()](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) označí všechny položky ve slovníku pro uchování. `TempData`je zvláště užitečné pro přesměrování, pokud se vyžadují data pro více než jeden požadavek. `TempData`je implementována `TempData` poskytovateli pomocí cookie nebo stav relace.
+ASP.NET Core zpřístupňuje Razor stránky [TempData](xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.TempData) nebo Controller <xref:Microsoft.AspNetCore.Mvc.Controller.TempData> . Tato vlastnost ukládá data, dokud je nepřečetla v jiné žádosti. Metody [Keep (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) a [prohlížet (String)](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Peek*) lze použít k prohlédnutí dat bez odstranění na konci požadavku. [Keep ()](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary.Keep*) označí všechny položky ve slovníku pro uchování. `TempData` je zvláště užitečné pro přesměrování, pokud se vyžadují data pro více než jeden požadavek. `TempData` je implementována `TempData` poskytovateli pomocí cookie nebo stav relace.
 
 ## <a name="tempdata-samples"></a>Ukázky TempData
 
@@ -502,7 +503,7 @@ Důležité je pořadí middlewaru. V předchozím příkladu `InvalidOperationE
 
 Omezené množství dat lze předat z jedné žádosti do druhé tím, že ji přidáte do řetězce dotazu nové žádosti. To je užitečné pro zachycení stavu trvalým způsobem, který umožňuje sdílet odkazy s vloženým stavem prostřednictvím e-mailu nebo sociálních sítí. Vzhledem k tomu, že řetězce dotazu URL jsou veřejné, nikdy nepoužívejte řetězce dotazů pro citlivá data.
 
-Kromě nezamýšleného sdílení, včetně dat v dotazovacích řetězcích, můžou vytvářet příležitosti pro útoky [CSRF (mezi lokalitami)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) , které můžou uživatelům při ověřování navštěvovat škodlivé weby. Útočníci pak můžou z aplikace ukrást uživatelská data nebo můžou jménem uživatele převzít škodlivé akce. Všechny zachované aplikace nebo stav relace musí chránit před CSRF útoky. Další informace najdete v tématu [prevence útoků proti falšování (XSRF/CSRF) žádostí mezi weby](xref:security/anti-request-forgery).
+Kromě nezamýšleného sdílení, včetně dat v dotazovacích řetězcích, můžou vytvářet příležitosti pro útoky [CSRF (mezi lokalitami)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) , které můžou uživatelům při ověřování navštěvovat škodlivé weby. Útočníci pak můžou z aplikace ukrást uživatelská data nebo můžou jménem uživatele převzít škodlivé akce. Všechny zachované aplikace nebo stav relace musí chránit před CSRF útoky. Další informace naleznete v tématu <xref:security/anti-request-forgery>.
 
 ## <a name="hidden-fields"></a>Skrytá pole
 
@@ -595,11 +596,11 @@ Použití [Injektáže závislosti](xref:fundamentals/dependency-injection) k zp
 
   Uživatel například ukládá v relaci nákupní košík. Uživatel přidá položku na košík, ale potvrzení se nezdařilo. Aplikace neví o selhání, takže oznamuje uživateli, že se položka přidala do svého košíku, což není pravda.
 
-  Doporučený postup pro kontrolu chyb je zavolat `await feature.Session.CommitAsync();` z kódu aplikace, když se aplikace dokončí zápisem do relace. `CommitAsync`vyvolá výjimku, pokud není záložní úložiště k dispozici. `CommitAsync`V případě chyby může aplikace zpracovat výjimku. `LoadAsync`Vyvolá se za stejných podmínek, kdy úložiště dat není k dispozici.
+  Doporučený postup pro kontrolu chyb je zavolat `await feature.Session.CommitAsync();` z kódu aplikace, když se aplikace dokončí zápisem do relace. `CommitAsync` vyvolá výjimku, pokud není záložní úložiště k dispozici. `CommitAsync`V případě chyby může aplikace zpracovat výjimku. `LoadAsync` Vyvolá se za stejných podmínek, kdy úložiště dat není k dispozici.
   
-## <a name="no-locsignalr-and-session-state"></a>SignalRa stav relace
+## <a name="no-locsignalr-and-session-state"></a>SignalR a stav relace
 
-SignalRaplikace by neměly pro ukládání informací používat stav relace. SignalRaplikace se můžou ukládat na stav připojení v `Context.Items` centru. <!-- https://github.com/aspnet/SignalR/issues/2139 -->
+SignalR aplikace by neměly pro ukládání informací používat stav relace. SignalR aplikace se můžou ukládat na stav připojení v `Context.Items` centru. <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
 ## <a name="additional-resources"></a>Další materiály
 

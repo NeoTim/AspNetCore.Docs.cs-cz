@@ -7,6 +7,7 @@ ms.author: riande
 ms.date: 09/22/2018
 ms.custom: mvc, seodec18
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/2fa
-ms.openlocfilehash: 28aef65234eaf162ba6e18a2594feb575c93b02f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e5e606afaf0219f3a0eb7301203b7142a00322be
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019484"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634108"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>Dvojúrovňové ověřování pomocí SMS v ASP.NET Core
 
@@ -96,7 +97,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 **ASPSMS:**  
 [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_ASPSMS.cs)]
 
-### <a name="configure-startup-to-use-smsoptions"></a>Konfigurace spuštění pro použití`SMSoptions`
+### <a name="configure-startup-to-use-smsoptions"></a>Konfigurace spuštění pro použití `SMSoptions`
 
 Přidejte `SMSoptions` do kontejneru služby v `ConfigureServices` metodě v *Startup.cs*:
 
@@ -146,7 +147,7 @@ Pokud neobdržíte textovou zprávu, přečtěte si stránku protokol Twilio.
 
 * Zadejte kód, který se zobrazí ve zprávě SMS.
 
-* Kliknutím na zaškrtávací políčko **Zapamatovat tento prohlížeč** nebudete muset použít 2FA k přihlášení při použití stejného zařízení a prohlížeče. Povolení 2FA a kliknutí na **Zapamatovat si tento prohlížeč** vám poskytne silnou 2FA ochranu od uživatelů se zlými úmysly, kteří se pokoušejí získat přístup k vašemu účtu, pokud nemají přístup k vašemu zařízení. To můžete provést na jakémkoli soukromém zařízení, které pravidelně používáte. Nastavením **Zapamatovat si tento prohlížeč**, získáte přizpůsobenou bezpečnost 2FA ze zařízení, která pravidelně nepoužíváte, a získáte pohodlí, takže nemusíte přecházet na 2FA na svých vlastních zařízeních.
+* Kliknutím na zaškrtávací políčko **Zapamatovat tento prohlížeč** nebudete muset použít 2FA k přihlášení při použití stejného zařízení a prohlížeče. Povolení 2FA a kliknutí na **Zapamatovat si tento prohlížeč** vám poskytne silnou 2FA ochranu od uživatelů se zlými úmysly, kteří se pokoušejí získat přístup k vašemu účtu, pokud nemají přístup k vašemu zařízení. To můžete provést na jakémkoli soukromém zařízení, které pravidelně používáte. Nastavením  **Zapamatovat si tento prohlížeč**, získáte přizpůsobenou bezpečnost 2FA ze zařízení, která pravidelně nepoužíváte, a získáte pohodlí, takže nemusíte přecházet na 2FA na svých vlastních zařízeních.
 
 ![Ověřit zobrazení](2fa/_static/login2fa8.png)
 

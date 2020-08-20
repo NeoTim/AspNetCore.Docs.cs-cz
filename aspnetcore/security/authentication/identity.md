@@ -5,6 +5,7 @@ description: Použijte Identity s aplikací ASP.NET Core. Přečtěte si, jak na
 ms.author: riande
 ms.date: 7/15/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: 67bf24d8f871c4e80ed91f5f437895fe29e09087
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 1d14a3668192a165ea5025ae0575a8e3d6dfd8e4
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021234"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633250"
 ---
 # <a name="introduction-to-no-locidentity-on-aspnet-core"></a>Úvod do Identity ASP.NET Core
 
@@ -28,7 +29,7 @@ ms.locfileid: "88021234"
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core Identity :
+ASP.NET Core Identity:
 
 * Je rozhraní API, které podporuje funkce přihlášení uživatelského rozhraní (UI).
 * Spravuje uživatele, hesla, data profilu, role, deklarace identity, tokeny, potvrzení e-mailu a další.
@@ -39,7 +40,7 @@ Uživatelé můžou vytvořit účet s přihlašovacími informacemi uloženými
 
 [ Identity Zdrojový kód](https://github.com/dotnet/AspNetCore/tree/master/src/Identity) je k dispozici na GitHubu. [Generování Identity uživatelského rozhraní](xref:security/authentication/scaffold-identity) a zobrazit generované soubory pro kontrolu interakce šablony s Identity .
 
-Identityje obvykle nakonfigurovaný pomocí SQL Server databáze pro ukládání uživatelských jmen, hesel a profilů. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
+Identity je obvykle nakonfigurovaný pomocí SQL Server databáze pro ukládání uživatelských jmen, hesel a profilů. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
 
 V tomto tématu se dozvíte, jak používat Identity k registraci, přihlášení a odhlášení uživatele. Poznámka: šablony považují uživatelské jméno a e-mail za stejné pro uživatele. Podrobnější pokyny k vytváření aplikací, které používají Identity , najdete v části [Další kroky](#next).
 
@@ -79,7 +80,7 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-Vygenerovaný projekt poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Například:
+Vygenerovaný projekt poskytuje [ASP.NET Core Identity](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Příklad:
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -125,11 +126,11 @@ Služby jsou přidány do `ConfigureServices` . Typický vzor je zavolat všechn
 
 Předchozí zvýrazněný kód nakonfiguruje Identity s výchozími hodnotami možností. Služby jsou zpřístupněny aplikaci prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
 
-Identityje povoleno voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> . `UseAuthentication`přidá [middleware](xref:fundamentals/middleware/index) ověřování do kanálu požadavků.
+Identity je povoleno voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> . `UseAuthentication` přidá [middleware](xref:fundamentals/middleware/index) ověřování do kanálu požadavků.
 
 [!code-csharp[](identity/sample/WebApp3/Startup.cs?name=snippet_configure&highlight=19)]
 
-Aplikace generovaná šablonou nepoužívá [autorizaci](xref:security/authorization/secure-data). `app.UseAuthorization`je součástí, abyste zajistili, že je přidaný do správného pořadí, aby aplikace přidala autorizaci. `UseRouting`, `UseAuthentication` , `UseAuthorization` , a `UseEndpoints` musí být volány v pořadí uvedeném v předchozím kódu.
+Aplikace generovaná šablonou nepoužívá [autorizaci](xref:security/authorization/secure-data). `app.UseAuthorization` je součástí, abyste zajistili, že je přidaný do správného pořadí, aby aplikace přidala autorizaci. `UseRouting`, `UseAuthentication` , `UseAuthorization` , a `UseEndpoints` musí být volány v pořadí uvedeném v předchozím kódu.
 
 Další informace o systémech `IdentityOptions` a `Startup` najdete v tématu <xref:Microsoft.AspNetCore.Identity.IdentityOptions> a [spuštění aplikace](xref:fundamentals/startup).
 
@@ -172,7 +173,7 @@ Přihlašovací formulář se zobrazí v těchto případech:
 * Je vybrán odkaz **Přihlásit** se.
 * Uživatel se pokusí získat přístup ke stránce s omezením, že nemá oprávnění k přístupu, **nebo** když ho systém neověřil.
 
-Při odeslání formuláře na přihlašovací stránce se `OnPostAsync` zavolá akce. `PasswordSignInAsync`je volána u `_signInManager` objektu.
+Při odeslání formuláře na přihlašovací stránce se `OnPostAsync` zavolá akce. `PasswordSignInAsync` je volána u `_signInManager` objektu.
 
 [!code-csharp[](identity/sample/WebApp3/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
@@ -192,7 +193,7 @@ Příspěvek je zadán ve *stránkách/Shared/_LoginPartial. cshtml*:
 
 [!code-cshtml[](identity/sample/WebApp3/Pages/Shared/_LoginPartial.cshtml?highlight=15)]
 
-## <a name="test-no-locidentity"></a>NapadenIdentity
+## <a name="test-no-locidentity"></a>Napaden Identity
 
 Výchozí šablony webového projektu umožňují anonymní přístup k domovské stránce. Chcete-li otestovat Identity , přidejte [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) :
 
@@ -200,20 +201,20 @@ Výchozí šablony webového projektu umožňují anonymní přístup k domovsk�
 
 Pokud jste přihlášeni, odhlaste se. Spusťte aplikaci a vyberte odkaz na **ochranu osobních údajů** . Budete přesměrováni na přihlašovací stránku.
 
-### <a name="explore-no-locidentity"></a>OknoIdentity
+### <a name="explore-no-locidentity"></a>Okno Identity
 
 Podrobněji prozkoumat Identity :
 
 * [Vytvořit úplný zdroj uživatelského rozhraní identity](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * Projděte si zdroj každé stránky a proveďte krok pomocí ladicího programu.
 
-## <a name="no-locidentity-components"></a>IdentityKonstrukční
+## <a name="no-locidentity-components"></a>Identity Konstrukční
 
 Všechny Identity balíčky NuGet závislé na rozhraních jsou součástí [ASP.NET Core sdílené rozhraní](xref:aspnetcore-3.0#use-the-aspnet-core-shared-framework).
 
 Primární balíček pro Identity je [Microsoft. AspNetCore Identity .](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/). Tento balíček obsahuje základní sadu rozhraní pro ASP.NET Core Identity a je součástí nástroje `Microsoft.AspNetCore.Identity.EntityFrameworkCore` .
 
-## <a name="migrating-to-aspnet-core-no-locidentity"></a>Migrace na ASP.NET CoreIdentity
+## <a name="migrating-to-no-locaspnet-core-identity"></a>Migrace na ASP.NET Core Identity
 
 Další informace a pokyny k migraci stávajícího Identity úložiště najdete v tématu [migrace ověřování a Identity ](xref:migration/identity).
 
@@ -223,7 +224,7 @@ V části [Konfigurace](#pw) najdete ukázku, která nastavuje minimální poža
 
 ## <a name="adddefaultno-locidentity-and-addno-locidentity"></a>AddDefault Identity a přidatIdentity
 
-<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*>Služba WAS byla představena v ASP.NET Core 2,1. Volání `AddDefaultIdentity` je podobné volání následujícího:
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*> Služba WAS byla představena v ASP.NET Core 2,1. Volání `AddDefaultIdentity` je podobné volání následujícího:
 
 * <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
@@ -251,9 +252,9 @@ Chcete-li zabránit publikování statických Identity prostředků (šablon sty
 
 ## <a name="next-steps"></a>Další kroky
 
-* [IdentityZdrojový kód ASP.NET Core](https://github.com/dotnet/aspnetcore/tree/master/src/Identity)
+* [ASP.NET Core Identity zdrojový kód](https://github.com/dotnet/aspnetcore/tree/master/src/Identity)
 * Informace o konfiguraci pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity .
-* [KonfiguraceIdentity](xref:security/authentication/identity-configuration)
+* [Konfigurace Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>
@@ -270,7 +271,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ASP.NET Core Identity je systém členství, který do ASP.NET Core aplikací přidává funkce přihlášení. Uživatelé můžou vytvořit účet s přihlašovacími informacemi uloženými v Identity nebo můžou použít externího poskytovatele přihlášení. Mezi podporované externí zprostředkovatelé přihlášení patří [Facebook, Google, účet Microsoft a Twitter](xref:security/authentication/social/index).
 
-Identitydá se nakonfigurovat pomocí SQL Server databáze, aby se ukládala uživatelská jména, hesla a data profilu. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
+Identity dá se nakonfigurovat pomocí SQL Server databáze, aby se ukládala uživatelská jména, hesla a data profilu. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
@@ -280,7 +281,7 @@ V tomto tématu se dozvíte, jak používat Identity k registraci, přihlášen�
 
 ## <a name="adddefaultno-locidentity-and-addno-locidentity"></a>AddDefault Identity a přidatIdentity
 
-<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*>Služba WAS byla představena v ASP.NET Core 2,1. Volání `AddDefaultIdentity` je podobné volání následujícího:
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity*> Služba WAS byla představena v ASP.NET Core 2,1. Volání `AddDefaultIdentity` je podobné volání následujícího:
 
 * <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity*>
 * <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>
@@ -307,7 +308,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-Vygenerovaný projekt poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Například:
+Vygenerovaný projekt poskytuje [ASP.NET Core Identity](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Identity Razor Knihovna tříd zpřístupňuje koncové body s `Identity` oblastí. Příklad:
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -349,7 +350,7 @@ Služby jsou přidány do `ConfigureServices` . Typický vzor je zavolat všechn
 
 Předchozí kód nakonfiguruje Identity s výchozími hodnotami možností. Služby jsou zpřístupněny aplikaci prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
 
-Identityje povolen voláním [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_). `UseAuthentication`přidá [middleware](xref:fundamentals/middleware/index) ověřování do kanálu požadavků.
+Identity je povolen voláním [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_). `UseAuthentication` přidá [middleware](xref:fundamentals/middleware/index) ověřování do kanálu požadavků.
 
 [!code-csharp[](identity/sample/WebApp1/Startup.cs?name=snippet_configure&highlight=18)]
 
@@ -393,7 +394,7 @@ Přihlašovací formulář se zobrazí v těchto případech:
 * Je vybrán odkaz **Přihlásit** se.
 * Uživatel se pokusí získat přístup ke stránce s omezením, že nemá oprávnění k přístupu, **nebo** když ho systém neověřil.
 
-Při odeslání formuláře na přihlašovací stránce se `OnPostAsync` zavolá akce. `PasswordSignInAsync`je volána u `_signInManager` objektu.
+Při odeslání formuláře na přihlašovací stránce se `OnPostAsync` zavolá akce. `PasswordSignInAsync` je volána u `_signInManager` objektu.
 
 [!code-csharp[](identity/sample/WebApp1/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=10-11)]
 
@@ -411,7 +412,7 @@ Příspěvek je zadán ve *stránkách/Shared/_LoginPartial. cshtml*:
 
 [!code-cshtml[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 
-## <a name="test-no-locidentity"></a>NapadenIdentity
+## <a name="test-no-locidentity"></a>Napaden Identity
 
 Výchozí šablony webového projektu umožňují anonymní přístup k domovské stránce. Chcete-li otestovat Identity , přidejte [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) na stránku soukromí.
 
@@ -419,20 +420,20 @@ Výchozí šablony webového projektu umožňují anonymní přístup k domovsk�
 
 Pokud jste přihlášeni, odhlaste se. Spusťte aplikaci a vyberte odkaz na **ochranu osobních údajů** . Budete přesměrováni na přihlašovací stránku.
 
-### <a name="explore-no-locidentity"></a>OknoIdentity
+### <a name="explore-no-locidentity"></a>Okno Identity
 
 Podrobněji prozkoumat Identity :
 
 * [Vytvořit úplný zdroj uživatelského rozhraní identity](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * Projděte si zdroj každé stránky a proveďte krok pomocí ladicího programu.
 
-## <a name="no-locidentity-components"></a>IdentityKonstrukční
+## <a name="no-locidentity-components"></a>Identity Konstrukční
 
 Všechny Identity závislé balíčky NuGet jsou součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
 Primární balíček pro Identity je [Microsoft. AspNetCore Identity .](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/). Tento balíček obsahuje základní sadu rozhraní pro ASP.NET Core Identity a je součástí nástroje `Microsoft.AspNetCore.Identity.EntityFrameworkCore` .
 
-## <a name="migrating-to-aspnet-core-no-locidentity"></a>Migrace na ASP.NET CoreIdentity
+## <a name="migrating-to-no-locaspnet-core-identity"></a>Migrace na ASP.NET Core Identity
 
 Další informace a pokyny k migraci stávajícího Identity úložiště najdete v tématu [migrace ověřování a Identity ](xref:migration/identity).
 
@@ -443,7 +444,7 @@ V části [Konfigurace](#pw) najdete ukázku, která nastavuje minimální poža
 ## <a name="next-steps"></a>Další kroky
 
 * Informace o konfiguraci pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) Identity .
-* [KonfiguraceIdentity](xref:security/authentication/identity-configuration)
+* [Konfigurace Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>

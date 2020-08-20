@@ -1,11 +1,12 @@
 ---
-title: Rozdíly mezi SignalR a ASP.NET CoreSignalR
+title: Rozdíly mezi SignalR a ASP.NET Core SignalR
 author: bradygaster
-description: Rozdíly mezi SignalR a ASP.NET CoreSignalR
+description: Rozdíly mezi SignalR a ASP.NET Core SignalR
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.date: 11/21/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/version-differences
-ms.openlocfilehash: f52bf6c82cd5125e0905d9bcbda5dd5499d6455e
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a8336a6c13c502f5a0fad150785cd9d484064618
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020038"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633003"
 ---
-# <a name="differences-between-aspnet-no-locsignalr-and-aspnet-core-no-locsignalr"></a>Rozdíly mezi ASP.NET SignalR a ASP.NET CoreSignalR
+# <a name="differences-between-aspnet-no-locsignalr-and-aspnet-core-no-locsignalr"></a>Rozdíly mezi ASP.NET SignalR a ASP.NET Core SignalR
 
 ASP.NET Core SignalR není kompatibilní s klienty nebo servery pro ASP.NET SignalR . Tento článek obsahuje podrobnosti o funkcích, které byly v ASP.NET Core odebrány nebo změněny SignalR .
 
@@ -31,26 +32,26 @@ ASP.NET Core SignalR není kompatibilní s klienty nebo servery pro ASP.NET Sign
 
 ::: moniker range=">= aspnetcore-3.0"
 
-|                      | ASP.NETSignalR | ASP.NET CoreSignalR |
+|                      | ASP.NET SignalR | ASP.NET Core SignalR |
 | -------------------- | --------------- | -------------------- |
 | **Balíček NuGet serveru** | [Microsoft. AspNet.SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | Žádné Je součástí sdílené architektury [Microsoft. AspNetCore. app](xref:fundamentals/metapackage-app) . |
 | **Klientské balíčky NuGet** | [Microsoft. AspNet. SignalR . Služba](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft. AspNet. SignalR . JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [Microsoft. AspNetCore. SignalR . Služba](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
 | **JavaScript – balíček npm klienta** | [SignalR](https://www.npmjs.com/package/signalr) | [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) |
 | **Klient Java** | [Úložiště GitHub](https://github.com/SignalR/java-client) (zastaralé)  | Balíček Maven [com. Microsoft. Signal](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
-| **Typ serverové aplikace** | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | Jádro ASP.NET |
+| **Typ serverové aplikace** | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | ASP.NET Core |
 | **Podporované serverové platformy** | .NET Framework 4,5 nebo novější | .NET Core 3,0 nebo novější |
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-|                      | ASP.NETSignalR | ASP.NET CoreSignalR |
+|                      | ASP.NET SignalR | ASP.NET Core SignalR |
 | -------------------- | --------------- | -------------------- |
 | **Balíček NuGet serveru** | [Microsoft. AspNet.SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | [Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App/) (.NET Core)<br>[Microsoft. AspNetCore.SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) (.NET Framework) |
 | **Klientské balíčky NuGet** | [Microsoft. AspNet. SignalR . Služba](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft. AspNet. SignalR . JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [Microsoft. AspNetCore. SignalR . Služba](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
 | **JavaScript – balíček npm klienta** | [SignalR](https://www.npmjs.com/package/signalr) | [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) |
 | **Klient Java** | [Úložiště GitHub](https://github.com/SignalR/java-client) (zastaralé)  | Balíček Maven [com. Microsoft. Signal](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
-| **Typ serverové aplikace** | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | Jádro ASP.NET |
+| **Typ serverové aplikace** | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | ASP.NET Core |
 | **Podporované serverové platformy** | .NET Framework 4,5 nebo novější | .NET Framework 4.6.1 nebo novější<br>.NET Core 2,1 nebo novější |
 
 ::: moniker-end
@@ -149,7 +150,7 @@ V ASP.NET Core byl SignalR Model připojení zjednodušený. Připojení se vytv
 
 ASP.NET Core SignalR teď podporuje [streamování dat](xref:signalr/streaming) z rozbočovače na klienta.
 
-### <a name="state"></a>State
+### <a name="state"></a>Stav
 
 Byla odebrána možnost předat libovolný stav mezi klienty a centrem (často označovaným jako `HubState` ) a také podporovat zprávy o průběhu. V tuto chvíli není k dispozici žádný protějšek serverů proxy hub.
 
@@ -279,18 +280,18 @@ ASP.NET SignalR podporuje SQL Server a Redis. ASP.NET Core SignalR podporuje Azu
 
 ### <a name="aspnet"></a>ASP.NET
 
-* [SignalRhorizontální navýšení kapacity pomocí Azure Service Bus](/aspnet/signalr/overview/performance/scaleout-with-windows-azure-service-bus)
-* [SignalRhorizontální navýšení kapacity pomocí Redis](/aspnet/signalr/overview/performance/scaleout-with-redis)
-* [SignalRhorizontální navýšení kapacity pomocí SQL Server](/aspnet/signalr/overview/performance/scaleout-with-sql-server)
+* [SignalR horizontální navýšení kapacity pomocí Azure Service Bus](/aspnet/signalr/overview/performance/scaleout-with-windows-azure-service-bus)
+* [SignalR horizontální navýšení kapacity pomocí Redis](/aspnet/signalr/overview/performance/scaleout-with-redis)
+* [SignalR horizontální navýšení kapacity pomocí SQL Server](/aspnet/signalr/overview/performance/scaleout-with-sql-server)
 
-### <a name="aspnet-core"></a>Jádro ASP.NET
+### <a name="aspnet-core"></a>ASP.NET Core
 
 * [SignalRSlužba Azure](/azure/azure-signalr/)
 * [Redis](xref:signalr/redis-backplane)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
-* [Centra](xref:signalr/hubs)
+* [Rozbočovače](xref:signalr/hubs)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Podporované platformy](xref:signalr/supported-platforms)

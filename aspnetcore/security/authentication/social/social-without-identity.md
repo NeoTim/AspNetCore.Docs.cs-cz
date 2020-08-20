@@ -1,10 +1,11 @@
 ---
-title: Ověřování přes Facebook, Google a externí poskytovatel bez ASP.NET CoreIdentity
+title: Ověřování pro Facebook, Google a externí poskytovatele bez ASP.NET Core Identity
 author: rick-anderson
 description: Vysvětlení použití Facebooku, Google, Twitteru atd. ověřování uživatelů účtu bez ASP.NET Core Identity .
 ms.author: riande
 ms.date: 12/10/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,22 +16,22 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: 73055a262ac69c0fd6a7f59e77d23121e71ea3dd
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a91a2f2fb7873e5a672c624e9cf863ae720c8005
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021663"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634225"
 ---
-# <a name="use-social-sign-in-provider-authentication-without-aspnet-core-no-locidentity"></a>Použití ověřování poskytovatele přihlašování přes sociální sítě bez ASP.NET CoreIdentity
+# <a name="use-social-sign-in-provider-authentication-without-no-locaspnet-core-identity"></a>Použít ověřování poskytovatele přihlašování přes sociální sítě bez ASP.NET Core Identity
 
 Od [Kirka Larkin](https://twitter.com/serpent5) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<xref:security/authentication/social/index>Popisuje, jak povolit uživatelům přihlášení pomocí OAuth 2,0 s přihlašovacími údaji od externích zprostředkovatelů ověřování. Přístup popsaný v tomto tématu zahrnuje ASP.NET Core Identity jako poskytovatele ověřování.
+<xref:security/authentication/social/index> Popisuje, jak povolit uživatelům přihlášení pomocí OAuth 2,0 s přihlašovacími údaji od externích zprostředkovatelů ověřování. Přístup, který je popsaný v tomto tématu, zahrnuje ASP.NET Core Identity jako poskytovatele ověřování.
 
-Tato ukázka předvádí, jak použít externího zprostředkovatele ověřování **bez** ASP.NET Core Identity . To je užitečné pro aplikace, které nevyžadují všechny funkce ASP.NET Core Identity , ale stále vyžadují integraci s důvěryhodným externím poskytovatelem ověřování.
+Tato ukázka předvádí, jak použít externího poskytovatele ověřování **bez** ASP.NET Core Identity . To je užitečné pro aplikace, které nevyžadují všechny funkce nástroje ASP.NET Core Identity , ale stále vyžadují integraci s důvěryhodným externím poskytovatelem ověřování.
 
 Tato ukázka používá [ověřování Google](xref:security/authentication/google-logins) pro ověřování uživatelů. Pomocí ověřování Google se posunou mnohé ze složitých procesů při správě procesu přihlašování do Google. Informace o integraci s jiným externím poskytovatelem ověřování naleznete v následujících tématech:
 
@@ -53,7 +54,7 @@ Volání pro <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServic
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*>
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>
 
-Nastavení aplikace `DefaultScheme` na [ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) (" Cookie s") nakonfiguruje aplikaci tak, aby používala Cookie jako výchozí schéma pro tyto metody rozšíření. Nastavení aplikace <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> na [GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) ("Google") nakonfiguruje aplikaci tak, aby používala Google jako výchozí schéma pro volání `ChallengeAsync` . `DefaultChallengeScheme`Přepisuje `DefaultScheme` . <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>Další vlastnosti, které se při nastavení přepisují, najdete v tématu `DefaultScheme` .
+Nastavení aplikace `DefaultScheme` na [ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) (" Cookie s") nakonfiguruje aplikaci tak, aby používala Cookie jako výchozí schéma pro tyto metody rozšíření. Nastavení aplikace <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> na [GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) ("Google") nakonfiguruje aplikaci tak, aby používala Google jako výchozí schéma pro volání `ChallengeAsync` . `DefaultChallengeScheme` Přepisuje `DefaultScheme` . <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>Další vlastnosti, které se při nastavení přepisují, najdete v tématu `DefaultScheme` .
 
 V `Startup.Configure` , zavolejte `UseAuthentication` a `UseAuthorization` mezi voláním `UseRouting` a `UseEndpoints` . Tím se nastaví `HttpContext.User` vlastnost a spustí middleware autorizace pro požadavky:
 
@@ -75,7 +76,7 @@ Chcete-li odhlásit aktuálního uživatele a odstranit jeho cookie volání, za
 
 Všimněte si, že volání `SignOutAsync` neurčuje schéma ověřování. Aplikace `DefaultScheme` `CookieAuthenticationDefaults.AuthenticationScheme` je použita jako návratová.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>
@@ -83,9 +84,9 @@ Všimněte si, že volání `SignOutAsync` neurčuje schéma ověřování. Apli
 ::: moniker-end
 ::: moniker range="< aspnetcore-3.0"
 
-<xref:security/authentication/social/index>Popisuje, jak povolit uživatelům přihlášení pomocí OAuth 2,0 s přihlašovacími údaji od externích zprostředkovatelů ověřování. Přístup popsaný v tomto tématu zahrnuje ASP.NET Core Identity jako poskytovatele ověřování.
+<xref:security/authentication/social/index> Popisuje, jak povolit uživatelům přihlášení pomocí OAuth 2,0 s přihlašovacími údaji od externích zprostředkovatelů ověřování. Přístup, který je popsaný v tomto tématu, zahrnuje ASP.NET Core Identity jako poskytovatele ověřování.
 
-Tato ukázka předvádí, jak použít externího zprostředkovatele ověřování **bez** ASP.NET Core Identity . To je užitečné pro aplikace, které nevyžadují všechny funkce ASP.NET Core Identity , ale stále vyžadují integraci s důvěryhodným externím poskytovatelem ověřování.
+Tato ukázka předvádí, jak použít externího poskytovatele ověřování **bez** ASP.NET Core Identity . To je užitečné pro aplikace, které nevyžadují všechny funkce nástroje ASP.NET Core Identity , ale stále vyžadují integraci s důvěryhodným externím poskytovatelem ověřování.
 
 Tato ukázka používá [ověřování Google](xref:security/authentication/google-logins) pro ověřování uživatelů. Pomocí ověřování Google se posunou mnohé ze složitých procesů při správě procesu přihlašování do Google. Informace o integraci s jiným externím poskytovatelem ověřování naleznete v následujících tématech:
 
@@ -108,7 +109,7 @@ Volání [AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjectio
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*>
 * <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>
 
-Nastavení aplikace `DefaultScheme` na [ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) (" Cookie s") nakonfiguruje aplikaci tak, aby používala Cookie jako výchozí schéma pro tyto metody rozšíření. Nastavení aplikace <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> na [GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) ("Google") nakonfiguruje aplikaci tak, aby používala Google jako výchozí schéma pro volání `ChallengeAsync` . `DefaultChallengeScheme`Přepisuje `DefaultScheme` . <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>Další vlastnosti, které se při nastavení přepisují, najdete v tématu `DefaultScheme` .
+Nastavení aplikace `DefaultScheme` na [ Cookie AuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) (" Cookie s") nakonfiguruje aplikaci tak, aby používala Cookie jako výchozí schéma pro tyto metody rozšíření. Nastavení aplikace <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme> na [GoogleDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme) ("Google") nakonfiguruje aplikaci tak, aby používala Google jako výchozí schéma pro volání `ChallengeAsync` . `DefaultChallengeScheme` Přepisuje `DefaultScheme` . <xref:Microsoft.AspNetCore.Authentication.AuthenticationOptions>Další vlastnosti, které se při nastavení přepisují, najdete v tématu `DefaultScheme` .
 
 V `Configure` metodě zavolejte `UseAuthentication` metodu pro vyvolání middleware ověřování, který nastaví `HttpContext.User` vlastnost. Zavolejte `UseAuthentication` metodu před voláním `UseMvcWithDefaultRoute` nebo `UseMvc` :
 

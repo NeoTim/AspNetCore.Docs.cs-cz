@@ -5,6 +5,7 @@ description: 5. část série kurzů na Razor stránkách.
 ms.author: riande
 ms.date: 12/20/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: d8f1a256bfa3491ff1cc7f38a23c61beb719bd49
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 04479e5c3a0b1e9badbb4e58043cf059beefb4ab
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022092"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632795"
 ---
 # <a name="part-5-update-the-generated-pages-in-an-aspnet-core-app"></a>5. část, jak aktualizovat vygenerované stránky v aplikaci ASP.NET Core
 
@@ -62,7 +63,7 @@ Pomocí **zobrazení zdroje** z oblíbeného prohlížeče Prohlédněte vygener
 </td>
 ```
 
-Dynamicky vygenerované odkazy předají ID filmu pomocí řetězce dotazu (například `?id=1` v `https://localhost:5001/Movies/Details?id=1` ).
+Dynamicky vygenerované odkazy předají ID filmu pomocí řetězce dotazu (například `?id=1` v  `https://localhost:5001/Movies/Details?id=1` ).
 
 ### <a name="add-route-template"></a>Přidat šablonu směrování
 
@@ -100,7 +101,7 @@ Předchozí kód detekuje výjimky souběžnosti, když jeden klient odstraní f
 
 Test `catch` bloku:
 
-* Nastavit zarážku na`catch (DbUpdateConcurrencyException)`
+* Nastavit zarážku na `catch (DbUpdateConcurrencyException)`
 * Vyberte **Upravit** pro film, proveďte změny, ale nezadávejte možnost **Uložit**.
 * V jiném okně prohlížeče vyberte odkaz **Odstranit** pro stejný film a pak film odstraňte.
 * V předchozím okně prohlížeče se změny publikují ve videu.
@@ -133,7 +134,7 @@ Když se publikuje video/úprava stránky:
 
 Metody HTTP GET v indexech, vytváření a odstraňování Razor stránek následují podobně jako vzor. Metoda HTTP POST na `OnPostAsync` Razor stránce vytvořit následuje podobný vzor jako metoda na `OnPostAsync` stránce pro úpravy Razor .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 > [!div class="step-by-step"]
 > [Předchozí: práce s databází](xref:tutorials/razor-pages/sql) 
@@ -177,7 +178,7 @@ Pomocí **zobrazení zdroje** z oblíbeného prohlížeče Prohlédněte vygener
 </td>
 ```
 
-Dynamicky vygenerované odkazy předají ID filmu pomocí řetězce dotazu (například `?id=1` v `https://localhost:5001/Movies/Details?id=1` ).
+Dynamicky vygenerované odkazy předají ID filmu pomocí řetězce dotazu (například `?id=1` v  `https://localhost:5001/Movies/Details?id=1` ).
 
 Aktualizujte stránky upravit, podrobnosti a odstranit Razor tak, aby používaly šablonu trasy {ID: int}. Změňte direktivu Page na každou z těchto stránek z `@page` na `@page "{id:int}"` . Spusťte aplikaci a potom zobrazte zdroj. Vygenerovaný kód HTML přidá ID do části cesty adresy URL:
 
@@ -213,7 +214,7 @@ Předchozí kód detekuje výjimky souběžnosti, když jeden klient odstraní f
 
 Test `catch` bloku:
 
-* Nastavit zarážku na`catch (DbUpdateConcurrencyException)`
+* Nastavit zarážku na `catch (DbUpdateConcurrencyException)`
 * Vyberte **Upravit** pro film, proveďte změny, ale nezadávejte možnost **Uložit**.
 * V jiném okně prohlížeče vyberte odkaz **Odstranit** pro stejný film a pak film odstraňte.
 * V předchozím okně prohlížeče se změny publikují ve videu.
@@ -248,7 +249,7 @@ Metody HTTP GET v indexech, vytváření a odstraňování Razor stránek násle
 
 Hledání se přidá v dalším kurzu.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/yLnnleREMtQ)
 

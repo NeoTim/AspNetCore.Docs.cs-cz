@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 58409b5c47d71c96ece6f4ecfab6f18df47f798b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 13f1ad5dcd4a230ec05b08c402f4ee9e455c3c29
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015436"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634134"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>Hostitelská ASP.NET Core ve webové farmě
 
@@ -68,9 +69,9 @@ V prostředí webové farmy musí mechanismus ukládání do mezipaměti sdílet
 
 Následující scénáře nevyžadují další konfiguraci, ale závisejí na technologiích, které vyžadují konfiguraci webových farem.
 
-| Scénář | Závisí na&hellip; |
+| Scénář | Závisí na &hellip; |
 | -------- | ------------------- |
-| Ověřování | Ochrana dat (viz <xref:security/data-protection/configuration/overview> ).<br><br>Další informace naleznete v tématech <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. |
+| Authentication | Ochrana dat (viz <xref:security/data-protection/configuration/overview> ).<br><br>Další informace naleznete v tématech <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. |
 | Identity | Ověřování a konfigurace databáze.<br><br>Další informace naleznete v tématu <xref:security/authentication/identity>. |
 | Relace | Ochrana dat (šifrované cookie s) (viz <xref:security/data-protection/configuration/overview> ) a ukládání do mezipaměti (viz <xref:performance/caching/distributed> ).<br><br>Další informace najdete v tématu [Správa stavu a relace: stav relace](xref:fundamentals/app-state#session-state). |
 | TempData | Ochrana dat (šifrované cookie s) (viz <xref:security/data-protection/configuration/overview> ) nebo relace (viz [Správa relace a stav: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [Správa stavu a relace: TempData](xref:fundamentals/app-state#tempdata). |
@@ -99,7 +100,7 @@ Další informace o konfiguraci ochrany dat pro nasazení webové farmy najdete 
 
 Pokud webové serverové farmy můžou reagovat na požadavky, získávat žádosti, připojení a další data z aplikací pomocí vloženého middlewaru terminálu. Další informace a ukázka kódu naleznete v tématu <xref:test/troubleshoot#obtain-data-from-an-app> .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Rozšíření vlastních skriptů pro Windows](/azure/virtual-machines/extensions/custom-script-windows): stáhne a spustí skripty na virtuálních počítačích Azure, které jsou užitečné pro konfiguraci po nasazení a instalaci softwaru.
 * <xref:host-and-deploy/proxy-load-balancer>

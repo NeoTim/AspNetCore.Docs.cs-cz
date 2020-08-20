@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/26/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: 4e5c6bdea97f54e3cef60d03ea0b63ac3e665bbf
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 3d097d724ac5e2313d24f1f06e47b881f29a4a98
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021286"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633796"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>Kurz: volání ASP.NET Core webového rozhraní API pomocí JavaScriptu
 
@@ -37,7 +38,7 @@ Pro ASP.NET Core 2,2 se podívejte na verzi 2,2 [volání webového rozhraní AP
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * Úplný [kurz: Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
 * Znalost šablon stylů CSS, HTML a JavaScript
@@ -48,7 +49,7 @@ V této části přidáte stránku HTML obsahující formuláře pro vytvářen�
 
 `fetch`Funkce vrátí objekt [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) , který obsahuje odpověď HTTP reprezentovanou jako `Response` objekt. Běžným vzorem je extrakce textu odpovědi JSON vyvoláním `json` funkce na `Response` objektu. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
 
-Nejjednodušší `fetch` volání přijímá jeden parametr reprezentující trasu. Druhý parametr, známý jako `init` objekt, je volitelný. `init`slouží ke konfiguraci požadavku HTTP.
+Nejjednodušší `fetch` volání přijímá jeden parametr reprezentující trasu. Druhý parametr, známý jako `init` objekt, je volitelný. `init` slouží ke konfiguraci požadavku HTTP.
 
 1. Nakonfigurujte aplikaci tak, aby [sloužila statickým souborům](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolovala výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_). V metodě Startup.cs je potřeba následující zvýrazněný kód `Configure` : *Startup.cs*
 

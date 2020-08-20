@@ -7,6 +7,7 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 07/09/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/troubleshoot
-ms.openlocfilehash: a366da7b6a12f6cd10af1abcb7ca76cf8e367277
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2f2a41af544bc040bd20e15b057ad8fc7fb16cfe
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016008"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633965"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>Řešení potíží s gRPC pro .NET Core
 
@@ -56,7 +57,7 @@ static async Task Main(string[] args)
 }
 ```
 
-Všechny implementace klientů gRPC podporují protokol TLS. klienti gRPC z jiných jazyků obvykle vyžadují kanál konfigurovaný pomocí `SslCredentials` . `SslCredentials`Určuje certifikát, který bude klient používat, a musí se používat místo nezabezpečených přihlašovacích údajů. Příklady konfigurace různých implementací klientů gRPC k použití protokolu TLS najdete v tématu [ověřování gRPC](https://www.grpc.io/docs/guides/auth/).
+Všechny implementace klientů gRPC podporují protokol TLS. klienti gRPC z jiných jazyků obvykle vyžadují kanál konfigurovaný pomocí `SslCredentials` . `SslCredentials` Určuje certifikát, který bude klient používat, a musí se používat místo nezabezpečených přihlašovacích údajů. Příklady konfigurace různých implementací klientů gRPC k použití protokolu TLS najdete v tématu [ověřování gRPC](https://www.grpc.io/docs/guides/auth/).
 
 ## <a name="call-a-grpc-service-with-an-untrustedinvalid-certificate"></a>Volání služby gRPC s nedůvěryhodným/neplatným certifikátem
 
@@ -122,7 +123,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven na `HttpProtocols.Http2` . `HttpProtocols.Http1AndHttp2`nelze použít, protože pro vyjednání HTTP/2 je vyžadován protokol TLS. Bez TLS budou všechna připojení ke koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC neúspěšná.
+Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven na `HttpProtocols.Http2` . `HttpProtocols.Http1AndHttp2` nelze použít, protože pro vyjednání HTTP/2 je vyžadován protokol TLS. Bez TLS budou všechna připojení ke koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC neúspěšná.
 
 Klient gRPC musí být taky nakonfigurovaný tak, aby nepoužíval protokol TLS. Další informace najdete v tématu [Calling The gRPC Services with a .NET Core Client](#call-insecure-grpc-services-with-net-core-client).
 

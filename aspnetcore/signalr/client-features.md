@@ -6,6 +6,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/client-features
-ms.openlocfilehash: 4f5fa2f4ff1ac3d00b04845aedc26fb0118b9991
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: df0084411134167df31506a01362a0520821e577
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021468"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631755"
 ---
 # <a name="aspnet-core-no-locsignalr-clients"></a>ASP.NET Core SignalR klienti
 
 ## <a name="versioning-support-and-compatibility"></a>Správa verzí, podpora a kompatibilita
 
-SignalRKlienti se dodávají spolu se serverovými součástmi a mají shodné se správou verzí. Libovolný podporovaný klient se může bezpečně připojit k jakémukoli podporovanému serveru a jakékoli problémy s kompatibilitou by byly považovány za chyby, které mají být opraveny. SignalRKlienti jsou podporováni ve stejném životním cyklu podpory jako zbytek .NET Core. Podrobnosti najdete [v tématu Zásady podpory pro .NET Core](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) .
+SignalRKlienti se dodávají spolu se serverovými součástmi a mají shodné se správou verzí. Libovolný podporovaný klient se může bezpečně připojit k jakémukoli podporovanému serveru a jakékoli problémy s kompatibilitou by byly považovány za chyby, které mají být opraveny. SignalR Klienti jsou podporováni ve stejném životním cyklu podpory jako zbytek .NET Core. Podrobnosti najdete [v tématu Zásady podpory pro .NET Core](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) .
 
 Mnoho funkcí vyžaduje kompatibilního klienta **a** serveru. V níže uvedené tabulce najdete minimální verze různých funkcí.
 
@@ -45,7 +46,7 @@ Verze 1. x SignalR namapovány na verze 2,1 a 2,2 .NET Core a mají stejnou živ
 
 V následující tabulce jsou uvedené funkce a podpora pro klienty, kteří nabízejí podporu v reálném čase. Pro každou funkci je uvedena *minimální* verze, která podporuje tuto funkci. Pokud není uvedená žádná verze, tato funkce se nepodporuje.
 
-| Příznak | Server | Klient .NET | Klient JavaScriptu | Klient Java |
+| Funkce | Server | Klient .NET | Klient JavaScriptu | Klient Java |
 | ---- | :-: | :-: | :-: | :-: |
 | SignalRPodpora služeb Azure |2.1.0|1.0.0|1.0.0|1.0.0|
 | [Streamování ze serveru na klienta](xref:signalr/streaming)          |2.1.0|1.0.0|1.0.0|1.0.0|
@@ -59,9 +60,9 @@ V následující tabulce jsou uvedené funkce a podpora pro klienty, kteří nab
 
 Podpora pro povolení dalších funkcí klienta je sledována v [našem sledování problémů](https://github.com/dotnet/AspNetCore/issues).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Začínáme s nástrojem SignalR pro ASP.NET Core](xref:tutorials/signalr)
 * [Podporované platformy](xref:signalr/supported-platforms)
-* [Centra](xref:signalr/hubs)
+* [Rozbočovače](xref:signalr/hubs)
 * [Klient JavaScriptu](xref:signalr/javascript-client)

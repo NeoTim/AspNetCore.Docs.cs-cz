@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/16/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: 9f7eb15271a0b7adb3964b4fe039497bda7fef08
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a1d31428945adade6748185c17d42ef60a61b5dc
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016541"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631703"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware pro přepis adres URL v ASP.NET Core
 
@@ -85,7 +86,7 @@ Pokud nemůžete použít následující přístupy, použijte middleware přepi
 * [Apache mod_rewrite modul na serveru Apache](https://httpd.apache.org/docs/2.4/rewrite/)
 * [Přepsání adresy URL na Nginx](https://www.nginx.com/blog/creating-nginx-rewrite-rules/)
 
-Používejte také middleware při hostování aplikace na [serveruHTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
+Používejte také middleware při hostování aplikace na [ serveruHTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
 
 Hlavními důvody pro použití technologie přepisování adres URL založené na serveru ve službě IIS, Apache a Nginx jsou:
 
@@ -130,7 +131,7 @@ Při *přesměrování*adresy URL se na Server provede cyklická výměna.
 > [!WARNING]
 > Buďte opatrní při vytváření pravidel přesměrování. Pravidla přesměrování se vyhodnocují při každém požadavku na aplikaci, včetně po přesměrování. Je snadné vytvořit *smyčku nekonečných přesměrování*.
 
-Původní požadavek:`/redirect-rule/1234/5678`
+Původní požadavek: `/redirect-rule/1234/5678`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect.png)
 
@@ -174,11 +175,11 @@ public void Configure(IApplicationBuilder app)
 
 Ukázková aplikace dokáže demonstrovat, jak používat `AddRedirectToHttps` nebo `AddRedirectToHttpsPermanent` . Přidejte metodu rozšíření do `RewriteOptions` . Vytvořte nezabezpečenou žádost o aplikaci na libovolné adrese URL. Zrušte upozornění zabezpečení prohlížeče, že certifikát podepsaný svým držitelem je nedůvěryhodný, nebo vytvořte výjimku pro důvěřování certifikátu.
 
-Původní požadavek s použitím `AddRedirectToHttps(301, 5001)` :`http://localhost:5000/secure`
+Původní požadavek s použitím `AddRedirectToHttps(301, 5001)` : `http://localhost:5000/secure`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https.png)
 
-Původní požadavek s použitím `AddRedirectToHttpsPermanent` :`http://localhost:5000/secure`
+Původní požadavek s použitím `AddRedirectToHttpsPermanent` : `http://localhost:5000/secure`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https_permanent.png)
 
@@ -188,7 +189,7 @@ Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=10-11)]
 
-Původní požadavek:`/rewrite-rule/1234/5678`
+Původní požadavek: `/rewrite-rule/1234/5678`
 
 ![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_rewrite.png)
 
@@ -198,17 +199,17 @@ V předchozím příkladu s pravidlem přesměrování `redirect-rule/(.*)` nen�
 
 | Cesta                               | Shoda |
 | ---------------------------------- | :---: |
-| `/redirect-rule/1234/5678`         | Ano   |
-| `/my-cool-redirect-rule/1234/5678` | Ano   |
-| `/anotherredirect-rule/1234/5678`  | Ano   |
+| `/redirect-rule/1234/5678`         | Yes   |
+| `/my-cool-redirect-rule/1234/5678` | Yes   |
+| `/anotherredirect-rule/1234/5678`  | Yes   |
 
 Pravidlo přepsaného zápisu `^rewrite-rule/(\d+)/(\d+)` odpovídá pouze cestám, pokud začínají na `rewrite-rule/` . V následující tabulce si všimněte rozdílu v porovnání.
 
 | Cesta                              | Shoda |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | Ano   |
-| `/my-cool-rewrite-rule/1234/5678` | Ne    |
-| `/anotherrewrite-rule/1234/5678`  | Ne    |
+| `/my-cool-rewrite-rule/1234/5678` | No    |
+| `/anotherrewrite-rule/1234/5678`  | No    |
 
 Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)` . `\d`Značí *shodu s číslicí (číslem)*. Znaménko plus ( `+` ) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2` . Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678` . Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 
@@ -232,7 +233,7 @@ Ukázková aplikace přesměrovává požadavky od `/apache-mod-rules-redirect/(
 
 [!code[](url-rewriting/samples/3.x/SampleApp/ApacheModRewrite.txt)]
 
-Původní požadavek:`/apache-mod-rules-redirect/1234`
+Původní požadavek: `/apache-mod-rules-redirect/1234`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_apache_mod_redirect.png)
 
@@ -280,7 +281,7 @@ Ukázková aplikace přepíše požadavky od `/iis-rules-rewrite/(.*)` do `/rewr
 
 [!code-xml[](url-rewriting/samples/3.x/SampleApp/IISUrlRewrite.xml)]
 
-Původní požadavek:`/iis-rules-rewrite/1234`
+Původní požadavek: `/iis-rules-rewrite/1234`
 
 ![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_iis_url_rewrite.png)
 
@@ -325,11 +326,11 @@ Middleware podporuje následující proměnné serveru pro přepis adres URL slu
 
 ### <a name="method-based-rule"></a>Pravidlo založené na metodách
 
-Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> , který zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> metodu pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add` zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> , který zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> metodu pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
 
 | Výsledek kontextu přepsání               | Akce                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
-| `RuleResult.ContinueRules`výchozí | Pokračovat v používání pravidel.                                         |
+| `RuleResult.ContinueRules` výchozí | Pokračovat v používání pravidel.                                         |
 | `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       |
 | `RuleResult.SkipRemainingRules`      | Zastavení použití pravidel a odeslání kontextu do dalšího middlewaru. |
 
@@ -351,7 +352,7 @@ Tento přístup může také přezapisovat požadavky. Ukázková aplikace ukazu
 
 ### <a name="irule-based-rule"></a>Pravidlo založené na IRule
 
-Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k použití logiky pravidla ve třídě, která implementuje <xref:Microsoft.AspNetCore.Rewrite.IRule> rozhraní. `IRule`poskytuje větší flexibilitu při použití pravidla založeného na metodách. Vaše třída implementace může obsahovat konstruktor, který umožňuje předat parametry pro <xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> metodu.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k použití logiky pravidla ve třídě, která implementuje <xref:Microsoft.AspNetCore.Rewrite.IRule> rozhraní. `IRule` poskytuje větší flexibilitu při použití pravidla založeného na metodách. Vaše třída implementace může obsahovat konstruktor, který umožňuje předat parametry pro <xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> metodu.
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
@@ -359,11 +360,11 @@ Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontr
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
-Původní požadavek:`/image.png`
+Původní požadavek: `/image.png`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image.png](url-rewriting/_static/add_redirect_png_requests.png)
 
-Původní požadavek:`/image.jpg`
+Původní požadavek: `/image.jpg`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image.jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
 
@@ -374,7 +375,7 @@ Původní požadavek:`/image.jpg`
 | Přepište cestu do řetězce dotazu. | `^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123` |
 | Koncové lomítko pruhu | `(.*)/$`<br>`/path/` | `$1`<br>`/path` |
 | Vymáhat koncové lomítko | `(.*[^/])$`<br>`/path` | `$1/`<br>`/path/` |
-| Vyhnout se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$` nebo `^(?!.*\.axd$)(.*)$`<br>Ano:`/resource.htm`<br>Ne:`/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
+| Vyhnout se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$` nebo `^(?!.*\.axd$)(.*)$`<br>Ano: `/resource.htm`<br>Ne: `/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
 | Změna uspořádání segmentů adresy URL | `path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1` |
 | Nahradit segment adresy URL | `^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
 
@@ -437,7 +438,7 @@ Pokud nemůžete použít následující přístupy, použijte middleware přepi
 * [Apache mod_rewrite modul na serveru Apache](https://httpd.apache.org/docs/2.4/rewrite/)
 * [Přepsání adresy URL na Nginx](https://www.nginx.com/blog/creating-nginx-rewrite-rules/)
 
-Používejte také middleware při hostování aplikace na [serveruHTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
+Používejte také middleware při hostování aplikace na [ serveruHTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
 
 Hlavními důvody pro použití technologie přepisování adres URL založené na serveru ve službě IIS, Apache a Nginx jsou:
 
@@ -484,7 +485,7 @@ Při *přesměrování*adresy URL se na Server provede cyklická výměna.
 > [!WARNING]
 > Buďte opatrní při vytváření pravidel přesměrování. Pravidla přesměrování se vyhodnocují při každém požadavku na aplikaci, včetně po přesměrování. Je snadné vytvořit *smyčku nekonečných přesměrování*.
 
-Původní požadavek:`/redirect-rule/1234/5678`
+Původní požadavek: `/redirect-rule/1234/5678`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect.png)
 
@@ -528,11 +529,11 @@ public void Configure(IApplicationBuilder app)
 
 Ukázková aplikace dokáže demonstrovat, jak používat `AddRedirectToHttps` nebo `AddRedirectToHttpsPermanent` . Přidejte metodu rozšíření do `RewriteOptions` . Vytvořte nezabezpečenou žádost o aplikaci na libovolné adrese URL. Zrušte upozornění zabezpečení prohlížeče, že certifikát podepsaný svým držitelem je nedůvěryhodný, nebo vytvořte výjimku pro důvěřování certifikátu.
 
-Původní požadavek s použitím `AddRedirectToHttps(301, 5001)` :`http://localhost:5000/secure`
+Původní požadavek s použitím `AddRedirectToHttps(301, 5001)` : `http://localhost:5000/secure`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https.png)
 
-Původní požadavek s použitím `AddRedirectToHttpsPermanent` :`http://localhost:5000/secure`
+Původní požadavek s použitím `AddRedirectToHttpsPermanent` : `http://localhost:5000/secure`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https_permanent.png)
 
@@ -542,7 +543,7 @@ Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=10-11)]
 
-Původní požadavek:`/rewrite-rule/1234/5678`
+Původní požadavek: `/rewrite-rule/1234/5678`
 
 ![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_rewrite.png)
 
@@ -552,17 +553,17 @@ V předchozím příkladu s pravidlem přesměrování `redirect-rule/(.*)` nen�
 
 | Cesta                               | Shoda |
 | ---------------------------------- | :---: |
-| `/redirect-rule/1234/5678`         | Ano   |
-| `/my-cool-redirect-rule/1234/5678` | Ano   |
-| `/anotherredirect-rule/1234/5678`  | Ano   |
+| `/redirect-rule/1234/5678`         | Yes   |
+| `/my-cool-redirect-rule/1234/5678` | Yes   |
+| `/anotherredirect-rule/1234/5678`  | Yes   |
 
 Pravidlo přepsaného zápisu `^rewrite-rule/(\d+)/(\d+)` odpovídá pouze cestám, pokud začínají na `rewrite-rule/` . V následující tabulce si všimněte rozdílu v porovnání.
 
 | Cesta                              | Shoda |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | Ano   |
-| `/my-cool-rewrite-rule/1234/5678` | Ne    |
-| `/anotherrewrite-rule/1234/5678`  | Ne    |
+| `/my-cool-rewrite-rule/1234/5678` | No    |
+| `/anotherrewrite-rule/1234/5678`  | No    |
 
 Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)` . `\d`Značí *shodu s číslicí (číslem)*. Znaménko plus ( `+` ) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2` . Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678` . Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 
@@ -586,7 +587,7 @@ Ukázková aplikace přesměrovává požadavky od `/apache-mod-rules-redirect/(
 
 [!code[](url-rewriting/samples/2.x/SampleApp/ApacheModRewrite.txt)]
 
-Původní požadavek:`/apache-mod-rules-redirect/1234`
+Původní požadavek: `/apache-mod-rules-redirect/1234`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_apache_mod_redirect.png)
 
@@ -634,7 +635,7 @@ Ukázková aplikace přepíše požadavky od `/iis-rules-rewrite/(.*)` do `/rewr
 
 [!code-xml[](url-rewriting/samples/2.x/SampleApp/IISUrlRewrite.xml)]
 
-Původní požadavek:`/iis-rules-rewrite/1234`
+Původní požadavek: `/iis-rules-rewrite/1234`
 
 ![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_iis_url_rewrite.png)
 
@@ -679,11 +680,11 @@ Middleware podporuje následující proměnné serveru pro přepis adres URL slu
 
 ### <a name="method-based-rule"></a>Pravidlo založené na metodách
 
-Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> , který zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> metodu pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add` zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> , který zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> metodu pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
 
 | Výsledek kontextu přepsání               | Akce                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
-| `RuleResult.ContinueRules`výchozí | Pokračovat v používání pravidel.                                         |
+| `RuleResult.ContinueRules` výchozí | Pokračovat v používání pravidel.                                         |
 | `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       |
 | `RuleResult.SkipRemainingRules`      | Zastavení použití pravidel a odeslání kontextu do dalšího middlewaru. |
 
@@ -705,7 +706,7 @@ Tento přístup může také přezapisovat požadavky. Ukázková aplikace ukazu
 
 ### <a name="irule-based-rule"></a>Pravidlo založené na IRule
 
-Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k použití logiky pravidla ve třídě, která implementuje <xref:Microsoft.AspNetCore.Rewrite.IRule> rozhraní. `IRule`poskytuje větší flexibilitu při použití pravidla založeného na metodách. Vaše třída implementace může obsahovat konstruktor, který umožňuje předat parametry pro <xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> metodu.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k použití logiky pravidla ve třídě, která implementuje <xref:Microsoft.AspNetCore.Rewrite.IRule> rozhraní. `IRule` poskytuje větší flexibilitu při použití pravidla založeného na metodách. Vaše třída implementace může obsahovat konstruktor, který umožňuje předat parametry pro <xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> metodu.
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
@@ -713,11 +714,11 @@ Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontr
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
-Původní požadavek:`/image.png`
+Původní požadavek: `/image.png`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image.png](url-rewriting/_static/add_redirect_png_requests.png)
 
-Původní požadavek:`/image.jpg`
+Původní požadavek: `/image.jpg`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image.jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
 
@@ -728,13 +729,13 @@ Původní požadavek:`/image.jpg`
 | Přepište cestu do řetězce dotazu. | `^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123` |
 | Koncové lomítko pruhu | `(.*)/$`<br>`/path/` | `$1`<br>`/path` |
 | Vymáhat koncové lomítko | `(.*[^/])$`<br>`/path` | `$1/`<br>`/path/` |
-| Vyhnout se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$` nebo `^(?!.*\.axd$)(.*)$`<br>Ano:`/resource.htm`<br>Ne:`/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
+| Vyhnout se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$` nebo `^(?!.*\.axd$)(.*)$`<br>Ano: `/resource.htm`<br>Ne: `/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
 | Změna uspořádání segmentů adresy URL | `path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1` |
 | Nahradit segment adresy URL | `^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>

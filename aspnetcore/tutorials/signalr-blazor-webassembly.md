@@ -1,5 +1,5 @@
 ---
-title: Použít ASP.NET Core SignalR sBlazor WebAssembly
+title: Použít ASP.NET Core SignalR s Blazor WebAssembly
 author: guardrex
 description: Vytvořte aplikaci Chat, která používá ASP.NET Core SignalR s Blazor WebAssembly .
 monikerRange: '>= aspnetcore-3.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 3d7ae49142849c589a1a20c33d30e87747ad1935
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 4d33e99ceb8273487144447eae324469df67c9ff
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021624"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633380"
 ---
-# <a name="use-aspnet-core-no-locsignalr-with-no-locblazor-webassembly"></a>Použít ASP.NET Core SignalR sBlazor WebAssembly
+# <a name="use-aspnet-core-no-locsignalr-with-no-locblazor-webassembly"></a>Použít ASP.NET Core SignalR s Blazor WebAssembly
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
@@ -41,7 +42,7 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-blazor-webassembly/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -287,7 +288,7 @@ Další informace o vytváření Blazor aplikací najdete v Blazor dokumentaci:
 > [!div class="nextstepaction"]
 > <xref:blazor/index>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:signalr/introduction>
-* [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)
+* [SignalR vyjednávání mezi zdroji pro ověřování](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)

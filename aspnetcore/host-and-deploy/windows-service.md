@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 7740774cad33418489fc1d94240574167f84fae6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 11362f677da3e55df4267cf3d6ca8097c24c218f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015358"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633939"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>ASP.NET Core hostitele ve službě systému Windows
 
@@ -32,7 +33,7 @@ Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému W
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [ASP.NET Core SDK 2,1 nebo novější](https://dotnet.microsoft.com/download)
 * [PowerShell 6,2 nebo novější](https://github.com/PowerShell/PowerShell)
@@ -50,7 +51,7 @@ Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému W
 
 Aplikace vyžaduje odkaz na balíček pro [Microsoft. Extensions. Hosting. WindowsServices](https://www.nuget.org/packages/Microsoft.Extensions.Hosting.WindowsServices).
 
-`IHostBuilder.UseWindowsService`je volána při sestavování hostitele. Pokud je aplikace spuštěná jako služba systému Windows, metoda:
+`IHostBuilder.UseWindowsService` je volána při sestavování hostitele. Pokud je aplikace spuštěná jako služba systému Windows, metoda:
 
 * Nastaví dobu života hostitele na `WindowsServiceLifetime` .
 * Nastaví [kořen obsahu](xref:fundamentals/index#content-root) na [AppContext. BaseDirectory](xref:System.AppContext.BaseDirectory). Další informace najdete v oddílu [aktuální adresář a kořenový adresář obsahu](#current-directory-and-content-root) .
@@ -341,7 +342,7 @@ Když *aplikace přestane reagovat (zastaví* se, ale nejedná se o chybu), sel�
 
 Výpis paměti lze analyzovat pomocí několika přístupů. Další informace najdete v tématu [Analýza souboru s výpisem stavu v uživatelském režimu](/windows-hardware/drivers/debugger/analyzing-a-user-mode-dump-file).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration) (zahrnuje konfiguraci HTTPS a podporu sni)
 * <xref:fundamentals/host/generic-host>
@@ -355,7 +356,7 @@ Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému W
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [ASP.NET Core SDK 2,1 nebo novější](https://dotnet.microsoft.com/download)
 * [PowerShell 6,2 nebo novější](https://github.com/PowerShell/PowerShell)
@@ -675,7 +676,7 @@ Když *aplikace přestane reagovat (zastaví* se, ale nejedná se o chybu), sel�
 
 Výpis paměti lze analyzovat pomocí několika přístupů. Další informace najdete v tématu [Analýza souboru s výpisem stavu v uživatelském režimu](/windows-hardware/drivers/debugger/analyzing-a-user-mode-dump-file).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration) (zahrnuje konfiguraci HTTPS a podporu sni)
 * <xref:fundamentals/host/web-host>
@@ -689,7 +690,7 @@ Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému W
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [ASP.NET Core SDK 2,1 nebo novější](https://dotnet.microsoft.com/download)
 * [PowerShell 6,2 nebo novější](https://github.com/PowerShell/PowerShell)
@@ -1012,7 +1013,7 @@ Když *aplikace přestane reagovat (zastaví* se, ale nejedná se o chybu), sel�
 
 Výpis paměti lze analyzovat pomocí několika přístupů. Další informace najdete v tématu [Analýza souboru s výpisem stavu v uživatelském režimu](/windows-hardware/drivers/debugger/analyzing-a-user-mode-dump-file).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration) (zahrnuje konfiguraci HTTPS a podporu sni)
 * <xref:fundamentals/host/web-host>

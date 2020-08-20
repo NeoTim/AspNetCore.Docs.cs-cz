@@ -6,6 +6,7 @@ ms.author: riande
 ms.date: 03/26/2020
 ms.custom: mvc, seodec18
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/add-user-data
-ms.openlocfilehash: d65974e9ff8e2f5be52ab79b063ed9d2dca557ea
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a71395e82ed15dae753888a438471495208a14da
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020857"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631846"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-no-locidentity-in-an-aspnet-core-project"></a>Přidání, stažení a odstranění vlastních uživatelských dat do Identity projektu ASP.NET Core
 
@@ -36,7 +37,7 @@ Ukázka projektu se vytvoří z Razor webové aplikace stránky, ale pokyny jsou
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/add-user-data) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -90,7 +91,7 @@ dotnet new webapp -o WebApp1
 * Z **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt > **Přidat**  >  **novou vygenerované položky**.
 * V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identity**  >  **Přidat**.
 * V dialogovém **okně Identity Přidat** následující možnosti:
-  * Vyberte existující soubor rozložení *~/Pages/Shared/_Layout. cshtml.*
+  * Vyberte existující soubor rozložení  *~/Pages/Shared/_Layout. cshtml.*
   * Vyberte následující soubory, které chcete přepsat:
     * **Účet/registr**
     * **Účet/Správa/index**
@@ -244,7 +245,7 @@ Otestujte aplikaci:
 > [!NOTE]
 > Tato část není příponou předchozího kurzu. Pokud chcete u aplikace sestavené pomocí tohoto kurzu použít následující kroky, podívejte se na [Tento problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/18797).
 
-Další deklarace identity je možné přidat do ASP.NET Core Identity pomocí `IUserClaimsPrincipalFactory<T>` rozhraní. Tato třída se dá do aplikace přidat v `Startup.ConfigureServices` metodě. Přidejte vlastní implementaci třídy následujícím způsobem:
+Další deklarace identity je možné přidat ASP.NET Core Identity pomocí `IUserClaimsPrincipalFactory<T>` rozhraní. Tato třída se dá do aplikace přidat v `Startup.ConfigureServices` metodě. Přidejte vlastní implementaci třídy následujícím způsobem:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

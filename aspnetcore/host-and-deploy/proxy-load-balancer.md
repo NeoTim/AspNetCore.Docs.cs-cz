@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 75bb92908525d18af57f408e8ebba53c6eec88b2
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 737575667be0e6b776a4d9ec9fb75bc0d11309dc
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015514"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634173"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení
 
@@ -94,11 +95,11 @@ Pro přeposílání `X-Forwarded-For` `X-Forwarded-Proto` hlaviček a naleznete 
 
 ## <a name="apache-configuration"></a>Konfigurace Apache
 
-`X-Forwarded-For`se přidá automaticky (viz část [modulu Apache mod_proxy: hlavičky žádosti reverzního proxy serveru](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#x-headers)). Informace o tom, jak přeslat `X-Forwarded-Proto` hlavičku, najdete v tématu <xref:host-and-deploy/linux-apache#configure-apache> .
+`X-Forwarded-For` se přidá automaticky (viz část [modulu Apache mod_proxy: hlavičky žádosti reverzního proxy serveru](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#x-headers)). Informace o tom, jak přeslat `X-Forwarded-Proto` hlavičku, najdete v tématu <xref:host-and-deploy/linux-apache#configure-apache> .
 
 ## <a name="forwarded-headers-middleware-options"></a>Možnosti middlewaru předávaných hlaviček
 
-<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>řízení chování middlewaru předávaných hlaviček. Následující příklad změní výchozí hodnoty:
+<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> řízení chování middlewaru předávaných hlaviček. Následující příklad změní výchozí hodnoty:
 
 * Omezte počet záznamů v předaných hlavičkách na `2` .
 * Přidejte známou adresu proxy serveru `127.0.10.1` .
@@ -198,9 +199,9 @@ Pokud server používá sokety s duálním režimem, adresy IPv4 jsou zadány ve
 
 V následujícím příkladu se síťová adresa, která poskytuje předávaná záhlaví, přidá do `KnownNetworks` seznamu ve formátu protokolu IPv6.
 
-Adresa IPv4:`10.11.12.1/8`
+Adresa IPv4: `10.11.12.1/8`
 
-Převedená adresa IPv6:`::ffff:10.11.12.1`  
+Převedená adresa IPv6: `::ffff:10.11.12.1`  
 Délka převedené předpony: 104
 
 Adresu můžete také uvést v šestnáctkovém formátu ( `10.11.12.1` reprezentované protokolem IPv6 jako `::ffff:0a0b:0c01` ). Při převodu adresy IPv4 na IPv6 přidejte 96 k délce předpony CIDR ( `8` v příkladu), aby se zohlednila další `::ffff:` předpona IPv6 (8 + 96 = 104). 
@@ -220,7 +221,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 ## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>Předejte schéma pro reverzní proxy servery se systémy Linux a non-IIS.
 
-Aplikace, které volají <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> a <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> umísťují lokalitu do nekonečné smyčky, pokud jsou nasazené do azure Linux App Service, virtuální počítač Azure Linux (VM) nebo za jakýkoli jiný reverzní proxy server, kromě služby IIS. Protokol TLS je ukončen reverzním proxy serverem a Kestrel není informován o správném schématu požadavků. OAuth a OIDC v této konfiguraci selže, protože generují nesprávná přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*>Přidá a nakonfiguruje middleware předávaných hlaviček při spuštění za IIS, ale neexistuje žádná vyhovující Automatická konfigurace pro Linux (integrace Apache nebo Nginx).
+Aplikace, které volají <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> a <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> umísťují lokalitu do nekonečné smyčky, pokud jsou nasazené do azure Linux App Service, virtuální počítač Azure Linux (VM) nebo za jakýkoli jiný reverzní proxy server, kromě služby IIS. Protokol TLS je ukončen reverzním proxy serverem a Kestrel není informován o správném schématu požadavků. OAuth a OIDC v této konfiguraci selže, protože generují nesprávná přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> Přidá a nakonfiguruje middleware předávaných hlaviček při spuštění za IIS, ale neexistuje žádná vyhovující Automatická konfigurace pro Linux (integrace Apache nebo Nginx).
 
 Pro přeposílání schématu od proxy serveru ve scénářích mimo službu IIS přidejte a nakonfigurujte middleware s předanými hlavičkami. V `Startup.ConfigureServices` použijte následující kód:
 
@@ -379,7 +380,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 > [!IMPORTANT]
 > Povoluje pouze důvěryhodné proxy servery a sítě pro přeposílání hlaviček. V opačném případě jsou možné útoky s [falešnou IP adresou](https://www.iplocation.net/ip-spoofing) .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:host-and-deploy/web-farm>
 * [Informační zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787: ASP.NET Core zvýšení zabezpečení oprávnění](https://github.com/aspnet/Announcements/issues/295)
@@ -472,11 +473,11 @@ Pro přeposílání `X-Forwarded-For` `X-Forwarded-Proto` hlaviček a naleznete 
 
 ## <a name="apache-configuration"></a>Konfigurace Apache
 
-`X-Forwarded-For`se přidá automaticky (viz část [modulu Apache mod_proxy: hlavičky žádosti reverzního proxy serveru](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#x-headers)). Informace o tom, jak přeslat `X-Forwarded-Proto` hlavičku, najdete v tématu <xref:host-and-deploy/linux-apache#configure-apache> .
+`X-Forwarded-For` se přidá automaticky (viz část [modulu Apache mod_proxy: hlavičky žádosti reverzního proxy serveru](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#x-headers)). Informace o tom, jak přeslat `X-Forwarded-Proto` hlavičku, najdete v tématu <xref:host-and-deploy/linux-apache#configure-apache> .
 
 ## <a name="forwarded-headers-middleware-options"></a>Možnosti middlewaru předávaných hlaviček
 
-<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>řízení chování middlewaru předávaných hlaviček. Následující příklad změní výchozí hodnoty:
+<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> řízení chování middlewaru předávaných hlaviček. Následující příklad změní výchozí hodnoty:
 
 * Omezte počet záznamů v předaných hlavičkách na `2` .
 * Přidejte známou adresu proxy serveru `127.0.10.1` .
@@ -576,9 +577,9 @@ Pokud server používá sokety s duálním režimem, adresy IPv4 jsou zadány ve
 
 V následujícím příkladu se síťová adresa, která poskytuje předávaná záhlaví, přidá do `KnownNetworks` seznamu ve formátu protokolu IPv6.
 
-Adresa IPv4:`10.11.12.1/8`
+Adresa IPv4: `10.11.12.1/8`
 
-Převedená adresa IPv6:`::ffff:10.11.12.1`  
+Převedená adresa IPv6: `::ffff:10.11.12.1`  
 Délka převedené předpony: 104
 
 Adresu můžete také uvést v šestnáctkovém formátu ( `10.11.12.1` reprezentované protokolem IPv6 jako `::ffff:0a0b:0c01` ). Při převodu adresy IPv4 na IPv6 přidejte 96 k délce předpony CIDR ( `8` v příkladu), aby se zohlednila další `::ffff:` předpona IPv6 (8 + 96 = 104). 
@@ -598,7 +599,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 ## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>Předejte schéma pro reverzní proxy servery se systémy Linux a non-IIS.
 
-Aplikace, které volají <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> a <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> umísťují lokalitu do nekonečné smyčky, pokud jsou nasazené do azure Linux App Service, virtuální počítač Azure Linux (VM) nebo za jakýkoli jiný reverzní proxy server, kromě služby IIS. Protokol TLS je ukončen reverzním proxy serverem a Kestrel není informován o správném schématu požadavků. OAuth a OIDC v této konfiguraci selže, protože generují nesprávná přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*>Přidá a nakonfiguruje middleware předávaných hlaviček při spuštění za IIS, ale neexistuje žádná vyhovující Automatická konfigurace pro Linux (integrace Apache nebo Nginx).
+Aplikace, které volají <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> a <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> umísťují lokalitu do nekonečné smyčky, pokud jsou nasazené do azure Linux App Service, virtuální počítač Azure Linux (VM) nebo za jakýkoli jiný reverzní proxy server, kromě služby IIS. Protokol TLS je ukončen reverzním proxy serverem a Kestrel není informován o správném schématu požadavků. OAuth a OIDC v této konfiguraci selže, protože generují nesprávná přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> Přidá a nakonfiguruje middleware předávaných hlaviček při spuštění za IIS, ale neexistuje žádná vyhovující Automatická konfigurace pro Linux (integrace Apache nebo Nginx).
 
 Pro přeposílání schématu od proxy serveru ve scénářích mimo službu IIS přidejte a nakonfigurujte middleware s předanými hlavičkami. V `Startup.ConfigureServices` použijte následující kód:
 
@@ -707,7 +708,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 > [!IMPORTANT]
 > Povoluje pouze důvěryhodné proxy servery a sítě pro přeposílání hlaviček. V opačném případě jsou možné útoky s [falešnou IP adresou](https://www.iplocation.net/ip-spoofing) .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:host-and-deploy/web-farm>
 * [Informační zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787: ASP.NET Core zvýšení zabezpečení oprávnění](https://github.com/aspnet/Announcements/issues/295)

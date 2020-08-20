@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 03/18/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 067698687268ac072d8944fd5d9ae47c49fd4a24
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 42a7231b529dd9f8ecbce4f8116111e1c96c830d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015008"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633094"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>Tagování pomocníků v ASP.NET Core
 
@@ -72,7 +73,7 @@ Obor pomocníků značek je ovládán kombinací `@addTagHelper` , `@removeTagHe
 
 <a name="add-helper-label"></a>
 
-### <a name="addtaghelper-makes-tag-helpers-available"></a>`@addTagHelper`zpřístupňuje pomocníkům značky
+### <a name="addtaghelper-makes-tag-helpers-available"></a>`@addTagHelper` zpřístupňuje pomocníkům značky
 
 Pokud vytvoříte novou ASP.NET Core webovou aplikaci s názvem *AuthoringTagHelpers*, budou do projektu přidány následující soubory *zobrazení nebo _ViewImports. cshtml* :
 
@@ -103,7 +104,7 @@ Jak bylo zmíněno dříve, přidání `@addTagHelper` direktivy do souboru view
 
 <a name="remove-razor-directives-label"></a>
 
-### <a name="removetaghelper-removes-tag-helpers"></a>`@removeTagHelper`Odebere pomocníky značek.
+### <a name="removetaghelper-removes-tag-helpers"></a>`@removeTagHelper` Odebere pomocníky značek.
 
 `@removeTagHelper`Má stejné dva parametry jako `@addTagHelper` a odebere pomocníka značek, který byl dříve přidán. Například `@removeTagHelper` použití na konkrétní zobrazení odebere ze zobrazení určenou pomocnou značku. Použití `@removeTagHelper` v souboru *views/Folder/_ViewImports. cshtml* odstraní určenou pomocnou značku ze všech zobrazení ve *složce*.
 
@@ -267,7 +268,7 @@ Editor sady Visual Studio vám pomůže napsat **všechny** značky v pomocné m
 
 * Ovládací prvky webového serveru používají k převodu řetězců do objektů převaděče typů. U pomocníků se značkami pracujete nativně v jazyce C#, takže nemusíte provádět převod typu.
 
-* Ovládací prvky webového serveru používají [System. ComponentModel](/dotnet/api/system.componentmodel) k implementaci chování komponent a ovládacích prvků za běhu a v době návrhu. `System.ComponentModel`zahrnuje základní třídy a rozhraní pro implementaci atributů a převaděčů typů, vázání na zdroje dat a součásti licencování. Na rozdíl od toho, že chcete označit pomocníky, které jsou obvykle odvozeny z `TagHelper` a `TagHelper` základní třída zpřístupňuje pouze dvě metody `Process` a `ProcessAsync` .
+* Ovládací prvky webového serveru používají [System. ComponentModel](/dotnet/api/system.componentmodel) k implementaci chování komponent a ovládacích prvků za běhu a v době návrhu. `System.ComponentModel` zahrnuje základní třídy a rozhraní pro implementaci atributů a převaděčů typů, vázání na zdroje dat a součásti licencování. Na rozdíl od toho, že chcete označit pomocníky, které jsou obvykle odvozeny z `TagHelper` a `TagHelper` základní třída zpřístupňuje pouze dvě metody `Process` a `ProcessAsync` .
 
 ## <a name="customizing-the-tag-helper-element-font"></a>Přizpůsobení písma prvku pomocné značky
 
@@ -277,7 +278,7 @@ Písma a barvy můžete přizpůsobit v **nabídce nástroje**  >  **Možnosti**
 
 [!INCLUDE[](~/includes/built-in-TH.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Vytváření pomocníků se značkami](xref:mvc/views/tag-helpers/authoring)
 * [Práce s formuláři](xref:mvc/views/working-with-forms)

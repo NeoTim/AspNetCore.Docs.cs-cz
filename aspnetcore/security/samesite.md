@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/03/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - SignalR
 - Electron
 uid: security/samesite
-ms.openlocfilehash: 7688367093dec09c172a2e24337566bc5e5185f6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c95952face8763dc9f2dd12312cab1a1bc07528a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021741"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632340"
 ---
 # <a name="work-with-samesite-no-loccookies-in-aspnet-core"></a>Práce s SameSite cookie s v ASP.NET Core
 
@@ -31,7 +32,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 SameSite je Konceptový standard [IETF](https://ietf.org/about/) navržený tak, aby poskytoval určitou ochranu proti útokům prostřednictvím CSRF (pro falšování požadavků mezi lokalitami). Původně koncept v [2016](https://tools.ietf.org/html/draft-west-first-party-cookies-07)se aktualizoval koncept standardu v [2019](https://tools.ietf.org/html/draft-west-cookie-incrementalism-00). Aktualizovaný Standard není zpětně kompatibilní s předchozím standardem, přičemž následující je největší znatelné rozdíly:
 
 * Cookies bez hlavičky SameSite se považují za `SameSite=Lax` výchozí.
-* `SameSite=None`se musí použít k povolení použití mezi weby cookie .
+* `SameSite=None` se musí použít k povolení použití mezi weby cookie .
 * Cookieu tohoto kontrolního výrazu `SameSite=None` musí být také označena jako `Secure` .
 * U aplikací, které používají, [`<iframe>`](https://developer.mozilla.org/docs/Web/HTML/Element/iframe) může docházet k problémům s `sameSite=Lax` nebo `sameSite=Strict` cookie s, protože `<iframe>` se považují za scénáře mezi lokalitami.
 * Hodnota není `SameSite=None` povolena ve [standardu 2016](https://tools.ietf.org/html/draft-west-first-party-cookies-07) a způsobí, že některé implementace považují cookie za `SameSite=Strict` . Viz [Podpora starších prohlížečů](#sob) v tomto dokumentu.
@@ -40,7 +41,7 @@ SameSite je Konceptový standard [IETF](https://ietf.org/about/) navržený tak,
 
 Každá součást ASP.NET Core, která generuje, cookie musí rozhodnout, jestli je SameSite vhodná.
 
-## <a name="samesite-and-no-locidentity"></a>SameSite aIdentity
+## <a name="samesite-and-no-locidentity"></a>SameSite a Identity
 
 [!INCLUDE[](~/includes/SameSiteIdentity.md)]
 
@@ -72,7 +73,7 @@ Následující ukázku lze stáhnout a otestovat:
 
 ## <a name="net-core-support-for-the-samesite-attribute"></a>Podpora .NET Core pro atribut sameSite
 
-.NET Core 2,2 podporuje pracovní Standard 2019 pro SameSite od vydání aktualizací v prosinci 2019. Vývojáři mohou programově řídit hodnotu atributu sameSite pomocí `HttpCookie.SameSite` Vlastnosti. Nastavením `SameSite` vlastnosti na hodnotu Strict, LAX nebo None dojde k vypsání hodnot v síti pomocí cookie . Nastavení rovná se (SameSiteMode) (-1) znamená, že v síti není žádný atribut sameSite, který by měl být součástícookie
+.NET Core 2,2 podporuje pracovní Standard 2019 pro SameSite od vydání aktualizací v prosinci 2019. Vývojáři mohou programově řídit hodnotu atributu sameSite pomocí `HttpCookie.SameSite` Vlastnosti. Nastavením `SameSite` vlastnosti na hodnotu Strict, LAX nebo None dojde k vypsání hodnot v síti pomocí cookie . Nastavení rovná se (SameSiteMode) (-1) znamená, že v síti není žádný atribut sameSite, který by měl být součástí cookie
 
 [!code-csharp[](samesite/snippets/Privacy.cshtml.cs?name=snippet)]
 
@@ -105,7 +106,7 @@ Všechny součásti ASP.NET Core, které emitují, cookie přepíší předchoz�
 | <xref:Microsoft.AspNetCore.Http.HttpContext.Session>  | [SessionOptions.Cookie](xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie) |`Lax` |
 | <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>  | [CookieTempDataProviderOptions.Cookie](xref:Microsoft.AspNetCore.Mvc.CookieTempDataProviderOptions.Cookie) | `Lax` |
 | <xref:Microsoft.AspNetCore.Antiforgery.IAntiforgery> | [AntiforgeryOptions.Cookie](xref:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions.Cookie)| `Strict` |
-| [CookiePřihlašovací](xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*) | [CookieAuthenticationOptions.Cookie](xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions.CookieName) | `Lax` |
+| [Cookie Přihlašovací](xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*) | [CookieAuthenticationOptions.Cookie](xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions.CookieName) | `Lax` |
 | <xref:Microsoft.Extensions.DependencyInjection.TwitterExtensions.AddTwitter*> | [TwitterOptions. State Cookie](xref:Microsoft.AspNetCore.Authentication.Twitter.TwitterOptions.StateCookie) | `Lax`  |
 | <xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationHandler`1> | [RemoteAuthenticationOptions. CorrelationCookie](xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.CorrelationCookie)  | `None` |
 | <xref:Microsoft.Extensions.DependencyInjection.OpenIdConnectExtensions.AddOpenIdConnect*> | [OpenIdConnectOptions. nonceCookie](xref:Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions.NonceCookie)| `None` |
@@ -115,7 +116,7 @@ Všechny součásti ASP.NET Core, které emitují, cookie přepíší předchoz�
 
 ASP.NET Core 3,1 a novějším přináší následující podporu SameSite:
 
-* Předefinuje chování `SameSiteMode.None` pro vygenerování.`SameSite=None`
+* Předefinuje chování `SameSiteMode.None` pro vygenerování. `SameSite=None`
 * Přidá novou hodnotu `SameSiteMode.Unspecified` pro vynechání atributu SameSite.
 * Všechna cookie rozhraní API s výchozím nastavením na `Unspecified` . Některé komponenty, které používají cookie hodnotu s, jsou specifické pro jejich scénáře. Příklady najdete v tabulce výše.
 
@@ -125,8 +126,8 @@ ASP.NET Core 3,1 a novějším přináší následující podporu SameSite:
 
 V ASP.NET Core 3,0 a novějších byly změněny výchozí hodnoty SameSite, aby nedocházelo ke konfliktům s nekonzistentními výchozími nastaveními klientů. Následující rozhraní API změnila výchozí hodnoty z `SameSiteMode.Lax ` na na, `-1` aby nedocházelo k vygenerování atributu SameSite pro tyto cookie prvky:
 
-* <xref:Microsoft.AspNetCore.Http.CookieOptions>používá se s [HttpContext. Response. Cookie s. Append](xref:Microsoft.AspNetCore.Http.IResponseCookies.Append*)
-* <xref:Microsoft.AspNetCore.Http.CookieBuilder>používá se jako továrna pro`CookieOptions`
+* <xref:Microsoft.AspNetCore.Http.CookieOptions> používá se s [HttpContext. Response. Cookie s. Append](xref:Microsoft.AspNetCore.Http.IResponseCookies.Append*)
+* <xref:Microsoft.AspNetCore.Http.CookieBuilder>  používá se jako továrna pro `CookieOptions`
 * [CookiePolicyOptions.MinimumSameSitePolicy](xref:Microsoft.AspNetCore.Builder.CookiePolicyOptions.MinimumSameSitePolicy)
 
 ::: moniker-end
@@ -139,7 +140,7 @@ Podpora SameSite byla poprvé implementována v ASP.NET Core v 2,0 pomocí [stan
 
 * Není **zpětně** kompatibilní s konceptem 2016. Další informace najdete v tématu [Podpora starších prohlížečů](#sob) v tomto dokumentu.
 * Určuje cookie , že s se `SameSite=Lax` ve výchozím nastavení považují.
-* Určuje cookie , že explicitní vyhodnocení, aby `SameSite=None` bylo možné povolit doručování mezi weby, musí být označeno jako `Secure` . `None`je nová položka, která se má odhlásit.
+* Určuje cookie , že explicitní vyhodnocení, aby `SameSite=None` bylo možné povolit doručování mezi weby, musí být označeno jako `Secure` . `None` je nová položka, která se má odhlásit.
 * Je podporován opravami vydanými pro ASP.NET Core 2,1, 2,2 a 3,0. ASP.NET Core 3,1 má další podporu SameSite.
 * Ve výchozím nastavení je naplánovaná podpora [Chrome](https://chromestatus.com/feature/5088147346030592) v [únoru 2020](https://blog.chromium.org/2019/10/developers-get-ready-for-new.html). Prohlížeče začaly při přesunu do tohoto standardu v 2019.
 
@@ -211,7 +212,7 @@ Počínaje verzí na Kanárských verzích je `80.0.3975.0` dočasné zmírněn�
 
 ### <a name="test-with-safari"></a>Testování pomocí Safari
 
-Prohlížeč Safari 12 striktně implementuje předchozí koncept a v případě, že je nová hodnota v, dojde k chybě `None` cookie . `None`se vyhněte prostřednictvím kódu detekce prohlížeče, který [podporuje starší prohlížeče](#sob) v tomto dokumentu. Pomocí MSAL, ADAL nebo libovolné knihovny, kterou používáte, otestujte přihlašovací údaje pro WebKit Safari 12, Safari 13 a na bázi. Problém závisí na základní verzi operačního systému. OSX Mojave (10,14) a iOS 12 se nazývají problémy s kompatibilitou s novým chováním SameSite. Upgrade operačního systému na OSX Catalina (10,15) nebo iOS 13 opravuje problém. Prohlížeč Safari aktuálně nemá příznak výslovných přihlášení pro testování nového chování specifikace.
+Prohlížeč Safari 12 striktně implementuje předchozí koncept a v případě, že je nová hodnota v, dojde k chybě `None` cookie . `None` se vyhněte prostřednictvím kódu detekce prohlížeče, který [podporuje starší prohlížeče](#sob) v tomto dokumentu. Pomocí MSAL, ADAL nebo libovolné knihovny, kterou používáte, otestujte přihlašovací údaje pro WebKit Safari 12, Safari 13 a na bázi. Problém závisí na základní verzi operačního systému. OSX Mojave (10,14) a iOS 12 se nazývají problémy s kompatibilitou s novým chováním SameSite. Upgrade operačního systému na OSX Catalina (10,15) nebo iOS 13 opravuje problém. Prohlížeč Safari aktuálně nemá příznak výslovných přihlášení pro testování nového chování specifikace.
 
 ### <a name="test-with-firefox"></a>Testování pomocí Firefox
 
@@ -225,13 +226,13 @@ Edge podporuje starý SameSite Standard. Edge verze 44 nemá žádné známé pr
 
 Příznaky SameSite jsou nastaveny na `edge://flags/#same-site-by-default-cookies` stránce. U Edge Chromu se nezjistily žádné problémy s kompatibilitou.
 
-### <a name="test-with-no-locelectron"></a>Testovat sElectron
+### <a name="test-with-no-locelectron"></a>Testovat s Electron
 
 Verze sady Electron obsahují starší verze Chromu. Například verze Electron používaná týmy je chrom 66, který vykazuje starší chování. Je nutné provést vlastní testování kompatibility s Electron použitím verze produktu. Viz [Podpora starších prohlížečů](#sob) v následující části.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
-* [Chromový blog: vývojáři: Připravte se na nové SameSite = None; CookieNastavení zabezpečení](https://blog.chromium.org/2019/10/developers-get-ready-for-new.html)
+* [Chromový blog: vývojáři: Připravte se na nové SameSite = None; Cookie Nastavení zabezpečení](https://blog.chromium.org/2019/10/developers-get-ready-for-new.html)
 * [SameSite cookie s – vysvětlení](https://web.dev/samesite-cookies-explained/)
 * [Opravy od listopadu 2019](https://devblogs.microsoft.com/dotnet/net-core-November-2019/)
 

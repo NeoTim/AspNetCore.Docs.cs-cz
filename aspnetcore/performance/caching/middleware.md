@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/middleware
-ms.openlocfilehash: 7e1463671323cddd2b95c03de994d497449d7884
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 43b0ef1dcbf6d0137b14be9e58eb056f06ae093d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019089"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633445"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>Ukládání do mezipaměti middlewaru v ASP.NET Core
 
@@ -47,7 +48,7 @@ Nakonfigurujte aplikaci tak, aby používala middlewaru s <xref:Microsoft.AspNet
 [!code-csharp[](middleware/samples/3.x/ResponseCachingMiddleware/Startup.cs?name=snippet2&highlight=17)]
 
 > [!WARNING]
-> <xref:Owin.CorsExtensions.UseCors%2A>musí být před <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching%2A> použitím [middleware CORS](xref:security/cors)volána.
+> <xref:Owin.CorsExtensions.UseCors%2A> musí být před <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching%2A> použitím [middleware CORS](xref:security/cors)volána.
 
 Ukázková aplikace přidá hlavičky pro řízení ukládání do mezipaměti pro následné žádosti:
 
@@ -149,10 +150,10 @@ Při testování a odstraňování potíží s chováním při ukládání do me
 * Metoda požadavku musí být GET nebo HEAD.
 * V nástroji `Startup.Configure` musí být middleware pro ukládání odpovědí do mezipaměti umístěn před middlewarem, který vyžaduje ukládání do mezipaměti. Další informace naleznete v tématu <xref:fundamentals/middleware/index>.
 * `Authorization`Hlavička nesmí být k dispozici.
-* `Cache-Control`parametry hlaviček musí být platné a odpověď musí být označená `public` a nesmí být označená `private` .
+* `Cache-Control` parametry hlaviček musí být platné a odpověď musí být označená `public` a nesmí být označená `private` .
 * `Pragma: no-cache`Hlavička nesmí být k dispozici, pokud `Cache-Control` Hlavička není k dispozici, protože záhlaví `Cache-Control` potlačí hlavičku, pokud je k `Pragma` dispozici.
 * `Set-Cookie`Hlavička nesmí být k dispozici.
-* `Vary`parametry záhlaví musí být platné a nesmí být rovny `*` .
+* `Vary` parametry záhlaví musí být platné a nesmí být rovny `*` .
 * `Content-Length`Hodnota hlavičky (Pokud je nastavena) musí odpovídat velikosti těla odpovědi.
 * <xref:Microsoft.AspNetCore.Http.Features.IHttpSendFileFeature>Není použit.
 * Odpověď nesmí být zastaralá tak, jak je určena `Expires` hlavičkou `max-age` a `s-maxage` direktivami cache a.
@@ -162,7 +163,7 @@ Při testování a odstraňování potíží s chováním při ukládání do me
 > [!NOTE]
 > Systém ochrany proti padělání pro generování zabezpečených tokenů, který brání útokům přes CSRF (mezi lokalitami) `Cache-Control` , nastaví záhlaví a, aby se `Pragma` `no-cache` odpovědi neukládaly do mezipaměti. Informace o tom, jak zakázat tokeny antipadělání pro prvky formuláře HTML, naleznete v tématu <xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration> .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>
@@ -293,10 +294,10 @@ Při testování a odstraňování potíží s chováním při ukládání do me
 * Metoda požadavku musí být GET nebo HEAD.
 * V nástroji `Startup.Configure` musí být middleware pro ukládání odpovědí do mezipaměti umístěn před middlewarem, který vyžaduje ukládání do mezipaměti. Další informace naleznete v tématu <xref:fundamentals/middleware/index>.
 * `Authorization`Hlavička nesmí být k dispozici.
-* `Cache-Control`parametry hlaviček musí být platné a odpověď musí být označená `public` a nesmí být označená `private` .
+* `Cache-Control` parametry hlaviček musí být platné a odpověď musí být označená `public` a nesmí být označená `private` .
 * `Pragma: no-cache`Hlavička nesmí být k dispozici, pokud `Cache-Control` Hlavička není k dispozici, protože záhlaví `Cache-Control` potlačí hlavičku, pokud je k `Pragma` dispozici.
 * `Set-Cookie`Hlavička nesmí být k dispozici.
-* `Vary`parametry záhlaví musí být platné a nesmí být rovny `*` .
+* `Vary` parametry záhlaví musí být platné a nesmí být rovny `*` .
 * `Content-Length`Hodnota hlavičky (Pokud je nastavena) musí odpovídat velikosti těla odpovědi.
 * <xref:Microsoft.AspNetCore.Http.Features.IHttpSendFileFeature>Není použit.
 * Odpověď nesmí být zastaralá tak, jak je určena `Expires` hlavičkou `max-age` a `s-maxage` direktivami cache a.

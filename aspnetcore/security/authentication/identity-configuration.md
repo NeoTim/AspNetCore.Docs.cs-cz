@@ -1,11 +1,12 @@
 ---
-title: Konfigurace ASP.NET CoreIdentity
+title: Konfigurace ASP.NET Core Identity
 author: AdrienTorris
-description: Pochopení ASP.NET Core Identity výchozích hodnot a Naučte se konfigurovat Identity vlastnosti pro použití vlastních hodnot.
+description: Porozumění ASP.NET Core Identity výchozím hodnotám a Naučte se konfigurovat Identity vlastnosti pro použití vlastních hodnot.
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,22 +17,22 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-configuration
-ms.openlocfilehash: b7f6eaba1a0e819a077e3d63b4f997e75b8cd317
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ae4a2eb9d95339651c3810a9f8489d703d73a3fe
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020597"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632678"
 ---
-# <a name="configure-aspnet-core-no-locidentity"></a>Konfigurace ASP.NET CoreIdentity
+# <a name="configure-no-locaspnet-core-identity"></a>Konfigurace ASP.NET Core Identity
 
 ASP.NET Core Identity používá výchozí hodnoty pro nastavení, jako jsou zásady hesla, uzamčení a cookie konfigurace. Tato nastavení lze přepsat ve `Startup` třídě.
 
-## <a name="no-locidentity-options"></a>Identitynastavení
+## <a name="no-locidentity-options"></a>Identity nastavení
 
-Třída [ Identity Options](/dotnet/api/microsoft.aspnetcore.identity.identityoptions) představuje možnosti, které lze použít ke konfiguraci Identity systému. `IdentityOptions`musí být nastavena **po** volání `AddIdentity` nebo `AddDefaultIdentity` .
+Třída [ Identity Options](/dotnet/api/microsoft.aspnetcore.identity.identityoptions) představuje možnosti, které lze použít ke konfiguraci Identity systému. `IdentityOptions` musí být nastavena **po** volání `AddIdentity` nebo `AddDefaultIdentity` .
 
-### <a name="claims-no-locidentity"></a>PodporyIdentity
+### <a name="claims-no-locidentity"></a>Podpory Identity
 
 [ Identity Options. Claims Identity ](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.claimsidentity) Určuje [ Identity Možnosti deklarací identity](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions) s vlastnostmi, které jsou uvedeny v následující tabulce.
 
@@ -72,7 +73,7 @@ Ve výchozím nastavení Identity vyžaduje, aby hesla obsahovala velké písmen
 
 Hesla jsou nakonfigurovaná pomocí:
 
-* <xref:Microsoft.AspNetCore.Identity.PasswordOptions>v `Startup.ConfigureServices` .
+* <xref:Microsoft.AspNetCore.Identity.PasswordOptions> v `Startup.ConfigureServices` .
 * [ `[StringLength]` atributy](xref:System.ComponentModel.DataAnnotations.StringLengthAttribute) `Password` vlastností, pokud Identity jsou [do aplikace vygenerované uživatelské rozhraní](xref:security/authentication/scaffold-identity). `InputModel``Password`vlastnosti se nacházejí v následujících souborech:
   * `Areas/Identity/Pages/Account/Register.cshtml.cs`
   * `Areas/Identity/Pages/Account/ResetPassword.cshtml.cs`
@@ -137,7 +138,7 @@ Další informace najdete v tématu [ Cookie AuthenticationOptions](/dotnet/api/
 
 ## <a name="password-hasher-options"></a>Možnosti hash hesla
 
-<xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions>Získá a nastaví možnosti pro hodnoty hash hesla.
+<xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions> Získá a nastaví možnosti pro hodnoty hash hesla.
 
 | Možnost | Popis |
 | ------ | ----------- |

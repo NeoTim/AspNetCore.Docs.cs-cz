@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/28/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 1c4b1def75a76b8392427fd6916a7b5927737cac
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a7bbc3f3a0a0d5a320bd290d325f0c01390828b4
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015449"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634160"
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>Publikační profily sady Visual Studio (. pubxml) pro nasazení aplikace ASP.NET Core
 
@@ -80,7 +81,7 @@ Pokud projekt ASP.NET Core odkazuje `Microsoft.NET.Sdk.Web` v souboru projektu, 
 
 ## <a name="basic-command-line-publishing"></a>Základní publikování z příkazového řádku
 
-Publikování z příkazového řádku funguje na všech platformách podporovaných .NET Core a nevyžaduje sadu Visual Studio. V následujících příkladech se příkaz [dotnet publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI spouští z adresáře projektu (který obsahuje soubor *. csproj* ). Pokud složka projektu není aktuálním pracovním adresářem, explicitně předejte cestu k souboru projektu. Například:
+Publikování z příkazového řádku funguje na všech platformách podporovaných .NET Core a nevyžaduje sadu Visual Studio. V následujících příkladech se příkaz [dotnet publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI spouští z adresáře projektu (který obsahuje soubor *. csproj* ). Pokud složka projektu není aktuálním pracovním adresářem, explicitně předejte cestu k souboru projektu. Příklad:
 
 ```dotnetcli
 dotnet publish C:\Webs\Web1
@@ -198,7 +199,7 @@ dotnet build WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<MsDe
 
 V předchozích příkladech:
 
-* `dotnet publish`a `dotnet build` podporují rozhraní API Kudu pro publikování do Azure z jakékoli platformy. Publikování Visual studia podporuje rozhraní API Kudu, ale podporuje je WebSDK pro publikování mezi platformami v Azure.
+* `dotnet publish` a `dotnet build` podporují rozhraní API Kudu pro publikování do Azure z jakékoli platformy. Publikování Visual studia podporuje rozhraní API Kudu, ale podporuje je WebSDK pro publikování mezi platformami v Azure.
 * Nepředávejte `DeployOnBuild` do `dotnet publish` příkazu.
 
 Další informace najdete v tématu [Microsoft. NET. SDK. Publish](https://github.com/dotnet/websdk#microsoftnetsdkpublish).
@@ -266,7 +267,7 @@ MSBuild file.
 V předchozím příkladu:
 
 * `<ExcludeApp_Data>`Vlastnost je přítomna pouze pro splnění požadavku schématu XML. `<ExcludeApp_Data>`Vlastnost nemá žádný vliv na proces publikování, a to ani v případě, že je v kořenovém adresáři projektu *App_Data* složka. Složka *App_Data* neobdrží zvláštní zacházení, protože to funguje v projektech ASP.NET 4. x.
-* Vlastnost `<LastUsedBuildConfiguration>` je nastavena na hodnotu `Release`. Při publikování ze sady Visual Studio je hodnota `<LastUsedBuildConfiguration>` nastavena pomocí hodnoty při spuštění procesu publikování. `<LastUsedBuildConfiguration>`má hodnotu Special a v importovaném souboru MSBuild by se neměl přepsat. Tato vlastnost se ale dá přepsat z příkazového řádku pomocí jednoho z následujících přístupů.
+* Vlastnost `<LastUsedBuildConfiguration>` je nastavena na hodnotu `Release`. Při publikování ze sady Visual Studio je hodnota `<LastUsedBuildConfiguration>` nastavena pomocí hodnoty při spuštění procesu publikování. `<LastUsedBuildConfiguration>` má hodnotu Special a v importovaném souboru MSBuild by se neměl přepsat. Tato vlastnost se ale dá přepsat z příkazového řádku pomocí jednoho z následujících přístupů.
   * Použití .NET Core CLI:
 
     ```dotnetcli
@@ -349,8 +350,8 @@ Při publikování ASP.NET Core Web Apps jsou k dispozici následující prostř
 
 * Sestavit artefakty
 * Složky a soubory, které odpovídají následujícím vzorům pro expanzi názvů:
-  * `**\*.config`(například *web.config*)
-  * `**\*.json`(například *appsettings.jszapnuto*)
+  * `**\*.config` (například *web.config*)
+  * `**\*.json` (například *appsettings.jszapnuto*)
   * `wwwroot\**`
 
 Nástroj MSBuild podporuje [vzory expanze](https://gruntjs.com/configuring-tasks#globbing-patterns). Například následující `<Content>` prvek potlačí kopírování souborů textu (*. txt*) ve složce *wwwroot\content* a jejích podsložkách:
@@ -374,7 +375,7 @@ Následující `<MsDeploySkipRules>` prvek vyloučí všechny soubory ze složky
 </ItemGroup>
 ```
 
-`<MsDeploySkipRules>`neodstraní cíle *přeskočení* z webu nasazení. `<Content>`cílové soubory a složky se odstraní z lokality nasazení. Předpokládejme například, že nasazená webová aplikace obsahovala následující soubory:
+`<MsDeploySkipRules>` neodstraní cíle *přeskočení* z webu nasazení. `<Content>` cílové soubory a složky se odstraní z lokality nasazení. Předpokládejme například, že nasazená webová aplikace obsahovala následující soubory:
 
 * *Views/Home/About1. cshtml*
 * *Views/Home/About2. cshtml*
@@ -463,7 +464,7 @@ Zvýrazněný kód ukazuje následující příklad:
 
 [!code-xml[](visual-studio-publish-profiles/samples/Web1.pubxml?highlight=18-23)]
 
-Předchozí příklad používá `ResolvedFileToPublish` položku, jejíž výchozí chování je vždy kopírovat soubory, které jsou zadány v `Include` atributu do publikované lokality. Přepište výchozí chování zahrnutím `<CopyToPublishDirectory>` podřízeného prvku s vnitřním textem buď `Never` nebo `PreserveNewest` . Například:
+Předchozí příklad používá `ResolvedFileToPublish` položku, jejíž výchozí chování je vždy kopírovat soubory, které jsou zadány v `Include` atributu do publikované lokality. Přepište výchozí chování zahrnutím `<CopyToPublishDirectory>` podřízeného prvku s vnitřním textem buď `Never` nebo `PreserveNewest` . Příklad:
 
 ```xml
 <ResolvedFileToPublish Include="..\ReadMe2.md">
@@ -499,7 +500,7 @@ Přidejte `<AllowUntrustedCertificate>` vlastnost s hodnotou `True` do profilu p
 
 ## <a name="the-kudu-service"></a>Služba Kudu
 
-Pokud chcete zobrazit soubory ve Azure App Service nasazení webové aplikace, použijte [službu Kudu](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service). Přidejte `scm` token do názvu webové aplikace. Například:
+Pokud chcete zobrazit soubory ve Azure App Service nasazení webové aplikace, použijte [službu Kudu](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service). Přidejte `scm` token do názvu webové aplikace. Příklad:
 
 | URL                                    | Výsledek       |
 | -------------------------------------- | ------------ |
@@ -508,7 +509,7 @@ Pokud chcete zobrazit soubory ve Azure App Service nasazení webové aplikace, p
 
 Vyberte položku nabídky [konzoly ladění](https://github.com/projectkudu/kudu/wiki/Kudu-console) pro zobrazení, úpravy, odstranění nebo přidání souborů.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Nasazení webu](https://www.iis.net/downloads/microsoft/web-deploy) (MSDeploy) zjednodušuje nasazení webových aplikací a webů na servery služby IIS.
 * [Úložiště GitHub web SDK](https://github.com/dotnet/websdk/issues): problémy se soubory a žádosti pro nasazení.

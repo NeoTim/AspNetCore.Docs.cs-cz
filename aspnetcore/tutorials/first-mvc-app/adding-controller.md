@@ -5,6 +5,7 @@ description: Část 2 série kurzů na ASP.NET Core MVC
 ms.author: riande
 ms.date: 08/05/2017
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 46f8cbc5ef3d9fe00a5151160a9119f68a9fe572
-ms.sourcegitcommit: 68d03d1aee8906b53bda66f8f1e0747efc3007e6
+ms.openlocfilehash: b5ef99d5645e0bbd453d09809a446bf4af38a975
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/10/2020
-ms.locfileid: "88051807"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634043"
 ---
 # <a name="part-2-add-a-controller-to-an-aspnet-core-mvc-app"></a>Část 2, přidání kontroleru do aplikace ASP.NET Core MVC
 
@@ -34,7 +35,7 @@ Architektonický vzor architektury MVC (Model-View-Controller) odděluje aplikac
 
 * **V**Iews: zobrazení jsou komponenty, které zobrazují uživatelské rozhraní (UI) aplikace. Obecně toto uživatelské rozhraní zobrazuje data modelu.
 
-* **C**Ontrollers: třídy, které zpracovávají požadavky prohlížeče. Načítají data modelu a šablony zobrazení volání, které vracejí odpověď. V aplikaci MVC zobrazení zobrazuje pouze informace; kontroler zpracovává a reaguje na vstupy a interakce uživatele. Například kontroler zpracovává směrování dat a hodnot řetězce dotazu a předá tyto hodnoty do modelu. Model může tyto hodnoty použít k dotazování databáze. Například `https://localhost:5001/Home/Privacy` má směrovací údaje `Home` (Controller) a `Privacy` (metoda akce, která má být volána na domovský kontroler). `https://localhost:5001/Movies/Edit/5`je požadavek na úpravu filmu s ID = 5 pomocí kontroleru filmů. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
+* **C**Ontrollers: třídy, které zpracovávají požadavky prohlížeče. Načítají data modelu a šablony zobrazení volání, které vracejí odpověď. V aplikaci MVC zobrazení zobrazuje pouze informace; kontroler zpracovává a reaguje na vstupy a interakce uživatele. Například kontroler zpracovává směrování dat a hodnot řetězce dotazu a předá tyto hodnoty do modelu. Model může tyto hodnoty použít k dotazování databáze. Například `https://localhost:5001/Home/Privacy` má směrovací údaje `Home` (Controller) a `Privacy` (metoda akce, která má být volána na domovský kontroler). `https://localhost:5001/Movies/Edit/5` je požadavek na úpravu filmu s ID = 5 pomocí kontroleru filmů. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
 
 Vzor MVC vám pomůže vytvářet aplikace, které oddělují různé aspekty aplikace (vstupní logika, obchodní logika a logika uživatelského rozhraní), a současně poskytuje volné spojení mezi těmito prvky. Vzor určuje, kde by měl být každý druh logiky umístěný v aplikaci. Logika uživatelského rozhraní patří do zobrazení. Vstupní logika patří do kontroleru. Obchodní logika patří do modelu. Toto oddělení vám pomůže se správou složitosti při sestavování aplikace, protože umožňuje pracovat na jednom aspektu implementace v čase, aniž by to mělo vliv na jiný kód. Můžete například pracovat s kódem zobrazení bez závislosti na kódu obchodní logiky.
 
@@ -126,7 +127,7 @@ Nahraďte metodu `Welcome` následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_3)]
 
-Spusťte aplikaci a zadejte následující adresu URL:`https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
+Spusťte aplikaci a zadejte následující adresu URL: `https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
 
 Tentokrát se třetí segment adresy URL shodoval s parametrem trasy `id` . `Welcome`Metoda obsahuje parametr `id` , který se shoduje se ŠABLONOU adresy URL v `MapControllerRoute` metodě. Koncový znak `?` (v `id?` ) značí, že `id` parametr je nepovinný.
 
@@ -148,7 +149,7 @@ Architektonický vzor architektury MVC (Model-View-Controller) odděluje aplikac
 
 * **V**Iews: zobrazení jsou komponenty, které zobrazují uživatelské rozhraní (UI) aplikace. Obecně toto uživatelské rozhraní zobrazuje data modelu.
 
-* **C**Ontrollers: třídy, které zpracovávají požadavky prohlížeče. Načítají data modelu a šablony zobrazení volání, které vracejí odpověď. V aplikaci MVC zobrazení zobrazuje pouze informace; kontroler zpracovává a reaguje na vstupy a interakce uživatele. Například kontroler zpracovává směrování dat a hodnot řetězce dotazu a předá tyto hodnoty do modelu. Model může tyto hodnoty použít k dotazování databáze. Například `https://localhost:5001/Home/About` má směrovací údaje `Home` (Controller) a `About` (metoda akce, která má být volána na domovský kontroler). `https://localhost:5001/Movies/Edit/5`je požadavek na úpravu filmu s ID = 5 pomocí kontroleru filmů. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
+* **C**Ontrollers: třídy, které zpracovávají požadavky prohlížeče. Načítají data modelu a šablony zobrazení volání, které vracejí odpověď. V aplikaci MVC zobrazení zobrazuje pouze informace; kontroler zpracovává a reaguje na vstupy a interakce uživatele. Například kontroler zpracovává směrování dat a hodnot řetězce dotazu a předá tyto hodnoty do modelu. Model může tyto hodnoty použít k dotazování databáze. Například `https://localhost:5001/Home/About` má směrovací údaje `Home` (Controller) a `About` (metoda akce, která má být volána na domovský kontroler). `https://localhost:5001/Movies/Edit/5` je požadavek na úpravu filmu s ID = 5 pomocí kontroleru filmů. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
 
 Vzor MVC vám pomůže vytvářet aplikace, které oddělují různé aspekty aplikace (vstupní logika, obchodní logika a logika uživatelského rozhraní), a současně poskytuje volné spojení mezi těmito prvky. Vzor určuje, kde by měl být každý druh logiky umístěný v aplikaci. Logika uživatelského rozhraní patří do zobrazení. Vstupní logika patří do kontroleru. Obchodní logika patří do modelu. Toto oddělení vám pomůže se správou složitosti při sestavování aplikace, protože umožňuje pracovat na jednom aspektu implementace v čase, aniž by to mělo vliv na jiný kód. Můžete například pracovat s kódem zobrazení bez závislosti na kódu obchodní logiky.
 
@@ -245,7 +246,7 @@ Nahraďte metodu `Welcome` následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_3)]
 
-Spusťte aplikaci a zadejte následující adresu URL:`https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
+Spusťte aplikaci a zadejte následující adresu URL: `https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
 
 Tentokrát se třetí segment adresy URL shodoval s parametrem trasy `id` . `Welcome`Metoda obsahuje parametr `id` , který se shoduje se ŠABLONOU adresy URL v `MapRoute` metodě. Koncový znak `?` (v `id?` ) značí, že `id` parametr je nepovinný.
 

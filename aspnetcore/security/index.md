@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,16 +17,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/index
-ms.openlocfilehash: ead5863f0656e182d395fc1e0deaf63ff66034cb
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 0378fd06b5cae5b8911e8a2f41937b28d5444538
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021364"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632860"
 ---
 # <a name="overview-of-aspnet-core-security"></a>Přehled zabezpečení ASP.NET Core
 
-ASP.NET Core umožňuje vývojářům snadno nakonfigurovat a spravovat zabezpečení svých aplikací. ASP.NET Core obsahuje funkce pro správu ověřování, autorizace, ochrany dat, vynucování protokolu HTTPS, tajných klíčů aplikací, ochrany proti padělání a správě CORS. Tyto funkce zabezpečení umožňují vytvářet robustní a ještě zabezpečené aplikace ASP.NET Core.
+ASP.NET Core umožňuje vývojářům snadno nakonfigurovat a spravovat zabezpečení svých aplikací. ASP.NET Core obsahuje funkce pro správu ověřování, autorizace, ochrany dat, vynucování protokolu HTTPS, tajných klíčů aplikací, prevence/CSRF prevence a správy CORS. Tyto funkce zabezpečení umožňují vytvářet robustní a ještě zabezpečené aplikace ASP.NET Core.
 
 ## <a name="aspnet-core-security-features"></a>Funkce zabezpečení ASP.NET Core
 
@@ -41,9 +42,9 @@ Dalším způsobem, jak si představit ověřování, je zvážit jako způsob, 
 
 ASP.NET Core a EF obsahují funkce, které vám pomůžou zabezpečit aplikace a zabránit porušení zabezpečení. Následující seznam odkazů vás přesměruje na dokumentaci s podrobnými postupy, aby se předešlo běžným chybám zabezpečení ve webových aplikacích:
 
-* [Útoky skriptování mezi weby](xref:security/cross-site-scripting)
+* [Útoky skriptování XSS (mezi weby)](xref:security/cross-site-scripting)
 * [Útoky prostřednictvím injektáže SQL](/ef/core/querying/raw-sql)
-* [Padělání žádostí mezi weby (CSRF)](xref:security/anti-request-forgery)
+* [Útoky na více než více lokalitách pro falšování požadavků (XSRF/CSRF)](xref:security/anti-request-forgery)
 * [Otevření útoků přesměrování](xref:security/preventing-open-redirects)
 
 Existuje více ohrožení zabezpečení, o kterých byste měli vědět. Další informace najdete v dalších článcích v části **zabezpečení a Identity ** oddíl obsahu.

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/03/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/samesite/mvc21
-ms.openlocfilehash: 4285432d48ba11b5069d109c5667192a99fe115e
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 0a719ae48199f7854ded534446045eb304d4d9f0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021780"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632353"
 ---
 # <a name="aspnet-core-21-mvc-samesite-no-loccookie-sample"></a>Ukázka SameSite 2,1 MVC pro ASP.NET Core cookie
 
@@ -56,7 +57,7 @@ Response.Cookies.Append(CookieName, "cookieValue", cookieOptions);
 
 ## <a name="setting-no-loccookie-authentication-and-session-state-no-loccookies"></a>Nastavení Cookie ověřování a stavu relace cookie s
 
-Cookieověřování, stav relace a [různé další komponenty](https://docs.microsoft.com/aspnet/core/security/samesite?view=aspnetcore-2.1) nastavují své možnosti sameSite prostřednictvím Cookie možností, například
+Cookie ověřování, stav relace a [různé další komponenty](https://docs.microsoft.com/aspnet/core/security/samesite?view=aspnetcore-2.1) nastavují své možnosti sameSite prostřednictvím Cookie možností, například
 
 ```c#
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -89,7 +90,7 @@ Pokud kliknete na tlačítko vytvořit SameSite, zobrazí se z obrázku nad ním
 
 Aby bylo možné zachytit cookie hodnotu None podle podpory v agentovi prohlížeče uživatele, je nutné použít `CookiePolicy` middleware. Toto musí být umístěno do kanálu požadavků HTTP **před** všemi komponentami, které zapisuje cookie a nakonfigurují v rámci `ConfigureServices()` .
 
-Pro vložení do kanálu použití `app.UseCookiePolicy()` v `Configure(IApplicationBuilder, IHostingEnvironment)` metodě v [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs). Například:
+Pro vložení do kanálu použití `app.UseCookiePolicy()` v `Configure(IApplicationBuilder, IHostingEnvironment)` metodě v [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs). Příklad:
 
 ```c#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -119,7 +120,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Pak v `ConfigureServices(IServiceCollection services)` konfiguraci cookie zásady, která se má volat na pomocnou třídu při cookie připojení nebo odstranění s. Například:
+Pak v `ConfigureServices(IServiceCollection services)` konfiguraci cookie zásady, která se má volat na pomocnou třídu při cookie připojení nebo odstranění s. Příklad:
 
 ```c#
 public void ConfigureServices(IServiceCollection services)
@@ -153,7 +154,7 @@ Pomocná funkce `CheckSameSite(HttpContext, CookieOptions)` :
 * Se volá, když cookie se připojí k žádosti nebo odstraněné z požadavku.
 * Kontroluje, zda `SameSite` je vlastnost nastavena na hodnotu `None` .
 * Pokud `SameSite` je nastaven na `None` a aktuální uživatelský agent je známý, že není podporována hodnota atributu None. Tato kontrolu se provádí pomocí třídy [SameSiteSupport](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/samesite/sample/snippets/SameSiteSupport.cs) :
-  * Nastaví, aby `SameSite` neemitoval hodnotu nastavením vlastnosti na.`(SameSiteMode)(-1)`
+  * Nastaví, aby `SameSite` neemitoval hodnotu nastavením vlastnosti na. `(SameSiteMode)(-1)`
 
 ## <a name="targeting-net-framework"></a>Cílení na .NET Framework
 

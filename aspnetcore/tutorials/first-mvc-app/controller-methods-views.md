@@ -5,6 +5,7 @@ description: Část 6 – přidání modelu do aplikace ASP.NET Core MVC
 ms.author: riande
 ms.date: 12/13/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: b5b54adb1d86e4ab982647dc8207839cc9afdac9
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 07b67cd7c267c39b99277114b73642b5caa3e312
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021065"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632834"
 ---
 # <a name="part-6-controller-methods-and-views-in-aspnet-core"></a>Část 6, metody kontroleru a zobrazení v ASP.NET Core
 
@@ -110,7 +111,7 @@ Všimněte si, že druhá `Edit` Metoda Action předchází `[HttpPost]` atribut
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/Edit.cshtml?range=9)]
 
-[Pomocník značek formuláře](xref:mvc/views/working-with-forms) generuje skrytý token proti padělání, který se musí shodovat s `[ValidateAntiForgeryToken]` generovaným tokenem odolného proti padělání v `Edit` metodě kontroleru filmů. Další informace najdete v tématu [padělání proti vyžádání](xref:security/anti-request-forgery).
+[Pomocník značek formuláře](xref:mvc/views/working-with-forms) generuje skrytý token proti padělání, který se musí shodovat s `[ValidateAntiForgeryToken]` generovaným tokenem odolného proti padělání v `Edit` metodě kontroleru filmů. Další informace naleznete v tématu <xref:security/anti-request-forgery>.
 
 `HttpGet Edit`Metoda vezme `ID` parametr videa, vyhledá film pomocí metody Entity Framework `FindAsync` a vrátí vybraný film do zobrazení pro úpravy. Pokud se video nenajde, `NotFound` vrátí se (HTTP 404).
 
@@ -120,7 +121,7 @@ Když systém generování uživatelského rozhraní vytvořil zobrazení pro ú
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/EditOriginal.cshtml)]
 
-Všimněte si, jak šablona zobrazení obsahuje `@model MvcMovie.Models.Movie` příkaz v horní části souboru. `@model MvcMovie.Models.Movie`Určuje, že zobrazení očekává, že model pro šablonu zobrazení bude typu `Movie` .
+Všimněte si, jak šablona zobrazení obsahuje `@model MvcMovie.Models.Movie` příkaz v horní části souboru. `@model MvcMovie.Models.Movie` Určuje, že zobrazení očekává, že model pro šablonu zobrazení bude typu `Movie` .
 
 Generovaný kód používá několik pomocných metod značek pro zjednodušení značek HTML. [Pomocník značek Label](xref:mvc/views/working-with-forms) zobrazí název pole ("title", "ReleaseDate", "Žánr" nebo "Price"). [Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) VYKRESLUJE `<input>` prvek HTML. [Pomocník pro ověřování značek](xref:mvc/views/working-with-forms) zobrazí všechny ověřovací zprávy přidružené k této vlastnosti.
 
@@ -156,12 +157,12 @@ Předtím, než se formulář pošle na server, ověřování na straně klienta
 
 Všechny `HttpGet` metody v kontroleru filmů následují podobně jako vzor. Získají filmový objekt (nebo seznam objektů v případě `Index` ) a předá do zobrazení objekt (model). `Create`Metoda předá do zobrazení prázdný objekt filmu `Create` . Všechny metody, které vytvářejí, upravují, odstraňují nebo jinak upravují data, jsou v `[HttpPost]` přetížení metody. Úprava dat v `HTTP GET` metodě je bezpečnostní riziko. Úpravy dat v `HTTP GET` metodě také porušují osvědčené postupy http a model [REST](http://rest.elkstein.org/) architektury, který určuje, že požadavky GET by neměly měnit stav aplikace. Jinými slovy, provádění operace GET by mělo být bezpečná operace, která nemá žádné vedlejší účinky a neupravuje vaše trvalá data.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Globalizace a lokalizace](xref:fundamentals/localization)
 * [Úvod k pomocníkům značek](xref:mvc/views/tag-helpers/intro)
 * [Vytváření pomocníků se značkami](xref:mvc/views/tag-helpers/authoring)
-* [Ochrana proti padělání požadavků](xref:security/anti-request-forgery)
+* <xref:security/anti-request-forgery>
 * Chraňte svůj kontroler před [vyúčtováním](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application)
 * [ViewModels](https://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/)
 * [Pomocná rutina značky formuláře](xref:mvc/views/working-with-forms)

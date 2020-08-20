@@ -6,6 +6,7 @@ ms.author: casoper
 ms.custom: devx-track-csharp, mvc
 ms.date: 01/21/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: ccd3868c4b3294098e692f7a20e06d59ba482e7c
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: a1bac04944d9671df3f804a9724c9f0fd6f1fb27
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130519"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633627"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Cloudové ověřování pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -40,7 +41,7 @@ V tomto kurzu získáte informace o těchto tématech:
 > * Pomocí sady Visual Studio vytvořit webovou aplikaci ASP.NET Core nakonfigurovanou tak, aby pro ověřování používala klienta Azure AD B2C
 > * Konfigurace zásad řídících chování klienta Azure AD B2C
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 V tomto návodu jsou vyžadovány následující:
 
@@ -60,11 +61,11 @@ Použijte následující hodnoty:
 | Nastavení                       | Hodnota                     | Poznámky                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                      | *&lt;název aplikace&gt;*        | Zadejte **název** aplikace, který popíše vaši aplikaci pro uživatele.                                                                                                                                 |
-| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Ano                       |                                                                                                                                                                                                    |
-| **Povolit implicitní tok**       | Ano                       |                                                                                                                                                                                                    |
+| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Yes                       |                                                                                                                                                                                                    |
+| **Povolit implicitní tok**       | Yes                       |                                                                                                                                                                                                    |
 | **Adresa URL odpovědi**                 | `https://localhost:44300/signin-oidc` | Adresy URL odpovědí jsou koncové body, kam Azure AD B2C vrací všechny tokeny, které vaše aplikace požaduje. Visual Studio poskytuje adresu URL odpovědi, která se má použít. Prozatím zadejte `https://localhost:44300/signin-oidc` pro vyplnění formuláře. |
-| **Identifikátor URI ID aplikace**                | Ponechte prázdné               | Pro tento kurz není vyžadováno.                                                                                                                                                                    |
-| **Zahrnout nativního klienta**     | Ne                        |                                                                                                                                                                                                    |
+| **Identifikátor URI ID aplikace**                | Ponechte prázdné.               | Pro tento kurz není vyžadováno.                                                                                                                                                                    |
+| **Zahrnout nativního klienta**     | No                        |                                                                                                                                                                                                    |
 
 > [!WARNING]
 > Pokud nastavili adresu URL odpovědi, která není localhost, pamatujte na [omezení, co je v seznamu Adresa URL odpovědi povolené](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application). 

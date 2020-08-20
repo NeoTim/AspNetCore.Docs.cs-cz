@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 7b82947c40d8e3fb46042ee5a3a32af9126623c9
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 117c777dc9ae1b8c6448f097132454b714a1b5dc
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020025"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632158"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Řešení potíží s ASP.NET Core v Azure App Service a IIS
 
@@ -160,7 +161,7 @@ Chcete-li tuto chybu opravit, spusťte aplikace v samostatných fondech aplikac�
 
 ### <a name="50036-ancm-out-of-process-handler-load-failure"></a>500,36 ANCM selhání načtení obslužné rutiny mimo proces
 
-Obslužná rutina žádosti mimo proces, *aspnetcorev2_outofprocess.dll*, není vedle *aspnetcorev2.dllho* souboru. To označuje poškozenou instalaci [modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module).
+Obslužná rutina žádosti mimo proces, *aspnetcorev2_outofprocess.dll*, není vedle *aspnetcorev2.dllho * souboru. To označuje poškozenou instalaci [modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module).
 
 Chcete-li tuto chybu opravit, opravte instalaci [hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle) (pro IIS) nebo Visual Studio (pro IIS Express).
 
@@ -272,7 +273,7 @@ Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán d
 
 *Vyžaduje instalaci rozšíření webu ASP.NET Core {VERSION} (x86) Runtime.*
 
-1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32`( `{X.Y}` je verze modulu runtime)
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32` ( `{X.Y}` je verze modulu runtime)
 1. Spusťte aplikaci: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
 Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán do konzoly Kudu.
@@ -294,7 +295,7 @@ Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán d
 
 *Vyžaduje instalaci rozšíření webu ASP.NET Core {VERSION} (x64) Runtime.*
 
-1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64`( `{X.Y}` je verze modulu runtime)
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64` ( `{X.Y}` je verze modulu runtime)
 1. Spusťte aplikaci: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
 Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán do konzoly Kudu.
@@ -311,7 +312,7 @@ Protokol stdout modulu ASP.NET Coree často zaznamenává užitečné chybové z
 1. Na webu Azure Portal přejděte do webové aplikace.
 1. V okně **App Service** do vyhledávacího pole zadejte **Kudu** .
 1. Vyberte **Rozšířené nástroje** > **Přejít**.
-1. Vyberte **ladit konzolu > cmd**.
+1. Vyberte  **ladit konzolu > cmd**.
 1. Přejít na *Web/wwwroot*
 1. Vyberte ikonu tužky a upravte soubor *web.config* .
 1. V `<aspNetCore />` elementu nastavte `stdoutLogEnabled="true"` a vyberte **Uložit**.
@@ -441,7 +442,7 @@ Postup povolení a zobrazení protokolů stdout:
 
 1. Přejděte do složky pro nasazení webu v hostitelském systému.
 1. Pokud složka *logs* není k dispozici, vytvořte složku. Pokyny k tomu, jak povolit MSBuild pro vytvoření složky *logs* v nasazení automaticky, najdete v tématu [Struktura adresáře](xref:host-and-deploy/directory-structure) .
-1. Upravte soubor *web.config* . Nastavte **stdoutLogEnabled** na `true` a změňte cestu **stdoutLogFile** tak, aby odkazovala na složku *logs* (například `.\logs\stdout` ). `stdout`v cestě je předpona názvu souboru protokolu. Časové razítko, ID procesu a Přípona souboru se automaticky přidají při vytvoření protokolu. `stdout`Jako předpona názvu souboru se používá typický soubor protokolu s názvem *stdout_20180205184032_5412. log*.
+1. Upravte soubor *web.config* . Nastavte **stdoutLogEnabled** na `true` a změňte cestu **stdoutLogFile** tak, aby odkazovala na složku *logs* (například `.\logs\stdout` ). `stdout` v cestě je předpona názvu souboru protokolu. Časové razítko, ID procesu a Přípona souboru se automaticky přidají při vytvoření protokolu. `stdout`Jako předpona názvu souboru se používá typický soubor protokolu s názvem *stdout_20180205184032_5412. log*.
 1. Zajistěte, aby identita fondu aplikací měla oprávnění k zápisu do složky *logs* .
 1. Uložte aktualizovaný soubor *web.config* .
 1. Vytvořte žádost do aplikace.
@@ -561,7 +562,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>
@@ -755,7 +756,7 @@ Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán d
 
 *Vyžaduje instalaci rozšíření webu ASP.NET Core {VERSION} (x86) Runtime.*
 
-1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32`( `{X.Y}` je verze modulu runtime)
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32` ( `{X.Y}` je verze modulu runtime)
 1. Spusťte aplikaci: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
 Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán do konzoly Kudu.
@@ -777,7 +778,7 @@ Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán d
 
 *Vyžaduje instalaci rozšíření webu ASP.NET Core {VERSION} (x64) Runtime.*
 
-1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64`( `{X.Y}` je verze modulu runtime)
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64` ( `{X.Y}` je verze modulu runtime)
 1. Spusťte aplikaci: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
 Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán do konzoly Kudu.
@@ -934,7 +935,7 @@ Postup povolení a zobrazení protokolů stdout:
 
 1. Přejděte do složky pro nasazení webu v hostitelském systému.
 1. Pokud složka *logs* není k dispozici, vytvořte složku. Pokyny k tomu, jak povolit MSBuild pro vytvoření složky *logs* v nasazení automaticky, najdete v tématu [Struktura adresáře](xref:host-and-deploy/directory-structure) .
-1. Upravte soubor *web.config* . Nastavte **stdoutLogEnabled** na `true` a změňte cestu **stdoutLogFile** tak, aby odkazovala na složku *logs* (například `.\logs\stdout` ). `stdout`v cestě je předpona názvu souboru protokolu. Časové razítko, ID procesu a Přípona souboru se automaticky přidají při vytvoření protokolu. `stdout`Jako předpona názvu souboru se používá typický soubor protokolu s názvem *stdout_20180205184032_5412. log*.
+1. Upravte soubor *web.config* . Nastavte **stdoutLogEnabled** na `true` a změňte cestu **stdoutLogFile** tak, aby odkazovala na složku *logs* (například `.\logs\stdout` ). `stdout` v cestě je předpona názvu souboru protokolu. Časové razítko, ID procesu a Přípona souboru se automaticky přidají při vytvoření protokolu. `stdout`Jako předpona názvu souboru se používá typický soubor protokolu s názvem *stdout_20180205184032_5412. log*.
 1. Zajistěte, aby identita fondu aplikací měla oprávnění k zápisu do složky *logs* .
 1. Uložte aktualizovaný soubor *web.config* .
 1. Vytvořte žádost do aplikace.
@@ -1054,7 +1055,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>
@@ -1233,7 +1234,7 @@ Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán d
 
 *Vyžaduje instalaci rozšíření webu ASP.NET Core {VERSION} (x86) Runtime.*
 
-1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32`( `{X.Y}` je verze modulu runtime)
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32` ( `{X.Y}` je verze modulu runtime)
 1. Spusťte aplikaci: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
 Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán do konzoly Kudu.
@@ -1255,7 +1256,7 @@ Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán d
 
 *Vyžaduje instalaci rozšíření webu ASP.NET Core {VERSION} (x64) Runtime.*
 
-1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64`( `{X.Y}` je verze modulu runtime)
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64` ( `{X.Y}` je verze modulu runtime)
 1. Spusťte aplikaci: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
 
 Výstup konzoly z aplikace, v němž se zobrazují všechny chyby, je předán do konzoly Kudu.
@@ -1383,7 +1384,7 @@ Postup povolení a zobrazení protokolů stdout:
 
 1. Přejděte do složky pro nasazení webu v hostitelském systému.
 1. Pokud složka *logs* není k dispozici, vytvořte složku. Pokyny k tomu, jak povolit MSBuild pro vytvoření složky *logs* v nasazení automaticky, najdete v tématu [Struktura adresáře](xref:host-and-deploy/directory-structure) .
-1. Upravte soubor *web.config* . Nastavte **stdoutLogEnabled** na `true` a změňte cestu **stdoutLogFile** tak, aby odkazovala na složku *logs* (například `.\logs\stdout` ). `stdout`v cestě je předpona názvu souboru protokolu. Časové razítko, ID procesu a Přípona souboru se automaticky přidají při vytvoření protokolu. `stdout`Jako předpona názvu souboru se používá typický soubor protokolu s názvem *stdout_20180205184032_5412. log*.
+1. Upravte soubor *web.config* . Nastavte **stdoutLogEnabled** na `true` a změňte cestu **stdoutLogFile** tak, aby odkazovala na složku *logs* (například `.\logs\stdout` ). `stdout` v cestě je předpona názvu souboru protokolu. Časové razítko, ID procesu a Přípona souboru se automaticky přidají při vytvoření protokolu. `stdout`Jako předpona názvu souboru se používá typický soubor protokolu s názvem *stdout_20180205184032_5412. log*.
 1. Zajistěte, aby identita fondu aplikací měla oprávnění k zápisu do složky *logs* .
 1. Uložte aktualizovaný soubor *web.config* .
 1. Vytvořte žádost do aplikace.
@@ -1485,7 +1486,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>

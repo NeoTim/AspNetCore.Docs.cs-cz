@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: 5dcdf50ff9f750e4966ed3bdf24a71b9f433240a
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 1cb2c2d18b717dc99c6ef4dac9954fef149c6deb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018998"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631560"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
@@ -39,7 +40,7 @@ V tomto dokumentu se dozvíte, jak:
 > [!WARNING]
 > ## <a name="api-projects"></a>Projekty API
 >
-> Nepoužívejte [RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) pro webová rozhraní API, která přijímají citlivé informace. **not** `RequireHttpsAttribute`pomocí stavových kódů HTTP přesměruje prohlížeče z HTTP na HTTPS. Klienti rozhraní API nemusí pochopit nebo dodržovat přesměrování z HTTP na HTTPS. Tito klienti mohou odesílat informace prostřednictvím protokolu HTTP. Webové rozhraní API by mělo mít jednu z těchto:
+> Nepoužívejte [RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) pro webová rozhraní API, která přijímají citlivé informace. **not** `RequireHttpsAttribute` pomocí stavových kódů HTTP přesměruje prohlížeče z HTTP na HTTPS. Klienti rozhraní API nemusí pochopit nebo dodržovat přesměrování z HTTP na HTTPS. Tito klienti mohou odesílat informace prostřednictvím protokolu HTTP. Webové rozhraní API by mělo mít jednu z těchto:
 >
 > * Neslouchat na HTTP.
 > * Ukončete připojení se stavovým kódem 400 (chybný požadavek) a neobsluhuje požadavek.
@@ -55,7 +56,7 @@ V tomto dokumentu se dozvíte, jak:
 > [!WARNING]
 > ## <a name="api-projects"></a>Projekty API
 >
-> Nepoužívejte [RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) pro webová rozhraní API, která přijímají citlivé informace. **not** `RequireHttpsAttribute`pomocí stavových kódů HTTP přesměruje prohlížeče z HTTP na HTTPS. Klienti rozhraní API nemusí pochopit nebo dodržovat přesměrování z HTTP na HTTPS. Tito klienti mohou odesílat informace prostřednictvím protokolu HTTP. Webové rozhraní API by mělo mít jednu z těchto:
+> Nepoužívejte [RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) pro webová rozhraní API, která přijímají citlivé informace. **not** `RequireHttpsAttribute` pomocí stavových kódů HTTP přesměruje prohlížeče z HTTP na HTTPS. Klienti rozhraní API nemusí pochopit nebo dodržovat přesměrování z HTTP na HTTPS. Tito klienti mohou odesílat informace prostřednictvím protokolu HTTP. Webové rozhraní API by mělo mít jednu z těchto:
 >
 > * Neslouchat na HTTP.
 > * Ukončete připojení se stavovým kódem 400 (chybný požadavek) a neobsluhuje požadavek.
@@ -234,7 +235,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="https-redirection-middleware-alternative-approach"></a>Alternativní přístup middlewaru přesměrování HTTPS
 
-Alternativou k použití middlewaru pro přesměrování protokolu HTTPS ( `UseHttpsRedirection` ) je použití přepisu adresy URL ( `AddRedirectToHttps` ). `AddRedirectToHttps`může také nastavit stavový kód a port při spuštění přesměrování. Další informace najdete v tématu [middleware pro přepis adres URL](xref:fundamentals/url-rewriting).
+Alternativou k použití middlewaru pro přesměrování protokolu HTTPS ( `UseHttpsRedirection` ) je použití přepisu adresy URL ( `AddRedirectToHttps` ). `AddRedirectToHttps` může také nastavit stavový kód a port při spuštění přesměrování. Další informace najdete v tématu [middleware pro přepis adres URL](xref:fundamentals/url-rewriting).
 
 Při přesměrování na HTTPS bez požadavku na další pravidla přesměrování doporučujeme použít middleware pro přesměrování protokolu HTTPS ( `UseHttpsRedirection` ) popsaný v tomto tématu.
 
@@ -267,7 +268,7 @@ ASP.NET Core 2,1 a novější implementuje HSTS s `UseHsts` metodou rozšířen�
 
 ::: moniker-end
 
-`UseHsts`nedoporučuje se při vývoji, protože nastavení HSTS jsou prohlížeči vysoce ukládat do mezipaměti. Ve výchozím nastavení `UseHsts` vyloučí místní adresu zpětné smyčky.
+`UseHsts` nedoporučuje se při vývoji, protože nastavení HSTS jsou prohlížeči vysoce ukládat do mezipaměti. Ve výchozím nastavení `UseHsts` vyloučí místní adresu zpětné smyčky.
 
 V produkčních prostředích, která implementují protokol HTTPS poprvé, nastavte počáteční [HstsOptions. maxAge](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*) na malou hodnotu pomocí jedné z <xref:System.TimeSpan> metod. Nastavte hodnotu z hodin na ne více než jeden den pro případ, že budete potřebovat obnovit infrastrukturu HTTPS na HTTP. Až budete mít jistotu, že dojde k udržitelnosti konfigurace HTTPS, zvyšte `max-age` hodnotu HSTS. běžně používaná hodnota je jeden rok.
 
@@ -292,11 +293,11 @@ Následující kód:
 * Explicitně nastaví `max-age` parametr `Strict-Transport-Security` záhlaví na 60 dní. Pokud není nastavené, výchozí hodnota je 30 dní. Další informace najdete v [direktivě max-age](https://tools.ietf.org/html/rfc6797#section-6.1.1).
 * Přidá `example.com` do seznamu hostitelů, které mají být vyloučeny.
 
-`UseHsts`vyloučí následující hostitele zpětné smyčky:
+`UseHsts` vyloučí následující hostitele zpětné smyčky:
 
-* `localhost`: Adresa zpětné smyčky IPv4.
-* `127.0.0.1`: Adresa zpětné smyčky IPv4.
-* `[::1]`: Adresa zpětné smyčky IPv6.
+* `localhost` : Adresa zpětné smyčky IPv4.
+* `127.0.0.1` : Adresa zpětné smyčky IPv4.
+* `[::1]` : Adresa zpětné smyčky IPv6.
 
 ## <a name="opt-out-of-httpshsts-on-project-creation"></a>Výslovný nesouhlas s protokolem HTTPS/HSTS při vytváření projektu
 
@@ -361,6 +362,14 @@ dotnet dev-certs https --help
 ## <a name="how-to-set-up-a-developer-certificate-for-docker"></a>Jak nastavit certifikát pro vývojáře pro Docker
 
 Podívejte se na [Tento problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/6199).
+
+<a name="ssl-linux"></a>
+
+## <a name="trust-https-certificate-on-linux"></a>Důvěřovat certifikátu HTTPS v systému Linux
+
+<!-- Instructions to be updated by engineering team after 5.0 RTM. -->
+
+Pokyny k systému Linux najdete v dokumentaci k distribuci.
 
 <a name="wsl"></a>
 

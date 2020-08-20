@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 05/20/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: 0fb19aa19703e68812b83f0631f029dd66a3d64e
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e6263f19cdb7f9957fa8360f9e782e622589ea18
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021325"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633315"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -37,7 +38,7 @@ Smyčka HTTP Read-Eval-Print (REPL) je:
 Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods) :
 
 * [DSTRANIT](#test-http-delete-requests)
-* [GET](#test-http-get-requests)
+* [Čtěte](#test-http-get-requests)
 * [HEAD](#test-http-head-requests)
 * [NASTAVENÍ](#test-http-options-requests)
 * [POUŽITA](#test-http-patch-requests)
@@ -46,7 +47,7 @@ Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/m
 
 Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhraní API nebo si ho stáhněte](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([jak si ho stáhnout](xref:index#how-to-download-a-sample)).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [!INCLUDE [2.1-SDK](~/includes/2.1-SDK.md)]
 
@@ -144,7 +145,7 @@ Připojte se k webovému rozhraní API spuštěním následujícího příkazu:
 httprepl <ROOT URI>
 ```
 
-`<ROOT URI>`je základní identifikátor URI pro webové rozhraní API. Například:
+`<ROOT URI>` je základní identifikátor URI pro webové rozhraní API. Příklad:
 
 ```console
 httprepl https://localhost:5001
@@ -156,7 +157,7 @@ Případně spusťte následující příkaz kdykoli, když je spuštěn protoko
 connect <ROOT URI>
 ```
 
-Například:
+Příklad:
 
 ```console
 (Disconnected)~ connect https://localhost:5001
@@ -170,7 +171,7 @@ Výše uvedený příkaz Connect se pokusí najít dokument Swagger automaticky.
 connect <ROOT URI> --swagger <SWAGGER URI>
 ```
 
-Například:
+Příklad:
 
 ```console
 (Disconnected)~ connect https://localhost:5001 --swagger /swagger/v1/swagger.json
@@ -209,7 +210,7 @@ https://localhost:5001/fruits~ ls
 https://localhost:5001/fruits~
 ```
 
-Případně spusťte `ui` příkaz a otevřete stránku uživatelského rozhraní Swagger webového rozhraní API v prohlížeči. Například:
+Případně spusťte `ui` příkaz a otevřete stránku uživatelského rozhraní Swagger webového rozhraní API v prohlížeči. Příklad:
 
 ```console
 https://localhost:5001/~ ui
@@ -253,7 +254,7 @@ Soubor *. httpreplprefs* je načten při spuštění a není monitorován pro zm
 
 ### <a name="view-the-settings"></a>Zobrazit nastavení
 
-Dostupná nastavení zobrazíte spuštěním `pref get` příkazu. Například:
+Dostupná nastavení zobrazíte spuštěním `pref get` příkazu. Příklad:
 
 ```console
 https://localhost:5001/~ pref get
@@ -291,7 +292,7 @@ Pokud nejsou nastavené určité klíče barev, považují se za obecnější kl
 
 ### <a name="set-indentation-size"></a>Nastavit velikost odsazení
 
-Přizpůsobení velikosti odsazení odpovědí se v současné době podporuje jenom pro JSON. Výchozí velikost jsou dvě mezery. Například:
+Přizpůsobení velikosti odsazení odpovědí se v současné době podporuje jenom pro JSON. Výchozí velikost jsou dvě mezery. Příklad:
 
 ```json
 [
@@ -380,7 +381,7 @@ Ve výchozím nastavení má REPL HTTP sadu relativních cest, které používá
 - */swagger.jsna*
 - */Swagger/v1/swagger.js*
 
-Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte `swagger.searchPaths` Předvolby. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Například:
+Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte `swagger.searchPaths` Předvolby. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Příklad:
 
 ```console
 pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
@@ -500,7 +501,7 @@ Vystavení požadavku HTTP POST:
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
 
-    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Například:
+    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
 
     ```json
     {
@@ -596,7 +597,7 @@ Vydání požadavku HTTP PUT:
     https://localhost:5001/fruits~ put 2 -h Content-Type=application/json
     ```
 
-    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Například:
+    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
 
     ```json
     {
@@ -802,7 +803,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Pokud chcete nastavit hlavičku požadavku HTTP, použijte jeden z následujících přístupů:
 
-* Nastavte inline s požadavkem HTTP. Například:
+* Nastavte inline s požadavkem HTTP. Příklad:
 
     ```console
     https://localhost:5001/people~ post -h Content-Type=application/json
@@ -810,13 +811,13 @@ Pokud chcete nastavit hlavičku požadavku HTTP, použijte jeden z následujíc�
     
     V případě předchozího přístupu vyžaduje každá samostatná Hlavička požadavku HTTP vlastní `-h` možnost.
 
-* Nastaveno před odesláním požadavku HTTP. Například:
+* Nastaveno před odesláním požadavku HTTP. Příklad:
 
     ```console
     https://localhost:5001/people~ set header Content-Type application/json
     ```
     
-    Při nastavování hlavičky před odesláním žádosti zůstane záhlaví nastavené na dobu trvání relace příkazového prostředí. Pokud chcete záhlaví vymazat, zadejte prázdnou hodnotu. Například:
+    Při nastavování hlavičky před odesláním žádosti zůstane záhlaví nastavené na dobu trvání relace příkazového prostředí. Pokud chcete záhlaví vymazat, zadejte prázdnou hodnotu. Příklad:
     
     ```console
     https://localhost:5001/people~ set header Content-Type
@@ -926,14 +927,14 @@ Ve výchozím nastavení se zobrazí potlačení požadavku HTTP na odeslání. 
 
 ### <a name="enable-request-display"></a>Povolit zobrazení žádosti
 
-Spuštěním příkazu Zobrazte požadavek HTTP, který odesíláte `echo on` . Například:
+Spuštěním příkazu Zobrazte požadavek HTTP, který odesíláte `echo on` . Příklad:
 
 ```console
 https://localhost:5001/people~ echo on
 Request echoing is on
 ```
 
-Následující požadavky HTTP v aktuální relaci zobrazují hlavičky žádosti. Například:
+Následující požadavky HTTP v aktuální relaci zobrazují hlavičky žádosti. Příklad:
 
 ```console
 https://localhost:5001/people~ post
@@ -971,7 +972,7 @@ https://localhost:5001/people~
 
 ### <a name="disable-request-display"></a>Zakázat zobrazení žádosti
 
-Potlačit zobrazení požadavku HTTP odesílaného spuštěním `echo off` příkazu Například:
+Potlačit zobrazení požadavku HTTP odesílaného spuštěním `echo off` příkazu Příklad:
 
 ```console
 https://localhost:5001/people~ echo off
@@ -980,7 +981,7 @@ Request echoing is off
 
 ## <a name="run-a-script"></a>Spuštění skriptu
 
-Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložení do textového souboru. Příkazy v souboru přebírají stejnou formu, jakou byly provedeny ručně na příkazovém řádku. Příkazy lze spustit v dávce způsobem pomocí `run` příkazu. Například:
+Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložení do textového souboru. Příkazy v souboru přebírají stejnou formu, jakou byly provedeny ručně na příkazovém řádku. Příkazy lze spustit v dávce způsobem pomocí `run` příkazu. Příklad:
 
 1. Vytvoří textový soubor obsahující sadu příkazů s oddělovači na nový řádek. K ilustraci zvažte *people-script.txt* soubor obsahující následující příkazy:
 
@@ -992,7 +993,7 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
     get 1
     ```
 
-1. Spusťte `run` příkaz a předejte cestu k textovému souboru. Například:
+1. Spusťte `run` příkaz a předejte cestu k textovému souboru. Příklad:
 
     ```console
     https://localhost:5001/~ run C:\http-repl-scripts\people-script.txt
@@ -1062,7 +1063,7 @@ Po spuštění předchozího příkazu obsahuje příkazové prostředí pouze n
 https://localhost:5001/~
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [REST API žádosti](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
 * [Úložiště GitHub HTTP REPL](https://github.com/dotnet/HttpRepl)

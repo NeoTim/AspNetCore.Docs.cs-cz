@@ -5,6 +5,7 @@ description: Přečtěte si podrobnosti o implementaci ASP.NET Core hlaviček ko
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/context-headers
-ms.openlocfilehash: 572f930dbf78aaef1ed47d1a154b5ba56633b4f1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2f07db4b7d8bca9f64aee5d60e88fc92dc8965eb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018816"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633705"
 ---
 # <a name="context-headers-in-aspnet-core"></a>Hlavičky kontextu v ASP.NET Core
 
@@ -95,15 +96,15 @@ DB 6F D4 79 11 84 B9 96 09 2E E1 20 2F 36 E8 60
 
 Toto kontextové záhlaví je kryptografický otisk páru ověřených šifrovacích algoritmů (AES-192-CBC Encryption + HMACSHA256 Validation). Komponenty, jak je popsáno [výše](xref:security/data-protection/implementation/context-headers#data-protection-implementation-context-headers-cbc-components) , jsou následující:
 
-* Značka`(00 00)`
+* Značka `(00 00)`
 
-* délka šifrovacího klíče bloku`(00 00 00 18)`
+* délka šifrovacího klíče bloku `(00 00 00 18)`
 
-* velikost bloku šifry bloku`(00 00 00 10)`
+* velikost bloku šifry bloku `(00 00 00 10)`
 
-* Délka klíče HMAC`(00 00 00 20)`
+* Délka klíče HMAC `(00 00 00 20)`
 
-* velikost Digest HMAC`(00 00 00 20)`
+* velikost Digest HMAC `(00 00 00 20)`
 
 * zablokuje výstup PRP (Block Cipher) `(F4 74 - DB 6F)` a
 
@@ -140,15 +141,15 @@ Tím dojde k vytvoření úplného kontextu, který je kryptografickým otiskem 
 
 Komponenty se rozdělí takto:
 
-* Značka`(00 00)`
+* Značka `(00 00)`
 
-* délka šifrovacího klíče bloku`(00 00 00 18)`
+* délka šifrovacího klíče bloku `(00 00 00 18)`
 
-* velikost bloku šifry bloku`(00 00 00 08)`
+* velikost bloku šifry bloku `(00 00 00 08)`
 
-* Délka klíče HMAC`(00 00 00 14)`
+* Délka klíče HMAC `(00 00 00 14)`
 
-* velikost Digest HMAC`(00 00 00 14)`
+* velikost Digest HMAC `(00 00 00 14)`
 
 * zablokuje výstup PRP (Block Cipher) `(AB B1 - E1 0E)` a
 
@@ -170,7 +171,7 @@ Záhlaví kontextu se skládá z následujících součástí:
 
 * [128 bitů] Značka `Enc_GCM (K_E, nonce, "")` , která je výstupem algoritmu symetrického bloku šifrování, který předali prázdný vstup řetězce a kde hodnota nonce je 96 celý vektor s hodnotou 0.
 
-`K_E`je odvozený pomocí stejného mechanismu jako ve scénáři ověřování CBC Encryption + HMAC. Vzhledem k tomu, že `K_H` zde není v hraní, máme v podstatě `| K_H | = 0` a algoritmus se sbalí do níže uvedeného formuláře.
+`K_E` je odvozený pomocí stejného mechanismu jako ve scénáři ověřování CBC Encryption + HMAC. Vzhledem k tomu, že `K_H` zde není v hraní, máme v podstatě `| K_H | = 0` a algoritmus se sbalí do níže uvedeného formuláře.
 
 `K_E = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")`
 
@@ -194,13 +195,13 @@ BE 45
 
 Komponenty se rozdělí takto:
 
-* Značka`(00 01)`
+* Značka `(00 01)`
 
-* délka šifrovacího klíče bloku`(00 00 00 20)`
+* délka šifrovacího klíče bloku `(00 00 00 20)`
 
-* velikost hodnoty nonce`(00 00 00 0C)`
+* velikost hodnoty nonce `(00 00 00 0C)`
 
-* velikost bloku šifry bloku`(00 00 00 10)`
+* velikost bloku šifry bloku `(00 00 00 10)`
 
 * velikost značky ověřování `(00 00 00 10)` a
 

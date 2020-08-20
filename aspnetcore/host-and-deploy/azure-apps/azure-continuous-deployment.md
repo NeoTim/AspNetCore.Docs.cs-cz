@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: devx-track-csharp, mvc
 ms.date: 12/06/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/azure-apps/azure-continuous-deployment
-ms.openlocfilehash: 0def05f73fd5264b1fb01e0a2ae4fd8d70588d9c
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: 1f3fca62b39125d9f23042c5929de829ab243865
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130558"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633172"
 ---
 # <a name="continuous-deployment-to-azure-with-visual-studio-and-git-with-aspnet-core"></a>Průběžné nasazování do Azure pomocí sady Visual Studio a Gitu s ASP.NET Core
 
@@ -36,7 +37,7 @@ Viz také [Vytvoření prvního kanálu pomocí Azure Pipelines](/azure/devops/p
 > [!NOTE]
 > K dokončení tohoto kurzu se vyžaduje účet Microsoft Azure. Pokud chcete získat účet, [Aktivujte si výhody pro předplatitele MSDN](https://azure.microsoft.com/pricing/member-offers/credit-for-visual-studio-subscribers/?WT.mc_id=A261C142F) nebo [si zaregistrujte bezplatnou zkušební verzi](https://azure.microsoft.com/free/dotnet/?WT.mc_id=A261C142F).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 V tomto kurzu se předpokládá, že je nainstalovaný následující software:
 
@@ -236,7 +237,7 @@ Po provedení změn v místním kódu znovu publikujte:
 
 Kliknutím na **Procházet** v okně webové aplikace na webu Azure Portal nebo otevřením prohlížeče a zadáním adresy URL webové aplikace Zobrazte aktualizovanou webovou aplikaci. Příklad: `http://SampleWebAppDemo.azurewebsites.net`
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Vytvoření prvního kanálu pomocí Azure Pipelines](/azure/devops/pipelines/get-started-yaml)
 * [Projekt Kudu](https://github.com/projectkudu/kudu/wiki)

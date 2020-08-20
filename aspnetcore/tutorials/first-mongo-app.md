@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 08/17/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: fac4adb6ffa487c7ca9650a8ebd063dd344d84a7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 61f72c4d281e7957b520e1660440e536ebd4c78a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020246"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631768"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core a MongoDB
 
@@ -43,7 +44,7 @@ V tomto kurzu se naučíte:
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -288,10 +289,10 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
 * [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm): představuje databázi Mongo pro provádění operací. V tomto kurzu se používá obecná metoda [GetCollection \<TDocument> (Collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) na rozhraní pro získání přístupu k datům v určité kolekci. Provede operace CRUD proti kolekci po volání této metody. Ve `GetCollection<TDocument>(collection)` volání metody:
 
-  * `collection`představuje název kolekce.
-  * `TDocument`představuje typ objektu CLR uložený v kolekci.
+  * `collection` představuje název kolekce.
+  * `TDocument` představuje typ objektu CLR uložený v kolekci.
 
-`GetCollection<TDocument>(collection)`Vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou v kolekci vyvolány následující metody:
+`GetCollection<TDocument>(collection)` Vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou v kolekci vyvolány následující metody:
 
 * [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm): Odstraní jeden dokument, který odpovídá zadaným kritériím hledání.
 * [Find \<TDocument> ](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm): vrátí všechny dokumenty v kolekci, které odpovídají zadaným kritériím hledání.
@@ -308,7 +309,7 @@ Předchozí kontroler webového rozhraní API:
 
 * Používá `BookService` třídu k provádění operací CRUD.
 * Obsahuje metody akcí, které podporují požadavky HTTP GET, POST, PUT a DELETE.
-* Volání <xref:System.Web.Http.ApiController.CreatedAtRoute*> v `Create` metodě Action vrátí odpověď [http 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) . Stavový kód 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru. `CreatedAtRoute`Přidá také `Location` hlavičku do odpovědi. `Location`Hlavička Určuje identifikátor URI nově vytvořené knihy.
+* Volání <xref:System.Web.Http.ApiController.CreatedAtRoute*> v `Create` metodě Action vrátí odpověď [http 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) . Stavový kód 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru. `CreatedAtRoute` Přidá také `Location` hlavičku do odpovědi. `Location`Hlavička Určuje identifikátor URI nově vytvořené knihy.
 
 ## <a name="test-the-web-api"></a>Testování webového rozhraní API
 
@@ -393,7 +394,7 @@ V tomto kurzu se naučíte:
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -638,10 +639,10 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
 * [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm): představuje databázi Mongo pro provádění operací. V tomto kurzu se používá obecná metoda [GetCollection \<TDocument> (Collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) na rozhraní pro získání přístupu k datům v určité kolekci. Provede operace CRUD proti kolekci po volání této metody. Ve `GetCollection<TDocument>(collection)` volání metody:
 
-  * `collection`představuje název kolekce.
-  * `TDocument`představuje typ objektu CLR uložený v kolekci.
+  * `collection` představuje název kolekce.
+  * `TDocument` představuje typ objektu CLR uložený v kolekci.
 
-`GetCollection<TDocument>(collection)`Vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou v kolekci vyvolány následující metody:
+`GetCollection<TDocument>(collection)` Vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou v kolekci vyvolány následující metody:
 
 * [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm): Odstraní jeden dokument, který odpovídá zadaným kritériím hledání.
 * [Find \<TDocument> ](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm): vrátí všechny dokumenty v kolekci, které odpovídají zadaným kritériím hledání.
@@ -658,7 +659,7 @@ Předchozí kontroler webového rozhraní API:
 
 * Používá `BookService` třídu k provádění operací CRUD.
 * Obsahuje metody akcí, které podporují požadavky HTTP GET, POST, PUT a DELETE.
-* Volání <xref:System.Web.Http.ApiController.CreatedAtRoute*> v `Create` metodě Action vrátí odpověď [http 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) . Stavový kód 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru. `CreatedAtRoute`Přidá také `Location` hlavičku do odpovědi. `Location`Hlavička Určuje identifikátor URI nově vytvořené knihy.
+* Volání <xref:System.Web.Http.ApiController.CreatedAtRoute*> v `Create` metodě Action vrátí odpověď [http 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) . Stavový kód 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru. `CreatedAtRoute` Přidá také `Location` hlavičku do odpovědi. `Location`Hlavička Určuje identifikátor URI nově vytvořené knihy.
 
 ## <a name="test-the-web-api"></a>Testování webového rozhraní API
 

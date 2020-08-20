@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/09/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: f6a777ab796da42402fae4f77ecc028efa2d6039
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 63227f068926c4158ac8162fdc1ac11399fd65cb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015540"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633783"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -42,7 +43,7 @@ Tato příručka:
 * Zajistí, aby se webová aplikace spouštěla při spuštění jako démon.
 * Nakonfiguruje Nástroj pro správu procesů, který vám může pomáhat s restartováním webové aplikace.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 1. Přístup k serveru Ubuntu 16,04 se standardním uživatelským účtem s oprávněním sudo.
 1. Nainstalujte modul runtime .NET Core na server.
@@ -224,7 +225,7 @@ WantedBy=multi-user.target
 
 V předchozím příkladu je uživatel, který spravuje službu, určen pomocí `User` Možnosti. Uživatel ( `www-data` ) musí existovat a musí mít správné vlastnictví souborů aplikace.
 
-Slouží `TimeoutStopSec` ke konfiguraci časového intervalu, po který se má čekat na vypnutí aplikace po přijetí počátečního signálu přerušení. Pokud se aplikace v tomto období neukončí, SIGKILL se vydá pro ukončení aplikace. Zadejte hodnotu jako nejednotkové sekundy (například `150` ), hodnotu časového rozsahu (například `2min 30s` ) nebo `infinity` zakažte časový limit. `TimeoutStopSec`ve výchozím nastavení se jedná o hodnotu `DefaultTimeoutStopSec` v konfiguračním souboru správce (*System-System. conf*, *System. conf. d*, *systemd-User. conf*, *User. conf. d*). Výchozí časový limit pro většinu distribucí je 90 sekund.
+Slouží `TimeoutStopSec` ke konfiguraci časového intervalu, po který se má čekat na vypnutí aplikace po přijetí počátečního signálu přerušení. Pokud se aplikace v tomto období neukončí, SIGKILL se vydá pro ukončení aplikace. Zadejte hodnotu jako nejednotkové sekundy (například `150` ), hodnotu časového rozsahu (například `2min 30s` ) nebo `infinity` zakažte časový limit. `TimeoutStopSec` ve výchozím nastavení se jedná o hodnotu `DefaultTimeoutStopSec` v konfiguračním souboru správce (*System-System. conf*, *System. conf. d*, *systemd-User. conf*, *User. conf. d*). Výchozí časový limit pro většinu distribucí je 90 sekund.
 
 ```
 # The default value is 90 seconds for most distributions.
@@ -399,7 +400,7 @@ Upravte konfigurační soubor */etc/Nginx/Nginx.conf* . Příklad obsahuje i `ht
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
 
 > [!NOTE]
-> Blazor WebAssemblyaplikace vyžadují větší `burst` hodnotu parametru, aby vyhovovala většímu počtu požadavků, které aplikace vytvořila. Další informace naleznete v tématu <xref:blazor/host-and-deploy/webassembly#nginx>.
+> Blazor WebAssembly aplikace vyžadují větší `burst` hodnotu parametru, aby vyhovovala většímu počtu požadavků, které aplikace vytvořila. Další informace naleznete v tématu <xref:blazor/host-and-deploy/webassembly#nginx>.
 
 #### <a name="secure-nginx-from-clickjacking"></a>Zabezpečení Nginx z clickjacking
 
@@ -433,7 +434,7 @@ Přidejte řádek `add_header X-Content-Type-Options "nosniff";` a uložte soubo
 
 Po upgradu sdílené architektury na serveru restartujte aplikace ASP.NET Core hostované serverem.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites)
 * [Nginx: binární verze: oficiální balíčky Debian/Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)

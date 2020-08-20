@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/03/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/index
-ms.openlocfilehash: b0258118e116b1686abbebf1c8d89135ae3cb1f6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2511d68dd049ca47dea002d8960e7d2fd0207383
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019313"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632639"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>Přehled ověřování ASP.NET Core
 
@@ -51,7 +52,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 Pokud se používá víc schémat, zásady autorizace (nebo autorizační atributy) můžou [určit schéma ověřování (nebo schémata)](xref:security/authorization/limitingidentitybyscheme) , na kterých závisí, aby ověřili uživatele. V předchozím příkladu se cookie schéma ověřování dá použít tak, že určíte jeho název ( `CookieAuthenticationDefaults.AuthenticationScheme` ve výchozím nastavení, přestože se při volání dá zadat jiný název `AddCookie` ).
 
-V některých případech `AddAuthentication` je volání automaticky provedeno jinými metodami rozšíření. Například při použití [ASP.NET Core Identity ](xref:security/authentication/identity) `AddAuthentication` se nazývá interně.
+V některých případech `AddAuthentication` je volání automaticky provedeno jinými metodami rozšíření. Například při použití [ASP.NET Core Identity](xref:security/authentication/identity) , `AddAuthentication` se nazývá interně.
 
 Middleware ověřování se přidávají `Startup.Configure` voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> metody rozšíření v aplikaci `IApplicationBuilder` . Volání `UseAuthentication` registruje middleware, který používá dříve registrovaná schémata ověřování. Zavolejte `UseAuthentication` před jakýkoli middleware, který závisí na ověřených uživatelích. Při použití směrování koncového bodu musí volání metody `UseAuthentication` jít:
 
@@ -133,7 +134,7 @@ Základní sadu:
 
 Příklad zprostředkovatelů ověřování pro každého klienta najdete v tématu [základní](https://github.com/OrchardCMS/OrchardCore) zdroj sady.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:security/authorization/limitingidentitybyscheme>
 * <xref:security/authentication/policyschemes>

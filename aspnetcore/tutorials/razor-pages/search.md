@@ -5,6 +5,7 @@ description: Část 6 série kurzů na Razor stránkách.
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: b28d228449549e1071df4100ee2d52626c50845b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 5e899929372697f7a381cd493655309fa3f70f79
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021637"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633848"
 ---
 # <a name="part-6-add-search-to-aspnet-core-no-locrazor-pages"></a>Část 6, přidání hledání do ASP.NET Core Razor stránek
 
@@ -36,10 +37,10 @@ Přidejte následující zvýrazněné vlastnosti na *stránky/filmy/index. csht
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
-* `SearchString`: obsahuje text, který uživatel zadá do textového pole Hledat. `SearchString`má [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) atribut. `[BindProperty]`vytvoří vazby na hodnoty formuláře a řetězce dotazů se stejným názvem jako má vlastnost. `(SupportsGet = true)`se vyžaduje pro vazbu na požadavky GET.
-* `Genres`: obsahuje seznam žánrů. `Genres`umožňuje uživateli vybrat ze seznamu Žánr. `SelectList`nutné`using Microsoft.AspNetCore.Mvc.Rendering;`
+* `SearchString`: obsahuje text, který uživatel zadá do textového pole Hledat. `SearchString` má [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) atribut. `[BindProperty]` vytvoří vazby na hodnoty formuláře a řetězce dotazů se stejným názvem jako má vlastnost. `(SupportsGet = true)` se vyžaduje pro vazbu na požadavky GET.
+* `Genres`: obsahuje seznam žánrů. `Genres` umožňuje uživateli vybrat ze seznamu Žánr. `SelectList` nutné `using Microsoft.AspNetCore.Mvc.Rendering;`
 * `MovieGenre`: obsahuje konkrétní Žánr, kterou uživatel vybere (například "Western").
-* `Genres`a `MovieGenre` používají se později v tomto kurzu.
+* `Genres` a `MovieGenre` používají se později v tomto kurzu.
 
 [!INCLUDE[](~/includes/bind-get.md)]
 
@@ -61,7 +62,7 @@ Pokud `SearchString` vlastnost nemá hodnotu null nebo je prázdná, dotaz na fi
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs?name=snippet_SearchNull)]
 
-`s => s.Title.Contains()`Kód je [výraz lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Výrazy lambda se používají v dotazech [LINQ](/dotnet/csharp/programming-guide/concepts/linq/) založených na metodách jako argumenty standardních metod operátoru dotazu, jako je například metoda [WHERE](/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq) nebo `Contains` (použitá v předchozím kódu). Dotazy LINQ nejsou provedeny při jejich definování nebo při jejich úpravě voláním metody (například `Where` `Contains` nebo `OrderBy` ). Místo toho je provádění dotazu odloženo. To znamená, že vyhodnocení výrazu je zpožděno, dokud se jeho realizovaná hodnota neopakuje nebo je `ToListAsync` volána metoda. Další informace najdete v tématu [spuštění dotazu](/dotnet/framework/data/adonet/ef/language-reference/query-execution) .
+`s => s.Title.Contains()`Kód je [výraz lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Výrazy lambda se používají v dotazech [LINQ](/dotnet/csharp/programming-guide/concepts/linq/) založených na metodách jako argumenty standardních metod operátoru dotazu, jako je například metoda [WHERE](/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq) nebo `Contains` (použitá v předchozím kódu). Dotazy LINQ nejsou provedeny při jejich definování nebo při jejich úpravě voláním metody (například `Where` `Contains`  nebo `OrderBy` ). Místo toho je provádění dotazu odloženo. To znamená, že vyhodnocení výrazu je zpožděno, dokud se jeho realizovaná hodnota neopakuje nebo je `ToListAsync` volána metoda. Další informace najdete v tématu [spuštění dotazu](/dotnet/framework/data/adonet/ef/language-reference/query-execution) .
 
 > [!NOTE]
 > Metoda [Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) je spuštěna v databázi, nikoli v kódu jazyka C#. Rozlišování velkých a malých písmen na dotazu závisí na databázi a kolaci. Na SQL Server se `Contains` mapuje na [SQL jako](/sql/t-sql/language-elements/like-transact-sql), což rozlišuje malá a velká písmena. V SQLite s výchozí kolací rozlišuje velká a malá písmena.
@@ -119,7 +120,7 @@ Aktualizujte *index. cshtml* následujícím způsobem:
 
 Otestujte aplikaci tak, že vyhledáte podle žánru, podle názvu filmu a pomocí obou.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/4B6pHtdyo08)
 
@@ -139,10 +140,10 @@ Přidejte následující zvýrazněné vlastnosti na *stránky/filmy/index. csht
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
-* `SearchString`: obsahuje text, který uživatel zadá do textového pole Hledat. `SearchString`má [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) atribut. `[BindProperty]`vytvoří vazby na hodnoty formuláře a řetězce dotazů se stejným názvem jako má vlastnost. `(SupportsGet = true)`se vyžaduje pro vazbu na požadavky GET.
-* `Genres`: obsahuje seznam žánrů. `Genres`umožňuje uživateli vybrat ze seznamu Žánr. `SelectList`nutné`using Microsoft.AspNetCore.Mvc.Rendering;`
+* `SearchString`: obsahuje text, který uživatel zadá do textového pole Hledat. `SearchString` má [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) atribut. `[BindProperty]` vytvoří vazby na hodnoty formuláře a řetězce dotazů se stejným názvem jako má vlastnost. `(SupportsGet = true)` se vyžaduje pro vazbu na požadavky GET.
+* `Genres`: obsahuje seznam žánrů. `Genres` umožňuje uživateli vybrat ze seznamu Žánr. `SelectList` nutné `using Microsoft.AspNetCore.Mvc.Rendering;`
 * `MovieGenre`: obsahuje konkrétní Žánr, kterou uživatel vybere (například "Western").
-* `Genres`a `MovieGenre` používají se později v tomto kurzu.
+* `Genres` a `MovieGenre` používají se později v tomto kurzu.
 
 [!INCLUDE[](~/includes/bind-get.md)]
 
@@ -164,7 +165,7 @@ Pokud `SearchString` vlastnost nemá hodnotu null nebo je prázdná, dotaz na fi
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_SearchNull)]
 
-`s => s.Title.Contains()`Kód je [výraz lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Výrazy lambda se používají v dotazech [LINQ](/dotnet/csharp/programming-guide/concepts/linq/) založených na metodách jako argumenty standardních metod operátoru dotazu, jako je například metoda [WHERE](/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq) nebo `Contains` (použitá v předchozím kódu). Dotazy LINQ nejsou provedeny při jejich definování nebo při jejich úpravě voláním metody (například `Where` `Contains` nebo `OrderBy` ). Místo toho je provádění dotazu odloženo. To znamená, že vyhodnocení výrazu je zpožděno, dokud se jeho realizovaná hodnota neopakuje nebo je `ToListAsync` volána metoda. Další informace najdete v tématu [spuštění dotazu](/dotnet/framework/data/adonet/ef/language-reference/query-execution) .
+`s => s.Title.Contains()`Kód je [výraz lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Výrazy lambda se používají v dotazech [LINQ](/dotnet/csharp/programming-guide/concepts/linq/) založených na metodách jako argumenty standardních metod operátoru dotazu, jako je například metoda [WHERE](/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq) nebo `Contains` (použitá v předchozím kódu). Dotazy LINQ nejsou provedeny při jejich definování nebo při jejich úpravě voláním metody (například `Where` `Contains`  nebo `OrderBy` ). Místo toho je provádění dotazu odloženo. To znamená, že vyhodnocení výrazu je zpožděno, dokud se jeho realizovaná hodnota neopakuje nebo je `ToListAsync` volána metoda. Další informace najdete v tématu [spuštění dotazu](/dotnet/framework/data/adonet/ef/language-reference/query-execution) .
 
 **Poznámka:** Metoda [Contains](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) je spuštěna v databázi, nikoli v kódu jazyka C#. Rozlišování velkých a malých písmen na dotazu závisí na databázi a kolaci. Na SQL Server se `Contains` mapuje na [SQL jako](/sql/t-sql/language-elements/like-transact-sql), což rozlišuje malá a velká písmena. V SQLite s výchozí kolací rozlišuje velká a malá písmena.
 
@@ -222,7 +223,7 @@ Aktualizujte *index. cshtml* následujícím způsobem:
 Otestujte aplikaci tak, že vyhledáte podle žánru, podle názvu filmu a pomocí obou.
 Předchozí kód používá pomocníka pro [výběr značky](xref:mvc/views/working-with-forms#the-select-tag-helper) a pomocníka značek možností.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/4B6pHtdyo08)
 

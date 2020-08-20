@@ -5,6 +5,7 @@ description: Část 4 série kurzů na ASP.NET Core MVC
 ms.author: riande
 ms.date: 01/13/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: cc9c0447dc032ff0a88d379cd9d542e3406777bf
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ddd517ef8fbf8cb4bb8765cb3caab4724c0205f0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021962"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631963"
 ---
 # <a name="part-4-add-a-model-to-an-aspnet-core-mvc-app"></a>4. část Přidání modelu do aplikace ASP.NET Core MVC
 
@@ -192,7 +193,7 @@ Dokončete dialog **Přidat řadič** :
 Visual Studio vytvoří:
 
 * Řadič filmů (*Controllers/MoviesController. cs*)
-* Razorzobrazení souborů pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/ \* . cshtml*)
+* Razor zobrazení souborů pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/ \* . cshtml*)
 
 Automatické vytváření těchto souborů se říká *generování uživatelského rozhraní*.
 
@@ -336,7 +337,7 @@ Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-i
 
 ### <a name="use-sqlite-for-development-sql-server-for-production"></a>Použití SQLite pro vývoj, SQL Server pro produkci
 
-Když je vybrána možnost SQLite, je kód vygenerovaný šablonou připraven pro vývoj. Následující kód ukazuje, jak vložit <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do spouštění. `IWebHostEnvironment`je vložená, takže `ConfigureServices` může použít SQLite ve vývoji a SQL Server v produkčním prostředí.
+Když je vybrána možnost SQLite, je kód vygenerovaný šablonou připraven pro vývoj. Následující kód ukazuje, jak vložit <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do spouštění. `IWebHostEnvironment` je vložená, takže `ConfigureServices` může použít SQLite ve vývoji a SQL Server v produkčním prostředí.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/StartupDevProd.cs?name=snippet_StartupClass&highlight=5,10,16-28)]
 
@@ -409,7 +410,7 @@ Po vytvoření kontroleru filmů zahrnuje generování uživatelského rozhraní
 
 Vzhledem k tomu `Model` , že objekt je silného typu (jako `IEnumerable<Movie>` objekt), každá položka ve smyčce je zapsána jako `Movie` . Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)
 * [Globalizace a lokalizace](xref:fundamentals/localization)
@@ -470,7 +471,7 @@ Visual Studio vytvoří:
 
 * [Třída kontextu databáze](xref:data/ef-mvc/intro#create-the-database-context) Entity Framework Core (*data/MvcMovieContext. cs*)
 * Řadič filmů (*Controllers/MoviesController. cs*)
-* Razorzobrazení souborů pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/ \* . cshtml*)
+* Razor zobrazení souborů pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/ \* . cshtml*)
 
 K automatickému vytvoření kontextu databáze a operací [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (vytvoření, čtení, aktualizace a odstranění) se říká *generování uživatelského rozhraní*.
 
@@ -641,8 +642,8 @@ Prověřte `Startup` třídu:
 
 Předchozí zvýrazněný kód ukazuje kontext databáze filmů přidaný do kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) :
 
-* `services.AddDbContext<MvcMovieContext>(options =>`Určuje databázi, která se má použít, a připojovací řetězec.
-* `=>`je [operátor lambda](/dotnet/articles/csharp/language-reference/operators/lambda-operator)
+* `services.AddDbContext<MvcMovieContext>(options =>` Určuje databázi, která se má použít, a připojovací řetězec.
+* `=>` je [operátor lambda](/dotnet/articles/csharp/language-reference/operators/lambda-operator)
 
 Otevřete soubor *Controllers/MoviesController. cs* a prověřte konstruktor:
 
@@ -718,7 +719,7 @@ Když jste vytvořili kontroler filmů, generování uživatelského rozhraní a
 
 Vzhledem k tomu `Model` , že objekt je silného typu (jako `IEnumerable<Movie>` objekt), každá položka ve smyčce je zapsána jako `Movie` . Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu:
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)
 * [Globalizace a lokalizace](xref:fundamentals/localization)

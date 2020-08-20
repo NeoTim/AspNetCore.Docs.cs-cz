@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/08/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: e6feeb0009034d9ea92f09c44ed0ca882d80fe1b
-ms.sourcegitcommit: dfea24471f4f3d7904faa92fe60c000853bddc3b
+ms.openlocfilehash: 7b11172df902f0d6a26f357755f33c78e7f8d1ff
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/18/2020
-ms.locfileid: "88504759"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631417"
 ---
 # <a name="aspnet-core-no-locsignalr-javascript-client"></a>SignalRKlient ASP.NET Core JavaScript
 
@@ -311,12 +312,12 @@ Následující kód ukazuje typický postup ručního opětovného připojení:
 
 Implementace reálného světa využije exponenciální přerušení nebo opakuje zadaný počet opakování.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Referenční dokumentace k rozhraní API v JavaScriptu](/javascript/api/?view=signalr-js-latest)
 * [Kurz JavaScriptu](xref:tutorials/signalr)
 * [Kurz pro Webpack a TypeScript](xref:tutorials/signalr-typescript-webpack)
-* [Centra](xref:signalr/hubs)
+* [Rozbočovače](xref:signalr/hubs)
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
 * [Žádosti mezi zdroji (CORS)](xref:security/cors)

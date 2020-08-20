@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 04/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/ObjectPool
-ms.openlocfilehash: 1f57bc4662296333b3d2c659c057230548541b91
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6997dbfdd5c654e4a8b15a026fd3ec61d024f02d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020402"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632366"
 ---
 # <a name="object-reuse-with-objectpool-in-aspnet-core"></a>Opakované použití objektu s fond objectpool v ASP.NET Core
 
 [Steve Gordon](https://twitter.com/stevejgordon), [Ryan Nowak](https://github.com/rynowak)a [Günther Foidl](https://github.com/gfoidl)
 
-<xref:Microsoft.Extensions.ObjectPool>je součástí infrastruktury ASP.NET Core, která podporuje udržování skupiny objektů v paměti pro opakované použití, nikoli pro uvolnění objektů do paměti.
+<xref:Microsoft.Extensions.ObjectPool> je součástí infrastruktury ASP.NET Core, která podporuje udržování skupiny objektů v paměti pro opakované použití, nikoli pro uvolnění objektů do paměti.
 
 Fond objektů můžete chtít použít, pokud jsou objekty, které jsou spravovány:
 
@@ -35,7 +36,7 @@ Fond objektů můžete chtít použít, pokud jsou objekty, které jsou spravov�
 - Představuje nějaký omezený prostředek.
 - Používá se prediktivní a často.
 
-Například ASP.NET Core Framework používá fond objektů na některých místech k opakovanému použití <xref:System.Text.StringBuilder> instancí. `StringBuilder`přidělí a spravuje vlastní vyrovnávací paměti pro uchovávání znakových dat. ASP.NET Core pravidelně používá `StringBuilder` k implementaci funkcí a jejich využití přináší výhody výkonu.
+Například ASP.NET Core Framework používá fond objektů na některých místech k opakovanému použití <xref:System.Text.StringBuilder> instancí. `StringBuilder` přidělí a spravuje vlastní vyrovnávací paměti pro uchovávání znakových dat. ASP.NET Core pravidelně používá `StringBuilder` k implementaci funkcí a jejich využití přináší výhody výkonu.
 
 Sdružování objektů nezvyšuje výkon vždy:
 
@@ -45,18 +46,18 @@ Sdružování objektů nezvyšuje výkon vždy:
 Používejte sdružování objektů až po shromáždění údajů o výkonu pomocí reálných scénářů vaší aplikace nebo knihovny.
 
 ::: moniker range="< aspnetcore-3.0"
-**Upozornění: `ObjectPool` neimplementuje se `IDisposable` . Nedoporučujeme ho používat s typy, které vyžadují vyřazení.** `ObjectPool`v ASP.NET Core 3,0 a novějších verzích podporuje `IDisposable` .
+**Upozornění: `ObjectPool` neimplementuje se `IDisposable` . Nedoporučujeme ho používat s typy, které vyžadují vyřazení.** `ObjectPool` v ASP.NET Core 3,0 a novějších verzích podporuje `IDisposable` .
 ::: moniker-end
 
 **Poznámka: fond objectpool neomezuje počet objektů, které budou přiděleny, omezuje počet objektů, které budou zachovány.**
 
 ## <a name="concepts"></a>Koncepty
 
-<xref:Microsoft.Extensions.ObjectPool.ObjectPool`1>– základní abstrakce fondu objektů. Slouží k získání a vrácení objektů.
+<xref:Microsoft.Extensions.ObjectPool.ObjectPool`1> – základní abstrakce fondu objektů. Slouží k získání a vrácení objektů.
 
-<xref:Microsoft.Extensions.ObjectPool.PooledObjectPolicy%601>-Implementujte tuto metodu pro přizpůsobení způsobu vytvoření objektu a způsobu jeho *resetování* při návratu do fondu. To lze předat do fondu objektů, který vytvoříte přímo.... ANI
+<xref:Microsoft.Extensions.ObjectPool.PooledObjectPolicy%601> -Implementujte tuto metodu pro přizpůsobení způsobu vytvoření objektu a způsobu jeho *resetování* při návratu do fondu. To lze předat do fondu objektů, který vytvoříte přímo.... ANI
 
-<xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider.Create*>slouží jako továrna pro vytváření fondů objektů.
+<xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider.Create*> slouží jako továrna pro vytváření fondů objektů.
 <!-- REview, there is no ObjectPoolProvider<T> -->
 
 Fond objectpool se dá v aplikaci použít několika způsoby:
@@ -78,7 +79,7 @@ Při <xref:Microsoft.Extensions.ObjectPool.DefaultObjectPoolProvider> použití 
 Poznámka: po odstranění fondu:
 
 * Volání `Get` vyvolá výjimku `ObjectDisposedException` .
-* `return`odstraní danou položku.
+* `return` odstraní danou položku.
 
 ::: moniker-end
 
@@ -92,7 +93,7 @@ Následující kód:
 
 [!code-csharp[](ObjectPool/ObjectPoolSample/Startup.cs?name=snippet)]
 
-Následující kód implementuje`BirthdayMiddleware`
+Následující kód implementuje `BirthdayMiddleware`
 
 [!code-csharp[](ObjectPool/ObjectPoolSample/BirthdayMiddleware.cs?name=snippet)]
 

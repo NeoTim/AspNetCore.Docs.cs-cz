@@ -5,6 +5,7 @@ description: Naučte se, jak začít migrovat projekt ASP.NET MVC do ASP.NET Cor
 ms.author: wpickett
 ms.date: 06/18/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/mvc
-ms.openlocfilehash: 17f2a2532c58c3796835328260231d63f8fb2e40
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: cd1a7ff57d911f96f0adfe4b548fa80ec844886d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015046"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632236"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>Migrace z ASP.NET MVC na ASP.NET Core MVC
 
@@ -37,7 +38,7 @@ Migrace z ASP.NET MVC je proces s více kroky. Tento článek popisuje:
 
 Informace o migraci konfigurace a Identity kódu najdete v tématu [migrace konfigurace do ASP.NET Core](xref:migration/configuration) a [migrace ověřování a Identity ASP.NET Core](xref:migration/identity).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [!INCLUDE [prerequisites](../includes/net-core-prereqs-vs-3.1.md)]
 
@@ -96,7 +97,7 @@ V projektu ASP.NET Core by byla přidána nová prázdná třída kontroleru a t
 
 Projekt ASP.NET Core *WebApp1* již obsahuje minimální ukázkový kontroler a zobrazení se stejným názvem jako projekt ASP.NET MVC. Ty budou sloužit jako zástupné symboly pro kontroler MVC ASP.NET a zobrazení, která se mají migrovat z projektu ASP.NET MVC *WebApp1* .
 
-1. Zkopírujte metody z ASP.NET MVC, `HomeController` abyste nahradili nové metody ASP.NET Core `HomeController` . Není nutné měnit návratový typ metod akce. Zabudovaná metoda akčního typu metody kontroleru ASP.NET MVC je [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult`implementuje `IActionResult` .
+1. Zkopírujte metody z ASP.NET MVC, `HomeController` abyste nahradili nové metody ASP.NET Core `HomeController` . Není nutné měnit návratový typ metod akce. Zabudovaná metoda akčního typu metody kontroleru ASP.NET MVC je [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult` implementuje `IActionResult` .
 1. V projektu ASP.NET Core klikněte pravým tlačítkem myši na *zobrazení/domovský* adresář, vyberte možnost **Přidat** > **existující položku**.
 1. V dialogovém okně **Přidat existující položku** přejděte do *zobrazení/domovského* adresáře projektu ASP.NET MVC *WebApp1* .
 1. Vyberte soubory *About. cshtml*, *Contact. cshtml*a *index. cshtml* Razor zobrazení a pak vyberte **Přidat**a nahraďte stávající soubory.
@@ -185,7 +186,7 @@ ASP.NET Core převede neošetřené výjimky na chybové odpovědi HTTP 500. V t
 
 * <xref:migration/identity>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:blazor/index>
 * <xref:mvc/views/tag-helpers/intro>
@@ -230,7 +231,7 @@ Vytvořte novou *prázdnou* ASP.NET Core webovou aplikaci se stejným názvem ja
 
 * Při cílení na .NET Core se ve výchozím nastavení odkazuje na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) . Tento balíček obsahuje balíčky běžně používané aplikacemi MVC. Pokud cílíte .NET Framework, musí být odkazy na balíček uvedeny jednotlivě v souboru projektu.
 
-`Microsoft.AspNetCore.Mvc`je ASP.NET Core architekturu MVC. `Microsoft.AspNetCore.StaticFiles`je obslužná rutina statického souboru. Aplikace ASP.NET Core výslovně přihlašovat pro middleware, například pro obsluhu statických souborů. Další informace najdete v tématu [statické soubory](xref:fundamentals/static-files).
+`Microsoft.AspNetCore.Mvc` je ASP.NET Core architekturu MVC. `Microsoft.AspNetCore.StaticFiles` je obslužná rutina statického souboru. Aplikace ASP.NET Core výslovně přihlašovat pro middleware, například pro obsluhu statických souborů. Další informace najdete v tématu [statické soubory](xref:fundamentals/static-files).
 
 * Otevřete soubor *Startup.cs* a změňte kód tak, aby odpovídal následujícímu:
 
@@ -290,7 +291,7 @@ Následující funkce vyžadují migraci z ukázkového projektu ASP.NET MVC do 
 
 ## <a name="controllers-and-views"></a>Řadiče a zobrazení
 
-* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové `HomeController` . V ASP.NET MVC je jako návratový typ metody typu "předdefinovaná šablona" [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult`implementuje `IActionResult` , takže není nutné měnit návratový typ metod akce.
+* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové `HomeController` . V ASP.NET MVC je jako návratový typ metody typu "předdefinovaná šablona" [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult` implementuje `IActionResult` , takže není nutné měnit návratový typ metod akce.
 
 * Zkopírujte soubory *About. cshtml*, *Contact. cshtml*a *index. cshtml* Razor zobrazení z projektu ASP.NET MVC do projektu ASP.NET Core.
 
@@ -298,7 +299,7 @@ Následující funkce vyžadují migraci z ukázkového projektu ASP.NET MVC do 
 
 Soubor rozložení a styly nebyly dosud migrovány, takže vykreslená zobrazení obsahují pouze obsah v zobrazení souborů. Soubory rozložení vygenerované odkazy pro `About` zobrazení a `Contact` nebudou zatím k dispozici.
 
-Vyvolání vygenerovaných zobrazení z prohlížeče na běžící aplikaci ASP.NET Core nahraďte aktuální číslo portu číslem portu použitým v projektu ASP.NET Core. Příklad: `https://localhost:44375/home/about`.
+Vyvolání vygenerovaných zobrazení z prohlížeče na běžící aplikaci ASP.NET Core nahraďte aktuální číslo portu číslem portu použitým v projektu ASP.NET Core. Například: `https://localhost:44375/home/about`.
 
 ![Stránka kontaktu](mvc/_static/contact-page.png)
 
@@ -371,7 +372,7 @@ Existuje mnoho problémů, které mohou způsobit chybové zprávy HTTP 500, kte
 
 ASP.NET Core převede neošetřené výjimky na chybové odpovědi HTTP 500. V těchto odpovědích obvykle nejsou podrobnosti o chybě zahrnuty, aby nedocházelo k odhalení potenciálně citlivých informací o serveru. Další informace najdete na [stránce s výjimkou vývojáře](xref:fundamentals/error-handling#developer-exception-page).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:blazor/index>
 * <xref:mvc/views/tag-helpers/intro>
@@ -416,7 +417,7 @@ Vytvořte novou *prázdnou* ASP.NET Core webovou aplikaci se stejným názvem ja
 
 * Při cílení na .NET Core se ve výchozím nastavení odkazuje na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) . Tento balíček obsahuje balíčky běžně používané aplikacemi MVC. Pokud cílíte .NET Framework, musí být odkazy na balíček uvedeny jednotlivě v souboru projektu.
 
-`Microsoft.AspNetCore.Mvc`je ASP.NET Core architekturu MVC. `Microsoft.AspNetCore.StaticFiles`je obslužná rutina statického souboru. Aplikace ASP.NET Core výslovně přihlašovat pro middleware, například pro obsluhu statických souborů. Další informace najdete v tématu [statické soubory](xref:fundamentals/static-files).
+`Microsoft.AspNetCore.Mvc` je ASP.NET Core architekturu MVC. `Microsoft.AspNetCore.StaticFiles` je obslužná rutina statického souboru. Aplikace ASP.NET Core výslovně přihlašovat pro middleware, například pro obsluhu statických souborů. Další informace najdete v tématu [statické soubory](xref:fundamentals/static-files).
 
 * Otevřete soubor *Startup.cs* a změňte kód tak, aby odpovídal následujícímu:
 
@@ -476,7 +477,7 @@ Následující funkce vyžadují migraci z ukázkového projektu ASP.NET MVC do 
 
 ## <a name="controllers-and-views"></a>Řadiče a zobrazení
 
-* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové `HomeController` . V ASP.NET MVC je jako návratový typ metody typu "předdefinovaná šablona" [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult`implementuje `IActionResult` , takže není nutné měnit návratový typ metod akce.
+* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové `HomeController` . V ASP.NET MVC je jako návratový typ metody typu "předdefinovaná šablona" [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult` implementuje `IActionResult` , takže není nutné měnit návratový typ metod akce.
 
 * Zkopírujte soubory *About. cshtml*, *Contact. cshtml*a *index. cshtml* Razor zobrazení z projektu ASP.NET MVC do projektu ASP.NET Core.
 
@@ -484,7 +485,7 @@ Následující funkce vyžadují migraci z ukázkového projektu ASP.NET MVC do 
 
 Soubor rozložení a styly nebyly dosud migrovány, takže vykreslená zobrazení obsahují pouze obsah v zobrazení souborů. Soubory rozložení vygenerované odkazy pro `About` zobrazení a `Contact` nebudou zatím k dispozici.
 
-* Vyvolání vygenerovaných zobrazení z prohlížeče na běžící aplikaci ASP.NET Core nahraďte aktuální číslo portu číslem portu použitým v projektu ASP.NET Core. Příklad: `https://localhost:44375/home/about`.
+* Vyvolání vygenerovaných zobrazení z prohlížeče na běžící aplikaci ASP.NET Core nahraďte aktuální číslo portu číslem portu použitým v projektu ASP.NET Core. Například: `https://localhost:44375/home/about`.
 
 ![Stránka kontaktu](mvc/_static/contact-page.png)
 

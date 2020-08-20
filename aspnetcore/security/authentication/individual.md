@@ -5,6 +5,7 @@ description: Objevte články na základě ASP.NET Core projektů vytvořených 
 ms.author: riande
 ms.date: 12/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/individual
-ms.openlocfilehash: 6b72612c12d52cfc1736c141bdad95ace6c84546
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 0cbde7cf0be830dab9dd094df6d102d81f9f0949
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022287"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632613"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>Články založené na ASP.NET Core projektech vytvořených pomocí individuálních uživatelských účtů
 
@@ -76,8 +77,8 @@ V následující tabulce jsou uvedené možnosti ověřování pro nové webové
 | Žádné            |  Bez ověřování | | 
 | Jednoho      |  Individuální ověřování | <xref:security/authentication/identity>
 | IndividualB2C   |  Individuální ověřování hostované v cloudu s Azure AD B2C | [Azure AD B2C](/azure/active-directory-b2c/) |
-| SingleOrg       |  Ověřování organizace pro jednoho tenanta | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
-| MultiOrg        |  Ověřování organizace pro více tenantů | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
+| SingleOrg       |  Ověřování organizace pro jednoho tenanta | [Služba Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
+| MultiOrg        |  Ověřování organizace pro více tenantů | [Služba Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
 | Windows         |  Ověřování systému Windows | [Ověřování systému Windows](xref:security/authentication/windowsauth)
 
 ## <a name="visual-studio-new-webapp-authentication-options"></a>Nové možnosti ověřování WebApp sady Visual Studio
@@ -89,11 +90,11 @@ V následující tabulce jsou uvedeny možnosti ověřování, které jsou k dis
 | Žádné            |  Bez ověřování | | 
 | Individuální uživatelské účty/úložiště uživatelských účtů v aplikaci |  Individuální ověřování | <xref:security/authentication/identity> |
 | Individuální uživatelské účty/připojení k existujícímu úložišti uživatelů v cloudu |  Individuální ověřování hostované v cloudu s Azure AD B2C | [Azure AD B2C](/azure/active-directory-b2c/) |
-| Pracovní nebo školní Cloud/jedna organizace  |  Ověřování organizace pro jednoho tenanta | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
-| Pracovní nebo školní Cloud/několik organizací |  Ověřování organizace pro více tenantů | [Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
+| Pracovní nebo školní Cloud/jedna organizace  |  Ověřování organizace pro jednoho tenanta | [Služba Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
+| Pracovní nebo školní Cloud/několik organizací |  Ověřování organizace pro více tenantů | [Služba Azure AD](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp) |
 | Windows         |  Ověřování systému Windows | [Ověřování systému Windows](xref:security/authentication/windowsauth)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 V následujících článcích se dozvíte, jak používat kód vygenerovaný v ASP.NET Core šablonách, které používají jednotlivé uživatelské účty:
 

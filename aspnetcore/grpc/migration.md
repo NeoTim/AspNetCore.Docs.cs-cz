@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/25/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/migration
-ms.openlocfilehash: 8098d3a629eb7e5902c5379c00ea7090900a87d2
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 387714c1e6d120697c13445e507879a8ab7bca98
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016021"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632665"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>Migrace služeb gRPC z C-Core na ASP.NET Core
 
@@ -73,7 +74,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Další informace o konfiguraci najdete v tématu <xref:grpc/configuration> .
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Základní aplikace založené na jazyce C jsou závislé na `GrpcEnvironment` [konfiguraci protokolovacího](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_) nástroje pro účely ladění. ASP.NET Core Stack tuto funkci poskytuje prostřednictvím [rozhraní API protokolování](xref:fundamentals/logging/index). Například protokolovací nástroj může být přidán do služby gRPC prostřednictvím injektáže konstruktoru:
 

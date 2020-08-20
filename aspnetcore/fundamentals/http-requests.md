@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/09/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/http-requests
-ms.openlocfilehash: ef6ed0911c2615ea543b1c2cea31a9a453f0c604
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ca52b6cf8646bced3a228341717f8ccb1edff582
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017230"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634199"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -30,9 +31,9 @@ ms.locfileid: "88017230"
 
 [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/rynowak), [Steve Gordon](https://github.com/stevejgordon), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Kirka](https://github.com/serpent5) Larkin
 
-Je <xref:System.Net.Http.IHttpClientFactory> možné zaregistrovat a použít ke konfiguraci a vytváření <xref:System.Net.Http.HttpClient> instancí v aplikaci. `IHttpClientFactory`nabízí následující výhody:
+Je <xref:System.Net.Http.IHttpClientFactory> možné zaregistrovat a použít ke konfiguraci a vytváření <xref:System.Net.Http.HttpClient> instancí v aplikaci. `IHttpClientFactory` nabízí následující výhody:
 
-* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Například klient s názvem *GitHub* by mohl být zaregistrován a nakonfigurován pro přístup k [GitHubu](https://github.com/). Pro obecný přístup je možné zaregistrovat výchozího klienta.
+* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Například klient s názvem  *GitHub* by mohl být zaregistrován a nakonfigurován pro přístup k [GitHubu](https://github.com/). Pro obecný přístup je možné zaregistrovat výchozího klienta.
 * Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient` . Poskytuje rozšíření pro middleware založené na Polly k využití výhod delegování obslužných rutin v `HttpClient` .
 * Spravuje sdružování a životnost základních `HttpClientMessageHandler` instancí. Automatická správa zabraňuje běžným problémům se službou DNS (Domain Name System), ke kterým dochází při ruční správě `HttpClient` životního cyklu.
 * Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger` ) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
@@ -54,7 +55,7 @@ Nejlepší přístup závisí na požadavcích aplikace.
 
 ### <a name="basic-usage"></a>Základní použití
 
-`IHttpClientFactory`lze zaregistrovat voláním `AddHttpClient` :
+`IHttpClientFactory` lze zaregistrovat voláním `AddHttpClient` :
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
@@ -141,7 +142,7 @@ V předchozím kódu `HttpClient` je uložen v soukromém poli. Přístup k apli
 
 ### <a name="generated-clients"></a>Vygenerované klienty
 
-`IHttpClientFactory`dá se použít v kombinaci s knihovnami třetích stran, jako je [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky pomocí `RestService` , a používá `HttpClient` se k vytvoření externích volání http.
+`IHttpClientFactory` dá se použít v kombinaci s knihovnami třetích stran, jako je [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky pomocí `RestService` , a používá `HttpClient` se k vytvoření externích volání http.
 
 Rozhraní a odpověď jsou definované tak, aby představovaly externí rozhraní API a jeho odpověď:
 
@@ -196,7 +197,7 @@ public class ValuesController : ControllerBase
 
 ## <a name="make-post-put-and-delete-requests"></a>Vytváření požadavků POST, PUT a DELETE
 
-V předchozích příkladech všechny požadavky HTTP používají příkaz GET HTTP. `HttpClient`podporuje také jiné příkazy HTTP, včetně:
+V předchozích příkladech všechny požadavky HTTP používají příkaz GET HTTP. `HttpClient` podporuje také jiné příkazy HTTP, včetně:
 
 * POST
 * PUT
@@ -216,7 +217,7 @@ V předchozím kódu `CreateItemAsync` metoda:
 * Volání <xref:System.Net.Http.HttpClient.PostAsync%2A> pro odeslání obsahu JSON na zadanou adresu URL. Toto je relativní adresa URL, která se přidá do [HttpClient. BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress).
 * Volání <xref:System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode%2A> vyvolávající výjimku, pokud kód stavu odpovědi neindikuje úspěch.
 
-`HttpClient`podporuje také další typy obsahu. Příklad: <xref:System.Net.Http.MultipartContent> a <xref:System.Net.Http.StreamContent>. Úplný seznam podporovaného obsahu najdete v tématu <xref:System.Net.Http.HttpContent> .
+`HttpClient` podporuje také další typy obsahu. Příklad: <xref:System.Net.Http.MultipartContent> a <xref:System.Net.Http.StreamContent>. Úplný seznam podporovaného obsahu najdete v tématu <xref:System.Net.Http.HttpContent> .
 
 Následující příklad ukazuje požadavek HTTP PUT:
 
@@ -234,7 +235,7 @@ Další informace o používání různých příkazů HTTP s najdete `HttpClien
 
 ## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient`má koncepci delegování obslužných rutin, které mohou být propojeny pro odchozí požadavky HTTP. `IHttpClientFactory`:
+`HttpClient` má koncepci delegování obslužných rutin, které mohou být propojeny pro odchozí požadavky HTTP. `IHttpClientFactory`:
 
 * Zjednodušuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta.
 * Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model:
@@ -276,19 +277,19 @@ Ke sdílení stavu jednotlivých požadavků pomocí obslužných rutin zpráv p
 
 ## <a name="use-polly-based-handlers"></a>Použití obslužných rutin založené na Polly
 
-`IHttpClientFactory`integruje se s knihovnou [Polly](https://github.com/App-vNext/Polly)třetí strany. Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
+`IHttpClientFactory` integruje se s knihovnou [Polly](https://github.com/App-vNext/Polly)třetí strany. Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
 
 K dispozici jsou rozšiřující metody umožňující použití zásad Polly s konfigurovanými `HttpClient` instancemi. Rozšíření Polly podporují přidávání obslužných rutin založených na Polly do klientů. Polly vyžaduje balíček NuGet [Microsoft. Extensions. http. Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) .
 
 ### <a name="handle-transient-faults"></a>Zpracování přechodných chyb
 
-K chybám obvykle dochází, když jsou externí volání HTTP přechodný. <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddTransientHttpErrorPolicy*>umožňuje definovat zásadu pro zpracování přechodných chyb. Zásady nakonfigurované s nástrojem `AddTransientHttpErrorPolicy` zpracovávají následující odpovědi:
+K chybám obvykle dochází, když jsou externí volání HTTP přechodný. <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddTransientHttpErrorPolicy*> umožňuje definovat zásadu pro zpracování přechodných chyb. Zásady nakonfigurované s nástrojem `AddTransientHttpErrorPolicy` zpracovávají následující odpovědi:
 
 * <xref:System.Net.Http.HttpRequestException>
 * HTTP 5xx
 * HTTP 408
 
-`AddTransientHttpErrorPolicy`poskytuje přístup k `PolicyBuilder` objektu nakonfigurovanému pro zpracování chyb představujících možnou přechodnou chybu:
+`AddTransientHttpErrorPolicy` poskytuje přístup k `PolicyBuilder` objektu nakonfigurovanému pro zpracování chyb představujících možnou přechodnou chybu:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup3.cs?name=snippet1)]
 
@@ -321,7 +322,7 @@ Přístup ke správě často používaných zásad je definovat jednou a zaregis
 V následujícím kódu:
 
 * Přidají se zásady "regular" a "Long".
-* <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddPolicyHandlerFromRegistry*>Přidá do registru zásady "regular" a "Long".
+* <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddPolicyHandlerFromRegistry*> Přidá do registru zásady "regular" a "Long".
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup4.cs?name=snippet1)]
 
@@ -331,7 +332,7 @@ Další informace o `IHttpClientFactory` Polly integrech a integraci najdete na 
 
 Nová `HttpClient` instance se vrátí pokaždé, když `CreateClient` se zavolá na `IHttpClientFactory` . <xref:System.Net.Http.HttpMessageHandler>Vytvoří se pro jednotlivé pojmenované klienty. Továrna spravuje životnost `HttpMessageHandler` instancí.
 
-`IHttpClientFactory`Vytvoří fondy `HttpMessageHandler` instancí vytvořených výrobou, aby se snížila spotřeba prostředků. Instance se dá `HttpMessageHandler` znovu použít z fondu při vytváření nové `HttpClient` instance, pokud její doba platnosti ještě nevypršela.
+`IHttpClientFactory` Vytvoří fondy `HttpMessageHandler` instancí vytvořených výrobou, aby se snížila spotřeba prostředků. Instance se dá `HttpMessageHandler` znovu použít z fondu při vytváření nové `HttpClient` instance, pokud její doba platnosti ještě nevypršela.
 
 Sdružování obslužných rutin je žádoucí, protože každá obslužná rutina obvykle spravuje vlastní podkladová připojení HTTP. Vytváření dalších obslužných rutin, než je potřeba, může způsobit zpoždění připojení. Některé obslužné rutiny také udržují připojení otevřené po neomezenou dobu, což může zabránit obslužné rutině v reakce na změny DNS (Domain Name System).
 
@@ -339,7 +340,7 @@ Výchozí životnost obslužné rutiny je dvě minuty. Výchozí hodnota může 
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup5.cs?name=snippet1)]
 
-`HttpClient`instance je obecně možné považovat **za objekty .NET, které** nevyžadují vyřazení. Vyřazení zruší odchozí žádosti a zaručuje, že danou `HttpClient` instanci nelze použít po volání <xref:System.IDisposable.Dispose*> . `IHttpClientFactory`sleduje a odstraňuje prostředky používané `HttpClient` instancemi.
+`HttpClient` instance je obecně možné považovat **za objekty .NET, které** nevyžadují vyřazení. Vyřazení zruší odchozí žádosti a zaručuje, že danou `HttpClient` instanci nelze použít po volání <xref:System.IDisposable.Dispose*> . `IHttpClientFactory` sleduje a odstraňuje prostředky používané `HttpClient` instancemi.
 
 Udržování jediné `HttpClient` instance po dlouhou dobu je společný vzor, který se používá před zahájením `IHttpClientFactory` . Tento model se po migraci na nedá zbytečné `IHttpClientFactory` .
 
@@ -366,13 +367,13 @@ Předchozí přístupy vyřeší problémy se správou prostředků, které se `
 Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují cookie s, zvažte jednu z těchto akcí:
 
  - Zákaz automatického cookie zpracování
- - Opakované`IHttpClientFactory`
+ - Opakované `IHttpClientFactory`
 
 Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického cookie zpracování:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -401,9 +402,9 @@ V aplikaci konzoly přidejte do projektu následující odkazy na balíček:
 
 V následujícím příkladu:
 
-* <xref:System.Net.Http.IHttpClientFactory>je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
-* `MyService`Vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient` . `HttpClient`slouží k načtení webové stránky.
-* `Main`vytvoří obor pro provedení `GetPage` metody služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
+* <xref:System.Net.Http.IHttpClientFactory> je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
+* `MyService` Vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient` . `HttpClient` slouží k načtení webové stránky.
+* `Main` vytvoří obor pro provedení `GetPage` metody služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
@@ -423,7 +424,7 @@ V následujícím příkladu:
   var response = client.GetAsync(...);
   ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
@@ -519,7 +520,7 @@ V předchozím kódu `HttpClient` je uložen jako soukromé pole. Veškerý př�
 
 ### <a name="generated-clients"></a>Vygenerované klienty
 
-`IHttpClientFactory`dá se použít v kombinaci s jinými knihovnami třetích stran, jako je [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky pomocí `RestService` , a používá `HttpClient` se k vytvoření externích volání http.
+`IHttpClientFactory` dá se použít v kombinaci s jinými knihovnami třetích stran, jako je [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky pomocí `RestService` , a používá `HttpClient` se k vytvoření externích volání http.
 
 Rozhraní a odpověď jsou definované tak, aby představovaly externí rozhraní API a jeho odpověď:
 
@@ -574,7 +575,7 @@ public class ValuesController : ControllerBase
 
 ## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient`již má koncepci delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory`Usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model je podobný vstupnímu kanálu middlewaru v ASP.NET Core. Vzor poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
+`HttpClient` již má koncepci delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory`Usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model je podobný vstupnímu kanálu middlewaru v ASP.NET Core. Vzor poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
 Chcete-li vytvořit obslužnou rutinu, Definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler> . `SendAsync`Před předáním požadavku další obslužné rutině v kanálu přepište metodu pro spuštění kódu:
 
@@ -602,7 +603,7 @@ Ke sdílení stavu jednotlivých požadavků pomocí obslužných rutin zpráv p
 
 ## <a name="use-polly-based-handlers"></a>Použití obslužných rutin založené na Polly
 
-`IHttpClientFactory`integruje se s oblíbenou knihovnou třetích stran s názvem [Polly](https://github.com/App-vNext/Polly). Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
+`IHttpClientFactory` integruje se s oblíbenou knihovnou třetích stran s názvem [Polly](https://github.com/App-vNext/Polly). Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
 
 K dispozici jsou rozšiřující metody umožňující použití zásad Polly s konfigurovanými `HttpClient` instancemi. Rozšíření Polly:
 
@@ -649,7 +650,7 @@ Další informace o `IHttpClientFactory` integraci a Polly najdete na [wikiwebu 
 
 Nová `HttpClient` instance se vrátí pokaždé, když `CreateClient` se zavolá na `IHttpClientFactory` . Existuje <xref:System.Net.Http.HttpMessageHandler> pro každého pojmenovaného klienta. Továrna spravuje životnost `HttpMessageHandler` instancí.
 
-`IHttpClientFactory`Vytvoří fondy `HttpMessageHandler` instancí vytvořených výrobou, aby se snížila spotřeba prostředků. Instance se dá `HttpMessageHandler` znovu použít z fondu při vytváření nové `HttpClient` instance, pokud její doba platnosti ještě nevypršela.
+`IHttpClientFactory` Vytvoří fondy `HttpMessageHandler` instancí vytvořených výrobou, aby se snížila spotřeba prostředků. Instance se dá `HttpMessageHandler` znovu použít z fondu při vytváření nové `HttpClient` instance, pokud její doba platnosti ještě nevypršela.
 
 Sdružování obslužných rutin je žádoucí, protože každá obslužná rutina obvykle spravuje vlastní podkladová připojení HTTP. Vytváření dalších obslužných rutin, než je potřeba, může způsobit zpoždění připojení. Některé obslužné rutiny také udržují připojení otevřené po neomezenou dobu, což může zabránit obslužné rutině v rekomunikaci se změnami DNS.
 
@@ -657,7 +658,7 @@ Výchozí životnost obslužné rutiny je dvě minuty. Výchozí hodnota může 
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
 
-Vyřazení klienta se nevyžaduje. Vyřazení zruší odchozí žádosti a zaručuje, že danou `HttpClient` instanci nelze použít po volání <xref:System.IDisposable.Dispose*> . `IHttpClientFactory`sleduje a odstraňuje prostředky používané `HttpClient` instancemi. `HttpClient`Instance je obecně možné považovat za objekty .NET, které nevyžadují vyřazení.
+Vyřazení klienta se nevyžaduje. Vyřazení zruší odchozí žádosti a zaručuje, že danou `HttpClient` instanci nelze použít po volání <xref:System.IDisposable.Dispose*> . `IHttpClientFactory` sleduje a odstraňuje prostředky používané `HttpClient` instancemi. `HttpClient`Instance je obecně možné považovat za objekty .NET, které nevyžadují vyřazení.
 
 Udržování jediné `HttpClient` instance po dlouhou dobu je společný vzor, který se používá před zahájením `IHttpClientFactory` . Tento model se po migraci na nedá zbytečné `IHttpClientFactory` .
 
@@ -684,13 +685,13 @@ Předchozí přístupy vyřeší problémy se správou prostředků, které se `
 Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují cookie s, zvažte jednu z těchto akcí:
 
  - Zákaz automatického cookie zpracování
- - Opakované`IHttpClientFactory`
+ - Opakované `IHttpClientFactory`
 
 Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického cookie zpracování:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -719,13 +720,13 @@ V aplikaci konzoly přidejte do projektu následující odkazy na balíček:
 
 V následujícím příkladu:
 
-* <xref:System.Net.Http.IHttpClientFactory>je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
-* `MyService`Vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient` . `HttpClient`slouží k načtení webové stránky.
-* `Main`vytvoří obor pro provedení `GetPage` metody služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
+* <xref:System.Net.Http.IHttpClientFactory> je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
+* `MyService` Vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient` . `HttpClient` slouží k načtení webové stránky.
+* `Main` vytvoří obor pro provedení `GetPage` metody služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
@@ -746,7 +747,7 @@ Je <xref:System.Net.Http.IHttpClientFactory> možné zaregistrovat a použít ke
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Projekty, které cílí na .NET Framework vyžadují instalaci balíčku [Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet. Projekty, které cílí na .NET Core a odkazují na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) , už `Microsoft.Extensions.Http` balíček obsahuje.
 
@@ -824,7 +825,7 @@ V předchozím kódu `HttpClient` je uložen jako soukromé pole. Veškerý př�
 
 ### <a name="generated-clients"></a>Vygenerované klienty
 
-`IHttpClientFactory`dá se použít v kombinaci s jinými knihovnami třetích stran, jako je [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky pomocí `RestService` , a používá `HttpClient` se k vytvoření externích volání http.
+`IHttpClientFactory` dá se použít v kombinaci s jinými knihovnami třetích stran, jako je [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky pomocí `RestService` , a používá `HttpClient` se k vytvoření externích volání http.
 
 Rozhraní a odpověď jsou definované tak, aby představovaly externí rozhraní API a jeho odpověď:
 
@@ -879,7 +880,7 @@ public class ValuesController : ControllerBase
 
 ## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient`již má koncepci delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory`Usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model je podobný vstupnímu kanálu middlewaru v ASP.NET Core. Vzor poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
+`HttpClient` již má koncepci delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory`Usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model je podobný vstupnímu kanálu middlewaru v ASP.NET Core. Vzor poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
 Chcete-li vytvořit obslužnou rutinu, Definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler> . `SendAsync`Před předáním požadavku další obslužné rutině v kanálu přepište metodu pro spuštění kódu:
 
@@ -910,7 +911,7 @@ Ke sdílení stavu jednotlivých požadavků pomocí obslužných rutin zpráv p
 
 ## <a name="use-polly-based-handlers"></a>Použití obslužných rutin založené na Polly
 
-`IHttpClientFactory`integruje se s oblíbenou knihovnou třetích stran s názvem [Polly](https://github.com/App-vNext/Polly). Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
+`IHttpClientFactory` integruje se s oblíbenou knihovnou třetích stran s názvem [Polly](https://github.com/App-vNext/Polly). Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
 
 K dispozici jsou rozšiřující metody umožňující použití zásad Polly s konfigurovanými `HttpClient` instancemi. Rozšíření Polly:
 
@@ -957,7 +958,7 @@ Další informace o `IHttpClientFactory` integraci a Polly najdete na [wikiwebu 
 
 Nová `HttpClient` instance se vrátí pokaždé, když `CreateClient` se zavolá na `IHttpClientFactory` . Existuje <xref:System.Net.Http.HttpMessageHandler> pro každého pojmenovaného klienta. Továrna spravuje životnost `HttpMessageHandler` instancí.
 
-`IHttpClientFactory`Vytvoří fondy `HttpMessageHandler` instancí vytvořených výrobou, aby se snížila spotřeba prostředků. Instance se dá `HttpMessageHandler` znovu použít z fondu při vytváření nové `HttpClient` instance, pokud její doba platnosti ještě nevypršela.
+`IHttpClientFactory` Vytvoří fondy `HttpMessageHandler` instancí vytvořených výrobou, aby se snížila spotřeba prostředků. Instance se dá `HttpMessageHandler` znovu použít z fondu při vytváření nové `HttpClient` instance, pokud její doba platnosti ještě nevypršela.
 
 Sdružování obslužných rutin je žádoucí, protože každá obslužná rutina obvykle spravuje vlastní podkladová připojení HTTP. Vytváření dalších obslužných rutin, než je potřeba, může způsobit zpoždění připojení. Některé obslužné rutiny také udržují připojení otevřené po neomezenou dobu, což může zabránit obslužné rutině v rekomunikaci se změnami DNS.
 
@@ -965,7 +966,7 @@ Výchozí životnost obslužné rutiny je dvě minuty. Výchozí hodnota může 
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
 
-Vyřazení klienta se nevyžaduje. Vyřazení zruší odchozí žádosti a zaručuje, že danou `HttpClient` instanci nelze použít po volání <xref:System.IDisposable.Dispose*> . `IHttpClientFactory`sleduje a odstraňuje prostředky používané `HttpClient` instancemi. `HttpClient`Instance je obecně možné považovat za objekty .NET, které nevyžadují vyřazení.
+Vyřazení klienta se nevyžaduje. Vyřazení zruší odchozí žádosti a zaručuje, že danou `HttpClient` instanci nelze použít po volání <xref:System.IDisposable.Dispose*> . `IHttpClientFactory` sleduje a odstraňuje prostředky používané `HttpClient` instancemi. `HttpClient`Instance je obecně možné považovat za objekty .NET, které nevyžadují vyřazení.
 
 Udržování jediné `HttpClient` instance po dlouhou dobu je společný vzor, který se používá před zahájením `IHttpClientFactory` . Tento model se po migraci na nedá zbytečné `IHttpClientFactory` .
 
@@ -992,13 +993,13 @@ Předchozí přístupy vyřeší problémy se správou prostředků, které se `
 Instance ve fondu mají `HttpMessageHandler` za následek `CookieContainer` Sdílení objektů. Neočekávané `CookieContainer` Sdílení objektů často vede k nesprávnému kódu. U aplikací, které vyžadují cookie s, zvažte jednu z těchto akcí:
 
  - Zákaz automatického cookie zpracování
- - Opakované`IHttpClientFactory`
+ - Opakované `IHttpClientFactory`
 
 Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> pro zakázání automatického cookie zpracování:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -1027,9 +1028,9 @@ V aplikaci konzoly přidejte do projektu následující odkazy na balíček:
 
 V následujícím příkladu:
 
-* <xref:System.Net.Http.IHttpClientFactory>je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
-* `MyService`Vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient` . `HttpClient`slouží k načtení webové stránky.
-* `Main`vytvoří obor pro provedení `GetPage` metody služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
+* <xref:System.Net.Http.IHttpClientFactory> je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
+* `MyService` Vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient` . `HttpClient` slouží k načtení webové stránky.
+* `Main` vytvoří obor pro provedení `GetPage` metody služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
@@ -1050,7 +1051,7 @@ V následujícím příkladu:
   var response = client.GetAsync(...);
   ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)

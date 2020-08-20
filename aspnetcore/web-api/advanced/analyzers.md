@@ -7,6 +7,7 @@ ms.author: prkrishn
 ms.custom: mvc
 ms.date: 09/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 571046052dbe131e9cdcf981aaee0921ed8c2ea1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 1bc76f3965009dbdd66c58b197f4c12bd44faf18
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021845"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633029"
 ---
 # <a name="use-web-api-analyzers"></a>Použití analyzátorů webového rozhraní API
 
@@ -95,7 +96,7 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 ## <a name="analyzers-for-web-api-conventions"></a>Analyzátory pro konvence webového rozhraní API
 
-Dokumenty OpenAPI obsahují stavové kódy a typy odezvy, které může akce vracet. Ve ASP.NET Core MVC jsou atributy jako <xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> a <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> použity k dokumentaci akce. <xref:tutorials/web-api-help-pages-using-swagger>přejdete k podrobnostem o dokumentaci k webovému rozhraní API.
+Dokumenty OpenAPI obsahují stavové kódy a typy odezvy, které může akce vracet. Ve ASP.NET Core MVC jsou atributy jako <xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> a <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> použity k dokumentaci akce. <xref:tutorials/web-api-help-pages-using-swagger> přejdete k podrobnostem o dokumentaci k webovému rozhraní API.
 
 Jeden z analyzátorů v balíčku kontroluje řadiče s poznámkami <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> a identifikuje akce, které neobsahují odpovědi. Uvažujte následující příklad:
 

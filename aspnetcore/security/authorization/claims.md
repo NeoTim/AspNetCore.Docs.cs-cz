@@ -5,6 +5,7 @@ description: Naučte se, jak do aplikace ASP.NET Core přidat kontroly deklarac�
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/claims
-ms.openlocfilehash: 639cacbab2688adfe769ef2c6954ea877cf0c66a
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 0615e9f13b0eca7d7ac924d90ae2004e41a51586
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022352"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632600"
 ---
 # <a name="claims-based-authorization-in-aspnet-core"></a>Ověřování na základě deklarací identity v ASP.NET Core
 
@@ -156,7 +157,7 @@ Pokud hodnota deklarace identity není jediná hodnota, nebo je nutné transform
 
 ## <a name="multiple-policy-evaluation"></a>Vícenásobné vyhodnocení zásad
 
-Pokud pro kontroler nebo akci použijete více zásad, musí všechny zásady před udělením přístupu projít. Například:
+Pokud pro kontroler nebo akci použijete více zásad, musí všechny zásady před udělením přístupu projít. Příklad:
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]

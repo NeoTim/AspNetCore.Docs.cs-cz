@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,20 +17,20 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-2.0
-ms.openlocfilehash: 1ec51bf054f1f0d60ed27ee280f436e6d4c8c4b0
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 9d8c33ef10825baa212466fe683d4c1dc582f7eb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021192"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632457"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2,0
 
 Tento článek zvýrazňuje nejvýznamnější změny v ASP.NET Core 2,0 s odkazy na příslušnou dokumentaci.
 
-## <a name="no-locrazor-pages"></a>RazorStránky
+## <a name="no-locrazor-pages"></a>Razor Stránky
 
-RazorStránky jsou novou funkcí ASP.NET Core MVC, která usnadňuje a produktivnější vytváření kódu pro scénáře zaměřené na stránku.
+Razor Stránky jsou novou funkcí ASP.NET Core MVC, která usnadňuje a produktivnější vytváření kódu pro scénáře zaměřené na stránku.
 
 Další informace najdete v úvodu a v kurzu:
 
@@ -56,7 +57,7 @@ Cílová ASP.NET Core 2,0 balíčků .NET Standard 2,0. Na balíčky můžou odk
 
 ## <a name="configuration-update"></a>Aktualizace konfigurace
 
-`IConfiguration`Instance je ve výchozím nastavení přidána do kontejneru Services v ASP.NET Core 2,0. `IConfiguration`v kontejneru služby usnadňuje aplikacím načítání konfiguračních hodnot z kontejneru.
+`IConfiguration`Instance je ve výchozím nastavení přidána do kontejneru Services v ASP.NET Core 2,0. `IConfiguration` v kontejneru služby usnadňuje aplikacím načítání konfiguračních hodnot z kontejneru.
 
 Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/3387).
 
@@ -74,7 +75,7 @@ Nové šablony jsou k dispozici pro konfiguraci ověřování pro webové aplika
 
 Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/3054).
 
-## <a name="no-locidentity-update"></a>IdentityUpdate
+## <a name="no-locidentity-update"></a>Identity Update
 
 Usnadnili jsme vytváření zabezpečených webových rozhraní API pomocí Identity ASP.NET Core 2,0. Přístupové tokeny pro přístup k webovým rozhraním API můžete získat pomocí [knihovny Microsoft Authentication Library (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client).
 
@@ -102,7 +103,7 @@ Další informace najdete v tématu [implementace webového serveru Kestrel v AS
 
 Balíčky `Microsoft.AspNetCore.Server.WebListener` a `Microsoft.Net.Http.Server` byly sloučeny do nového balíčku `Microsoft.AspNetCore.Server.HttpSys` . Obory názvů byly aktualizovány tak, aby odpovídaly.
 
-Další informace najdete v tématu [implementace webového serveruHTTP.sys v ASP.NET Core](xref:fundamentals/servers/httpsys).
+Další informace najdete v tématu [ implementace webového serveruHTTP.sys v ASP.NET Core](xref:fundamentals/servers/httpsys).
 
 ## <a name="enhanced-http-header-support"></a>Rozšířená podpora hlaviček protokolu HTTP
 
@@ -130,15 +131,15 @@ Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](h
 
 ASP.NET Core ve výchozím nastavení vždycky pomohl obsah s kódováním HTML, ale s novou verzí je potřeba další krok, který pomáhá zabránit útokům na více lokalitám proti falšování. Služba ASP.NET Core nyní ve výchozím nastavení generuje tokeny proti padělání a ověří je v akcích a stránkách vydaných formulářem bez dodatečné konfigurace.
 
-Další informace najdete v tématu [prevence útoků proti falšování (XSRF/CSRF) žádostí mezi weby](xref:security/anti-request-forgery).
+Další informace naleznete v tématu <xref:security/anti-request-forgery>.
 
 ## <a name="automatic-precompilation"></a>Automatická předkompilace
 
-Razorzobrazení předkompilace je ve výchozím nastavení povoleno, což snižuje velikost výstupu publikování a čas spuštění aplikace.
+Razor zobrazení předkompilace je ve výchozím nastavení povoleno, což snižuje velikost výstupu publikování a čas spuštění aplikace.
 
 Další informace naleznete v tématu [ Razor zobrazení kompilace a předkompilace v ASP.NET Core](xref:mvc/views/view-compilation).
 
-## <a name="no-locrazor-support-for-c-71"></a>RazorPodpora pro C# 7,1
+## <a name="no-locrazor-support-for-c-71"></a>Razor Podpora pro C# 7,1
 
 RazorModul zobrazení byl aktualizován tak, aby fungoval s novým kompilátorem Roslyn. Který zahrnuje podporu pro funkce C# 7,1 jako výchozí výrazy, odvoditelné názvy řazené kolekce členů a porovnávání vzorů s obecnými typy. Chcete-li v projektu použít C# 7,1, přidejte do souboru projektu následující vlastnost a pak znovu načtěte toto řešení:
 

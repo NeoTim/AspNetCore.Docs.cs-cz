@@ -5,6 +5,7 @@ description: Přečtěte si o Razor syntaxi značek pro vkládání kódu založ
 ms.author: riande
 ms.date: 02/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,26 +16,26 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: 4b418c53535965eae6b41f3297b0c6336fb993d5
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b62fcb685b1c6d0c504c685c600d0316b32d7f57
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020584"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632496"
 ---
-# <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>RazorReferenční informace k syntaxi pro ASP.NET Core
+# <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>Razor Referenční informace k syntaxi pro ASP.NET Core
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Taylor Mullen](https://twitter.com/ntaylormullen)a [Dan Vicarel](https://github.com/Rabadash8820)
 
-Razorje syntaxe značek pro vložení kódu založeného na serveru na webové stránky. RazorSyntaxe se skládá z Razor značek, C# a HTML. Soubory, Razor které obsahují obecně, mají příponu *. cshtml* . Razorse nachází také v souborech [ Razor komponent](xref:blazor/components/index) (*. Razor*).
+Razor je syntaxe značek pro vložení kódu založeného na serveru na webové stránky. RazorSyntaxe se skládá z Razor značek, C# a HTML. Soubory, Razor které obsahují obecně, mají příponu *. cshtml* . Razorse nachází také v souborech [ Razor komponent](xref:blazor/components/index) (*. Razor*).
 
 ## <a name="rendering-html"></a>Vykreslování kódu HTML
 
 Výchozí Razor jazyk je HTML. Vykreslování HTML ze Razor značek se neliší od vykreslování HTML ze souboru HTML. Kód HTML v souborech *. cshtml* Razor je vykreslen serverem beze změny.
 
-## <a name="no-locrazor-syntax"></a>Razorsyntaktick
+## <a name="no-locrazor-syntax"></a>Razor syntaktick
 
-Razorpodporuje jazyk C# a používá `@` symbol k přechodu z formátu HTML do C#. Razorvyhodnotí výrazy jazyka C# a vykresluje je ve výstupu HTML.
+Razor podporuje jazyk C# a používá `@` symbol k přechodu z formátu HTML do C#. Razor vyhodnotí výrazy jazyka C# a vykresluje je ve výstupu HTML.
 
 `@`Je-li symbol následován [ Razor vyhrazeným klíčovým slovem](#razor-reserved-keywords), přechází na Razor konkrétní značku. V opačném případě přejde do jednoduchého jazyka C#.
 
@@ -142,7 +143,7 @@ HTML se zobrazí v prohlížeči jako:
 <span>Hello World</span>
 ```
 
-`HtmlHelper.Raw`výstup není kódovaný, ale vykresluje se jako kód HTML.
+`HtmlHelper.Raw` výstup není kódovaný, ale vykresluje se jako kód HTML.
 
 > [!WARNING]
 > Použití `HtmlHelper.Raw` na neupraveném vstupu uživatele představuje bezpečnostní riziko. Vstup uživatele může obsahovat škodlivý JavaScript nebo jiné zneužití. Upravení vstupu uživatele je obtížné. Nepoužívejte `HtmlHelper.Raw` s uživatelským vstupem.
@@ -157,9 +158,9 @@ Kód vykresluje následující kód HTML:
 <span>Hello World</span>
 ```
 
-## <a name="no-locrazor-code-blocks"></a>Razorbloky kódu
+## <a name="no-locrazor-code-blocks"></a>Razor bloky kódu
 
-Razorbloky kódu začínají na `@` a jsou uzavřeny v `{}` . Na rozdíl od výrazů není kód C# uvnitř bloků kódu vykreslen. Bloky kódu a výrazy v zobrazení sdílejí stejný obor a jsou definovány v pořadí:
+Razor bloky kódu začínají na `@` a jsou uzavřeny v `{}` . Na rozdíl od výrazů není kód C# uvnitř bloků kódu vykreslen. Bloky kódu a výrazy v zobrazení sdílejí stejný obor a jsou definovány v pořadí:
 
 ```cshtml
 @{
@@ -257,9 +258,9 @@ Nadbytečné `@` znaky v Razor souboru mohou způsobit chyby kompilátoru v př�
 
 Řídicí struktury jsou rozšíření bloků kódu. Všechny aspekty bloků kódu (přechod na kód, vložené C#) platí také pro následující struktury:
 
-### <a name="conditionals-if-else-if-else-and-switch"></a>Podmíněné výrazy`@if, else if, else, and @switch`
+### <a name="conditionals-if-else-if-else-and-switch"></a>Podmíněné výrazy `@if, else if, else, and @switch`
 
-`@if`ovládací prvky při spuštění kódu:
+`@if` ovládací prvky při spuštění kódu:
 
 ```cshtml
 @if (value % 2 == 0)
@@ -268,7 +269,7 @@ Nadbytečné `@` znaky v Razor souboru mohou způsobit chyby kompilátoru v př�
 }
 ```
 
-`else`a `else if` nevyžadují `@` symbol:
+`else` a `else if` nevyžadují `@` symbol:
 
 ```cshtml
 @if (value % 2 == 0)
@@ -302,7 +303,7 @@ Následující kód ukazuje, jak použít příkaz switch:
 }
 ```
 
-### <a name="looping-for-foreach-while-and-do-while"></a>Opakování`@for, @foreach, @while, and @do while`
+### <a name="looping-for-foreach-while-and-do-while"></a>Opakování `@for, @foreach, @while, and @do while`
 
 HTML s šablonou lze vykreslit pomocí příkazů pro opakování. Vykreslit seznam osob:
 
@@ -368,7 +369,7 @@ Podporovány jsou následující příkazy smyček:
 } while (i < people.Length);
 ```
 
-### <a name="compound-using"></a>Kombinovanou`@using`
+### <a name="compound-using"></a>Kombinovanou `@using`
 
 V jazyce C# se `using` k zajištění uvolnění objektu používá příkaz. V nástroji se Razor stejný mechanismus používá k vytvoření pomocníků HTML, které obsahují další obsah. V následujícím kódu pomocník HTML vykresluje `<form>` značku s `@using` příkazem:
 
@@ -390,7 +391,7 @@ Zpracování výjimek je podobné jazyku C#:
 
 ### `@lock`
 
-Razormá možnost chránit kritické oddíly pomocí příkazů Lock:
+Razor má možnost chránit kritické oddíly pomocí příkazů Lock:
 
 ```cshtml
 @lock (SomeLock)
@@ -401,7 +402,7 @@ Razormá možnost chránit kritické oddíly pomocí příkazů Lock:
 
 ### <a name="comments"></a>Komentáře
 
-Razorpodporuje komentáře jazyka C# a HTML:
+Razor podporuje komentáře jazyka C# a HTML:
 
 ```cshtml
 @{
@@ -417,7 +418,7 @@ Kód vykresluje následující kód HTML:
 <!-- HTML comment -->
 ```
 
-Razorpřed vykreslením webové stránky jsou komentáře odstraněny serverem. Razorpoužívá `@*  *@` se k vymezení komentářů. Následující kód je zakomentován, takže server nevykresluje žádné značky:
+Razor před vykreslením webové stránky jsou komentáře odstraněny serverem. Razor používá `@*  *@` se k vymezení komentářů. Následující kód je zakomentován, takže server nevykresluje žádné značky:
 
 ```cshtml
 @*
@@ -431,7 +432,7 @@ Razorpřed vykreslením webové stránky jsou komentáře odstraněny serverem. 
 
 ## <a name="directives"></a>Direktivy
 
-Razordirektivy jsou reprezentovány implicitními výrazy s vyhrazenými klíčovými slovy za `@` symbolem. Direktiva obvykle mění způsob, jakým se analyzuje zobrazení, nebo umožňuje různé funkce.
+Razor direktivy jsou reprezentovány implicitními výrazy s vyhrazenými klíčovými slovy za `@` symbolem. Direktiva obvykle mění způsob, jakým se analyzuje zobrazení, nebo umožňuje různé funkce.
 
 Porozumění způsobu, jakým Razor generuje kód pro zobrazení, usnadňuje pochopení, jak direktivy fungují.
 
@@ -497,7 +498,7 @@ V [ Razor komponentách](xref:blazor/components/index)použijte `@code` více ne
 
 ::: moniker-end
 
-Například:
+Příklad:
 
 [!code-cshtml[](razor/sample/Views/Home/Contact6.cshtml)]
 
@@ -513,7 +514,7 @@ Následující kód je vygenerovaná Razor třída C#:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-`@functions`metody slouží jako metody šablonování, pokud mají značky:
+`@functions` metody slouží jako metody šablonování, pokud mají značky:
 
 ```cshtml
 @{
@@ -583,7 +584,7 @@ Kód vykresluje následující kód HTML:
 </div>
 ```
 
- `@model`a `@inherits` lze jej použít ve stejném zobrazení. `@inherits`může být v souboru *_ViewImports. cshtml* , který zobrazení importuje:
+ `@model` a `@inherits` lze jej použít ve stejném zobrazení. `@inherits` může být v souboru *_ViewImports. cshtml* , který zobrazení importuje:
 
 [!code-cshtml[](razor/sample/Views/_ViewImportsModel.cshtml)]
 
@@ -637,7 +638,7 @@ Třída, ze které vygenerovala dědění `RazorPage<dynamic>` :
 public class _Views_Account_Login_cshtml : RazorPage<LoginViewModel>
 ```
 
-Razorzpřístupní `Model` vlastnost pro přístup k modelu předanému zobrazení:
+Razor zpřístupní `Model` vlastnost pro přístup k modelu předanému zobrazení:
 
 ```cshtml
 <div>The Login Email: @Model.Email</div>
@@ -719,13 +720,13 @@ V [ Razor součástech](xref:blazor/components/index) `@using` také určuje, kt
 
 ## <a name="directive-attributes"></a>Atributy direktiv
 
-Razoratributy direktiv jsou reprezentovány implicitními výrazy s vyhrazenými klíčovými slovy za `@` symbolem. Atribut direktivy obvykle mění způsob, jakým je prvek analyzován, nebo umožňuje různé funkce.
+Razor atributy direktiv jsou reprezentovány implicitními výrazy s vyhrazenými klíčovými slovy za `@` symbolem. Atribut direktivy obvykle mění způsob, jakým je prvek analyzován, nebo umožňuje různé funkce.
 
 ### `@attributes`
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-`@attributes`umožňuje komponentě vykreslovat nedeklarované atributy. Další informace naleznete v tématu <xref:blazor/components/index#attribute-splatting-and-arbitrary-parameters>.
+`@attributes` umožňuje komponentě vykreslovat nedeklarované atributy. Další informace naleznete v tématu <xref:blazor/components/index#attribute-splatting-and-arbitrary-parameters>.
 
 ### `@bind`
 
@@ -737,7 +738,7 @@ Datové vazby v součástech se provádí s `@bind` atributem. Další informace
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-Razorposkytuje funkce pro zpracování událostí pro součásti. Další informace naleznete v tématu <xref:blazor/components/event-handling>.
+Razor poskytuje funkce pro zpracování událostí pro součásti. Další informace naleznete v tématu <xref:blazor/components/event-handling>.
 
 ::: moniker-end
 
@@ -781,7 +782,7 @@ Odkazy na součásti ( `@ref` ) poskytují způsob, jak odkazovat na instanci ko
 
 ## <a name="templated-no-locrazor-delegates"></a>Zástupci přidaných šablon Razor
 
-Razoršablony umožňují definovat fragment uživatelského rozhraní v následujícím formátu:
+Razor šablony umožňují definovat fragment uživatelského rozhraní v následujícím formátu:
 
 ```cshtml
 @<tag>...</tag>
@@ -852,7 +853,7 @@ Vloženou šablonu můžete také dodat Razor jako argument metodě. V následuj
 
 Pomocí seznamu domácích zvířat z předchozího příkladu `Repeat` je metoda volána s:
 
-* <xref:System.Collections.Generic.List%601>z `Pet` .
+* <xref:System.Collections.Generic.List%601> z `Pet` .
 * Počet opakování každé PET.
 * Vložená šablona, která se má použít pro položky seznamu neuspořádaného seznamu
 
@@ -890,19 +891,19 @@ Existují tři direktivy, které se týkají [pomocníků značek](xref:mvc/view
 | [`@removeTagHelper`](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | Odebere pomocníky značek dříve přidané ze zobrazení. |
 | [`@tagHelperPrefix`](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | Určuje předponu značky pro povolení podpory značek pomocníka a k explicitnímu použití pomocníka značek. |
 
-## <a name="no-locrazor-reserved-keywords"></a>Razorvyhrazená klíčová slova
+## <a name="no-locrazor-reserved-keywords"></a>Razor vyhrazená klíčová slova
 
-### <a name="no-locrazor-keywords"></a>Razorklíčov
+### <a name="no-locrazor-keywords"></a>Razor klíčov
 
-* `page`(Vyžaduje ASP.NET Core 2,1 nebo novější)
+* `page` (Vyžaduje ASP.NET Core 2,1 nebo novější)
 * `namespace`
 * `functions`
 * `inherits`
 * `model`
 * `section`
-* `helper`(Aktuálně není podporováno ASP.NET Core)
+* `helper` (Aktuálně není podporováno ASP.NET Core)
 
-RazorKlíčová slova jsou uvozena znakem `@(Razor Keyword)` (například `@(functions)` ).
+Razor Klíčová slova jsou uvozena znakem `@(Razor Keyword)` (například `@(functions)` ).
 
 ### <a name="c-no-locrazor-keywords"></a>RazorKlíčová slova jazyka C#
 
@@ -923,7 +924,7 @@ RazorKlíčová slova jsou uvozena znakem `@(Razor Keyword)` (například `@(fun
 
 RazorKlíčová slova jazyka C# musí mít dvojité uvození řídicím znakem `@(@C# Razor Keyword)` (například `@(@case)` ). První `@` řídí Razor analyzátor. Druhý `@` řídí analyzátor jazyka C#.
 
-### <a name="reserved-keywords-not-used-by-no-locrazor"></a>Vyhrazená klíčová slova, která nepoužíváRazor
+### <a name="reserved-keywords-not-used-by-no-locrazor"></a>Vyhrazená klíčová slova, která nepoužívá Razor
 
 * `class`
 
@@ -1001,10 +1002,10 @@ RazorModul zobrazení provádí pro zobrazení vyhledávání citlivá na velká
 Vývojářům doporučujeme, aby se shodovaly s velkými písmeny názvů souborů a adresářů na velká a malá písmena:
 
 * Názvy oblastí, kontrolérů a akcí.
-* RazorStránky.
+* Razor Stránky.
 
 V případě, že se rozlišuje velká a malá písmena, zajistíte jejich zobrazení bez ohledu na základní systém souborů.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 [Seznámení s ASP.NET webovým programováním pomocí Razor Syntaxe](/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c) poskytuje mnoho ukázek programování s Razor syntaxí.

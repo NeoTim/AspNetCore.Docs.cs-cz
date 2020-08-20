@@ -1,5 +1,5 @@
 ---
-title: Použití streamování v ASP.NET CoreSignalR
+title: Použití streamování v ASP.NET Core SignalR
 author: bradygaster
 description: Naučte se, jak streamovat data mezi klientem a serverem.
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: e0eabe711fd69e42bd9bfa5e03a92e1df780e4db
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 29748ebe24fea03415b5a01b21300433e3fbc0f0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022508"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634212"
 ---
-# <a name="use-streaming-in-aspnet-core-no-locsignalr"></a>Použití streamování v ASP.NET CoreSignalR
+# <a name="use-streaming-in-aspnet-core-no-locsignalr"></a>Použití streamování v ASP.NET Core SignalR
 
 Od [Brennan Conroy](https://github.com/BrennanConroy)
 
@@ -269,7 +270,7 @@ Klienti JavaScriptu volají metody streamování na straně serveru na rozbočov
 * Název metody centra V následujícím příkladu je název metody rozbočovače `Counter` .
 * Argumenty definované v metodě centra V následujícím příkladu jsou argumenty počtem položek datového proudu, které mají být přijímány, a zpoždění mezi položkami datového proudu.
 
-`connection.stream`Vrátí `IStreamResult` , který obsahuje `subscribe` metodu. Předejte `IStreamSubscriber` `subscribe` a nastavte `next` `error` `complete` zpětná volání, a pro příjem oznámení od `stream` vyvolání.
+`connection.stream` Vrátí `IStreamResult` , který obsahuje `subscribe` metodu. Předejte `IStreamSubscriber` `subscribe` a nastavte `next` `error` `complete` zpětná volání, a pro příjem oznámení od `stream` vyvolání.
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -303,7 +304,7 @@ Chcete-li ukončit datový proud, zavolejte `subject.complete()` .
 
 ### <a name="server-to-client-streaming"></a>Streamování ze serveru na klienta
 
-SignalRKlient Java používá `stream` metodu k vyvolání metod streamování. `stream`přijímá tři nebo více argumentů:
+SignalRKlient Java používá `stream` metodu k vyvolání metod streamování. `stream` přijímá tři nebo více argumentů:
 
 * Očekávaný typ položek datového proudu.
 * Název metody centra
@@ -321,9 +322,9 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
-* [Centra](xref:signalr/hubs)
+* [Rozbočovače](xref:signalr/hubs)
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

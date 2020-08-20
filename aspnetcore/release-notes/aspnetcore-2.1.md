@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: 3fb524748b9e2aa2c12b64f67a7960c4f0f911b0
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d10fd89a3eac34e855ba92673033edc541aa6393
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021156"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88632405"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>Co je nového v ASP.NET Core 2,1
 
@@ -29,7 +30,7 @@ Tento článek zvýrazňuje nejvýznamnější změny v ASP.NET Core 2,1 s odkaz
 
 ## SignalR
 
-SignalRbylo přepsáno pro ASP.NET Core 2,1. ASP.NET Core SignalR obsahuje řadu vylepšení:
+SignalR bylo přepsáno pro ASP.NET Core 2,1. ASP.NET Core SignalR obsahuje řadu vylepšení:
 
 * Zjednodušený model škálování na více instancí.
 * Nový klient jazyka JavaScript bez závislosti jQuery.
@@ -40,7 +41,7 @@ SignalRbylo přepsáno pro ASP.NET Core 2,1. ASP.NET Core SignalR obsahuje řadu
 
 Další informace najdete v tématu [ASP.NET Core SignalR ](xref:signalr/introduction).
 
-## <a name="no-locrazor-class-libraries"></a>Razorknihovny tříd
+## <a name="no-locrazor-class-libraries"></a>Razor knihovny tříd
 
 ASP.NET Core 2,1 usnadňuje sestavování a zahrnutí Razor uživatelského rozhraní na základě knihovny a jejich sdílení napříč více projekty. Nová Razor sada SDK umožňuje sestavovat Razor soubory do projektu knihovny tříd, který může být zabalen do balíčku NuGet. Zobrazení a stránky v knihovnách jsou automaticky zjišťovány a aplikace je může přepsat aplikací. Integrací Razor kompilace do sestavení:
 
@@ -49,9 +50,9 @@ ASP.NET Core 2,1 usnadňuje sestavování a zahrnutí Razor uživatelského rozh
 
 Další informace najdete v tématu [vytvoření opakovaně použitelného uživatelského rozhraní pomocí Razor projektu knihovny tříd](xref:razor-pages/ui-class).
 
-## <a name="no-locidentity-ui-library--scaffolding"></a>IdentityKnihovna uživatelského rozhraní & generování uživatelského rozhraní
+## <a name="no-locidentity-ui-library--scaffolding"></a>Identity Knihovna uživatelského rozhraní & generování uživatelského rozhraní
 
-ASP.NET Core 2,1 poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které zahrnují, Identity můžou použít nový generátor, Identity aby selektivně přidal zdrojový kód obsažený v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL.
+ASP.NET Core 2,1 poskytuje [ASP.NET Core Identity](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které zahrnují, Identity můžou použít nový generátor, Identity aby selektivně přidal zdrojový kód obsažený v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL.
 
 Aplikace, které **neobsahují** ověřování, můžou Identity pro přidání balíčku RCL použít generování uživatelského rozhraní Identity . Máte možnost vybrat Identity kód, který se má vygenerovat.
 
@@ -126,13 +127,13 @@ Další informace najdete v tématu věnovaném [integračním testům](xref:tes
 
 ## <a name="apicontroller-actionresultt"></a>[ApiController], ActionResult\<T>
 
-ASP.NET Core 2,1 přidává nové konvence programování, které usnadňují vytváření čistě a popisných webových rozhraní API. `ActionResult<T>`je přidaný nový typ, který aplikaci umožní vracet buď typ odpovědi, nebo jakýkoli výsledek jiné akce (podobně jako IActionResult), ale stále určuje typ odpovědi. `[ApiController]`Atribut byl také přidán jako způsob, jak se přihlásit k konvencím a chováním specifickému pro webové rozhraní API.
+ASP.NET Core 2,1 přidává nové konvence programování, které usnadňují vytváření čistě a popisných webových rozhraní API. `ActionResult<T>` je přidaný nový typ, který aplikaci umožní vracet buď typ odpovědi, nebo jakýkoli výsledek jiné akce (podobně jako IActionResult), ale stále určuje typ odpovědi. `[ApiController]`Atribut byl také přidán jako způsob, jak se přihlásit k konvencím a chováním specifickému pro webové rozhraní API.
 
 Další informace najdete v tématu [sestavování webových rozhraní API pomocí ASP.NET Core](xref:web-api/index).
 
 ## <a name="ihttpclientfactory"></a>IHttpClientFactory
 
-ASP.NET Core 2,1 obsahuje novou `IHttpClientFactory` službu, která usnadňuje konfiguraci a využívání instancí `HttpClient` v aplikacích. `HttpClient`již má koncepci delegování obslužných rutin, které by mohly být propojeny pro odchozí požadavky HTTP. Objekt pro vytváření:
+ASP.NET Core 2,1 obsahuje novou `IHttpClientFactory` službu, která usnadňuje konfiguraci a využívání instancí `HttpClient` v aplikacích. `HttpClient` již má koncepci delegování obslužných rutin, které by mohly být propojeny pro odchozí požadavky HTTP. Objekt pro vytváření:
 
 * Usnadňuje registraci instancí pro `HttpClient` s pojmenovaným klientem.
 * Implementuje obslužnou rutinu Polly, která umožňuje použití zásad Polly pro opakování, CircuitBreakers atd.
@@ -161,7 +162,7 @@ Další informace:
 * <xref:spa/react>
 * <xref:spa/react-with-redux>
 
-## <a name="no-locrazor-pages-search-for-no-locrazor-assets"></a>RazorStránky vyhledávající Razor prostředky
+## <a name="no-locrazor-pages-search-for-no-locrazor-assets"></a>Razor Stránky vyhledávající Razor prostředky
 
 V 2,1 Razor budou stránky hledat Razor prostředky (například rozložení a částečné) v následujících adresářích v uvedeném pořadí:
 
@@ -169,9 +170,9 @@ V 2,1 Razor budou stránky hledat Razor prostředky (například rozložení a �
 1. */Pages/Shared/*
 1. */Views/Shared/*
 
-## <a name="no-locrazor-pages-in-an-area"></a>RazorStránky v oblasti
+## <a name="no-locrazor-pages-in-an-area"></a>Razor Stránky v oblasti
 
-RazorStránky teď podporují [oblasti](xref:mvc/controllers/areas). Pokud chcete zobrazit příklad oblastí, vytvořte novou Razor stránku webové aplikace s jednotlivými uživatelskými účty. RazorWebové aplikace stránky s jednotlivými uživatelskými účty zahrnuje */areas/ Identity /Pages*.
+Razor Stránky teď podporují [oblasti](xref:mvc/controllers/areas). Pokud chcete zobrazit příklad oblastí, vytvořte novou Razor stránku webové aplikace s jednotlivými uživatelskými účty. RazorWebové aplikace stránky s jednotlivými uživatelskými účty zahrnuje */areas/ Identity /Pages*.
 
 ## <a name="mvc-compatibility-version"></a>Verze kompatibility MVC
 

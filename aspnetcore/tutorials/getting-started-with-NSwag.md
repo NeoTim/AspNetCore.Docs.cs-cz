@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 8fd42c7d31edd20c2aae7577c5a490b54ab8129c
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6dc1fe85298cae307f554cfc06c4129fabbe8ab4
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022261"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633588"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme s NSwag a ASP.NET Core
 
@@ -104,8 +105,8 @@ Pomocí následujících kroků přidejte a nakonfigurujte Swagger v aplikaci AS
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-7)]
 
 * Spustit aplikaci Přejít na:
-  * `http://localhost:<port>/swagger`pro zobrazení uživatelského rozhraní Swagger.
-  * `http://localhost:<port>/swagger/v1/swagger.json`pro zobrazení specifikace Swagger.
+  * `http://localhost:<port>/swagger` pro zobrazení uživatelského rozhraní Swagger.
+  * `http://localhost:<port>/swagger/v1/swagger.json` pro zobrazení specifikace Swagger.
 
 ## <a name="code-generation"></a>Generování kódu
 

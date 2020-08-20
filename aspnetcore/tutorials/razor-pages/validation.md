@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: dad2e667cb6fa3ace7cb5e5dcb982511357ed49b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 86c523c69d3ee85f56bf1a51719a0bd93cbe97fc
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021520"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633549"
 ---
 # <a name="part-8-add-validation-to-an-aspnet-core-no-locrazor-page"></a>Část 8 – přidání ověřování na stránku ASP.NET Core Razor
 
@@ -29,9 +30,9 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V této části je logika ověřování přidána do `Movie` modelu. Ověřovací pravidla se vynutily pokaždé, když uživatel vytvoří nebo upraví film.
 
-## <a name="validation"></a>Ověřování vstupů (validace)
+## <a name="validation"></a>Ověřování
 
-Key principem vývoje softwaru se nazývá [suchý](https://wikipedia.org/wiki/Don%27t_repeat_yourself) ("**D**on't **R**EPEAT **Y**ourself"). RazorStránky přivíjejí vývoj, ve kterém jsou funkce zadány jednou a které se projeví v celé aplikaci. Bezsuchá může pomáhat:
+Key principem vývoje softwaru se nazývá [suchý](https://wikipedia.org/wiki/Don%27t_repeat_yourself) ("**D**on't **R**EPEAT **Y**ourself"). Razor Stránky přivíjejí vývoj, ve kterém jsou funkce zadány jednou a které se projeví v celé aplikaci. Bezsuchá může pomáhat:
 
 * Snižte množství kódu v aplikaci.
 * Udělejte kód méně náchylné k chybám a usnadněte si testování a údržbu.
@@ -121,11 +122,11 @@ Prověřte `Movie` třídu. `System.ComponentModel.DataAnnotations`Obor názvů 
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
 
-`DataType`Atributy poskytují nápovědu pouze pro modul zobrazení k formátování dat (a poskytování atributů, jako `<a>` je například adresa URL a `<a href="mailto:EmailAddress.com">` e-mailu). Použijte `RegularExpression` atribut k ověření formátu dat. `DataType`Atribut slouží k určení datového typu, který je konkrétnější než vnitřní typ databáze. `DataType`atributy nejsou ověřovány. V ukázkové aplikaci se zobrazí pouze datum, a to bez času.
+`DataType`Atributy poskytují nápovědu pouze pro modul zobrazení k formátování dat (a poskytování atributů, jako `<a>` je například adresa URL a `<a href="mailto:EmailAddress.com">` e-mailu). Použijte `RegularExpression` atribut k ověření formátu dat. `DataType`Atribut slouží k určení datového typu, který je konkrétnější než vnitřní typ databáze. `DataType` atributy nejsou ověřovány. V ukázkové aplikaci se zobrazí pouze datum, a to bez času.
 
 `DataType`Výčet poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. `DataType`Atribut může také povolit aplikaci automatické poskytování funkcí specifických pro typ. `mailto:`Můžete například vytvořit odkaz pro `DataType.EmailAddress` . Selektor data lze zadat pro `DataType.Date` v prohlížečích, které podporují HTML5. `DataType`Atributy generují atributy HTML 5 `data-` (s vyslovnou datovou pomlčkou), které používají prohlížeče formátu HTML 5. `DataType`Atributy neposkytují **not** žádné ověřování.
 
-`DataType.Date`neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech založených na serveru `CultureInfo` .
+`DataType.Date` neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech založených na serveru `CultureInfo` .
 
 `[Column(TypeName = "decimal(18, 2)")]`Datová anotace je vyžadována, aby Entity Framework Core mohl správně mapovat `Price` na měnu v databázi. Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).
 
@@ -193,7 +194,7 @@ Add-Migration New_DataAnnotations
 Update-Database
 ```
 
-`Update-Database`spustí `Up` metody `New_DataAnnotations` třídy. Prohlédněte si metodu `Up`:
+`Update-Database` spustí `Up` metody `New_DataAnnotations` třídy. Prohlédněte si metodu `Up`:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Migrations/20190724163003_New_DataAnnotations.cs?name=snippet)]
 
@@ -223,7 +224,7 @@ Informace o nasazení do Azure najdete v tématu [kurz: sestavení aplikace ASP.
 
 Děkujeme za dokončení tohoto úvodu na Razor stránky. [Začínáme s Razor Stránky a EF Core](xref:data/ef-rp/intro) je vynikajícím postupem v tomto kurzu.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:mvc/views/working-with-forms>
 * <xref:fundamentals/localization>

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 02/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/choose-between-aspnet-and-aspnetcore
-ms.openlocfilehash: 29596f1d974d585570af5ad686ff6be4b1f9b837
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e0b0311622a841183433363a55fcf33e22b6b115
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017490"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88633471"
 ---
 # <a name="choose-between-aspnet-4x-and-aspnet-core"></a>Vyberte ASP.NET 4. x a ASP.NET Core
 
 ASP.NET Core je přepracování ASP.NET 4. x. V tomto článku jsou uvedeny rozdíly mezi nimi.
 
-## <a name="aspnet-core"></a>Jádro ASP.NET
+## <a name="aspnet-core"></a>ASP.NET Core
 
 ASP.NET Core je open source architektura pro různé platformy pro vytváření moderních cloudových webových aplikací ve Windows, macOS nebo Linux.
 
@@ -41,7 +42,7 @@ ASP.NET 4. x je vyspělý rámec, který poskytuje služby potřebné k sestaven
 
 Následující tabulka porovnává ASP.NET Core ASP.NET 4. x.
 
-| Jádro ASP.NET | ASP.NET 4.x |
+| ASP.NET Core | ASP.NET 4.x |
 |---|---|
 |Sestavení pro Windows, macOS nebo Linux|Sestavení pro Windows|
 |[ Razor Stránky](xref:razor-pages/index) jsou doporučeným přístupem k vytvoření webového uživatelského rozhraní ASP.NET Core 2. x. Viz také [MVC](xref:mvc/overview), [webové rozhraní API](xref:tutorials/first-web-api)a [SignalR](xref:signalr/introduction) .|Použití [webových formulářů](/aspnet/web-forms), [SignalR](/aspnet/signalr) , [MVC](/aspnet/mvc), [webového rozhraní API](/aspnet/web-api/), [webhooků](/aspnet/webhooks/)nebo [webových stránek](/aspnet/web-pages)|
@@ -66,7 +67,7 @@ Informace o podpoře ASP.NET Core 2. x na .NET Framework najdete v tématu [ASP.
 * [Reálný čas](/aspnet/signalr)
 * [Vytvoření webové aplikace ASP.NET 4. x v Azure](/azure/app-service/app-service-web-get-started-dotnet-framework)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Úvod do ASP.NET](/aspnet/overview)
 * [Úvod do ASP.NET Core](xref:index)

@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/response
-ms.openlocfilehash: 7d2d563eef60cb8eead95c6792bcac2cda16a859
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 9516410399ce69f1d69b09781b2530d052a11e7a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021338"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631872"
 ---
 # <a name="response-caching-in-aspnet-core"></a>Ukládání odpovědí do mezipaměti v ASP.NET Core
 
@@ -99,7 +100,7 @@ Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/dis
 > [!WARNING]
 > Zakáže ukládání do mezipaměti pro obsah, který obsahuje informace pro ověřené klienty. Ukládání do mezipaměti by mělo být povolené jenom pro obsah, který se nemění v závislosti na identitě uživatele nebo na tom, jestli je uživatel přihlášený.
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys>mění uloženou odpověď podle hodnot daného seznamu klíčů dotazů. Pokud `*` je k dispozici jedna hodnota, middleware se liší odezvy všemi parametry řetězce dotazu na žádosti.
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> mění uloženou odpověď podle hodnot daného seznamu klíčů dotazů. Pokud `*` je k dispozici jedna hodnota, middleware se liší odezvy všemi parametry řetězce dotazu na žádosti.
 
 Aby bylo možné nastavit vlastnost, musí být povoleno [middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> . V opačném případě je vyvolána výjimka modulu runtime. Pro vlastnost není k dispozici odpovídající hlavička protokolu HTTP <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> . Vlastnost je funkce HTTP, kterou zpracovává middleware pro ukládání odpovědí do mezipaměti. Aby middleware poskytovala odpověď uloženou v mezipaměti, řetězec dotazu a hodnota řetězce dotazu musí odpovídat předchozí žádosti. Zvažte například posloupnost požadavků a výsledků, které jsou uvedeny v následující tabulce.
 
@@ -132,14 +133,14 @@ Vary: User-Agent
 
 ### <a name="nostore-and-locationnone"></a>Úložiště a umístění. žádné
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore>přepíše většinu ostatních vlastností. Je-li tato vlastnost nastavena na hodnotu `true` , `Cache-Control` záhlaví je nastaveno na `no-store` . Pokud <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> je nastaveno na `None` :
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> přepíše většinu ostatních vlastností. Je-li tato vlastnost nastavena na hodnotu `true` , `Cache-Control` záhlaví je nastaveno na `no-store` . Pokud <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> je nastaveno na `None` :
 
-* `Cache-Control`je nastaven na `no-store,no-cache` .
-* `Pragma`je nastaven na `no-cache` .
+* `Cache-Control` je nastaven na `no-store,no-cache` .
+* `Pragma` je nastaven na `no-cache` .
 
 Pokud <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> je `false` a <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> je `None` , `Cache-Control` , a `Pragma` jsou nastaveny na `no-cache` .
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore>je obvykle nastaveno na `true` pro chybové stránky. Stránka Cache2 v ukázkové aplikaci vytváří hlavičky odpovědí, které klientovi neukládají odpověď.
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> je obvykle nastaveno na `true` pro chybové stránky. Stránka Cache2 v ukázkové aplikaci vytváří hlavičky odpovědí, které klientovi neukládají odpověď.
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Pages/Cache2.cshtml.cs?name=snippet)]
 
@@ -156,9 +157,9 @@ Aby bylo možné povolit ukládání do mezipaměti, <xref:Microsoft.AspNetCore.
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location>možnosti `Any` a `Client` překládat do `Cache-Control` hodnot záhlaví a v `public` `private` uvedeném pořadí. Jak je uvedeno v části [úložiště a umístění. None](#nostore-and-locationnone) , nastavení <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> pro nastavení `None` `Cache-Control` `Pragma` hlaviček na `no-cache` .
 
-`Location.Any`( `Cache-Control` nastaveno na `public` ) znamená, že *klient nebo jakýkoli zprostředkující proxy server* může hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
+`Location.Any` ( `Cache-Control` nastaveno na `public` ) znamená, že *klient nebo jakýkoli zprostředkující proxy server* může hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
 
-`Location.Client`( `Cache-Control` nastaveno na `private` ) znamená, že hodnotu může ukládat *pouze klient* . Žádná mezimezipaměť by neměla hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
+`Location.Client` ( `Cache-Control` nastaveno na `private` ) znamená, že hodnotu může ukládat *pouze klient* . Žádná mezimezipaměť by neměla hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
 
 Řídicí hlavičky mezipaměti pouze poskytují pokyny klientům a zprostředkujícím proxy serverům, kdy a jak ukládat odpovědi do mezipaměti. Není nijak zaručeno, že klienti a proxy budou respektovat [specifikace mezipaměti HTTP 1,1](https://tools.ietf.org/html/rfc7234). [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) bude vždycky postupovat podle pravidel pro ukládání do mezipaměti, která jsou stanovená specifikací
 
@@ -196,7 +197,7 @@ Model stránky Cache4 ukázkové aplikace odkazuje na `Default30` profil mezipam
 
 <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>Lze použít pro:
 
-* RazorPages: atributy nelze použít na metody obslužné rutiny.
+* Razor Pages: atributy nelze použít na metody obslužné rutiny.
 * Řadiče MVC.
 * Metody akce MVC: atributy na úrovni metody přepíšou nastavení zadaná v atributech na úrovni třídy.
 
@@ -206,7 +207,7 @@ Výsledná hlavička použitá pro odpověď stránky Cache4 `Default30` profil 
 Cache-Control: public,max-age=30
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Ukládání odpovědí do mezipamětí](https://tools.ietf.org/html/rfc7234#section-3)
 * [Řízení mezipaměti](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)

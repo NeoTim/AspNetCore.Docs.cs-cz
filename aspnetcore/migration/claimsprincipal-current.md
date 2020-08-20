@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/26/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/claimsprincipal-current
-ms.openlocfilehash: faa3db1a4b9cb7ff3fb54ec8a7caf21e8a9bfb7b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 426fd90374a460cb283d0d3ba921e1312fb17940
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015124"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634069"
 ---
 # <a name="migrate-from-claimsprincipalcurrent"></a>Migrace z ClaimsPrincipal. Current
 
@@ -38,7 +39,7 @@ Existuje několik možností, jak načíst aktuálního ověřeného uživatele 
 * **ControllerBase. User**. Řadiče MVC mají přístup k aktuálnímu ověřenému uživateli s vlastností [uživatele](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.user) .
 * **HttpContext. User**. Komponenty s přístupem k aktuálnímu `HttpContext` (middlewaru) mohou získat aktuálního uživatele `ClaimsPrincipal` z [HttpContext. User](/dotnet/api/microsoft.aspnetcore.http.httpcontext.user).
 * **Předáno od volajícího**. Knihovny bez přístupu k aktuálnímu `HttpContext` jsou často volány z řadičů nebo součástí middlewaru a mohou mít identitu aktuálního uživatele předanou jako argument.
-* **IHttpContextAccessor**. Projekt, který je migrován do ASP.NET Core může být příliš velký, aby mohl snadno předat identitu aktuálního uživatele do všech potřebných umístění. V takových případech je možné [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) použít jako alternativní řešení. `IHttpContextAccessor`je schopný získat přístup k aktuálnímu `HttpContext` (pokud existuje). Pokud se používá DI, přečtěte si téma <xref:fundamentals/httpcontext> . Krátkodobé řešení pro získání identity aktuálního uživatele v kódu, který se ještě neaktualizoval, aby fungoval s architekturou založenou na ASP.NET Core DI, by byl:
+* **IHttpContextAccessor**. Projekt, který je migrován do ASP.NET Core může být příliš velký, aby mohl snadno předat identitu aktuálního uživatele do všech potřebných umístění. V takových případech je možné [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) použít jako alternativní řešení. `IHttpContextAccessor` je schopný získat přístup k aktuálnímu `HttpContext` (pokud existuje). Pokud se používá DI, přečtěte si téma <xref:fundamentals/httpcontext> . Krátkodobé řešení pro získání identity aktuálního uživatele v kódu, který se ještě neaktualizoval, aby fungoval s architekturou založenou na ASP.NET Core DI, by byl:
 
   * Zpřístupněte `IHttpContextAccessor` v kontejneru di voláním [AddHttpContextAccessor](https://github.com/aspnet/Hosting/issues/793) v `Startup.ConfigureServices` .
   * Získat instanci `IHttpContextAccessor` při spuštění a uložit ji do statické proměnné. Instance je zpřístupněna kódu, který dříve načítá aktuálního uživatele ze statické vlastnosti.
