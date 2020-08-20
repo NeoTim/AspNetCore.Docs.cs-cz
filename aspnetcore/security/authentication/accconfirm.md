@@ -5,6 +5,7 @@ description: Naučte se vytvářet aplikace ASP.NET Core s potvrzením e-mailu a
 ms.author: riande
 ms.date: 03/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 7016c2c1997d961f4b3d3cf513fc1769bd65247b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 57607390e7d5e58df9f27437faecd57504ad64df
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021611"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635369"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -29,14 +30,14 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Ponant](https://github.com
 V tomto kurzu se dozvíte, jak vytvořit aplikaci ASP.NET Core s potvrzením e-mailu a resetováním hesla. Tento **kurz není** úvodním tématem. Měli byste být obeznámeni s:
 
 * [ASP.NET Core](xref:tutorials/razor-pages/razor-pages-start)
-* [Ověřování](xref:security/authentication/identity)
+* [Authentication](xref:security/authentication/identity)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
 <!-- see C:/Dropbox/wrk/Code/SendGridConsole/Program.cs -->
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [.NET Core 3,0 SDK nebo novější](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
@@ -52,7 +53,7 @@ dotnet run
 
 Spusťte aplikaci, vyberte odkaz **Registrovat** a zaregistrujte uživatele. Po zaregistrování budete přesměrováni na `/Identity/Account/RegisterConfirmation` stránku, která obsahuje odkaz pro simulaci potvrzení e-mailu:
 
-* Vyberte `Click here to confirm your account` odkaz.
+* Vyberte odkaz `Click here to confirm your account`.
 * Vyberte **přihlašovací** odkaz a přihlaste se se stejnými přihlašovacími údaji.
 * Vyberte `Hello YourEmail@provider.com!` odkaz, který vás přesměruje na `/Identity/Account/Manage/PersonalData` stránku.
 * Na levé straně vyberte kartu **osobní data** a pak vyberte **Odstranit**.
@@ -69,7 +70,7 @@ Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázc
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Například:
+Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
 
 ```dotnetcli
 dotnet user-secrets set SendGridUser RickAndMSFT
@@ -233,11 +234,11 @@ Povolení potvrzení účtu na webu s uživateli zamkne všechny existující u�
 
 ::: moniker range="< aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [.NET Core 2,2 SDK nebo novější](https://dotnet.microsoft.com/download/dotnet-core)
 
-## <a name="create-a-web--app-and-scaffold-no-locidentity"></a>Vytvoření webové aplikace a uživatelského rozhraníIdentity
+## <a name="create-a-web--app-and-scaffold-no-locidentity"></a>Vytvoření webové aplikace a uživatelského rozhraní Identity
 
 Spuštěním následujících příkazů vytvořte webovou aplikaci s ověřováním.
 
@@ -273,11 +274,11 @@ Osvědčeným postupem je potvrdit e-mailovou registraci nového uživatele. Pot
 
 Obecně chcete, aby noví uživatelé před odesláním jakýchkoli dat na web nemuseli odeslat potvrzené e-maily.
 
-Aktualizace `Startup.ConfigureServices` pro vyžadování potvrzeného e-mailové adresy:
+Aktualizace `Startup.ConfigureServices`  pro vyžadování potvrzeného e-mailové adresy:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=8-11)]
 
-`config.SignIn.RequireConfirmedEmail = true;`zabrání registrovaným uživatelům v přihlášení, dokud se nepotvrdí jejich e-maily.
+`config.SignIn.RequireConfirmedEmail = true;` zabrání registrovaným uživatelům v přihlášení, dokud se nepotvrdí jejich e-maily.
 
 ### <a name="configure-email-provider"></a>Konfigurovat poskytovatele e-mailů
 
@@ -289,7 +290,7 @@ Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázc
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Například:
+Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
 
 ```console
 C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT

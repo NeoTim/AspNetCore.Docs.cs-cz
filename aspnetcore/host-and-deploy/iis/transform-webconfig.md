@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: 3d0bbfceb6dfedd7234112d33fd99e91a34f5793
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a2f26f32d2a282189b391aa9bb8c4637723dc60a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015579"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634628"
 ---
 # <a name="transform-webconfig"></a>Transformace souboru web.config
 
@@ -190,7 +191,7 @@ Chcete-li zabránit transformaci souboru *web.config* , nastavte vlastnost MSBui
 dotnet publish /p:IsWebConfigTransformDisabled=true
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Web.config syntaxe transformace pro nasazení projektu webové aplikace](/previous-versions/dd465326(v=vs.100))
 * [Web.config syntaxe transformace pro nasazení webového projektu pomocí sady Visual Studio](/previous-versions/aspnet/dd465326(v=vs.110))

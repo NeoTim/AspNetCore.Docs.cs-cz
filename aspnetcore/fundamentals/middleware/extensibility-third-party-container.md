@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/22/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/extensibility-third-party-container
-ms.openlocfilehash: 5d453de26b265b795768befeaa4071e7b0e1ec08
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e0ebcd46e6b506b7b2172f087f12773910ea4d9c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017026"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634862"
 ---
 # <a name="middleware-activation-with-a-third-party-container-in-aspnet-core"></a>Aktivace middlewaru pomocí kontejneru třetí strany v ASP.NET Core
 
@@ -41,7 +42,7 @@ Implementace middleware v ukázce zaznamenává hodnotu poskytnutou parametrem �
 
 ## <a name="imiddlewarefactory"></a>IMiddlewareFactory
 
-<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>poskytuje metody pro vytvoření middlewaru.
+<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> poskytuje metody pro vytvoření middlewaru.
 
 V ukázkové aplikaci je implementován objekt pro vytváření middlewaru pro vytvoření `SimpleInjectorActivatedMiddleware` instance. Objekt pro vytváření middlewaru používá jednoduchý kontejner injektoru k překladu middlewaru:
 
@@ -49,7 +50,7 @@ V ukázkové aplikaci je implementován objekt pro vytváření middlewaru pro v
 
 ## <a name="imiddleware"></a>IMiddleware
 
-<xref:Microsoft.AspNetCore.Http.IMiddleware>definuje middleware pro kanál žádostí aplikace.
+<xref:Microsoft.AspNetCore.Http.IMiddleware> definuje middleware pro kanál žádostí aplikace.
 
 Middleware aktivovaný `IMiddlewareFactory` implementací (*middleware/SimpleInjectorActivatedMiddleware. cs*):
 
@@ -59,7 +60,7 @@ Pro middleware (*middleware/MiddlewareExtensions. cs*) se vytvoří rozšířen�
 
 [!code-csharp[](extensibility-third-party-container/samples/3.x/SampleApp/Middleware/MiddlewareExtensions.cs?name=snippet1)]
 
-`Startup.ConfigureServices`musí provádět několik úloh:
+`Startup.ConfigureServices` musí provádět několik úloh:
 
 * Nastavení jednoduchého kontejneru pro nástřik.
 * Zaregistrujte objekt pro vytváření a middlewaru.
@@ -88,7 +89,7 @@ Implementace middleware v ukázce zaznamenává hodnotu poskytnutou parametrem �
 
 ## <a name="imiddlewarefactory"></a>IMiddlewareFactory
 
-<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>poskytuje metody pro vytvoření middlewaru.
+<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> poskytuje metody pro vytvoření middlewaru.
 
 V ukázkové aplikaci je implementován objekt pro vytváření middlewaru pro vytvoření `SimpleInjectorActivatedMiddleware` instance. Objekt pro vytváření middlewaru používá jednoduchý kontejner injektoru k překladu middlewaru:
 
@@ -96,7 +97,7 @@ V ukázkové aplikaci je implementován objekt pro vytváření middlewaru pro v
 
 ## <a name="imiddleware"></a>IMiddleware
 
-<xref:Microsoft.AspNetCore.Http.IMiddleware>definuje middleware pro kanál žádostí aplikace.
+<xref:Microsoft.AspNetCore.Http.IMiddleware> definuje middleware pro kanál žádostí aplikace.
 
 Middleware aktivovaný `IMiddlewareFactory` implementací (*middleware/SimpleInjectorActivatedMiddleware. cs*):
 
@@ -106,7 +107,7 @@ Pro middleware (*middleware/MiddlewareExtensions. cs*) se vytvoří rozšířen�
 
 [!code-csharp[](extensibility-third-party-container/samples/2.x/SampleApp/Middleware/MiddlewareExtensions.cs?name=snippet1)]
 
-`Startup.ConfigureServices`musí provádět několik úloh:
+`Startup.ConfigureServices` musí provádět několik úloh:
 
 * Nastavení jednoduchého kontejneru pro nástřik.
 * Zaregistrujte objekt pro vytváření a middlewaru.
@@ -120,7 +121,7 @@ Middleware je zaregistrován v kanálu zpracování žádosti v nástroji `Start
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Middleware](xref:fundamentals/middleware/index)
 * [Aktivace middlewaru založená na objektu factory](xref:fundamentals/middleware/extensibility)

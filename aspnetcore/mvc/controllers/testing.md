@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/22/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/testing
-ms.openlocfilehash: 311f1ce9eb2b0e358ddc01a1982dc39379f53b8f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d6c70d828d6c2f62f9e7b849a299df3077f2da32
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020909"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635226"
 ---
 # <a name="unit-test-controller-logic-in-aspnet-core"></a>Logika kontroleru testu jednotek v ASP.NET Core
 
@@ -54,7 +55,7 @@ Předchozí kontroler:
 
 `HTTP GET Index`Metoda nemá žádné smyček ani větvení a volá jenom jednu metodu. Testování částí pro tuto akci:
 
-* Napodobuje `IBrainstormSessionRepository` službu pomocí `GetTestSessions` metody. `GetTestSessions`Vytvoří dvě modely pracovních debat s daty a názvy relací.
+* Napodobuje `IBrainstormSessionRepository` službu pomocí `GetTestSessions` metody. `GetTestSessions` Vytvoří dvě modely pracovních debat s daty a názvy relací.
 * Spustí `Index` metodu.
 * Provede kontrolní výrazy u výsledku vráceného metodou:
   * <xref:Microsoft.AspNetCore.Mvc.ViewResult>Je vrácen.
@@ -162,9 +163,9 @@ Pro platnou relaci `id` druhý test potvrdí, že metoda vrátí:
 
 Ukázková aplikace také obsahuje metodu pro vytvoření nového `Idea` pro danou relaci. Kontroler vrátí:
 
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>Neplatný model.
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>Pokud relace neexistuje.
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*>Když se relace aktualizuje novým nápadem.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*> Neplatný model.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*> Pokud relace neexistuje.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> Když se relace aktualizuje novým nápadem.
 
 [!code-csharp[](testing/samples/3.x/TestingControllersSample/src/TestingControllersSample/Api/IdeasController.cs?name=snippet_CreateActionResult&highlight=9,16,29)]
 
@@ -181,7 +182,7 @@ Druhý test ověří, zda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound
 Pro platnou relaci `id` konečný test potvrzuje, že:
 
 * Metoda vrací `ActionResult` s `BrainstormSession` typem.
-* [ActionResult \<T> . Výsledkem](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Result*) je <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult> . `CreatedAtActionResult`je analogický k *201 vytvořené* odpovědi s `Location` hlavičkou.
+* [ActionResult \<T> . Výsledkem](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Result*) je <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult> . `CreatedAtActionResult` je analogický k *201 vytvořené* odpovědi s `Location` hlavičkou.
 * [ActionResult \<T> . Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) je `BrainstormSession` typ.
 * `UpdateAsync(testSession)`Bylo vyvoláno nepoužité volání aktualizace relace. `Verifiable`Volání metody je kontrolováno spuštěním `mockRepo.Verify()` ve kontrolním výrazu.
 * `Idea`Pro relaci jsou vraceny dva objekty.
@@ -217,7 +218,7 @@ Předchozí kontroler:
 
 `HTTP GET Index`Metoda nemá žádné smyček ani větvení a volá jenom jednu metodu. Testování částí pro tuto akci:
 
-* Napodobuje `IBrainstormSessionRepository` službu pomocí `GetTestSessions` metody. `GetTestSessions`Vytvoří dvě modely pracovních debat s daty a názvy relací.
+* Napodobuje `IBrainstormSessionRepository` službu pomocí `GetTestSessions` metody. `GetTestSessions` Vytvoří dvě modely pracovních debat s daty a názvy relací.
 * Spustí `Index` metodu.
 * Provede kontrolní výrazy u výsledku vráceného metodou:
   * <xref:Microsoft.AspNetCore.Mvc.ViewResult>Je vrácen.
@@ -325,9 +326,9 @@ Pro platnou relaci `id` druhý test potvrdí, že metoda vrátí:
 
 Ukázková aplikace také obsahuje metodu pro vytvoření nového `Idea` pro danou relaci. Kontroler vrátí:
 
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>Neplatný model.
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>Pokud relace neexistuje.
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*>Když se relace aktualizuje novým nápadem.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*> Neplatný model.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*> Pokud relace neexistuje.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> Když se relace aktualizuje novým nápadem.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Api/IdeasController.cs?name=snippet_CreateActionResult&highlight=9,16,29)]
 
@@ -344,7 +345,7 @@ Druhý test ověří, zda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound
 Pro platnou relaci `id` konečný test potvrzuje, že:
 
 * Metoda vrací `ActionResult` s `BrainstormSession` typem.
-* [ActionResult \<T> . Výsledkem](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Result*) je <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult> . `CreatedAtActionResult`je analogický k *201 vytvořené* odpovědi s `Location` hlavičkou.
+* [ActionResult \<T> . Výsledkem](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Result*) je <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult> . `CreatedAtActionResult` je analogický k *201 vytvořené* odpovědi s `Location` hlavičkou.
 * [ActionResult \<T> . Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) je `BrainstormSession` typ.
 * `UpdateAsync(testSession)`Bylo vyvoláno nepoužité volání aktualizace relace. `Verifiable`Volání metody je kontrolováno spuštěním `mockRepo.Verify()` ve kontrolním výrazu.
 * `Idea`Pro relaci jsou vraceny dva objekty.
@@ -354,7 +355,7 @@ Pro platnou relaci `id` konečný test potvrzuje, že:
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:test/integration-tests>
 * [Vytvoření a spuštění testů jednotek pomocí sady Visual Studio](/visualstudio/test/unit-test-your-code)

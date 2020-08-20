@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/index
-ms.openlocfilehash: fb9ba7cd4fe7ce805374dd802cc7ba4258d52527
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8dde2d663f4eac94173038eaf7df6b95d67ba62e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016749"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635031"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementace webového serveru v ASP.NET Core
 
@@ -56,7 +57,7 @@ ASP.NET Core dodávána s následujícím:
 
 * [Kestrel Server](xref:fundamentals/servers/kestrel) je výchozí implementace serveru HTTP pro různé platformy.
 * HTTP server IIS je [vnitroprocesové Server](#hosting-models) pro službu IIS.
-* [HTTP.sys Server](xref:fundamentals/servers/httpsys) je server http, který je pouze Windows, založený na [ovladači jádraHTTP.sys a rozhraní API serveru http](/windows/desktop/Http/http-api-start-page).
+* [HTTP.sys Server](xref:fundamentals/servers/httpsys) je server http, který je pouze Windows, založený na [ ovladači jádraHTTP.sys a rozhraní API serveru http](/windows/desktop/Http/http-api-start-page).
 
 Při použití [služby IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)aplikace buď běží:
 
@@ -95,7 +96,7 @@ ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel
 ASP.NET Core dodávána s následujícím:
 
 * [Kestrel Server](xref:fundamentals/servers/kestrel) je výchozím serverem HTTP pro různé platformy.
-* [HTTP.sys Server](xref:fundamentals/servers/httpsys) je server http, který je pouze Windows, založený na [ovladači jádraHTTP.sys a rozhraní API serveru http](/windows/desktop/Http/http-api-start-page).
+* [HTTP.sys Server](xref:fundamentals/servers/httpsys) je server http, který je pouze Windows, založený na [ ovladači jádraHTTP.sys a rozhraní API serveru http](/windows/desktop/Http/http-api-start-page).
 
 Při použití [služby IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)aplikace běží v procesu odděleně od pracovního procesu služby IIS (*mimo proces*) se [serverem Kestrel](#kestrel).
 
@@ -152,7 +153,7 @@ Pokyny ke konfiguraci HTTP.sys najdete v tématu <xref:fundamentals/servers/http
 
 <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>K dispozici v `Startup.Configure` metodě se zveřejňuje <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ServerFeatures> vlastnost typu <xref:Microsoft.AspNetCore.Http.Features.IFeatureCollection> . Kestrel a HTTP.sys zveřejňují jenom jednu funkci, <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> ale jiné implementace serveru můžou vystavovat další funkce.
 
-`IServerAddressesFeature`dá se použít k zjištění, který port má implementace serveru vázána za běhu.
+`IServerAddressesFeature` dá se použít k zjištění, který port má implementace serveru vázána za běhu.
 
 ## <a name="custom-servers"></a>Vlastní servery
 

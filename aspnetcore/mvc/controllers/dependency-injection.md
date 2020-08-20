@@ -5,6 +5,7 @@ description: Zjistíte, jak ASP.NET Core řadiče MVC vyžádají své závislos
 ms.author: riande
 ms.date: 02/24/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/dependency-injection
-ms.openlocfilehash: aabb7f893fd9650e2e901dcfdfe845faba391435
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 74c43e4f01e5b0d6923bf06f8859341c49088ef6
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019168"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635239"
 ---
 # <a name="dependency-injection-into-controllers-in-aspnet-core"></a>Vkládání závislostí do řadičů v ASP.NET Core
 
@@ -64,7 +65,7 @@ Spusťte aplikaci a zobrazí se zpráva na základě času.
 
 Běžným vzorem je přístup k aplikaci nebo konfiguračnímu nastavení v rámci kontroleru. *Vzor možností* popsaný v tématu <xref:fundamentals/configuration/options> je preferovaný přístup ke správě nastavení. Obecně se nemusíte přímo vkládat <xref:Microsoft.Extensions.Configuration.IConfiguration> do kontroleru.
 
-Vytvořte třídu, která představuje možnosti. Například:
+Vytvořte třídu, která představuje možnosti. Příklad:
 
 [!code-csharp[](dependency-injection/3.1sample/ControllerDI/Models/SampleWebSettings.cs?name=snippet)]
 
@@ -80,7 +81,7 @@ Následující kód požádá o `IOptions<SampleWebSettings>` nastavení z konte
 
 [!code-csharp[](dependency-injection/3.1sample/ControllerDI/Controllers/SettingsController.cs?name=snippet)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * V tématu <xref:mvc/controllers/testing> se dozvíte, jak usnadnit testování kódu tím, že explicitně vyžádáte závislosti v řadičích.
 
@@ -128,7 +129,7 @@ Spusťte aplikaci a zobrazí se zpráva na základě času.
 
 Běžným vzorem je přístup k aplikaci nebo konfiguračnímu nastavení v rámci kontroleru. *Vzor možností* popsaný v tématu <xref:fundamentals/configuration/options> je preferovaný přístup ke správě nastavení. Obecně se nemusíte přímo vkládat <xref:Microsoft.Extensions.Configuration.IConfiguration> do kontroleru.
 
-Vytvořte třídu, která představuje možnosti. Například:
+Vytvořte třídu, která představuje možnosti. Příklad:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Models/SampleWebSettings.cs?name=snippet)]
 
@@ -144,7 +145,7 @@ Následující kód požádá o `IOptions<SampleWebSettings>` nastavení z konte
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Controllers/SettingsController.cs?name=snippet)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * V tématu <xref:mvc/controllers/testing> se dozvíte, jak usnadnit testování kódu tím, že explicitně vyžádáte závislosti v řadičích.
 

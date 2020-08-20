@@ -5,6 +5,7 @@ description: Dodržení pokynů k migraci stávajících ASP.NET MVC nebo webov�
 ms.author: scaddie
 ms.date: 10/18/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: defdb190acf915eaa7c4aa8469ee47888f771526
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7f5d2835d93631ac73b3da0c3dc26d87ef64c57d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014916"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634758"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET na ASP.NET Core
 
@@ -28,7 +29,7 @@ Od [Petr Levin](https://isaaclevin.com)
 
 Tento článek slouží jako referenční příručka pro migraci aplikací ASP.NET na ASP.NET Core.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [.NET Core SDK 2,2 nebo novější](https://dotnet.microsoft.com/download)
 
@@ -64,7 +65,7 @@ ASP.NET Core zavádí nový mechanismus pro zavedení aplikace. Vstupním bodem 
 
 [!code-csharp[](samples/globalasax-sample.cs)]
 
-Tento přístup Couples aplikaci a server, na který je nasazený, způsobem, který je v konfliktu s implementací. Ve snaze oddělit se [Owin](https://owin.org/) zavedla k tomu, aby poskytovala čisticí způsob, jak používat víc platforem dohromady. OWIN poskytuje kanál pro přidání pouze těch potřebných modulů. Hostující prostředí přijímá [spouštěcí](xref:fundamentals/startup) funkci ke konfiguraci služeb a kanálu požadavků aplikace. `Startup`registruje sadu middlewaru s aplikací. Pro každý požadavek aplikace volá každou součást middlewaru s ukazatelem na hlavní seznam s ukazatelem na existující sadu obslužných rutin. Každá součást middleware může do kanálu zpracování požadavků přidat jednu nebo více obslužných rutin. To je dosaženo vrácením odkazu na obslužnou rutinu, která je nového záhlaví seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužné rutiny v seznamu. V ASP.NET Core je vstupním bodem aplikace `Startup` a již nemusíte mít závislost na *Global. asax*. Při použití OWIN s .NET Framework použijte jako kanál něco podobného jako v následujícím tvaru:
+Tento přístup Couples aplikaci a server, na který je nasazený, způsobem, který je v konfliktu s implementací. Ve snaze oddělit se [Owin](https://owin.org/) zavedla k tomu, aby poskytovala čisticí způsob, jak používat víc platforem dohromady. OWIN poskytuje kanál pro přidání pouze těch potřebných modulů. Hostující prostředí přijímá [spouštěcí](xref:fundamentals/startup) funkci ke konfiguraci služeb a kanálu požadavků aplikace. `Startup` registruje sadu middlewaru s aplikací. Pro každý požadavek aplikace volá každou součást middlewaru s ukazatelem na hlavní seznam s ukazatelem na existující sadu obslužných rutin. Každá součást middleware může do kanálu zpracování požadavků přidat jednu nebo více obslužných rutin. To je dosaženo vrácením odkazu na obslužnou rutinu, která je nového záhlaví seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužné rutiny v seznamu. V ASP.NET Core je vstupním bodem aplikace `Startup` a již nemusíte mít závislost na *Global. asax*. Při použití OWIN s .NET Framework použijte jako kanál něco podobného jako v následujícím tvaru:
 
 [!code-csharp[](samples/webapi-owin.cs)]
 
@@ -74,7 +75,7 @@ ASP.NET Core používá podobný přístup, ale nespoléhá na OWIN k tomu, aby 
 
 [!code-csharp[](samples/program.cs)]
 
-`Startup`musí obsahovat `Configure` metodu. Do `Configure` kanálu přidejte potřebný middleware. V následujícím příkladu (z výchozí šablony webu) rozšiřující metody konfigurují kanál s podporou pro:
+`Startup` musí obsahovat `Configure` metodu. Do `Configure` kanálu přidejte potřebný middleware. V následujícím příkladu (z výchozí šablony webu) rozšiřující metody konfigurují kanál s podporou pro:
 
 - Chybové stránky
 - Striktní přenosová zabezpečení HTTP
@@ -203,6 +204,6 @@ Adresářová struktura:
     └── web.config
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 - [Portování knihoven do .NET Core](/dotnet/core/porting/libraries)

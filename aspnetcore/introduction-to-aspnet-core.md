@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/17/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: index
-ms.openlocfilehash: 9cf721b381d3c4c737c15225edcf7918dd1fcf5b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f1235337748bacdb6eaa775a5853238bf729e605
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015345"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634550"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -78,20 +79,20 @@ Pro Úvod k vývoji ASP.NET Corech aplikací doporučujeme následující poslou
 
 1. Postupujte podle kurzu pro typ aplikace, který chcete vyvíjet nebo udržovat.
 
-   |Typ aplikace  |Scénář  |Tutoriál  |
+   |Typ aplikace  |Scénář  |Kurz  |
    |----------|----------|----------|
    |Webová aplikace                   | Nový vývoj webového uživatelského rozhraní na straně serveru |[Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
-   |Webová aplikace                   | Vývoj webového uživatelského rozhraní na straně klienta |[Začínáme sBlazor](https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro) |
+   |Webová aplikace                   | Vývoj webového uživatelského rozhraní na straně klienta |[Začínáme s Blazor](https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro) |
    |Webové rozhraní API                   | Služby HTTP RESTful |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
    |Aplikace vzdáleného volání procedur | Služby pro první kontrakt využívající vyrovnávací paměti protokolu |[Začínáme se službou gRPC](xref:tutorials/grpc/grpc-start) |
-   |Aplikace v reálném čase             | Obousměrná komunikace mezi servery a připojenými klienty |[Začínáme sSignalR](xref:tutorials/signalr) |
+   |Aplikace v reálném čase             | Obousměrná komunikace mezi servery a připojenými klienty |[Začínáme s SignalR](xref:tutorials/signalr) |
 
 1. Postupujte podle kurzu, který ukazuje, jak získat základní přístup k datům.
 
-   |Scénář  |Tutoriál  |
+   |Scénář  |Kurz  |
    |----------|----------|
-   |Nový vývoj        |[RazorStránky s Entity Framework Core](xref:data/ef-rp/intro) |
+   |Nový vývoj        |[Razor Stránky s Entity Framework Core](xref:data/ef-rp/intro) |
    |Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro) |
 
 1. Přečtěte si přehled ASP.NET Core [základních](xref:fundamentals/index) součástí, které se vztahují na všechny typy aplikací.
@@ -166,18 +167,18 @@ Jako úvod do vývoje aplikací ASP.NET Core doporučujeme následující poslou
 
 1. Postupujte podle kurzu pro typ aplikace, kterou chcete vyvíjet nebo udržovat.
 
-   |Typ aplikace  |Scénář  |Tutoriál  |
+   |Typ aplikace  |Scénář  |Kurz  |
    |----------|----------|----------|
    |Webová aplikace                   | Vývoj nové aplikace        |[Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
    |Webové rozhraní API                   |                            |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
-   |Aplikace v reálném čase             |                            |[Začínáme sSignalR](xref:tutorials/signalr) |
+   |Aplikace v reálném čase             |                            |[Začínáme s SignalR](xref:tutorials/signalr) |
 
 1. Postupujte podle kurzu, který ukazuje, jak získat základní přístup k datům.
 
-   |Scénář  |Tutoriál  |
+   |Scénář  |Kurz  |
    |----------|----------|
-   | Vývoj nové aplikace        |[RazorStránky s Entity Framework Core](xref:data/ef-rp/intro) |
+   | Vývoj nové aplikace        |[Razor Stránky s Entity Framework Core](xref:data/ef-rp/intro) |
    | Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro) |
 
 1. Přečtěte si přehled ASP.NET Core [základních](xref:fundamentals/index) součástí, které se vztahují na všechny typy aplikací.

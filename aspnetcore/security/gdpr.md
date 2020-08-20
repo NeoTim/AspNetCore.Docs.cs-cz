@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/gdpr
-ms.openlocfilehash: 6392a22e316f903da18cd1a91d1eb779d8dde1b3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 35a12cb8d2a9617e51d886e798cff5ee60b0a8ad
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020012"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634706"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>Podpora GDPR (EU Obecné nařízení o ochraně osobních údajů) v ASP.NET Core
 
@@ -67,7 +68,7 @@ Pokud chcete povolit cookie funkci výchozího souhlasu, kterou najdete v šablo
 
 ## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>Podpora ASP.NET Core GDPR v kódu generovaném šablonou
 
-RazorStránky a projekty MVC vytvořené pomocí šablon projektů zahrnují následující podporu GDPR:
+Razor Stránky a projekty MVC vytvořené pomocí šablon projektů zahrnují následující podporu GDPR:
 
 * [ Cookie Zásady](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy) [ Cookie PolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions) a use jsou nastaveny ve `Startup` třídě.
 * [Částečné zobrazení](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) * \_ Cookie ConsentPartial. cshtml* . V tomto souboru je zahrnuté tlačítko **přijmout** . Když uživatel klikne na tlačítko **přijmout** , je k dispozici souhlas s uložením cookie s.
@@ -142,20 +143,20 @@ Některé databáze a mechanismy úložiště umožňují šifrování v klidov�
 * Je nejjednodušší a nejbezpečnější možnost.
 * Umožňuje databázi spravovat klíče a šifrování.
 
-Například:
+Příklad:
 
 * Microsoft SQL a Azure SQL poskytují [transparentní šifrování dat](/sql/relational-databases/security/encryption/transparent-data-encryption) (TDE).
 * [SQL Azure šifruje databázi ve výchozím nastavení.](https://azure.microsoft.com/updates/newly-created-azure-sql-databases-encrypted-by-default/)
 * [Objekty blob Azure, soubory, tabulky a Queue Storage jsou ve výchozím nastavení šifrované](https://azure.microsoft.com/blog/announcing-default-encryption-for-azure-blobs-files-table-and-queue-storage/).
 
-Pro databáze, které neposkytují integrované šifrování v klidovém provozu, můžete k zajištění stejné ochrany použít šifrování disku. Například:
+Pro databáze, které neposkytují integrované šifrování v klidovém provozu, můžete k zajištění stejné ochrany použít šifrování disku. Příklad:
 
 * [BitLocker pro Windows Server](/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)
 * Linux:
   * [eCryptfs](https://launchpad.net/ecryptfs)
   * [EncFS](https://github.com/vgough/encfs).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Microsoft.com/GDPR](https://www.microsoft.com/trustcenter/Privacy/GDPR)
 * [GDPR – přidání tlačítka pro odvolání souhlasu v ASP.NET Core](https://www.joeaudette.com/blog/2018/08/28/gdpr---adding-a-revoke-consent-button-in-aspnet-core)

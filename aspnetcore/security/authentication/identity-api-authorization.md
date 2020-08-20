@@ -7,6 +7,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,16 +18,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 21bd1db322a984b5644b817e82a293b6c0b2d91e
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 913f8f1e43586ce71353c080e72be3b80f4c0573
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019326"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634264"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
-ASP.NET Core 3,0 nebo novější nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) pomocí podpory pro autorizaci rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelů se zkombinuje se [ Identity serverem](https://identityserver.io/) pro implementaci OpenID Connect.
+ASP.NET Core 3,0 nebo novější nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) pomocí podpory pro autorizaci rozhraní API. ASP.NET Core Identitypro ověřování a ukládání uživatelů se v kombinaci se [ Identity serverem](https://identityserver.io/) pro implementaci OpenID Connect.
 
 Parametr ověřování byl přidán do **úhlových** a **reagujících** šablon projektů, které se podobají parametru ověřování v šablonách projektů **webové aplikace (model-zobrazení-kontroler)** a **webové aplikace** ( Razor stránky). Povolené hodnoty parametrů jsou **none** a **jednotlivce**. Šablona projektu **React.js a Redux** v tuto chvíli nepodporuje parametr ověřování.
 
@@ -54,12 +55,12 @@ Následující části popisují přidání do projektu, pokud je k dispozici po
 
 ### <a name="startup-class"></a>Spouštěcí třída
 
-Následující příklady kódu se spoléhají na [Microsoft. AspNetCore. ApiAuthorization. Identity ](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer)Balíček NuGet serveru. Příklady konfigurují ověřování rozhraní API a autorizaci pomocí <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> metod rozšíření a. Projekty používající šablony projektů s použitím reakce nebo úhlové SPA s ověřováním zahrnují odkaz na tento balíček.
+Následující příklady kódu se spoléhají na [Microsoft. AspNetCore. ApiAuthorization. Identity ](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer) Balíček NuGet serveru. Příklady konfigurují ověřování rozhraní API a autorizaci pomocí <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> metod rozšíření a. Projekty používající šablony projektů s použitím reakce nebo úhlové SPA s ověřováním zahrnují odkaz na tento balíček.
 
 `Startup`Třída má následující doplňky:
 
 * Uvnitř `Startup.ConfigureServices` metody:
-  * Identitys výchozím uživatelským rozhraním:
+  * Identity s výchozím uživatelským rozhraním:
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -196,7 +197,7 @@ services.Configure<JwtBearerOptions>(
 
 Obslužná rutina tokenu JWT rozhraní API vyvolává události, které umožňují řízení procesu ověřování pomocí `JwtBearerEvents` . Pro zajištění podpory pro autorizaci rozhraní API `AddIdentityServerJwt` Zaregistrujte vlastní obslužné rutiny událostí.
 
-Chcete-li přizpůsobit zpracování události, zabalte existující obslužnou rutinu události s další logikou podle potřeby. Například:
+Chcete-li přizpůsobit zpracování události, zabalte existující obslužnou rutinu události s další logikou podle potřeby. Příklad:
 
 ```csharp
 services.Configure<JwtBearerOptions>(

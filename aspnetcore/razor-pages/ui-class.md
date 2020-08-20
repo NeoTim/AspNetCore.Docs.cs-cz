@@ -6,6 +6,7 @@ ms.author: riande
 ms.date: 01/25/2020
 ms.custom: mvc, seodec18
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/ui-class
-ms.openlocfilehash: 042ef8dcc7135e0c60baec972d405380d85a6a10
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 95399246df954549cb76139a66d6998fd05a051a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019219"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634823"
 ---
 # <a name="create-reusable-ui-using-the-no-locrazor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelného uživatelského rozhraní pomocí Razor projektu knihovny tříd v ASP.NET Core
 
@@ -46,7 +47,7 @@ RazorŠablona knihovny tříd (RCL) se standardně Razor používá pro vývoj k
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-Z příkazového řádku spusťte příkaz `dotnet new razorclasslib` . Například:
+Z příkazového řádku spusťte příkaz `dotnet new razorclasslib` . Příklad:
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
@@ -216,7 +217,7 @@ RCL má následující soubor projektu:
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-Z příkazového řádku spusťte příkaz `dotnet new razorclasslib` . Například:
+Z příkazového řádku spusťte příkaz `dotnet new razorclasslib` . Příklad:
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
@@ -269,7 +270,7 @@ Postupujte podle pokynů v části [test WebApp1](#test-webapp1)
 
 ## <a name="create-an-rcl"></a>Vytvoření RCL
 
-V této části se vytvoří RCL. Razorsoubory jsou přidány do RCL.
+V této části se vytvoří RCL. Razor soubory jsou přidány do RCL.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -312,7 +313,7 @@ Soubor *_ViewStart. cshtml* je vyžadován pro použití rozložení Razor proje
 
   [!code-cshtml[](ui-class/samples/cli/RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml)]
 
-  `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`je vyžadováno pro použití částečného zobrazení ( `<partial name="_Message" />` ). Místo zahrnutí `@addTagHelper` direktivy můžete přidat *_ViewImports soubor. cshtml* . Například:
+  `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` je vyžadováno pro použití částečného zobrazení ( `<partial name="_Message" />` ). Místo zahrnutí `@addTagHelper` direktivy můžete přidat *_ViewImports soubor. cshtml* . Příklad:
 
   ```dotnetcli
   dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages

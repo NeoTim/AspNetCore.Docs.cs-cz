@@ -5,6 +5,7 @@ description: Přečtěte si, jak ASP.NET Core poskytuje služby a middleware pro
 ms.author: riande
 ms.date: 11/30/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: 9fd68d3b412c2cef6125c657653f605689ca6e70
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 254cae2b66773d7bb71aa6313fd08b6f739b7682
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017217"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634641"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -44,13 +45,13 @@ Lokalizace aplikace zahrnuje následující:
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
-<xref:Microsoft.Extensions.Localization.IStringLocalizer>a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer`používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer`nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
+<xref:Microsoft.Extensions.Localization.IStringLocalizer> a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer` používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer` nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/AboutController.cs)]
 
 V předchozím kódu `IStringLocalizer<T>` implementace pochází z [Injektáže závislosti](dependency-injection.md). Pokud se nenalezne lokalizovaná hodnota "o titulku", vrátí se klíč indexeru, tj. řetězec "About title". Můžete ponechat výchozí řetězcové literály v aplikaci a zabalit je do lokalizátora, abyste se mohli soustředit na vývoj aplikace. Vyvíjíte svou aplikaci pomocí výchozího jazyka a připravíte ji pro krok lokalizace bez prvotního vytvoření výchozího souboru prostředků. Alternativně můžete použít tradiční přístup a zadat klíč pro načtení výchozího řetězce jazyka. Pro mnoho vývojářů nový pracovní postup, který nemá výchozí jazyk *. resx* soubor, a jednoduše zabalí řetězcové literály může snížit režii lokalizace aplikace. Ostatní vývojáři budou preferovat tradiční pracovní postup, protože mohou usnadnit práci s delšími řetězcovými literály a usnadňují aktualizaci lokalizovaných řetězců.
 
-Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kód HTML. `IHtmlLocalizer`HTML kóduje argumenty, které jsou formátovány v řetězci prostředků, ale nekóduje kód HTML samotný řetězec prostředku. V ukázce zvýrazněné níže je pouze hodnota `name` parametru kódována HTML.
+Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kód HTML. `IHtmlLocalizer` HTML kóduje argumenty, které jsou formátovány v řetězci prostředků, ale nekóduje kód HTML samotný řetězec prostředku. V ukázce zvýrazněné níže je pouze hodnota `name` parametru kódována HTML.
 
 [!code-csharp[](~/fundamentals/localization/sample/3.x/Localization/Controllers/BookController.cs?highlight=3,5,20&start=1&end=24)]
 
@@ -77,7 +78,7 @@ Někteří vývojáři používají `Startup` třídu pro zahrnutí globálních
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků na základě názvu souboru zobrazení. Neexistuje možnost použít globální sdílený soubor prostředků. `ViewLocalizer`implementuje lokalizátora pomocí `IHtmlLocalizer` , takže Razor nekóduje kód HTML jako lokalizovaný řetězec. Můžete parametrizovat řetězce prostředků a `IViewLocalizer` zakódovat parametry HTML, ale ne řetězec prostředku. Vezměte v úvahu následující Razor značky:
+Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků na základě názvu souboru zobrazení. Neexistuje možnost použít globální sdílený soubor prostředků. `ViewLocalizer` implementuje lokalizátora pomocí `IHtmlLocalizer` , takže Razor nekóduje kód HTML jako lokalizovaný řetězec. Můžete parametrizovat řetězce prostředků a `IViewLocalizer` zakódovat parametry HTML, ale ne řetězec prostředku. Vezměte v úvahu následující Razor značky:
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -132,7 +133,7 @@ V předchozím kódu `SharedResource` je třída odpovídající RESX, kde jsou 
 
 ### <a name="supportedcultures-and-supporteduicultures"></a>SupportedCultures a SupportedUICultures
 
-ASP.NET Core umožňuje zadat dvě hodnoty jazykové verze `SupportedCultures` a `SupportedUICultures` . Objekt [CultureInfo](/dotnet/api/system.globalization.cultureinfo) pro `SupportedCultures` určuje výsledky funkcí závislých na jazykové verzi, jako je datum, čas, číslo a formátování měny. `SupportedCultures`Určuje také pořadí řazení textu, konvencí velikosti písmen a porovnávání řetězců. Další informace o tom, jak server získá jazykovou verzi, naleznete v tématu [CultureInfo. CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) . `SupportedUICultures`Určuje, které přeložené řetězce (ze souborů *. resx* ) jsou vyhledány správcem [prostředků](/dotnet/api/system.resources.resourcemanager). `ResourceManager`Jednoduše vyhledá řetězce specifické pro jazykovou verzi, které určuje `CurrentUICulture` . Každé vlákno v rozhraní .NET má `CurrentCulture` a `CurrentUICulture` objekty. ASP.NET Core tyto hodnoty kontroluje při vykreslování funkcí závislých na jazykové verzi. Pokud je například jazyková verze aktuálního vlákna nastavena na "en-US" (angličtina, USA), `DateTime.Now.ToLongDateString()` zobrazí "čtvrtek, 18. února 2016", ale pokud `CurrentCulture` je nastavená na "ES-ES" (španělština, Španělsko), bude výstup "Jueves, 18 de febrero de 2016".
+ASP.NET Core umožňuje zadat dvě hodnoty jazykové verze `SupportedCultures` a `SupportedUICultures` . Objekt [CultureInfo](/dotnet/api/system.globalization.cultureinfo) pro `SupportedCultures` určuje výsledky funkcí závislých na jazykové verzi, jako je datum, čas, číslo a formátování měny. `SupportedCultures` Určuje také pořadí řazení textu, konvencí velikosti písmen a porovnávání řetězců. Další informace o tom, jak server získá jazykovou verzi, naleznete v tématu [CultureInfo. CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) . `SupportedUICultures`Určuje, které přeložené řetězce (ze souborů *. resx* ) jsou vyhledány správcem [prostředků](/dotnet/api/system.resources.resourcemanager). `ResourceManager`Jednoduše vyhledá řetězce specifické pro jazykovou verzi, které určuje `CurrentUICulture` . Každé vlákno v rozhraní .NET má `CurrentCulture` a `CurrentUICulture` objekty. ASP.NET Core tyto hodnoty kontroluje při vykreslování funkcí závislých na jazykové verzi. Pokud je například jazyková verze aktuálního vlákna nastavena na "en-US" (angličtina, USA), `DateTime.Now.ToLongDateString()` zobrazí "čtvrtek, 18. února 2016", ale pokud `CurrentCulture` je nastavená na "ES-ES" (španělština, Španělsko), bude výstup "Jueves, 18 de febrero de 2016".
 
 ## <a name="resource-files"></a>Soubory prostředků
 
@@ -165,7 +166,7 @@ V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "p
 | Prostředky/řadiče. HomeController. fr. resx | Tečka  |
 | Prostředky/řadiče/HomeController. fr. resx  | Cesta |
 
-Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
+Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razor zobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
 * Prostředky/zobrazení/domů/o. fr. resx
 
@@ -183,7 +184,7 @@ Atribut [RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamesp
 Pokud se kořenový obor názvů sestavení liší od názvu sestavení:
 
 * Lokalizace ve výchozím nastavení nefunguje.
-* Lokalizace se nezdařila z důvodu způsobu hledání prostředků v rámci sestavení. `RootNamespace`je hodnota doby sestavení, která není k dispozici pro spuštěný proces. 
+* Lokalizace se nezdařila z důvodu způsobu hledání prostředků v rámci sestavení. `RootNamespace` je hodnota doby sestavení, která není k dispozici pro spuštěný proces. 
 
 Pokud se `RootNamespace` liší od z `AssemblyName` , zahrňte následující v *AssemblyInfo.cs* (s hodnotami parametrů nahrazenými skutečnými hodnotami):
 
@@ -225,11 +226,11 @@ Lokalizace je nakonfigurovaná v `Startup.ConfigureServices` metodě:
 
 [!code-csharp[](localization/sample/3.x/Localization/Startup.cs?name=snippet1)]
 
-* `AddLocalization`Přidá služby lokalizace do kontejneru služby. Výše uvedený kód také nastaví cestu prostředků na prostředky.
+* `AddLocalization` Přidá služby lokalizace do kontejneru služby. Výše uvedený kód také nastaví cestu prostředků na prostředky.
 
-* `AddViewLocalization`Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
+* `AddViewLocalization` Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
 
-* `AddDataAnnotationsLocalization`přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
+* `AddDataAnnotationsLocalization` přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
 
 ### <a name="localization-middleware"></a>Middleware lokalizace
 
@@ -239,7 +240,7 @@ Aktuální jazyková verze v požadavku je nastavena v [middleware](xref:fundame
 
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
-`UseRequestLocalization`Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
+`UseRequestLocalization` Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
 
 1. `QueryStringRequestCultureProvider`
 1. `CookieRequestCultureProvider`
@@ -367,7 +368,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.
@@ -398,13 +399,13 @@ Lokalizace aplikace zahrnuje následující:
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
-<xref:Microsoft.Extensions.Localization.IStringLocalizer>a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer`používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer`nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
+<xref:Microsoft.Extensions.Localization.IStringLocalizer> a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer` používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer` nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/AboutController.cs)]
 
 V předchozím kódu `IStringLocalizer<T>` implementace pochází z [Injektáže závislosti](dependency-injection.md). Pokud se nenalezne lokalizovaná hodnota "o titulku", vrátí se klíč indexeru, tj. řetězec "About title". Můžete ponechat výchozí řetězcové literály v aplikaci a zabalit je do lokalizátora, abyste se mohli soustředit na vývoj aplikace. Vyvíjíte svou aplikaci pomocí výchozího jazyka a připravíte ji pro krok lokalizace bez prvotního vytvoření výchozího souboru prostředků. Alternativně můžete použít tradiční přístup a zadat klíč pro načtení výchozího řetězce jazyka. Pro mnoho vývojářů nový pracovní postup, který nemá výchozí jazyk *. resx* soubor, a jednoduše zabalí řetězcové literály může snížit režii lokalizace aplikace. Ostatní vývojáři budou preferovat tradiční pracovní postup, protože mohou usnadnit práci s delšími řetězcovými literály a usnadňují aktualizaci lokalizovaných řetězců.
 
-Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kód HTML. `IHtmlLocalizer`HTML kóduje argumenty, které jsou formátovány v řetězci prostředků, ale nekóduje kód HTML samotný řetězec prostředku. V ukázce zvýrazněné níže je pouze hodnota `name` parametru kódována HTML.
+Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kód HTML. `IHtmlLocalizer` HTML kóduje argumenty, které jsou formátovány v řetězci prostředků, ale nekóduje kód HTML samotný řetězec prostředku. V ukázce zvýrazněné níže je pouze hodnota `name` parametru kódována HTML.
 
 [!code-csharp[](~/fundamentals/localization/sample/3.x/Localization/Controllers/BookController.cs?highlight=3,5,20&start=1&end=24)]
 
@@ -431,7 +432,7 @@ Někteří vývojáři používají `Startup` třídu pro zahrnutí globálních
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků na základě názvu souboru zobrazení. Neexistuje možnost použít globální sdílený soubor prostředků. `ViewLocalizer`implementuje lokalizátora pomocí `IHtmlLocalizer` , takže Razor nekóduje kód HTML jako lokalizovaný řetězec. Můžete parametrizovat řetězce prostředků a `IViewLocalizer` zakódovat parametry HTML, ale ne řetězec prostředku. Vezměte v úvahu následující Razor značky:
+Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků na základě názvu souboru zobrazení. Neexistuje možnost použít globální sdílený soubor prostředků. `ViewLocalizer` implementuje lokalizátora pomocí `IHtmlLocalizer` , takže Razor nekóduje kód HTML jako lokalizovaný řetězec. Můžete parametrizovat řetězce prostředků a `IViewLocalizer` zakódovat parametry HTML, ale ne řetězec prostředku. Vezměte v úvahu následující Razor značky:
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -486,7 +487,7 @@ V předchozím kódu `SharedResource` je třída odpovídající RESX, kde jsou 
 
 ### <a name="supportedcultures-and-supporteduicultures"></a>SupportedCultures a SupportedUICultures
 
-ASP.NET Core umožňuje zadat dvě hodnoty jazykové verze `SupportedCultures` a `SupportedUICultures` . Objekt [CultureInfo](/dotnet/api/system.globalization.cultureinfo) pro `SupportedCultures` určuje výsledky funkcí závislých na jazykové verzi, jako je datum, čas, číslo a formátování měny. `SupportedCultures`Určuje také pořadí řazení textu, konvencí velikosti písmen a porovnávání řetězců. Další informace o tom, jak server získá jazykovou verzi, naleznete v tématu [CultureInfo. CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) . `SupportedUICultures`Určuje, které přeložené řetězce (ze souborů *. resx* ) jsou vyhledány správcem [prostředků](/dotnet/api/system.resources.resourcemanager). `ResourceManager`Jednoduše vyhledá řetězce specifické pro jazykovou verzi, které určuje `CurrentUICulture` . Každé vlákno v rozhraní .NET má `CurrentCulture` a `CurrentUICulture` objekty. ASP.NET Core tyto hodnoty kontroluje při vykreslování funkcí závislých na jazykové verzi. Pokud je například jazyková verze aktuálního vlákna nastavena na "en-US" (angličtina, USA), `DateTime.Now.ToLongDateString()` zobrazí "čtvrtek, 18. února 2016", ale pokud `CurrentCulture` je nastavená na "ES-ES" (španělština, Španělsko), bude výstup "Jueves, 18 de febrero de 2016".
+ASP.NET Core umožňuje zadat dvě hodnoty jazykové verze `SupportedCultures` a `SupportedUICultures` . Objekt [CultureInfo](/dotnet/api/system.globalization.cultureinfo) pro `SupportedCultures` určuje výsledky funkcí závislých na jazykové verzi, jako je datum, čas, číslo a formátování měny. `SupportedCultures` Určuje také pořadí řazení textu, konvencí velikosti písmen a porovnávání řetězců. Další informace o tom, jak server získá jazykovou verzi, naleznete v tématu [CultureInfo. CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) . `SupportedUICultures`Určuje, které přeložené řetězce (ze souborů *. resx* ) jsou vyhledány správcem [prostředků](/dotnet/api/system.resources.resourcemanager). `ResourceManager`Jednoduše vyhledá řetězce specifické pro jazykovou verzi, které určuje `CurrentUICulture` . Každé vlákno v rozhraní .NET má `CurrentCulture` a `CurrentUICulture` objekty. ASP.NET Core tyto hodnoty kontroluje při vykreslování funkcí závislých na jazykové verzi. Pokud je například jazyková verze aktuálního vlákna nastavena na "en-US" (angličtina, USA), `DateTime.Now.ToLongDateString()` zobrazí "čtvrtek, 18. února 2016", ale pokud `CurrentCulture` je nastavená na "ES-ES" (španělština, Španělsko), bude výstup "Jueves, 18 de febrero de 2016".
 
 ## <a name="resource-files"></a>Soubory prostředků
 
@@ -519,7 +520,7 @@ V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "p
 | Prostředky/řadiče. HomeController. fr. resx | Tečka  |
 | Prostředky/řadiče/HomeController. fr. resx  | Cesta |
 
-Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
+Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razor zobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
 * Prostředky/zobrazení/domů/o. fr. resx
 
@@ -537,7 +538,7 @@ Atribut [RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamesp
 Pokud se kořenový obor názvů sestavení liší od názvu sestavení:
 
 * Lokalizace ve výchozím nastavení nefunguje.
-* Lokalizace se nezdařila z důvodu způsobu hledání prostředků v rámci sestavení. `RootNamespace`je hodnota doby sestavení, která není k dispozici pro spuštěný proces. 
+* Lokalizace se nezdařila z důvodu způsobu hledání prostředků v rámci sestavení. `RootNamespace` je hodnota doby sestavení, která není k dispozici pro spuštěný proces. 
 
 Pokud se `RootNamespace` liší od z `AssemblyName` , zahrňte následující v *AssemblyInfo.cs* (s hodnotami parametrů nahrazenými skutečnými hodnotami):
 
@@ -579,11 +580,11 @@ Lokalizace je nakonfigurovaná v `Startup.ConfigureServices` metodě:
 
 [!code-csharp[](localization/sample/3.x/Localization/Startup.cs?name=snippet1)]
 
-* `AddLocalization`Přidá služby lokalizace do kontejneru služby. Výše uvedený kód také nastaví cestu prostředků na prostředky.
+* `AddLocalization` Přidá služby lokalizace do kontejneru služby. Výše uvedený kód také nastaví cestu prostředků na prostředky.
 
-* `AddViewLocalization`Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
+* `AddViewLocalization` Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
 
-* `AddDataAnnotationsLocalization`přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
+* `AddDataAnnotationsLocalization` přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
 
 ### <a name="localization-middleware"></a>Middleware lokalizace
 
@@ -593,7 +594,7 @@ Aktuální jazyková verze v požadavku je nastavena v [middleware](xref:fundame
 
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
-`UseRequestLocalization`Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
+`UseRequestLocalization` Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
 
 1. `QueryStringRequestCultureProvider`
 1. `CookieRequestCultureProvider`
@@ -721,7 +722,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/currency.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.
@@ -753,13 +754,13 @@ Lokalizace aplikace zahrnuje následující:
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
-<xref:Microsoft.Extensions.Localization.IStringLocalizer>a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer`používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer`nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
+<xref:Microsoft.Extensions.Localization.IStringLocalizer> a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer` používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer` nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
 
 [!code-csharp[](localization/sample/3.x/Localization/Controllers/AboutController.cs)]
 
 V předchozím kódu `IStringLocalizer<T>` implementace pochází z [Injektáže závislosti](dependency-injection.md). Pokud se nenalezne lokalizovaná hodnota "o titulku", vrátí se klíč indexeru, tj. řetězec "About title". Můžete ponechat výchozí řetězcové literály v aplikaci a zabalit je do lokalizátora, abyste se mohli soustředit na vývoj aplikace. Vyvíjíte svou aplikaci pomocí výchozího jazyka a připravíte ji pro krok lokalizace bez prvotního vytvoření výchozího souboru prostředků. Alternativně můžete použít tradiční přístup a zadat klíč pro načtení výchozího řetězce jazyka. Pro mnoho vývojářů nový pracovní postup, který nemá výchozí jazyk *. resx* soubor, a jednoduše zabalí řetězcové literály může snížit režii lokalizace aplikace. Ostatní vývojáři budou preferovat tradiční pracovní postup, protože mohou usnadnit práci s delšími řetězcovými literály a usnadňují aktualizaci lokalizovaných řetězců.
 
-Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kód HTML. `IHtmlLocalizer`HTML kóduje argumenty, které jsou formátovány v řetězci prostředků, ale nekóduje kód HTML samotný řetězec prostředku. V ukázce zvýrazněné níže je pouze hodnota `name` parametru kódována HTML.
+Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kód HTML. `IHtmlLocalizer` HTML kóduje argumenty, které jsou formátovány v řetězci prostředků, ale nekóduje kód HTML samotný řetězec prostředku. V ukázce zvýrazněné níže je pouze hodnota `name` parametru kódována HTML.
 
 [!code-csharp[](~/fundamentals/localization/sample/3.x/Localization/Controllers/BookController.cs?highlight=3,5,20&start=1&end=24)]
 
@@ -786,7 +787,7 @@ Někteří vývojáři používají `Startup` třídu pro zahrnutí globálních
 
 [!code-cshtml[](localization/sample/3.x/Localization/Views/Home/About.cshtml)]
 
-Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků na základě názvu souboru zobrazení. Neexistuje možnost použít globální sdílený soubor prostředků. `ViewLocalizer`implementuje lokalizátora pomocí `IHtmlLocalizer` , takže Razor nekóduje kód HTML jako lokalizovaný řetězec. Můžete parametrizovat řetězce prostředků a `IViewLocalizer` zakódovat parametry HTML, ale ne řetězec prostředku. Vezměte v úvahu následující Razor značky:
+Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků na základě názvu souboru zobrazení. Neexistuje možnost použít globální sdílený soubor prostředků. `ViewLocalizer` implementuje lokalizátora pomocí `IHtmlLocalizer` , takže Razor nekóduje kód HTML jako lokalizovaný řetězec. Můžete parametrizovat řetězce prostředků a `IViewLocalizer` zakódovat parametry HTML, ale ne řetězec prostředku. Vezměte v úvahu následující Razor značky:
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -841,7 +842,7 @@ V předchozím kódu `SharedResource` je třída odpovídající RESX, kde jsou 
 
 ### <a name="supportedcultures-and-supporteduicultures"></a>SupportedCultures a SupportedUICultures
 
-ASP.NET Core umožňuje zadat dvě hodnoty jazykové verze `SupportedCultures` a `SupportedUICultures` . Objekt [CultureInfo](/dotnet/api/system.globalization.cultureinfo) pro `SupportedCultures` určuje výsledky funkcí závislých na jazykové verzi, jako je datum, čas, číslo a formátování měny. `SupportedCultures`Určuje také pořadí řazení textu, konvencí velikosti písmen a porovnávání řetězců. Další informace o tom, jak server získá jazykovou verzi, naleznete v tématu [CultureInfo. CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) . `SupportedUICultures`Určuje, které přeložené řetězce (ze souborů *. resx* ) jsou vyhledány správcem [prostředků](/dotnet/api/system.resources.resourcemanager). `ResourceManager`Jednoduše vyhledá řetězce specifické pro jazykovou verzi, které určuje `CurrentUICulture` . Každé vlákno v rozhraní .NET má `CurrentCulture` a `CurrentUICulture` objekty. ASP.NET Core tyto hodnoty kontroluje při vykreslování funkcí závislých na jazykové verzi. Pokud je například jazyková verze aktuálního vlákna nastavena na "en-US" (angličtina, USA), `DateTime.Now.ToLongDateString()` zobrazí "čtvrtek, 18. února 2016", ale pokud `CurrentCulture` je nastavená na "ES-ES" (španělština, Španělsko), bude výstup "Jueves, 18 de febrero de 2016".
+ASP.NET Core umožňuje zadat dvě hodnoty jazykové verze `SupportedCultures` a `SupportedUICultures` . Objekt [CultureInfo](/dotnet/api/system.globalization.cultureinfo) pro `SupportedCultures` určuje výsledky funkcí závislých na jazykové verzi, jako je datum, čas, číslo a formátování měny. `SupportedCultures` Určuje také pořadí řazení textu, konvencí velikosti písmen a porovnávání řetězců. Další informace o tom, jak server získá jazykovou verzi, naleznete v tématu [CultureInfo. CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) . `SupportedUICultures`Určuje, které přeložené řetězce (ze souborů *. resx* ) jsou vyhledány správcem [prostředků](/dotnet/api/system.resources.resourcemanager). `ResourceManager`Jednoduše vyhledá řetězce specifické pro jazykovou verzi, které určuje `CurrentUICulture` . Každé vlákno v rozhraní .NET má `CurrentCulture` a `CurrentUICulture` objekty. ASP.NET Core tyto hodnoty kontroluje při vykreslování funkcí závislých na jazykové verzi. Pokud je například jazyková verze aktuálního vlákna nastavena na "en-US" (angličtina, USA), `DateTime.Now.ToLongDateString()` zobrazí "čtvrtek, 18. února 2016", ale pokud `CurrentCulture` je nastavená na "ES-ES" (španělština, Španělsko), bude výstup "Jueves, 18 de febrero de 2016".
 
 ## <a name="resource-files"></a>Soubory prostředků
 
@@ -874,7 +875,7 @@ V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "p
 | Prostředky/řadiče. HomeController. fr. resx | Tečka  |
 | Prostředky/řadiče/HomeController. fr. resx  | Cesta |
 
-Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
+Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razor zobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
 * Prostředky/zobrazení/domů/o. fr. resx
 
@@ -892,7 +893,7 @@ Atribut [RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamesp
 Pokud se kořenový obor názvů sestavení liší od názvu sestavení:
 
 * Lokalizace ve výchozím nastavení nefunguje.
-* Lokalizace se nezdařila z důvodu způsobu hledání prostředků v rámci sestavení. `RootNamespace`je hodnota doby sestavení, která není k dispozici pro spuštěný proces. 
+* Lokalizace se nezdařila z důvodu způsobu hledání prostředků v rámci sestavení. `RootNamespace` je hodnota doby sestavení, která není k dispozici pro spuštěný proces. 
 
 Pokud se `RootNamespace` liší od z `AssemblyName` , zahrňte následující v *AssemblyInfo.cs* (s hodnotami parametrů nahrazenými skutečnými hodnotami):
 
@@ -934,11 +935,11 @@ Lokalizace je nakonfigurovaná v `Startup.ConfigureServices` metodě:
 
 [!code-csharp[](localization/sample/3.x/Localization/Startup.cs?name=snippet1)]
 
-* `AddLocalization`Přidá služby lokalizace do kontejneru služby. Výše uvedený kód také nastaví cestu prostředků na prostředky.
+* `AddLocalization` Přidá služby lokalizace do kontejneru služby. Výše uvedený kód také nastaví cestu prostředků na prostředky.
 
-* `AddViewLocalization`Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
+* `AddViewLocalization` Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
 
-* `AddDataAnnotationsLocalization`přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
+* `AddDataAnnotationsLocalization` přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
 
 ### <a name="localization-middleware"></a>Middleware lokalizace
 
@@ -948,7 +949,7 @@ Aktuální jazyková verze v požadavku je nastavena v [middleware](xref:fundame
 
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
-`UseRequestLocalization`Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
+`UseRequestLocalization` Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
 
 1. `QueryStringRequestCultureProvider`
 1. `CookieRequestCultureProvider`
@@ -1101,7 +1102,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.

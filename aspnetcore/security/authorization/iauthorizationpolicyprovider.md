@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/14/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: 724b1f065e83302137d920fe4e0e2b381be505b7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2d231440847270b3b2fe47fbe29359f494900292
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022131"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635200"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>Vlastní zprostředkovatelé zásad autorizace využívající IAuthorizationPolicyProvider v ASP.NET Core 
 
@@ -39,7 +40,7 @@ Příklady scénářů, které mohou být užitečné pro vlastní [IAuthorizati
 
 ## <a name="customize-policy-retrieval"></a>Přizpůsobení načtení zásad
 
-Aplikace ASP.NET Core používají implementaci `IAuthorizationPolicyProvider` rozhraní k načtení zásad autorizace. Ve výchozím nastavení je [DefaultAuthorizationPolicyProvider](/dotnet/api/microsoft.aspnetcore.authorization.defaultauthorizationpolicyprovider) zaregistrován a používán. `DefaultAuthorizationPolicyProvider`Vrátí zásady ze `AuthorizationOptions` zadaného `IServiceCollection.AddAuthorization` volání.
+Aplikace ASP.NET Core používají implementaci `IAuthorizationPolicyProvider` rozhraní k načtení zásad autorizace. Ve výchozím nastavení je [DefaultAuthorizationPolicyProvider](/dotnet/api/microsoft.aspnetcore.authorization.defaultauthorizationpolicyprovider) zaregistrován a používán. `DefaultAuthorizationPolicyProvider` Vrátí zásady ze `AuthorizationOptions` zadaného `IServiceCollection.AddAuthorization` volání.
 
 Toto chování si přizpůsobte tak, že zaregistrujete jinou `IAuthorizationPolicyProvider` implementaci do kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) aplikace. 
 
@@ -101,7 +102,7 @@ Vlastníci usnadňují `MinimumAgeAuthorizeAttribute` vyžádání autorizační
 Při použití se `MinimumAgeAuthorizationAttribute` názvy zásad autorizace řídí vzorem `"MinimumAge" + Age` , takže vlastníci `IAuthorizationPolicyProvider` by měli vytvořit zásady autorizace podle těchto pokynů:
 
 * Analyzuje se věk z názvu zásady.
-* Použití `AuthorizationPolicyBuilder` k vytvoření nového`AuthorizationPolicy`
+* Použití `AuthorizationPolicyBuilder` k vytvoření nového `AuthorizationPolicy`
 * V tomto a následujících příkladech se předpokládá, že uživatel je ověřený prostřednictvím cookie . `AuthorizationPolicyBuilder`Měl by být vytvořen buď pomocí alespoň jednoho názvu schématu autorizace, nebo vždy úspěšně. V opačném případě nejsou k dispozici žádné informace o tom, jak poskytnout uživateli výzvu a bude vyvolána výjimka.
 * Přidávají se požadavky na zásady na základě stáří pomocí `AuthorizationPolicyBuilder.AddRequirements` . V jiných scénářích můžete použít `RequireClaim` `RequireRole` místo toho, nebo `RequireUserName` .
 

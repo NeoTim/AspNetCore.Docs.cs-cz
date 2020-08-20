@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 2/18/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/filter
-ms.openlocfilehash: b8942020e98d0f985e5445bb1816c540bcb7829b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b6d6585c0cbd52715c4192d4ab3bee756dbb41b3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021403"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635044"
 ---
 # <a name="filter-methods-for-no-locrazor-pages-in-aspnet-core"></a>Filtrovat metody pro Razor stránky v ASP.NET Core
 
@@ -29,9 +30,9 @@ ms.locfileid: "88021403"
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-RazorFiltry stránky [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) a [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) umožňují, Razor aby stránky spouštěly kód před a po Razor spuštění obslužné rutiny stránky. RazorFiltry stránky jsou podobné [filtrům akcí ASP.NET Core MVC](xref:mvc/controllers/filters#action-filters), s výjimkou toho, že je nelze použít na jednotlivé metody obslužné rutiny stránky.
+Razor Filtry stránky [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) a [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) umožňují, Razor aby stránky spouštěly kód před a po Razor spuštění obslužné rutiny stránky. Razor Filtry stránky jsou podobné [filtrům akcí ASP.NET Core MVC](xref:mvc/controllers/filters#action-filters), s výjimkou toho, že je nelze použít na jednotlivé metody obslužné rutiny stránky.
 
-RazorFiltry stránky:
+Razor Filtry stránky:
 
 * Spusťte kód po výběru metody obslužné rutiny, ale před tím, než dojde k vazbě modelu.
 * Po dokončení vazby modelu spusťte kód před spuštěním obslužné rutiny.
@@ -44,7 +45,7 @@ I když konstruktory stránky a middleware umožňují spouštění vlastního k
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/3.1sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-RazorFiltry stránek poskytují následující metody, které lze použít globálně nebo na úrovni stránky:
+Razor Filtry stránek poskytují následující metody, které lze použít globálně nebo na úrovni stránky:
 
 * Synchronní metody:
 
@@ -121,9 +122,9 @@ Atribut [autorizace](/dotnet/api/microsoft.aspnetcore.authorization.authorizeatt
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-RazorFiltry stránky [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) a [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) umožňují, Razor aby stránky spouštěly kód před a po Razor spuštění obslužné rutiny stránky. RazorFiltry stránky jsou podobné [filtrům akcí ASP.NET Core MVC](xref:mvc/controllers/filters#action-filters), s výjimkou toho, že je nelze použít na jednotlivé metody obslužné rutiny stránky.
+Razor Filtry stránky [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) a [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) umožňují, Razor aby stránky spouštěly kód před a po Razor spuštění obslužné rutiny stránky. Razor Filtry stránky jsou podobné [filtrům akcí ASP.NET Core MVC](xref:mvc/controllers/filters#action-filters), s výjimkou toho, že je nelze použít na jednotlivé metody obslužné rutiny stránky.
 
-RazorFiltry stránky:
+Razor Filtry stránky:
 
 * Spusťte kód po výběru metody obslužné rutiny, ale před tím, než dojde k vazbě modelu.
 * Po dokončení vazby modelu spusťte kód před spuštěním obslužné rutiny.
@@ -135,7 +136,7 @@ Kód lze spustit před spuštěním obslužné rutiny pomocí konstruktoru strá
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/sample/PageFilter) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-RazorFiltry stránek poskytují následující metody, které lze použít globálně nebo na úrovni stránky:
+Razor Filtry stránek poskytují následující metody, které lze použít globálně nebo na úrovni stránky:
 
 * Synchronní metody:
 

@@ -7,6 +7,7 @@ ms.author: shboyer
 ms.custom: mvc
 ms.date: 04/10/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 2bf5633461996bfecaaa6b730adc9a19bb2769c4
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ac23f3f53bd7e200b843c10cd246ff16d4a12811
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015553"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634654"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Hostování ASP.NET Core v systému Linux pomocí Apache
 
@@ -30,7 +31,7 @@ Od [Shayne Boyer](https://github.com/spboyer)
 
 Pomocí této příručky se naučíte, jak nastavit [Apache](https://httpd.apache.org/) jako reverzní proxy server na [CentOS 7](https://www.centos.org/) pro přesměrování provozu http do ASP.NET Core webové aplikace běžící na serveru [Kestrel](xref:fundamentals/servers/kestrel) . [Rozšíření mod_proxy](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html) a související moduly vytvoří reverzní proxy server serveru.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * Server se systémem CentOS 7 se standardním uživatelským účtem s oprávněním sudo.
 * Nainstalujte modul runtime .NET Core na server.
@@ -166,7 +167,7 @@ Pro aplikaci vytvořte konfigurační soubor s názvem *helloapp. conf*:
 > [!WARNING]
 > Nepovedlo se zadat správnou [direktivu servername](https://httpd.apache.org/docs/current/mod/core.html#servername) v bloku **VirtualHost** k vystavení ohrožení zabezpečení vaší aplikace. Vazba zástupných znaků subdomény (například `*.example.com` ) nepředstavuje toto bezpečnostní riziko, pokud řídíte celou nadřazenou doménu (na rozdíl od `*.com` , která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
 
-Protokolování lze nakonfigurovat na `VirtualHost` `ErrorLog` `CustomLog` direktivy using a. `ErrorLog`je umístění, kde Server protokoluje chyby, a `CustomLog` nastavuje název souboru a formát souboru protokolu. V tomto případě se jedná o případ, kdy se zaprotokolují informace o žádosti. Pro každý požadavek je k dispozici jeden řádek.
+Protokolování lze nakonfigurovat na `VirtualHost` `ErrorLog` `CustomLog` direktivy using a. `ErrorLog` je umístění, kde Server protokoluje chyby, a `CustomLog` nastavuje název souboru a formát souboru protokolu. V tomto případě se jedná o případ, kdy se zaprotokolují informace o žádosti. Pro každý požadavek je k dispozici jeden řádek.
 
 Uložte soubor a otestujte konfiguraci. Pokud vše projde, odpověď by měla být `Syntax [OK]` .
 
@@ -216,7 +217,7 @@ WantedBy=multi-user.target
 
 V předchozím příkladu je uživatel, který spravuje službu, určen pomocí `User` Možnosti. Uživatel ( `apache` ) musí existovat a musí mít správné vlastnictví souborů aplikace.
 
-Slouží `TimeoutStopSec` ke konfiguraci časového intervalu, po který se má čekat na vypnutí aplikace po přijetí počátečního signálu přerušení. Pokud se aplikace v tomto období neukončí, SIGKILL se vydá pro ukončení aplikace. Zadejte hodnotu jako nejednotkové sekundy (například `150` ), hodnotu časového rozsahu (například `2min 30s` ) nebo `infinity` zakažte časový limit. `TimeoutStopSec`ve výchozím nastavení se jedná o hodnotu `DefaultTimeoutStopSec` v konfiguračním souboru správce (*System-System. conf*, *System. conf. d*, *systemd-User. conf*, *User. conf. d*). Výchozí časový limit pro většinu distribucí je 90 sekund.
+Slouží `TimeoutStopSec` ke konfiguraci časového intervalu, po který se má čekat na vypnutí aplikace po přijetí počátečního signálu přerušení. Pokud se aplikace v tomto období neukončí, SIGKILL se vydá pro ukončení aplikace. Zadejte hodnotu jako nejednotkové sekundy (například `150` ), hodnotu časového rozsahu (například `2min 30s` ) nebo `infinity` zakažte časový limit. `TimeoutStopSec` ve výchozím nastavení se jedná o hodnotu `DefaultTimeoutStopSec` v konfiguračním souboru správce (*System-System. conf*, *System. conf. d*, *systemd-User. conf*, *User. conf. d*). Výchozí časový limit pro většinu distribucí je 90 sekund.
 
 ```
 # The default value is 90 seconds for most distributions.
@@ -308,7 +309,7 @@ Pokud chcete nakonfigurovat ochranu dat, aby zachovala a zašifroval klíč Ring
 
 ### <a name="configure-firewall"></a>Konfigurace brány firewall
 
-*Brána firewall* je dynamickým démonem pro správu brány firewall s podporou síťových zón. Filtrování portů a paketů je stále možné spravovat pomocí softwaru iptables. *Brána firewall* by měla být nainstalována ve výchozím nastavení. `yum`dá se použít k instalaci balíčku nebo ověření, jestli je nainstalovaný.
+*Brána firewall* je dynamickým démonem pro správu brány firewall s podporou síťových zón. Filtrování portů a paketů je stále možné spravovat pomocí softwaru iptables. *Brána firewall* by měla být nainstalována ve výchozím nastavení. `yum` dá se použít k instalaci balíčku nebo ověření, jestli je nainstalovaný.
 
 ```bash
 sudo yum install firewalld -y
@@ -521,7 +522,7 @@ Výchozí nastavení proxy serveru obvykle omezují pole hlaviček požadavku na
 > [!WARNING]
 > Nerozšiřovat výchozí hodnotu, `LimitRequestFieldSize` Pokud je to nutné. Zvýšení hodnoty zvyšuje riziko přetečení vyrovnávací paměti (přetečení) a útok DoS (Denial of Service) uživateli se zlými úmysly.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites)
 * <xref:test/troubleshoot>

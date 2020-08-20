@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 4/20/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/app-secrets
-ms.openlocfilehash: 917e698d34a5d4b6c2c3f4737c08f1a590f5df1a
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 74c9ae63ffbe39d6ba6e77aee8f6adcc8c8a157a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017945"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634901"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>Bezpečné ukládání tajných kódů aplikací ve vývoji v ASP.NET Core
 
@@ -99,7 +100,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345"
 
 V předchozím příkladu dvojtečka označuje `Movies` literál objektu s `ServiceApiKey` vlastností.
 
-Nástroj Správce tajných klíčů je možné použít i v jiných adresářích. Pomocí `--project` Možnosti zadejte cestu k systému souborů, na které existuje soubor *. csproj* . Například:
+Nástroj Správce tajných klíčů je možné použít i v jiných adresářích. Pomocí `--project` Možnosti zadejte cestu k systému souborů, na které existuje soubor *. csproj* . Příklad:
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp1\src\WebApp1"
@@ -107,7 +108,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 ### <a name="json-structure-flattening-in-visual-studio"></a>Sloučení struktury JSON v aplikaci Visual Studio
 
-Gesto **správy uživatelských tajných** kódů v aplikaci Visual Studio otevře *secrets.js* v souboru v textovém editoru. Nahraďte obsah *secrets.js* s páry klíč-hodnota, které se mají uložit. Například:
+Gesto **správy uživatelských tajných** kódů v aplikaci Visual Studio otevře *secrets.js* v souboru v textovém editoru. Nahraďte obsah *secrets.js* s páry klíč-hodnota, které se mají uložit. Příklad:
 
 ```json
 {
@@ -152,7 +153,7 @@ Otevřete příkazové prostředí a spusťte následující příkaz:
 
 [Rozhraní API pro konfiguraci ASP.NET Core](xref:fundamentals/configuration/index) poskytuje přístup ke tajným tajným klíčům správce.
 
-Zdroj konfigurace uživatelských tajných klíčů je automaticky přidán do režimu vývoje, pokud projekt volá <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A> inicializaci nové instance hostitele s předem konfigurovanými výchozími hodnotami. `CreateDefaultBuilder`volá <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> se, když <xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName> je <xref:Microsoft.Extensions.Hosting.EnvironmentName.Development> :
+Zdroj konfigurace uživatelských tajných klíčů je automaticky přidán do režimu vývoje, pokud projekt volá <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A> inicializaci nové instance hostitele s předem konfigurovanými výchozími hodnotami. `CreateDefaultBuilder` volá <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> se, když <xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName> je <xref:Microsoft.Extensions.Hosting.EnvironmentName.Development> :
 
 [!code-csharp[](app-secrets/samples/3.x/UserSecrets/Program.cs?name=snippet_CreateHostBuilder&highlight=2)]
 
@@ -184,13 +185,13 @@ Ukládání hesel v prostém textu je nezabezpečené. Připojovací řetězec d
 
 [!code-json[](app-secrets/samples/3.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
-Bezpečnější je ukládání hesla jako tajného klíče. Například:
+Bezpečnější je ukládání hesla jako tajného klíče. Příklad:
 
 ```dotnetcli
 dotnet user-secrets set "DbPassword" "pass123"
 ```
 
-Odeberte `Password` dvojici klíč-hodnota z připojovacího řetězce v *appsettings.js*. Například:
+Odeberte `Password` dvojici klíč-hodnota z připojovacího řetězce v *appsettings.js*. Příklad:
 
 [!code-json[](app-secrets/samples/3.x/UserSecrets/appsettings.json?highlight=3)]
 
@@ -237,7 +238,7 @@ dotnet user-secrets remove "Movies:ConnectionString"
 }
 ```
 
-`dotnet user-secrets list`zobrazí následující zprávu:
+`dotnet user-secrets list` zobrazí následující zprávu:
 
 ```console
 Movies:ServiceApiKey = 12345
@@ -265,7 +266,7 @@ Všechny tajné klíče uživatele pro aplikaci byly z *secrets.jsv* souboru ods
 No secrets configured for this application.
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * Informace o přístupu ke Správci tajných kódů ze služby IIS najdete v [tomto problému](https://github.com/dotnet/AspNetCore.Docs/issues/16328) .
 * <xref:fundamentals/configuration/index>
@@ -342,7 +343,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345"
 
 V předchozím příkladu dvojtečka označuje `Movies` literál objektu s `ServiceApiKey` vlastností.
 
-Nástroj Správce tajných klíčů je možné použít i v jiných adresářích. Pomocí `--project` Možnosti zadejte cestu k systému souborů, na které existuje soubor *. csproj* . Například:
+Nástroj Správce tajných klíčů je možné použít i v jiných adresářích. Pomocí `--project` Možnosti zadejte cestu k systému souborů, na které existuje soubor *. csproj* . Příklad:
 
 ```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp1\src\WebApp1"
@@ -350,7 +351,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 ### <a name="json-structure-flattening-in-visual-studio"></a>Sloučení struktury JSON v aplikaci Visual Studio
 
-Gesto **správy uživatelských tajných** kódů v aplikaci Visual Studio otevře *secrets.js* v souboru v textovém editoru. Nahraďte obsah *secrets.js* s páry klíč-hodnota, které se mají uložit. Například:
+Gesto **správy uživatelských tajných** kódů v aplikaci Visual Studio otevře *secrets.js* v souboru v textovém editoru. Nahraďte obsah *secrets.js* s páry klíč-hodnota, které se mají uložit. Příklad:
 
 ```json
 {
@@ -395,9 +396,9 @@ Otevřete příkazové prostředí a spusťte následující příkaz:
 
 [Rozhraní API pro konfiguraci ASP.NET Core](xref:fundamentals/configuration/index) poskytuje přístup ke tajným tajným klíčům správce.
 
-Pokud je projekt cílen .NET Framework, nainstalujte [Microsoft.Extensions.Configuration. ](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets)Balíček NuGet UserSecrets
+Pokud je projekt cílen .NET Framework, nainstalujte [Microsoft.Extensions.Configuration. ](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) Balíček NuGet UserSecrets
 
-V ASP.NET Core 2,0 nebo novějším je zdroj konfigurace tajných kódů uživatelských tajných kódů automaticky přidán do režimu vývoje, pokud projekt volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> inicializaci nové instance hostitele s předem konfigurovanými výchozími hodnotami. `CreateDefaultBuilder`volá <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> se, když <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> je <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development> :
+V ASP.NET Core 2,0 nebo novějším je zdroj konfigurace tajných kódů uživatelských tajných kódů automaticky přidán do režimu vývoje, pokud projekt volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> inicializaci nové instance hostitele s předem konfigurovanými výchozími hodnotami. `CreateDefaultBuilder` volá <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> se, když <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> je <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development> :
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
@@ -429,13 +430,13 @@ Ukládání hesel v prostém textu je nezabezpečené. Připojovací řetězec d
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
-Bezpečnější je ukládání hesla jako tajného klíče. Například:
+Bezpečnější je ukládání hesla jako tajného klíče. Příklad:
 
 ```dotnetcli
 dotnet user-secrets set "DbPassword" "pass123"
 ```
 
-Odeberte `Password` dvojici klíč-hodnota z připojovacího řetězce v *appsettings.js*. Například:
+Odeberte `Password` dvojici klíč-hodnota z připojovacího řetězce v *appsettings.js*. Příklad:
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
@@ -510,7 +511,7 @@ Všechny tajné klíče uživatele pro aplikaci byly z *secrets.jsv* souboru ods
 No secrets configured for this application.
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * Informace o přístupu ke Správci tajných kódů ze služby IIS najdete v [tomto problému](https://github.com/dotnet/AspNetCore.Docs/issues/16328) .
 * <xref:fundamentals/configuration/index>

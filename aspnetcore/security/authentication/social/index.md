@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/23/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/social/index
-ms.openlocfilehash: 7dacbb00b40d2741fcbfc78ec7cdf2a67482a8da
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: da025cb8dced8ac8a6ecf559d4de7795c9797f71
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020467"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634277"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Ověřování pro Facebook, Google a externí poskytovatele v ASP.NET Core
 
@@ -68,8 +69,8 @@ Příklady, jak mohou sociální přihlášení prosazovat přenosy a převody z
   ```
 
   * `dotnet new`Příkaz vytvoří nový Razor projekt stránky ve složce *WebApp1* .
-  * `-au Individual`vytvoří kód pro individuální ověřování.
-  * `-uld`používá LocalDB, zjednodušenou verzi SQL Server Express pro Windows. Vynechejte `-uld` pro použití sqlite.
+  * `-au Individual` vytvoří kód pro individuální ověřování.
+  * `-uld` používá LocalDB, zjednodušenou verzi SQL Server Express pro Windows. Vynechejte `-uld` pro použití sqlite.
   * `code`Příkaz otevře složku *WebApp1* v nové instanci Visual Studio Code.
 
 ---

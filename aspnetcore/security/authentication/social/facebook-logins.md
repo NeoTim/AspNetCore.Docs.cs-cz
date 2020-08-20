@@ -7,6 +7,7 @@ ms.custom: seoapril2019, mvc, seodec18
 ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: ef664645768dac11d0ed68db03cfbaebbcb8c0d3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ce0e7ad30c137562b74dc9fe5c53235e3599e575
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021715"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634355"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>Nastavení externího přihlášení ke službě Facebook v ASP.NET Core
 
@@ -114,7 +115,7 @@ Nyní jste přihlášeni pomocí svých přihlašovacích údajů k Facebooku:
 
 ## <a name="react-to-cancel-authorize-external-sign-in"></a>Reakce na zrušení autorizace externího přihlášení
 
-<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.AccessDeniedPath>může zadat cestu přesměrování pro uživatelského agenta, když uživatel neschválí požadovanou žádost o autorizaci.
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.AccessDeniedPath> může zadat cestu přesměrování pro uživatelského agenta, když uživatel neschválí požadovanou žádost o autorizaci.
 
 Následující kód nastaví na `AccessDeniedPath` `"/AccessDeniedPathInfo"` :
 

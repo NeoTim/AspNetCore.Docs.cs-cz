@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/29/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 8f39d6f460faaab3d54178daf3730f5a6662df40
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: fe0a0d3dbb87455be602234825d702fab02df936
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130688"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634589"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -51,7 +52,7 @@ ASP.NET Core webové aplikace vytvořené pomocí [dotnet New](/dotnet/core/tool
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Program.cs?name=snippet&highlight=9)]
 
- <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*>poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:
+ <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:
 
 1. [ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) : Přidá existující `IConfiguration` jako zdroj. Ve výchozím případu konfigurace přidá konfiguraci [hostitele](#hvac) a nastaví ji jako první zdroj konfigurace _aplikace_ .
 1. [appsettings.js](#appsettingsjson) používání [poskytovatele konfigurace JSON](#file-configuration-provider).
@@ -60,7 +61,7 @@ ASP.NET Core webové aplikace vytvořené pomocí [dotnet New](/dotnet/core/tool
 1. Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#evcp).
 1. Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line).
 
-Poskytovatelé konfigurace, kteří jsou přidáni později, přepíší předchozí nastavení klíče. Například pokud `MyKey` je nastavena v *appsettings.jsv* a prostředí, je použita hodnota prostředí. Pomocí výchozích zprostředkovatelů konfigurace přepíše [Poskytovatel konfigurace příkazového řádku](#clcp) všechny ostatní poskytovatele.
+Poskytovatelé konfigurace, kteří jsou přidáni později, přepíší předchozí nastavení klíče. Například pokud `MyKey` je nastavena v *appsettings.jsv* a prostředí, je použita hodnota prostředí. Pomocí výchozích zprostředkovatelů konfigurace přepíše  [Poskytovatel konfigurace příkazového řádku](#clcp) všechny ostatní poskytovatele.
 
 Další informace o najdete v `CreateDefaultBuilder` tématu [výchozí nastavení tvůrce](xref:fundamentals/host/generic-host#default-builder-settings).
 
@@ -144,7 +145,7 @@ Předchozí nastavení prostředí:
 * Jsou nastaveny pouze v procesech spuštěných z příkazového okna, ve kterém byly nastaveny.
 * Nebudou přečteny pomocí prohlížečů spuštěných v aplikaci Visual Studio.
 
-K nastavení klíčů a hodnot prostředí ve Windows se dají použít následující příkazy [setx](/windows-server/administration/windows-commands/setx) . Na rozdíl `set` od `setx` platí, že nastavení jsou trvalá. `/M`nastaví proměnnou v prostředí systému. Pokud se `/M` přepínač nepoužívá, je nastavena proměnná prostředí uživatele.
+K nastavení klíčů a hodnot prostředí ve Windows se dají použít následující příkazy [setx](/windows-server/administration/windows-commands/setx) . Na rozdíl `set` od `setx` platí, že nastavení jsou trvalá. `/M` nastaví proměnnou v prostředí systému. Pokud se `/M` přepínač nepoužívá, je nastavena proměnná prostředí uživatele.
 
 ```cmd
 setx MyKey "My key from setx Environment" /M
@@ -163,7 +164,7 @@ Volání <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions
 
 V předchozím kódu:
 
-* `config.AddEnvironmentVariables(prefix: "MyCustomPrefix_")`se přidá za [výchozí poskytovatelé konfigurace](#default). Příklad řazení zprostředkovatelů konfigurace najdete v tématu [zprostředkovatel konfigurace JSON](#jcp).
+* `config.AddEnvironmentVariables(prefix: "MyCustomPrefix_")` se přidá za [výchozí poskytovatelé konfigurace](#default). Příklad řazení zprostředkovatelů konfigurace najdete v tématu [zprostředkovatel konfigurace JSON](#jcp).
 * Proměnné prostředí nastavené s `MyCustomPrefix_` předponou přepíšou [výchozí poskytovatele konfigurace](#default). To zahrnuje proměnné prostředí bez předpony.
 
 Pokud jsou načteny páry klíč-hodnota konfigurace, je předpona odstraněna.
@@ -254,14 +255,6 @@ Následující příkaz funguje pro otestování nahrazení klíče:
 
 ```dotnetcli
 dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
-```
-
-<!-- Run the following command to test the key replacement: -->
-
-Poznámka: v současné době `=` nelze použít k nastavení hodnot nahrazení klíče jedinou pomlčkou `-` . Podívejte se na [Tento problém GitHubu](https://github.com/dotnet/extensions/issues/3059).
-
-```dotnetcli
-dotnet run -k1=value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
 ```
 
 Pro aplikace, které používají mapování přepínačů, by volání `CreateDefaultBuilder` nemělo předávat argumenty. `CreateDefaultBuilder` `AddCommandLine` Volání metody nezahrnuje mapované přepínače a neexistuje způsob, jak předat slovníku mapování přepínačů na `CreateDefaultBuilder` . Řešení nebude předávat argumenty, `CreateDefaultBuilder` ale místo toho, aby `ConfigurationBuilder` Metoda metody mohla `AddCommandLine` zpracovat argumenty i slovník mapování přepínačů.
@@ -364,7 +357,7 @@ Když je proměnná prostředí zjištěna a načtena do konfigurace se všemi �
 
 ## <a name="file-configuration-provider"></a>Poskytovatel konfigurace souboru
 
-<xref:Microsoft.Extensions.Configuration.FileConfigurationProvider>je základní třídou pro načtení konfigurace ze systému souborů. Následující poskytovatelé konfigurace jsou odvozeni z `FileConfigurationProvider` :
+<xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> je základní třídou pro načtení konfigurace ze systému souborů. Následující poskytovatelé konfigurace jsou odvozeni z `FileConfigurationProvider` :
 
 * [Poskytovatel konfigurace INI](#ini-configuration-provider)
 * [Zprostředkovatel konfigurace JSON](#jcp)
@@ -378,7 +371,7 @@ Následující kód vymaže všechny poskytovatele konfigurace a přidá několi
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramINI.cs?name=snippet&highlight=10-30)]
 
-V předchozím kódu nastavení *MyIniConfig.ini* a *MyIniConfig*. `Environment` . soubory *ini* jsou přepsány nastavením v:
+V předchozím kódu nastavení *MyIniConfig.ini* a  *MyIniConfig*. `Environment` . soubory *ini* jsou přepsány nastavením v:
 
 * [Poskytovatel konfigurace proměnných prostředí](#evcp)
 * [Poskytovatel konfigurace příkazového řádku](#clcp)
@@ -410,7 +403,7 @@ Předcházející kód:
 
 * Nakonfiguruje zprostředkovatele konfigurace JSON, aby načetl *MyConfig.js* do souboru s následujícími možnostmi:
   * `optional: true`: Soubor je nepovinný.
-  * `reloadOnChange: true`: Soubor se znovu načte při uložení změn.
+  * `reloadOnChange: true` : Soubor se znovu načte při uložení změn.
 * Přečte [výchozí zprostředkovatele konfigurace](#default) před *MyConfig.jsv* souboru. Nastavení v nastavení *MyConfig.jspři* přepsání souborů ve výchozích poskytovatelích konfigurace, včetně [poskytovatele konfigurace proměnných prostředí](#evcp) a [poskytovatele konfigurace příkazového řádku](#clcp).
 
 ***Obvykle nechcete, aby vlastní*** soubor JSON přepsal hodnoty nastavené ve [zprostředkovateli konfigurace proměnných prostředí](#evcp) a v [poskytovateli konfigurace příkazového řádku](#clcp).
@@ -419,7 +412,7 @@ Následující kód vymaže všechny poskytovatele konfigurace a přidá několi
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON2.cs?name=snippet)]
 
-V předchozím kódu nastavení *MyConfig.js* v a *MyConfig*. `Environment` . soubory *JSON* :
+V předchozím kódu nastavení *MyConfig.js* v a  *MyConfig*. `Environment` . soubory *JSON* :
 
 * Přepsat nastavení v *appsettings.jsna* a *appSettings*. `Environment` .. soubory *JSON* .
 * Jsou přepsány nastavením ve [zprostředkovateli konfigurace proměnných prostředí](#evcp) a [poskytovatelem konfigurace příkazového řádku](#clcp).
@@ -440,7 +433,7 @@ Následující kód vymaže všechny poskytovatele konfigurace a přidá několi
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramXML.cs?name=snippet)]
 
-V předchozím kódu nastavení *MyXMLFile.xml* a *MyXMLFile*. `Environment` . soubory *XML* jsou přepsány nastavením v:
+V předchozím kódu nastavení *MyXMLFile.xml* a  *MyXMLFile*. `Environment` . soubory *XML* jsou přepsány nastavením v:
 
 * [Poskytovatel konfigurace proměnných prostředí](#evcp)
 * [Poskytovatel konfigurace příkazového řádku](#clcp)
@@ -522,7 +515,7 @@ Viz [vazba pole](#boa) pro jiný příklad pomocí `MemoryConfigurationProvider`
 
 ## <a name="getvalue"></a>GetValue
 
-[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*)extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ:
+[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ:
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestNum.cshtml.cs?name=snippet)]
 
@@ -550,7 +543,7 @@ Následující kód vrátí hodnoty pro `section2:subsection0` :
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestSection2.cshtml.cs?name=snippet)]
 
-`GetSection`nikdy nevrátí `null` . Pokud se nenalezne shodný oddíl, `IConfigurationSection` vrátí se prázdný řetězec.
+`GetSection` nikdy nevrátí `null` . Pokud se nenalezne shodný oddíl, `IConfigurationSection` vrátí se prázdný řetězec.
 
 Při `GetSection` vrácení odpovídajícího oddílu <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> není naplněna hodnota. <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key>A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> se vrátí, když oddíl existuje.
 
@@ -767,7 +760,7 @@ Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NE
 
 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>Implementace umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídu aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Zdrojový kód konfigurace](https://github.com/dotnet/extensions/tree/master/src/Configuration)
 * <xref:fundamentals/configuration/options>
@@ -819,7 +812,7 @@ Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NE
 
 ## <a name="default-configuration"></a>Výchozí konfigurace
 
-Webové aplikace založené na ASP.NET Core [dotnet nové](/dotnet/core/tools/dotnet-new) šablony volají <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> při sestavování hostitele. `CreateDefaultBuilder`poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:
+Webové aplikace založené na ASP.NET Core [dotnet nové](/dotnet/core/tools/dotnet-new) šablony volají <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> při sestavování hostitele. `CreateDefaultBuilder` poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:
 
 Následující postup platí pro aplikace používající [webového hostitele](xref:fundamentals/host/web-host). Podrobnosti o výchozí konfiguraci při použití [obecného hostitele](xref:fundamentals/host/generic-host)najdete v [nejnovější verzi tohoto tématu](xref:fundamentals/configuration/index).
 
@@ -884,7 +877,7 @@ Při spuštění aplikace se zdroje konfigurace čtou v pořadí, v jakém jsou 
 
 Poskytovatelé konfigurace implementující zjišťování změn mají možnost znovu načíst konfiguraci při změně podkladového nastavení. Například poskytovatel konfigurace souboru (popsaný dále v tomto tématu) a [zprostředkovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) implementují detekci změn.
 
-<xref:Microsoft.Extensions.Configuration.IConfiguration>je k dispozici v kontejneru [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. <xref:Microsoft.Extensions.Configuration.IConfiguration>lze vložit do Razor stránky <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> nebo MVC <xref:Microsoft.AspNetCore.Mvc.Controller> pro získání konfigurace pro třídu.
+<xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v kontejneru [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. <xref:Microsoft.Extensions.Configuration.IConfiguration> lze vložit do Razor stránky <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> nebo MVC <xref:Microsoft.AspNetCore.Mvc.Controller> pro získání konfigurace pro třídu.
 
 V následujících příkladech se `_config` pole používá pro přístup k hodnotám konfigurace:
 
@@ -1026,17 +1019,17 @@ Konfigurace dodaná do aplikace v nástroji `ConfigureAppConfiguration` je k dis
 
 Chcete-li aktivovat konfiguraci příkazového řádku, <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> je metoda rozšíření volána na instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> .
 
-`AddCommandLine`je automaticky volána `CreateDefaultBuilder(string [])` , když je volána metoda. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
+`AddCommandLine` je automaticky volána `CreateDefaultBuilder(string [])` , když je volána metoda. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
 
-`CreateDefaultBuilder`také načte:
+`CreateDefaultBuilder` také načte:
 
 * Volitelná konfigurace z *appsettings.jsna* a *appSettings. { Soubory Environment}. JSON* .
 * [Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.
 * Proměnné prostředí.
 
-`CreateDefaultBuilder`přidá poskytovatele konfigurace příkazového řádku naposledy. Argumenty příkazového řádku předané v konfiguraci přepsání za běhu nastavené jinými poskytovateli.
+`CreateDefaultBuilder` přidá poskytovatele konfigurace příkazového řádku naposledy. Argumenty příkazového řádku předané v konfiguraci přepsání za běhu nastavené jinými poskytovateli.
 
-`CreateDefaultBuilder`funguje, když je hostitel vytvořen. Proto může konfigurace z příkazového řádku aktivované nástrojem `CreateDefaultBuilder` ovlivnit způsob konfigurace hostitele.
+`CreateDefaultBuilder` funguje, když je hostitel vytvořen. Proto může konfigurace z příkazového řádku aktivované nástrojem `CreateDefaultBuilder` ovlivnit způsob konfigurace hostitele.
 
 Pro aplikace založené na šablonách ASP.NET Core `AddCommandLine` již byly volány pomocí `CreateDefaultBuilder` . Chcete-li přidat další poskytovatele konfigurace a zachovat možnost přepsat konfiguraci z těchto poskytovatelů pomocí argumentů příkazového řádku, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte na `AddCommandLine` Poslední.
 
@@ -1140,9 +1133,9 @@ Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte <xref:Micros
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) povoluje nastavení proměnných prostředí na webu Azure Portal, které mohou přepsat konfiguraci aplikace pomocí poskytovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
 
-`AddEnvironmentVariables`slouží k načtení proměnných prostředí s předponou `ASPNETCORE_` pro [konfiguraci hostitele](#host-versus-app-configuration) při inicializaci nového hostitele, který je hostitelem [webového hostitele](xref:fundamentals/host/web-host) a `CreateDefaultBuilder` je zavolán. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
+`AddEnvironmentVariables` slouží k načtení proměnných prostředí s předponou `ASPNETCORE_` pro [konfiguraci hostitele](#host-versus-app-configuration) při inicializaci nového hostitele, který je hostitelem [webového hostitele](xref:fundamentals/host/web-host) a `CreateDefaultBuilder` je zavolán. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
 
-`CreateDefaultBuilder`také načte:
+`CreateDefaultBuilder` také načte:
 
 * Konfigurace aplikace z neprefixových proměnných prostředí voláním `AddEnvironmentVariables` bez předpony.
 * Volitelná konfigurace z *appsettings.jsna* a *appSettings. { Soubory Environment}. JSON* .
@@ -1229,7 +1222,7 @@ _config["ConnectionStrings:ReleaseDB"]
 
 ## <a name="file-configuration-provider"></a>Poskytovatel konfigurace souboru
 
-<xref:Microsoft.Extensions.Configuration.FileConfigurationProvider>je základní třídou pro načtení konfigurace ze systému souborů. Následující poskytovatelé konfigurace jsou vyhrazeni pro určité typy souborů:
+<xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> je základní třídou pro načtení konfigurace ze systému souborů. Následující poskytovatelé konfigurace jsou vyhrazeni pro určité typy souborů:
 
 * [Poskytovatel konfigurace INI](#ini-configuration-provider)
 * [Zprostředkovatel konfigurace JSON](#json-configuration-provider)
@@ -1296,14 +1289,14 @@ Přetížení umožňují zadat:
 * Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.
 * <xref:Microsoft.Extensions.FileProviders.IFileProvider>Slouží k přístupu k souboru.
 
-`AddJsonFile`se automaticky volá dvakrát při inicializaci nového hostitele v nástroji `CreateDefaultBuilder` . Metoda je volána pro načtení konfigurace z:
+`AddJsonFile` se automaticky volá dvakrát při inicializaci nového hostitele v nástroji `CreateDefaultBuilder` . Metoda je volána pro načtení konfigurace z:
 
 * *appsettings.js*: Tento soubor je nejprve přečten. Verze prostředí souboru může přepsat hodnoty poskytnuté *appsettings.jsv* souboru.
 * *appSettings. {Environment}. JSON*: verze prostředí souboru se načte na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).
 
 Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
 
-`CreateDefaultBuilder`také načte:
+`CreateDefaultBuilder` také načte:
 
 * Proměnné prostředí.
 * [Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.
@@ -1484,7 +1477,7 @@ Slovník se používá s voláním k `AddInMemoryCollection` poskytnutí konfigu
 
 ## <a name="getvalue"></a>GetValue
 
-[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*)extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ nekolekce. Přetížení přijímá výchozí hodnotu.
+[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ nekolekce. Přetížení přijímá výchozí hodnotu.
 
 Následující příklad:
 
@@ -1565,7 +1558,7 @@ Podobně pokud chcete získat hodnoty pro klíče v `section2:subsection0` , zav
 var configSection = _config.GetSection("section2:subsection0");
 ```
 
-`GetSection`nikdy nevrátí `null` . Pokud se nenalezne shodný oddíl, `IConfigurationSection` vrátí se prázdný řetězec.
+`GetSection` nikdy nevrátí `null` . Pokud se nenalezne shodný oddíl, `IConfigurationSection` vrátí se prázdný řetězec.
 
 Při `GetSection` vrácení odpovídajícího oddílu <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> není naplněna hodnota. <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key>A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> se vrátí, když oddíl existuje.
 
@@ -1594,7 +1587,7 @@ Vzhledem k ukázkovým datům `sectionExists` je `false` to proto, že `section2
 
 ## <a name="bind-to-an-object-graph"></a>Vytvoření vazby na graf objektů
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*>je schopný svázat celý graf objektů POCO. Stejně jako u vazeb jednoduchých objektů jsou vázány pouze veřejné vlastnosti čtení a zápisu.
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> je schopný svázat celý graf objektů POCO. Stejně jako u vazeb jednoduchých objektů jsou vázány pouze veřejné vlastnosti čtení a zápisu.
 
 Ukázka obsahuje `TvShow` model, jehož objekt Graph zahrnuje `Metadata` a `Actors` třídy (*modely/TvShow. cs*):
 
@@ -1612,7 +1605,7 @@ _config.GetSection("tvshow").Bind(tvShow);
 TvShow = tvShow;
 ```
 
-[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*)vytvoří vazby a vrátí zadaný typ. `Get<T>`je pohodlnější než použití `Bind` . Následující kód ukazuje, jak použít `Get<T>` s předchozím příkladem:
+[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) vytvoří vazby a vrátí zadaný typ. `Get<T>` je pohodlnější než použití `Bind` . Následující kód ukazuje, jak použít `Get<T>` s předchozím příkladem:
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_tvshow)]
 
@@ -1654,13 +1647,13 @@ var arrayExample = new ArrayExample();
 _config.GetSection("array").Bind(arrayExample);
 ```
 
-[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*)lze také použít syntaxi, což má za následek kompaktnější kód:
+[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) lze také použít syntaxi, což má za následek kompaktnější kód:
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_array)]
 
 Vázaný objekt, instance `ArrayExample` , přijímá data pole z konfigurace.
 
-| `ArrayExample.Entries`Indexovacím | `ArrayExample.Entries`Osa |
+| `ArrayExample.Entries` Indexovacím | `ArrayExample.Entries` Osa |
 | :--------------------------: | :--------------------------: |
 | 0                            | value0                       |
 | 1                            | Hodnota1                       |
@@ -1695,7 +1688,7 @@ Pár klíč-hodnota zobrazený v tabulce je načten do konfigurace.
 
 Je-li `ArrayExample` instance třídy svázána poté, co zprostředkovatel konfigurace JSON obsahuje položku pro index &num; 3, `ArrayExample.Entries` pole obsahuje hodnotu.
 
-| `ArrayExample.Entries`Indexovacím | `ArrayExample.Entries`Osa |
+| `ArrayExample.Entries` Indexovacím | `ArrayExample.Entries` Osa |
 | :--------------------------: | :--------------------------: |
 | 0                            | value0                       |
 | 1                            | Hodnota1                       |
@@ -1725,7 +1718,7 @@ V ukázkové aplikaci je k dispozici následující třída POCO, která umožň
 
 Po vytvoření vazby `JsonArrayExample.Key` obsahuje hodnotu `valueA` . Hodnoty pododdílu jsou uloženy ve vlastnosti pole POCO `Subsection` .
 
-| `JsonArrayExample.Subsection`Indexovacím | `JsonArrayExample.Subsection`Osa |
+| `JsonArrayExample.Subsection` Indexovacím | `JsonArrayExample.Subsection` Osa |
 | :---------------------------------: | :---------------------------------: |
 | 0                                   | Hodnotab                              |
 | 1                                   | valueC                              |
@@ -1805,7 +1798,7 @@ Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuš
 
 ## <a name="access-configuration-in-a-no-locrazor-pages-page-or-mvc-view"></a>Přístup ke konfiguraci na Razor stránce stránky nebo zobrazení MVC
 
-Chcete-li získat přístup k nastavení konfigurace na Razor stránce stránky nebo zobrazení MVC, přidejte [direktivu using](xref:mvc/views/razor#using) ([Referenční dokumentace jazyka C#: using](/dotnet/csharp/language-reference/keywords/using-directive)) pro [obor názvůMicrosoft.Extensions.Configuration](xref:Microsoft.Extensions.Configuration) a vložte ho <xref:Microsoft.Extensions.Configuration.IConfiguration> do stránky nebo zobrazení.
+Chcete-li získat přístup k nastavení konfigurace na Razor stránce stránky nebo zobrazení MVC, přidejte [direktivu using](xref:mvc/views/razor#using) ([Referenční dokumentace jazyka C#: using](/dotnet/csharp/language-reference/keywords/using-directive)) pro [ obor názvůMicrosoft.Extensions.Configuration](xref:Microsoft.Extensions.Configuration) a vložte ho <xref:Microsoft.Extensions.Configuration.IConfiguration> do stránky nebo zobrazení.
 
 Na Razor stránce stránky:
 

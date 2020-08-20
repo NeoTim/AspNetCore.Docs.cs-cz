@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/08/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 66b307a3629e18e49b5bb6e65a156054c0002ba8
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f52f6ec9c557add2c66105397eb2733a0dcb9e87
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022105"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635187"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>Autorizovat pomocí konkrétního schématu v ASP.NET Core
 
 V některých scénářích, jako jsou například jednostránkové aplikace (jednostránkové), je běžné použít více metod ověřování. Aplikace může například použít cookie ověřování k přihlášení a ověření nosiče JWT pro požadavky JavaScriptu. V některých případech může aplikace mít několik instancí obslužné rutiny ověřování. Například dvě cookie obslužné rutiny, kde jedna obsahuje základní identitu a která je vytvořena, když byla aktivována aplikace Multi-Factor Authentication (MFA). Vícefaktorové ověřování může být aktivováno, protože uživatel požadoval operaci, která vyžaduje dodatečné zabezpečení. Další informace o vynucování MFA, když si uživatel vyžádá prostředek, který vyžaduje MFA, najdete v části věnované problému pro ochranu GitHubu [pomocí MFA](https://github.com/dotnet/AspNetCore.Docs/issues/15791#issuecomment-580464195).
 
-Schéma ověřování se jmenuje, když je ověřovací služba nakonfigurovaná během ověřování. Například:
+Schéma ověřování se jmenuje, když je ověřovací služba nakonfigurovaná během ověřování. Příklad:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -52,7 +53,7 @@ V předchozím kódu byly přidány dvě obslužné rutiny ověřování: jeden 
 
 ## <a name="selecting-the-scheme-with-the-authorize-attribute"></a>Výběr schématu pomocí atributu autorizovat
 
-V bodě autorizace aplikace označuje obslužnou rutinu, která se má použít. Vyberte obslužnou rutinu, se kterou bude aplikace autorizována předáním seznamu schémat ověřování, které jsou odděleny čárkami `[Authorize]` . `[Authorize]`Atribut určuje schéma ověřování nebo schémata, které se mají použít bez ohledu na to, jestli je nakonfigurované výchozí nastavení. Například:
+V bodě autorizace aplikace označuje obslužnou rutinu, která se má použít. Vyberte obslužnou rutinu, se kterou bude aplikace autorizována předáním seznamu schémat ověřování, které jsou odděleny čárkami `[Authorize]` . `[Authorize]`Atribut určuje schéma ověřování nebo schémata, které se mají použít bez ohledu na to, jestli je nakonfigurované výchozí nastavení. Příklad:
 
 ```csharp
 [Authorize(AuthenticationSchemes = AuthSchemes)]
@@ -128,7 +129,7 @@ public void ConfigureServices(IServiceCollection services)
 > [!NOTE]
 > U výchozího schématu ověřování je zaregistrováno pouze jedno ověření nosiče JWT `JwtBearerDefaults.AuthenticationScheme` . Další ověřování musí být registrováno pomocí jedinečného schématu ověřování.
 
-Dalším krokem je aktualizace výchozích zásad autorizace pro přijímání obou ověřovacích schémat. Například:
+Dalším krokem je aktualizace výchozích zásad autorizace pro přijímání obou ověřovacích schémat. Příklad:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

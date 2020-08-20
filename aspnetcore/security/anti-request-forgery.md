@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/anti-request-forgery
-ms.openlocfilehash: cc6f7c7e6692224f537f5eeba50b214aa84029db
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d0cce4f48151ab56774ab28eb6d89a687b3747af
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018829"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635122"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>Zabránit útokům na neCSRFelné žádosti mezi lokalitami (XSRF/) v ASP.NET Core
 
@@ -117,7 +118,7 @@ V případě, že je v nástroji volána jedna z následujících rozhraní API,
 
 ::: moniker range="< aspnetcore-3.0"
 
-K kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) se přidá middleware proti padělání, když <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> se volá v`Startup.ConfigureServices`
+K kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) se přidá middleware proti padělání, když <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> se volá v `Startup.ConfigureServices`
 
 ::: moniker-end
 
@@ -248,8 +249,8 @@ services.AddAntiforgery(options =>
 | ------ | ----------- |
 | [Cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | Určuje nastavení používané k vytvoření antipadělání cookie . |
 | [CookieDoména](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | Doména cookie . Výchozí hodnota je `null` . Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie . Domain. |
-| [CookieName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | Název procesu cookie. Pokud není nastaven, systém vygeneruje jedinečný název začínající [výchozí Cookie předponou](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) (". AspNetCore. antipadělání. "). Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie . Jméno. |
-| [CookieCesta](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cesta nastavená na cookie . Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie . Dílčí. |
+| [CookieNázev](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | Název procesu cookie. Pokud není nastaven, systém vygeneruje jedinečný název začínající [výchozí Cookie předponou](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) (". AspNetCore. antipadělání. "). Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie . Jméno. |
+| [CookieDílčí](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cesta nastavená na cookie . Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie . Dílčí. |
 | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | Název skrytého pole formuláře používaného systémem pro použití proti padělání pro vykreslování tokenů v zobrazeních. |
 | [Záhlaví](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | Název záhlaví používaného systémem pro použití proti padělání Pokud `null` systém považuje jenom formulářová data. |
 | [Vlastnost requireSSL](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | Určuje, zda je protokol HTTPS vyžadován systémem pro vypozměňování. `true`V případě selhání neproběhne požadavek bez protokolu HTTPS. Výchozí hodnota je `false` . Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je nastavena Cookie . SecurePolicy. |
@@ -261,7 +262,7 @@ Další informace najdete v tématu [ Cookie AuthenticationOptions](/dotnet/api/
 
 ## <a name="configure-antiforgery-features-with-iantiforgery"></a>Konfigurace funkcí antipadělání pomocí IAntiforgery
 
-[IAntiforgery](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgery) poskytuje rozhraní API pro konfiguraci funkcí pro antipadělání. `IAntiforgery`lze požadovat v `Configure` metodě `Startup` třídy. Následující příklad používá middleware z domovské stránky aplikace k vygenerování tokenu antipadělání a jeho odeslání v odpovědi jako cookie (pomocí výchozích úhlů pro vytváření názvů na základě standardu, které jsou popsány dále v tomto tématu):
+[IAntiforgery](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgery) poskytuje rozhraní API pro konfiguraci funkcí pro antipadělání. `IAntiforgery` lze požadovat v `Configure` metodě `Startup` třídy. Následující příklad používá middleware z domovské stránky aplikace k vygenerování tokenu antipadělání a jeho odeslání v odpovědi jako cookie (pomocí výchozích úhlů pro vytváření názvů na základě standardu, které jsou popsány dále v tomto tématu):
 
 ```csharp
 public void Configure(IApplicationBuilder app, IAntiforgery antiforgery)
@@ -491,7 +492,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Typ [IAntiForgeryAdditionalDataProvider](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider) umožňuje vývojářům roztáhnout chování systému anti-CSRF s kulatými Trip dalšími daty v každém tokenu. Metoda [GetAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.getadditionaldata) je volána při každém vygenerování tokenu pole a návratová hodnota je vložena do vygenerovaného tokenu. Implementátor by mohl vrátit časové razítko, hodnotu NONCE nebo jakoukoli jinou hodnotu a pak zavolat [ValidateAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.validateadditionaldata) , aby ověřil tato data při ověření tokenu. Uživatelské jméno klienta je již vloženo do vygenerovaných tokenů, takže není nutné tyto informace zahrnout. Pokud token zahrnuje doplňková data, ale není `IAntiForgeryAdditionalDataProvider` nakonfigurovaná, doplňují se data neověřují.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) v [otevřeném projektu webové aplikace zabezpečení](https://www.owasp.org/index.php/Main_Page) (OWASP).
 * <xref:host-and-deploy/web-farm>

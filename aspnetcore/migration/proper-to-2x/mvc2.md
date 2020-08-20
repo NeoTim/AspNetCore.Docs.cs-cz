@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/mvc2
-ms.openlocfilehash: afbc5196eaaaa402ddbf50f6330a683ee88984eb
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: bd2c33d35a3433532b48f6615a81adac8d03b9ee
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014864"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634537"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core-20"></a>Migrace z ASP.NET na ASP.NET Core 2,0
 
@@ -29,7 +30,7 @@ Od [Petr Levin](https://isaaclevin.com)
 
 Tento článek slouží jako referenční příručka pro migraci ASP.NETch aplikací na ASP.NET Core 2,0.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Nainstalujte **jednu** z následujících možností ze [souborů ke stažení pro rozhraní .NET: Windows](https://dotnet.microsoft.com/download):
 
@@ -70,7 +71,7 @@ ASP.NET Core zavádí nový mechanismus pro zavedení aplikace. Vstupním bodem 
 
 [!code-csharp[](samples/globalasax-sample.cs)]
 
-Tento přístup Couples aplikaci a server, na který je nasazený, způsobem, který je v konfliktu s implementací. Ve snaze oddělit se [Owin](https://owin.org/) zavedla k tomu, aby poskytovala čisticí způsob, jak používat víc platforem dohromady. OWIN poskytuje kanál pro přidání pouze těch potřebných modulů. Hostující prostředí přijímá [spouštěcí](xref:fundamentals/startup) funkci ke konfiguraci služeb a kanálu požadavků aplikace. `Startup`registruje sadu middlewaru s aplikací. Pro každý požadavek aplikace volá každou součást middlewaru s ukazatelem na hlavní seznam s ukazatelem na existující sadu obslužných rutin. Každá součást middleware může do kanálu zpracování požadavků přidat jednu nebo více obslužných rutin. To je dosaženo vrácením odkazu na obslužnou rutinu, která je nového záhlaví seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužné rutiny v seznamu. V ASP.NET Core je vstupním bodem aplikace `Startup` a již nemusíte mít závislost na *Global. asax*. Při použití OWIN s .NET Framework použijte jako kanál něco podobného jako v následujícím tvaru:
+Tento přístup Couples aplikaci a server, na který je nasazený, způsobem, který je v konfliktu s implementací. Ve snaze oddělit se [Owin](https://owin.org/) zavedla k tomu, aby poskytovala čisticí způsob, jak používat víc platforem dohromady. OWIN poskytuje kanál pro přidání pouze těch potřebných modulů. Hostující prostředí přijímá [spouštěcí](xref:fundamentals/startup) funkci ke konfiguraci služeb a kanálu požadavků aplikace. `Startup` registruje sadu middlewaru s aplikací. Pro každý požadavek aplikace volá každou součást middlewaru s ukazatelem na hlavní seznam s ukazatelem na existující sadu obslužných rutin. Každá součást middleware může do kanálu zpracování požadavků přidat jednu nebo více obslužných rutin. To je dosaženo vrácením odkazu na obslužnou rutinu, která je nového záhlaví seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužné rutiny v seznamu. V ASP.NET Core je vstupním bodem aplikace `Startup` a již nemusíte mít závislost na *Global. asax*. Při použití OWIN s .NET Framework použijte jako kanál něco podobného jako v následujícím tvaru:
 
 [!code-csharp[](samples/webapi-owin.cs)]
 
@@ -80,7 +81,7 @@ ASP.NET Core používá podobný přístup, ale nespoléhá na OWIN k tomu, aby 
 
 [!code-csharp[](samples/program.cs)]
 
-`Startup`musí obsahovat `Configure` metodu. Do `Configure` kanálu přidejte potřebný middleware. V následujícím příkladu (z výchozí šablony webu) se pro konfiguraci kanálu s podporou pro použít několik metod rozšíření:
+`Startup` musí obsahovat `Configure` metodu. Do `Configure` kanálu přidejte potřebný middleware. V následujícím příkladu (z výchozí šablony webu) se pro konfiguraci kanálu s podporou pro použít několik metod rozšíření:
 
 * [BrowserLink](https://vswebessentials.com/features/browserlink)
 * Chybové stránky
@@ -167,6 +168,6 @@ Například prostředek obrázku ve složce *wwwroot/images* je přístupný pro
 
 **Poznámka:** Podrobný odkaz na obsluhu statických souborů v ASP.NET Core naleznete v tématu <xref:fundamentals/static-files> .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Portování knihoven do .NET Core](/dotnet/core/porting/libraries)

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/view-components
-ms.openlocfilehash: 0c952502d58744bbbe06c92f51bd51bd547fb8ae
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 32ae699c4ef501096a9c4ab7bca6673139910f02
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020948"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635083"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazit součásti v ASP.NET Core
 
@@ -52,7 +53,7 @@ Zobrazit součásti jsou určeny kdekoli, kde máte opakovaně použitelnou logi
 
 Součást zobrazení se skládá ze dvou částí: třídy (obvykle odvozené od [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)) a výsledek, který vrátí (obvykle zobrazení). Podobně jako řadiče se může jednat o součást zobrazení POCO, ale většina vývojářů bude chtít využít metody a vlastnosti, které jsou k dispozici odvozením z `ViewComponent` .
 
-Při zvažování, zda zobrazit součásti vyhovují specifikacím aplikace, zvažte Razor místo toho použití součástí. RazorKomponenty také kombinují značky s kódem jazyka C# pro vytváření opakovaně použitelných jednotek uživatelského rozhraní. RazorKomponenty jsou navržené pro produktivitu vývojářů při poskytování logiky uživatelského rozhraní a způsobu složení na straně klienta. Další informace naleznete v tématu <xref:blazor/components/index>.
+Při zvažování, zda zobrazit součásti vyhovují specifikacím aplikace, zvažte Razor místo toho použití součástí. Razor Komponenty také kombinují značky s kódem jazyka C# pro vytváření opakovaně použitelných jednotek uživatelského rozhraní. Razor Komponenty jsou navržené pro produktivitu vývojářů při poskytování logiky uživatelského rozhraní a způsobu složení na straně klienta. Další informace naleznete v tématu <xref:blazor/components/index>.
 
 ## <a name="creating-a-view-component"></a>Vytvoření komponenty zobrazení
 
@@ -188,7 +189,7 @@ Poznámky k kódu:
 
 * `[ViewComponent]`Výše uvedený atribut oznamuje, že selektor komponent zobrazí název `PriorityList` při hledání zobrazení přidružených k komponentě a při odkazování na komponentu třídy ze zobrazení pomocí řetězce "PriorityList". Později vám ukážeme, že se dozvíte podrobněji.
 * Komponenta používá [vkládání závislostí](../../fundamentals/dependency-injection.md) k zpřístupnění kontextu dat.
-* `InvokeAsync`zpřístupní metodu, která může být volána ze zobrazení a může mít libovolný počet argumentů.
+* `InvokeAsync` zpřístupní metodu, která může být volána ze zobrazení a může mít libovolný počet argumentů.
 * `InvokeAsync`Metoda vrátí sadu `ToDo` položek, které odpovídají `isDone` `maxPriority` parametrům a.
 
 ### <a name="create-the-view-component-no-locrazor-view"></a>Vytvoření Razor zobrazení komponent
@@ -210,7 +211,7 @@ Poznámky k kódu:
 
     [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFirst.cshtml?range=34-38)]
 
-Značka `@await Component.InvokeAsync` zobrazuje syntaxi pro volání komponent zobrazení. První argument je název součásti, kterou chceme vyvolat nebo zavolat. Další parametry jsou předány do komponenty. `InvokeAsync`může mít libovolný počet argumentů.
+Značka `@await Component.InvokeAsync` zobrazuje syntaxi pro volání komponent zobrazení. První argument je název součásti, kterou chceme vyvolat nebo zavolat. Další parametry jsou předány do komponenty. `InvokeAsync` může mít libovolný počet argumentů.
 
 Otestujete aplikaci. Následující obrázek znázorňuje seznam ToDo a prioritní položky:
 
@@ -353,6 +354,6 @@ Každý parametr v součásti zobrazení je povinný atribut. Podívejte se na [
 * ViewComponent nevykresluje žádné značky.
 * Nebudou vyvolány žádné chyby.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection)

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: d2594dd05ee6d7e8e0dbd3c279ecd8783d182b62
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 41b2ce35a6910df7587af7ebabe8a4984cda6ae5
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017828"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634966"
 ---
 # <a name="part-6-no-locrazor-pages-with-ef-core-in-aspnet-core---read-related-data"></a>Část 6, Razor stránky s EF Core v souvisejících datech ASP.NET Core pro čtení
 
@@ -58,7 +59,7 @@ Existuje několik způsobů, jak může EF Core načíst související data do n
 
   **Poznámka:** EF Core automaticky opravuje navigační vlastnosti na jakékoli další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
 
-* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek odeslání více dotazů do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. `Load`K provedení explicitního načítání použijte metodu. Například:
+* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek odeslání více dotazů do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. `Load`K provedení explicitního načítání použijte metodu. Příklad:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 
@@ -117,7 +118,7 @@ Aktualizujte stránky/kurzy/index. cshtml. cs s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Index.cshtml.cs?highlight=18,22,24)]
 
-Předchozí kód změní `Course` vlastnost na `Courses` a přidá `AsNoTracking` . `AsNoTracking`zlepšuje výkon, protože vracené entity nejsou sledovány. Entity není nutné sledovat, protože nejsou aktualizovány v aktuálním kontextu.
+Předchozí kód změní `Course` vlastnost na `Courses` a přidá `AsNoTracking` . `AsNoTracking` zlepšuje výkon, protože vracené entity nejsou sledovány. Entity není nutné sledovat, protože nejsou aktualizovány v aktuálním kontextu.
 
 Aktualizovat *stránky/kurzy/index. cshtml* pomocí následujícího kódu.
 
@@ -235,7 +236,7 @@ Následující kód se spustí při výběru instruktora ( `id != null` ).
 
 Vybraný instruktor se načte ze seznamu instruktorů v modelu zobrazení. Vlastnost modelu zobrazení `Courses` je načtena s `Course` entitami z vlastnosti navigace tohoto instruktora `CourseAssignments` .
 
-`Where`Metoda vrátí kolekci. Ale v tomto případě filtr vybere jednu entitu, takže se `Single` zavolá metoda, která kolekci převede na jedinou `Instructor` entitu. `Instructor`Entita poskytuje přístup k `CourseAssignments` Vlastnosti. `CourseAssignments`poskytuje přístup k souvisejícím `Course` entitám.
+`Where`Metoda vrátí kolekci. Ale v tomto případě filtr vybere jednu entitu, takže se `Single` zavolá metoda, která kolekci převede na jedinou `Instructor` entitu. `Instructor`Entita poskytuje přístup k `CourseAssignments` Vlastnosti. `CourseAssignments` poskytuje přístup k souvisejícím `Course` entitám.
 
 ![M:M instruktory do kurzů](complex-data-model/_static/courseassignment.png)
 
@@ -253,7 +254,7 @@ Aktualizovat *stránky/instruktory/index. cshtml* pomocí následujícího kódu
 
 Předchozí kód provede následující změny:
 
-* Aktualizuje `page` direktivu z `@page` na `@page "{id:int?}"` . `"{id:int?}"`je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze `@page` direktivu, se vytvoří adresa URL jako následující:
+* Aktualizuje `page` direktivu z `@page` na `@page "{id:int?}"` . `"{id:int?}"` je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze `@page` direktivu, se vytvoří adresa URL jako následující:
 
   `https://localhost:5001/Instructors?id=2`
 
@@ -371,7 +372,7 @@ Existuje několik způsobů, jak může EF Core načíst související data do n
 
   Poznámka: EF Core automaticky opravuje navigační vlastnosti pro všechny další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
 
-* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek více dotazů odeslaných do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. `Load`K provedení explicitního načítání použijte metodu. Například:
+* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek více dotazů odeslaných do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. `Load`K provedení explicitního načítání použijte metodu. Příklad:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 
@@ -418,7 +419,7 @@ Aktualizujte `OnGetAsync` metodu následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Index.cshtml.cs?name=snippet_RevisedIndexMethod)]
 
-Předchozí kód přidá `AsNoTracking` . `AsNoTracking`zlepšuje výkon, protože vracené entity nejsou sledovány. Entity nejsou sledovány, protože nejsou aktualizovány v aktuálním kontextu.
+Předchozí kód přidá `AsNoTracking` . `AsNoTracking` zlepšuje výkon, protože vracené entity nejsou sledovány. Entity nejsou sledovány, protože nejsou aktualizovány v aktuálním kontextu.
 
 Aktualizovat *stránky/kurzy/index. cshtml* pomocí následujícího zvýrazněného označení:
 
@@ -521,7 +522,7 @@ Aktualizovat *stránky/instruktory/index. cshtml* pomocí následujícího kódu
 
 Předchozí kód provede následující změny:
 
-* Aktualizuje `page` direktivu z `@page` na `@page "{id:int?}"` . `"{id:int?}"`je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze `@page` direktivu, se vytvoří adresa URL jako následující:
+* Aktualizuje `page` direktivu z `@page` na `@page "{id:int?}"` . `"{id:int?}"` je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze `@page` direktivu, se vytvoří adresa URL jako následující:
 
   `http://localhost:1234/Instructors?id=2`
 
@@ -568,7 +569,7 @@ Aktualizujte `OnGetAsync` metodu na *stránkách/instruktorech/index. cshtml. cs
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_OnGetAsync&highlight=1,8,16-999)]
 
-Přidávání`public int CourseID { get; set; }`
+Přidávání `public int CourseID { get; set; }`
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_1&highlight=12)]
 
@@ -582,7 +583,7 @@ Následující kód se spustí při výběru instruktora ( `id != null` ). Vybra
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_ID)]
 
-`Where`Metoda vrátí kolekci. V předchozí `Where` metodě `Instructor` se vrátí jenom jedna entita. `Single`Metoda převede kolekci na jednu `Instructor` entitu. `Instructor`Entita poskytuje přístup k `CourseAssignments` Vlastnosti. `CourseAssignments`poskytuje přístup k souvisejícím `Course` entitám.
+`Where`Metoda vrátí kolekci. V předchozí `Where` metodě `Instructor` se vrátí jenom jedna entita. `Single`Metoda převede kolekci na jednu `Instructor` entitu. `Instructor`Entita poskytuje přístup k `CourseAssignments` Vlastnosti. `CourseAssignments` poskytuje přístup k souvisejícím `Course` entitám.
 
 ![M:M instruktory do kurzů](complex-data-model/_static/courseassignment.png)
 
@@ -652,7 +653,7 @@ Otestujete aplikaci. V perspektivě uživatelů se aplikace chová stejně jako 
 
 V dalším kurzu se dozvíte, jak aktualizovat související data.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze tohoto kurzu pro YouTube (part1)](https://www.youtube.com/watch?v=PzKimUDmrvE)
 * [Verze tohoto kurzu pro YouTube (Část2)](https://www.youtube.com/watch?v=xvDDrIHv5ko)

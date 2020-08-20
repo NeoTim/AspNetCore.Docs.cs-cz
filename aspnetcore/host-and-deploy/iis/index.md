@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/7/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 0594303f3ae8c57a0a7776900e6b2a6781c919db
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 1338ecd6205a351b54a58522b1713a6d70e2d22a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015826"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634745"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostování ASP.NET Core ve Windows se službou IIS
 
@@ -50,7 +51,7 @@ Podporovány jsou následující operační systémy:
 * Windows 7 nebo novější
 * Windows Server 2012 R2 nebo novější
 
-[ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru pomocí služby IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
+[ ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru pomocí služby IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
 
 Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-apps/index> .
 
@@ -98,7 +99,7 @@ Poté, co server HTTP služby IIS zpracuje požadavek:
 
 Hostování v procesu je výslovný souhlas pro existující aplikace. Webové šablony ASP.NET Core používají model hostování v rámci procesu.
 
-`CreateDefaultBuilder`přidá <xref:Microsoft.AspNetCore.Hosting.Server.IServer> instanci voláním <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> metody pro spuštění [CoreCLR](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*w3wp.exe* nebo *iisexpress.exe*). Testy výkonu označují, že hostování aplikace .NET Core v rámci procesu přináší výrazně vyšší propustnost žádostí v porovnání s hostováním aplikace mimo proces a požadavky na proxy server do [Kestrel](xref:fundamentals/servers/kestrel).
+`CreateDefaultBuilder` přidá <xref:Microsoft.AspNetCore.Hosting.Server.IServer> instanci voláním <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> metody pro spuštění [CoreCLR](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*w3wp.exe* nebo *iisexpress.exe*). Testy výkonu označují, že hostování aplikace .NET Core v rámci procesu přináší výrazně vyšší propustnost žádostí v porovnání s hostováním aplikace mimo proces a požadavky na proxy server do [Kestrel](xref:fundamentals/servers/kestrel).
 
 Aplikace publikované jako spustitelný soubor s jedním souborem nejde načíst pomocí modelu hostování v rámci procesu.
 
@@ -486,7 +487,7 @@ Konfigurace služby IIS má vliv na `<system.webServer>` část *web.config* pro
 
 Další informace najdete v následujících tématech:
 
-* [Odkaz na konfiguraci pro\<system.webServer>](/iis/configuration/system.webServer/)
+* [Odkaz na konfiguraci pro \<system.webServer>](/iis/configuration/system.webServer/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
 
@@ -512,7 +513,7 @@ Izolaci fondu aplikací určuje model hostování:
 
 Dialogové okno **Přidat web** do služby IIS je ve výchozím nastavení nastaveno na jeden fond aplikací na aplikaci. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
-## <a name="application-pool-no-locidentity"></a>Fond aplikacíIdentity
+## <a name="application-pool-no-locidentity"></a>Fond aplikací Identity
 
 Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na **použití Identity applicationPool**:
 
@@ -530,7 +531,7 @@ Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, up
 
 1. Vyberte tlačítko **umístění** a ujistěte se, že je vybraný systém.
 
-1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte ** \\<app_pool_name služby IIS AppPool>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte ** \\<APP_POOL_NAME>formátu IIS AppPool** .
+1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte ** \\<app_pool_name služby IIS AppPool>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte ** \\<APP_POOL_NAME>formátu IIS AppPool ** .
 
    ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: název fondu aplikací "DefaultAppPool" se připojí k "rozhraní IIS AppPool" \" v oblasti názvy objektů před výběrem "kontrolovat jména".](index/_static/select-users-or-groups-1.png)
 
@@ -656,7 +657,7 @@ Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-m
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:index>
@@ -680,7 +681,7 @@ Podporovány jsou následující operační systémy:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru pomocí služby IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
+[ ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru pomocí služby IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
 
 Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-apps/index> .
 
@@ -725,7 +726,7 @@ Poté, co server HTTP služby IIS požadavek zpracuje, je požadavek vložen do 
 
 Vnitroprocesové hostování v rámci procesu je výslovný souhlas pro existující aplikace, ale [dotnet nové](/dotnet/core/tools/dotnet-new) šablony jsou výchozí pro všechny scénáře hostování v rámci procesu pro všechny služby IIS a IIS Express.
 
-`CreateDefaultBuilder`přidá <xref:Microsoft.AspNetCore.Hosting.Server.IServer> instanci voláním <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> metody pro spuštění [CoreCLR](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*w3wp.exe* nebo *iisexpress.exe*). Testy výkonu označují, že hostování aplikace .NET Core v rámci procesu přináší výrazně vyšší propustnost žádostí v porovnání s hostováním aplikací mimo proces a požadavky na proxy serveru na [Kestrel](xref:fundamentals/servers/kestrel) Server.
+`CreateDefaultBuilder` přidá <xref:Microsoft.AspNetCore.Hosting.Server.IServer> instanci voláním <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> metody pro spuštění [CoreCLR](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*w3wp.exe* nebo *iisexpress.exe*). Testy výkonu označují, že hostování aplikace .NET Core v rámci procesu přináší výrazně vyšší propustnost žádostí v porovnání s hostováním aplikací mimo proces a požadavky na proxy serveru na [Kestrel](xref:fundamentals/servers/kestrel) Server.
 
 ### <a name="out-of-process-hosting-model"></a>Model hostování mimo proces
 
@@ -1086,7 +1087,7 @@ Konfigurace služby IIS má vliv na `<system.webServer>` část *web.config* pro
 
 Další informace najdete v následujících tématech:
 
-* [Odkaz na konfiguraci pro\<system.webServer>](/iis/configuration/system.webServer/)
+* [Odkaz na konfiguraci pro \<system.webServer>](/iis/configuration/system.webServer/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
 
@@ -1112,7 +1113,7 @@ Izolaci fondu aplikací určuje model hostování:
 
 Dialogové okno **Přidat web** do služby IIS je ve výchozím nastavení nastaveno na jeden fond aplikací na aplikaci. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
-## <a name="application-pool-no-locidentity"></a>Fond aplikacíIdentity
+## <a name="application-pool-no-locidentity"></a>Fond aplikací Identity
 
 Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na **použití Identity applicationPool**:
 
@@ -1130,7 +1131,7 @@ Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, up
 
 1. Vyberte tlačítko **umístění** a ujistěte se, že je vybraný systém.
 
-1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte ** \\<app_pool_name služby IIS AppPool>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte ** \\<APP_POOL_NAME>formátu IIS AppPool** .
+1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte ** \\<app_pool_name služby IIS AppPool>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte ** \\<APP_POOL_NAME>formátu IIS AppPool ** .
 
    ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: název fondu aplikací "DefaultAppPool" se připojí k "rozhraní IIS AppPool" \" v oblasti názvy objektů před výběrem "kontrolovat jména".](index/_static/select-users-or-groups-1.png)
 
@@ -1256,7 +1257,7 @@ Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-m
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:index>
@@ -1280,7 +1281,7 @@ Podporovány jsou následující operační systémy:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru pomocí služby IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
+[ ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru pomocí služby IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
 
 Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-apps/index> .
 
@@ -1312,9 +1313,9 @@ Modul Určuje port prostřednictvím proměnné prostředí při spuštění a [
 
 Po Kestrel žádosti z modulu se požadavek odešle do kanálu middlewaru ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Middleware přidaný integrací služby IIS: aktualizace schématu, vzdálené IP adresy a pathbase pro přesměrování požadavku do Kestrel. Odpověď aplikace se předává zpátky do služby IIS, která ji přenáší zpátky do klienta HTTP, který žádost inicioval.
 
-`CreateDefaultBuilder`nakonfiguruje server [Kestrel](xref:fundamentals/servers/kestrel) jako webový server a povolí integraci služby IIS konfigurací základní cesty a portu pro [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module).
+`CreateDefaultBuilder` nakonfiguruje server [Kestrel](xref:fundamentals/servers/kestrel) jako webový server a povolí integraci služby IIS konfigurací základní cesty a portu pro [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module).
 
-Modul ASP.NET Core generuje dynamický port, který se přiřadí back-end procesu. `CreateDefaultBuilder`volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> metodu. `UseIISIntegration`Konfiguruje Kestrel k naslouchání na dynamickém portu na IP adrese místního hostitele ( `127.0.0.1` ). Pokud je dynamický port 1234, Kestrel naslouchá na `127.0.0.1:1234` . Tato konfigurace nahrazuje jiné konfigurace adres URL, které poskytl:
+Modul ASP.NET Core generuje dynamický port, který se přiřadí back-end procesu. `CreateDefaultBuilder` volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> metodu. `UseIISIntegration` Konfiguruje Kestrel k naslouchání na dynamickém portu na IP adrese místního hostitele ( `127.0.0.1` ). Pokud je dynamický port 1234, Kestrel naslouchá na `127.0.0.1:1234` . Tato konfigurace nahrazuje jiné konfigurace adres URL, které poskytl:
 
 * `UseUrls`
 * [Rozhraní API pro naslouchání Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration)
@@ -1687,7 +1688,7 @@ Konfigurace služby IIS má vliv na `<system.webServer>` část *web.config* pro
 
 Další informace najdete v následujících tématech:
 
-* [Odkaz na konfiguraci pro\<system.webServer>](/iis/configuration/system.webServer/)
+* [Odkaz na konfiguraci pro \<system.webServer>](/iis/configuration/system.webServer/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
 
@@ -1708,7 +1709,7 @@ Aplikace ASP.NET Core jsou nakonfigurovány pomocí jiných poskytovatelů konfi
 
 Při hostování více webů na serveru doporučujeme vzájemně izolovat aplikace tím, že spustíte každou aplikaci ve svém vlastním fondu aplikací. Do této konfigurace se nastaví dialogové okno **Přidat web** do služby IIS. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
-## <a name="application-pool-no-locidentity"></a>Fond aplikacíIdentity
+## <a name="application-pool-no-locidentity"></a>Fond aplikací Identity
 
 Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byl **Identity** nastaven na **použití Identity applicationPool**:
 
@@ -1726,7 +1727,7 @@ Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, up
 
 1. Vyberte tlačítko **umístění** a ujistěte se, že je vybraný systém.
 
-1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte ** \\<app_pool_name služby IIS AppPool>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte ** \\<APP_POOL_NAME>formátu IIS AppPool** .
+1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte ** \\<app_pool_name služby IIS AppPool>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte ** \\<APP_POOL_NAME>formátu IIS AppPool ** .
 
    ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: název fondu aplikací "DefaultAppPool" se připojí k "rozhraní IIS AppPool" \" v oblasti názvy objektů před výběrem "kontrolovat jména".](index/_static/select-users-or-groups-1.png)
 
@@ -1774,7 +1775,7 @@ Pro ASP.NET Core aplikaci, která cílí na .NET Framework, požadavky na možno
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:index>

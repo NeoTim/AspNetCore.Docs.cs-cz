@@ -5,6 +5,7 @@ description: Tento článek představuje přenosné objektové soubory a popisuj
 ms.author: scaddie
 ms.date: 09/26/2017
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/portable-object-localization
-ms.openlocfilehash: 1c60f98ce08c5282986f688487339d378f28aaf7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 3919909067593a93384661b37d67bf2d90cd7df8
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016801"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634524"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>Konfigurace lokalizace přenosných objektů v ASP.NET Core
 
@@ -77,7 +78,7 @@ Tento příklad je založen na ASP.NET Core aplikaci MVC vygenerovanou šablonou
 
 ### <a name="referencing-the-package"></a>Odkazování na balíček
 
-Přidejte odkaz na `OrchardCore.Localization.Core` balíček NuGet. Je k dispozici na [MyGet](https://www.myget.org/) v následujícím zdroji balíčku:https://www.myget.org/F/orchardcore-preview/api/v3/index.json
+Přidejte odkaz na `OrchardCore.Localization.Core` balíček NuGet. Je k dispozici na [MyGet](https://www.myget.org/) v následujícím zdroji balíčku: https://www.myget.org/F/orchardcore-preview/api/v3/index.json
 
 Soubor *. csproj* nyní obsahuje řádek podobný následujícímu (číslo verze se může lišit):
 

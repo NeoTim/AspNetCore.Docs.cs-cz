@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/index
-ms.openlocfilehash: f141e9248a702ad9a1d9737f82543a0ccc8fb573
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8fa44f567906ecf36a9bbaa5076cd36c75c10781
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017204"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634875"
 ---
 # <a name="aspnet-core-fundamentals"></a>Základy ASP.NET Core
 
@@ -47,7 +48,7 @@ Další informace naleznete v tématu <xref:fundamentals/startup>.
 
 ASP.NET Core obsahuje integrovanou platformu pro vkládání závislostí (DI), která zpřístupňuje nakonfigurované služby v celé aplikaci. Komponenta protokolování je například služba.
 
-Do metody se přidá kód pro konfiguraci (nebo *registrování*) služeb `Startup.ConfigureServices` . Například:
+Do metody se přidá kód pro konfiguraci (nebo *registrování*) služeb `Startup.ConfigureServices` . Příklad:
 
 [!code-csharp[](index/samples_snapshot/3.x/ConfigureServices.cs)]
 
@@ -81,7 +82,7 @@ Při spuštění aplikace ASP.NET Core vytvoří *hostitele*. Hostitel zapouzdř
 
 * Implementace HTTP serveru
 * Komponenty middlewaru
-* protokolování
+* Protokolování
 * Služby pro vkládání závislostí (DI)
 * Konfigurace
 
@@ -154,7 +155,7 @@ Následující příklad nakonfiguruje aplikaci tak, aby při spuštění v pros
 
 Další informace naleznete v tématu <xref:fundamentals/environments>.
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 ASP.NET Core podporuje protokolovací rozhraní API, které funguje s řadou integrovaných poskytovatelů protokolování a jiných výrobců. Mezi dostupné zprostředkovatele patří:
 
@@ -166,7 +167,7 @@ ASP.NET Core podporuje protokolovací rozhraní API, které funguje s řadou int
 * Azure App Service
 * Azure Application Insights
 
-Chcete-li vytvořit protokoly, vyřešte <xref:Microsoft.Extensions.Logging.ILogger%601> službu z vkládání závislostí (di) a metody protokolování volání jako <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation*> . Například:
+Chcete-li vytvořit protokoly, vyřešte <xref:Microsoft.Extensions.Logging.ILogger%601> službu z vkládání závislostí (di) a metody protokolování volání jako <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation*> . Příklad:
 
 [!code-csharp[](index/samples_snapshot/3.x/TodoController.cs?highlight=5,13,19)]
 
@@ -210,7 +211,7 @@ Kořen obsahu je základní cesta pro:
 * Spustitelný soubor, který hostuje aplikaci (*. exe*).
 * Kompilovaná sestavení, která tvoří aplikaci (*. dll*).
 * Soubory obsahu používané aplikací, jako například:
-  * Razorsoubory (*. cshtml*, *. Razor*)
+  * Razor soubory (*. cshtml*, *. Razor*)
   * Konfigurační soubory (*. JSON*, *. XML*)
   * Datové soubory (*. DB*)
 * [Kořenový adresář webu](#web-root), obvykle složka *wwwroot* .
@@ -294,7 +295,7 @@ Aplikace ASP.NET Core při spuštění vytvoří *hostitele* . Hostitel je objek
 
 * Implementace HTTP serveru
 * Komponenty middlewaru
-* protokolování
+* Protokolování
 * DŽI
 * Konfigurace
 
@@ -401,7 +402,7 @@ Následující vzorový kód z `Startup` třídy nakonfiguruje aplikaci tak, aby
 
 Další informace naleznete v tématu <xref:fundamentals/environments>.
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 ASP.NET Core podporuje protokolovací rozhraní API, které funguje s řadou integrovaných poskytovatelů protokolování a jiných výrobců. K dispozici jsou následující poskytovatelé:
 
@@ -459,7 +460,7 @@ Kořen obsahu je základní cesta k:
 * Spustitelný soubor, který hostuje aplikaci (*. exe*).
 * Kompilovaná sestavení, která tvoří aplikaci (*. dll*).
 * Soubory s obsahem neobsahující kód, které používá aplikace, například:
-  * Razorsoubory (*. cshtml*, *. Razor*)
+  * Razor soubory (*. cshtml*, *. Razor*)
   * Konfigurační soubory (*. JSON*, *. XML*)
   * Datové soubory (*. DB*)
 * [Webový kořenový adresář](#web-root), obvykle publikovaná složka *wwwroot* .

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/03/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/file-uploads
-ms.openlocfilehash: a11e6325143b9db57d6fbd1cd67478dc1dd6122d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 93ffa3a5313e63a1e9b98fb5bf9788944254213f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021247"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635213"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -34,7 +35,7 @@ ASP.NET Core podporuje nahrávání jednoho nebo více souborů pomocí vazby mo
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="security-considerations"></a>Důležité informace o zabezpečení
+## <a name="security-considerations"></a>Aspekty zabezpečení
 
 Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďte opatrní. Útočníci se můžou pokusit:
 
@@ -111,7 +112,7 @@ Prostředky (disk, paměť) používané při nahrávání souborů závisí na 
 Ukládání malých souborů do vyrovnávací paměti je popsáno v následujících částech tohoto tématu:
 
 * [Fyzické úložiště](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [Database](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [Databáze](#upload-small-files-with-buffered-model-binding-to-a-database)
 
 **Streamování**
 
@@ -193,7 +194,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Například:
+* Použijte `XMLHttpRequest`. Příklad:
 
   ```javascript
   <script>
@@ -238,8 +239,8 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 >
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Důležité informace o zabezpečení](#security-considerations)
-> * [Export](#validation)
+> * [Aspekty zabezpečení](#security-considerations)
+> * [Ověřování](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
@@ -348,7 +349,7 @@ public class BufferedSingleFileUploadDb
 ```
 
 > [!NOTE]
-> <xref:Microsoft.AspNetCore.Http.IFormFile>lze ji použít přímo jako parametr metody akce nebo jako vlastnost vázaného modelu. Předchozí příklad používá vlastnost vázaného modelu.
+> <xref:Microsoft.AspNetCore.Http.IFormFile> lze ji použít přímo jako parametr metody akce nebo jako vlastnost vázaného modelu. Předchozí příklad používá vlastnost vázaného modelu.
 
 `FileUpload`Je použit ve Razor formuláři stránky:
 
@@ -409,8 +410,8 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 >
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Důležité informace o zabezpečení](#security-considerations)
-> * [Export](#validation)
+> * [Aspekty zabezpečení](#security-considerations)
+> * [Ověřování](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
@@ -434,7 +435,7 @@ Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou 
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadDatabase)]
 
-`MultipartRequestHelper`(*Nástroje/MultipartRequestHelper. cs*):
+`MultipartRequestHelper` (*Nástroje/MultipartRequestHelper. cs*):
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Utilities/MultipartRequestHelper.cs)]
 
@@ -444,7 +445,7 @@ Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou 
 
 V ukázkové aplikaci jsou kontroly ověřování zpracovávány nástrojem `FileHelpers.ProcessStreamedFile` .
 
-## <a name="validation"></a>Ověřování vstupů (validace)
+## <a name="validation"></a>Ověřování
 
 Třída ukázkové aplikace `FileHelpers` ukazuje několik kontrol ukládání souborů do vyrovnávací paměti <xref:Microsoft.AspNetCore.Http.IFormFile> a datových proudů při nahrávání. Informace o zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci naleznete v `ProcessFormFile` metodě v souboru *Utilities/Helper. cs* . Pro zpracování streamované soubory se podívejte na `ProcessStreamedFile` metodu ve stejném souboru.
 
@@ -466,7 +467,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -512,7 +513,7 @@ Další signatury souborů získáte v dokumentaci [signatury souborů](https://
 
 Nikdy nepoužívejte název souboru dodaný klientem pro uložení souboru do fyzického úložiště. Vytvořte bezpečný název souboru pro soubor pomocí [cesty. GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) nebo [cesty. GetTempFileName](xref:System.IO.Path.GetTempFileName*) a vytvořte úplnou cestu (včetně názvu souboru) pro dočasné úložiště.
 
-RazorAutomatické kódování HTML kóduje hodnoty vlastností pro zobrazení. Následující kód je bezpečné použít:
+Razor Automatické kódování HTML kóduje hodnoty vlastností pro zobrazení. Následující kód je bezpečné použít:
 
 ```cshtml
 @foreach (var file in Model.DatabaseFiles) {
@@ -605,7 +606,7 @@ Pro parametr metody jazyka C# () použijte stejný název `battlePlans` :
 
 ### <a name="multipart-body-length-limit"></a>Omezení délky těla částí
 
-<xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>nastaví limit délky jednotlivých částí části. Oddíly formuláře, které překračují toto omezení, vyvolávají <xref:System.IO.InvalidDataException> při analýze. Výchozí hodnota je 134 217 728 (128 MB). Upravte limit pomocí <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastavení v `Startup.ConfigureServices` :
+<xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastaví limit délky jednotlivých částí části. Oddíly formuláře, které překračují toto omezení, vyvolávají <xref:System.IO.InvalidDataException> při analýze. Výchozí hodnota je 134 217 728 (128 MB). Upravte limit pomocí <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastavení v `Startup.ConfigureServices` :
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -618,7 +619,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute>slouží k nastavení <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> pro jednu stránku nebo akci.
+<xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> slouží k nastavení <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> pro jednu stránku nebo akci.
 
 V Razor aplikaci Pages použijte filtr s [konvencí](xref:razor-pages/razor-pages-conventions) v nástroji `Startup.ConfigureServices` :
 
@@ -665,7 +666,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-<xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute>slouží k nastavení [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) pro jednu stránku nebo akci.
+<xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> slouží k nastavení [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) pro jednu stránku nebo akci.
 
 V Razor aplikaci Pages použijte filtr s [konvencí](xref:razor-pages/razor-pages-conventions) v nástroji `Startup.ConfigureServices` :
 
@@ -761,7 +762,7 @@ ASP.NET Core podporuje nahrávání jednoho nebo více souborů pomocí vazby mo
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="security-considerations"></a>Důležité informace o zabezpečení
+## <a name="security-considerations"></a>Aspekty zabezpečení
 
 Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďte opatrní. Útočníci se můžou pokusit:
 
@@ -838,7 +839,7 @@ Prostředky (disk, paměť) používané při nahrávání souborů závisí na 
 Ukládání malých souborů do vyrovnávací paměti je popsáno v následujících částech tohoto tématu:
 
 * [Fyzické úložiště](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [Database](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [Databáze](#upload-small-files-with-buffered-model-binding-to-a-database)
 
 **Streamování**
 
@@ -920,7 +921,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Například:
+* Použijte `XMLHttpRequest`. Příklad:
 
   ```javascript
   <script>
@@ -965,8 +966,8 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 >
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Důležité informace o zabezpečení](#security-considerations)
-> * [Export](#validation)
+> * [Aspekty zabezpečení](#security-considerations)
+> * [Ověřování](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
@@ -1075,7 +1076,7 @@ public class BufferedSingleFileUploadDb
 ```
 
 > [!NOTE]
-> <xref:Microsoft.AspNetCore.Http.IFormFile>lze ji použít přímo jako parametr metody akce nebo jako vlastnost vázaného modelu. Předchozí příklad používá vlastnost vázaného modelu.
+> <xref:Microsoft.AspNetCore.Http.IFormFile> lze ji použít přímo jako parametr metody akce nebo jako vlastnost vázaného modelu. Předchozí příklad používá vlastnost vázaného modelu.
 
 `FileUpload`Je použit ve Razor formuláři stránky:
 
@@ -1136,8 +1137,8 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 >
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Důležité informace o zabezpečení](#security-considerations)
-> * [Export](#validation)
+> * [Aspekty zabezpečení](#security-considerations)
+> * [Ověřování](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
@@ -1161,7 +1162,7 @@ Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou 
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadDatabase)]
 
-`MultipartRequestHelper`(*Nástroje/MultipartRequestHelper. cs*):
+`MultipartRequestHelper` (*Nástroje/MultipartRequestHelper. cs*):
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Utilities/MultipartRequestHelper.cs)]
 
@@ -1171,7 +1172,7 @@ Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou 
 
 V ukázkové aplikaci jsou kontroly ověřování zpracovávány nástrojem `FileHelpers.ProcessStreamedFile` .
 
-## <a name="validation"></a>Ověřování vstupů (validace)
+## <a name="validation"></a>Ověřování
 
 Třída ukázkové aplikace `FileHelpers` ukazuje několik kontrol ukládání souborů do vyrovnávací paměti <xref:Microsoft.AspNetCore.Http.IFormFile> a datových proudů při nahrávání. Informace o zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci naleznete v `ProcessFormFile` metodě v souboru *Utilities/Helper. cs* . Pro zpracování streamované soubory se podívejte na `ProcessStreamedFile` metodu ve stejném souboru.
 
@@ -1193,7 +1194,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -1239,7 +1240,7 @@ Další signatury souborů získáte v dokumentaci [signatury souborů](https://
 
 Nikdy nepoužívejte název souboru dodaný klientem pro uložení souboru do fyzického úložiště. Vytvořte bezpečný název souboru pro soubor pomocí [cesty. GetRandomFileName](xref:System.IO.Path.GetRandomFileName*) nebo [cesty. GetTempFileName](xref:System.IO.Path.GetTempFileName*) a vytvořte úplnou cestu (včetně názvu souboru) pro dočasné úložiště.
 
-RazorAutomatické kódování HTML kóduje hodnoty vlastností pro zobrazení. Následující kód je bezpečné použít:
+Razor Automatické kódování HTML kóduje hodnoty vlastností pro zobrazení. Následující kód je bezpečné použít:
 
 ```cshtml
 @foreach (var file in Model.DatabaseFiles) {
@@ -1332,7 +1333,7 @@ Pro parametr metody jazyka C# () použijte stejný název `battlePlans` :
 
 ### <a name="multipart-body-length-limit"></a>Omezení délky těla částí
 
-<xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit>nastaví limit délky jednotlivých částí části. Oddíly formuláře, které překračují toto omezení, vyvolávají <xref:System.IO.InvalidDataException> při analýze. Výchozí hodnota je 134 217 728 (128 MB). Upravte limit pomocí <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastavení v `Startup.ConfigureServices` :
+<xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastaví limit délky jednotlivých částí části. Oddíly formuláře, které překračují toto omezení, vyvolávají <xref:System.IO.InvalidDataException> při analýze. Výchozí hodnota je 134 217 728 (128 MB). Upravte limit pomocí <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastavení v `Startup.ConfigureServices` :
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -1345,7 +1346,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute>slouží k nastavení <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> pro jednu stránku nebo akci.
+<xref:Microsoft.AspNetCore.Mvc.RequestFormLimitsAttribute> slouží k nastavení <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> pro jednu stránku nebo akci.
 
 V Razor aplikaci Pages použijte filtr s [konvencí](xref:razor-pages/razor-pages-conventions) v nástroji `Startup.ConfigureServices` :
 
@@ -1391,7 +1392,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-<xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute>slouží k nastavení [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) pro jednu stránku nebo akci.
+<xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> slouží k nastavení [MaxRequestBodySize](xref:fundamentals/servers/kestrel#maximum-request-body-size) pro jednu stránku nebo akci.
 
 V Razor aplikaci Pages použijte filtr s [konvencí](xref:razor-pages/razor-pages-conventions) v nástroji `Startup.ConfigureServices` :
 
@@ -1478,7 +1479,7 @@ Příklady v tomto tématu <xref:System.IO.MemoryStream> se spoléhají na uchov
 ::: moniker-end
 
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Vyprazdňování žádosti o připojení HTTP](xref:fundamentals/servers/kestrel#http11-request-draining)
 * [Neomezená nahrávání souboru](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)

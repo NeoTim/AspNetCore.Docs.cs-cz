@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/02/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/jsonpatch
-ms.openlocfilehash: 09da557d678889ba16abe6f9af40ae1b33583d8b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e57c5185323305ccbef7960653c9174931e45d75
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022365"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635395"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>JsonPatch v ASP.NET Core Web API
 
@@ -36,7 +37,7 @@ Tento článek vysvětluje, jak zpracovat žádosti o opravu JSON ve ASP.NET Cor
 Pokud chcete ve své aplikaci povolit podporu oprav JSON, proveďte následující kroky:
 
 1. Nainstalujte [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) balíček NuGet.
-1. Aktualizujte metodu projektu `Startup.ConfigureServices` pro volání <xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*> . Například:
+1. Aktualizujte metodu projektu `Startup.ConfigureServices` pro volání <xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*> . Příklad:
 
     ```csharp
     services
@@ -44,7 +45,7 @@ Pokud chcete ve své aplikaci povolit podporu oprav JSON, proveďte následujíc
         .AddNewtonsoftJson();
     ```
 
-`AddNewtonsoftJson`je kompatibilní s metodami registrace služby MVC:
+`AddNewtonsoftJson` je kompatibilní s metodami registrace služby MVC:
 
 * <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddRazorPages*>
 * <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews*>
@@ -52,7 +53,7 @@ Pokud chcete ve své aplikaci povolit podporu oprav JSON, proveďte následujíc
 
 ## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>Oprava JSON, AddNewtonsoftJson a System.Text.Js
 
-`AddNewtonsoftJson`nahradí `System.Text.Json` vstupní a výstupní formátovací moduly používané pro formátování **veškerého** obsahu JSON. Chcete-li přidat podporu pro opravu JSON pomocí příkazu `Newtonsoft.Json` , zatímco ostatní formátovací moduly zůstaly beze změny, aktualizujte `Startup.ConfigureServices` metodu projektu následujícím způsobem:
+`AddNewtonsoftJson` nahradí `System.Text.Json` vstupní a výstupní formátovací moduly používané pro formátování **veškerého** obsahu JSON. Chcete-li přidat podporu pro opravu JSON pomocí příkazu `Newtonsoft.Json` , zatímco ostatní formátovací moduly zůstaly beze změny, aktualizujte `Startup.ConfigureServices` metodu projektu následujícím způsobem:
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet)]
 
@@ -253,12 +254,12 @@ Následující ukázkový dokument opravy nemá žádný vliv, pokud je původn�
 
 Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
 
-* Adresa URL`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
-* Metoda HTTP:`PATCH`
-* Hlaviček`Content-Type: application/json-patch+json`
+* Adresa URL `http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
+* Metoda HTTP: `PATCH`
+* Hlaviček `Content-Type: application/json-patch+json`
 * Tělo: Zkopírujte a vložte jeden ze vzorků dokumentů opravy JSON ze složky projektu *JSON* .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [IETF RFC 5789 – specifikace metody opravy](https://tools.ietf.org/html/rfc5789)
 * [Specifikace opravy JSON pro IETF RFC 6902](https://tools.ietf.org/html/rfc6902)
@@ -465,12 +466,12 @@ Následující ukázkový dokument opravy nemá žádný vliv, pokud je původn�
 
 Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
 
-* Adresa URL`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
-* Metoda HTTP:`PATCH`
-* Hlaviček`Content-Type: application/json-patch+json`
+* Adresa URL `http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
+* Metoda HTTP: `PATCH`
+* Hlaviček `Content-Type: application/json-patch+json`
 * Tělo: Zkopírujte a vložte jeden ze vzorků dokumentů opravy JSON ze složky projektu *JSON* .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [IETF RFC 5789 – specifikace metody opravy](https://tools.ietf.org/html/rfc5789)
 * [Specifikace opravy JSON pro IETF RFC 6902](https://tools.ietf.org/html/rfc6902)

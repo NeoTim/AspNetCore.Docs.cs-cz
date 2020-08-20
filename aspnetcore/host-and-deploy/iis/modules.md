@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: c526fc779d778cd0f99bcdaae283b6a5a0fe09ab
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7ddc1b0f80625fbc39ac49f305f745b005cbce46
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015605"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634667"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>Moduly IIS s ASP.NET Core
 
@@ -34,38 +35,38 @@ Tato tabulka uvádí nativní moduly služby IIS, které jsou funkční s ASP.NE
 
 | Modul | Funkce ASP.NET Corech aplikací | Možnost ASP.NET Core |
 | --- | :---: | --- |
-| **Anonymní ověřování**<br>`AnonymousAuthenticationModule`                                  | Ano | |
-| **Základní ověření**<br>`BasicAuthenticationModule`                                          | Ano | |
-| **Ověřování mapování certifikace klientů**<br>`CertificateMappingAuthenticationModule`      | Ano | |
-| **CGI**<br>`CgiModule`                                                                           | Ne  | |
-| **Ověření konfigurace**<br>`ConfigurationValidationModule`                                  | Ano | |
-| **Chyby protokolu HTTP**<br>`CustomErrorModule`                                                           | Ne  | [Middleware stránky stavového kódu](xref:fundamentals/error-handling#usestatuscodepages) |
-| **Vlastní protokolování**<br>`CustomLoggingModule`                                                      | Ano | |
-| **Výchozí dokument**<br>`DefaultDocumentModule`                                                  | Ne  | [Middleware výchozích souborů](xref:fundamentals/static-files#serve-a-default-document) |
-| **Ověřování hodnotou hash**<br>`DigestAuthenticationModule`                                        | Ano | |
-| **Procházení adresářů**<br>`DirectoryListingModule`                                               | Ne  | [Middleware procházení adresářů](xref:fundamentals/static-files#enable-directory-browsing) |
-| **Dynamická komprese**<br>`DynamicCompressionModule`                                            | Ano | [Middleware pro kompresi odpovědí](xref:performance/response-compression) |
-| **Trasování chybných žádostí**<br>`FailedRequestsTracingModule`                                     | Ano | [Protokolování ASP.NET Core](xref:fundamentals/logging/index#tracesource-provider) |
-| **Ukládání souborů do mezipaměti**<br>`FileCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
-| **Ukládání HTTP do mezipaměti**<br>`HttpCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
-| **Protokolování HTTP**<br>`HttpLoggingModule`                                                          | Ano | [Protokolování ASP.NET Core](xref:fundamentals/logging/index) |
-| **Přesměrování protokolu HTTP**<br>`HttpRedirectionModule`                                                  | Ano | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
-| **Trasování HTTP**<br>`TracingModule`                                                              | Ano | |
-| **Ověřování mapování klientských certifikátů služby IIS**<br>`IISCertificateMappingAuthenticationModule` | Ano | |
-| **Omezení podle IP adresy a domény**<br>`IpRestrictionModule`                                          | Ano | |
-| **Filtry ISAPI**<br>`IsapiFilterModule`                                                         | Ano | [Middleware](xref:fundamentals/middleware/index) |
-| **ISAPI**<br>`IsapiModule`                                                                       | Ano | [Middleware](xref:fundamentals/middleware/index) |
-| **Podpora protokolů**<br>`ProtocolSupportModule`                                                  | Ano | |
-| **Filtrování požadavků**<br>`RequestFilteringModule`                                                | Ano | [Middleware pro přepis adres URL`IRule`](xref:fundamentals/url-rewriting#irule-based-rule) |
-| **Sledování požadavků**<br>`RequestMonitorModule`                                                    | Ano | |
-| &#8224; **přepsání adresy URL**<br>`RewriteModule`                                                      | Ano | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
-| **Začlenění na straně serveru**<br>`ServerSideIncludeModule`                                            | Ne  | |
-| **Statická komprese**<br>`StaticCompressionModule`                                              | Ne  | [Middleware pro kompresi odpovědí](xref:performance/response-compression) |
-| **Statický obsah**<br>`StaticFileModule`                                                         | Ne  | [Middleware statických souborů](xref:fundamentals/static-files) |
-| **Ukládání tokenů do mezipaměti**<br>`TokenCacheModule`                                                          | Ano | |
-| **Ukládání identifikátorů URI do mezipaměti**<br>`UriCacheModule`                                                              | Ano | |
-| **Autorizace adres URL**<br>`UrlAuthorizationModule`                                                | Ano | [ASP.NET CoreIdentity](xref:security/authentication/identity) |
-| **Ověřování systému Windows**<br>`WindowsAuthenticationModule`                                      | Ano | |
+| **Anonymní ověřování**<br>`AnonymousAuthenticationModule`                                  | Yes | |
+| **Základní ověření**<br>`BasicAuthenticationModule`                                          | Yes | |
+| **Ověřování mapování certifikace klientů**<br>`CertificateMappingAuthenticationModule`      | Yes | |
+| **CGI**<br>`CgiModule`                                                                           | No  | |
+| **Ověření konfigurace**<br>`ConfigurationValidationModule`                                  | Yes | |
+| **Chyby protokolu HTTP**<br>`CustomErrorModule`                                                           | No  | [Middleware stránky stavového kódu](xref:fundamentals/error-handling#usestatuscodepages) |
+| **Vlastní protokolování**<br>`CustomLoggingModule`                                                      | Yes | |
+| **Výchozí dokument**<br>`DefaultDocumentModule`                                                  | No  | [Middleware výchozích souborů](xref:fundamentals/static-files#serve-a-default-document) |
+| **Ověřování hodnotou hash**<br>`DigestAuthenticationModule`                                        | Yes | |
+| **Procházení adresářů**<br>`DirectoryListingModule`                                               | No  | [Middleware procházení adresářů](xref:fundamentals/static-files#enable-directory-browsing) |
+| **Dynamická komprese**<br>`DynamicCompressionModule`                                            | Yes | [Middleware pro kompresi odpovědí](xref:performance/response-compression) |
+| **Trasování chybných žádostí**<br>`FailedRequestsTracingModule`                                     | Yes | [Protokolování ASP.NET Core](xref:fundamentals/logging/index#tracesource-provider) |
+| **Ukládání souborů do mezipaměti**<br>`FileCacheModule`                                                            | No  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
+| **Ukládání HTTP do mezipaměti**<br>`HttpCacheModule`                                                            | No  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
+| **Protokolování HTTP**<br>`HttpLoggingModule`                                                          | Yes | [Protokolování ASP.NET Core](xref:fundamentals/logging/index) |
+| **Přesměrování protokolu HTTP**<br>`HttpRedirectionModule`                                                  | Yes | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
+| **Trasování HTTP**<br>`TracingModule`                                                              | Yes | |
+| **Ověřování mapování klientských certifikátů služby IIS**<br>`IISCertificateMappingAuthenticationModule` | Yes | |
+| **Omezení podle IP adresy a domény**<br>`IpRestrictionModule`                                          | Yes | |
+| **Filtry ISAPI**<br>`IsapiFilterModule`                                                         | Yes | [Middleware](xref:fundamentals/middleware/index) |
+| **ISAPI**<br>`IsapiModule`                                                                       | Yes | [Middleware](xref:fundamentals/middleware/index) |
+| **Podpora protokolů**<br>`ProtocolSupportModule`                                                  | Yes | |
+| **Filtrování požadavků**<br>`RequestFilteringModule`                                                | Yes | [Middleware pro přepis adres URL `IRule`](xref:fundamentals/url-rewriting#irule-based-rule) |
+| **Sledování požadavků**<br>`RequestMonitorModule`                                                    | Yes | |
+| &#8224; **přepsání adresy URL**<br>`RewriteModule`                                                      | Yes | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
+| **Začlenění na straně serveru**<br>`ServerSideIncludeModule`                                            | No  | |
+| **Statická komprese**<br>`StaticCompressionModule`                                              | No  | [Middleware pro kompresi odpovědí](xref:performance/response-compression) |
+| **Statický obsah**<br>`StaticFileModule`                                                         | No  | [Middleware statických souborů](xref:fundamentals/static-files) |
+| **Ukládání tokenů do mezipaměti**<br>`TokenCacheModule`                                                          | Yes | |
+| **Ukládání identifikátorů URI do mezipaměti**<br>`UriCacheModule`                                                              | Yes | |
+| **Autorizace adres URL**<br>`UrlAuthorizationModule`                                                | Yes | [ASP.NET Core Identity](xref:security/authentication/identity) |
+| **Ověřování systému Windows**<br>`WindowsAuthenticationModule`                                      | Yes | |
 
 &#8224;typy a porovnávání v rámci adresy `isFile` URL `isDirectory` nefungují s ASP.NET Core aplikacemi z důvodu změn ve [struktuře adresářové](xref:host-and-deploy/directory-structure)služby.
 
@@ -78,7 +79,7 @@ Spravované moduly nejsou *funkční u* hostovaných ASP.NET Core aplikací, pok
 | AnonymousIdentification | |
 | DefaultAuthentication   | |
 | Autorace       | |
-| FormsAuthentication     | [CookieMiddleware ověřování](xref:security/authentication/cookie) |
+| FormsAuthentication     | [Cookie Middleware ověřování](xref:security/authentication/cookie) |
 | OutputCache             | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
 | Profil                 | |
 | RoleManager             | |
@@ -86,12 +87,12 @@ Spravované moduly nejsou *funkční u* hostovaných ASP.NET Core aplikací, pok
 | Relace                 | [Middleware relace](xref:fundamentals/app-state) |
 | UrlAuthorization        | |
 | UrlMappingsModule       | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
-| UrlRoutingModule-4,0    | [ASP.NET CoreIdentity](xref:security/authentication/identity) |
+| UrlRoutingModule-4,0    | [ASP.NET Core Identity](xref:security/authentication/identity) |
 | WindowsAuthentication   | |
 
 ## <a name="iis-manager-application-changes"></a>Změny aplikace Správce služby IIS
 
-Při použití Správce služby IIS ke konfiguraci nastavení se změní *web.config* soubor aplikace. Pokud nasazujete aplikaci a zahrnete *web.config*, všechny změny provedené pomocí Správce služby IIS se přepíší nasazeným *web.configm* souborem. Pokud jsou provedeny změny v souboru *web.config* serveru, Zkopírujte aktualizovaný soubor *web.config* na server do místního projektu hned.
+Při použití Správce služby IIS ke konfiguraci nastavení se změní *web.config* soubor aplikace. Pokud nasazujete aplikaci a zahrnete *web.config*, všechny změny provedené pomocí Správce služby IIS se přepíší nasazeným *web.configm * souborem. Pokud jsou provedeny změny v souboru *web.config* serveru, Zkopírujte aktualizovaný soubor *web.config* na server do místního projektu hned.
 
 ## <a name="disabling-iis-modules"></a>Zakázání modulů IIS
 
@@ -173,9 +174,9 @@ Modul ukládání identifikátorů URI ( `UriCacheModule` ) umožňuje službě 
 
 Modul HTTP cache ( `HttpCacheModule` ) implementuje výstupní mezipaměť služby IIS a také logiku pro ukládání položek do mezipaměti HTTP.sys mezipaměti. Bez tohoto modulu už není obsah uložený v mezipaměti v režimu jádra a profily mezipaměti se ignorují. Odebrání modulu mezipaměti HTTP má obvykle negativní vliv na výkon a využití prostředků. *I když modul mezipaměti HTTP není nezbytně nutný pro spuštění hostované aplikace ASP.NET Core, doporučujeme, aby byl modul mezipaměti protokolu HTTP povolen pro všechna nasazení ASP.NET Core.*
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Seznámení s architekturami služby IIS: moduly ve službě IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#modules-in-iis)
 * [Přehled modulů služby IIS](/iis/get-started/introduction-to-iis/iis-modules-overview)
 * [Přizpůsobení rolí a modulů služby IIS 7,0](https://technet.microsoft.com/library/cc627313.aspx)
-* [SLUŽBU\<system.webServer>](/iis/configuration/system.webServer/)
+* [SLUŽBU \<system.webServer>](/iis/configuration/system.webServer/)

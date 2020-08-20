@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 04/06/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 0d99c5881b1ca786287d8643c82cab6a3f98f988
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 94ae9e52ed99c3fe8e7044f474cdf5b702dc5adf
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019856"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634459"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -110,7 +111,7 @@ Doporučit
 
 ## <a name="keep-common-code-paths-fast"></a>Rychlé udržování běžných cest kódu
 
-Chcete, aby byl veškerý kód rychlý. Často volané cesty kódu jsou nejdůležitější pro optimalizaci. Tady jsou některé z nich:
+Chcete, aby byl veškerý kód rychlý. Často volané cesty kódu jsou nejdůležitější pro optimalizaci. Mezi ně patří:
 
 * Komponenty middlewaru v kanálu zpracování požadavků aplikace, zejména middleware spouštěné včas v kanálu. Tyto součásti mají velký dopad na výkon.
 * Kód, který se spustí pro každý požadavek nebo vícekrát na požadavek. Například vlastní protokolování, obslužné rutiny autorizace nebo inicializace přechodných služeb.
@@ -195,12 +196,12 @@ Předchozí kód asynchronně deserializace tělo požadavku do objektu jazyka C
 ## <a name="prefer-readformasync-over-requestform"></a>Preferovat ReadFormAsync přes Request. Form
 
 `HttpContext.Request.ReadFormAsync`Místo použijte `HttpContext.Request.Form` .
-`HttpContext.Request.Form`lze bezpečně číst pouze s následujícími podmínkami:
+`HttpContext.Request.Form` lze bezpečně číst pouze s následujícími podmínkami:
 
 * Formulář byl přečten voláním `ReadFormAsync` a
-* Hodnota formuláře v mezipaměti je čtena pomocí`HttpContext.Request.Form`
+* Hodnota formuláře v mezipaměti je čtena pomocí `HttpContext.Request.Form`
 
-**Neprovádět tyto akce:** Následující příklad používá `HttpContext.Request.Form` .  `HttpContext.Request.Form`používá [synchronizaci přes Async](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
+**Neprovádět tyto akce:** Následující příklad používá `HttpContext.Request.Form` .  `HttpContext.Request.Form` používá [synchronizaci přes Async](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
 ) a může vést k vyčerpání fondu vláken.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MySecondController.cs?name=snippet1)]
@@ -229,7 +230,7 @@ Naively ukládání velkého textu žádosti nebo odpovědi do jednoho nebo víc
 
 ## <a name="working-with-a-synchronous-data-processing-api"></a>Práce s rozhraním API pro synchronní zpracování dat
 
-Při použití serializátoru/zrušení serializátoru, který podporuje pouze synchronní čtení a zápisy (například [JSON.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm)):
+Při použití serializátoru/zrušení serializátoru, který podporuje pouze synchronní čtení a zápisy (například  [JSON.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm)):
 
 * Ukládat data do vyrovnávací paměti asynchronně předtím, než je předáte do serializátoru/zrušení serializátoru.
 
@@ -261,7 +262,7 @@ Předchozí kód často zachycuje v konstruktoru hodnotu null nebo není správn
 
 ## <a name="do-not-access-httpcontext-from-multiple-threads"></a>Nepřistupovat k HttpContext z více vláken
 
-`HttpContext`není bezpečná pro přístup *z více vláken* . Přístup `HttpContext` z více vláken paralelně může způsobit nedefinované chování, jako je například zablokování, zhroucení a poškození dat.
+`HttpContext` není bezpečná pro přístup *z více vláken* . Přístup `HttpContext` z více vláken paralelně může způsobit nedefinované chování, jako je například zablokování, zhroucení a poškození dat.
 
 **Neprovádět tyto akce:** Následující příklad vytvoří tři paralelní požadavky a zaznamená příchozí cestu požadavku před a za odchozí požadavek HTTP. Cesta k požadavku je k dispozici z více vláken, potenciálně paralelně.
 
@@ -273,7 +274,7 @@ Předchozí kód často zachycuje v konstruktoru hodnotu null nebo není správn
 
 ## <a name="do-not-use-the-httpcontext-after-the-request-is-complete"></a>Nepoužívat HttpContext po dokončení žádosti
 
-`HttpContext`je platná pouze tak dlouho, dokud je v kanálu ASP.NET Core aktivní požadavek HTTP. Celý kanál ASP.NET Core je asynchronní řetěz delegátů, který provádí všechny požadavky. Po `Task` dokončení operace vrácené z tohoto řetězu `HttpContext` se recykluje.
+`HttpContext` je platná pouze tak dlouho, dokud je v kanálu ASP.NET Core aktivní požadavek HTTP. Celý kanál ASP.NET Core je asynchronní řetěz delegátů, který provádí všechny požadavky. Po `Task` dokončení operace vrácené z tohoto řetězu `HttpContext` se recykluje.
 
 **Neprovádět tyto akce:** Následující příklad používá, aby `async void` byl požadavek HTTP dokončen při prvním dosažení prvního `await` :
 
@@ -313,7 +314,7 @@ Předchozí kód často zachycuje v konstruktoru hodnotu null nebo není správn
 
 **Postupujte takto:** Následující příklad:
 
-* Vloží objekt <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> , aby bylo možné vytvořit obor v pracovní položce na pozadí. `IServiceScopeFactory`je typu singleton.
+* Vloží objekt <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> , aby bylo možné vytvořit obor v pracovní položce na pozadí. `IServiceScopeFactory` je typu singleton.
 * Vytvoří nový rozsah vkládání závislostí ve vlákně na pozadí.
 * Neodkazuje na cokoli z kontroleru.
 * Nezachycuje `ContosoDbContext` z příchozího požadavku.

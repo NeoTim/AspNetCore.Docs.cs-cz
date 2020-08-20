@@ -1,5 +1,5 @@
 ---
-title: RazorAutorizační konvence stránek v ASP.NET Core
+title: Razor Autorizační konvence stránek v ASP.NET Core
 author: rick-anderson
 description: Naučte se řídit přístup ke stránkám pomocí konvencí, které autorizují uživatele a umožňují anonymním uživatelům přístup k stránkám nebo složkám stránek.
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/razor-pages-authorization
-ms.openlocfilehash: 5e0c76ea6c6b4af8e24693b1bfe8ac28bf2ce3a9
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b17717e7b3cbaa64d4ff00661f15439728f161d3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022274"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634888"
 ---
-# <a name="no-locrazor-pages-authorization-conventions-in-aspnet-core"></a>RazorAutorizační konvence stránek v ASP.NET Core
+# <a name="no-locrazor-pages-authorization-conventions-in-aspnet-core"></a>Razor Autorizační konvence stránek v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -32,7 +33,7 @@ Jedním ze způsobů, jak řídit přístup v Razor aplikaci Pages, je použít 
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Ukázková aplikace používá [ cookie ověřování bez ASP.NET Core Identity ](xref:security/authentication/cookie). Koncepty a příklady uvedené v tomto tématu platí stejně jako aplikace, které používají ASP.NET Core Identity . Pokud chcete použít ASP.NET Core Identity , postupujte podle pokynů v části <xref:security/authentication/identity> .
+Ukázková aplikace používá [ cookie ověřování bez ASP.NET Core Identity ](xref:security/authentication/cookie). Koncepty a příklady uvedené v tomto tématu se vztahují i na aplikace, které používají ASP.NET Core Identity . Chcete-li použít ASP.NET Core Identity , postupujte podle pokynů v části <xref:security/authentication/identity> .
 
 ## <a name="require-authorization-to-access-a-page"></a>Vyžadovat autorizaci pro přístup ke stránce
 
@@ -131,7 +132,7 @@ Zpětný chod ale není platný. Nemůžete deklarovat složku stránek pro anon
 
 Požadavek na autorizaci na soukromé stránce se nezdařil. Pokud <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> <xref:Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter> jsou a aplikovány na stránku, má <xref:Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter> přednost a řídí přístup.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>
@@ -144,7 +145,7 @@ Jedním ze způsobů, jak řídit přístup v Razor aplikaci Pages, je použít 
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Ukázková aplikace používá [ cookie ověřování bez ASP.NET Core Identity ](xref:security/authentication/cookie). Koncepty a příklady uvedené v tomto tématu platí stejně jako aplikace, které používají ASP.NET Core Identity . Pokud chcete použít ASP.NET Core Identity , postupujte podle pokynů v části <xref:security/authentication/identity> .
+Ukázková aplikace používá [ cookie ověřování bez ASP.NET Core Identity ](xref:security/authentication/cookie). Koncepty a příklady uvedené v tomto tématu se vztahují i na aplikace, které používají ASP.NET Core Identity . Chcete-li použít ASP.NET Core Identity , postupujte podle pokynů v části <xref:security/authentication/identity> .
 
 ## <a name="require-authorization-to-access-a-page"></a>Vyžadovat autorizaci pro přístup ke stránce
 

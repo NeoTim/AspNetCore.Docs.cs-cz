@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/file-providers
-ms.openlocfilehash: e2441a56fc8b05ba16dd8e368382501ac6b268a3
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 30c28e7bd4cd9c926b157f5a7b9e6688bd5b9b9a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017438"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634602"
 ---
 # <a name="file-providers-in-aspnet-core"></a>Poskytovatelé souborů v ASP.NET Core
 
@@ -30,30 +31,30 @@ ms.locfileid: "88017438"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů. Poskytovatelé souborů se používají v rámci ASP.NET Core Framework. Například:
+ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů. Poskytovatelé souborů se používají v rámci ASP.NET Core Framework. Příklad:
 
-* <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment>zpřístupňuje [kořenový adresář obsahu](xref:fundamentals/index#content-root) aplikace a [webové kořenové adresáře](xref:fundamentals/index#web-root) jako `IFileProvider` typy.
+* <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> zpřístupňuje [kořenový adresář obsahu](xref:fundamentals/index#content-root) aplikace a [webové kořenové adresáře](xref:fundamentals/index#web-root) jako `IFileProvider` typy.
 * [Middleware statických souborů](xref:fundamentals/static-files) používá k vyhledání statických souborů poskytovatele souborů.
-* [Razor](xref:mvc/views/razor)vyhledává stránky a zobrazení pomocí zprostředkovatelů souborů.
+* [Razor](xref:mvc/views/razor) vyhledává stránky a zobrazení pomocí zprostředkovatelů souborů.
 * Nástroje .NET Core využívají poskytovatele souborů a vzory glob k určení, které soubory se mají publikovat.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="file-provider-interfaces"></a>Rozhraní poskytovatele souborů
 
-Primární rozhraní je <xref:Microsoft.Extensions.FileProviders.IFileProvider> . `IFileProvider`Zpřístupňuje metody pro:
+Primární rozhraní je <xref:Microsoft.Extensions.FileProviders.IFileProvider> . `IFileProvider` Zpřístupňuje metody pro:
 
 * Získat informace o souboru ( <xref:Microsoft.Extensions.FileProviders.IFileInfo> ).
 * Získat informace o adresáři ( <xref:Microsoft.Extensions.FileProviders.IDirectoryContents> ).
 * Nastavte oznámení o změně (pomocí <xref:Microsoft.Extensions.Primitives.IChangeToken> ).
 
-`IFileInfo`poskytuje metody a vlastnosti pro práci se soubory:
+`IFileInfo` poskytuje metody a vlastnosti pro práci se soubory:
 
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.Exists>
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.IsDirectory>
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.Name>
-* <xref:Microsoft.Extensions.FileProviders.IFileInfo.Length>(v bajtech)
-* <xref:Microsoft.Extensions.FileProviders.IFileInfo.LastModified>Datum
+* <xref:Microsoft.Extensions.FileProviders.IFileInfo.Length> (v bajtech)
+* <xref:Microsoft.Extensions.FileProviders.IFileInfo.LastModified> Datum
 
 Můžete číst ze souboru pomocí <xref:Microsoft.Extensions.FileProviders.IFileInfo.CreateReadStream*?displayProperty=nameWithType> metody.
 
@@ -71,7 +72,7 @@ V následující tabulce jsou uvedeny implementace `IFileProvider` .
 
 ### <a name="physicalfileprovider"></a>PhysicalFileProvider
 
-<xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>Poskytuje přístup k fyzickému systému souborů. `PhysicalFileProvider`používá <xref:System.IO.File?displayProperty=fullName> typ (pro fyzického poskytovatele) a obory všech cest k adresáři a jeho podřízeným položkám. Tento rozsah brání v přístupu k systému souborů mimo zadaný adresář a jeho podřízené položky. Nejběžnější scénář pro vytvoření a použití `PhysicalFileProvider` je pro vyžádání `IFileProvider` v konstruktoru prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
+<xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>Poskytuje přístup k fyzickému systému souborů. `PhysicalFileProvider` používá <xref:System.IO.File?displayProperty=fullName> typ (pro fyzického poskytovatele) a obory všech cest k adresáři a jeho podřízeným položkám. Tento rozsah brání v přístupu k systému souborů mimo zadaný adresář a jeho podřízené položky. Nejběžnější scénář pro vytvoření a použití `PhysicalFileProvider` je pro vyžádání `IFileProvider` v konstruktoru prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
 
 Při vytvoření instance tohoto zprostředkovatele přímo se vyžaduje absolutní cesta k adresáři a slouží jako základní cesta pro všechny požadavky vytvořené pomocí poskytovatele. Glob vzory se v cestě k adresáři nepodporují.
 
@@ -86,9 +87,9 @@ var fileInfo = provider.GetFileInfo(filePath);
 
 Typy v předchozím příkladu:
 
-* `provider`je `IFileProvider` .
-* `contents`je `IDirectoryContents` .
-* `fileInfo`je `IFileInfo` .
+* `provider` je `IFileProvider` .
+* `contents` je `IDirectoryContents` .
+* `fileInfo` je `IFileInfo` .
 
 Zprostředkovatele souboru lze použít k iterování adresáře určeného `applicationRoot` nebo voláním `GetFileInfo` k získání informací o souboru. Do metody nelze předat vzory glob `GetFileInfo` . Zprostředkovatel souboru nemá přístup mimo `applicationRoot` adresář.
 
@@ -183,28 +184,28 @@ Následující tabulka uvádí běžné příklady glob vzorů.
 
 ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů. Poskytovatelé souborů se používají v rámci ASP.NET Coreho rozhraní:
 
-* <xref:Microsoft.Extensions.Hosting.IHostingEnvironment>zpřístupňuje [kořenový adresář obsahu](xref:fundamentals/index#content-root) aplikace a [webové kořenové adresáře](xref:fundamentals/index#web-root) jako `IFileProvider` typy.
+* <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> zpřístupňuje [kořenový adresář obsahu](xref:fundamentals/index#content-root) aplikace a [webové kořenové adresáře](xref:fundamentals/index#web-root) jako `IFileProvider` typy.
 * [Middleware statických souborů](xref:fundamentals/static-files) používá k vyhledání statických souborů poskytovatele souborů.
-* [Razor](xref:mvc/views/razor)vyhledává stránky a zobrazení pomocí zprostředkovatelů souborů.
+* [Razor](xref:mvc/views/razor) vyhledává stránky a zobrazení pomocí zprostředkovatelů souborů.
 * Nástroje .NET Core využívají poskytovatele souborů a vzory glob k určení, které soubory se mají publikovat.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="file-provider-interfaces"></a>Rozhraní poskytovatele souborů
 
-Primární rozhraní je <xref:Microsoft.Extensions.FileProviders.IFileProvider> . `IFileProvider`Zpřístupňuje metody pro:
+Primární rozhraní je <xref:Microsoft.Extensions.FileProviders.IFileProvider> . `IFileProvider` Zpřístupňuje metody pro:
 
 * Získat informace o souboru ( <xref:Microsoft.Extensions.FileProviders.IFileInfo> ).
 * Získat informace o adresáři ( <xref:Microsoft.Extensions.FileProviders.IDirectoryContents> ).
 * Nastavte oznámení o změně (pomocí <xref:Microsoft.Extensions.Primitives.IChangeToken> ).
 
-`IFileInfo`poskytuje metody a vlastnosti pro práci se soubory:
+`IFileInfo` poskytuje metody a vlastnosti pro práci se soubory:
 
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.Exists>
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.IsDirectory>
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.Name>
-* <xref:Microsoft.Extensions.FileProviders.IFileInfo.Length>(v bajtech)
-* <xref:Microsoft.Extensions.FileProviders.IFileInfo.LastModified>Datum
+* <xref:Microsoft.Extensions.FileProviders.IFileInfo.Length> (v bajtech)
+* <xref:Microsoft.Extensions.FileProviders.IFileInfo.LastModified> Datum
 
 Můžete číst ze souboru pomocí metody [IFileInfo. CreateReadStream](xref:Microsoft.Extensions.FileProviders.IFileInfo.CreateReadStream*) .
 
@@ -222,7 +223,7 @@ Ukázková aplikace ukazuje, jak nakonfigurovat poskytovatele souborů v `Startu
 
 ### <a name="physicalfileprovider"></a>PhysicalFileProvider
 
-<xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>Poskytuje přístup k fyzickému systému souborů. `PhysicalFileProvider`používá <xref:System.IO.File?displayProperty=fullName> typ (pro fyzického poskytovatele) a obory všech cest k adresáři a jeho podřízeným položkám. Tento rozsah brání v přístupu k systému souborů mimo zadaný adresář a jeho podřízené položky. Nejběžnější scénář pro vytvoření a použití `PhysicalFileProvider` je pro vyžádání `IFileProvider` v konstruktoru prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
+<xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>Poskytuje přístup k fyzickému systému souborů. `PhysicalFileProvider` používá <xref:System.IO.File?displayProperty=fullName> typ (pro fyzického poskytovatele) a obory všech cest k adresáři a jeho podřízeným položkám. Tento rozsah brání v přístupu k systému souborů mimo zadaný adresář a jeho podřízené položky. Nejběžnější scénář pro vytvoření a použití `PhysicalFileProvider` je pro vyžádání `IFileProvider` v konstruktoru prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection).
 
 Při vytvoření instance tohoto zprostředkovatele přímo se vyžaduje cesta k adresáři a slouží jako základní cesta pro všechny požadavky vytvořené pomocí poskytovatele.
 
@@ -236,9 +237,9 @@ var fileInfo = provider.GetFileInfo("wwwroot/js/site.js");
 
 Typy v předchozím příkladu:
 
-* `provider`je `IFileProvider` .
-* `contents`je `IDirectoryContents` .
-* `fileInfo`je `IFileInfo` .
+* `provider` je `IFileProvider` .
+* `contents` je `IDirectoryContents` .
+* `fileInfo` je `IFileInfo` .
 
 Zprostředkovatele souboru lze použít k iterování adresáře určeného `applicationRoot` nebo voláním `GetFileInfo` k získání informací o souboru. Zprostředkovatel souboru nemá přístup mimo `applicationRoot` adresář.
 
@@ -289,7 +290,7 @@ V ukázkové aplikaci `PhysicalFileProvider` a `ManifestEmbeddedFileProvider` po
 
 ## <a name="watch-for-changes"></a>Sledovat změny
 
-Metoda [IFileProvider. Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) nabízí scénář, jak sledovat změny jednoho nebo více souborů nebo adresářů. `Watch`přijímá řetězec cesty, který může používat [vzory glob](#glob-patterns) k určení více souborů. `Watch`Vrátí <xref:Microsoft.Extensions.Primitives.IChangeToken> . Token pro změnu zpřístupňuje:
+Metoda [IFileProvider. Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) nabízí scénář, jak sledovat změny jednoho nebo více souborů nebo adresářů. `Watch` přijímá řetězec cesty, který může používat [vzory glob](#glob-patterns) k určení více souborů. `Watch` Vrátí <xref:Microsoft.Extensions.Primitives.IChangeToken> . Token pro změnu zpřístupňuje:
 
 * <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged>: Vlastnost, kterou lze zkontrolovat, aby bylo možné zjistit, zda došlo ke změně.
 * <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*>: Volá se, když se v zadaném řetězci cesty zjistí změny. Každý token změny volá pouze své přidružené zpětné volání v reakci na jednu změnu. Chcete-li povolit konstantní monitorování, použijte <xref:System.Threading.Tasks.TaskCompletionSource`1> (viz níže) nebo znovu vytvořte `IChangeToken` instance v reakci na změny.

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/development-time-iis-support
-ms.openlocfilehash: ba4d47e0500d7f3287e6a57d10036d774c4b19f4
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 5636abef928ed8a8122ec907ef025d55baa65127
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015662"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635356"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Podpora služby IIS při vývoji v sadě Visual Studio pro ASP.NET Core
 
@@ -32,7 +33,7 @@ Od [sourabh Shirhatti](https://twitter.com/sshirhatti)
 
 Tento článek popisuje podporu sady [Visual Studio](https://visualstudio.microsoft.com) pro ladění ASP.NET Core aplikací běžících na Windows serveru se službou IIS. Toto téma vás provede povolením tohoto scénáře a nastavením projektu.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Visual Studio pro Windows](https://visualstudio.microsoft.com/downloads/)
 * **ASP.NET a webové vývojové** úlohy
@@ -136,7 +137,7 @@ Pokud se používá nedůvěryhodný vývojový certifikát, prohlížeč může
 > [!NOTE]
 > Ladění konfigurace sestavení pro vydání pomocí [pouze můj kód](/visualstudio/debugger/just-my-code) a optimalizace kompilátoru mají za následek zhoršené prostředí. Například body přerušení nejsou k dispozice.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Začínáme ve službě IIS pomocí Správce služby IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
 * <xref:security/enforcing-ssl>
@@ -147,7 +148,7 @@ Pokud se používá nedůvěryhodný vývojový certifikát, prohlížeč může
 
 Tento článek popisuje podporu sady [Visual Studio](https://visualstudio.microsoft.com) pro ladění ASP.NET Core aplikací běžících na Windows serveru se službou IIS. Toto téma vás provede povolením tohoto scénáře a nastavením projektu.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Visual Studio pro Windows](https://visualstudio.microsoft.com/downloads/)
 * **ASP.NET a webové vývojové** úlohy
@@ -251,7 +252,7 @@ Pokud se používá nedůvěryhodný vývojový certifikát, prohlížeč může
 > [!NOTE]
 > Ladění konfigurace sestavení pro vydání pomocí [pouze můj kód](/visualstudio/debugger/just-my-code) a optimalizace kompilátoru mají za následek zhoršené prostředí. Například body přerušení nejsou k dispozice.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Začínáme ve službě IIS pomocí Správce služby IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
 * <xref:security/enforcing-ssl>

@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/response-compression
-ms.openlocfilehash: 1dd931d0ee654b888814df8a0d0675d32b5c3a20
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b8947e3c3c4f634fbd838c22ff60799257143480
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020961"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634992"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Komprese odezvy v ASP.NET Core
 
@@ -43,7 +44,7 @@ Používejte middleware pro kompresi odpovědí, pokud jste:
   * [Modul Apache mod_deflate](https://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Nginx kompresi a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * Hostování přímo na:
-  * [ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten)
+  * [ ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten)
   * [Server Kestrel](xref:fundamentals/servers/kestrel)
 
 ## <a name="response-compression"></a>Komprese odpovědí
@@ -52,15 +53,15 @@ Obvykle by jakákoli odpověď, která není nativně komprimovaná, mohla využ
 
 Když klient může zpracovat komprimovaný obsah, klient musí informovat Server svých schopností odesláním `Accept-Encoding` hlavičky s požadavkem. Když server pošle komprimovaný obsah, musí obsahovat informace v `Content-Encoding` záhlaví způsobu, jakým je komprimovaná odpověď zakódovaná. V následující tabulce jsou uvedena označení kódování obsahu podporovaná middlewarem.
 
-| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Popis |
+| `Accept-Encoding` hodnoty hlaviček | Middleware – podporováno | Popis |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | Ano (výchozí)        | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | Ne                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | Ne                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
-| `gzip`                          | Ano                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Ano                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
-| `pack200-gzip`                  | Ne                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
-| `*`                             | Ano                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
+| `deflate`                       | No                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | No                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `gzip`                          | Yes                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
+| `identity`                      | Yes                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
+| `pack200-gzip`                  | No                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `*`                             | Yes                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
 
 Další informace najdete v [seznamu kódů oficiálního obsahu IANA](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
 
@@ -111,7 +112,7 @@ public class Startup
 
 Poznámky:
 
-* `app.UseResponseCompression`musí být volána před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace naleznete v tématu <xref:fundamentals/middleware/index#middleware-order>.
+* `app.UseResponseCompression` musí být volána před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace naleznete v tématu <xref:fundamentals/middleware/index#middleware-order>.
 * Pomocí nástroje, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/) , můžete nastavit `Accept-Encoding` hlavičku požadavku a prozkoumat hlavičky, velikost a text odpovědi.
 
 Odešlete žádost do ukázkové aplikace bez `Accept-Encoding` hlavičky a sledujte, že odpověď je nekomprimovaná. `Content-Encoding` `Vary` V odpovědi nejsou k dispozici hlavičky a.
@@ -261,7 +262,7 @@ Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug
 * Požadavek nesmí obsahovat `Content-Range` hlavičku.
 * Požadavek musí používat protokol HTTP (nezabezpečený protokol), pokud není v možnostech middleware pro kompresi odpovědí nakonfigurovaný protokol HTTPS (Secure Protocol). *Při povolování komprese zabezpečeného obsahu si všimněte [výše popsaného](#compression-with-secure-protocol) nebezpečí.*
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>
@@ -289,7 +290,7 @@ Používejte middleware pro kompresi odpovědí, pokud jste:
   * [Modul Apache mod_deflate](https://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Nginx kompresi a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * Hostování přímo na:
-  * [ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten)
+  * [ ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten)
   * [Server Kestrel](xref:fundamentals/servers/kestrel)
 
 ## <a name="response-compression"></a>Komprese odpovědí
@@ -298,15 +299,15 @@ Obvykle by jakákoli odpověď, která není nativně komprimovaná, mohla využ
 
 Když klient může zpracovat komprimovaný obsah, klient musí informovat Server svých schopností odesláním `Accept-Encoding` hlavičky s požadavkem. Když server pošle komprimovaný obsah, musí obsahovat informace v `Content-Encoding` záhlaví způsobu, jakým je komprimovaná odpověď zakódovaná. V následující tabulce jsou uvedena označení kódování obsahu podporovaná middlewarem.
 
-| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Popis |
+| `Accept-Encoding` hodnoty hlaviček | Middleware – podporováno | Popis |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | Ano (výchozí)        | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | Ne                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | Ne                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
-| `gzip`                          | Ano                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Ano                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
-| `pack200-gzip`                  | Ne                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
-| `*`                             | Ano                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
+| `deflate`                       | No                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | No                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `gzip`                          | Yes                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
+| `identity`                      | Yes                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
+| `pack200-gzip`                  | No                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `*`                             | Yes                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
 
 Další informace najdete v [seznamu kódů oficiálního obsahu IANA](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
 
@@ -357,7 +358,7 @@ public class Startup
 
 Poznámky:
 
-* `app.UseResponseCompression`musí být volána před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace naleznete v tématu <xref:fundamentals/middleware/index#middleware-order>.
+* `app.UseResponseCompression` musí být volána před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace naleznete v tématu <xref:fundamentals/middleware/index#middleware-order>.
 * Pomocí nástroje, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/) , můžete nastavit `Accept-Encoding` hlavičku požadavku a prozkoumat hlavičky, velikost a text odpovědi.
 
 Odešlete žádost do ukázkové aplikace bez `Accept-Encoding` hlavičky a sledujte, že odpověď je nekomprimovaná. `Content-Encoding` `Vary` V odpovědi nejsou k dispozici hlavičky a.
@@ -506,7 +507,7 @@ Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug
 * Požadavek nesmí obsahovat `Content-Range` hlavičku.
 * Požadavek musí používat protokol HTTP (nezabezpečený protokol), pokud není v možnostech middleware pro kompresi odpovědí nakonfigurovaný protokol HTTPS (Secure Protocol). *Při povolování komprese zabezpečeného obsahu si všimněte [výše popsaného](#compression-with-secure-protocol) nebezpečí.*
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>
@@ -534,7 +535,7 @@ Používejte middleware pro kompresi odpovědí, pokud jste:
   * [Modul Apache mod_deflate](https://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Nginx kompresi a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * Hostování přímo na:
-  * [ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten)
+  * [ ServerHTTP.sys](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten)
   * [Server Kestrel](xref:fundamentals/servers/kestrel)
 
 ## <a name="response-compression"></a>Komprese odpovědí
@@ -543,15 +544,15 @@ Obvykle by jakákoli odpověď, která není nativně komprimovaná, mohla využ
 
 Když klient může zpracovat komprimovaný obsah, klient musí informovat Server svých schopností odesláním `Accept-Encoding` hlavičky s požadavkem. Když server pošle komprimovaný obsah, musí obsahovat informace v `Content-Encoding` záhlaví způsobu, jakým je komprimovaná odpověď zakódovaná. V následující tabulce jsou uvedena označení kódování obsahu podporovaná middlewarem.
 
-| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Popis |
+| `Accept-Encoding` hodnoty hlaviček | Middleware – podporováno | Popis |
 | ------------------------------- | :------------------: | ----------- |
-| `br`                            | Ne                   | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
-| `deflate`                       | Ne                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
-| `exi`                           | Ne                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
+| `br`                            | No                   | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
+| `deflate`                       | No                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
+| `exi`                           | No                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | Ano (výchozí)        | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Ano                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
-| `pack200-gzip`                  | Ne                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
-| `*`                             | Ano                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
+| `identity`                      | Yes                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
+| `pack200-gzip`                  | No                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
+| `*`                             | Yes                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
 
 Další informace najdete v [seznamu kódů oficiálního obsahu IANA](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
 
@@ -602,7 +603,7 @@ public class Startup
 
 Poznámky:
 
-* `app.UseResponseCompression`musí být volána před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace naleznete v tématu <xref:fundamentals/middleware/index#middleware-order>.
+* `app.UseResponseCompression` musí být volána před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace naleznete v tématu <xref:fundamentals/middleware/index#middleware-order>.
 * Pomocí nástroje, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/) , můžete nastavit `Accept-Encoding` hlavičku požadavku a prozkoumat hlavičky, velikost a text odpovědi.
 
 Odešlete žádost do ukázkové aplikace bez `Accept-Encoding` hlavičky a sledujte, že odpověď je nekomprimovaná. `Content-Encoding` `Vary` V odpovědi nejsou k dispozici hlavičky a.
@@ -711,7 +712,7 @@ Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug
 * Požadavek nesmí obsahovat `Content-Range` hlavičku.
 * Požadavek musí používat protokol HTTP (nezabezpečený protokol), pokud není v možnostech middleware pro kompresi odpovědí nakonfigurovaný protokol HTTPS (Secure Protocol). *Při povolování komprese zabezpečeného obsahu si všimněte [výše popsaného](#compression-with-secure-protocol) nebezpečí.*
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>

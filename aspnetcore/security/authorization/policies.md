@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/policies
-ms.openlocfilehash: 03d6e7fdc4ab4b5e4925508952bfd6c835d90486
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 82ed4cc2ce47d3bd85ca9c2ba2bbeb075eaefcef
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021273"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635330"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>Ověřování na základě zásad v ASP.NET Core
 
@@ -43,7 +44,7 @@ Primární služba, která určuje, jestli je autorizace úspěšná, je <xref:M
 
 Předchozí kód zvýrazní dvě metody [načetl služby IAuthorizationService](https://github.com/dotnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs).
 
-<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement>je služba značek bez metod a mechanismus pro sledování, zda autorizace je úspěšná.
+<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement> je služba značek bez metod a mechanismus pro sledování, zda autorizace je úspěšná.
 
 Každý <xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler> je zodpovědný za kontrolu, zda jsou splněny požadavky:
 <!--The following code is a copy/paste from 
@@ -121,13 +122,13 @@ Použijte <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> nebo `
 
 Pokud používáte Razor stránky, přečtěte si téma [použití zásad na Razor stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.
 
-Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Například:
+Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="apply-policies-to-no-locrazor-pages"></a>Použít zásady na Razor stránky
 
-Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Například:
+Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
@@ -176,7 +177,7 @@ Předchozí průchod kódu [PendingRequirements](/dotnet/api/microsoft.aspnetcor
 
 ### <a name="handler-registration"></a>Registrace obslužné rutiny
 
-Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Například:
+Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Příklad:
 
 [!code-csharp[](policies/samples/3.0PoliciesAuthApp1/Startup.cs?range=31-32,39-40,42-45, 53-55, 58)]
 
@@ -192,7 +193,7 @@ Všimněte si, že `Handle` metoda v [příkladu obslužné rutiny](#security-au
 
 * Chcete-li zaručit selhání i v případě úspěchu dalších obslužných rutin požadavků, zavolejte `context.Fail` .
 
-Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail` , všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena na `false` , vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) (k dispozici v ASP.NET Core 1,1 a novější) krátkodobé okruhy, kdy je volána spuštění obslužných rutin `context.Fail` . `InvokeHandlersAfterFailure`Výchozí hodnota – v takovém `true` případě jsou volány všechny obslužné rutiny.
+Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail` , všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena na `false` , vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) (k dispozici v ASP.NET Core 1,1 a novější) krátkodobé okruhy, kdy je volána spuštění obslužných rutin `context.Fail` . `InvokeHandlersAfterFailure` Výchozí hodnota – v takovém `true` případě jsou volány všechny obslužné rutiny.
 
 > [!NOTE]
 > Obslužné rutiny autorizace jsou volány i v případě, že ověřování selhává.
@@ -229,7 +230,7 @@ Například předchozí `BadgeEntryHandler` může být přepsána následujíc�
 
 `HandleRequirementAsync`Metoda, kterou implementujete v obslužné rutině autorizace, má dva parametry: `AuthorizationHandlerContext` a, `TRequirement` kterou zpracováváte. Rozhraní, jako je MVC, nebo SignalR jsou volná pro přidání libovolného objektu do `Resource` vlastnosti v `AuthorizationHandlerContext` pro předání dalších informací.
 
-Při použití směrování koncových bodů se autorizaci obvykle zpracovává pomocí middleware autorizace. V tomto případě `Resource` je vlastnost instancí třídy <xref:Microsoft.AspNetCore.Http.Endpoint> . Koncový bod se dá použít k testování základního prostředku, ke kterému se právě směrujete. Například:
+Při použití směrování koncových bodů se autorizaci obvykle zpracovává pomocí middleware autorizace. V tomto případě `Resource` je vlastnost instancí třídy <xref:Microsoft.AspNetCore.Http.Endpoint> . Koncový bod se dá použít k testování základního prostředku, ke kterému se právě směrujete. Příklad:
 
 ```csharp
 if (context.Resource is Endpoint endpoint)
@@ -280,7 +281,7 @@ Primární služba, která určuje, jestli je autorizace úspěšná, je <xref:M
 
 Předchozí kód zvýrazní dvě metody [načetl služby IAuthorizationService](https://github.com/dotnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs).
 
-<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement>je služba značek bez metod a mechanismus pro sledování, zda autorizace je úspěšná.
+<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement> je služba značek bez metod a mechanismus pro sledování, zda autorizace je úspěšná.
 
 Každý <xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler> je zodpovědný za kontrolu, zda jsou splněny požadavky:
 <!--The following code is a copy/paste from 
@@ -357,13 +358,13 @@ Použijte <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> nebo `
 
 Pokud používáte Razor stránky, přečtěte si téma [použití zásad na Razor stránkách](#apply-policies-to-razor-pages) v tomto dokumentu.
 
-Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Například:
+Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
 ## <a name="apply-policies-to-no-locrazor-pages"></a>Použít zásady na Razor stránky
 
-Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Například:
+Zásady se aplikují na Razor stránky pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
@@ -410,7 +411,7 @@ Předchozí průchod kódu [PendingRequirements](/dotnet/api/microsoft.aspnetcor
 
 ### <a name="handler-registration"></a>Registrace obslužné rutiny
 
-Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Například:
+Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 
@@ -426,7 +427,7 @@ Všimněte si, že `Handle` metoda v [příkladu obslužné rutiny](#security-au
 
 * Chcete-li zaručit selhání i v případě úspěchu dalších obslužných rutin požadavků, zavolejte `context.Fail` .
 
-Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail` , všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena na `false` , vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) (k dispozici v ASP.NET Core 1,1 a novější) krátkodobé okruhy, kdy je volána spuštění obslužných rutin `context.Fail` . `InvokeHandlersAfterFailure`Výchozí hodnota – v takovém `true` případě jsou volány všechny obslužné rutiny.
+Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail` , všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena na `false` , vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) (k dispozici v ASP.NET Core 1,1 a novější) krátkodobé okruhy, kdy je volána spuštění obslužných rutin `context.Fail` . `InvokeHandlersAfterFailure` Výchozí hodnota – v takovém `true` případě jsou volány všechny obslužné rutiny.
 
 > [!NOTE]
 > Obslužné rutiny autorizace jsou volány i v případě, že ověřování selhává.

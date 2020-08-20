@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 5bfea63cc1ff85adbe5ce572858b78a8e86b2280
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 5e073845acbecdf0db4c30c4725f12033cfc42ac
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017724"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88634680"
 ---
 # <a name="part-3-no-locrazor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a>Část 3 Razor : stránky s EF Core v ASP.NET Core řazení, filtrování, stránkování
 
@@ -55,7 +56,7 @@ Předcházející kód:
 
 Když se na stránku indexu požaduje odkaz na **studenty** , neexistuje žádný řetězec dotazu. Studenti se zobrazí ve vzestupném pořadí podle příjmení. V příkazu je výchozí hodnota vzestupného pořadí podle příjmení (případ-až) `switch` . Když uživatel klikne na odkaz záhlaví sloupce, `sortOrder` je v hodnotě řetězce dotazu uvedena příslušná hodnota.
 
-`NameSort`a `DateSort` jsou používány Razor stránkou ke konfiguraci hypertextových odkazů záhlaví sloupce s příslušnými hodnotami řetězce dotazu:
+`NameSort` a `DateSort` jsou používány Razor stránkou ke konfiguraci hypertextových odkazů záhlaví sloupce s příslušnými hodnotami řetězce dotazu:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_Ternary)]
 
@@ -74,11 +75,11 @@ Metoda používá LINQ to Entities k určení sloupce, podle kterého se má řa
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_IQueryable)]
 
-Při `IQueryable` Vytvoření nebo úpravě se do databáze neodesílají žádné dotazy. Dotaz není proveden, dokud nebude `IQueryable` objekt převeden do kolekce. `IQueryable`jsou převedeny na kolekci voláním metody, jako je `ToListAsync` . Proto `IQueryable` kód vytvoří jeden dotaz, který není proveden do následujícího příkazu:
+Při `IQueryable` Vytvoření nebo úpravě se do databáze neodesílají žádné dotazy. Dotaz není proveden, dokud nebude `IQueryable` objekt převeden do kolekce. `IQueryable` jsou převedeny na kolekci voláním metody, jako je `ToListAsync` . Proto `IQueryable` kód vytvoří jeden dotaz, který není proveden do následujícího příkazu:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_SortOnlyRtn)]
 
-`OnGetAsync`může získat podrobné zobrazení s velkým počtem sloupců, které lze seřadit. Informace o alternativním způsobu, jak tuto funkci zakódovat, najdete v tématu [použití dynamického LINQ ke zjednodušení kódu](xref:data/ef-mvc/advanced#dynamic-linq) ve verzi MVC této série kurzů.
+`OnGetAsync` může získat podrobné zobrazení s velkým počtem sloupců, které lze seřadit. Informace o alternativním způsobu, jak tuto funkci zakódovat, najdete v tématu [použití dynamického LINQ ke zjednodušení kódu](xref:data/ef-mvc/advanced#dynamic-linq) ve verzi MVC této série kurzů.
 
 ### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>Přidat hypertextové odkazy na záhlaví sloupce na stránku indexu studenta
 
@@ -120,7 +121,7 @@ Předcházející kód:
 
 Kód volá `Where` metodu na `IQueryable` objekt a filtr je zpracován na serveru. V některých scénářích může aplikace zavolat `Where` metodu jako metodu rozšíření v kolekci v paměti. Předpokládejme například, že se `_context.Students` změní z EF Core `DbSet` na metodu úložiště, která vrací `IEnumerable` kolekci. Výsledek by byl normálně stejný, ale v některých případech se může lišit.
 
-Například implementace .NET Framework ve `Contains` výchozím nastavení provádí porovnání rozlišující malá a velká písmena. V SQL Server `Contains` je rozlišování velkých a malých písmen určeno nastavením kolace instance SQL Server. Výchozí hodnota SQL Server nerozlišuje malá a velká písmena. Výchozí hodnota SQLite rozlišuje velká a malá písmena. `ToUpper`může být volána, aby test explicitně nerozlišuje velikost písmen:
+Například implementace .NET Framework ve `Contains` výchozím nastavení provádí porovnání rozlišující malá a velká písmena. V SQL Server `Contains` je rozlišování velkých a malých písmen určeno nastavením kolace instance SQL Server. Výchozí hodnota SQL Server nerozlišuje malá a velká písmena. Výchozí hodnota SQLite rozlišuje velká a malá písmena. `ToUpper` může být volána, aby test explicitně nerozlišuje velikost písmen:
 
 ```csharp
 Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
@@ -150,7 +151,7 @@ Otestujte aplikaci:
 
 * Vyberte **Hledat**.
 
-Všimněte si, že adresa URL obsahuje hledaný řetězec. Například:
+Všimněte si, že adresa URL obsahuje hledaný řetězec. Příklad:
 
 ```
 https://localhost:<port>/Students?SearchString=an
@@ -304,7 +305,7 @@ Předchozí kód obdrží `sortOrder` parametr z řetězce dotazu v adrese URL. 
 
 Když se na stránku indexu požaduje odkaz na **studenty** , neexistuje žádný řetězec dotazu. Studenti se zobrazí ve vzestupném pořadí podle příjmení. V příkazu je výchozí hodnota vzestupného pořadí podle příjmení (případ-až) `switch` . Když uživatel klikne na odkaz záhlaví sloupce, `sortOrder` je v hodnotě řetězce dotazu uvedena příslušná hodnota.
 
-`NameSort`a `DateSort` jsou používány Razor stránkou ke konfiguraci hypertextových odkazů záhlaví sloupce s příslušnými hodnotami řetězce dotazu:
+`NameSort` a `DateSort` jsou používány Razor stránkou ke konfiguraci hypertextových odkazů záhlaví sloupce s příslušnými hodnotami řetězce dotazu:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnly&highlight=3-4)]
 
@@ -329,11 +330,11 @@ Metoda používá LINQ to Entities k určení sloupce, podle kterého se má řa
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnly&highlight=6-999)]
 
- Při `IQueryable` Vytvoření nebo úpravě se do databáze neodesílají žádné dotazy. Dotaz není proveden, dokud nebude `IQueryable` objekt převeden do kolekce. `IQueryable`jsou převedeny na kolekci voláním metody, jako je `ToListAsync` . Proto `IQueryable` kód vytvoří jeden dotaz, který není proveden do následujícího příkazu:
+ Při `IQueryable` Vytvoření nebo úpravě se do databáze neodesílají žádné dotazy. Dotaz není proveden, dokud nebude `IQueryable` objekt převeden do kolekce. `IQueryable` jsou převedeny na kolekci voláním metody, jako je `ToListAsync` . Proto `IQueryable` kód vytvoří jeden dotaz, který není proveden do následujícího příkazu:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnlyRtn)]
 
-`OnGetAsync`může získat podrobné zobrazení s velkým počtem sloupců, které lze seřadit.
+`OnGetAsync` může získat podrobné zobrazení s velkým počtem sloupců, které lze seřadit.
 
 ### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>Přidat hypertextové odkazy na záhlaví sloupce na stránku indexu studenta
 
@@ -380,7 +381,7 @@ Předcházející kód:
 
 Poznámka: předchozí kód volá `Where` metodu na `IQueryable` objekt a filtr je zpracován na serveru. V některých scénářích může aplikace zavolat `Where` metodu jako metodu rozšíření v kolekci v paměti. Předpokládejme například, že se `_context.Students` změní z EF Core `DbSet` na metodu úložiště, která vrací `IEnumerable` kolekci. Výsledek by byl normálně stejný, ale v některých případech se může lišit.
 
-Například implementace .NET Framework ve `Contains` výchozím nastavení provádí porovnání rozlišující malá a velká písmena. V SQL Server `Contains` je rozlišování velkých a malých písmen určeno nastavením kolace instance SQL Server. Výchozí hodnota SQL Server nerozlišuje malá a velká písmena. `ToUpper`může být volána, aby test explicitně nerozlišuje velikost písmen:
+Například implementace .NET Framework ve `Contains` výchozím nastavení provádí porovnání rozlišující malá a velká písmena. V SQL Server `Contains` je rozlišování velkých a malých písmen určeno nastavením kolace instance SQL Server. Výchozí hodnota SQL Server nerozlišuje malá a velká písmena. `ToUpper` může být volána, aby test explicitně nerozlišuje velikost písmen:
 
 `Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
 
@@ -449,9 +450,9 @@ Všechny parametry mají hodnotu null, pokud:
 
 Po kliknutí na odkaz na stránkování obsahuje proměnná index stránky číslo stránky, která se má zobrazit.
 
-`CurrentSort`poskytuje Razor stránku s aktuálním pořadím řazení. Aktuální pořadí řazení musí být ve stránkovacích odkazech zahrnuto, aby při stránkování zůstalo pořadí řazení.
+`CurrentSort` poskytuje Razor stránku s aktuálním pořadím řazení. Aktuální pořadí řazení musí být ve stránkovacích odkazech zahrnuto, aby při stránkování zůstalo pořadí řazení.
 
-`CurrentFilter`poskytuje Razor stránku s aktuálním řetězcem filtru. `CurrentFilter`Hodnota:
+`CurrentFilter` poskytuje Razor stránku s aktuálním řetězcem filtru. `CurrentFilter`Hodnota:
 
 * Musí být součástí odkazů stránkování, aby bylo možné zachovat nastavení filtru během stránkování.
 * Po zobrazení stránky se musí obnovit do textového pole.
@@ -535,7 +536,7 @@ Pokud narazíte na problémy, které nemůžete vyřešit, Stáhněte si [dokon�
 
 ![O stránce](sort-filter-page/_static/about.png)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Ladění zdrojového kódu ASP.NET Core 2. x](https://github.com/dotnet/AspNetCore.Docs/issues/4155)
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=MDs7PFpoMqI)

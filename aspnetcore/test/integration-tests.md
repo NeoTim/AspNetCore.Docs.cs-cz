@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/14/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/integration-tests
-ms.openlocfilehash: 508c2d2cb668f5dbf416d341c1d9a966f9d16fd4
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: b06c06fb5e525a0bdc3df1de50236fa8f76daca9
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021039"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88635109"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -40,7 +41,7 @@ Ukázková aplikace je Razor aplikace stránky a předpokládá základní znalo
 
 * [Úvod ke Razor stránkám](xref:razor-pages/index)
 * [Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start)
-* [RazorTestování částí stránek](xref:test/razor-pages-tests)
+* [Razor Testování částí stránek](xref:test/razor-pages-tests)
 
 > [!NOTE]
 > Pro testování jednostránkové doporučujeme nástroj, jako je například [selen](https://www.seleniumhq.org/), který může automatizovat prohlížeč.
@@ -136,7 +137,7 @@ Pokud není [prostředí](xref:fundamentals/environments) SUT nastaveno, prostř
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>Základní testy s výchozím WebApplicationFactory
 
-[WebApplicationFactory \<TEntryPoint> ](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint`je třída vstupního bodu třídy SUT, obvykle `Startup` Třída.
+[WebApplicationFactory \<TEntryPoint> ](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint` je třída vstupního bodu třídy SUT, obvykle `Startup` Třída.
 
 Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)( *Class* ) k označení třídy obsahuje testy a poskytování instancí sdíleného objektu napříč testy ve třídě.
 
@@ -195,8 +196,8 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
 
 `SendAsync`Pomocné metody rozšíření (*helpers/HttpClientExtensions. cs*) a `GetDocumentAsync` pomocná metoda (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti falšování pomocí následujících metod:
 
-* `GetDocumentAsync`: Přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument` . `GetDocumentAsync`používá objekt pro vytváření, který připraví *virtuální odpověď* na základě originálu `HttpResponseMessage` . Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
-* `SendAsync`metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML ( `IHtmlFormElement` ) a následující:
+* `GetDocumentAsync`: Přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument` . `GetDocumentAsync` používá objekt pro vytváření, který připraví *virtuální odpověď* na základě originálu `HttpResponseMessage` . Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
+* `SendAsync` metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML ( `IHtmlFormElement` ) a následující:
   * Tlačítko Odeslat formuláře ( `IHtmlElement` )
   * Kolekce hodnot formulářů ( `IEnumerable<KeyValuePair<string, string>>` )
   * Odeslat tlačítko ( `IHtmlElement` ) a hodnoty formuláře ( `IEnumerable<KeyValuePair<string, string>>` )
@@ -277,7 +278,7 @@ Chcete-li otestovat vkládání služby a uvozovek v rámci integračního testu
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet4)]
 
-`ConfigureTestServices`je volána a zaregistrována Oborová služba:
+`ConfigureTestServices` je volána a zaregistrována Oborová služba:
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet5&highlight=7-10,17,20-21)]
 
@@ -428,7 +429,7 @@ Ukázková aplikace je Razor aplikace stránky a předpokládá základní znalo
 
 * [Úvod ke Razor stránkám](xref:razor-pages/index)
 * [Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start)
-* [RazorTestování částí stránek](xref:test/razor-pages-tests)
+* [Razor Testování částí stránek](xref:test/razor-pages-tests)
 
 > [!NOTE]
 > Pro testování jednostránkové doporučujeme nástroj, jako je například [selen](https://www.seleniumhq.org/), který může automatizovat prohlížeč.
@@ -518,7 +519,7 @@ Pokud není [prostředí](xref:fundamentals/environments) SUT nastaveno, prostř
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>Základní testy s výchozím WebApplicationFactory
 
-[WebApplicationFactory \<TEntryPoint> ](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint`je třída vstupního bodu třídy SUT, obvykle `Startup` Třída.
+[WebApplicationFactory \<TEntryPoint> ](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint` je třída vstupního bodu třídy SUT, obvykle `Startup` Třída.
 
 Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)( *Class* ) k označení třídy obsahuje testy a poskytování instancí sdíleného objektu napříč testy ve třídě.
 
@@ -558,8 +559,8 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
 
 `SendAsync`Pomocné metody rozšíření (*helpers/HttpClientExtensions. cs*) a `GetDocumentAsync` pomocná metoda (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti falšování pomocí následujících metod:
 
-* `GetDocumentAsync`: Přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument` . `GetDocumentAsync`používá objekt pro vytváření, který připraví *virtuální odpověď* na základě originálu `HttpResponseMessage` . Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
-* `SendAsync`metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML ( `IHtmlFormElement` ) a následující:
+* `GetDocumentAsync`: Přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument` . `GetDocumentAsync` používá objekt pro vytváření, který připraví *virtuální odpověď* na základě originálu `HttpResponseMessage` . Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
+* `SendAsync` metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML ( `IHtmlFormElement` ) a následující:
   * Tlačítko Odeslat formuláře ( `IHtmlElement` )
   * Kolekce hodnot formulářů ( `IEnumerable<KeyValuePair<string, string>>` )
   * Odeslat tlačítko ( `IHtmlElement` ) a hodnoty formuláře ( `IEnumerable<KeyValuePair<string, string>>` )
@@ -640,7 +641,7 @@ Chcete-li otestovat vkládání služby a uvozovek v rámci integračního testu
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet4)]
 
-`ConfigureTestServices`je volána a zaregistrována Oborová služba:
+`ConfigureTestServices` je volána a zaregistrována Oborová služba:
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet5&highlight=7-10,17,20-21)]
 
@@ -803,7 +804,7 @@ Ukázková aplikace se dosazuje do databáze se třemi zprávami v *Utilities.cs
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Testování částí](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
 * <xref:test/razor-pages-tests>
