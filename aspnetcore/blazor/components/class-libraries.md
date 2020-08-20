@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/27/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/class-libraries
-ms.openlocfilehash: 0bace66e0aab41cf31e18fe9f86dbf9bbcf59447
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d933a677a063d50fbe708264106e3ce19400a270
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014695"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628570"
 ---
 # <a name="aspnet-core-no-locrazor-components-class-libraries"></a>RazorKnihovny tříd ASP.NET Core komponenty
 
@@ -180,7 +181,7 @@ dotnet pack
 
 Nahrajte balíček do NuGet pomocí [`dotnet nuget push`](/dotnet/core/tools/dotnet-nuget-push) příkazu v příkazovém prostředí.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:razor-pages/ui-class>
 * [Přidání konfiguračního souboru linkeru XML do knihovny](xref:blazor/host-and-deploy/configure-linker#add-an-xml-linker-configuration-file-to-a-library)

@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/15/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/resourcebased
-ms.openlocfilehash: ee9b3e9b0085d58778fdf0c0f9a5d352747d88ba
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: bb47f3452d29dfeea0e4d3c4a9c22a06869a3fe7
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020129"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631352"
 ---
 # <a name="resource-based-authorization-in-aspnet-core"></a>Ověřování na základě prostředků v ASP.NET Core
 
@@ -49,7 +50,7 @@ Autorizace je implementována jako služba [načetl služby IAuthorizationServic
 
 [!code-csharp[](resourcebased/samples/3_0/ResourceBasedAuthApp2/Controllers/DocumentController.cs?name=snippet_IAuthServiceDI&highlight=6)]
 
-`IAuthorizationService`má dvě `AuthorizeAsync` přetížení metody: jedno přijetí prostředku a název zásady a druhý, který přijímá prostředek, a seznam požadavků, které se mají vyhodnotit.
+`IAuthorizationService` má dvě `AuthorizeAsync` přetížení metody: jedno přijetí prostředku a název zásady a druhý, který přijímá prostředek, a seznam požadavků, které se mají vyhodnotit.
 
 ::: moniker range=">= aspnetcore-2.0"
 

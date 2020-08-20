@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/1/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: 4404a5513d9dc989e50c904f3e7863de59991939
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 09535f41d15b90fa5e50eb1f22f6aecef0530f0c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022326"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629558"
 ---
 # <a name="scaffold-no-locidentity-in-aspnet-core-projects"></a>Generování uživatelského rozhraní Identity v ASP.NET Corech projektech
 
@@ -30,7 +31,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které zahrnují, Identity mohou použít generátory k selektivnímu Přidání zdrojového kódu obsaženého v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL. Pokud chcete získat úplnou kontrolu nad uživatelským rozhraním a nepoužívat výchozí RCL, přečtěte si část [Vytvoření úplného Identity zdroje uživatelského rozhraní](#full).
+ASP.NET Core poskytuje [ASP.NET Core Identity](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které zahrnují, Identity mohou použít generátory k selektivnímu Přidání zdrojového kódu obsaženého v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL. Pokud chcete získat úplnou kontrolu nad uživatelským rozhraním a nepoužívat výchozí RCL, přečtěte si část [Vytvoření úplného Identity zdroje uživatelského rozhraní](#full).
 
 Aplikace, které **neobsahují** ověřování, můžou pro přidání balíčku RCL použít generování uživatelského rozhraní Identity . Máte možnost vybrat Identity kód, který se má vygenerovat.
 
@@ -197,7 +198,7 @@ Identityje nakonfigurovaný v *oblasti/ Identity / Identity HostingStartup.cs*. 
 Tokeny lze předat součástem:
 
 * Při zřizování ověřovacích tokenů a jejich uložení do ověřování je cookie možné je předat součástem.
-* Razorkomponenty nemůžou používat `HttpContext` přímo, takže neexistuje žádný způsob, jak získat [token pro padělání žádostí](xref:security/anti-request-forgery) o odeslání na Identity koncový bod odhlašovacího objektu na adrese `/Identity/Account/Logout` . Token XSRF lze předat komponentám.
+* Razor komponenty nemůžou používat `HttpContext` přímo, takže neexistuje žádný způsob, jak získat [token pro padělání žádostí](xref:security/anti-request-forgery) o odeslání na Identity koncový bod odhlašovacího objektu na adrese `/Identity/Account/Logout` . Token XSRF lze předat komponentám.
 
 Další informace naleznete v tématu <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>.
 
@@ -416,7 +417,7 @@ V této části se dozvíte, jak zakázat stránku registrace, ale přístup mů
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Příklad:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -482,7 +483,7 @@ Podobný přístup je možné vyřídit v produkčních scénářích.
 
 Chcete-li zabránit publikování statických Identity prostředků do kořenového adresáře webu, přečtěte si téma <xref:security/authentication/identity#prevent-publish-of-static-identity-assets> .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Změny ověřovacího kódu na ASP.NET Core 2,1 a novější](xref:migration/20_21#changes-to-authentication-code)
 
@@ -490,7 +491,7 @@ Chcete-li zabránit publikování statických Identity prostředků do kořenov�
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core 2,1 a novější poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které zahrnují, Identity mohou použít generátory k selektivnímu Přidání zdrojového kódu obsaženého v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL. Pokud chcete získat úplnou kontrolu nad uživatelským rozhraním a nepoužívat výchozí RCL, přečtěte si část [Vytvoření úplného zdroje uživatelského rozhraní identity](#full).
+ASP.NET Core 2,1 a novější poskytují [ASP.NET Core Identity](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které zahrnují, Identity mohou použít generátory k selektivnímu Přidání zdrojového kódu obsaženého v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL. Pokud chcete získat úplnou kontrolu nad uživatelským rozhraním a nepoužívat výchozí RCL, přečtěte si část [Vytvoření úplného zdroje uživatelského rozhraní identity](#full).
 
 Aplikace, které **neobsahují** ověřování, můžou pro přidání balíčku RCL použít generování uživatelského rozhraní Identity . Máte možnost vybrat Identity kód, který se má vygenerovat.
 
@@ -669,7 +670,7 @@ Pokud <xref:Microsoft.AspNetCore.Identity.PasswordOptions> jsou nakonfigurovány
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Příklad:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -731,7 +732,7 @@ Následující osnovy kódu přidávají uživatele:
 
 Podobný přístup je možné vyřídit v produkčních scénářích.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Změny ověřovacího kódu na ASP.NET Core 2,1 a novější](xref:migration/20_21#changes-to-authentication-code)
 

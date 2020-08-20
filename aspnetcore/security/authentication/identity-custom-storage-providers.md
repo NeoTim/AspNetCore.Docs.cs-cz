@@ -1,11 +1,12 @@
 ---
-title: Vlastní poskytovatelé úložiště pro ASP.NET CoreIdentity
+title: Vlastní poskytovatelé úložiště pro ASP.NET Core Identity
 author: ardalis
 description: Přečtěte si, jak nakonfigurovat vlastní poskytovatele úložiště pro ASP.NET Core Identity .
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: 27f6130742e25e07d4b908973e1ebf26288fdbfd
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: a8414efeece1afd55d0f30d232ef360d0a21714c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021533"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630130"
 ---
-# <a name="custom-storage-providers-for-aspnet-core-no-locidentity"></a>Vlastní poskytovatelé úložiště pro ASP.NET CoreIdentity
+# <a name="custom-storage-providers-for-no-locaspnet-core-identity"></a>Vlastní poskytovatelé úložiště pro ASP.NET Core Identity
 
 [Steve Smith](https://ardalis.com/)
 
@@ -33,7 +34,7 @@ ASP.NET Core Identity je rozšiřitelný systém, který umožňuje vytvořit vl
 
 ## <a name="introduction"></a>Úvod
 
-Ve výchozím nastavení systém ASP.NET Core Identity ukládá informace o uživatelích do databáze SQL Server pomocí Entity Framework Core. U mnoha aplikací funguje tento přístup dobře. Můžete ale chtít použít jiný mechanismus trvalosti nebo schéma dat. Například:
+Ve výchozím nastavení ASP.NET Core Identity ukládá systém informace o uživatelích do SQL Server databáze pomocí Entity Framework Core. U mnoha aplikací funguje tento přístup dobře. Můžete ale chtít použít jiný mechanismus trvalosti nebo schéma dat. Příklad:
 
 * Používáte [Azure Table Storage](/azure/storage/) nebo jiné úložiště dat.
 * Tabulky databáze mají jinou strukturu. 
@@ -49,9 +50,9 @@ Při použití .NET Core CLI přidejte `-au Individual` :
 dotnet new mvc -au Individual
 ```
 
-## <a name="the-aspnet-core-no-locidentity-architecture"></a>Architektura ASP.NET Core Identity
+## <a name="the-no-locaspnet-core-identity-architecture"></a>ASP.NET Core IdentityArchitektura
 
-ASP.NET Core Identity se skládá ze tříd nazvaných manažeři a obchody. *Manažeři* jsou třídy vysoké úrovně, které vývojář aplikace používá k provádění operací, jako je například vytvoření Identity uživatele. *Úložiště* jsou třídy nižší úrovně, které určují, jak jsou trvalé entity, jako jsou uživatelé a role. Úložiště se řídí vzorem úložiště a jsou úzce spojeny s mechanismem trvalosti. Manažeři jsou oddělené od úložišť, což znamená, že můžete nahradit mechanismus trvalosti beze změny kódu aplikace (s výjimkou konfigurace).
+ASP.NET Core Identity se skládá z tříd nazvaných manažeři a obchody. *Manažeři* jsou třídy vysoké úrovně, které vývojář aplikace používá k provádění operací, jako je například vytvoření Identity uživatele. *Úložiště* jsou třídy nižší úrovně, které určují, jak jsou trvalé entity, jako jsou uživatelé a role. Úložiště se řídí vzorem úložiště a jsou úzce spojeny s mechanismem trvalosti. Manažeři jsou oddělené od úložišť, což znamená, že můžete nahradit mechanismus trvalosti beze změny kódu aplikace (s výjimkou konfigurace).
 
 Následující diagram znázorňuje, jak webová aplikace komunikuje s manažery, zatímco ukládá interakce s vrstvami přístupu k datům.
 
@@ -63,9 +64,9 @@ Při vytváření nové instance nebo zadání `UserManager` `RoleManager` typu 
 
 Změna [Konfigurace aplikace na použití nového poskytovatele úložiště](#reconfigure-app-to-use-a-new-storage-provider) ukazuje, jak vytvářet instance `UserManager` a `RoleManager` s přizpůsobeným úložištěm.
 
-## <a name="aspnet-core-no-locidentity-stores-data-types"></a>ASP.NET Core Identity ukládá datové typy
+## <a name="no-locaspnet-core-identity-stores-data-types"></a>ASP.NET Core Identity ukládá datové typy.
 
-[ASP.NET Core Identity ](https://github.com/aspnet/identity) datové typy jsou podrobně popsané v následujících částech:
+[ASP.NET Core Identity](https://github.com/aspnet/identity) datové typy jsou podrobně popsané v následujících částech:
 
 ### <a name="users"></a>Uživatelé
 
@@ -87,9 +88,9 @@ Skupiny autorizace pro váš web. Zahrnuje ID role a název role (například ad
 
 V tomto tématu se předpokládá, že jste obeznámeni s mechanismem trvalosti, který budete používat, a vytváření entit pro tento mechanismus. Toto téma neposkytuje podrobné informace o tom, jak vytvořit úložiště nebo třídy přístupu k datům. poskytuje některé návrhy na rozhodování o návrhu při práci s ASP.NET Core Identity .
 
-Při navrhování vrstvy přístupu k datům pro přizpůsobeného poskytovatele úložiště máte spoustu volnosti. K funkcím, které máte v úmyslu používat, je třeba vytvořit mechanismy trvalosti. Pokud například v aplikaci nepoužíváte role, nemusíte vytvářet úložiště pro role nebo přidružení rolí uživatele. Vaše technologie a stávající infrastruktura mohou vyžadovat strukturu, která je velmi odlišná od výchozí implementace ASP.NET Core Identity . Ve vrstvě pro přístup k datům poskytnete logiku pro práci se strukturou implementace úložiště.
+Při navrhování vrstvy přístupu k datům pro přizpůsobeného poskytovatele úložiště máte spoustu volnosti. K funkcím, které máte v úmyslu používat, je třeba vytvořit mechanismy trvalosti. Pokud například v aplikaci nepoužíváte role, nemusíte vytvářet úložiště pro role nebo přidružení rolí uživatele. Vaše technologie a stávající infrastruktura mohou vyžadovat strukturu, která je velmi odlišná od výchozí implementace nástroje ASP.NET Core Identity . Ve vrstvě pro přístup k datům poskytnete logiku pro práci se strukturou implementace úložiště.
 
-Vrstva přístupu k datům poskytuje logiku pro uložení dat z ASP.NET Core Identity do zdroje dat. Vrstva přístupu k datům pro vlastního poskytovatele úložiště může obsahovat následující třídy pro ukládání informací o uživatelích a rolích.
+Vrstva přístupu k datům poskytuje logiku pro uložení dat ze ASP.NET Core Identity zdroje dat. Vrstva přístupu k datům pro vlastního poskytovatele úložiště může obsahovat následující třídy pro ukládání informací o uživatelích a rolích.
 
 ### <a name="context-class"></a>context – třída
 
@@ -179,7 +180,7 @@ V rámci `UserStore` třídy použijete třídy pro přístup k datům, které j
 * **IQueryableUserStore**  
  Rozhraní [IQueryableUserStore &lt; TUser &gt; ](/dotnet/api/microsoft.aspnetcore.identity.iqueryableuserstore-1) definuje členy, které implementujete k poskytnutí úložiště uživatele Queryable.
 
-Implementujete pouze rozhraní, která jsou potřebná v aplikaci. Například:
+Implementujete pouze rozhraní, která jsou potřebná v aplikaci. Příklad:
 
 ```csharp
 public class UserStore : IUserStore<IdentityUser>,
@@ -245,7 +246,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="references"></a>Reference
+## <a name="references"></a>Odkazy
 
-* [Vlastní poskytovatelé úložiště pro ASP.NET 4. xIdentity](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
-* [ASP.NET Core Identity ](https://github.com/dotnet/AspNetCore/tree/master/src/Identity): Toto úložiště obsahuje odkazy na komunitní poskytovatele uchovávaného úložiště.
+* [Vlastní poskytovatelé úložiště pro ASP.NET 4. x Identity](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
+* [ASP.NET Core Identity](https://github.com/dotnet/AspNetCore/tree/master/src/Identity): Toto úložiště obsahuje odkazy na komunitní poskytovatele uchovávaného úložiště.

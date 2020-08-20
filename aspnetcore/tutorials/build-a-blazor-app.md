@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/30/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: 42c4f94869586bfcd4e8b27e4bdf4ef226094072
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 769b3bda591252c51bec3ffd72a43eaa5929349e
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022495"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630832"
 ---
 # <a name="build-a-no-locblazor-todo-list-app"></a>Sestavení Blazor aplikace seznamu úkolů
 
@@ -38,7 +39,7 @@ V tomto kurzu se dozvíte, jak vytvořit a upravit Blazor aplikaci. Získáte in
 
 Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [!INCLUDE[](~/includes/3.1-SDK.md)]
 
@@ -63,7 +64,7 @@ Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
    ```
 
    > [!IMPORTANT]
-   > Razornázvy souborů součástí vyžadují první písmeno s velkými písmeny, proto ověřte, že `Todo` název souboru komponenty začíná velkým písmenem `T` .
+   > Razor názvy souborů součástí vyžadují první písmeno s velkými písmeny, proto ověřte, že `Todo` název souboru komponenty začíná velkým písmenem `T` .
 
 1. V `Pages/Todo.razor` Zadejte počáteční označení pro komponentu:
 

@@ -5,6 +5,7 @@ description: Sdílení řadičů, zobrazení, Razor stránek a dalších prvků 
 ms.author: riande
 ms.date: 11/11/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 690ef0843f567dc2335f4d51436e428207fd6eb1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 2e86025eaf98c4e2cbbd86a5a353664204c35594
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019570"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630416"
 ---
 # <a name="share-controllers-views-no-locrazor-pages-and-more-with-application-parts"></a>Sdílení řadičů, zobrazení, Razor stránek a dalších prvků aplikace
 
@@ -30,7 +31,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-*Část aplikace* je abstrakcí přes prostředky aplikace. Části aplikace umožňují ASP.NET Core zjišťovat řadiče, zobrazovat komponenty, pomáhat pomocníkům s tagy, Razor stránky, zdroje kompilace Razor a další. <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart>je součást aplikace. `AssemblyPart`Zapouzdřuje odkaz na sestavení a zpřístupňuje typy a odkazy na kompilaci.
+*Část aplikace* je abstrakcí přes prostředky aplikace. Části aplikace umožňují ASP.NET Core zjišťovat řadiče, zobrazovat komponenty, pomáhat pomocníkům s tagy, Razor stránky, zdroje kompilace Razor a další. <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> je součást aplikace. `AssemblyPart` Zapouzdřuje odkaz na sestavení a zpřístupňuje typy a odkazy na kompilaci.
 
 [Poskytovatelé funkcí](#fp) fungují s součástmi aplikace k naplnění funkcí aplikace ASP.NET Core. Hlavní případ použití pro části aplikace je konfigurace aplikace pro zjišťování (nebo zamezení načítání) ASP.NET Core funkcí ze sestavení. Můžete například chtít sdílet běžné funkce mezi více aplikacemi. Pomocí částí aplikace můžete sdílet sestavení (DLL) obsahující řadiče, zobrazení, Razor stránky, zdroje kompilace Razor, pomocníka značek a další informace o více aplikacích. Sdílení sestavení je preferované pro duplikování kódu ve více projektech.
 
@@ -38,7 +39,7 @@ ASP.NET Core aplikace načítají funkce z <xref:System.Web.WebPages.Application
 
 ## <a name="load-aspnet-core-features"></a>Načíst ASP.NET Core funkce
 
-Pomocí <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> tříd a <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> můžete zjišťovat a načítat ASP.NET Core funkce (řadiče, zobrazit součásti atd.). Sleduje, jaké <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager> součásti aplikace a poskytovatelé funkcí jsou k dispozici. `ApplicationPartManager`je nakonfigurované v `Startup.ConfigureServices` :
+Pomocí <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> tříd a <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> můžete zjišťovat a načítat ASP.NET Core funkce (řadiče, zobrazit součásti atd.). Sleduje, jaké <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager> součásti aplikace a poskytovatelé funkcí jsou k dispozici. `ApplicationPartManager` je nakonfigurované v `Startup.ConfigureServices` :
 
 [!code-csharp[](./app-parts/3.0sample1/WebAppParts/Startup.cs?name=snippet)]
 
@@ -54,7 +55,7 @@ Použijte [ Razor knihovnu tříd](xref:razor-pages/ui-class) pro zahrnutí zobr
 
 ### <a name="prevent-loading-resources"></a>Zabránit načítání prostředků
 
-Části aplikace lze použít k *zamezení* načítání prostředků do konkrétního sestavení nebo umístění. Přidáním nebo odebráním členů <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> kolekce můžete skrýt nebo zpřístupnit dostupné prostředky. Pořadí položek v `ApplicationParts` kolekci není důležité. Nakonfigurujte `ApplicationPartManager` před tím, než je použijete ke konfiguraci služeb v kontejneru. Například nakonfigurujte `ApplicationPartManager` před vyvoláním `AddControllersAsServices` . `Remove`Chcete-li `ApplicationParts` Odebrat prostředek, zavolejte na kolekci.
+Části aplikace lze použít k *zamezení* načítání prostředků do konkrétního sestavení nebo umístění. Přidáním nebo odebráním členů  <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> kolekce můžete skrýt nebo zpřístupnit dostupné prostředky. Pořadí položek v `ApplicationParts` kolekci není důležité. Nakonfigurujte `ApplicationPartManager` před tím, než je použijete ke konfiguraci služeb v kontejneru. Například nakonfigurujte `ApplicationPartManager` před vyvoláním `AddControllersAsServices` . `Remove`Chcete-li `ApplicationParts` Odebrat prostředek, zavolejte na kolekci.
 
 `ApplicationPartManager`Obsahuje části pro:
 
@@ -120,7 +121,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-*Část aplikace* je abstrakcí přes prostředky aplikace. Části aplikace umožňují ASP.NET Core zjišťovat řadiče, zobrazovat komponenty, pomáhat pomocníkům s tagy, Razor stránky, zdroje kompilace Razor a další. [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) je součást aplikace. `AssemblyPart`Zapouzdřuje odkaz na sestavení a zpřístupňuje typy a odkazy na kompilaci.
+*Část aplikace* je abstrakcí přes prostředky aplikace. Části aplikace umožňují ASP.NET Core zjišťovat řadiče, zobrazovat komponenty, pomáhat pomocníkům s tagy, Razor stránky, zdroje kompilace Razor a další. [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) je součást aplikace. `AssemblyPart` Zapouzdřuje odkaz na sestavení a zpřístupňuje typy a odkazy na kompilaci.
 
 *Poskytovatelé funkcí* fungují s součástmi aplikace k naplnění funkcí aplikace ASP.NET Core. Hlavní případ použití pro části aplikace je konfigurace aplikace pro zjišťování (nebo zamezení načítání) ASP.NET Core funkcí ze sestavení. Můžete například chtít sdílet běžné funkce mezi více aplikacemi. Pomocí částí aplikace můžete sdílet sestavení (DLL) obsahující řadiče, zobrazení, Razor stránky, zdroje kompilace Razor, pomocníka značek a další informace o více aplikacích. Sdílení sestavení je preferované pro duplikování kódu ve více projektech.
 
@@ -128,7 +129,7 @@ ASP.NET Core aplikace načítají funkce z <xref:System.Web.WebPages.Application
 
 ## <a name="load-aspnet-core-features"></a>Načíst ASP.NET Core funkce
 
-Pomocí `ApplicationPart` tříd a `AssemblyPart` můžete zjišťovat a načítat ASP.NET Core funkce (řadiče, zobrazit součásti atd.). Sleduje, jaké <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager> součásti aplikace a poskytovatelé funkcí jsou k dispozici. `ApplicationPartManager`je nakonfigurované v `Startup.ConfigureServices` :
+Pomocí `ApplicationPart` tříd a `AssemblyPart` můžete zjišťovat a načítat ASP.NET Core funkce (řadiče, zobrazit součásti atd.). Sleduje, jaké <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager> součásti aplikace a poskytovatelé funkcí jsou k dispozici. `ApplicationPartManager` je nakonfigurované v `Startup.ConfigureServices` :
 
 [!code-csharp[](./app-parts/sample1/WebAppParts/Startup.cs?name=snippet)]
 
@@ -144,9 +145,9 @@ Použijte [ Razor knihovnu tříd](xref:razor-pages/ui-class) pro zahrnutí zobr
 
 ### <a name="prevent-loading-resources"></a>Zabránit načítání prostředků
 
-Části aplikace lze použít k *zamezení* načítání prostředků do konkrétního sestavení nebo umístění. Přidáním nebo odebráním členů <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> kolekce můžete skrýt nebo zpřístupnit dostupné prostředky. Pořadí položek v `ApplicationParts` kolekci není důležité. Nakonfigurujte `ApplicationPartManager` před tím, než je použijete ke konfiguraci služeb v kontejneru. Například nakonfigurujte `ApplicationPartManager` před vyvoláním `AddControllersAsServices` . `Remove`Chcete-li `ApplicationParts` Odebrat prostředek, zavolejte na kolekci.
+Části aplikace lze použít k *zamezení* načítání prostředků do konkrétního sestavení nebo umístění. Přidáním nebo odebráním členů  <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> kolekce můžete skrýt nebo zpřístupnit dostupné prostředky. Pořadí položek v `ApplicationParts` kolekci není důležité. Nakonfigurujte `ApplicationPartManager` před tím, než je použijete ke konfiguraci služeb v kontejneru. Například nakonfigurujte `ApplicationPartManager` před vyvoláním `AddControllersAsServices` . `Remove`Chcete-li `ApplicationParts` Odebrat prostředek, zavolejte na kolekci.
 
-Následující kód používá <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> k odebrání `MyDependentLibrary` z aplikace:[!code-csharp[](./app-parts/sample1/WebAppParts/StartupRm.cs?name=snippet)]
+Následující kód používá <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> k odebrání `MyDependentLibrary` z aplikace: [!code-csharp[](./app-parts/sample1/WebAppParts/StartupRm.cs?name=snippet)]
 
 `ApplicationPartManager`Obsahuje části pro:
 

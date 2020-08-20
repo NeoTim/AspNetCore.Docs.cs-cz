@@ -5,6 +5,7 @@ description: Naučte se číst model aplikace a manipulovat s ním, abyste mohli
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/application-model
-ms.openlocfilehash: de831a8b5012a2fe61642887ad816466df7a1bcb
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f2e86a8607ddd00dc7f4bec36079660f0cd1eea3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019895"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630286"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>Práce s modelem aplikace v ASP.NET Core
 
@@ -63,7 +64,7 @@ Pak ( `Order=-990` ):
 > Pořadí, ve kterém jsou voláni dva zprostředkovatelé se stejnou hodnotou pro `Order` , není definováno, a proto by nemělo být spoléhat na.
 
 > [!NOTE]
-> `IApplicationModelProvider`je pokročilý koncept pro rozšíření pro autory architektury. Obecně platí, že aplikace by měly používat konvence a rozhraní, které by měly používat poskytovatele. Klíčovým rozdílem je to, že poskytovatelé se vždycky spouštějí před konvencemi.
+> `IApplicationModelProvider` je pokročilý koncept pro rozšíření pro autory architektury. Obecně platí, že aplikace by měly používat konvence a rozhraní, které by měly používat poskytovatele. Klíčovým rozdílem je to, že poskytovatelé se vždycky spouštějí před konvencemi.
 
 `DefaultApplicationModelProvider`Naváže mnoho výchozích chování, které používá ASP.NET Core MVC. Mezi tyto povinnosti patří:
 
@@ -164,7 +165,7 @@ Konvence je přidána jako možnost při spuštění.
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=6)]
 
 > [!TIP]
-> K vašemu [middlewaru](xref:fundamentals/middleware/index) můžete přidat konvence tím, že budete přistupovat `MvcOptions` pomocí`services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));`
+> K vašemu [middlewaru](xref:fundamentals/middleware/index) můžete přidat konvence tím, že budete přistupovat `MvcOptions` pomocí `services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));`
 
 Tato ukázka používá tuto konvenci na trasy, které nepoužívají směrování atributů, kde Controller má v názvu "Namespace". Následující kontroler znázorňuje tuto konvenci:
 

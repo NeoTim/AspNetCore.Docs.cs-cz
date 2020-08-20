@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: d40b37a4ca8acf57b662124597a8ebc3b90bffd2
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c1891b8093c5a4c1599cd3c4ed4e5e60e2fd13e8
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018162"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628999"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>Vytváření značek pomocníků v ASP.NET Core
 
@@ -41,7 +42,7 @@ Pomocný objekt tag je libovolná třída, která implementuje `ITagHelper` rozh
 
 ## <a name="a-minimal-tag-helper"></a>Pomocný Pomocník s minimální značkou
 
-V této části napíšete pomocníka značek, který aktualizuje značku e-mailu. Například:
+V této části napíšete pomocníka značek, který aktualizuje značku e-mailu. Příklad:
 
 ```html
 <email>Support</email>
@@ -234,7 +235,7 @@ Můžete také použít `[HtmlTargetElement]` ke změně názvu cílového prvku
    >
    > [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?range=18-18)]
    >
-   > Razorví, že `info` atribut je třída, ne řetězec a vy chcete psát kód jazyka C#. Všechny pomocné atributy značek bez řetězce by měly být zapsány bez `@` znaku.
+   > Razor ví, že `info` atribut je třída, ne řetězec a vy chcete psát kód jazyka C#. Všechny pomocné atributy značek bez řetězce by měly být zapsány bez `@` znaku.
 
 1. Spusťte aplikaci a přejděte do zobrazení o webu, kde najdete informace o webovém serveru.
 
@@ -259,7 +260,7 @@ Pomocník značek podmínky vykreslí výstup, když prošla pravdivá hodnota.
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Controllers/HomeController.cs?range=9-18)]
 
-1. Spusťte aplikaci a přejděte na domovskou stránku. Značky v podmíněném kódu `div` nebudou vykresleny. Připojit řetězec dotazu `?approved=true` k adrese URL (například `http://localhost:1235/Home/Index?approved=true` ). `approved`je nastaven na hodnotu true a zobrazí se podmíněný kód.
+1. Spusťte aplikaci a přejděte na domovskou stránku. Značky v podmíněném kódu `div` nebudou vykresleny. Připojit řetězec dotazu `?approved=true` k adrese URL (například `http://localhost:1235/Home/Index?approved=true` ). `approved` je nastaven na hodnotu true a zobrazí se podmíněný kód.
 
 > [!NOTE]
 > Použijte operátor [nameof](/dotnet/csharp/language-reference/keywords/nameof) k určení atributu pro cílení namísto zadání řetězce jako u pomocníka s tučnými značkami:

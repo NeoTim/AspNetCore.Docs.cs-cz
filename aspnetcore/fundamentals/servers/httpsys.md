@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 384b6559b4ee6140da5cf785ffda3978aafbb132
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 29af28f512764b9efec682b44c8de1d2ae03ee04
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016762"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631131"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru HTTP.sys v ASP.NET Core
 
@@ -92,7 +93,7 @@ HTTP.sys deleguje ověřování režimu jádra pomocí ověřovacího protokolu 
 
 Další konfigurace HTTP.sys se zpracovává prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
-**MožnostiHTTP.sys**
+** MožnostiHTTP.sys**
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
@@ -105,7 +106,7 @@ Další konfigurace HTTP.sys se zpracovává prostřednictvím [nastavení regis
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
 | `RequestQueueMode` | Označuje, zda je server zodpovědný za vytvoření a konfiguraci fronty požadavků nebo zda se má připojit k existující frontě.<br>Většina stávajících možností konfigurace se nedá použít při připojování k existující frontě. | `RequestQueueMode.Create` |
-| `RequestQueueName` | Název fronty požadavků HTTP.sys. | `null`(Anonymní fronta) |
+| `RequestQueueName` | Název fronty požadavků HTTP.sys. | `null` (Anonymní fronta) |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> konfiguraci HTTP.sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody): čas povolený pro rozhraní API serveru http, který má vyprázdnit tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody): čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait): čas povolený pro rozhraní API serveru HTTP k analýze hlavičky žádosti.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection): čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond): minimální rychlost odesílání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue): čas, který může požadavek zůstat ve frontě požadavků předtím, než ji aplikace vybere.</li></ul> |  |
 | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte, kam se <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> má zaregistrovat HTTP.sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
@@ -159,8 +160,8 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
    Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000` . Pokud chcete nakonfigurovat předpony a porty adresy URL, můžete použít tyto možnosti:
 
    * <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*>
-   * `urls`argument příkazového řádku
-   * `ASPNETCORE_URLS`Proměnná prostředí
+   * `urls` argument příkazového řádku
+   * `ASPNETCORE_URLS` Proměnná prostředí
    * <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes>
 
    Následující příklad kódu ukazuje, jak používat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou serveru `10.0.0.4` na portu 443:
@@ -178,7 +179,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 1. Předregistrujte předpony adresy URL na serveru.
 
-   K *disnetsh.exe*je integrovaný nástroj pro konfiguraci HTTP.sys. *netsh.exe* se používá k rezervaci předpon adres URL a přiřazování certifikátů X. 509. Nástroj vyžaduje oprávnění správce.
+   K * disnetsh.exe*je integrovaný nástroj pro konfiguraci HTTP.sys. *netsh.exe* se používá k rezervaci předpon adres URL a přiřazování certifikátů X. 509. Nástroj vyžaduje oprávnění správce.
 
    K registraci adres URL aplikace použijte nástroj *netsh.exe* :
 
@@ -271,7 +272,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -345,7 +346,7 @@ HTTP.sys deleguje ověřování režimu jádra pomocí ověřovacího protokolu 
 
 Další konfigurace HTTP.sys se zpracovává prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
-**MožnostiHTTP.sys**
+** MožnostiHTTP.sys**
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
@@ -410,8 +411,8 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
    Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000` . Pokud chcete nakonfigurovat předpony a porty adresy URL, můžete použít tyto možnosti:
 
    * <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*>
-   * `urls`argument příkazového řádku
-   * `ASPNETCORE_URLS`Proměnná prostředí
+   * `urls` argument příkazového řádku
+   * `ASPNETCORE_URLS` Proměnná prostředí
    * <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes>
 
    Následující příklad kódu ukazuje, jak používat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou serveru `10.0.0.4` na portu 443:
@@ -429,7 +430,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 1. Předregistrujte předpony adresy URL na serveru.
 
-   K *disnetsh.exe*je integrovaný nástroj pro konfiguraci HTTP.sys. *netsh.exe* se používá k rezervaci předpon adres URL a přiřazování certifikátů X. 509. Nástroj vyžaduje oprávnění správce.
+   K * disnetsh.exe*je integrovaný nástroj pro konfiguraci HTTP.sys. *netsh.exe* se používá k rezervaci předpon adres URL a přiřazování certifikátů X. 509. Nástroj vyžaduje oprávnění správce.
 
    K registraci adres URL aplikace použijte nástroj *netsh.exe* :
 
@@ -522,7 +523,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -598,7 +599,7 @@ Odkaz na balíček v souboru projektu není vyžadován při použití [Microsof
 
 Další konfigurace HTTP.sys se zpracovává prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
-**MožnostiHTTP.sys**
+** MožnostiHTTP.sys**
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
@@ -663,8 +664,8 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
    Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000` . Pokud chcete nakonfigurovat předpony a porty adresy URL, můžete použít tyto možnosti:
 
    * <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*>
-   * `urls`argument příkazového řádku
-   * `ASPNETCORE_URLS`Proměnná prostředí
+   * `urls` argument příkazového řádku
+   * `ASPNETCORE_URLS` Proměnná prostředí
    * <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes>
 
    Následující příklad kódu ukazuje, jak používat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou serveru `10.0.0.4` na portu 443:
@@ -682,7 +683,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 1. Předregistrujte předpony adresy URL na serveru.
 
-   K *disnetsh.exe*je integrovaný nástroj pro konfiguraci HTTP.sys. *netsh.exe* se používá k rezervaci předpon adres URL a přiřazování certifikátů X. 509. Nástroj vyžaduje oprávnění správce.
+   K * disnetsh.exe*je integrovaný nástroj pro konfiguraci HTTP.sys. *netsh.exe* se používá k rezervaci předpon adres URL a přiřazování certifikátů X. 509. Nástroj vyžaduje oprávnění správce.
 
    K registraci adres URL aplikace použijte nástroj *netsh.exe* :
 
@@ -775,7 +776,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -851,7 +852,7 @@ Odkaz na balíček v souboru projektu není vyžadován při použití [Microsof
 
 Další konfigurace HTTP.sys se zpracovává prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
-**MožnostiHTTP.sys**
+** MožnostiHTTP.sys**
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
@@ -916,8 +917,8 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
    Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000` . Pokud chcete nakonfigurovat předpony a porty adresy URL, můžete použít tyto možnosti:
 
    * <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*>
-   * `urls`argument příkazového řádku
-   * `ASPNETCORE_URLS`Proměnná prostředí
+   * `urls` argument příkazového řádku
+   * `ASPNETCORE_URLS` Proměnná prostředí
    * <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes>
 
    Následující příklad kódu ukazuje, jak používat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou serveru `10.0.0.4` na portu 443:
@@ -935,7 +936,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 1. Předregistrujte předpony adresy URL na serveru.
 
-   K *disnetsh.exe*je integrovaný nástroj pro konfiguraci HTTP.sys. *netsh.exe* se používá k rezervaci předpon adres URL a přiřazování certifikátů X. 509. Nástroj vyžaduje oprávnění správce.
+   K * disnetsh.exe*je integrovaný nástroj pro konfiguraci HTTP.sys. *netsh.exe* se používá k rezervaci předpon adres URL a přiřazování certifikátů X. 509. Nástroj vyžaduje oprávnění správce.
 
    K registraci adres URL aplikace použijte nástroj *netsh.exe* :
 
@@ -1028,7 +1029,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)

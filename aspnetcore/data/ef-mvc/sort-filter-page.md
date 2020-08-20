@@ -6,6 +6,7 @@ ms.author: riande
 ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: f19f7c9ce8a525c5798e95ac376325f573a114a6
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 16a0b264f8395670b02d091afd44e71d0dad4d0b
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017997"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629350"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>Kurz: Přidání řazení, filtrování a stránkování – ASP.NET MVC pomocí EF Core
 
@@ -41,7 +42,7 @@ V tomto kurzu jste:
 > * Přidat odkazy na stránkování
 > * Vytvoření stránky o stránku
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Implementace funkce CRUD](crud.md)
 
@@ -103,7 +104,7 @@ Přidali jste `searchString` do `Index` metody parametr. Hodnota vyhledávacího
 > [!NOTE]
 > Zde zavoláte `Where` metodu na `IQueryable` objekt a filtr bude zpracován na serveru. V některých scénářích může být metoda volání `Where` jako metoda rozšíření v kolekci v paměti. (Předpokládejme například, že změníte odkaz na `_context.Students` tak, aby místo EF odkazoval na `DbSet` metodu úložiště, která vrací `IEnumerable` kolekci.) Výsledek by byl normálně stejný, ale v některých případech se může lišit.
 >
->Například .NET Framework implementace `Contains` metody provádí porovnání rozlišovat velká a malá písmena ve výchozím nastavení, ale v SQL Server to je určeno nastavením kolace instance SQL Server. Ve výchozím nastavení se nerozlišují malá a velká písmena. Můžete zavolat `ToUpper` metodu, aby test explicitně nerozlišovat velikost písmen: *WHERE (s => s. LastName. ToUpper (). Obsahuje (searchString. ToUpper ())*. Aby bylo zajištěno, že výsledky zůstanou stejné, pokud později změníte kód, aby používal úložiště, které vrátí `IEnumerable` kolekci namísto `IQueryable` objektu. (Při volání `Contains` metody v `IEnumerable` kolekci získáte .NET Framework implementaci; při volání na `IQueryable` objekt získáte implementaci poskytovatele databáze.) Pro toto řešení však existuje snížení výkonu. `ToUpper`Kód by umístil funkci v klauzuli WHERE příkazu TSQL SELECT. Tím zabráníte Optimalizátoru v používání indexu. Vzhledem k tomu, že SQL je většinou nainstalován jako nerozlišovat velká a malá písmena, je nejlepší vyhnout se `ToUpper` kódu, dokud neprovedete migraci na úložiště dat citlivé na velká a malá písmena.
+>Například .NET Framework implementace `Contains` metody provádí porovnání rozlišovat velká a malá písmena ve výchozím nastavení, ale v SQL Server to je určeno nastavením kolace instance SQL Server. Ve výchozím nastavení se nerozlišují malá a velká písmena. Můžete zavolat `ToUpper` metodu, aby test explicitně nerozlišovat velikost písmen:  *WHERE (s => s. LastName. ToUpper (). Obsahuje (searchString. ToUpper ())*. Aby bylo zajištěno, že výsledky zůstanou stejné, pokud později změníte kód, aby používal úložiště, které vrátí `IEnumerable` kolekci namísto `IQueryable` objektu. (Při volání `Contains` metody v `IEnumerable` kolekci získáte .NET Framework implementaci; při volání na `IQueryable` objekt získáte implementaci poskytovatele databáze.) Pro toto řešení však existuje snížení výkonu. `ToUpper`Kód by umístil funkci v klauzuli WHERE příkazu TSQL SELECT. Tím zabráníte Optimalizátoru v používání indexu. Vzhledem k tomu, že SQL je většinou nainstalován jako nerozlišovat velká a malá písmena, je nejlepší vyhnout se `ToUpper` kódu, dokud neprovedete migraci na úložiště dat citlivé na velká a malá písmena.
 
 ### <a name="add-a-search-box-to-the-student-index-view"></a>Přidání vyhledávacího pole do zobrazení indexu studenta
 

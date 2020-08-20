@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: cdddb14e62f42bc9c0ec0bbe2a8595fe1cb27ceb
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d20740950f7ac56a3a3b2951b474151aaf9c6f5a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016203"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631222"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
@@ -33,14 +34,14 @@ Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) por
 
 Následující tabulka nabízí vysoké srovnání funkcí mezi gRPC a rozhraními API protokolu HTTP s JSON.
 
-| Příznak          | gRPC                                               | HTTP API s JSON           |
+| Funkce          | gRPC                                               | HTTP API s JSON           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | Kontrakt         | Požadováno (*.*)                                | Volitelné (OpenAPI)            |
 | Protokol         | HTTP/2                                             | HTTP                          |
 | Délka          | [Protobuf (malý, binární)](#performance)           | JSON (velký, lidský čitelný)  |
 | Prescriptiveness | [Striktní specifikace](#strict-specification)      | Spojování. Všechny požadavky HTTP jsou platné.     |
 | Streamování        | [Klient, server, obousměrné](#streaming)       | Klient, Server                |
-| Podpora prohlížečů  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano                           |
+| Podpora prohlížečů  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Yes                           |
 | Zabezpečení         | Přenos (TLS)                                    | Přenos (TLS)               |
 | Generování kódu klienta | [Ano](#code-generation)                      | OpenAPI + nástroje třetích stran |
 
@@ -121,7 +122,7 @@ Funkce jako [reflexe serveru](https://github.com/grpc/grpc/blob/master/doc/serve
 Další architektury se doporučují přes gRPC v následujících scénářích:
 
 * **Rozhraní API pro přístup přes prohlížeč**: v prohlížeči se nepodporuje plně gRPC. gRPC-web může nabízet podporu prohlížeče, ale má omezení a zavádí proxy serveru.
-* **Komunikace v reálném čase**: gRPC podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy do registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [SignalR](xref:signalr/introduction)je užitečnou architekturou pro tento scénář. SignalRmá koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
+* **Komunikace v reálném čase**: gRPC podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy do registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [SignalR](xref:signalr/introduction) je užitečnou architekturou pro tento scénář. SignalR má koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
 * **Komunikace mezi procesy**: proces musí HOSTOVAT Server HTTP/2, aby přijímal příchozí volání gRPC. Pro systém Windows je mezi procesy komunikačních [kanálů](/dotnet/standard/io/pipe-operations) rychlá a odlehčená metoda komunikace.
 
 ## <a name="additional-resources"></a>Další materiály

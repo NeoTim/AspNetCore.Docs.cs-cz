@@ -5,6 +5,7 @@ description: Část 3 kurzu řady ASP.NET Core MVC.
 ms.author: riande
 ms.date: 8/04/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 45ae6059e039ccfb4d835c615b660abc39251530
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 970cc1fe6e0a0e0204ddafec09c15db6fed9aa66
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021988"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629753"
 ---
 # <a name="part-3-add-a-view-to-an-aspnet-core-mvc-app"></a>Část 3 – přidání zobrazení do ASP.NET Core aplikace MVC
 
@@ -92,7 +93,7 @@ Přejděte na adresu `https://localhost:{PORT}/HelloWorld`. `Index`Metoda v `Hel
 
 Vyberte odkazy nabídky (**MvcMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *views/Shared/_Layout. cshtml* . Otevřete soubor *views/Shared/_Layout. cshtml* .
 
-Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte `@RenderBody()` řádek. `RenderBody`je zástupný symbol, ve kterém se zobrazí všechny stránky specifické pro zobrazení, *zabalené* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **/Domů/soukromí. cshtml** se vykreslí v rámci `RenderBody` metody.
+Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte `@RenderBody()` řádek. `RenderBody` je zástupný symbol, ve kterém se zobrazí všechny stránky specifické pro zobrazení, *zabalené* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **/Domů/soukromí. cshtml** se vykreslí v rámci `RenderBody` metody.
 
 ## <a name="change-the-title-footer-and-menu-link-in-the-layout-file"></a>Změna názvu, zápatí a odkazu v nabídce v souboru rozložení
 
@@ -131,7 +132,7 @@ Změňte název a `<h2>` element zobrazení */Hello/index. cshtml* zobrazení so
 
 Název a `<h2>` element se mírně liší, abyste viděli, který bit kódu se zobrazí.
 
-`ViewData["Title"] = "Movie List";`ve výše uvedeném kódu nastaví `Title` vlastnost `ViewData` slovníku na "seznam filmů". `Title`Vlastnost se používá v `<title>` prvku HTML na stránce rozložení:
+`ViewData["Title"] = "Movie List";` ve výše uvedeném kódu nastaví `Title` vlastnost `ViewData` slovníku na "seznam filmů". `Title`Vlastnost se používá v `<title>` prvku HTML na stránce rozložení:
 
 ```cshtml
 <title>@ViewData["Title"] - Movie App</title>
@@ -249,7 +250,7 @@ Přejděte na adresu `https://localhost:{PORT}/HelloWorld`. `Index`Metoda v `Hel
 
 Vyberte odkazy nabídky (**MvcMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *views/Shared/_Layout. cshtml* . Otevřete soubor *views/Shared/_Layout. cshtml* .
 
-Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte `@RenderBody()` řádek. `RenderBody`je zástupný symbol, ve kterém se zobrazí všechny stránky specifické pro zobrazení, *zabalené* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **/Domů/soukromí. cshtml** se vykreslí v rámci `RenderBody` metody.
+Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte `@RenderBody()` řádek. `RenderBody` je zástupný symbol, ve kterém se zobrazí všechny stránky specifické pro zobrazení, *zabalené* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **/Domů/soukromí. cshtml** se vykreslí v rámci `RenderBody` metody.
 
 ## <a name="change-the-title-footer-and-menu-link-in-the-layout-file"></a>Změna názvu, zápatí a odkazu v nabídce v souboru rozložení
 
@@ -291,7 +292,7 @@ Změňte název a `<h2>` element zobrazení */Hello/index. cshtml* zobrazení so
 
 Název a `<h2>` element se mírně liší, abyste viděli, který bit kódu se zobrazí.
 
-`ViewData["Title"] = "Movie List";`ve výše uvedeném kódu nastaví `Title` vlastnost `ViewData` slovníku na "seznam filmů". `Title`Vlastnost se používá v `<title>` prvku HTML na stránce rozložení:
+`ViewData["Title"] = "Movie List";` ve výše uvedeném kódu nastaví `Title` vlastnost `ViewData` slovníku na "seznam filmů". `Title`Vlastnost se používá v `<title>` prvku HTML na stránce rozložení:
 
 ```cshtml
 <title>@ViewData["Title"] - Movie App</title>

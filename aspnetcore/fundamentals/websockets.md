@@ -7,6 +7,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: d0116a50051c1e9ddc9783e0102a3b32fb20cdce
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 685e694a3d974a8a51255bdbb83d33459137a3d9
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88016450"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629012"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>Podpora WebSockets v ASP.NET Core
 
@@ -36,9 +37,9 @@ Tento článek vysvětluje, jak začít s objekty WebSockets v ASP.NET Core. [We
 
 [ASP.NET Core SignalR ](xref:signalr/introduction) je knihovna, která zjednodušuje přidávání webových funkcí v reálném čase do aplikací. Pokud je to možné, používá objekty WebSocket.
 
-Pro většinu aplikací doporučujeme používat SignalR nezpracované objekty WebSockets. SignalRposkytuje záložní přenos pro prostředí, kde nejsou k dispozici objekty WebSockets. Poskytuje také jednoduchý model aplikace pro vzdálené volání procedur. Ve většině scénářů SignalR nemá v porovnání s nezpracovanými objekty WebSocket žádný významný nevýhodný výkon.
+Pro většinu aplikací doporučujeme používat SignalR nezpracované objekty WebSockets. SignalR poskytuje záložní přenos pro prostředí, kde nejsou k dispozici objekty WebSockets. Poskytuje také jednoduchý model aplikace pro vzdálené volání procedur. Ve většině scénářů SignalR nemá v porovnání s nezpracovanými objekty WebSocket žádný významný nevýhodný výkon.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * ASP.NET Core 1,1 nebo novější
 * Libovolný operační systém, který podporuje ASP.NET Core:
@@ -78,8 +79,8 @@ Do metody třídy přidejte middleware WebSockets `Configure` `Startup` :
 
 Je možné nakonfigurovat následující nastavení:
 
-* `KeepAliveInterval`– Jak často se mají do klienta odesílat snímky příkazu "testovat z příkazového testu", aby proxy servery udržovaly otevřené připojení. Výchozí hodnota je dvě minuty.
-* `ReceiveBufferSize`– Velikost vyrovnávací paměti použité k příjmu dat. Pokročilí uživatelé tuto změnu můžou potřebovat pro vyladění výkonu na základě velikosti dat. Výchozí hodnota je 4 KB.
+* `KeepAliveInterval` – Jak často se mají do klienta odesílat snímky příkazu "testovat z příkazového testu", aby proxy servery udržovaly otevřené připojení. Výchozí hodnota je dvě minuty.
+* `ReceiveBufferSize` – Velikost vyrovnávací paměti použité k příjmu dat. Pokročilí uživatelé tuto změnu můžou potřebovat pro vyladění výkonu na základě velikosti dat. Výchozí hodnota je 4 KB.
 
 ::: moniker-end
 
@@ -87,9 +88,9 @@ Je možné nakonfigurovat následující nastavení:
 
 Je možné nakonfigurovat následující nastavení:
 
-* `KeepAliveInterval`– Jak často se mají do klienta odesílat snímky příkazu "testovat z příkazového testu", aby proxy servery udržovaly otevřené připojení. Výchozí hodnota je dvě minuty.
-* <xref:Microsoft.AspNetCore.Builder.WebSocketOptions.ReceiveBufferSize>– Velikost vyrovnávací paměti použité k příjmu dat. Pokročilí uživatelé tuto změnu můžou potřebovat pro vyladění výkonu na základě velikosti dat. Výchozí hodnota je 4 KB.
-* `AllowedOrigins`– Seznam povolených hodnot záhlaví zdroje pro požadavky protokolu WebSocket. Ve výchozím nastavení jsou povoleny všechny zdroje. Podrobnosti najdete níže v části omezení původu pro WebSocket.
+* `KeepAliveInterval` – Jak často se mají do klienta odesílat snímky příkazu "testovat z příkazového testu", aby proxy servery udržovaly otevřené připojení. Výchozí hodnota je dvě minuty.
+* <xref:Microsoft.AspNetCore.Builder.WebSocketOptions.ReceiveBufferSize> – Velikost vyrovnávací paměti použité k příjmu dat. Pokročilí uživatelé tuto změnu můžou potřebovat pro vyladění výkonu na základě velikosti dat. Výchozí hodnota je 4 KB.
+* `AllowedOrigins` – Seznam povolených hodnot záhlaví zdroje pro požadavky protokolu WebSocket. Ve výchozím nastavení jsou povoleny všechny zdroje. Podrobnosti najdete níže v části omezení původu pro WebSocket.
 
 ::: moniker-end
 

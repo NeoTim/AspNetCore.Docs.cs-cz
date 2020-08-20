@@ -6,6 +6,7 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/03/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/action-return-types
-ms.openlocfilehash: 3058fabb0c08ac62956c18f3c294692d35122e12
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8e33a2628986146d1d72e1d4772e3d9e42de119c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022157"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629389"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>Návratové typy akcí kontroleru v ASP.NET Core webovém rozhraní API
 
@@ -102,7 +103,7 @@ Obě předchozí akce nejsou blokující ASP.NET Core 3,0.
 
 <xref:Microsoft.AspNetCore.Mvc.IActionResult>Návratový typ je vhodný, pokud `ActionResult` je možné v akci použít více návratových typů. `ActionResult`Typy reprezentují různé stavové kódy HTTP. Jakákoli Neabstraktní třída odvozená od `ActionResult` je platná jako platný návratový typ. Některé běžné návratové typy v této kategorii jsou <xref:Microsoft.AspNetCore.Mvc.BadRequestResult> (400), <xref:Microsoft.AspNetCore.Mvc.NotFoundResult> (404) a <xref:Microsoft.AspNetCore.Mvc.OkObjectResult> (200). Alternativně lze metody ve <xref:Microsoft.AspNetCore.Mvc.ControllerBase> třídě použít k vrácení `ActionResult` typů z akce. Například `return BadRequest();` je zkrácený tvar `return new BadRequestResult();` .
 
-Vzhledem k tomu, že v tomto typu akce existuje více návratových typů a cest, je nutné použít atribut k dispozici [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) . Tento atribut vytváří podrobnější podrobnosti odpovědi na stránky pro nápovědu k webovému rozhraní API generované nástroji, jako je [Swagger](xref:tutorials/web-api-help-pages-using-swagger). `[ProducesResponseType]`Určuje známé typy a stavové kódy HTTP, které má akce vrátit.
+Vzhledem k tomu, že v tomto typu akce existuje více návratových typů a cest, je nutné použít atribut k dispozici [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) . Tento atribut vytváří podrobnější podrobnosti odpovědi na stránky pro nápovědu k webovému rozhraní API generované nástroji, jako je [Swagger](xref:tutorials/web-api-help-pages-using-swagger). `[ProducesResponseType]` Určuje známé typy a stavové kódy HTTP, které má akce vrátit.
 
 ### <a name="synchronous-action"></a>Synchronní akce
 
@@ -156,10 +157,10 @@ Pokud [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) 
 
 ## <a name="actionresultt-type"></a>\<T>Typ ActionResult
 
-ASP.NET Core 2,1 zavedlo návratový typ [ActionResult \<T> ](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) pro akce kontroleru webového rozhraní API. Umožňuje vrátit typ odvozený z <xref:Microsoft.AspNetCore.Mvc.ActionResult> nebo vracet [konkrétní typ](#specific-type). `ActionResult<T>`nabízí následující výhody oproti [IActionResult typu](#iactionresult-type):
+ASP.NET Core 2,1 zavedlo návratový typ [ActionResult \<T> ](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) pro akce kontroleru webového rozhraní API. Umožňuje vrátit typ odvozený z <xref:Microsoft.AspNetCore.Mvc.ActionResult> nebo vracet [konkrétní typ](#specific-type). `ActionResult<T>` nabízí následující výhody oproti [IActionResult typu](#iactionresult-type):
 
 * [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) `Type` Vlastnost atributu může být vyloučena. Například `[ProducesResponseType(200, Type = typeof(Product))]` je zjednodušený pro `[ProducesResponseType(200)]` . Očekávaný návratový typ akce je místo odvoditelné z `T` v `ActionResult<T>` .
-* [Operátory implicitního přetypování](/dotnet/csharp/language-reference/keywords/implicit) podporují převod obou `T` i `ActionResult` na `ActionResult<T>` . `T`převádí na <xref:Microsoft.AspNetCore.Mvc.ObjectResult> , což znamená, že `return new ObjectResult(T);` je zjednodušený `return T;` .
+* [Operátory implicitního přetypování](/dotnet/csharp/language-reference/keywords/implicit) podporují převod obou `T` i `ActionResult` na `ActionResult<T>` . `T` převádí na <xref:Microsoft.AspNetCore.Mvc.ObjectResult> , což znamená, že `return new ObjectResult(T);` je zjednodušený `return T;` .
 
 Jazyk C# nepodporuje operátory implicitního přetypování na rozhraních. V důsledku toho je nutné použít převod rozhraní na konkrétní typ `ActionResult<T>` . Například použití `IEnumerable` v následujícím příkladu nefunguje:
 

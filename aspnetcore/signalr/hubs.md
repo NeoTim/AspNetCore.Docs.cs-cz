@@ -1,5 +1,5 @@
 ---
-title: Použití Center v ASP.NET CoreSignalR
+title: Použití Center v ASP.NET Core SignalR
 author: bradygaster
 description: Naučte se používat centra v ASP.NET Core SignalR .
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/hubs
-ms.openlocfilehash: bd7432fc29d0cda003abed1f0e522bdddf2e4efc
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 71ca0896bc645b7625f60c3a9e8fe321079d524a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022209"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631274"
 ---
 # <a name="use-hubs-in-no-locsignalr-for-aspnet-core"></a>Použití Center v SignalR pro ASP.NET Core
 
@@ -32,7 +33,7 @@ Od [Rachel Appel](https://twitter.com/rachelappel) a [Kevin Griffin](https://twi
 
 ## <a name="what-is-a-no-locsignalr-hub"></a>Co je SignalR centrum
 
-SignalRRozhraní API Center umožňuje volat metody v připojených klientech ze serveru. V kódu serveru definujete metody, které jsou volány klientem. V kódu klienta definujete metody, které jsou volány ze serveru. SignalRpostará se o všechno na pozadí, které umožňuje komunikaci mezi klientem a serverem od klientů po straně klienta.
+SignalRRozhraní API Center umožňuje volat metody v připojených klientech ze serveru. V kódu serveru definujete metody, které jsou volány klientem. V kódu klienta definujete metody, které jsou volány ze serveru. SignalR postará se o všechno na pozadí, které umožňuje komunikaci mezi klientem a serverem od klientů po straně klienta.
 
 ## <a name="configure-no-locsignalr-hubs"></a>Konfigurovat SignalR centra
 
@@ -76,7 +77,7 @@ public class ChatHub : Hub
 }
 ```
 
-Můžete zadat návratový typ a parametry, včetně složitých typů a polí, stejně jako v libovolné metodě jazyka C#. SignalRzpracovává serializaci a deserializaci komplexních objektů a polí ve vašich parametrech a návratových hodnotách.
+Můžete zadat návratový typ a parametry, včetně složitých typů a polí, stejně jako v libovolné metodě jazyka C#. SignalR zpracovává serializaci a deserializaci komplexních objektů a polí ve vašich parametrech a návratových hodnotách.
 
 > [!NOTE]
 > Rozbočovače jsou přechodné:
@@ -97,7 +98,7 @@ Můžete zadat návratový typ a parametry, včetně složitých typů a polí, 
 | `Features` | Získá kolekci funkcí dostupných na připojení. Ve většině scénářů teď není tato kolekce potřebná, takže ještě není popsána podrobněji. |
 | `ConnectionAborted` | Získá `CancellationToken` upozornění, když je připojení přerušeno. |
 
-`Hub.Context`obsahuje také následující metody:
+`Hub.Context` obsahuje také následující metody:
 
 | Metoda | Popis |
 | ------ | ----------- |
@@ -114,7 +115,7 @@ Můžete zadat návratový typ a parametry, včetně složitých typů a polí, 
 | `Caller` | Volá metodu na klientovi, který vyvolal metodu hub. |
 | `Others` | Volá metodu na všech připojených klientech s výjimkou klienta, který metodu vyvolal. |
 
-`Hub.Clients`obsahuje také následující metody:
+`Hub.Clients` obsahuje také následující metody:
 
 | Metoda | Popis |
 | ------ | ----------- |
@@ -134,9 +135,9 @@ Každá vlastnost nebo metoda v předchozích tabulkách vrátí objekt s `SendA
 
 Chcete-li volat konkrétní klienty, použijte vlastnosti `Clients` objektu. V následujícím příkladu jsou tři metody centra:
 
-* `SendMessage`odešle zprávu všem připojeným klientům pomocí `Clients.All` .
-* `SendMessageToCaller`pošle zprávu zpět volajícímu pomocí `Clients.Caller` .
-* `SendMessageToGroups`pošle zprávu všem klientům ve `SignalR Users` skupině.
+* `SendMessage` odešle zprávu všem připojeným klientům pomocí `Clients.All` .
+* `SendMessageToCaller` pošle zprávu zpět volajícímu pomocí `Clients.Caller` .
+* `SendMessageToGroups` pošle zprávu všem klientům ve `SignalR Users` skupině.
 
 [!code-csharp[Send messages](hubs/sample/hubs/chathub.cs?name=HubMethods)]
 
@@ -154,7 +155,7 @@ Toto rozhraní lze použít k refaktorování předchozího `ChatHub` příkladu
 
 Pomocí této `Hub<IChatClient>` metody lze provádět kontrolu klientských metod v době kompilace. To brání problémům způsobeným použitím řetězců Magic, protože `Hub<T>` může poskytnout přístup pouze k metodám definovaným v rozhraní.
 
-Použití silného typu `Hub<T>` zakáže schopnost použít `SendAsync` . Jakékoli metody definované v rozhraní lze i nadále definovat jako asynchronní. Každá z těchto metod by ve skutečnosti měla vrátit `Task` . Vzhledem k tomu, že se jedná o rozhraní, nepoužívejte `async` klíčové slovo. Například:
+Použití silného typu `Hub<T>` zakáže schopnost použít `SendAsync` . Jakékoli metody definované v rozhraní lze i nadále definovat jako asynchronní. Každá z těchto metod by ve skutečnosti měla vrátit `Task` . Vzhledem k tomu, že se jedná o rozhraní, nepoužívejte `async` klíčové slovo. Příklad:
 
 ```csharp
 public interface IClient
@@ -190,23 +191,23 @@ Výjimky vyvolané ve vašich metodách centra jsou odesílány klientovi, kter�
 
 [!code-javascript[Error](hubs/sample/wwwroot/js/chat.js?range=23)]
 
-Pokud vaše centrum vyvolá výjimku, připojení se nezavřou. Ve výchozím nastavení SignalR vrátí klientovi obecnou chybovou zprávu. Například:
+Pokud vaše centrum vyvolá výjimku, připojení se nezavřou. Ve výchozím nastavení SignalR vrátí klientovi obecnou chybovou zprávu. Příklad:
 
 ```
 Microsoft.AspNetCore.SignalR.HubException: An unexpected error occurred invoking 'MethodName' on the server.
 ```
 
-Neočekávané výjimky často obsahují citlivé informace, jako je třeba název databázového serveru v výjimce aktivované při neúspěchu připojení k databázi. SignalRnezveřejňuje tyto podrobné chybové zprávy ve výchozím nastavení jako bezpečnostní opatření. Další informace o tom, proč se potlačí podrobnosti o výjimce, najdete v článku věnovaném [bezpečnostním hlediskům](xref:signalr/security#exceptions) .
+Neočekávané výjimky často obsahují citlivé informace, jako je třeba název databázového serveru v výjimce aktivované při neúspěchu připojení k databázi. SignalR nezveřejňuje tyto podrobné chybové zprávy ve výchozím nastavení jako bezpečnostní opatření. Další informace o tom, proč se potlačí podrobnosti o výjimce, najdete v článku věnovaném [bezpečnostním hlediskům](xref:signalr/security#exceptions) .
 
 Pokud máte výjimečnou podmínku *, kterou chcete* rozšířit na klienta, můžete použít `HubException` třídu. Pokud vyvoláte `HubException` metodu z vašeho centra, SignalR **aplikace** pošle celou zprávu klientovi, který nezůstane beze změny.
 
 [!code-csharp[ThrowHubException](hubs/sample/hubs/chathub.cs?name=ThrowHubException&highlight=3)]
 
 > [!NOTE]
-> SignalRpouze odesílá `Message` vlastnost výjimky klientovi. Trasování zásobníku a další vlastnosti výjimky nejsou pro klienta k dispozici.
+> SignalR pouze odesílá `Message` vlastnost výjimky klientovi. Trasování zásobníku a další vlastnosti výjimky nejsou pro klienta k dispozici.
 
 ## <a name="related-resources"></a>Související prostředky
 
-* [Úvod k ASP.NET CoreSignalR](xref:signalr/introduction)
+* [Úvod k ASP.NET Core SignalR](xref:signalr/introduction)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

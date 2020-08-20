@@ -7,6 +7,7 @@ ms.author: rick-anderson
 ms.custom: mvc
 ms.date: 03/17/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/mfa
-ms.openlocfilehash: 4538030b4ce6aba6c78edb69cf44fc5812ddff76
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 048d88a121d0a4a7ab3d3adee9b426b95fd68a80
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017854"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629584"
 ---
 # <a name="multi-factor-authentication-in-aspnet-core"></a>Multi-Factor Authentication v ASP.NET Core
 
@@ -33,7 +34,7 @@ Multi-Factor Authentication (MFA) je proces, při kterém se uživatel během p�
 Tento článek se zabývá následujícími oblastmi:
 
 * Co je MFA a jaké jsou doporučené toky MFA
-* Konfigurace MFA pro stránky správy pomocí ASP.NET CoreIdentity
+* Konfigurace MFA pro stránky pro správu pomocí ASP.NET Core Identity
 * Odeslat požadavek na přihlášení MFA serveru OpenID Connect
 * Vynutit, ASP.NET Core OpenID připojit klienta k vyžádání MFA
 
@@ -45,7 +46,7 @@ Dvojúrovňové ověřování (2FA) je jako podmnožina MFA, ale rozdíl mezi t�
 
 ### <a name="mfa-totp-time-based-one-time-password-algorithm"></a>MFA TOTP (jednorázový algoritmus hesla na základě času)
 
-Vícefaktorové ověřování pomocí TOTP je podporovanou implementací pomocí ASP.NET Core Identity . Tato možnost se dá použít společně s veškerou aplikací dodržujících ověřovacích dat, včetně:
+Vícefaktorové ověřování pomocí TOTP je podporovaná implementace pomocí ASP.NET Core Identity . Tato možnost se dá použít společně s veškerou aplikací dodržujících ověřovacích dat, včetně:
 
 * Aplikace Microsoft Authenticator
 * Aplikace Google Authenticator
@@ -71,9 +72,9 @@ VÍCEFAKTOROVÉ ověřování pomocí SMS zvyšuje zabezpečení v porovnání s
 
 [Pokyny pro NIST](https://pages.nist.gov/800-63-3/sp800-63b.html)
 
-## <a name="configure-mfa-for-administration-pages-using-aspnet-core-no-locidentity"></a>Konfigurace MFA pro stránky správy pomocí ASP.NET CoreIdentity
+## <a name="configure-mfa-for-administration-pages-using-no-locaspnet-core-identity"></a>Konfigurace MFA pro stránky pro správu pomocí ASP.NET Core Identity
 
-Vícefaktorové ověřování může být pro uživatele vynucené k přístupu k citlivým stránkám v Identity aplikaci ASP.NET Core. To může být užitečné pro aplikace, kde pro různé identity existují různé úrovně přístupu. Uživatelé můžou například zobrazit profilová data pomocí přihlašovacího hesla, ale pro přístup ke stránkám pro správu musel správce použít MFA.
+Vícefaktorové ověřování může být pro uživatele vynucené k přístupu k citlivým stránkám v rámci ASP.NET Core Identity aplikace. To může být užitečné pro aplikace, kde pro různé identity existují různé úrovně přístupu. Uživatelé můžou například zobrazit profilová data pomocí přihlašovacího hesla, ale pro přístup ke stránkám pro správu musel správce použít MFA.
 
 ### <a name="extend-the-login-with-an-mfa-claim"></a>Prodloužení přihlašovacích údajů s deklarací MFA
 
@@ -304,9 +305,9 @@ public void ConfigureServices(IServiceCollection services)
     });
 ```
 
-### <a name="example-openid-connect-no-locidentityserver-4-server-with-aspnet-core-no-locidentity"></a>Příklad OpenID připojení serveru Identity serveru 4 s ASP.NET CoreIdentity
+### <a name="example-openid-connect-no-locidentityserver-4-server-with-no-locaspnet-core-identity"></a>Příklad OpenID připojení serveru Identity serveru 4 s ASP.NET Core Identity
 
-Na serveru OpenID Connect, který je implementován pomocí ASP.NET Core Identity s zobrazeními MVC, je vytvořeno nové zobrazení s názvem *ErrorEnable2FA. cshtml* . Zobrazení:
+Na serveru OpenID Connect, který je implementován pomocí ASP.NET Core Identity zobrazení MVC, je vytvořeno nové zobrazení s názvem *ErrorEnable2FA. cshtml* . Zobrazení:
 
 * Zobrazuje, jestli Identity pochází z aplikace, která vyžaduje MFA, ale uživatel je neaktivoval v Identity .
 * Informuje uživatele a přidá odkaz pro aktivaci.
@@ -329,7 +330,7 @@ You can enable MFA to login here:
 
 V `Login` metodě se `IIdentityServerInteractionService` implementace rozhraní `_interaction` používá pro přístup k parametrům žádosti OpenID Connect. K `acr_values` parametru je přistup pomocí `AcrValues` Vlastnosti. Jak klient tuto `mfa` možnost odeslal, je možné ho zkontrolovat.
 
-Pokud je vyžadováno MFA a uživatel v ASP.NET Core Identity má povolené MFA, přihlášení pokračuje. Pokud uživatel nemá povolené vícefaktorové ověřování, uživatel se přesměruje na vlastní zobrazení *ErrorEnable2FA. cshtml*. Pak ASP.NET Core Identity podepíše uživatele v.
+Pokud je vyžadováno MFA a uživatel v ASP.NET Core Identity má povolený MFA, přihlášení pokračuje. Pokud uživatel nemá povolené vícefaktorové ověřování, uživatel se přesměruje na vlastní zobrazení *ErrorEnable2FA. cshtml*. Pak ASP.NET Core Identity uživatele podepíše v.
 
 ```csharp
 //
@@ -410,7 +411,7 @@ public async Task<IActionResult> ExternalLoginCallback(
 Pokud je už uživatel přihlášený, klientská aplikace:
 
 * Stále ověřuje `amr` deklaraci identity.
-* Můžete nastavit MFA s odkazem na Identity zobrazení ASP.NET Core.
+* Umožňuje nastavit MFA s odkazem na ASP.NET Core Identity zobrazení.
 
 ![acr_values-1](mfa/_static/acr_values-1.png)
 
@@ -577,7 +578,7 @@ Další možností je přihlášení pomocí jednorázového hesla pomocí Ident
 
 ![require_mfa_oidc_01.png](mfa/_static/require_mfa_oidc_01.png)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core](xref:security/authentication/identity-enable-qrcodes)
 * [Možnosti ověřování neheslem pro Azure Active Directory](/azure/active-directory/authentication/concept-authentication-passwordless)

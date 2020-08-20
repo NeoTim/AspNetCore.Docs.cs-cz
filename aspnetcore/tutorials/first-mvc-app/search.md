@@ -5,6 +5,7 @@ description: Část 7 série kurzů na ASP.NET Core MVC
 ms.author: riande
 ms.date: 12/13/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: 8df331ec6a6170255f357937adb8fbb6ccb59aaa
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: fcb96300c08d9f985cbfe4d3bf055036be7d2eb0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021312"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629571"
 ---
 # <a name="part-7-add-search-to-an-aspnet-core-mvc-app"></a>Část 7 – přidání vyhledávání do aplikace ASP.NET Core MVC
 
@@ -154,7 +155,7 @@ V předchozím kódu `DisplayNameFor` Pomocník HTML kontroluje vlastnost, na kt
 
 Otestujte aplikaci vyhledáním podle žánru, podle názvu filmu a pomocí obou:
 
-![Okno prohlížeče zobrazující výsledkyhttps://localhost:5001/Movies?MovieGenre=Comedy&SearchString=2](~/tutorials/first-mvc-app/search/_static/s2.png)
+![Okno prohlížeče zobrazující výsledky https://localhost:5001/Movies?MovieGenre=Comedy&SearchString=2](~/tutorials/first-mvc-app/search/_static/s2.png)
 
 > [!div class="step-by-step"]
 > [Předchozí](controller-methods-views.md) 

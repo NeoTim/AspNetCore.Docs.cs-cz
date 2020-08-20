@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: c0edf56c966cb90c1c308f300a8944d392fdc0e7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e911512c1dce892c670659f04959be89cea067bb
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020974"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630104"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-no-locrazor-pages"></a>Ověření modelu ve ASP.NET Core MVC a Razor stránkách
 
@@ -51,7 +52,7 @@ Ověřování je automatické, ale můžete je chtít opakovat ručně. Můžete
 
 ## <a name="validation-attributes"></a>Atributy ověřování
 
-Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti modelu. Následující příklad z ukázkové aplikace zobrazuje třídu modelu s poznámkou ověřování atributů. `[ClassicMovie]`Atribut je vlastní ověřovací atribut a jsou integrovány ostatní. Není zobrazeno `[ClassicMovieWithClientValidator]` . `[ClassicMovieWithClientValidator]`ukazuje alternativní způsob implementace vlastního atributu.
+Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti modelu. Následující příklad z ukázkové aplikace zobrazuje třídu modelu s poznámkou ověřování atributů. `[ClassicMovie]`Atribut je vlastní ověřovací atribut a jsou integrovány ostatní. Není zobrazeno `[ClassicMovieWithClientValidator]` . `[ClassicMovieWithClientValidator]` ukazuje alternativní způsob implementace vlastního atributu.
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/Movie.cs?name=snippet_Class)]
 
@@ -74,13 +75,13 @@ Tady jsou některé z vestavěných ověřovacích atributů:
 
 ### <a name="error-messages"></a>Chybové zprávy
 
-Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Například:
+Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-Interně atributy volají jako `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Například:
+Interně atributy volají jako `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Příklad:
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -128,7 +129,7 @@ Implementace vzdáleného ověřování:
 
 1. Vytvořte metodu Action pro volání JavaScriptu.  [Vzdálená](https://jqueryvalidation.org/remote-method/) metoda ověření jQuery očekává odpověď JSON:
 
-   * `true`znamená, že jsou vstupní data platná.
+   * `true` znamená, že jsou vstupní data platná.
    * `false`, `undefined` nebo `null` znamená, že vstup není platný. Zobrazí výchozí chybovou zprávu.
    * Jakýkoli jiný řetězec znamená, že vstup je neplatný. Zobrazí řetězec jako vlastní chybovou zprávu.
 
@@ -148,7 +149,7 @@ Implementace vzdáleného ověřování:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/User.cs?name=snippet_Name&highlight=1,5)]
 
-`AdditionalFields`lze nastavit explicitně na řetězce "FirstName" a "LastName", ale pomocí operátoru [nameof](/dotnet/csharp/language-reference/keywords/nameof) se zjednoduší pozdější refaktoring. Metoda Action pro toto ověření musí přijmout oba `firstName` argumenty a `lastName` :
+`AdditionalFields` lze nastavit explicitně na řetězce "FirstName" a "LastName", ale pomocí operátoru [nameof](/dotnet/csharp/language-reference/keywords/nameof) se zjednoduší pozdější refaktoring. Metoda Action pro toto ověření musí přijmout oba `firstName` argumenty a `lastName` :
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -222,7 +223,7 @@ Ověřování se zastaví, když se dosáhne maximálního počtu chyb (ve vých
 
 ## <a name="maximum-recursion"></a>Maximální rekurze
 
-<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor>projde grafem objektu ověřovaného modelu. U modelů, které jsou hluboko nebo jsou nekonečně rekurzivní, může ověřování způsobit přetečení zásobníku. [MvcOptions. MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) poskytuje způsob, jak zastavit ověřování v brzkém případě, kdy rekurze návštěvníka překročí nakonfigurovanou hloubku. Výchozí hodnota `MvcOptions.MaxValidationDepth` je 32.
+<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> projde grafem objektu ověřovaného modelu. U modelů, které jsou hluboko nebo jsou nekonečně rekurzivní, může ověřování způsobit přetečení zásobníku. [MvcOptions. MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) poskytuje způsob, jak zastavit ověřování v brzkém případě, kdy rekurze návštěvníka překročí nakonfigurovanou hloubku. Výchozí hodnota `MvcOptions.MaxValidationDepth` je 32.
 
 ## <a name="automatic-short-circuit"></a>Automatické krátké okruhy
 
@@ -271,7 +272,7 @@ Předchozí pomocník značek vykresluje následující kód HTML:
 
 Všimněte si, že `data-` atributy ve výstupu HTML odpovídají atributům ověřování pro `Movie.ReleaseDate` vlastnost. `data-val-required`Atribut obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě pro ověření jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném **\<span>** prvku.
 
-Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]`atributy a podtřídy, jako je například `[EmailAddress]` umožňuje zadat chybovou zprávu.
+Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]` atributy a podtřídy, jako je například `[EmailAddress]` umožňuje zadat chybovou zprávu.
 
 ## <a name="unobtrusive-validation"></a>Nenáročná ověření
 
@@ -386,9 +387,9 @@ Další možnosti zakázání ověřování na straně klienta:
 * Odkomentujte odkaz na `_ValidationScriptsPartial` ve všech souborech *. cshtml* .
 * Odeberte obsah souboru *Pages\Shared \_ ValidationScriptsPartial. cshtml* .
 
-Předchozí přístup nebrání ověřování na straně klienta ASP.NET Core Identity Razor knihovny tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>.
+Předchozí přístup nezabrání ověřování na straně klienta ASP.NET Core Identity Razor knihovny tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazba modelu](model-binding.md)
@@ -444,13 +445,13 @@ Při použití `[RegularExpression]` atributu s ověřováním na straně klient
 
 ### <a name="error-messages"></a>Chybové zprávy
 
-Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Například:
+Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-Interně atributy volají jako `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Například:
+Interně atributy volají jako `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Příklad:
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -494,7 +495,7 @@ Implementace vzdáleného ověřování:
 
 1. Vytvořte metodu Action pro volání JavaScriptu.  Metoda jQuery Validate [Remote](https://jqueryvalidation.org/remote-method/) očekává odpověď JSON:
 
-   * `"true"`znamená, že jsou vstupní data platná.
+   * `"true"` znamená, že jsou vstupní data platná.
    * `"false"`, `undefined` nebo `null` znamená, že vstup není platný.  Zobrazí výchozí chybovou zprávu.
    * Jakýkoli jiný řetězec znamená, že vstup je neplatný. Zobrazí řetězec jako vlastní chybovou zprávu.
 
@@ -514,7 +515,7 @@ Implementace vzdáleného ověřování:
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserNameProperties)]
 
-`AdditionalFields`lze nastavit explicitně na řetězce `"FirstName"` a `"LastName"` , ale použití operátoru [nameof](/dotnet/csharp/language-reference/keywords/nameof) zjednodušuje pozdější refaktoring. Metoda Action pro toto ověření musí přijmout argumenty jméno a příjmení:
+`AdditionalFields` lze nastavit explicitně na řetězce `"FirstName"` a `"LastName"` , ale použití operátoru [nameof](/dotnet/csharp/language-reference/keywords/nameof) zjednodušuje pozdější refaktoring. Metoda Action pro toto ověření musí přijmout argumenty jméno a příjmení:
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -589,7 +590,7 @@ Ověřování se zastaví, když se dosáhne maximálního počtu chyb (ve vých
 
 ## <a name="maximum-recursion"></a>Maximální rekurze
 
-<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor>projde grafem objektu ověřovaného modelu. U modelů, které jsou velmi hlubokoelné nebo nekonečné rekurzivní, může ověřování způsobit přetečení zásobníku. [MvcOptions. MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) poskytuje způsob, jak zastavit ověřování v brzkém případě, kdy rekurze návštěvníka překročí nakonfigurovanou hloubku. Výchozí hodnota `MvcOptions.MaxValidationDepth` je 32 při spuštění v systému `CompatibilityVersion.Version_2_2` nebo novějším. Pro starší verze je hodnota null, což znamená bez omezení hloubky.
+<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor> projde grafem objektu ověřovaného modelu. U modelů, které jsou velmi hlubokoelné nebo nekonečné rekurzivní, může ověřování způsobit přetečení zásobníku. [MvcOptions. MaxValidationDepth](xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxValidationDepth) poskytuje způsob, jak zastavit ověřování v brzkém případě, kdy rekurze návštěvníka překročí nakonfigurovanou hloubku. Výchozí hodnota `MvcOptions.MaxValidationDepth` je 32 při spuštění v systému `CompatibilityVersion.Version_2_2` nebo novějším. Pro starší verze je hodnota null, což znamená bez omezení hloubky.
 
 ## <a name="automatic-short-circuit"></a>Automatické krátké okruhy
 
@@ -646,7 +647,7 @@ Předchozí pomocník značek vykresluje následující kód HTML.
 
 Všimněte si, že `data-` atributy ve výstupu HTML odpovídají atributům ověřování pro `ReleaseDate` vlastnost. `data-val-required`Atribut obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném **\<span>** prvku.
 
-Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]`atributy a podtřídy, jako je například `[EmailAddress]` umožňuje zadat chybovou zprávu.
+Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]` atributy a podtřídy, jako je například `[EmailAddress]` umožňuje zadat chybovou zprávu.
 
 ### <a name="add-validation-to-dynamic-forms"></a>Přidání ověřování do dynamických formulářů
 
@@ -758,7 +759,7 @@ A na Razor stránkách:
 
 Další možností pro zakázání ověřování klienta je přidat komentář k odkazu do `_ValidationScriptsPartial` souboru *. cshtml* .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazba modelu](model-binding.md)

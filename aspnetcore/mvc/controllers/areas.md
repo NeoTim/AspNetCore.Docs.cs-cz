@@ -5,6 +5,7 @@ description: Přečtěte si, jak se jedná o funkci ASP.NET MVC, která slouží
 ms.author: riande
 ms.date: 03/21/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/areas
-ms.openlocfilehash: af765eebfa8bfd147bd3b721508b5794d15d64a7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 033b57f5406d0344347b2f787fa2b2fbb2da8604
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018439"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630247"
 ---
 # <a name="areas-in-aspnet-core"></a>Oblasti v ASP.NET Core
 
@@ -101,9 +102,9 @@ I když je předchozí rozložení typický při použití oblastí, k použití
 
 ### <a name="add-area-route"></a>Přidat trasu oblasti
 
-Trasy oblastí obvykle používají [konvenční směrování](xref:mvc/controllers/routing#cr) namísto [Směrování atributů](xref:mvc/controllers/routing#ar). Konvenční směrování je závislé na pořadí. Obecně platí, že trasy s oblastmi by měly být umístěny dříve v tabulce směrování, protože jsou konkrétnější než trasy bez oblasti.
+Trasy oblastí obvykle používají  [konvenční směrování](xref:mvc/controllers/routing#cr) namísto [Směrování atributů](xref:mvc/controllers/routing#ar). Konvenční směrování je závislé na pořadí. Obecně platí, že trasy s oblastmi by měly být umístěny dříve v tabulce směrování, protože jsou konkrétnější než trasy bez oblasti.
 
-`{area:...}`dá se použít jako token v šablonách směrování, pokud je prostor adres URL stejnorodý napříč všemi oblastmi:
+`{area:...}` dá se použít jako token v šablonách směrování, pokud je prostor adres URL stejnorodý napříč všemi oblastmi:
 
 [!code-csharp[](areas/31samples/MVCareas/Startup.cs?name=snippet&highlight=21-23)]
 
@@ -210,7 +211,7 @@ Vezměte v úvahu oblast *služeb* ukázkového kódu, která neobsahuje soubor 
 V předchozím kódu:
 
 * K určení modelu () je nutné použít plně kvalifikovaný název domény `@model RPareas.Areas.Services.Pages.Manage.AboutModel` .
-* [Pomocník značek](xref:mvc/views/tag-helpers/intro) je povolený nástrojem`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
+* [Pomocník značek](xref:mvc/views/tag-helpers/intro) je povolený nástrojem `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
 V ukázkovém stažení oblast produkty obsahuje následující *_ViewImports soubor. cshtml* :
 
@@ -305,7 +306,7 @@ I když je předchozí rozložení typický při použití oblastí, k použití
 
 Trasy oblastí obvykle používají konvenční směrování namísto směrování atributů. Konvenční směrování je závislé na pořadí. Obecně platí, že trasy s oblastmi by měly být umístěny dříve v tabulce směrování, protože jsou konkrétnější než trasy bez oblasti.
 
-`{area:...}`dá se použít jako token v šablonách směrování, pokud je prostor adres URL stejnorodý napříč všemi oblastmi:
+`{area:...}` dá se použít jako token v šablonách směrování, pokud je prostor adres URL stejnorodý napříč všemi oblastmi:
 
 [!code-csharp[](areas/samples/MVCareas/Startup.cs?name=snippet&highlight=18-21)]
 
@@ -399,7 +400,7 @@ Vezměte v úvahu oblast *služeb* ukázkového kódu, která neobsahuje soubor 
 V předchozím kódu:
 
 * K určení modelu () je nutné použít plně kvalifikovaný název domény `@model RPareas.Areas.Services.Pages.Manage.AboutModel` .
-* [Pomocník značek](xref:mvc/views/tag-helpers/intro) je povolený nástrojem`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
+* [Pomocník značek](xref:mvc/views/tag-helpers/intro) je povolený nástrojem `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
 V ukázkovém stažení oblast produkty obsahuje následující *_ViewImports soubor. cshtml* :
 

@@ -5,6 +5,7 @@ description: 7. část Razor stránek a Entity Framework řady kurzů.
 ms.author: riande
 ms.date: 07/22/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: 3807c52bb843c4d6403e8236fde50c034a8d1e2b
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 603c5e7c9f095c380461f8c6e4ead783ad35abe2
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017737"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630858"
 ---
 # <a name="part-7-no-locrazor-pages-with-ef-core-in-aspnet-core---update-related-data"></a>Část 7, Razor stránky s EF Core v ASP.NET Core aktualizace dat souvisejících s aktualizací
 
@@ -65,7 +66,7 @@ Předcházející kód:
 
 * Je odvozen z `DepartmentNamePageModel` .
 * Nástroj používá `TryUpdateModelAsync` k zabránění [přestavení](xref:data/ef-rp/crud#overposting).
-* Odebere `ViewData["DepartmentID"]` . `DepartmentNameSL`ze základní třídy je model silného typu a bude použit Razor stránkou. Modely silného typu jsou upřednostňovány přes slabě zadaná. Další informace najdete v tématu [slabě zadaná data (ViewData a ViewBag)](xref:mvc/views/overview#VD_VB).
+* Odebere `ViewData["DepartmentID"]` . `DepartmentNameSL` ze základní třídy je model silného typu a bude použit Razor stránkou. Modely silného typu jsou upřednostňovány přes slabě zadaná. Další informace najdete v tématu [slabě zadaná data (ViewData a ViewBag)](xref:mvc/views/overview#VD_VB).
 
 ### <a name="update-the-course-create-no-locrazor-page"></a>Aktualizace stránky pro vytvoření kurzu Razor
 
@@ -106,7 +107,7 @@ Předchozí kód provede následující změny:
 * Změní titulek rozevíracího seznamu oddělení z **DepartmentID** na **oddělení**.
 * Nahrazuje `"ViewBag.DepartmentID"` `DepartmentNameSL` (ze základní třídy).
 
-Stránka obsahuje skryté pole ( `<input type="hidden">` ) pro číslo kurzu. Přidáním `<label>` pomocné rutiny značky `asp-for="Course.CourseID"` neodstraníte potřebu skrytého pole. `<input type="hidden">`je vyžadováno, aby číslo kurzu bylo zahrnuto do publikovaných dat, když uživatel klikne na tlačítko **Uložit**.
+Stránka obsahuje skryté pole ( `<input type="hidden">` ) pro číslo kurzu. Přidáním `<label>` pomocné rutiny značky `asp-for="Course.CourseID"` neodstraníte potřebu skrytého pole. `<input type="hidden">` je vyžadováno, aby číslo kurzu bylo zahrnuto do publikovaných dat, když uživatel klikne na tlačítko **Uložit**.
 
 ## <a name="update-the-course-details-and-delete-pages"></a>Aktualizujte podrobnosti kurzu a odstraňte stránky.
 
@@ -158,7 +159,7 @@ Vytvořte základní třídu *Pages/instruktors/InstructorCoursesPageModel. cs* 
 
 [!code-csharp[](intro/samples/cu30/Pages/Instructors/InstructorCoursesPageModel.cs?name=snippet_All)]
 
-`InstructorCoursesPageModel`Je základní třída, kterou použijete pro modely stránky pro úpravy a vytváření. `PopulateAssignedCourseData`přečte všechny `Course` entity, které se naplní `AssignedCourseDataList` . Pro každý kurz kód nastaví `CourseID` název, název a bez ohledu na to, zda je instruktor přiřazen ke kurzu. [HashSet –](/dotnet/api/system.collections.generic.hashset-1) se používá pro efektivní vyhledávání.
+`InstructorCoursesPageModel`Je základní třída, kterou použijete pro modely stránky pro úpravy a vytváření. `PopulateAssignedCourseData` přečte všechny `Course` entity, které se naplní `AssignedCourseDataList` . Pro každý kurz kód nastaví `CourseID` název, název a bez ohledu na to, zda je instruktor přiřazen ke kurzu. [HashSet –](/dotnet/api/system.collections.generic.hashset-1) se používá pro efektivní vyhledávání.
 
 Vzhledem k tomu Razor , že stránka nemá kolekci entit kurzu, nemůže pořadač modelů automaticky aktualizovat `CourseAssignments` navigační vlastnost. Namísto použití pořadače modelů k aktualizaci `CourseAssignments` navigační vlastnosti to uděláte v nové `UpdateInstructorCourses` metodě. Proto je nutné vyloučit `CourseAssignments` vlastnost z vazby modelu. To nevyžaduje žádné změny kódu, který volá, `TryUpdateModel` protože používáte přetížení s deklarovanými vlastnostmi a `CourseAssignments` není v seznamu zahrnutí.
 
@@ -193,7 +194,7 @@ Aktualizovat *stránky/instruktory/upravit. cshtml. cs* s následujícím kódem
 Předcházející kód:
 
 * Načte aktuální `Instructor` entitu z databáze pomocí Eager načítání pro `OfficeAssignment` `CourseAssignment` `CourseAssignment.Course` navigační vlastnosti, a.
-* Aktualizuje načtenou `Instructor` entitu hodnotami z pořadače modelů. `TryUpdateModel`brání [přestavení](xref:data/ef-rp/crud#overposting).
+* Aktualizuje načtenou `Instructor` entitu hodnotami z pořadače modelů. `TryUpdateModel` brání [přestavení](xref:data/ef-rp/crud#overposting).
 * Pokud je umístění kanceláře prázdné, nastaví `Instructor.OfficeAssignment` na hodnotu null. Pokud `Instructor.OfficeAssignment` je hodnota null, související řádek v `OfficeAssignment` tabulce je odstraněn.
 * Volání `PopulateAssignedCourseData` , `OnGetAsync` která poskytují informace pro zaškrtávací políčka pomocí `AssignedCourseData` třídy zobrazení modelu.
 * Volání `UpdateInstructorCourses` v aplikaci `OnPostAsync` aplikují informace z zaškrtávacích políček na upravované entity instruktorů.
@@ -231,7 +232,7 @@ Aktualizujte *stránky/instruktory/odstraňte. cshtml. cs* s následujícím kó
 
 Předchozí kód provede následující změny:
 
-* Používá načítání Eager pro `CourseAssignments` navigační vlastnost. `CourseAssignments`musí být zahrnuté nebo se při odstranění instruktoru neodstraní. Abyste se vyhnuli nutnosti jejich čtení, nakonfigurujte v databázi kaskádové odstranění.
+* Používá načítání Eager pro `CourseAssignments` navigační vlastnost. `CourseAssignments` musí být zahrnuté nebo se při odstranění instruktoru neodstraní. Abyste se vyhnuli nutnosti jejich čtení, nakonfigurujte v databázi kaskádové odstranění.
 
 * Pokud je instruktor, který má být odstraněn, přiřazen jako správce jakékoli oddělení, odebere z těchto oddělení přiřazení instruktora.
 
@@ -282,7 +283,7 @@ Předcházející kód:
 * Nástroj používá `TryUpdateModelAsync` k zabránění [přestavení](xref:data/ef-rp/crud#overposting).
 * Nahrazuje `ViewData["DepartmentID"]` `DepartmentNameSL` (ze základní třídy).
 
-`ViewData["DepartmentID"]`je nahrazen silným typem `DepartmentNameSL` . Modely silného typu jsou upřednostňovány přes slabě zadaná. Další informace najdete v tématu [slabě zadaná data (ViewData a ViewBag)](xref:mvc/views/overview#VD_VB).
+`ViewData["DepartmentID"]` je nahrazen silným typem `DepartmentNameSL` . Modely silného typu jsou upřednostňovány přes slabě zadaná. Další informace najdete v tématu [slabě zadaná data (ViewData a ViewBag)](xref:mvc/views/overview#VD_VB).
 
 ### <a name="update-the-courses-create-page"></a>Aktualizace stránky pro vytvoření kurzů
 
@@ -321,7 +322,7 @@ Předchozí kód provede následující změny:
 * Změní titulek z **DepartmentID** na **oddělení**.
 * Nahrazuje `"ViewBag.DepartmentID"` `DepartmentNameSL` (ze základní třídy).
 
-Stránka obsahuje skryté pole ( `<input type="hidden">` ) pro číslo kurzu. Přidáním `<label>` pomocné rutiny značky `asp-for="Course.CourseID"` neodstraníte potřebu skrytého pole. `<input type="hidden">`je vyžadováno, aby číslo kurzu bylo zahrnuto do publikovaných dat, když uživatel klikne na tlačítko **Uložit**.
+Stránka obsahuje skryté pole ( `<input type="hidden">` ) pro číslo kurzu. Přidáním `<label>` pomocné rutiny značky `asp-for="Course.CourseID"` neodstraníte potřebu skrytého pole. `<input type="hidden">` je vyžadováno, aby číslo kurzu bylo zahrnuto do publikovaných dat, když uživatel klikne na tlačítko **Uložit**.
 
 Otestujte aktualizovaný kód. Vytvořit, upravit a odstranit kurz.
 
@@ -366,7 +367,7 @@ Aktualizujte model stránky pro instruktory pomocí následujícího kódu:
 Předcházející kód:
 
 * Načte aktuální `Instructor` entitu z databáze pomocí Eager načítání pro `OfficeAssignment` navigační vlastnost.
-* Aktualizuje načtenou `Instructor` entitu hodnotami z pořadače modelů. `TryUpdateModel`brání [přestavení](xref:data/ef-rp/crud#overposting).
+* Aktualizuje načtenou `Instructor` entitu hodnotami z pořadače modelů. `TryUpdateModel` brání [přestavení](xref:data/ef-rp/crud#overposting).
 * Pokud je umístění kanceláře prázdné, nastaví `Instructor.OfficeAssignment` na hodnotu null. Pokud `Instructor.OfficeAssignment` je hodnota null, související řádek v `OfficeAssignment` tabulce je odstraněn.
 
 ### <a name="update-the-instructor-edit-page"></a>Aktualizace stránky pro úpravu instruktorů
@@ -383,7 +384,7 @@ Instruktoři můžou učit libovolný počet kurzů. V této části přidáte m
 
 ![Stránka pro úpravu instruktorů s kurzy](update-related-data/_static/instructor-edit-courses.png)
 
-`Course`a `Instructor` má relaci n:n. Chcete-li přidat a odebrat relace, přidejte a odeberte entity ze `CourseAssignments` sady entit JOIN.
+`Course` a `Instructor` má relaci n:n. Chcete-li přidat a odebrat relace, přidejte a odeberte entity ze `CourseAssignments` sady entit JOIN.
 
 Zaškrtávací políčka umožňují změny kurzů, ke kterým je instruktor přiřazen. Pro každý kurz v databázi se zobrazí zaškrtávací políčko. Budou zkontrolovány kurzy, ke kterým je instruktor přiřazen. Uživatel může zaškrtnutím nebo zrušením zaškrtnutí políček změnit přiřazení kurzů. Pokud byl počet kurzů mnohem větší:
 
@@ -402,7 +403,7 @@ Vytvořte základní třídu *Pages/instruktors/InstructorCoursesPageModel. csht
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/InstructorCoursesPageModel.cshtml.cs)]
 
-`InstructorCoursesPageModel`Je základní třída, kterou použijete pro modely stránky pro úpravy a vytváření. `PopulateAssignedCourseData`přečte všechny `Course` entity, které se naplní `AssignedCourseDataList` . Pro každý kurz kód nastaví `CourseID` název, název a bez ohledu na to, zda je instruktor přiřazen ke kurzu. [HashSet –](/dotnet/api/system.collections.generic.hashset-1) se používá k vytváření efektivních hledání.
+`InstructorCoursesPageModel`Je základní třída, kterou použijete pro modely stránky pro úpravy a vytváření. `PopulateAssignedCourseData` přečte všechny `Course` entity, které se naplní `AssignedCourseDataList` . Pro každý kurz kód nastaví `CourseID` název, název a bez ohledu na to, zda je instruktor přiřazen ke kurzu. [HashSet –](/dotnet/api/system.collections.generic.hashset-1) se používá k vytváření efektivních hledání.
 
 ### <a name="instructors-edit-page-model"></a>Instruktoři – upravit model stránky
 
@@ -450,11 +451,11 @@ Aktualizujte odstranit model stránky pomocí následujícího kódu:
 
 Předchozí kód provede následující změny:
 
-* Používá načítání Eager pro `CourseAssignments` navigační vlastnost. `CourseAssignments`musí být zahrnuté nebo se při odstranění instruktoru neodstraní. Abyste se vyhnuli nutnosti jejich čtení, nakonfigurujte v databázi kaskádové odstranění.
+* Používá načítání Eager pro `CourseAssignments` navigační vlastnost. `CourseAssignments` musí být zahrnuté nebo se při odstranění instruktoru neodstraní. Abyste se vyhnuli nutnosti jejich čtení, nakonfigurujte v databázi kaskádové odstranění.
 
 * Pokud je instruktor, který má být odstraněn, přiřazen jako správce jakékoli oddělení, odebere z těchto oddělení přiřazení instruktora.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze tohoto kurzu pro YouTube (část 1)](https://www.youtube.com/watch?v=Csh6gkmwc9E)
 * [Verze tohoto kurzu pro YouTube (část 2)](https://www.youtube.com/watch?v=mOAankB_Zgc)

@@ -5,6 +5,7 @@ description: Naučte se migrovat ověřování a identitu z projektu ASP.NET MVC
 ms.author: riande
 ms.date: 3/22/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/identity
-ms.openlocfilehash: 8a6cc1e612dbf59dc2db2eca165dd1a03ab92f81
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 85674d7ed02f189f78da92bffdf927a3ca21357d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88014929"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629506"
 ---
 # <a name="migrate-authentication-and-no-locidentity-to-aspnet-core"></a>Migrace ověřování a Identity ASP.NET Core
 
@@ -157,6 +158,6 @@ else
 
 V tuto chvíli byste měli být schopni aktualizovat web v prohlížeči.
 
-## <a name="summary"></a>Souhrn
+## <a name="summary"></a>Shrnutí
 
 ASP.NET Core přináší změny Identity funkcí ASP.NET. V tomto článku jste se seznámili s postupem migrace funkcí pro správu ověřování a správy uživatelů ASP.NET Identity na ASP.NET Core.

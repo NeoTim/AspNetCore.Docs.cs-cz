@@ -1,5 +1,5 @@
 ---
-title: Protokolování a diagnostika v ASP.NET CoreSignalR
+title: Protokolování a diagnostika v ASP.NET Core SignalR
 author: anurse
 description: Naučte se shromažďovat diagnostiku z vaší SignalR aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: anurse
 ms.custom: devx-track-csharp, signalr
 ms.date: 06/12/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 922b2ca0aa7933e1010db7ca319631766ffbf753
-ms.sourcegitcommit: ba4872dd5a93780fe6cfacb2711ec1e69e0df92c
+ms.openlocfilehash: 649398a3868117b2e7f3358aa25544c99cc625b3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88130532"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631339"
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-no-locsignalr"></a>Protokolování a diagnostika v ASP.NET CoreSignalR
+# <a name="logging-and-diagnostics-in-aspnet-core-no-locsignalr"></a>Protokolování a diagnostika v ASP.NET Core SignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
@@ -37,7 +38,7 @@ Tento článek poskytuje pokyny pro shromažďování diagnostických informací
 
 Vzhledem k SignalR tomu, že je součást ASP.NET Core, používá systém protokolování ASP.NET Core. Ve výchozí konfiguraci SignalR protokoluje velmi málo informací, ale je možné ho nakonfigurovat. Podrobnosti o konfiguraci ASP.NET Core protokolování najdete v dokumentaci k [protokolování ASP.NET Core](xref:fundamentals/logging/index#configuration) .
 
-SignalRpoužívá dvě kategorie protokolovacího nástroje:
+SignalR používá dvě kategorie protokolovacího nástroje:
 
 * `Microsoft.AspNetCore.SignalR`: Protokoly týkající se protokolů centrálního centra, aktivace rozbočovačů, volání metod a dalších aktivit souvisejících s centrem.
 * `Microsoft.AspNetCore.Http.Connections`: Pro protokoly týkající se přenosů, jako jsou WebSockets, dlouhé cyklické dotazování, události odeslané serverem a infrastruktura nízké úrovně SignalR .
@@ -65,7 +66,7 @@ Způsob přístupu ke protokolům na straně serveru závisí na prostředí, ve
 
 ### <a name="as-a-console-app-outside-iis"></a>Jako Konzolová aplikace mimo IIS
 
-Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console) . SignalRprotokoly se zobrazí v konzole nástroje.
+Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console) . SignalR protokoly se zobrazí v konzole nástroje.
 
 ### <a name="within-iis-express-from-visual-studio"></a>V rámci IIS Express ze sady Visual Studio
 
@@ -104,7 +105,7 @@ V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta j
 
 Po nakonfigurování podrobností se protokoly zapíší do konzoly prohlížeče (nebo standardního výstupu v aplikaci NodeJS).
 
-Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující `ILogger` rozhraní. Jedinou metodou, kterou je třeba implementovat, je `log` , která přebírá úroveň události a zprávu spojenou s událostí. Například:
+Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující `ILogger` rozhraní. Jedinou metodou, kterou je třeba implementovat, je `log` , která přebírá úroveň události a zprávu spojenou s událostí. Příklad:
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
@@ -131,7 +132,7 @@ Můžete také nakonfigurovat protokoly pro přechod do okna **výstup** v aplik
 
 ### <a name="other-logging-providers"></a>Další zprostředkovatelé protokolování
 
-SignalRpodporuje jiné poskytovatele protokolování, jako je Serilog, SEQ, NLog nebo jakýkoli jiný systém protokolování, který se integruje s `Microsoft.Extensions.Logging` . Pokud váš systém protokolování poskytuje `ILoggerProvider` , můžete ho zaregistrovat pomocí `AddProvider` :
+SignalR podporuje jiné poskytovatele protokolování, jako je Serilog, SEQ, NLog nebo jakýkoli jiný systém protokolování, který se integruje s `Microsoft.Extensions.Logging` . Pokud váš systém protokolování poskytuje `ILoggerProvider` , můžete ho zaregistrovat pomocí `AddProvider` :
 
 [!code-csharp[](diagnostics/net-client-custom-log.cs?highlight=6)]
 
@@ -220,9 +221,9 @@ Diagnostické soubory můžete k problémům s GitHubem připojit tak, že je p�
 
 Metrika je reprezentace datových měr v časových intervalech. Například požadavky za sekundu. Data metrik umožňují sledovat stav aplikace na vysoké úrovni. Metriky .NET gRPC jsou vydávány pomocí <xref:System.Diagnostics.Tracing.EventCounter> .
 
-### <a name="no-locsignalr-server-metrics"></a>SignalRmetriky serveru
+### <a name="no-locsignalr-server-metrics"></a>SignalR metriky serveru
 
-SignalRmetriky serveru jsou hlášeny ve <xref:Microsoft.AspNetCore.Http.Connections> zdroji událostí.
+SignalR metriky serveru jsou hlášeny ve <xref:Microsoft.AspNetCore.Http.Connections> zdroji událostí.
 
 | Název                    | Popis                 |
 |-------------------------|-----------------------------|
@@ -234,7 +235,7 @@ SignalRmetriky serveru jsou hlášeny ve <xref:Microsoft.AspNetCore.Http.Connect
 
 ### <a name="observe-metrics"></a>Sledovat metriky
 
-[dotnet – čítače](/dotnet/core/diagnostics/dotnet-counters) jsou nástrojem pro monitorování výkonu, který slouží ke sledování stavu ad-hoc a prvotnímu šetření výkonu na nejvyšší úrovni. Monitorujte aplikaci .NET s `Microsoft.AspNetCore.Http.Connections` názvem poskytovatele. Například:
+[dotnet – čítače](/dotnet/core/diagnostics/dotnet-counters) jsou nástrojem pro monitorování výkonu, který slouží ke sledování stavu ad-hoc a prvotnímu šetření výkonu na nejvyšší úrovni. Monitorujte aplikaci .NET s `Microsoft.AspNetCore.Http.Connections` názvem poskytovatele. Příklad:
 
 ```console
 > dotnet-counters monitor --process-id 37016 Microsoft.AspNetCore.Http.Connections

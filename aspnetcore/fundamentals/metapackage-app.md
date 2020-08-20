@@ -6,6 +6,7 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 09/24/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/metapackage-app
-ms.openlocfilehash: 182d167a1848492846a04c938749a6de30bce377
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d9753a43bdc47b467dcf781c97069edfaa693a8f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88017061"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630507"
 ---
 # <a name="microsoftaspnetcoreapp-for-aspnet-core"></a>Microsoft. AspNetCore. app pro ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
- Rozhraní ASP.NET Core Shared Framework ( `Microsoft.AspNetCore.App` ) obsahuje sestavení vyvinutá a podporovaná společností Microsoft. `Microsoft.AspNetCore.App`se nainstaluje, když je nainstalovaná [sada .NET Core 3,0 nebo novější SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) . *Sdílené rozhraní* je sada sestavení (soubory *. dll* ), které jsou nainstalovány na počítači a zahrnují komponentu modulu runtime a sadu targeting pack. Další informace najdete v tématu [sdílené rozhraní](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
+ Rozhraní ASP.NET Core Shared Framework ( `Microsoft.AspNetCore.App` ) obsahuje sestavení vyvinutá a podporovaná společností Microsoft. `Microsoft.AspNetCore.App` se nainstaluje, když je nainstalovaná [sada .NET Core 3,0 nebo novější SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) . *Sdílené rozhraní* je sada sestavení (soubory *. dll* ), které jsou nainstalovány na počítači a zahrnují komponentu modulu runtime a sadu targeting pack. Další informace najdete v tématu [sdílené rozhraní](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
 
 * Projekty, které cílí na `Microsoft.NET.Sdk.Web` sadu SDK, implicitně odkazují na `Microsoft.AspNetCore.App` rozhraní.
 
@@ -67,7 +68,7 @@ Použití `Microsoft.AspNetCore.App` Metapackage poskytuje omezení verze, kter�
 
 * Pokud je zahrnut balíček, který má přenositelný (nepřímý) závislý na balíčku v nástroji `Microsoft.AspNetCore.App` , přičemž se tato čísla verzí liší, NuGet vygeneruje chybu.
 * Jiné balíčky přidané do vaší aplikace nemůžou měnit verzi balíčků zahrnutých v `Microsoft.AspNetCore.App` .
-* Konzistence verzí zajišťuje spolehlivé prostředí. `Microsoft.AspNetCore.App`byla navržena tak, aby bránila netestovým kombinacím verzí souvisejících bitů společně ve stejné aplikaci.
+* Konzistence verzí zajišťuje spolehlivé prostředí. `Microsoft.AspNetCore.App` byla navržena tak, aby bránila netestovým kombinacím verzí souvisejících bitů společně ve stejné aplikaci.
 
 Aplikace, které používají `Microsoft.AspNetCore.App` Metapackage, automaticky využijí ASP.NET Core sdílené rozhraní. Při použití `Microsoft.AspNetCore.App` Metapackage nejsou nasazeny **žádné** prostředky z odkazovaného ASP.NET Core balíčků NuGet spolu s aplikací &mdash; , ASP.NET Core sdílená architektura obsahuje tyto prostředky. Prostředky ve sdíleném rozhraní jsou předkompilovány pro zlepšení času spuštění aplikace. Další informace najdete v tématu [sdílené rozhraní](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
 
@@ -97,7 +98,7 @@ Zadáním čísla verze na `Microsoft.AspNetCore.App` odkaz nezaručujete, že b
 
 ::: moniker range="= aspnetcore-2.1"
 
-`<Project Sdk`musí být nastaven na hodnotu `Microsoft.NET.Sdk.Web` pro použití implicitní verze `Microsoft.AspNetCore.App` . When `<Project Sdk="Microsoft.NET.Sdk">` (bez koncového `.Web` ) se používá:
+`<Project Sdk` musí být nastaven na hodnotu `Microsoft.NET.Sdk.Web` pro použití implicitní verze `Microsoft.AspNetCore.App` . When `<Project Sdk="Microsoft.NET.Sdk">` (bez koncového `.Web` ) se používá:
 
 * Vygeneruje se následující upozornění:
 

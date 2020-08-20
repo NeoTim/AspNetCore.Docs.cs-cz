@@ -5,6 +5,7 @@ description: Zjistěte, jak povolit generování kódu QR pro aplikace TOTP Auth
 ms.author: riande
 ms.date: 08/14/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: 4ccfd83c273f7179ac26b075eb33f138e724b967
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e61aa925262fc9fe25c7bb2d37958cfaa308aeaf
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019557"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630793"
 ---
 # <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a>Povolit generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core
 
@@ -42,7 +43,7 @@ K dvojúrovňovému ověřování nedochází pomocí externího poskytovatele o
 
 Tyto pokyny používají *qrcode.js* z https://davidshimjs.github.io/qrcodejs/ úložiště.
 
-* Stáhněte [knihovnuqrcode.js JavaScript](https://davidshimjs.github.io/qrcodejs/) do `wwwroot\lib` složky v projektu.
+* Stáhněte [ knihovnuqrcode.js JavaScript](https://davidshimjs.github.io/qrcodejs/) do `wwwroot\lib` složky v projektu.
 
 ::: moniker-end
 
@@ -128,8 +129,8 @@ Knihovnu kódu QR můžete nahradit preferovanou knihovnou. Kód jazyka HTML obs
 
 Správně formátovaná adresa URL pro kód QR je k dispozici v:
 
-* `AuthenticatorUri`vlastnost modelu
-* `data-url`vlastnost v `qrCodeData` elementu.
+* `AuthenticatorUri` vlastnost modelu
+* `data-url` vlastnost v `qrCodeData` elementu.
 
 ## <a name="totp-client-and-server-time-skew"></a>TOTP a časový posun serveru
 

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 4/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/memory
-ms.openlocfilehash: 09df67657c9b6e4e59d6a1379bf801c289028819
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c409eaaf07109d363581ee7d61dc76521d6818d0
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020935"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630663"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>Správa paměti a uvolňování paměti (GC) v ASP.NET Core
 
@@ -307,7 +308,7 @@ Zkušení vývojáři rozhraní .NET znají volání <xref:System.IDisposable.Di
 
 `HttpClient`implementuje `IDisposable` , ale nemělo **not** by být uvolněno při každém vyvolání. Místo toho `HttpClient` by se mělo použít znovu.
 
-Následující koncový bod vytvoří a odstraní novou `HttpClient` instanci na každém požadavku:
+Následující koncový bod vytvoří a odstraní novou  `HttpClient` instanci na každém požadavku:
 
 ```csharp
 [HttpGet("httpclient1")]
@@ -402,7 +403,7 @@ Nastavení vyřazení objektu:
 * Zapouzdřuje pole ve fondu na jedno a více objektů.
 * Zaregistrujte objekt ve fondu s [HttpContext. Response. RegisterForDispose](xref:Microsoft.AspNetCore.Http.HttpResponse.RegisterForDispose*).
 
-`RegisterForDispose`postará o volání `Dispose` cílového objektu, aby bylo uvolněno pouze v případě, že je požadavek HTTP dokončen.
+`RegisterForDispose` postará o volání `Dispose` cílového objektu, aby bylo uvolněno pouze v případě, že je požadavek HTTP dokončen.
 
 ```csharp
 private static ArrayPool<byte> _arrayPool = ArrayPool<byte>.Create();
@@ -442,7 +443,7 @@ Použití stejného zatížení jako nesdružené verze vede k následujícímu 
 
 Hlavní rozdíl je přidělený bajtů a jako důsledek je to mnohem méně kolekcí 0. generace.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Uvolňování paměti](/dotnet/standard/garbage-collection/)
 * [Porozumění různým režimům GC s Vizualizérm souběžnosti](https://blogs.msdn.microsoft.com/seteplia/2017/01/05/understanding-different-gc-modes-with-concurrency-visualizer/)

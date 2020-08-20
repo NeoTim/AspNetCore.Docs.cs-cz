@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 3f5b0287a4f9c6c6c05a47297e3e602b80bf6015
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: c337e727a4683b0b3c67307af93ef8efa246e2ad
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021481"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631014"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Tagování pomocníků ve formulářích ve ASP.NET Core
 
@@ -43,7 +44,7 @@ Pomocný objekt značky [formuláře](https://www.w3.org/TR/html401/interact/for
 
 * Poskytuje `asp-route-<Parameter Name>` atribut, který `<Parameter Name>` je přidán do hodnot tras. `routeValues`Parametry `Html.BeginForm` a `Html.BeginRouteForm` poskytují podobné funkce.
 
-* Má alternativu k Pomocníkovi HTML `Html.BeginForm` a`Html.BeginRouteForm`
+* Má alternativu k Pomocníkovi HTML `Html.BeginForm` a `Html.BeginRouteForm`
 
 Ukázka:
 
@@ -181,13 +182,13 @@ Syntaxe:
 
 Pomocná rutina vstupní značky:
 
-* Generuje `id` `name` atributy jazyka HTML pro název výrazu zadaného v `asp-for` atributu. `asp-for="Property1.Property2"`je ekvivalentem k `m => m.Property1.Property2` . Název výrazu je, který se používá pro `asp-for` hodnotu atributu. Další informace najdete v části [názvy výrazů](#expression-names) .
+* Generuje `id` `name` atributy jazyka HTML pro název výrazu zadaného v `asp-for` atributu. `asp-for="Property1.Property2"` je ekvivalentem k `m => m.Property1.Property2` . Název výrazu je, který se používá pro `asp-for` hodnotu atributu. Další informace najdete v části [názvy výrazů](#expression-names) .
 
-* Nastaví `type` hodnotu atributu HTML na základě typu modelu a atributů [poznámek k datům](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) použitým pro vlastnost modelu.
+* Nastaví `type` hodnotu atributu HTML na základě typu modelu a atributů  [poznámek k datům](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) použitým pro vlastnost modelu.
 
 * `type`Pokud je zadaná hodnota atributu HTML, nepřepíše se.
 
-* Generuje atributy ověřování [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) z atributů [poznámky k datům](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) použitých na vlastnosti modelu.
+* Generuje atributy ověřování [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5)  z atributů [poznámky k datům](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) použitých na vlastnosti modelu.
 
 * Má pomocná funkce HTML překryv s `Html.TextBoxFor` a `Html.EditorFor` . Podrobnosti najdete v části **alternativy pomocníka HTML pro vstupní nápovědu ke značce** .
 
@@ -209,7 +210,7 @@ Pomocná rutina vstupní značky:
 |Typ .NET|Typ vstupu|
 |---|---|
 |Logická hodnota|Type = "CheckBox"|
-|Řetězec|Type = "text"|
+|String|Type = "text"|
 |DateTime|Type =["DateTime – místní"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
 |Byte|Type = "Number"|
 |Int|Type = "Number"|
@@ -255,11 +256,11 @@ Datové poznámky použité pro `Email` `Password` vlastnosti a generují metada
 
 ### <a name="html-helper-alternatives-to-input-tag-helper"></a>Pomocné možnosti pro pomocníka HTML pro pomocníka vstupní značky
 
-`Html.TextBox`, `Html.TextBoxFor` `Html.Editor` a `Html.EditorFor` mají překrývající se funkce s pomocníkem vstupní značky. Pomocná rutina vstupní značky automaticky nastaví `type` atribut a nepoužije `Html.TextBox` `Html.TextBoxFor` . `Html.Editor`a `Html.EditorFor` zpracovávají kolekce, komplexní objekty a šablony; pomocná rutina vstupní značky nepoužívá. Pomocná rutina vstupní značky `Html.EditorFor` a `Html.TextBoxFor` je silného typu (používají lambda výrazy); `Html.TextBox` a nejsou `Html.Editor` (používají názvy výrazů).
+`Html.TextBox`, `Html.TextBoxFor` `Html.Editor` a `Html.EditorFor` mají překrývající se funkce s pomocníkem vstupní značky. Pomocná rutina vstupní značky automaticky nastaví `type` atribut a nepoužije `Html.TextBox` `Html.TextBoxFor` . `Html.Editor` a `Html.EditorFor` zpracovávají kolekce, komplexní objekty a šablony; pomocná rutina vstupní značky nepoužívá. Pomocná rutina vstupní značky `Html.EditorFor`  a  `Html.TextBoxFor` je silného typu (používají lambda výrazy); `Html.TextBox` a nejsou `Html.Editor` (používají názvy výrazů).
 
 ### <a name="htmlattributes"></a>HtmlAttributes
 
-`@Html.Editor()`a `@Html.EditorFor()` `ViewDataDictionary` `htmlAttributes` při spouštění jejich výchozích šablon použijte speciální položku s názvem. Toto chování se volitelně rozšiřuje pomocí `additionalViewData` parametrů. Klíč "htmlAttributes" rozlišuje malá a velká písmena. Klíč "htmlAttributes" se zpracovává podobně jako `htmlAttributes` objekt předaný do vstupů pomocníků, jako je `@Html.TextBox()` .
+`@Html.Editor()` a `@Html.EditorFor()` `ViewDataDictionary` `htmlAttributes` při spouštění jejich výchozích šablon použijte speciální položku s názvem. Toto chování se volitelně rozšiřuje pomocí `additionalViewData` parametrů. Klíč "htmlAttributes" rozlišuje malá a velká písmena. Klíč "htmlAttributes" se zpracovává podobně jako `htmlAttributes` objekt předaný do vstupů pomocníků, jako je `@Html.TextBox()` .
 
 ```cshtml
 @Html.EditorFor(model => model.YourProperty, 
@@ -288,7 +289,7 @@ Pomocí vlastností kolekce `asp-for="CollectionProperty[23].Member"` vygeneruje
 
 Když ASP.NET Core MVC vypočítá hodnotu `ModelExpression` , zkontroluje několik zdrojů, včetně `ModelState` . Vezměte v úvahu `<input type="text" asp-for="@Name">` . Počítaný `value` atribut je první hodnota, která není null od:
 
-* `ModelState`položka s klíčem "Name".
+* `ModelState` položka s klíčem "Name".
 * Výsledek `Model.Name` výrazu
 
 ### <a name="navigating-child-properties"></a>Navigace podřízených vlastností
@@ -345,7 +346,7 @@ Následující Razor příklad ukazuje, jak iterovat v kolekci:
 
 [!code-cshtml[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
 
-`foreach`by měla být použita, pokud je to možné, pokud se hodnota bude používat `asp-for` v `Html.DisplayFor` kontextu nebo ekvivalentním kontextu. Obecně `for` je lepší, než `foreach` (pokud to scénář umožňuje), protože nemusí přidělovat enumerátor. vyhodnocení indexeru ve výrazu LINQ ale může být nákladné a mělo by být minimalizováno.
+`foreach` by měla být použita, pokud je to možné, pokud se hodnota bude používat `asp-for` v `Html.DisplayFor` kontextu nebo ekvivalentním kontextu. Obecně `for` je lepší, než `foreach` (pokud to scénář umožňuje), protože nemusí přidělovat enumerátor. vyhodnocení indexeru ve výrazu LINQ ale může být nákladné a mělo by být minimalizováno.
 
 &nbsp;
 
@@ -360,7 +361,7 @@ Následující Razor příklad ukazuje, jak iterovat v kolekci:
 
 * Poskytuje silné psaní.
 
-* Alternativní pomocník HTML:`Html.TextAreaFor`
+* Alternativní pomocník HTML: `Html.TextAreaFor`
 
 Ukázka:
 
@@ -422,9 +423,9 @@ K dispozici jsou dva pomocníky ověřovacích značek. `Validation Message Tag 
 
 * Ověřování probíhá také na serveru. Klienti můžou mít zakázaný JavaScript a některé ověřování se dá dělat jenom na straně serveru.
 
-* Alternativní pomocník HTML:`Html.ValidationMessageFor`
+* Alternativní pomocník HTML: `Html.ValidationMessageFor`
 
-Se `Validation Message Tag Helper` používá s `asp-validation-for` atributem elementu [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) HTML.
+Se `Validation Message Tag Helper`  používá s `asp-validation-for` atributem elementu [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) HTML.
 
 ```cshtml
 <span asp-validation-for="Email"></span>
@@ -456,7 +457,7 @@ Pokud dojde k chybě ověřování na straně serveru (například když máte z
 
 * Cílí `<div>` na elementy s `asp-validation-summary` atributem.
 
-* Alternativní pomocník HTML:`@Html.ValidationSummary`
+* Alternativní pomocník HTML: `@Html.ValidationSummary`
 
 `Validation Summary Tag Helper`Slouží k zobrazení souhrnu ověřovacích zpráv. `asp-validation-summary`Hodnota atributu může být libovolná z následujících hodnot:
 
@@ -499,9 +500,9 @@ Generovaný kód HTML (Pokud je model platný):
 
 * Generuje [vybrané](https://www.w3.org/wiki/HTML/Elements/select) a přidružené prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) pro vlastnosti modelu.
 
-* Má alternativu k Pomocníkovi HTML `Html.DropDownListFor` a`Html.ListBoxFor`
+* Má alternativu k Pomocníkovi HTML `Html.DropDownListFor` a `Html.ListBoxFor`
 
-`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Například:
+`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Příklad:
 
 [!code-cshtml[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
@@ -580,7 +581,7 @@ Vygeneruje se následující kód HTML:
 
 ### <a name="option-group"></a>Skupina možností
 
-Element HTML [\<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) je vygenerován, pokud model zobrazení obsahuje jeden nebo více `SelectListGroup` objektů.
+Element HTML  [\<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) je vygenerován, pokud model zobrazení obsahuje jeden nebo více `SelectListGroup` objektů.
 
 `CountryViewModelGroup`Seskupí `SelectListItem` prvky do skupin "Severní Amerika" a "Evropa":
 
@@ -613,7 +614,7 @@ Generovaný kód HTML:
 
 ### <a name="multiple-select"></a>Vícenásobný výběr
 
-Pomocník pro výběr značky automaticky vygeneruje atribut [Multiple = Multiple](https://w3c.github.io/html-reference/select.html) , pokud je vlastnost zadaná v `asp-for` atributu `IEnumerable` . Například s ohledem na následující model:
+Pomocník pro výběr značky automaticky vygeneruje atribut [Multiple = Multiple](https://w3c.github.io/html-reference/select.html)  , pokud je vlastnost zadaná v `asp-for` atributu `IEnumerable` . Například s ohledem na následující model:
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/CountryViewModelIEnumerable.cs?highlight=6)]
 
@@ -672,7 +673,7 @@ V `<option>` závislosti na aktuální hodnotě bude vybrán správný prvek (ob
  </form>
  ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:mvc/views/tag-helpers/intro>
 * [Element HTML Form](https://www.w3.org/TR/html401/interact/forms.html)

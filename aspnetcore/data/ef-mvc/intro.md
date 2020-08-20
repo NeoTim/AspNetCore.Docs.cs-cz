@@ -7,6 +7,7 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 36b0c913db3c2b6c2c834d33b0ea8665f3e25814
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: e081c13f9ffb33c1ff137cb0989e747d51571ea7
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88012965"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629194"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
 
@@ -52,7 +53,7 @@ V tomto kurzu jste:
 > * Vytvoření kontroleru a zobrazení
 > * Zobrazení databáze
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [.NET Core SDK 2,2](https://dotnet.microsoft.com/download)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s následujícími úlohami:
@@ -358,7 +359,7 @@ V následujícím kódu `async` klíčové slovo, `Task<T>` vrácené hodnoty, `
 
 * `await`Klíčové slovo způsobí, že kompilátor rozdělí metodu do dvou částí. První část končí asynchronně spuštěnou operací. Druhá část je vložena do metody zpětného volání, která je volána po dokončení operace.
 
-* `ToListAsync`je asynchronní verze `ToList` metody rozšíření.
+* `ToListAsync` je asynchronní verze `ToList` metody rozšíření.
 
 Některé věci, které je potřeba znát při psaní asynchronního kódu, který používá Entity Framework:
 

@@ -6,6 +6,7 @@ ms.author: riande
 ms.date: 09/28/2019
 ms.topic: tutorial
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 9fa19fbdf401ac7bd98c78b4508a6742e245b1a2
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: f2b4fd9fb1e328882583536b704d516955343417
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018114"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629454"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: čtení souvisejících dat – ASP.NET MVC pomocí EF Core
 
@@ -41,7 +42,7 @@ V tomto kurzu jste:
 > * Vytvoření stránky instruktory
 > * Informace o explicitním načítání
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Vytvoření složitého datového modelu](complex-data-model.md)
 
@@ -57,7 +58,7 @@ Existuje několik způsobů, jak může software pro mapování relačních dat 
 
   ![Příklad samostatných dotazů](read-related-data/_static/separate-queries.png)
 
-* Explicitní načítání. Při prvním načtení entity se nenačte související data. Napíšete kód, který načte související data, pokud je to potřeba. Stejně jako v případě, že se Eager načítá pomocí samostatných dotazů, explicitní načítání vede k více dotazům odesílaných do databáze. Rozdíl je v tom, že při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. V Entity Framework Core 1,1 lze použít `Load` metodu k explicitnímu načítání. Například:
+* Explicitní načítání. Při prvním načtení entity se nenačte související data. Napíšete kód, který načte související data, pokud je to potřeba. Stejně jako v případě, že se Eager načítá pomocí samostatných dotazů, explicitní načítání vede k více dotazům odesílaných do databáze. Rozdíl je v tom, že při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. V Entity Framework Core 1,1 lze použít `Load` metodu k explicitnímu načítání. Příklad:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 

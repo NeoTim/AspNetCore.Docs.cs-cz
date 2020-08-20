@@ -1,5 +1,5 @@
 ---
-title: Ověřování a autorizace v ASP.NET CoreSignalR
+title: Ověřování a autorizace v ASP.NET Core SignalR
 author: bradygaster
 description: Naučte se používat ověřování a autorizaci v ASP.NET Core SignalR .
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 1e022c510dda3e39dd02d607f1d9c493aecdeb5a
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 3a2ae5c7bc4853bad7b94af0d26ad5cd0358688f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021559"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628927"
 ---
-# <a name="authentication-and-authorization-in-aspnet-core-no-locsignalr"></a>Ověřování a autorizace v ASP.NET CoreSignalR
+# <a name="authentication-and-authorization-in-aspnet-core-no-locsignalr"></a>Ověřování a autorizace v ASP.NET Core SignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
@@ -32,7 +33,7 @@ Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
 ## <a name="authenticate-users-connecting-to-a-no-locsignalr-hub"></a>Ověřování uživatelů připojujících se k SignalR centru
 
-SignalRdá se použít s [ověřováním ASP.NET Core](xref:security/authentication/identity) k přidružení uživatele k jednotlivým připojením. V centru můžete k datům ověřování přicházet z vlastnosti [HubConnectionContext. User](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) . Ověřování umožňuje centru volat metody u všech připojení přidružených k uživateli. Další informace najdete v tématu [Správa uživatelů a skupin v SignalR ](xref:signalr/groups)nástroji. K jednomu uživateli může být přidruženo více připojení.
+SignalR dá se použít s [ověřováním ASP.NET Core](xref:security/authentication/identity) k přidružení uživatele k jednotlivým připojením. V centru můžete k datům ověřování přicházet z vlastnosti [HubConnectionContext. User](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) . Ověřování umožňuje centru volat metody u všech připojení přidružených k uživateli. Další informace najdete v tématu [Správa uživatelů a skupin v SignalR ](xref:signalr/groups)nástroji. K jednomu uživateli může být přidruženo více připojení.
 
 Následuje příklad, `Startup.Configure` který používá SignalR a ASP.NET Core ověřování:
 
@@ -88,7 +89,7 @@ public void Configure(IApplicationBuilder app)
 
 ::: moniker-end
 
-### <a name="no-loccookie-authentication"></a>Cookiepřihlašovací
+### <a name="no-loccookie-authentication"></a>Cookie přihlašovací
 
 V aplikaci založené na prohlížeči cookie ověřování umožňuje, aby vaše stávající uživatelská pověření automaticky pokračovala v SignalR připojeních. Při použití klienta prohlížeče není nutná žádná další konfigurace. Pokud je uživatel přihlášený do vaší aplikace, SignalR připojení Toto ověřování automaticky zdědí.
 
@@ -125,7 +126,7 @@ V případě standardních webových rozhraní API se tokeny nosiče odesílají
 [!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]
 
 > [!NOTE]
-> Řetězec dotazu se používá v prohlížečích při připojování k objektům WebSockets a událostem odesílaným serverem kvůli omezením rozhraní API prohlížeče. Při použití protokolu HTTPS jsou hodnoty řetězce dotazu zabezpečené připojením TLS. Mnoho serverů ale protokoluje hodnoty řetězce dotazu. Další informace najdete v tématu [požadavky na zabezpečení v SignalR ASP.NET Core ](xref:signalr/security). SignalRpomocí hlaviček odesílá tokeny v prostředích, které je podporují (například klienti .NET a Java).
+> Řetězec dotazu se používá v prohlížečích při připojování k objektům WebSockets a událostem odesílaným serverem kvůli omezením rozhraní API prohlížeče. Při použití protokolu HTTPS jsou hodnoty řetězce dotazu zabezpečené připojením TLS. Mnoho serverů ale protokoluje hodnoty řetězce dotazu. Další informace najdete v tématu [požadavky na zabezpečení v SignalR ASP.NET Core ](xref:signalr/security). SignalR pomocí hlaviček odesílá tokeny v prostředích, které je podporují (například klienti .NET a Java).
 
 ### <a name="no-loccookies-vs-bearer-tokens"></a>Cookies vs. nosnými tokeny 
 
@@ -133,7 +134,7 @@ Cookies jsou specifické pro prohlížeče. Posílání z jiných druhů klient�
 
 ### <a name="windows-authentication"></a>Ověřování systému Windows
 
-Pokud je ve vaší aplikaci nakonfigurované [ověřování systému Windows](xref:security/authentication/windowsauth) , SignalR může tuto identitu použít k zabezpečení rozbočovačů. Chcete-li však odesílat zprávy jednotlivým uživatelům, je nutné přidat vlastního poskytovatele ID uživatele. Systém ověřování systému Windows neposkytuje deklaraci identity "identifikátor názvu". SignalRpomocí deklarace identity určí uživatelské jméno.
+Pokud je ve vaší aplikaci nakonfigurované [ověřování systému Windows](xref:security/authentication/windowsauth) , SignalR může tuto identitu použít k zabezpečení rozbočovačů. Chcete-li však odesílat zprávy jednotlivým uživatelům, je nutné přidat vlastního poskytovatele ID uživatele. Systém ověřování systému Windows neposkytuje deklaraci identity "identifikátor názvu". SignalR pomocí deklarace identity určí uživatelské jméno.
 
 Přidejte novou třídu, která implementuje `IUserIdProvider` a načte jednu z deklarací identity od uživatele, která se má použít jako identifikátor. Pokud například chcete použít deklaraci identity (která je uživatelské jméno systému Windows ve formuláři `[Domain]\[Username]` ), vytvořte následující třídu:
 
@@ -228,7 +229,7 @@ public class ChatHub : Hub
 
 ### <a name="use-authorization-handlers-to-customize-hub-method-authorization"></a>Přizpůsobení autorizace metody centra pomocí obslužných rutin autorizace
 
-SignalRposkytuje vlastní prostředek pro obslužné rutiny autorizace, pokud metoda rozbočovače vyžaduje autorizaci. Prostředek je instancí `HubInvocationContext` . `HubInvocationContext`Zahrnuje `HubCallerContext` , název vyvolané metody centra a argumenty metody hub.
+SignalR poskytuje vlastní prostředek pro obslužné rutiny autorizace, pokud metoda rozbočovače vyžaduje autorizaci. Prostředek je instancí `HubInvocationContext` . `HubInvocationContext`Zahrnuje `HubCallerContext` , název vyvolané metody centra a argumenty metody hub.
 
 Vezměte v úvahu příklad chatovací místnosti umožňující přihlášení více organizací prostřednictvím Azure Active Directory. Kdokoli s účet Microsoft se může přihlásit k chatu, ale jenom členové vlastnící organizace by měli být schopni zakázat uživatelům nebo zobrazit historie chatu uživatelů. Kromě toho můžeme chtít omezit určité funkce od určitých uživatelů. Používání aktualizovaných funkcí v ASP.NET Core 3,0 je zcela možné. Všimněte si, jak `DomainRestrictedRequirement` funguje jako vlastní `IAuthorizationRequirement` . Teď, když se `HubInvocationContext` předává parametr prostředků, interní logika může zkontrolovat kontext, ve kterém se centrum volá, a rozhodnout, že uživatel může provádět jednotlivé metody rozbočovače.
 
@@ -298,7 +299,7 @@ V předchozím příkladu `DomainRestrictedRequirement` je třída `IAuthorizati
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Ověřování nosných tokenů v ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
 * [Ověřování na základě prostředků](xref:security/authorization/resourcebased)

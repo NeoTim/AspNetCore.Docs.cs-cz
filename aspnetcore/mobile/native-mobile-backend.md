@@ -5,6 +5,7 @@ description: Naučte se vytvářet služby back-endu pomocí ASP.NET Core MVC k 
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mobile/native-mobile-backend
-ms.openlocfilehash: 75943a15878634568830db74f895653571c54d0f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 00e0c93d200e7eec6fd6bdac1f1246fe0909fc54
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019427"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630533"
 ---
 # <a name="create-backend-services-for-native-mobile-apps-with-aspnet-core"></a>Vytváření back-end služeb pro nativní mobilní aplikace s ASP.NET Core
 
@@ -162,6 +163,6 @@ Při vývoji back-end služeb pro vaši aplikaci budete chtít vytvořit s konzi
 
 Jakmile zjistíte společné zásady pro vaše rozhraní API, můžete je obvykle zapouzdřit ve [filtru](../mvc/controllers/filters.md). Přečtěte si další informace o [tom, jak zapouzdřit společné zásady rozhraní API v aplikacích ASP.NET Core MVC](/archive/msdn-magazine/2016/august/asp-net-core-real-world-asp-net-core-mvc-filters).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Ověřování a autorizace](/xamarin/xamarin-forms/enterprise-application-patterns/authentication-and-authorization)

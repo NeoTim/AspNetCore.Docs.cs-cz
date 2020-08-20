@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/partial
-ms.openlocfilehash: 826d7cf96d95ee7eb98b0f05a233401a1e3bff33
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 7a370042520adfe5b06784b76acf41a81eb2c72d
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020831"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630624"
 ---
 # <a name="partial-views-in-aspnet-core"></a>Částečná zobrazení v ASP.NET Core
 
@@ -147,7 +148,7 @@ Pokud je k dispozici Přípona souboru, pomocník značek odkazuje na částečn
 
 Následující příklad odkazuje na částečné zobrazení z kořene aplikace. Cesty, které začínají znakem tildy ( `~/` ) nebo lomítkem ( `/` ), odkazují na kořen aplikace:
 
-**RazorStránky**
+**Razor Stránky**
 
 ```cshtml
 <partial name="~/Pages/Folder/_PartialName.cshtml" />
@@ -173,7 +174,7 @@ Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/par
 
 ### <a name="asynchronous-html-helper"></a>Asynchronní pomocník HTML
 
-Při použití pomocníka jazyka HTML je nejvhodnější použít <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*> . `PartialAsync`Vrátí <xref:Microsoft.AspNetCore.Html.IHtmlContent> typ zabalený v <xref:System.Threading.Tasks.Task%601> . Na metodu se odkazuje pomocí předpony očekávaného volání s `@` znakem:
+Při použití pomocníka jazyka HTML je nejvhodnější použít <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*> . `PartialAsync` Vrátí <xref:Microsoft.AspNetCore.Html.IHtmlContent> typ zabalený v <xref:System.Threading.Tasks.Task%601> . Na metodu se odkazuje pomocí předpony očekávaného volání s `@` znakem:
 
 ```cshtml
 @await Html.PartialAsync("_PartialName")
@@ -189,7 +190,7 @@ Následující příklad odkazuje na částečné zobrazení z kořene aplikace.
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**RazorStránky**
+**Razor Stránky**
 
 ```cshtml
 @await Html.PartialAsync("~/Pages/Folder/_PartialName.cshtml")
@@ -219,7 +220,7 @@ Vzhledem `RenderPartialAsync` k tomu, že streamy vykreslují obsah, poskytuje v
 
 ### <a name="synchronous-html-helper"></a>Synchronní pomocník HTML
 
-<xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.Partial*>a <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartial*> jsou synchronní ekvivalenty a v `PartialAsync` `RenderPartialAsync` uvedeném pořadí. Synchronní ekvivalenty se nedoporučují, protože existují scénáře, ve kterých se zablokují. Synchronní metody jsou zaměřené na odebrání v budoucí verzi.
+<xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.Partial*> a <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartial*> jsou synchronní ekvivalenty a v `PartialAsync` `RenderPartialAsync` uvedeném pořadí. Synchronní ekvivalenty se nedoporučují, protože existují scénáře, ve kterých se zablokují. Synchronní metody jsou zaměřené na odebrání v budoucí verzi.
 
 > [!IMPORTANT]
 > Pokud potřebujete spustit kód, použijte místo částečného zobrazení [komponentu zobrazení](xref:mvc/views/view-components) .
@@ -240,7 +241,7 @@ Pokud se na částečné zobrazení odkazuje pomocí názvu bez přípony soubor
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**RazorStránky**
+**Razor Stránky**
 
 1. Aktuálně prováděná složka stránky
 1. Adresář grafu nad složkou stránky
@@ -280,7 +281,7 @@ Následující konvence se vztahují na zjišťování částečného zobrazení
 
 ## <a name="access-data-from-partial-views"></a>Přístup k datům z částečných zobrazení
 
-Když je vytvořena instance částečného zobrazení, obdrží *kopii* nadřazeného `ViewData` slovníku. Aktualizace dat v rámci částečného zobrazení nejsou trvale uložené v nadřazeném zobrazení. `ViewData`změny v částečném zobrazení jsou po vrácení částečného zobrazení ztraceny.
+Když je vytvořena instance částečného zobrazení, obdrží *kopii* nadřazeného `ViewData` slovníku. Aktualizace dat v rámci částečného zobrazení nejsou trvale uložené v nadřazeném zobrazení. `ViewData` změny v částečném zobrazení jsou po vrácení částečného zobrazení ztraceny.
 
 Následující příklad ukazuje, jak předat instanci [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) do částečného zobrazení:
 
@@ -296,7 +297,7 @@ Model můžete předat do částečného zobrazení. Modelem může být vlastn�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**RazorStránky**
+**Razor Stránky**
 
 Následující značky v ukázkové aplikaci jsou ze stránky *stránky/ArticlesRP/ReadRP. cshtml* . Stránka obsahuje dvě částečná zobrazení. Druhé částečné zobrazení projde v modelu a `ViewData` částečném zobrazení. `ViewDataDictionary`Přetížení konstruktoru se používá k předání nového `ViewData` slovníku při zachování existujícího `ViewData` slovníku.
 

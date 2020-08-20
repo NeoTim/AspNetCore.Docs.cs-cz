@@ -6,6 +6,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 02/10/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 48b59fea5da3872fb29cacd9edbedd14de9e602f
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 912f6f5d20add99cd0173b6d1ebcf06161c448f5
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88019414"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88629675"
 ---
 # <a name="use-aspnet-core-no-locsignalr-with-typescript-and-webpack"></a>Použití ASP.NET Core SignalR s TypeScript a webpackem
 
@@ -42,7 +43,7 @@ V tomto kurzu se naučíte:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -237,7 +238,7 @@ Aplikace aktuálně zobrazuje základní formulář pro posílání zpráv, ale 
 
     Předchozí kód podporuje příjem zpráv ze serveru. `HubConnectionBuilder`Třída vytvoří nového tvůrce pro konfiguraci připojení k serveru. `withUrl`Funkce nakonfiguruje adresu URL centra.
 
-    SignalRpovolí výměnu zpráv mezi klientem a serverem. Každá zpráva má konkrétní název. Například zprávy s názvem `messageReceived` mohou spustit logiku odpovědnou za zobrazení nové zprávy v zóně zprávy. Naslouchat konkrétní zprávě se dá provést prostřednictvím `on` funkce. Na je možné naslouchat libovolný počet názvů zpráv. Je také možné předat parametry do zprávy, jako je například jméno autora a obsah přijaté zprávy. Jakmile klient obdrží zprávu, vytvoří se nový `div` prvek s názvem autora a obsahem zprávy v jeho `innerHTML` atributu. Je přidána do hlavního `div` prvku zobrazujícího zprávy.
+    SignalR povolí výměnu zpráv mezi klientem a serverem. Každá zpráva má konkrétní název. Například zprávy s názvem `messageReceived` mohou spustit logiku odpovědnou za zobrazení nové zprávy v zóně zprávy. Naslouchat konkrétní zprávě se dá provést prostřednictvím `on` funkce. Na je možné naslouchat libovolný počet názvů zpráv. Je také možné předat parametry do zprávy, jako je například jméno autora a obsah přijaté zprávy. Jakmile klient obdrží zprávu, vytvoří se nový `div` prvek s názvem autora a obsahem zprávy v jeho `innerHTML` atributu. Je přidána do hlavního `div` prvku zobrazujícího zprávy.
 
 1. Teď, když klient může obdržet zprávu, ji nakonfiguruje k odesílání zpráv. Přidejte zvýrazněný kód do souboru *Src/index. TS* :
 
@@ -299,7 +300,7 @@ Ověřte, že aplikace funguje s následujícím postupem.
 
 ::: moniker range="< aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -474,7 +475,7 @@ Aplikace aktuálně zobrazuje jednoduchý formulář pro posílání zpráv. Př
 
     Předchozí kód podporuje příjem zpráv ze serveru. `HubConnectionBuilder`Třída vytvoří nového tvůrce pro konfiguraci připojení k serveru. `withUrl`Funkce nakonfiguruje adresu URL centra.
 
-    SignalRpovolí výměnu zpráv mezi klientem a serverem. Každá zpráva má konkrétní název. Například zprávy s názvem `messageReceived` mohou spustit logiku odpovědnou za zobrazení nové zprávy v zóně zprávy. Naslouchat konkrétní zprávě se dá provést prostřednictvím `on` funkce. Můžete naslouchat libovolnému počtu názvů zpráv. Je také možné předat parametry do zprávy, jako je například jméno autora a obsah přijaté zprávy. Jakmile klient obdrží zprávu, vytvoří se nový `div` prvek s názvem autora a obsahem zprávy v jeho `innerHTML` atributu. Nová zpráva je přidána do hlavního `div` prvku zobrazujícího zprávy.
+    SignalR povolí výměnu zpráv mezi klientem a serverem. Každá zpráva má konkrétní název. Například zprávy s názvem `messageReceived` mohou spustit logiku odpovědnou za zobrazení nové zprávy v zóně zprávy. Naslouchat konkrétní zprávě se dá provést prostřednictvím `on` funkce. Můžete naslouchat libovolnému počtu názvů zpráv. Je také možné předat parametry do zprávy, jako je například jméno autora a obsah přijaté zprávy. Jakmile klient obdrží zprávu, vytvoří se nový `div` prvek s názvem autora a obsahem zprávy v jeho `innerHTML` atributu. Nová zpráva je přidána do hlavního `div` prvku zobrazujícího zprávy.
 
 1. Teď, když klient může obdržet zprávu, ji nakonfiguruje k odesílání zpráv. Přidejte zvýrazněný kód do souboru *Src/index. TS* :
 

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/extensibility/key-management
-ms.openlocfilehash: 5f55b56bd35a583e1f078a5a281788b68412e4f7
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 797df457a5584233043210e9ba2657b7fd7f3893
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021689"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631001"
 ---
 # <a name="key-management-extensibility-in-aspnet-core"></a>Rozšiřitelnost správy klíčů v ASP.NET Core
 
@@ -73,7 +74,7 @@ Navíc `IKey` zpřístupňuje `CreateEncryptorInstance` metodu, která se dá po
 
 `XmlKeyManager`Typ je konkrétní implementace `IKeyManager` . Nabízí několik užitečných zařízení, včetně služby Key v úschově a šifrování neaktivních klíčů. Klíče v tomto systému jsou reprezentovány jako XML elementy (konkrétně [XElement](/dotnet/csharp/programming-guide/concepts/linq/xelement-class-overview)).
 
-`XmlKeyManager`závisí na několika dalších součástech v průběhu plnění úkolů:
+`XmlKeyManager` závisí na několika dalších součástech v průběhu plnění úkolů:
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -81,9 +82,9 @@ Navíc `IKey` zpřístupňuje `CreateEncryptorInstance` metodu, která se dá po
 
 * `IXmlRepository`, které řídí, kde jsou klíče uchovávány v úložišti.
 
-* `IXmlEncryptor`[volitelné], což umožňuje šifrování klíčů v klidovém umístění.
+* `IXmlEncryptor` [volitelné], což umožňuje šifrování klíčů v klidovém umístění.
 
-* `IKeyEscrowSink`[volitelné], které poskytuje službu Key v úschově Services.
+* `IKeyEscrowSink` [volitelné], které poskytuje službu Key v úschově Services.
 
 ::: moniker-end
 
@@ -91,9 +92,9 @@ Navíc `IKey` zpřístupňuje `CreateEncryptorInstance` metodu, která se dá po
 
 * `IXmlRepository`, které řídí, kde jsou klíče uchovávány v úložišti.
 
-* `IXmlEncryptor`[volitelné], což umožňuje šifrování klíčů v klidovém umístění.
+* `IXmlEncryptor` [volitelné], což umožňuje šifrování klíčů v klidovém umístění.
 
-* `IKeyEscrowSink`[volitelné], které poskytuje službu Key v úschově Services.
+* `IKeyEscrowSink` [volitelné], které poskytuje službu Key v úschově Services.
 
 ::: moniker-end
 
@@ -125,7 +126,7 @@ V implementaci nástroje se `CreateNewKey` `IAuthenticatedEncryptorConfiguration
 
 *Načtení klíče/GetAllKeys*
 
-V implementaci nástroje `GetAllKeys` jsou dokumenty XML reprezentující klíče a odvolání čteny ze základní `IXmlRepository` . Pokud jsou tyto dokumenty šifrovány, systém je bude automaticky dešifroval. `XmlKeyManager`Vytvoří vhodné `IAuthenticatedEncryptorDescriptorDeserializer` instance pro rekonstrukci dokumentů zpět do `IAuthenticatedEncryptorDescriptor` instancí, které jsou poté zabaleny do jednotlivých `IKey` instancí. Tato kolekce `IKey` instancí se vrátí volajícímu.
+V implementaci nástroje `GetAllKeys` jsou dokumenty XML reprezentující klíče a odvolání čteny ze základní `IXmlRepository` . Pokud jsou tyto dokumenty šifrovány, systém je bude automaticky dešifroval. `XmlKeyManager` Vytvoří vhodné `IAuthenticatedEncryptorDescriptorDeserializer` instance pro rekonstrukci dokumentů zpět do `IAuthenticatedEncryptorDescriptor` instancí, které jsou poté zabaleny do jednotlivých `IKey` instancí. Tato kolekce `IKey` instancí se vrátí volajícímu.
 
 Další informace o konkrétních prvcích XML najdete v [dokumentu formátu úložiště klíčů](xref:security/data-protection/implementation/key-storage-format#data-protection-implementation-key-storage-format).
 
@@ -240,7 +241,7 @@ Rozhraní v úschově poskytuje nouzový řídicí šrafování, který umožňu
 
 * Store (GUID keyId, XElement element)
 
-Je to až do `IKeyEscrowSink` implementace, aby byl poskytnutý prvek bezpečným způsobem konzistentním s obchodními zásadami. Jednou z možných implementací může být, aby jímka v úschově zašifroval XML element pomocí známého podnikového certifikátu X. 509, ve kterém byl privátní klíč certifikátu uloží; `CertificateXmlEncryptor`Tento typ může pomoct s tímto. `IKeyEscrowSink`Implementace je také zodpovědná za trvalé uchování poskytnutého prvku.
+Je to až do `IKeyEscrowSink` implementace, aby byl poskytnutý prvek bezpečným způsobem konzistentním s obchodními zásadami. Jednou z možných implementací může být, aby jímka v úschově zašifroval XML element pomocí známého podnikového certifikátu X. 509, ve kterém byl privátní klíč certifikátu uloží; `CertificateXmlEncryptor` Tento typ může pomoct s tímto. `IKeyEscrowSink`Implementace je také zodpovědná za trvalé uchování poskytnutého prvku.
 
 Ve výchozím nastavení není povolený žádný mechanismus v úschově, i když správci serveru můžou [tuto globálně nakonfigurovat](xref:security/data-protection/configuration/machine-wide-policy). Lze ji také programově nakonfigurovat prostřednictvím `IDataProtectionBuilder.AddKeyEscrowSink` metody, jak je znázorněno v následující ukázce. `AddKeyEscrowSink`Metoda přetěžuje zrcadlení `IServiceCollection.AddSingleton` a `IServiceCollection.AddInstance` přetížení, protože `IKeyEscrowSink` instance mají být typu singleton. Pokud `IKeyEscrowSink` je registrováno více instancí, každá z nich bude volána během generování klíče, takže klíče mohou být uloží k několika mechanismům současně.
 

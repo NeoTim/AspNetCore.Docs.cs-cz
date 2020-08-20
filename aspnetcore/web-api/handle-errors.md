@@ -7,6 +7,7 @@ ms.author: prkrishn
 ms.custom: mvc
 ms.date: 07/23/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/handle-errors
-ms.openlocfilehash: a17db9de5f19d11853fb3f9f8c45ade8391ff600
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: d9d5703e6c02ed2b95cbe95d3624cd0647ee239f
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88021494"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631261"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>Zpracování chyb v ASP.NET Core webových rozhraní API
 
@@ -78,7 +79,7 @@ Host: localhost:44312
 User-Agent: curl/7.55.1
 ```
 
-Chcete-li místo toho zobrazit odpověď ve formátu HTML, nastavte `Accept` hlavičku požadavku HTTP na `text/html` typ média. Například:
+Chcete-li místo toho zobrazit odpověď ve formátu HTML, nastavte `Accept` hlavičku požadavku HTTP na `text/html` typ média. Příklad:
 
 ```bash
 curl -i -H "Accept: text/html" https://localhost:5001/weatherforecast/chicago
@@ -294,7 +295,7 @@ Odpověď na chybu lze nakonfigurovat jedním z následujících způsobů:
 1. [Implementovat ProblemDetailsFactory](#implement-problemdetailsfactory)
 1. [Použití ApiBehaviorOptions. ClientErrorMapping](#use-apibehavioroptionsclienterrormapping)
 
-### <a name="implement-problemdetailsfactory"></a>Uskutečnit`ProblemDetailsFactory`
+### <a name="implement-problemdetailsfactory"></a>Uskutečnit `ProblemDetailsFactory`
 
 MVC používá <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ProblemDetailsFactory?displayProperty=fullName> k výrobě všech instancí <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> a <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> . To zahrnuje odpovědi na chyby klienta, odpovědi na chyby při ověřování a <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Problem%2A?displayProperty=nameWithType> <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem%2A?displayProperty=nameWithType> pomocné metody a.
 

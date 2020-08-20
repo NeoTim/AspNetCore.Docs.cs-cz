@@ -5,6 +5,7 @@ description: Naučte se migrovat konfiguraci z projektu ASP.NET MVC do projektu 
 ms.author: riande
 ms.date: 10/14/2016
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/configuration
-ms.openlocfilehash: 7c1f2feb40e115d71fb087201acdf52197a52c88
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 8cbb174539234039a05306ec5ab89026bc90da23
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88015098"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631092"
 ---
 # <a name="migrate-configuration-to-aspnet-core"></a>Migrace konfigurace do ASP.NET Core
 
@@ -58,6 +59,6 @@ Náš projekt ASP.NET MVC zahrnoval požadovaný připojovací řetězec databá
 
 Na zvýrazněný řádek zobrazený výše změňte název databáze z **_CHANGE_ME** na název vaší databáze.
 
-## <a name="summary"></a>Souhrn
+## <a name="summary"></a>Shrnutí
 
 ASP.NET Core umístí veškerou spouštěcí logiku aplikace do jednoho souboru, ve kterém je možné definovat a konfigurovat potřebné služby a závislosti. Nahrazuje soubor *web.config* pomocí flexibilní konfigurační funkce, která může využít celou řadu formátů souborů, jako je JSON a proměnné prostředí.

@@ -6,6 +6,7 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 01/09/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: client-side/using-browserlink
-ms.openlocfilehash: 737abc8b9abea45654a86a4dc20584948ece9fc5
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: ab4ca78fa50768ff66536608a7cf03e73aecf73a
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88013174"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88628817"
 ---
 # <a name="browser-link-in-aspnet-core"></a>Odkaz na prohlížeč v ASP.NET Core
 
@@ -33,7 +34,7 @@ Odkaz na prohlížeč je funkce sady Visual Studio. Vytvoří komunikační kan�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Přidejte do projektu balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) . Pro ASP.NET Core Razor stránky nebo projekty MVC také povolte kompilaci za běhu Razor souborů (*. cshtml*), jak je popsáno v <xref:mvc/views/view-compilation> . Razorzměny syntaxe se aplikují jenom v případě, že je povolená kompilace za běhu.
+Přidejte do projektu balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) . Pro ASP.NET Core Razor stránky nebo projekty MVC také povolte kompilaci za běhu Razor souborů (*. cshtml*), jak je popsáno v <xref:mvc/views/view-compilation> . Razor změny syntaxe se aplikují jenom v případě, že je povolená kompilace za běhu.
 
 ::: moniker-end
 
@@ -63,7 +64,7 @@ Zavolejte `UseBrowserLink` v `Startup.Configure` metodě:
 app.UseBrowserLink();
 ```
 
-`UseBrowserLink`Volání je obvykle umístěno uvnitř `if` bloku, který povoluje pouze odkaz na prohlížeč ve vývojovém prostředí. Například:
+`UseBrowserLink`Volání je obvykle umístěno uvnitř `if` bloku, který povoluje pouze odkaz na prohlížeč ve vývojovém prostředí. Příklad:
 
 ```csharp
 if (env.IsDevelopment())

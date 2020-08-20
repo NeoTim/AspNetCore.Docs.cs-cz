@@ -5,6 +5,7 @@ description: Přečtěte si, jak zobrazení zpracovávají data prezentace aplik
 ms.author: riande
 ms.date: 12/05/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/overview
-ms.openlocfilehash: 8630df0ad8ea556c6edf0ab251b3c86493f751e2
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 6afd69414f2dc0158f724c6e6f7b3a3e51c1e92c
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020870"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630676"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>Zobrazení ve ASP.NET Core MVC
 
@@ -28,7 +29,7 @@ ms.locfileid: "88020870"
 
 Tento dokument vysvětluje zobrazení používaná v aplikacích ASP.NET Core MVC. Informace o Razor stránkách naleznete v tématu [Úvod do Razor stránek](xref:razor-pages/index).
 
-Ve vzoru MVC (Model-View-Controller) zpracovává *zobrazení* datovou prezentaci aplikace a interakci s uživatelem. Zobrazení je šablona HTML s vloženým [ Razor kódem](xref:mvc/views/razor). Razoroznačení je kód, který komunikuje s označením HTML a vytvoří webovou stránku, která je odeslána klientovi.
+Ve vzoru MVC (Model-View-Controller) zpracovává *zobrazení* datovou prezentaci aplikace a interakci s uživatelem. Zobrazení je šablona HTML s vloženým [ Razor kódem](xref:mvc/views/razor). Razor označení je kód, který komunikuje s označením HTML a vytvoří webovou stránku, která je odeslána klientovi.
 
 V ASP.NET Core MVC jsou zobrazení soubory *. cshtml* , které používají [programovací jazyk C#](/dotnet/csharp/) v Razor kódu. Soubory zobrazení jsou obvykle seskupeny do složek pojmenovaných pro každý z [řadičů](xref:mvc/controllers/actions)aplikace. Složky se ukládají do složky *zobrazení* v kořenovém adresáři aplikace:
 
@@ -214,13 +215,13 @@ Kromě zobrazení se silným typem mají zobrazení zobrazení přístup k *slab
 
 Na tuto kolekci lze odkazovat buď pomocí `ViewData` vlastností nebo `ViewBag` v řadičích a zobrazeních. `ViewData`Vlastnost je slovníkem slabě typových objektů. `ViewBag`Vlastnost je Obálka kolem `ViewData` , která poskytuje dynamické vlastnosti pro podkladovou `ViewData` kolekci. Poznámka: Vyhledání klíčů rozlišuje velká a malá písmena `ViewData` `ViewBag` .
 
-`ViewData`a `ViewBag` jsou dynamicky vyřešeny za běhu. Vzhledem k tomu, že nenabízejí kontrolu typu při kompilaci, obě jsou obecně větší náchylnější k chybám než použití ViewModel. Z tohoto důvodu někteří vývojáři dávají přednost minimálnímu nebo nikdy nepoužívání `ViewData` a `ViewBag` .
+`ViewData` a `ViewBag` jsou dynamicky vyřešeny za běhu. Vzhledem k tomu, že nenabízejí kontrolu typu při kompilaci, obě jsou obecně větší náchylnější k chybám než použití ViewModel. Z tohoto důvodu někteří vývojáři dávají přednost minimálnímu nebo nikdy nepoužívání `ViewData` a `ViewBag` .
 
 <a name="VD"></a>
 
 **ViewData**
 
-`ViewData`je objekt [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) , ke kterému se přistupoval prostřednictvím `string` klíčů. Řetězcová data lze uložit a použít přímo bez nutnosti přetypování, ale `ViewData` při jejich extrakci je nutné přetypovat jiné hodnoty objektů na konkrétní typy. Můžete použít `ViewData` k předávání dat z řadičů do zobrazení a v rámci zobrazení, včetně [částečných zobrazení](xref:mvc/views/partial) a [rozložení](xref:mvc/views/layout).
+`ViewData` je objekt [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) , ke kterému se přistupoval prostřednictvím `string` klíčů. Řetězcová data lze uložit a použít přímo bez nutnosti přetypování, ale `ViewData` při jejich extrakci je nutné přetypovat jiné hodnoty objektů na konkrétní typy. Můžete použít `ViewData` k předávání dat z řadičů do zobrazení a v rámci zobrazení, včetně [částečných zobrazení](xref:mvc/views/partial) a [rozložení](xref:mvc/views/layout).
 
 Následuje příklad, který nastavuje hodnoty pro pozdrav a adresu pomocí `ViewData` akce:
 
@@ -298,7 +299,7 @@ V rozložení je název čten ze slovníku ViewData:
 
 `ViewBag`*není k dispozici v Razor Stránky.*
 
-`ViewBag`je objekt [DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata) , který poskytuje dynamický přístup k objektům uloženým v `ViewData` . `ViewBag`může být pohodlnější pro práci s, protože nevyžaduje přetypování. Následující příklad ukazuje, jak použít `ViewBag` se stejným výsledkem jako v použití `ViewData` výše:
+`ViewBag` je objekt [DynamicViewData](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.internal.dynamicviewdata) , který poskytuje dynamický přístup k objektům uloženým v `ViewData` . `ViewBag` může být pohodlnější pro práci s, protože nevyžaduje přetypování. Následující příklad ukazuje, jak použít `ViewBag` se stejným výsledkem jako v použití `ViewData` výše:
 
 ```csharp
 public IActionResult SomeAction()
@@ -369,7 +370,7 @@ Použití obou `ViewData` i `ViewBag` ve stejnou dobu funguje, stejně jako komb
 
 **Shrnutí rozdílů mezi ViewData a ViewBag**
 
- `ViewBag`není na stránkách k dispozici Razor .
+ `ViewBag` není na stránkách k dispozici Razor .
 
 * `ViewData`
   * Je odvozen z [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary), takže má vlastnosti slovníku, které mohou být užitečné, například `ContainsKey` , `Add` , `Remove` a `Clear` .

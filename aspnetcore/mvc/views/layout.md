@@ -5,6 +5,7 @@ description: Naučte se používat běžné rozložení, direktivy sdílení a s
 ms.author: riande
 ms.date: 07/30/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -15,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/layout
-ms.openlocfilehash: 4d5032f02db28341d7781dd57d58d776636fd16d
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 308e567e0480f83972ab7a55c7b957af83a164fd
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88020441"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630689"
 ---
 # <a name="layout-in-aspnet-core"></a>Rozložení v ASP.NET Core
 
@@ -34,7 +35,7 @@ Stránky a zobrazení často sdílí vizuální a programové prvky. Tento člá
 
 Tento dokument popisuje rozložení dvou různých přístupů k ASP.NET Core MVC: Razor stránky a řadiče se zobrazeními. Rozdíly jsou pro toto téma minimální:
 
-* RazorStránky jsou ve složce *stránky* .
+* Razor Stránky jsou ve složce *stránky* .
 * Řadiče se zobrazeními používají pro zobrazení složku *zobrazení* .
 
 ## <a name="what-is-a-layout"></a>Co je rozložení
@@ -47,7 +48,7 @@ Mnoho stránek v aplikaci také často používá běžné struktury HTML, jako 
 
 Podle konvence je výchozím rozložením pro aplikaci ASP.NET Core název *_Layout. cshtml*. Soubory rozložení pro nové projekty ASP.NET Core vytvořené pomocí šablon jsou:
 
-* RazorStránky: *stránky/Shared/_Layout. cshtml*
+* Razor Stránky: *stránky/Shared/_Layout. cshtml*
 
   ![Složka stránky v Průzkumník řešení](layout/_static/rp-web-project-views.png)
 
@@ -63,7 +64,7 @@ Následující kód ukazuje soubor rozložení pro šablonu vytvořenou v projek
 
 ## <a name="specifying-a-layout"></a>Určení rozložení
 
-Razorzobrazení mají `Layout` vlastnost. Jednotlivá zobrazení určují rozložení nastavením této vlastnosti:
+Razor zobrazení mají `Layout` vlastnost. Jednotlivá zobrazení určují rozložení nastavením této vlastnosti:
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
 
@@ -95,7 +96,7 @@ Příklad `@section` definice v Razor zobrazení stránky:
 
 V předchozím kódu se *skripty/main.js* přidaly do `scripts` oddílu na stránce nebo zobrazení. Jiné stránky nebo zobrazení ve stejné aplikaci pravděpodobně nevyžadují tento skript a nedefinují oddíl Scripts.
 
-Následující kód používá [pomocníka částečné značky](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) k vykreslování *_ValidationScriptsPartial. cshtml*:
+Následující kód používá [pomocníka částečné značky](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) k vykreslování  *_ValidationScriptsPartial. cshtml*:
 
 ```html
 @section Scripts {
@@ -135,12 +136,12 @@ Vzorový `_ViewImports.cshtml` soubor:
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewImports.cshtml)]
 
-Soubor *_ViewImports. cshtml* pro aplikaci ASP.NET Core MVC je obvykle umístěn ve složce *Pages* (nebo *views*). *_ViewImports soubor. cshtml* lze umístit do jakékoli složky. v takovém případě bude použito pouze na stránky nebo zobrazení v této složce a jejích podsložkách. `_ViewImports`soubory jsou zpracovávány na kořenové úrovni a následně pro každou složku, která je v umístění stránky nebo samotného zobrazení. `_ViewImports`nastavení zadaná na kořenové úrovni lze přepsat na úrovni složky.
+Soubor *_ViewImports. cshtml* pro aplikaci ASP.NET Core MVC je obvykle umístěn ve složce *Pages* (nebo *views*). *_ViewImports soubor. cshtml* lze umístit do jakékoli složky. v takovém případě bude použito pouze na stránky nebo zobrazení v této složce a jejích podsložkách. `_ViewImports` soubory jsou zpracovávány na kořenové úrovni a následně pro každou složku, která je v umístění stránky nebo samotného zobrazení. `_ViewImports` nastavení zadaná na kořenové úrovni lze přepsat na úrovni složky.
 
 Předpokládejme například:
 
 * *_ViewImports soubor. cshtml* na kořenové úrovni zahrnuje `@model MyModel1` a `@addTagHelper *, MyTagHelper1` .
-* Podsložka *_ViewImports soubor. cshtml* obsahuje `@model MyModel2` a `@addTagHelper *, MyTagHelper2` .
+* Podsložka  *_ViewImports soubor. cshtml* obsahuje `@model MyModel2` a `@addTagHelper *, MyTagHelper2` .
 
 Stránky a zobrazení v podsložce budou mít přístup k oběma pomocníkům značek i k `MyModel2` modelu.
 

@@ -1,5 +1,5 @@
 ---
-title: Požadavky na zabezpečení v ASP.NET CoreSignalR
+title: Požadavky na zabezpečení v ASP.NET Core SignalR
 author: bradygaster
 description: Naučte se používat ověřování a autorizaci v ASP.NET Core SignalR .
 monikerRange: '>= aspnetcore-2.1'
@@ -7,6 +7,7 @@ ms.author: anurse
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,14 +18,14 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: e004899e334738f723cb98638cb31de8d314a830
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 12293c5cb3dc49d505225f1b44e824e9273cfffc
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022469"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630988"
 ---
-# <a name="security-considerations-in-aspnet-core-no-locsignalr"></a>Požadavky na zabezpečení v ASP.NET CoreSignalR
+# <a name="security-considerations-in-aspnet-core-no-locsignalr"></a>Požadavky na zabezpečení v ASP.NET Core SignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
@@ -34,8 +35,8 @@ Tento článek poskytuje informace o zabezpečení SignalR .
 
 [Sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/) se dá použít k povolení připojení mezi zdroji SignalR v prohlížeči. Pokud je JavaScriptový kód hostovaný v jiné doméně než SignalR aplikace, musí být povolen [middleware CORS](xref:security/cors) , aby se JavaScript mohl připojit k SignalR aplikaci. Povoluje žádosti mezi zdroji jenom z domén, které důvěřujete nebo ovládáte. Příklad:
 
-* Váš web je hostovaný na`http://www.example.com`
-* Vaše SignalR aplikace je hostována na`http://signalr.example.com`
+* Váš web je hostovaný na `http://www.example.com`
+* Vaše SignalR aplikace je hostována na `http://signalr.example.com`
 
 V aplikaci by měla být nakonfigurovaná CORS SignalR , aby povolovala jenom původ `www.example.com` .
 
@@ -137,7 +138,7 @@ Zprávy výjimek se obecně považují za citlivá data, která by neměla být 
 
 ## <a name="buffer-management"></a>Správa vyrovnávací paměti
 
-SignalRpro správu příchozích a odchozích zpráv používá vyrovnávací paměti pro připojení. Ve výchozím nastavení SignalR omezuje tyto vyrovnávací paměti na 32 KB. Největší zpráva, kterou může klient nebo server odeslat, je 32 KB. Maximální velikost paměti spotřebované připojením pro zprávy je 32 KB. Pokud jsou vaše zprávy vždycky menší než 32 KB, můžete omezit limit, který:
+SignalR pro správu příchozích a odchozích zpráv používá vyrovnávací paměti pro připojení. Ve výchozím nastavení SignalR omezuje tyto vyrovnávací paměti na 32 KB. Největší zpráva, kterou může klient nebo server odeslat, je 32 KB. Maximální velikost paměti spotřebované připojením pro zprávy je 32 KB. Pokud jsou vaše zprávy vždycky menší než 32 KB, můžete omezit limit, který:
 
 * Zabraňuje klientovi, aby mohl odeslat větší zprávu.
 * Server nikdy nebude muset přidělit velké vyrovnávací paměti pro příjem zpráv.
@@ -149,7 +150,7 @@ Pokud jsou vaše zprávy větší než 32 KB, můžete tento limit zvýšit. Zv�
 
 U příchozích a odchozích zpráv platí omezení, jak je možné nakonfigurovat u objektu [HttpConnectionDispatcherOptions](xref:signalr/configuration#configure-server-options) nakonfigurovaného v nástroji `MapHub` :
 
-* `ApplicationMaxBufferSize`představuje maximální počet bajtů od klienta, které jsou vyrovnávací paměti serveru. Pokud se klient pokusí odeslat zprávu větší, než je toto omezení, připojení může být zavřeno.
-* `TransportMaxBufferSize`představuje maximální počet bajtů, které může server odeslat. Pokud se server pokusí odeslat zprávu (včetně návratových hodnot z metod z rozbočovače) větší, než je tento limit, bude vyvolána výjimka.
+* `ApplicationMaxBufferSize` představuje maximální počet bajtů od klienta, které jsou vyrovnávací paměti serveru. Pokud se klient pokusí odeslat zprávu větší, než je toto omezení, připojení může být zavřeno.
+* `TransportMaxBufferSize` představuje maximální počet bajtů, které může server odeslat. Pokud se server pokusí odeslat zprávu (včetně návratových hodnot z metod z rozbočovače) větší, než je tento limit, bude vyvolána výjimka.
 
 Nastavením limitu `0` zakážete tento limit. Odebráním tohoto limitu můžete klientovi poslat zprávu libovolné velikosti. Zlomyslní klienti odesílající velké zprávy můžou způsobit přidělení nadměrné paměti. Nadměrné využití paměti může významně snížit počet souběžných připojení.

@@ -1,11 +1,12 @@
 ---
-title: RazorStránky s Entity Framework Core v ASP.NET Core – kurz 1 z 8
+title: Razor Stránky s Entity Framework Core v ASP.NET Core – kurz 1 z 8
 author: rick-anderson
 description: Ukazuje, jak vytvořit Razor aplikaci Pages pomocí Entity Framework Core
 ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -16,14 +17,14 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: cd6624d107fb19da92a7e58a747cc85e876a6ba4
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: 00d5c348b7ab06f9044e6705026e43feb7807ae3
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88018634"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88630299"
 ---
-# <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>RazorStránky s Entity Framework Core v ASP.NET Core – kurz 1 z 8
+# <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Razor Stránky s Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
 [Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -33,7 +34,7 @@ Toto je první v sérii kurzů, které ukazují, jak používat Entity Framework
 
 [Stažení nebo zobrazení dokončené aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * Pokud se Razor stránkami teprve začínáte, Projděte si řadu kurzů [Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) , než začnete s tímto.
 
@@ -89,7 +90,7 @@ Spuštění aplikace po stažení dokončeného projektu:
 Spuštění aplikace po stažení dokončeného projektu:
 
 * Odstraňte *ContosoUniversity. csproj*a přejmenujte *ContosoUniversitySQLite. csproj* na *ContosoUniversity. csproj*.
-* Odstraňte *Startup.cs*a přejmenujte *StartupSQLite.cs* na *Startup.cs*.
+* V *program.cs*se Odkomentujte `#define Startup` tak, aby `StartupSQLite` se použil.
 * Odstraňte *appSettings.jsna*a přejmenujte *appSettingsSQLite.jsna* na *appSettings.jszapnuto*.
 * Odstraňte složku *migrace* a přejmenujte *MigrationsSQL* na *migrace*.
 * Proveďte globální hledání `#if SQLiteVersion` a odeberte `#if SQLiteVersion` příkaz a přidružený `#endif` příkaz.
@@ -214,7 +215,7 @@ Sestavte projekt, aby se ověřilo, že nejsou k dispozici žádné chyby kompil
 V této části použijete nástroj ASP.NET Core pro generování uživatelského rozhraní k vygenerování:
 
 * Třída *kontextu* EF Core. Kontext je hlavní třída, která koordinuje funkce Entity Framework pro daný datový model. Je odvozen z `Microsoft.EntityFrameworkCore.DbContext` třídy.
-* Razorstránky, které zpracovávají operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro danou `Student` entitu.
+* Razor stránky, které zpracovávají operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro danou `Student` entitu.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -355,12 +356,12 @@ Aktualizujte *program.cs* , aby se vytvořila databáze, pokud neexistuje:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/1-intro/Program.cs?highlight=1-2,14-18,21-38)]
 
-Metoda [EnsureCreated](/dotnet/api/microsoft.entityframeworkcore.infrastructure.databasefacade.ensurecreated#Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_EnsureCreated) neprovede žádnou akci, pokud existuje databáze pro kontext. Pokud žádná databáze neexistuje, vytvoří databázi a schéma. `EnsureCreated`povolí následující pracovní postup pro zpracování změn datového modelu:
+Metoda [EnsureCreated](/dotnet/api/microsoft.entityframeworkcore.infrastructure.databasefacade.ensurecreated#Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_EnsureCreated) neprovede žádnou akci, pokud existuje databáze pro kontext. Pokud žádná databáze neexistuje, vytvoří databázi a schéma. `EnsureCreated` povolí následující pracovní postup pro zpracování změn datového modelu:
 
 * Odstraňte databázi. Všechna existující data budou ztracena.
 * Změňte datový model. Například přidejte `EmailAddress` pole.
 * Spusťte aplikaci.
-* `EnsureCreated`vytvoří databázi s novým schématem.
+* `EnsureCreated` vytvoří databázi s novým schématem.
 
 Tento pracovní postup funguje dobře v rané fázi vývoje, když se schéma rychle vyvíjí, pokud nepotřebujete zachovat data. Tato situace se liší v případě, že data, která byla zadána do databáze, musí být zachována. V takovém případě použijte migrace.
 
@@ -445,7 +446,7 @@ public async Task OnGetAsync()
   * Vytvořte vrácený objekt [úkolu](/dotnet/csharp/programming-guide/concepts/async/async-return-types#BKMK_TaskReturnType) .
 * `Task<T>`Návratový typ představuje probíhající práci.
 * `await`Klíčové slovo způsobí, že kompilátor rozdělí metodu do dvou částí. První část končí asynchronně spuštěnou operací. Druhá část je vložena do metody zpětného volání, která je volána po dokončení operace.
-* `ToListAsync`je asynchronní verze `ToList` metody rozšíření.
+* `ToListAsync` je asynchronní verze `ToList` metody rozšíření.
 
 Některé věci, které je potřeba znát při psaní asynchronního kódu, který používá EF Core:
 
@@ -470,7 +471,7 @@ Ukázková aplikace je web pro fiktivní univerzitě společnosti Contoso. Zahrn
 
 [Stažení nebo zobrazení dokončené aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -557,9 +558,9 @@ Vytvořte složku *modelů* . Ve složce *modely* vytvořte soubor třídy s ná
 
 `ID`Vlastnost se zobrazí jako sloupec primárního klíče tabulky databáze (DB), která odpovídá této třídě. Ve výchozím nastavení EF Core interpretuje vlastnost s názvem `ID` nebo `classnameID` jako primární klíč. V `classnameID` `classname` je název třídy. Alternativní automaticky rozpoznaný primární klíč je `StudentID` v předchozím příkladu.
 
-`Enrollments`Vlastnost je [navigační vlastnost](/ef/core/modeling/relationships). Vlastnosti navigace odkazují na další entity, které se vztahují k této entitě. V tomto případě `Enrollments` vlastnost `Student entity` obsahuje všechny `Enrollment` entity, které jsou v relaci `Student` . Například pokud má řádek studenta v databázi dva související řádky registrace, `Enrollments` navigační vlastnost obsahuje tyto dvě `Enrollment` entity. Související `Enrollment` řádek je řádek, který obsahuje hodnotu primárního klíče tohoto studenta ve `StudentID` sloupci. Předpokládejme například, že student s ID = 1 má dva řádky v `Enrollment` tabulce. `Enrollment`Tabulka má dva řádky s `StudentID` = 1. `StudentID`je cizí klíč v `Enrollment` tabulce, který určuje studenta v `Student` tabulce.
+`Enrollments`Vlastnost je [navigační vlastnost](/ef/core/modeling/relationships). Vlastnosti navigace odkazují na další entity, které se vztahují k této entitě. V tomto případě `Enrollments` vlastnost `Student entity` obsahuje všechny `Enrollment` entity, které jsou v relaci `Student` . Například pokud má řádek studenta v databázi dva související řádky registrace, `Enrollments` navigační vlastnost obsahuje tyto dvě `Enrollment` entity. Související `Enrollment` řádek je řádek, který obsahuje hodnotu primárního klíče tohoto studenta ve `StudentID` sloupci. Předpokládejme například, že student s ID = 1 má dva řádky v `Enrollment` tabulce. `Enrollment`Tabulka má dva řádky s `StudentID` = 1. `StudentID` je cizí klíč v `Enrollment` tabulce, který určuje studenta v `Student` tabulce.
 
-Pokud navigační vlastnost může obsahovat více entit, musí být vlastnost navigace typu seznam, například `ICollection<T>` . `ICollection<T>`lze zadat nebo typ jako `List<T>` nebo `HashSet<T>` . Při `ICollection<T>` použití EF Core vytvoří `HashSet<T>` ve výchozím nastavení kolekci. Navigační vlastnosti, které obsahují více entit, přicházejí ze vztahů m:n a 1: n.
+Pokud navigační vlastnost může obsahovat více entit, musí být vlastnost navigace typu seznam, například `ICollection<T>` . `ICollection<T>` lze zadat nebo typ jako `List<T>` nebo `HashSet<T>` . Při `ICollection<T>` použití EF Core vytvoří `HashSet<T>` ve výchozím nastavení kolekci. Navigační vlastnosti, které obsahují více entit, přicházejí ze vztahů m:n a 1: n.
 
 ### <a name="the-enrollment-entity"></a>Entita registrace
 
@@ -655,23 +656,23 @@ Název připojovacího řetězce je předán do kontextu voláním metody v obje
 V *program.cs*upravte `Main` metodu a proveďte následující:
 
 * Získá instanci kontextu databáze z kontejneru vkládání závislostí.
-* Zavolejte [EnsureCreated](/dotnet/api/microsoft.entityframeworkcore.infrastructure.databasefacade.ensurecreated#Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_EnsureCreated).
+* Zavolejte  [EnsureCreated](/dotnet/api/microsoft.entityframeworkcore.infrastructure.databasefacade.ensurecreated#Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_EnsureCreated).
 * Vyřazení kontextu po `EnsureCreated` dokončení metody.
 
 Následující kód ukazuje aktualizovaný soubor *program.cs* .
 
 [!code-csharp[](intro/samples/cu21/Program.cs?name=snippet)]
 
-`EnsureCreated`zajišťuje, aby databáze pro kontext existovala. Pokud existuje, není provedena žádná akce. Pokud neexistuje, vytvoří se databáze a všechny její schéma. `EnsureCreated`nepoužívá k vytvoření databáze migrace. Databázi, která je vytvořená pomocí, se `EnsureCreated` nedá později aktualizovat pomocí migrace.
+`EnsureCreated` zajišťuje, aby databáze pro kontext existovala. Pokud existuje, není provedena žádná akce. Pokud neexistuje, vytvoří se databáze a všechny její schéma. `EnsureCreated` nepoužívá k vytvoření databáze migrace. Databázi, která je vytvořená pomocí, se `EnsureCreated` nedá později aktualizovat pomocí migrace.
 
-`EnsureCreated`se volá při spuštění aplikace, což umožňuje následující pracovní postup:
+`EnsureCreated` se volá při spuštění aplikace, což umožňuje následující pracovní postup:
 
 * Odstraňte databázi.
 * Změňte schéma databáze (například přidat `EmailAddress` pole).
 * Spusťte aplikaci.
-* `EnsureCreated`vytvoří databázi se `EmailAddress` sloupcem.
+* `EnsureCreated` vytvoří databázi se `EmailAddress` sloupcem.
 
-`EnsureCreated`je pohodlná v brzké fázi vývoje, když se schéma rychle vyvíjí. Později v kurzu se databáze odstraní a použijí se migrace.
+`EnsureCreated` je pohodlná v brzké fázi vývoje, když se schéma rychle vyvíjí. Později v kurzu se databáze odstraní a použijí se migrace.
 
 ### <a name="test-the-app"></a>Otestování aplikace
 
@@ -693,7 +694,7 @@ Zvýrazněný kód vytvoří vlastnost [negenerickými \<TEntity> ](/dotnet/api/
 * Sada entit obvykle odpovídá tabulce databáze.
 * Entita odpovídá řádku v tabulce.
 
-`DbSet<Enrollment>`a `DbSet<Course>` může být vynecháno. EF Core je implicitně obsahuje, protože `Student` entita odkazuje na `Enrollment` entitu a `Enrollment` entita odkazuje na `Course` entitu. V tomto kurzu ponechejte `DbSet<Enrollment>` a `DbSet<Course>` v `SchoolContext` .
+`DbSet<Enrollment>` a `DbSet<Course>` může být vynecháno. EF Core je implicitně obsahuje, protože `Student` entita odkazuje na `Enrollment` entitu a `Enrollment` entita odkazuje na `Course` entitu. V tomto kurzu ponechejte `DbSet<Enrollment>` a `DbSet<Course>` v `SchoolContext` .
 
 ### <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
@@ -707,7 +708,7 @@ Ve složce *data* vytvořte nový soubor třídy s názvem *DbInitializer.cs* a 
 
 [!code-csharp[](intro/samples/cu21/Data/DbInitializer.cs?name=snippet_Intro)]
 
-Poznámka: předchozí kód používá `Models` pro obor názvů ( `namespace ContosoUniversity.Models` ) spíše než `Data` . `Models`je konzistentní s kódem generovaným pomocí generování uživatelského rozhraní. Další informace najdete v [tomto problému s vygenerováním uživatelského rozhraní GitHub](https://github.com/aspnet/Scaffolding/issues/822).
+Poznámka: předchozí kód používá `Models` pro obor názvů ( `namespace ContosoUniversity.Models` ) spíše než `Data` . `Models` je konzistentní s kódem generovaným pomocí generování uživatelského rozhraní. Další informace najdete v [tomto problému s vygenerováním uživatelského rozhraní GitHub](https://github.com/aspnet/Scaffolding/issues/822).
 
 Kód zkontroluje, jestli v databázi existují studenti. Pokud databáze neobsahuje žádné studenty, databáze se inicializuje s testovacími daty. Načte testovací data do polí `List<T>` , nikoli kolekce pro optimalizaci výkonu.
 
@@ -759,7 +760,7 @@ V následujícím kódu, klíčové slovo [Async](/dotnet/csharp/language-refere
 
 * Implicitní návratový typ `Task` představuje probíhající práci.
 * `await`Klíčové slovo způsobí, že kompilátor rozdělí metodu do dvou částí. První část končí asynchronně spuštěnou operací. Druhá část je vložena do metody zpětného volání, která je volána po dokončení operace.
-* `ToListAsync`je asynchronní verze `ToList` metody rozšíření.
+* `ToListAsync` je asynchronní verze `ToList` metody rozšíření.
 
 Některé věci, které je potřeba znát při psaní asynchronního kódu, který používá EF Core:
 
@@ -773,7 +774,7 @@ V dalším kurzu se přezkoumávají základní operace CRUD (vytváření, čte
 
 
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=P7iTtQnkrNs)
 

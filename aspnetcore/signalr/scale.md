@@ -7,6 +7,7 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/17/2020
 no-loc:
+- ASP.NET Core Identity
 - cookie
 - Cookie
 - Blazor
@@ -17,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 2d128d54dc9b1189124563e45d72d74b19704ab1
-ms.sourcegitcommit: 497be502426e9d90bb7d0401b1b9f74b6a384682
+ms.openlocfilehash: fc257015a9ee972da90b0f206a60b07bd6cc1f97
+ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/08/2020
-ms.locfileid: "88022521"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88631105"
 ---
 # <a name="aspnet-core-no-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR hostování a škálování
 
@@ -32,7 +33,7 @@ Tento článek vysvětluje, jaké jsou informace o hostování a škálování p
 
 ## <a name="sticky-sessions"></a>Rychlé relace
 
-SignalRvyžaduje, aby všechny požadavky HTTP pro konkrétní připojení byly zpracovávány stejným procesem serveru. Když SignalR je spuštěná na serverové farmě (víc serverů), musí se použít "rychlé relace". U některých nástrojů pro vyrovnávání zatížení se také nazývají spřažení relací. Azure App Service pro směrování požadavků používá [Směrování žádostí na aplikace](https://docs.microsoft.com/iis/extensions/planning-for-arr/application-request-routing-version-2-overview) (ARR). Povolením nastavení spřažení ARR v Azure App Service umožníte "rychlé relace". Jediné okolnosti, kdy nejsou vyžadovány rychlé relace, jsou:
+SignalR vyžaduje, aby všechny požadavky HTTP pro konkrétní připojení byly zpracovávány stejným procesem serveru. Když SignalR je spuštěná na serverové farmě (víc serverů), musí se použít "rychlé relace". U některých nástrojů pro vyrovnávání zatížení se také nazývají spřažení relací. Azure App Service pro směrování požadavků používá [Směrování žádostí na aplikace](https://docs.microsoft.com/iis/extensions/planning-for-arr/application-request-routing-version-2-overview) (ARR). Povolením nastavení spřažení ARR v Azure App Service umožníte "rychlé relace". Jediné okolnosti, kdy nejsou vyžadovány rychlé relace, jsou:
 
 1. Při hostování na jednom serveru v jednom procesu.
 1. Při použití služby Azure SignalR .
@@ -44,7 +45,7 @@ Pokyny ke konfiguraci Azure App Service pro SignalR najdete v tématu <xref:sign
 
 ## <a name="tcp-connection-resources"></a>Prostředky připojení TCP
 
-Počet souběžných připojení TCP, která může webový server podporovat, je omezený. Standardní klienti HTTP používají *dočasné* připojení. Tato připojení se dají zavřít, když se klient přestane vycházet a znovu otevřít později. Na druhé straně SignalR je připojení *trvalé*. SignalRpřipojení zůstávají otevřená i v případě, že klient přejde do nečinnosti. V aplikaci s vysokým provozem, která obsluhuje mnoho klientů, můžou tato trvalá připojení způsobit, že by servery dosáhly maximálního počtu připojení.
+Počet souběžných připojení TCP, která může webový server podporovat, je omezený. Standardní klienti HTTP používají *dočasné* připojení. Tato připojení se dají zavřít, když se klient přestane vycházet a znovu otevřít později. Na druhé straně SignalR je připojení *trvalé*. SignalR připojení zůstávají otevřená i v případě, že klient přejde do nečinnosti. V aplikaci s vysokým provozem, která obsluhuje mnoho klientů, můžou tato trvalá připojení způsobit, že by servery dosáhly maximálního počtu připojení.
 
 Trvalá připojení také využívají určitou další paměť, aby bylo možné sledovat jednotlivá připojení.
 
