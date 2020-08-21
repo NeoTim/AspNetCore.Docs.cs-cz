@@ -1152,7 +1152,7 @@
       uid: security/docker-compose-https
     - name: Podpora obecného nařízení EU o ochraně osobních údajů (GDPR)
       uid: security/gdpr
-    - name: Ochrana proti padělání požadavků
+    - name: Prevence útoků založených na padělání žádosti posílané mezi weby (XSRF/CSRF)
       uid: security/anti-request-forgery
     - name: Prevence útoků založených na otevřeném přesměrování
       uid: security/preventing-open-redirects
