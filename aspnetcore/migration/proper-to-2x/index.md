@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 7f5d2835d93631ac73b3da0c3dc26d87ef64c57d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: f1a5af60f8dce83d9622ed9d2c6bcb4b8fc22b73
+ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634758"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88712490"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET na ASP.NET Core
 
@@ -204,6 +204,12 @@ Adresářová struktura:
     └── web.config
 ```
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="bind-and-input-formatters"></a>[BIND] a vstupní formátovací moduly
+
+[Předchozí verze ASP.NET](/aspnet/mvc/overview/getting-started/introduction/examining-the-edit-methods-and-edit-view) použily `[Bind]` atribut k ochraně před útoky, které se přestavují. [Vstupní formátovací](xref:mvc/models/model-binding#input-formatters) moduly fungují jinak v ASP.NET Core. `[Bind]`Atribut již není navržen tak, aby zabránil přestavení při použití se vstupními formátovacími moduly k analýze formátu JSON nebo XML. Tyto atributy ovlivňují vazbu modelu, pokud je zdrojem dat formulářová data publikovaná s `x-www-form-urlencoded` typem obsahu.
+
+Pro aplikace, které odesílají informace JSON na řadiče a používají vstupní formátovací moduly JSON k analýze dat, doporučujeme, abyste atribut nahradili `[Bind]` modelem zobrazení, který odpovídá vlastnostem definovaným `[Bind]` atributem.
+
+## <a name="additional-resources"></a>Další zdroje
 
 - [Portování knihoven do .NET Core](/dotnet/core/porting/libraries)

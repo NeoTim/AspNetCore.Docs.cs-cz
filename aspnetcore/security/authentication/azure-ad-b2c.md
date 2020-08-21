@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: a1bac04944d9671df3f804a9724c9f0fd6f1fb27
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: edacded5df4d5f4819b3657bc7eff99e6d96d394
+ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633627"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88712542"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Cloudové ověřování pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -61,11 +61,11 @@ Použijte následující hodnoty:
 | Nastavení                       | Hodnota                     | Poznámky                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                      | *&lt;název aplikace&gt;*        | Zadejte **název** aplikace, který popíše vaši aplikaci pro uživatele.                                                                                                                                 |
-| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Yes                       |                                                                                                                                                                                                    |
-| **Povolit implicitní tok**       | Yes                       |                                                                                                                                                                                                    |
+| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Ano                       |                                                                                                                                                                                                    |
+| **Povolit implicitní tok**       | Ano                       |                                                                                                                                                                                                    |
 | **Adresa URL odpovědi**                 | `https://localhost:44300/signin-oidc` | Adresy URL odpovědí jsou koncové body, kam Azure AD B2C vrací všechny tokeny, které vaše aplikace požaduje. Visual Studio poskytuje adresu URL odpovědi, která se má použít. Prozatím zadejte `https://localhost:44300/signin-oidc` pro vyplnění formuláře. |
 | **Identifikátor URI ID aplikace**                | Ponechte prázdné.               | Pro tento kurz není vyžadováno.                                                                                                                                                                    |
-| **Zahrnout nativního klienta**     | No                        |                                                                                                                                                                                                    |
+| **Zahrnout nativního klienta**     | Ne                        |                                                                                                                                                                                                    |
 
 > [!WARNING]
 > Pokud nastavili adresu URL odpovědi, která není localhost, pamatujte na [omezení, co je v seznamu Adresa URL odpovědi povolené](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application). 
@@ -172,5 +172,5 @@ Teď, když je aplikace ASP.NET Core nakonfigurovaná tak, aby používala Azure
 * [Povolte službu Multi-Factor Authentication](/azure/active-directory-b2c/active-directory-b2c-reference-mfa).
 * Nakonfigurujte další zprostředkovatele identity, jako je [Microsoft](/azure/active-directory-b2c/active-directory-b2c-setup-msa-app), [Facebook](/azure/active-directory-b2c/active-directory-b2c-setup-fb-app), [Google](/azure/active-directory-b2c/active-directory-b2c-setup-goog-app), [Amazon](/azure/active-directory-b2c/active-directory-b2c-setup-amzn-app), [Twitter](/azure/active-directory-b2c/active-directory-b2c-setup-twitter-app)a další.
 * [Pomocí Graph API Azure AD](/azure/active-directory-b2c/active-directory-b2c-devquickstarts-graph-dotnet) načtěte Další informace o uživateli, například členství ve skupině, z tenanta Azure AD B2C.
-* [Zabezpečte ASP.NET Core webové rozhraní API pomocí Azure AD B2C](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/).
+* [Jak zabezpečit webové rozhraní API vytvořené pomocí ASP.NET Core pomocí Azure AD B2C](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2/tree/master/4-WebApp-your-API/4-2-B2C).
 * [Kurz: poskytnutí přístupu k webovému rozhraní API ASP.NET pomocí Azure Active Directory B2C](/azure/active-directory-b2c/tutorial-web-api-dotnet).

@@ -1,7 +1,7 @@
 ---
 title: Zabezpečení Blazor WebAssembly samostatné aplikace v ASP.NET Core s účty Microsoft
 author: guardrex
-description: ''
+description: Naučte se zabezpečit Blazor WebAssembly samostatnou aplikaci pro ASP.NET Core s účty Microsoft.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-microsoft-accounts
-ms.openlocfilehash: faa2c1ec142ca5794f940653c76d41c5aba90653
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: f3b31816ad0a34dd6c601337b05f369b427516a9
+ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626074"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88712451"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-standalone-app-with-microsoft-accounts"></a>Zabezpečení Blazor WebAssembly samostatné aplikace v ASP.NET Core s účty Microsoft
 
@@ -73,7 +73,7 @@ Umístění výstupu zadané s `-o|--output` možností vytvoří složku projek
 Po vytvoření aplikace byste měli mít tyto možnosti:
 
 * Přihlaste se k aplikaci pomocí účet Microsoft.
-* Vyžádá přístupové tokeny pro rozhraní API Microsoftu. Další informace:
+* Vyžádá přístupové tokeny pro rozhraní API Microsoftu. Další informace naleznete v tématu:
   * [Obory přístupového tokenu](#access-token-scopes)
   * [Rychlý Start: Konfigurace aplikace k vystavení webových rozhraní API](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
 
@@ -184,7 +184,7 @@ Další informace najdete v následujících částech článku o *dalších sc�
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/security/webassembly/additional-scenarios>
 * [Neověřené nebo neautorizované požadavky webového rozhraní API v aplikaci s zabezpečeným výchozím klientem](xref:blazor/security/webassembly/additional-scenarios#unauthenticated-or-unauthorized-web-api-requests-in-an-app-with-a-secure-default-client)

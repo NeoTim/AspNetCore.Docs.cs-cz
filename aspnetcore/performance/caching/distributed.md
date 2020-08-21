@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/distributed
-ms.openlocfilehash: a25cbaf9a4e7dc5f1bd3706d01f409208a39aaa3
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 0d27206412a098f4ea749ec10189bf24d2322de1
+ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626724"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88712477"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>Distribuované ukládání do mezipaměti v ASP.NET Core
 
@@ -116,16 +116,13 @@ Ukázková aplikace implementuje <xref:Microsoft.Extensions.Caching.SqlServer.Sq
 
 ### <a name="distributed-redis-cache"></a>Distribuované Redis Cache
 
-[Redis](https://redis.io/) je open source úložiště dat v paměti, které se často používá jako distribuovaná mezipaměť. Redis můžete použít místně a můžete nakonfigurovat [Azure Redis Cache](https://azure.microsoft.com/services/cache/) pro aplikace ASP.NET Core hostované pro Azure.
+[Redis](https://redis.io/) je open source úložiště dat v paměti, které se často používá jako distribuovaná mezipaměť.  Můžete nakonfigurovat [Azure Redis Cache](https://azure.microsoft.com/services/cache/) pro aplikaci hostovanou v Azure ASP.NET Core a použít Azure Redis Cache pro místní vývoj.
 
-Aplikace konfiguruje implementaci mezipaměti pomocí <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> instance ( <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*> ) v nevývojovém prostředí v `Startup.ConfigureServices` :
+Aplikace konfiguruje implementaci mezipaměti pomocí <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> instance ( <xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*> ).
 
-[!code-csharp[](distributed/samples/3.x/DistCacheSample/Startup.cs?name=snippet_AddStackExchangeRedisCache)]
+Další informace najdete v článku, který se věnuje [službě Azure Cache for Redis](/azure/azure-cache-for-redis/cache-overview).
 
-Instalace Redis na místní počítač:
-
-1. Nainstalujte [balíček Redis pro čokolády](https://chocolatey.org/packages/redis-64/).
-1. Spusťte `redis-server` z příkazového řádku.
+Diskuzi o alternativních přístupech k místní mezipaměti Redis najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/19542) .
 
 ### <a name="distributed-ncache-cache"></a>Distribuovaná mezipaměť NCache
 
@@ -184,7 +181,7 @@ Obecně platí, že mezipaměť Redis poskytuje vyšší propustnost a nižší 
 
 Když se SQL Server používá jako úložiště zálohování distribuované mezipaměti, použití stejné databáze pro mezipaměť a běžné ukládání a načítání dat aplikace může negativně ovlivnit výkon obou. Pro úložiště záloh distribuované mezipaměti doporučujeme použít vyhrazenou instanci SQL Server.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Redis Cache v Azure](/azure/azure-cache-for-redis/)
 * [Databáze SQL v Azure](/azure/sql-database/)
@@ -354,7 +351,7 @@ Obecně platí, že mezipaměť Redis poskytuje vyšší propustnost a nižší 
 
 Když se SQL Server používá jako úložiště zálohování distribuované mezipaměti, použití stejné databáze pro mezipaměť a běžné ukládání a načítání dat aplikace může negativně ovlivnit výkon obou. Pro úložiště záloh distribuované mezipaměti doporučujeme použít vyhrazenou instanci SQL Server.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Redis Cache v Azure](/azure/azure-cache-for-redis/)
 * [Databáze SQL v Azure](/azure/sql-database/)
@@ -530,7 +527,7 @@ Obecně platí, že mezipaměť Redis poskytuje vyšší propustnost a nižší 
 
 Když se SQL Server používá jako úložiště zálohování distribuované mezipaměti, použití stejné databáze pro mezipaměť a běžné ukládání a načítání dat aplikace může negativně ovlivnit výkon obou. Pro úložiště záloh distribuované mezipaměti doporučujeme použít vyhrazenou instanci SQL Server.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Redis Cache v Azure](/azure/azure-cache-for-redis/)
 * [Databáze SQL v Azure](/azure/sql-database/)
@@ -544,4 +541,3 @@ Když se SQL Server používá jako úložiště zálohování distribuované me
 * <xref:host-and-deploy/web-farm>
 
 ::: moniker-end
- 
