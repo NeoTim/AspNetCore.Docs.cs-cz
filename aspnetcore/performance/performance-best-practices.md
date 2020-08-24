@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 94ae9e52ed99c3fe8e7044f474cdf5b702dc5adf
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 587872b269d897d7c86eb77c110a4b6432218ed3
+ms.sourcegitcommit: dd0e87abf2bb50ee992d9185bb256ed79d48f545
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634459"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88746556"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -57,6 +57,12 @@ Běžný problém s výkonem v ASP.NET Core aplikace blokuje volání, která by
 * Provede Razor asynchronní akce kontroleru nebo stránky. Celý zásobník volání je asynchronní, aby bylo možné využívat vzory [Async/await](/dotnet/csharp/programming-guide/concepts/async/) .
 
 Profiler, například [PerfView](https://github.com/Microsoft/perfview), lze použít k nalezení často přidaných vláken do [fondu vláken](/windows/desktop/procthread/thread-pools). `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start`Událost indikuje vlákno přidané do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
+
+## <a name="return-ienumerablet-or-iasyncenumerablet"></a>Vrátit IEnumerable \<T> nebo IAsyncEnumerable\<T>
+
+`IEnumerable<T>`Výsledkem vrácení z akce je synchronní iterace kolekce serializátorem. Výsledkem je blokování volání a potenciál pro fond vláken vyčerpání. Chcete-li se vyhnout synchronnímu výčtu, použijte `ToListAsync` před vrácením vyčíslitelné.
+
+Počínaje ASP.NET Core 3,0 `IAsyncEnumerable<T>` lze použít jako alternativu k `IEnumerable<T>` asynchronnímu vytváření výčtu. Další informace najdete v tématu [návratový typ akce kontroleru](xref:web-api/action-return-types#return-ienumerablet-or-iasyncenumerablet).
 
 ## <a name="minimize-large-object-allocations"></a>Minimalizace přidělení velkých objektů
 
@@ -111,7 +117,7 @@ Doporučit
 
 ## <a name="keep-common-code-paths-fast"></a>Rychlé udržování běžných cest kódu
 
-Chcete, aby byl veškerý kód rychlý. Často volané cesty kódu jsou nejdůležitější pro optimalizaci. Mezi ně patří:
+Chcete, aby byl veškerý kód rychlý. Často volané cesty kódu jsou nejdůležitější pro optimalizaci. Zde jsou některé z nich:
 
 * Komponenty middlewaru v kanálu zpracování požadavků aplikace, zejména middleware spouštěné včas v kanálu. Tyto součásti mají velký dopad na výkon.
 * Kód, který se spustí pro každý požadavek nebo vícekrát na požadavek. Například vlastní protokolování, obslužné rutiny autorizace nebo inicializace přechodných služeb.
@@ -357,3 +363,11 @@ Kontrola, zda odpověď nezačala, umožňuje registraci zpětného volání, kt
 ## <a name="do-not-call-next-if-you-have-already-started-writing-to-the-response-body"></a>Nevolejte Next (), pokud jste již začali zapisovat do těla odpovědi
 
 Součásti, které mají být volány, jsou očekávány pouze v případě, že je možné je zpracovat a manipulovat s ní.
+
+## <a name="use-in-process-hosting-with-iis"></a>Použití vnitroprocesového hostování se službou IIS
+
+Při použití hostování v rámci procesu ASP.NET Core aplikace běží ve stejném procesu jako jeho pracovní proces služby IIS. Hostování v rámci procesů poskytují lepší výkon než hostování mimo procesy, protože požadavky nejsou proxy serverem přes adaptér zpětné smyčky. Adaptér zpětné smyčky je síťové rozhraní, které vrátí odchozí síťový provoz zpátky do stejného počítače. Služba IIS zpracovává správu procesů pomocí [aktivační služby procesů systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
+
+Projekty jsou ve výchozím nastavení pro model hostování v rámci procesu v ASP.NET Core 3,0 a novějším.
+
+Další informace najdete v tématu [hostitelská ASP.NET Core ve Windows se službou IIS](xref:host-and-deploy/iis/index) .

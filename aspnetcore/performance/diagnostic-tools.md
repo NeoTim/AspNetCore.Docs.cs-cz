@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/diagnostic-tools
-ms.openlocfilehash: ef2730156e0b6e6a1456b720dbdf7db48386b8e6
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 5f3daaf132b903898e756160a459d4df5f421c11
+ms.sourcegitcommit: dd0e87abf2bb50ee992d9185bb256ed79d48f545
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631859"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88746543"
 ---
 # <a name="performance-diagnostic-tools"></a>Diagnostické nástroje výkonu
 
@@ -83,5 +83,5 @@ Další informace o tom, jak nainstalovat a začít používat PerfCollect, jsou
 Následující seznam obsahuje některé nástroje pro sledování výkonu třetích stran, které jsou užitečné při vyšetřování výkonu aplikací .NET Core.
 
 - [MiniProfiler](https://miniprofiler.com/)
-- dotTrace a dotMemory z JetBrains
-- VTune od Intel
+- [dotTrace](https://www.jetbrains.com/profiler/) a [dotMemory](https://www.jetbrains.com/dotmemory/) z [JetBrains](https://www.jetbrains.com/)
+- [VTune](https://software.intel.com/content/www/us/en/develop/tools/vtune-profiler.html) od Intel

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/test
-ms.openlocfilehash: 8a6fa8f25c8209584488fb2578c70e884877d666
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 572b9a293e2fd6f51431cd1de6ada737addf5efa
+ms.sourcegitcommit: dd0e87abf2bb50ee992d9185bb256ed79d48f545
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625866"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88746530"
 ---
 # <a name="test-components-in-aspnet-core-no-locblazor"></a>Testovací komponenty v ASP.NET Core Blazor
 
@@ -63,12 +63,12 @@ E2E testování zahrnuje spouštění více procesů, vstupně-výstupních oper
 
 Následující tabulka shrnuje rozdíl mezi dvěma testovacími přístupy.
 
-| Schopnost                       | Testování částí                     | E2E testování                             |
+| Schopnost                       | Testování jednotek                     | E2E testování                             |
 | -------------------------------- | -------------------------------- | --------------------------------------- |
 | Rozsah testu                       | Blazor jenom součást ( Razor /c #) | Blazor součást ( Razor /c #) s CSS/JS |
 | Čas spuštění testu              | Milisekund                     | Sekundy                                 |
-| Přístup k instanci komponenty | Ano                              | No                                      |
-| Citlivá na prostředí     | No                               | Yes                                     |
+| Přístup k instanci komponenty | Ano                              | Ne                                      |
+| Citlivá na prostředí     | Ne                               | Ano                                     |
 | Spolehlivost                      | Spolehlivější                    | Méně spolehlivé                           |
 
 ## <a name="choose-the-most-appropriate-test-approach"></a>Volba nejvhodnějšího testovacího přístupu
@@ -77,8 +77,8 @@ Při výběru typu testování, který se má provést, vezměte v úvahu scén�
 
 | Scénář | Navrhovaný přístup | Poznámky |
 | -------- | ------------------ | ------- |
-| Součást bez logiky spolupráce JS | Testování částí | Pokud neexistuje žádná závislost na zprostředkovateli komunikace s JS v Blazor komponentě, může být komponenta testována bez přístupu k JS nebo rozhraní API modelu DOM. V tomto scénáři nehrozí žádné nevýhody pro výběr testování částí. |
-| Komponenta s jednoduchou logikou spolupráce JS | Testování částí | Je běžné, že komponenty pro dotazování na model DOM nebo spouštějí animace prostřednictvím zprostředkovatele komunikace JS. Testování částí je obvykle upřednostňováno v tomto scénáři, protože je jednoduché k napodobení interakce JS přes <xref:Microsoft.JSInterop.IJSRuntime> rozhraní. |
+| Součást bez logiky spolupráce JS | Testování jednotek | Pokud neexistuje žádná závislost na zprostředkovateli komunikace s JS v Blazor komponentě, může být komponenta testována bez přístupu k JS nebo rozhraní API modelu DOM. V tomto scénáři nehrozí žádné nevýhody pro výběr testování částí. |
+| Komponenta s jednoduchou logikou spolupráce JS | Testování jednotek | Je běžné, že komponenty pro dotazování na model DOM nebo spouštějí animace prostřednictvím zprostředkovatele komunikace JS. Testování částí je obvykle upřednostňováno v tomto scénáři, protože je jednoduché k napodobení interakce JS přes <xref:Microsoft.JSInterop.IJSRuntime> rozhraní. |
 | Komponenta, která závisí na komplexním kódu JS | Testování částí a samostatné testování JS | Pokud komponenta používá zprostředkovatele komunikace JS pro volání rozsáhlých nebo složitých knihoven JS, ale interakce mezi Blazor knihovnou komponent a js je jednoduchá, pak nejlepší přístup je pravděpodobným způsobem zacházet s knihovnou komponenty a JS nebo s kódem jako dvěma samostatnými částmi a testovat každou jednotlivě. Otestujte Blazor komponentu pomocí knihovny testování částí a otestujte js pomocí knihovny testování js. |
 | Komponenta s logikou, která závisí na manipulaci JS modelu DOM v prohlížeči | E2E testování | Je-li funkce komponenty závislá na JS a její manipulace s modelem DOM, ověřte, jak JS, tak i Blazor kód společně v e2e testu. Toto je přístup, který vývojáři architektury povedli Blazor s Blazor logikou vykreslování v prohlížeči, která má pevně spojený kód C# a js. Kód v jazyce C# a JS musí spolupracovat, aby bylo možné správně vykreslovat Blazor komponenty v prohlížeči.
 | Komponenta, která závisí na knihovně komponent třetích stran s pevnými závislostmi | E2E testování | Pokud je funkce součásti závislá na knihovně komponent třetí strany, která má pevné závislosti, jako je například zprostředkovatel komunikace JS, může být testování E2E jedinou možností pro otestování komponenty. |
@@ -127,7 +127,7 @@ Následující test bUnit ověří, zda je čítač vyjmutí správně zvýšen,
 public void CounterShouldIncrementWhenSelected()
 {
     // Arrange
-    using var cxt = new TestContext();
+    using var ctx = new TestContext();
     var cut = ctx.RenderComponent<Counter>();
     var paraElm = cut.Find("p");
 
@@ -151,6 +151,6 @@ V každém kroku testu probíhají následující akce:
 > [!NOTE]
 > `MarkupMatches`Metoda Assert se liší od kontrolního výrazu regulárního porovnání řetězců (například `Assert.Equal("Current count: 1", paraElmText);` ) `MarkupMatches` provede sémantické porovnání vstupu a očekávaného kódu HTML. Sémantické porovnání je vědomo sémantiky HTML, což znamená, že se ignorují nevýznamné prázdné znaky. Výsledkem je více stabilních testů. Další informace najdete v tématu [přizpůsobení sémantického porovnání HTML](https://bunit.egilhansen.com/docs/verification/semantic-html-comparison).
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Začínáme s bUnit](https://bunit.egilhansen.com/docs/getting-started/): pokyny bUnit zahrnují pokyny k vytvoření testovacího projektu, odkazování na testovací balíčky rozhraní a sestavování a spouštění testů.
