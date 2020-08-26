@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/cookie
-ms.openlocfilehash: 48b9c41b468f04134164a9c499e7fadca107cab2
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: 04d2f0d289e2c9ec13aeb880df47240bec19d3ec
+ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865110"
+ms.locfileid: "88876760"
 ---
 # <a name="use-no-loccookie-authentication-without-no-locaspnet-core-identity"></a>Použít cookie ověřování bez ASP.NET Core Identity
 
@@ -116,6 +116,8 @@ Chcete-li odhlásit aktuálního uživatele a odstranit jeho cookie volání, <x
 [!code-csharp[](cookie/samples/3.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet2)]
 
 Pokud `CookieAuthenticationDefaults.AuthenticationScheme` (nebo " Cookie s") se nepoužívá jako schéma (například "contoso Cookie "), zadejte schéma používané při konfiguraci zprostředkovatele ověřování. V opačném případě se použije výchozí schéma.
+
+Server nemá žádné řízení prohlížeče klientů. Pokud uživatel zavře prohlížeč nebo kartu, server nemůže uživatele odhlásit. Chcete-li implementovat odhlášení uživatele při zavření prohlížeče, je nutné jej rozpoznat pomocí JavaScriptu. Vyhledejte "Jak detekovat událost zavření karty okna prohlížeče?".
 
 ## <a name="react-to-back-end-changes"></a>Reakce na back-endové změny
 

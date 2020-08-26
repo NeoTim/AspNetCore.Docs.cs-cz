@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/entity-framework-6
-ms.openlocfilehash: d01c0a1bdf29dbb79c04504d747b319fff710d89
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 64d420d7076f1da453ee423cc4a3732eeb47b221
+ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633757"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88876695"
 ---
 # <a name="aspnet-core-and-entity-framework-6"></a>ASP.NET Core a Entity Framework 6
 ::: moniker range=">= aspnetcore-3.0"
@@ -31,7 +31,7 @@ Po [Goodeu](https://github.com/attrib75)
 
 [Entity Framework Core](/ef/) by se měly používat pro nový vývoj. [Ukázka stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/3.xsample) používá [Entity Framework 6 (EF6)](/ef/ef6), která se dá použít k migraci ukončování aplikací na ASP.NET Core.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Konfigurace na základě kódu Entity Framework](/ef/ef6/fundamentals/configuring/code-based)
 
@@ -51,7 +51,7 @@ Doporučený způsob použití Entity Framework 6 v aplikaci ASP.NET Core je um�
 
 EF6 kontext nemůžete vložit do projektu ASP.NET Core, protože projekty .NET Core nepodporují všechny funkce, které EF6 příkazy, jako je třeba *Enable – migrace* .    
 
-Bez ohledu na typ projektu, ve kterém najdete kontext EF6, fungují pouze nástroje příkazového řádku EF6 s kontextem EF6. Například `Scaffold-DbContext` je k dispozici pouze v Entity Framework Core. Pokud potřebujete provést zpětnou přípravu databáze na model EF6, přečtěte si téma [Code First do existující databáze](https://msdn.microsoft.com/jj200620).  
+Bez ohledu na typ projektu, ve kterém najdete kontext EF6, fungují pouze nástroje příkazového řádku EF6 s kontextem EF6. Například `Scaffold-DbContext` je k dispozici pouze v Entity Framework Core. Pokud potřebujete provést zpětnou přípravu databáze na model EF6, přečtěte si téma <https://docs.microsoft.com/ef/ef6/modeling/code-first/workflows/existing-database> .    
 
 ## <a name="reference-full-framework-and-ef6-in-the-aspnet-core-project"></a>Odkaz na úplné rozhraní a EF6 v projektu ASP.NET Core 
 
@@ -67,7 +67,7 @@ Nástroje příkazového řádku EF6, které použijete v projektu knihovny tř�
 
 [!code-csharp[](entity-framework-6/sample/EF6/SchoolContext.cs?name=snippet_Constructor)]   
 
-Vzhledem k tomu, že váš kontext EF6 nemá konstruktor bez parametrů, musí váš projekt EF6 poskytovat implementaci [IDbContextFactory](https://msdn.microsoft.com/library/hh506876). Nástroje příkazového řádku EF6 vyhledají a použijí tuto implementaci, aby mohli vytvářet instance kontextu. Tady je příklad.    
+Vzhledem k tomu, že váš kontext EF6 nemá konstruktor bez parametrů, projekt EF6 musí poskytovat implementaci <https://docs.microsoft.com/dotnet/api/system.data.entity.infrastructure.idbcontextfactory-1?view=entity-framework-6.2.0> . Nástroje příkazového řádku EF6 vyhledají a použijí tuto implementaci, aby mohli vytvářet instance kontextu. Tady je příklad.   
 
 [!code-csharp[](entity-framework-6/sample/EF6/SchoolContextFactory.cs?name=snippet_IDbContextFactory)]  
 
