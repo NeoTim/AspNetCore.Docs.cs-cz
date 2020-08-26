@@ -5,7 +5,7 @@ description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Cor
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/03/2020
+ms.date: 08/25/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 9e3933d8800c00eb135c041bb1c65fbf01d4ef83
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 6b4c3d55d77af104c969cac0fcbf642f35c7dd7f
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628037"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865259"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core hostitele a nasazení Blazor WebAssembly
 
@@ -52,7 +52,7 @@ Blazor spoléhá na hostitele, který obsluhuje příslušné komprimované soub
 * Při hostování řešení statického hostování, které nepodporují vyjednávání se staticky komprimovaným souborem, jako jsou stránky GitHubu, zvažte konfiguraci aplikace pro načtení a dekódování Brotli komprimovaných souborů:
 
   * Získejte dekodér JavaScript Brotli z [úložiště GitHub Google/Brotli](https://github.com/google/brotli). Od července 2020 se soubor dekodéru pojmenuje `decode.min.js` a nalezne se ve [ `js` složce](https://github.com/google/brotli/tree/master/js)úložiště.
-  * Aktualizujte aplikaci tak, aby používala dekodér. Změňte značku uvnitř uzavírací `<body>` značky v `wwwroot/index.html` následujícím formátu:
+  * Aktualizujte aplikaci tak, aby používala dekodér. Změňte značku uvnitř uzavírací `<body>` značky v následujícím formátu `wwwroot/index.html` :
   
     ```html
     <script src="decode.min.js"></script>
@@ -848,5 +848,8 @@ V souboru projektu se skript spustí po publikování aplikace:
   <Exec Command="powershell.exe -command &quot;&amp; { .\ChangeDLLExtensions.ps1 '$(SolutionDir)' '$(TargetFramework)'}&quot;" />
 </Target>
 ```
+
+> [!NOTE]
+> Při přejmenovávání a opožděném načítání stejných sestavení, přečtěte si pokyny v tématu <xref:blazor/webassembly-lazy-load-assemblies#onnavigateasync-events-and-renamed-assembly-files> .
 
 Pokud chcete poskytnout zpětnou vazbu, navštivte [aspnetcore/problémy #5477](https://github.com/dotnet/aspnetcore/issues/5477).

@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 4690c279c24ef23806a6e72aece5f7cd821752bc
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 6fde5800a6a791c4a5923c13964c34977a59c017
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628323"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865311"
 ---
 # <a name="aspnet-core-no-locblazor-forms-and-validation"></a>ASP.NET Core Blazor formuláře a ověřování
 
@@ -47,7 +47,7 @@ public class ExampleModel
 Formulář je definován pomocí <xref:Microsoft.AspNetCore.Components.Forms.EditForm> komponenty. Následující formulář ukazuje typické prvky, komponenty a Razor kód:
 
 ```razor
-<EditForm Model="@exampleModel" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -78,20 +78,39 @@ V předchozím příkladu:
 
 ## <a name="built-in-forms-components"></a>Předdefinované součásti formulářů
 
-K dispozici je sada předdefinovaných vstupních komponent pro příjem a ověření vstupu uživatele. Vstupy jsou ověřovány při jejich změně a při odeslání formuláře. Dostupné vstupní komponenty jsou uvedené v následující tabulce.
+K dispozici je sada předdefinovaných komponent pro příjem a ověření vstupu uživatele. Vstupy jsou ověřovány při jejich změně a při odeslání formuláře. Dostupné vstupní komponenty jsou uvedené v následující tabulce.
+
+::: moniker range=">= aspnetcore-5.0"
 
 | Vstupní komponenta | Vykresleno jako&hellip; |
 | --------------- | ------------------- |
-| <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` |
-| <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` |
-| <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601> | `<select>` |
-| <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> | `<input type="number">` |
 | <xref:Microsoft.AspNetCore.Components.Forms.InputCheckbox> | `<input type="checkbox">` |
 | <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> | `<input type="date">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> | `<input type="number">` |
+| [`InputRadio`](#radio-buttons) | `<input type="radio">` |
+| [`InputRadioGroup`](#radio-buttons) | `<input type="radio">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601> | `<select>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+| Vstupní komponenta | Vykresleno jako&hellip; |
+| --------------- | ------------------- |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputCheckbox> | `<input type="checkbox">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> | `<input type="date">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> | `<input type="number">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601> | `<select>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` |
+
+::: moniker-end
 
 Všechny vstupní komponenty, včetně <xref:Microsoft.AspNetCore.Components.Forms.EditForm> , podporují libovolné atributy. Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do vykresleného prvku HTML.
 
-Vstupní komponenty poskytují výchozí chování pro ověřování při úpravách a změně jejich třídy CSS tak, aby odrážely stav pole. Některé součásti obsahují užitečnou logiku analýzy. Například <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> a <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> zpracujte neanalyzovatelné hodnoty tak, že je zaregistrujete jako chyby ověřování. Typy, které mohou přijmout hodnoty null, podporují také hodnotu null cílového pole (například `int?` ).
+Vstupní komponenty poskytují výchozí chování při ověřování při změně pole, včetně aktualizace třídy CSS pole tak, aby odrážely stav pole. Některé součásti obsahují užitečnou logiku analýzy. Například <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> a <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> zpracujte neanalyzovatelné hodnoty tak, že zaregistrujete neanalyzovatelné hodnoty jako chyby ověřování. Typy, které mohou přijmout hodnoty null, podporují také hodnotu null cílového pole (například `int?` ).
 
 Následující `Starship` typ definuje logiku ověřování pomocí větší sady vlastností a poznámek k datům než dříve `ExampleModel` :
 
@@ -134,7 +153,7 @@ Následující formulář ověří uživatelský vstup pomocí ověřování def
 
 <h2>New Ship Entry Form</h2>
 
-<EditForm Model="@starship" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -252,6 +271,39 @@ V následujícím příkladu:
 > [!NOTE]
 > Rozhraní API architektury neexistuje, aby se vymazaly ověřovací zprávy přímo z <xref:Microsoft.AspNetCore.Components.Forms.EditContext> . Proto obecně Nedoporučujeme přidávat ověřovací zprávy do nového <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore> formuláře ve formuláři. Chcete-li spravovat ověřovací zprávy, použijte [komponentu validátoru](#validator-components) s [ověřovacím kódem obchodní logiky](#business-logic-validation), jak je popsáno v tomto článku.
 
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="display-name-support"></a>Podpora zobrazovaného názvu
+
+*Tato část se vztahuje na rozhraní .NET 5 Release Candidate 1 (RC1) nebo novější, které bude vydáno v polovině září.*
+
+Následující integrované součásti podporují zobrazované názvy s `DisplayName` parametrem:
+
+* <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601>
+* <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601>
+* <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601>
+
+V následujícím `InputDate` příkladu komponenty:
+
+* Zobrazované jméno ( `DisplayName` ) je nastavené na `birthday` .
+* Komponenta je svázána s `BirthDate` vlastností jako `DateTime` typ.
+
+```razor
+<InputDate @bind-Value="@BirthDate" DisplayName="birthday" />
+
+@code {
+    public DateTime BirthDate { get; set; }
+}
+```
+
+Pokud uživatel neposkytne hodnotu data, zobrazí se chyba ověření jako:
+
+```
+The birthday must be a date.
+```
+
+::: moniker-end
+
 ## <a name="validator-components"></a>Komponenty validátoru
 
 Komponenty validátoru podporují ověřování formuláře, a to tak, že spravují <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessageStore> pro formulář <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .
@@ -345,7 +397,7 @@ Když jsou ověřovací zprávy nastaveny v komponentě, přidají se do validá
 
 <h2>New Ship Entry Form</h2>
 
-<EditForm Model="@starship" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <CustomValidator @ref="customValidator" />
     <ValidationSummary />
@@ -545,7 +597,7 @@ V projektu klienta se aktualizuje formulář *databáze Starfleet Starship* , ab
 
 <h2>New Ship Entry Form</h2>
 
-<EditForm Model="@starship" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@starship" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <CustomValidator @ref="customValidator" />
     <ValidationSummary />
@@ -694,10 +746,10 @@ V následujícím příkladu `CustomInputText` Komponenta dědí `InputText` kom
 `Pages/TestForm.razor`:
 
 ```razor
-@page  "/testform"
+@page "/testform"
 @using System.ComponentModel.DataAnnotations;
 
-<EditForm Model="@exampleModel" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -728,6 +780,77 @@ V následujícím příkladu `CustomInputText` Komponenta dědí `InputText` kom
 ```
 
 ## <a name="radio-buttons"></a>Přepínače
+
+::: moniker range=">= aspnetcore-5.0"
+
+Pomocí `InputRadio` komponent s `InputRadioGroup` komponentou vytvořte skupinu přepínačů. V následujícím příkladu jsou přidány vlastnosti do `Starship` modelu popsaného v části [předdefinované součásti formulářů](#built-in-forms-components) :
+
+```csharp
+[Required]
+[Range(typeof(Manufacturer), nameof(Manufacturer.SpaceX), 
+    nameof(Manufacturer.VirginGalactic), ErrorMessage = "Pick a manufacturer.")]
+public Manufacturer Manufacturer { get; set; } = Manufacturer.Unknown;
+
+[Required, EnumDataType(typeof(Color))]
+public Color? Color { get; set; } = null;
+
+[Required, EnumDataType(typeof(Engine))]
+public Engine? Engine { get; set; } = null;
+```
+
+`enums`Do aplikace přidejte následující. Vytvořte nový soubor, který bude obsahovat `enums` nebo přidejte do `enums` `Starship.cs` souboru. Zpřístupněte `enums` přístup k `Starship` modelu a formuláři *databáze Starfleet Starship* :
+
+```csharp
+public enum Manufacturer { SpaceX, NASA, ULA, Virgin, Unknown }
+public enum Color { ImperialRed, SpacecruiserGreen, StarshipBlue, VoyagerOrange }
+public enum Engine { Ion, Plasma, Fusion, Warp }
+```
+
+Aktualizujte formulář *databáze Starfleet Starship* , který je popsaný v části [předdefinované komponenty formulářů](#built-in-forms-components) . Přidejte součásti, které chcete vytvořit:
+
+* Skupina přepínacích tlačítek pro výrobce lodi.
+* Vnořená skupina přepínacích tlačítek pro expedici barva a modul.
+
+```razor
+<p>
+    <InputRadioGroup @bind-Value="starship.Manufacturer">
+        Manufacturer:
+        <br>
+        @foreach (var manufacturer in (Manufacturer[])Enum
+            .GetValues(typeof(Manufacturer)))
+        {
+            <InputRadio Value="manufacturer" />
+            @manufacturer
+            <br>
+        }
+    </InputRadioGroup>
+</p>
+
+<p>
+    Pick one color and one engine:
+    <InputRadioGroup Name="engine" @bind-Value="starship.Engine">
+        <InputRadioGroup Name="color" @bind-Value="starship.Color">
+            <InputRadio Name="color" Value="Color.ImperialRed" />Imperial Red<br>
+            <InputRadio Name="engine" Value="Engine.Ion" />Ion<br>
+            <InputRadio Name="color" Value="Color.SpacecruiserGreen" />
+                Spacecruiser Green<br>
+            <InputRadio Name="engine" Value="Engine.Plasma" />Plasma<br>
+            <InputRadio Name="color" Value="Color.StarshipBlue" />Starship Blue<br>
+            <InputRadio Name="engine" Value="Engine.Fusion" />Fusion<br>
+            <InputRadio Name="color" Value="Color.VoyagerOrange" />
+                Voyager Orange<br>
+            <InputRadio Name="engine" Value="Engine.Warp" />Warp<br>
+        </InputRadioGroup>
+    </InputRadioGroup>
+</p>
+```
+
+> [!NOTE]
+> Pokud `Name` je tento parametr vynechán, `InputRadio` komponenty jsou seskupeny podle jejich posledního předchůdce.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
 
 Při práci s přepínači ve formuláři je datová vazba zpracovávána jinak než jiné prvky, protože přepínače jsou vyhodnocovány jako skupina. Hodnota každého přepínacího tlačítka je pevná, ale hodnota skupiny přepínačů je hodnota vybraného přepínacího tlačítka. Následující příklad ukazuje, jak:
 
@@ -782,7 +905,7 @@ V následujícím <xref:Microsoft.AspNetCore.Components.Forms.EditForm> příkla
 
 <h1>Radio Button Group Test</h1>
 
-<EditForm Model="model" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -814,6 +937,8 @@ V následujícím <xref:Microsoft.AspNetCore.Components.Forms.EditForm> příkla
     }
 }
 ```
+
+::: moniker-end
 
 ## <a name="binding-select-element-options-to-c-object-null-values"></a>Vazba `<select>` možností elementu na hodnoty objektu C# `null`
 
@@ -920,7 +1045,7 @@ Blazor poskytuje podporu pro ověřování vstupu formuláře pomocí datových 
 Chcete-li ověřit celý graf objektu vázaného modelu, včetně vlastností kolekce a komplexního typu, použijte příkaz `ObjectGraphDataAnnotationsValidator` poskytnutý *experimentálním* [`Microsoft.AspNetCore.Components.DataAnnotations.Validation`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) balíčkem:
 
 ```razor
-<EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
     <ObjectGraphDataAnnotationsValidator />
     ...
 </EditForm>
@@ -1021,7 +1146,7 @@ Vedlejším účinkem předcházejícího přístupu je, že <xref:Microsoft.Asp
 * Zpřístupní <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> komponentu, když je vybráno tlačítko Odeslat (například v `HandleValidSubmit` metodě).
 
 ```razor
-<EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
+<EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary style="@displaySummary" />
 

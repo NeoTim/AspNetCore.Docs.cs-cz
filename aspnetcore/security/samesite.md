@@ -18,12 +18,12 @@ no-loc:
 - SignalR
 - Electron
 uid: security/samesite
-ms.openlocfilehash: c95952face8763dc9f2dd12312cab1a1bc07528a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 3ba033b4165b19131d11311e5ae9d64e6afe48ca
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632340"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865437"
 ---
 # <a name="work-with-samesite-no-loccookies-in-aspnet-core"></a>Práce s SameSite cookie s v ASP.NET Core
 
@@ -73,11 +73,11 @@ Následující ukázku lze stáhnout a otestovat:
 
 ## <a name="net-core-support-for-the-samesite-attribute"></a>Podpora .NET Core pro atribut sameSite
 
-.NET Core 2,2 podporuje pracovní Standard 2019 pro SameSite od vydání aktualizací v prosinci 2019. Vývojáři mohou programově řídit hodnotu atributu sameSite pomocí `HttpCookie.SameSite` Vlastnosti. Nastavením `SameSite` vlastnosti na hodnotu Strict, LAX nebo None dojde k vypsání hodnot v síti pomocí cookie . Nastavení rovná se (SameSiteMode) (-1) znamená, že v síti není žádný atribut sameSite, který by měl být součástí cookie
+.NET Core 2,2 a novější podporují verzi 2019 konceptu pro SameSite, protože vydání aktualizací v prosinci 2019. Vývojáři mohou programově řídit hodnotu atributu sameSite pomocí `HttpCookie.SameSite` Vlastnosti. Nastavením `SameSite` vlastnosti na hodnotu Strict, LAX nebo None dojde k vypsání hodnot v síti pomocí cookie . Nastavení rovná se `(SameSiteMode)(-1)` znamená, že v síti by neměl být součástí žádného atributu sameSite s cookie
 
 [!code-csharp[](samesite/snippets/Privacy.cshtml.cs?name=snippet)]
 
-.NET Core 3,0 podporuje aktualizované hodnoty SameSite a do výčtu přidá další hodnotu výčtu `SameSiteMode.Unspecified` `SameSiteMode` .
+.NET Core 3,0 a novější podporují aktualizované hodnoty SameSite a ke výčtu přidávají další hodnotu výčtu `SameSiteMode.Unspecified` `SameSiteMode` .
 Tato nová hodnota znamená, že sameSite by neměl být odeslán pomocí cookie .
 
 ::: moniker-end
@@ -230,7 +230,7 @@ Příznaky SameSite jsou nastaveny na `edge://flags/#same-site-by-default-cookie
 
 Verze sady Electron obsahují starší verze Chromu. Například verze Electron používaná týmy je chrom 66, který vykazuje starší chování. Je nutné provést vlastní testování kompatibility s Electron použitím verze produktu. Viz [Podpora starších prohlížečů](#sob) v následující části.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Chromový blog: vývojáři: Připravte se na nové SameSite = None; Cookie Nastavení zabezpečení](https://blog.chromium.org/2019/10/developers-get-ready-for-new.html)
 * [SameSite cookie s – vysvětlení](https://web.dev/samesite-cookies-explained/)

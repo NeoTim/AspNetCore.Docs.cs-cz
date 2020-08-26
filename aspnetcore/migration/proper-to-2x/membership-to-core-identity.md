@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: de9d1e5f6f595269595212fbab60d12dfd5a29e4
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a9ec02381b156a6599042d8e504a476036246302
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633640"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865562"
 ---
 # <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-no-locidentity"></a>Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0 Identity
 
@@ -35,7 +35,7 @@ Tento článek popisuje migraci schématu databáze pro aplikace ASP.NET pomocí
 
 ## <a name="review-of-membership-schema"></a>Kontrola schématu členství
 
-Před ASP.NET 2,0 bylo vývojářům uděleno vytváření celého procesu ověřování a autorizace pro své aplikace. S ASP.NET 2,0 se zavedlo členství, které poskytuje často používané řešení pro zpracování zabezpečení v aplikacích ASP.NET. Vývojáři teď dokázali spustit schéma do databáze SQL Server pomocí příkazu [aspnet_regsql.exe](https://msdn.microsoft.com/library/ms229862.aspx) . Po spuštění tohoto příkazu byly v databázi vytvořeny následující tabulky.
+Před ASP.NET 2,0 bylo vývojářům uděleno vytváření celého procesu ověřování a autorizace pro své aplikace. S ASP.NET 2,0 se zavedlo členství, které poskytuje často používané řešení pro zpracování zabezpečení v aplikacích ASP.NET. Vývojáři teď mohli do databáze SQL Server spustit schéma pomocí <https://docs.microsoft.com/previous-versions/ms229862(v=vs.140)> příkazu. Po spuštění tohoto příkazu byly v databázi vytvořeny následující tabulky.
 
   ![Tabulky členství](identity/_static/membership-tables.png)
 

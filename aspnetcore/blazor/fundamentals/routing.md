@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: 0c878a05a50e5a6879278ee737ada167669ee0ff
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: eb9e3cbddd2eaca8fef9a6782c28bbce4c029f58
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626477"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865322"
 ---
 # <a name="aspnet-core-no-locblazor-routing"></a>BlazorSměrování ASP.NET Core
 
@@ -147,14 +147,14 @@ K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení t
 
 | Jedinečn | Příklad           | Příklady shody                                                                  | Invariantní<br>jazyková verze<br>shoda |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | No                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Yes                              |
-| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Yes                              |
-| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Yes                              |
-| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Yes                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | No                               |
-| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Yes                              |
-| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Yes                              |
+| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Ne                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano                              |
+| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Ano                              |
+| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Ano                              |
+| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Ano                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ne                               |
+| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Ano                              |
+| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Ano                              |
 
 > [!WARNING]
 > Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo <xref:System.DateTime> ), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
@@ -169,13 +169,43 @@ V Blazor Server části aplikace je výchozí trasa v `_Host.cshtml` `/` : ( `@p
 
 `"/{**path}"`Šablona obsahuje:
 
-* Dvojitá hvězdička *– veškerá* syntaxe ( `**` ) pro zachycení cesty mezi více hranicemi složek bez kódování lomítka ( `/` ).
+* Dvojitá hvězdička *– veškerá* syntaxe ( `**` ) pro zachycení cesty mezi více hranicemi složek bez dekódování lomítka ( `/` ).
 * `path` název parametru trasy.
 
-> [!NOTE]
-> *Catch-All* parametr Syntax ( `*` / `**` ) není **not** v Razor součástech ( `.razor` ) podporován.
-
 Další informace naleznete v tématu <xref:fundamentals/routing>.
+
+## <a name="catch-all-route-parameters"></a>Catch – všechny parametry tras
+
+::: moniker range=">= aspnetcore-5.0"
+
+*Tato část se vztahuje na rozhraní .NET 5 Release Candidate 1 (RC1) nebo novější, které bude vydáno v polovině září.*
+
+Catch – všechny parametry tras, které zachycují cesty mezi více hranicemi složek, jsou podporovány v součástech. Parametr trasy catch-all musí být:
+
+* Název se shoduje s názvem segmentu směrování. Při pojmenovávání nezáleží na velikosti písmen.
+* `string`Typ. Rozhraní neposkytuje automatické přetypování.
+* Na konci adresy URL.
+
+```razor
+@page "/page/{*pageRoute}"
+
+@code {
+    [Parameter]
+    public string PageRoute { get; set; }
+}
+```
+
+Pro adresu URL `/page/this/is/a/test` s šablonou směrování pro `/page/{*pageRoute}` `PageRoute` je hodnota nastavená na `this/is/a/test` .
+
+Lomítka a segmenty zachycené cesty jsou Dekódovatelné. Pro šablonu trasy je `/page/{*pageRoute}` výsledkem adresa URL `/page/this/is/a%2Ftest%2A` `this/is/a/test*` .
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+Catch – všechny parametry tras budou podporované v rozhraní .NET 5 Release Candidate 1 (RC1) nebo novějším, které se uvolní v polovině září. *
+
+::: moniker-end
 
 ## <a name="navlink-component"></a>Komponenta NavLink
 

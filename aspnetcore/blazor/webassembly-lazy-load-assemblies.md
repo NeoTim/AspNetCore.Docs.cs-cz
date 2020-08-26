@@ -5,7 +5,7 @@ description: Zjistěte, jak se v aplikacích ASP.NET Core opožděně načítat 
 monikerRange: '>= aspnetcore-5.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/16/2020
+ms.date: 08/25/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-lazy-load-assemblies
-ms.openlocfilehash: 31e6c9638d3262d3cb0a5e0fbcf34d24e2d1e91c
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 46f98080ad40f614f9cb1af2190f263d205c1016
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625801"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865161"
 ---
 # <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>Opožděné načtení sestavení v ASP.NET Core Blazor WebAssembly
 
@@ -47,6 +47,15 @@ Označte sestavení pro opožděné načítání v souboru projektu aplikace ( `
 ```
 
 Laxně vytvářená načíst lze pouze sestavení, která používá aplikace. Linker nepoužívá sestavení z publikovaného výstupu.
+
+> [!NOTE]
+> V rozhraní .NET 5 Release Candidate 1 (RC1) nebo novějším, které bude vydáno v polovině září, bude název sestavení vyžadovat `.dll` rozšíření:
+>
+> ```xml
+> <ItemGroup>
+>  <BlazorWebAssemblyLazyLoad Include="GrantImaharaRobotControls.dll" />
+> </ItemGroup>
+> ```
 
 ## <a name="router-component"></a>`Router` (komponenta)
 
@@ -170,6 +179,15 @@ Pokud uživatel přejde na trasu a a okamžitě ke směrování B, aplikace by n
 
 > [!NOTE]
 > Není aktivována, pokud je zrušený token zrušení v rámci zrušení `NavigationContext` zamýšleného chování, například vykreslování komponenty z předchozí navigace.
+
+### <a name="onnavigateasync-events-and-renamed-assembly-files"></a>`OnNavigateAsync` události a přejmenované soubory sestavení
+
+Zavaděč prostředků spoléhá na názvy sestavení, které jsou definovány v `blazor.boot.json` souboru. Pokud [jsou sestavení přejmenována](xref:blazor/host-and-deploy/webassembly#change-the-filename-extension-of-dll-files), názvy sestavení používané v `OnNavigateAsync` metodách a názvy sestavení v `blazor.boot.json` souboru nejsou synchronizovány.
+
+K nápravě:
+
+* Zkontrolujte, jestli je aplikace spuštěná v produkčním prostředí při určování názvů sestavení, která se mají použít.
+* Uložte názvy přejmenovaných sestavení do samostatného souboru a načtěte ho z tohoto souboru a určete, který název sestavení se má použít v `LazyLoadAssemblyService` `OnNavigateAsync` metodách a.
 
 ### <a name="complete-example"></a>Kompletní příklad
 

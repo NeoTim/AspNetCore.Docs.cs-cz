@@ -5,7 +5,7 @@ description: Sestavte Blazor aplikaci krok za krokem.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/30/2020
+ms.date: 08/22/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/build-a-blazor-app
-ms.openlocfilehash: 769b3bda591252c51bec3ffd72a43eaa5929349e
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 7335b68ad06b9d2b8d7e056cfc1a6d8214119b21
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630832"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865412"
 ---
 # <a name="build-a-no-locblazor-todo-list-app"></a>Sestavení Blazor aplikace seznamu úkolů
 
@@ -51,7 +51,7 @@ Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
    dotnet new blazorserver -o TodoList
    ```
 
-   Předchozí příkaz vytvoří složku s názvem `TodoList` pro uložení aplikace. Přejděte do složky adresáře `TodoList` pomocí následujícího příkazu:
+   Předchozí příkaz vytvoří složku s názvem `TodoList` pro uložení aplikace. `TodoList`Složka je *Kořenová složka* projektu. Přejděte do složky adresáře `TodoList` pomocí následujícího příkazu:
 
    ```dotnetcli
    cd TodoList
@@ -64,7 +64,7 @@ Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
    ```
 
    > [!IMPORTANT]
-   > Razor názvy souborů součástí vyžadují první písmeno s velkými písmeny, proto ověřte, že `Todo` název souboru komponenty začíná velkým písmenem `T` .
+   > Razor název souboru komponenty vyžaduje velké písmeno prvního písmene. Otevřete `Pages` složku a potvrďte, že `Todo` název souboru komponenty začíná velkým písmenem `T` . Název souboru by měl být `Todo.razor` .
 
 1. V `Pages/Todo.razor` Zadejte počáteční označení pro komponentu:
 
@@ -88,9 +88,9 @@ Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
    </li>
    ```
 
-1. Znovu sestavte a spusťte aplikaci. Přejděte na stránku Nová TODO a potvrďte, že odkaz na `Todo` komponentu funguje.
+1. Sestavte a spusťte aplikaci spuštěním `dotnet run` příkazu v příkazovém prostředí ze `TodoList` složky. Přejděte na stránku Nová TODO a potvrďte, že odkaz na `Todo` komponentu funguje.
 
-1. Do `TodoItem.cs` kořenu projektu přidejte soubor, který bude obsahovat třídu, která představuje položku todo. Pro třídu použijte následující kód jazyka C# `TodoItem` :
+1. Přidejte `TodoItem.cs` soubor do kořenového adresáře projektu ( `TodoList` složky), chcete-li uchovat třídu, která představuje položku todo. Pro třídu použijte následující kód jazyka C# `TodoItem` :
 
    [!code-csharp[](build-a-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
 
@@ -105,7 +105,7 @@ Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
-1. Znovu sestavte a spusťte aplikaci. Když **`Add todo`** je vybráno tlačítko, nic se nestane, protože obslužná rutina události není na tlačítko kabelem.
+1. Zastavte běžící aplikaci v příkazovém prostředí. Mnohé příkazové prostředí přijímají klávesovou zkratku <kbd>CTRL</kbd> + <kbd>c</kbd> , aby se zastavila aplikace. Znovu sestavte a spusťte aplikaci pomocí `dotnet run` příkazu. Když **`Add todo`** je vybráno tlačítko, nic se nestane, protože obslužná rutina události není na tlačítko kabelem.
 
 1. Přidejte `AddTodo` do `Todo` komponenty metodu a zaregistrujte ji pro výběry tlačítek pomocí `@onclick` atributu. `AddTodo`Metoda jazyka C# je volána, když je vybráno tlačítko:
 
@@ -123,7 +123,7 @@ Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
-1. Znovu sestavte a spusťte aplikaci. Chcete-li otestovat nový kód, přidejte do seznamu TODO některé položky ToDo.
+1. Zastavte běžící aplikaci v příkazovém prostředí. Znovu sestavte a spusťte aplikaci pomocí `dotnet run` příkazu. Chcete-li otestovat nový kód, přidejte do seznamu TODO některé položky ToDo.
 
 1. Text nadpisu pro každou položku TODO lze upravovat a zaškrtávací políčko může uživatelům pomáhat sledovat dokončené položky. Přidejte vstup zaškrtávacího políčka pro každou položku TODO a navažte její hodnotu na `IsDone` vlastnost. Změnit `@todo.Title` na `<input>` prvek vázaný na `@todo.Title` :
 
@@ -139,7 +139,7 @@ Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
 
    [!code-razor[](build-a-blazor-app/samples_snapshot/3.x/Todo.razor)]
 
-1. Znovu sestavte a spusťte aplikaci. Přidejte položky ToDo pro otestování nového kódu.
+1. Zastavte běžící aplikaci v příkazovém prostředí. Znovu sestavte a spusťte aplikaci pomocí `dotnet run` příkazu. Přidejte položky ToDo pro otestování nového kódu.
 
 ## <a name="next-steps"></a>Další kroky
 

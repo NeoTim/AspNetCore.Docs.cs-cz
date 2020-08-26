@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: b62fcb685b1c6d0c504c685c600d0316b32d7f57
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: e42ee7a80475e784ea4791395d9b0665aca94a03
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632496"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865174"
 ---
 # <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>Razor Referenční informace k syntaxi pro ASP.NET Core
 
@@ -687,7 +687,7 @@ Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@n
 
 `@page`Direktiva má jiné účinky v závislosti na typu souboru, ve kterém se zobrazí. Direktiva:
 
-* V v souboru *. cshtml* znamená, že soubor je Razor Stránka. Další informace najdete v tématu [vlastní trasy](xref:razor-pages/index#custom-routes) a <xref:razor-pages/index> .
+* V souboru *. cshtml* znamená, že soubor je Razor Stránka. Další informace najdete v tématu [vlastní trasy](xref:razor-pages/index#custom-routes) a <xref:razor-pages/index> .
 * Určuje, že Razor komponenta má zpracovávat požadavky přímo. Další informace naleznete v tématu <xref:blazor/fundamentals/routing>.
 
 ::: moniker-end
@@ -1006,6 +1006,6 @@ Vývojářům doporučujeme, aby se shodovaly s velkými písmeny názvů soubor
 
 V případě, že se rozlišuje velká a malá písmena, zajistíte jejich zobrazení bez ohledu na základní systém souborů.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 [Seznámení s ASP.NET webovým programováním pomocí Razor Syntaxe](/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c) poskytuje mnoho ukázek programování s Razor syntaxí.

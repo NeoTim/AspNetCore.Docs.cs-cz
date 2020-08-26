@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/http-modules
-ms.openlocfilehash: 8be09171991964540cd41a1324fb87503591151f
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 213807634a2a6990e9025de7871295cf97a81faf
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632171"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865592"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>Migrace obslužných rutin a modulů HTTP do ASP.NET Core middlewaru
 
@@ -55,7 +55,7 @@ Než začnete ASP.NET Core middlewaru, nejdřív si rekapitulace, jak fungují m
 
 **Pořadí, ve kterém moduly zpracovávají příchozí požadavky, určuje:**
 
-1. [Životní cyklus aplikace](https://msdn.microsoft.com/library/ms227673.aspx), což je události řady, které jsou aktivovány ASP.NET: [beginRequest](/dotnet/api/system.web.httpapplication.beginrequest), [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)atd. Každý modul může vytvořit obslužnou rutinu pro jednu nebo více událostí.
+1. <https://docs.microsoft.com/previous-versions/ms227673(v=vs.140)>, Což je události řady, které jsou aktivovány ASP.NET: [beginRequest](/dotnet/api/system.web.httpapplication.beginrequest), [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)atd. Každý modul může vytvořit obslužnou rutinu pro jednu nebo více událostí.
 
 2. Pro stejnou událost, pořadí, ve kterém jsou nakonfigurované v *Web.config*.
 
@@ -92,7 +92,7 @@ Kromě modulů můžete přidat obslužné rutiny pro události životního cykl
 
 **Middleware a moduly jsou zpracovávány v jiném pořadí:**
 
-* Pořadí middlewaru je založené na pořadí, ve kterém jsou vloženy do kanálu požadavků, zatímco pořadí modulů je založeno hlavně na událostech [životního cyklu aplikace](https://msdn.microsoft.com/library/ms227673.aspx) .
+* Pořadí middlewaru je založené na pořadí, ve kterém jsou vloženy do kanálu požadavků, zatímco pořadí modulů je převážně založeno na <https://docs.microsoft.com/previous-versions/ms227673(v=vs.140)> událostech.
 
 * Pořadí middlewaru pro odpovědi je opačné než u požadavků, zatímco pořadí modulů je u požadavků a odpovědí stejné.
 
@@ -393,7 +393,7 @@ public async Task Invoke(HttpContext httpContext)
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetCookies)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Obslužné rutiny HTTP a moduly HTTP – přehled](/iis/configuration/system.webserver/)
 * [Konfigurace](xref:fundamentals/configuration/index)

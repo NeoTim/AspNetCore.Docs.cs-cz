@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 42a7231b529dd9f8ecbce4f8116111e1c96c830d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 345d20494111b808dac9678637de060169730a53
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633094"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865347"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>Tagování pomocníků v ASP.NET Core
 
@@ -254,9 +254,9 @@ Editor sady Visual Studio vám pomůže napsat **všechny** značky v pomocné m
 
 ## <a name="tag-helpers-compared-to-web-server-controls"></a>Porovnávání pomocníků značek v porovnání s ovládacími prvky webového serveru
 
-* Pomocníka značek nevlastní prvek, ke kterému jsou přidruženy; jednoduše se účastní vykreslování prvku a obsahu. [Ovládací prvky webového serveru](https://msdn.microsoft.com/library/7698y1f0.aspx) ASP.NET jsou deklarovány a vyvolány na stránce.
+* Pomocníka značek nevlastní prvek, ke kterému jsou přidruženy; jednoduše se účastní vykreslování prvku a obsahu. ASP.NET <https://docs.microsoft.com/previous-versions/dotnet/netframework-3.0/7698y1f0(v=vs.85)> jsou deklarovány a vyvolány na stránce.
 
-* [Ovládací prvky webového serveru](https://msdn.microsoft.com/library/zsyt68f1.aspx) mají netriviální životní cyklus, který může provádět vývoj a ladění obtížné.
+* <https://docs.microsoft.com/previous-versions/zsyt68f1(v=vs.140)> mít netriviální životní cyklus, který může provádět vývoj a ladění obtížné.
 
 * Ovládací prvky webového serveru umožňují přidat funkce do prvků model DOM (Document Object Model) klienta (DOM) pomocí ovládacího prvku klienta. Pomocník značek nemá žádný model DOM.
 
@@ -278,7 +278,7 @@ Písma a barvy můžete přizpůsobit v **nabídce nástroje**  >  **Možnosti**
 
 [!INCLUDE[](~/includes/built-in-TH.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Vytváření pomocníků se značkami](xref:mvc/views/tag-helpers/authoring)
 * [Práce s formuláři](xref:mvc/views/working-with-forms)

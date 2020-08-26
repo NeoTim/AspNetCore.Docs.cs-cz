@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: 230b2a801a76e2d719fba8e2b97fddb0b32a9634
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 4f184a1264614b16ce98ba5474aacd60f175bd8a
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627959"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865214"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-no-locblazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Core Blazor WebAssembly
 
@@ -72,7 +72,7 @@ V případě potřeby lze aplikaci PWA nakonfigurovat pro aplikaci vytvořenou z
 
 Při návštěvě aplikace vytvořené pomocí šablony PWA mají uživatelé možnost instalovat aplikaci do nabídky Start, Dock nebo Home v operačním systému. Způsob, jakým je tato možnost uvedená, závisí na prohlížeči uživatele. Při použití prohlížečů založených na desktopových Chromech, jako je například Edge nebo Chrome, se na panelu Adresa URL zobrazí tlačítko **Přidat** . Jakmile uživatel vybere tlačítko **Přidat** , obdrží potvrzovací dialog:
 
-![Diaglog potvrzení na Google Chrome prezentuje uživateli tlačítko pro instalaci pro aplikaci My::: No-Loc (Blazor):::P WA.](progressive-web-app/_static/image2.png)
+![Potvrzovací dialog na Google Chrome prezentuje uživateli tlačítko pro instalaci pro aplikaci My::: No-Loc (Blazor):::P WA.](progressive-web-app/_static/image2.png)
 
 V systému iOS můžou Návštěvníci nainstalovat aplikaci PWA pomocí tlačítka pro **sdílení** v prohlížeči Safari a její možnosti **Přidat do homescreen** . V Chrome pro Android by uživatelé měli vybrat tlačítko **nabídky** v pravém horním rohu a potom **Přidat na domovskou obrazovku**.
 
@@ -298,6 +298,6 @@ Vytvoření offline aplikace PWA, která komunikuje s ověřováním:
 * `LocalVehiclesStore` (`Client/Data/LocalVehiclesStore.cs`)
 * `LoginStatus` součást ( `Client/Shared/LoginStatus.razor` )
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [SignalR vyjednávání mezi zdroji pro ověřování](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)

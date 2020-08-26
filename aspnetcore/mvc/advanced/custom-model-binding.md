@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 4bef68fffbdfaff023f71964a27ead56863e4192
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 7e1151b04f39f637f889e690bccc97eb6f0c91ea
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630429"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865571"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>Vazba vlastního modelu v ASP.NET Core
 
@@ -127,7 +127,7 @@ Pokud chcete použít vlastního poskytovatele pořadače modelů, přidejte ho 
 
 [!code-csharp[](custom-model-binding/samples/3.x/CustomModelBindingSample/Startup.cs?name=snippet_ConfigureServices&highlight=5-8)]
 
-Při vyhodnocování pořadačů modelů se kolekce zprostředkovatelů zkoumá v daném pořadí. Použije se první zprostředkovatel, který vrací Binder. Pokud přidáte poskytovatele na konec kolekce, může to mít za následek volání předdefinovaného pořadače modelu předtím, než má vlastní pořadač možnost. V tomto příkladu je vlastní zprostředkovatel přidán na začátek kolekce, aby se zajistilo jeho použití pro `Author` argumenty akce.
+Při vyhodnocování pořadačů modelů se kolekce zprostředkovatelů zkoumá v daném pořadí. Použije se první zprostředkovatel, který vrátí pořadač, který odpovídá vstupnímu modelu. Přidání poskytovatele na konec kolekce může mít za následek volání předdefinovaného pořadače modelu předtím, než má vlastní pořadač šanci. V tomto příkladu se vlastní zprostředkovatel přidá na začátek kolekce, aby se zajistilo, že se vždycky používá pro `Author` argumenty akce.
 
 ### <a name="polymorphic-model-binding"></a>Polymorfní vazba modelu
 

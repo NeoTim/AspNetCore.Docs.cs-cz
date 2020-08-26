@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 9fc44d228a31b8ae6c78dc12988392806dd95823
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 03febbd71df19cd3524d26e229a8bd8798a874b5
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633432"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865113"
 ---
 # <a name="part-3-scaffolded-no-locrazor-pages-in-aspnet-core"></a>Část 3, vygenerované Razor stránky v ASP.NET Core
 
@@ -98,9 +98,8 @@ Předchozí zvýrazněný kód je příkladem Razor přechodu do jazyka C#. `{`Z
 
 Tato `"Title"` vlastnost se používá v souboru *Pages/Shared/_Layout. cshtml* . Následující kód ukazuje několik prvních řádků souboru *_Layout. cshtml* .
 
-<!-- we need a snapshot copy of layout because we are
-changing in in the next step.
--->
+<!-- We need a snapshot copy of layout because we are changing in the next step. -->
+
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/NU/_Layout.cshtml?highlight=6)]
 
 Řádek `@*Markup removed for brevity.*@` je Razor komentář. Na rozdíl od komentářů jazyka HTML ( `<!-- -->` ) nejsou Razor Komentáře odesílány klientovi.
@@ -210,7 +209,7 @@ Modul generování uživatelského rozhraní vytvoří Razor značky pro každé
 
 Další informace o Pomocníkech značek `<form method="post">` , jako je, najdete [v tématu označení pomocníků značek v ASP.NET Core](xref:mvc/views/tag-helpers/intro).
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 > [!div class="step-by-step"]
 > [Předchozí: Přidání modelu](xref:tutorials/razor-pages/model) 
@@ -284,9 +283,8 @@ Předchozí zvýrazněný kód je příkladem Razor přechodu do jazyka C#. `{`Z
 
 Vlastnost title se používá v souboru *Pages/Shared/_Layout. cshtml* . Následující kód ukazuje několik prvních řádků souboru *_Layout. cshtml* .
 
-<!-- we need a snapshot copy of layout because we are
-changing in in the next step.
--->
+<!-- We need a snapshot copy of layout because we are changing in the next step. -->
+
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/NU/_Layout.cshtml?highlight=6-99)]
 
 Řádek `@*Markup removed for brevity.*@` je komentář, Razor který se nezobrazí v souboru rozložení. Na rozdíl od komentářů jazyka HTML ( `<!-- -->` ) nejsou Razor Komentáře odesílány klientovi.
@@ -376,7 +374,7 @@ Modul generování uživatelského rozhraní vytvoří Razor značky pro každé
 
 [Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) ( `<input asp-for="Movie.Title" class="form-control">` ) používá atributy [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) a vytváří atributy HTML potřebné pro ověření jQuery na straně klienta.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/zxgKjPYnOMM)
 

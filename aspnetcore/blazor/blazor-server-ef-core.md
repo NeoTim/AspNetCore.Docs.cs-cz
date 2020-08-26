@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/blazor-server-ef-core
-ms.openlocfilehash: db817827cc0132c15b82f4cda74e35a7d7807c48
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: b71b742c8a60b4b563649baa181b8c332ff02501
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625411"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865198"
 ---
 # <a name="aspnet-core-no-locblazor-server-with-entity-framework-core-efcore"></a>ASP.NET Core Blazor Server s Entity Framework Core (EFCore)
 
@@ -106,6 +106,8 @@ Následující příklad konfiguruje [SQLite](https://www.sqlite.org/index.html)
 Továrna je vložena do komponent a slouží k vytváření nových instancí. Například v `Pages/Index.razor` :
 
 [!code-csharp[](./common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor?name=snippet1)]
+
+> ! [Poznámka] `Wrapper` je [odkaz na komponentu](xref:blazor/components/index#capture-references-to-components) `GridWrapper` komponenty. Viz `Index` součást ( `Pages/Index.razor` ) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor).
 
 ### <a name="scope-to-the-component-lifetime"></a>Rozsah pro životní dobu součásti
 
@@ -211,6 +213,8 @@ Továrna je vložena do komponent a slouží k vytváření nových instancí. N
 
 [!code-csharp[](./common/samples/3.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor?name=snippet1)]
 
+> ! [Poznámka] `Wrapper` je [odkaz na komponentu](xref:blazor/components/index#capture-references-to-components) `GridWrapper` komponenty. Viz `Index` součást ( `Pages/Index.razor` ) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/3.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor).
+
 ### <a name="scope-to-the-component-lifetime"></a>Rozsah pro životní dobu součásti
 
 Možná budete chtít vytvořit <xref:Microsoft.EntityFrameworkCore.DbContext> , který existuje pro celou dobu platnosti komponenty. To vám umožní použít ho jako [pracovní jednotku](https://martinfowler.com/eaaCatalog/unitOfWork.html) a využít vestavěné funkce, jako je sledování změn a řešení souběžnosti.
@@ -236,6 +240,6 @@ V předchozím příkladu:
 
 :::moniker-end
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 > [Dokumentace k EF Core](/ef/)

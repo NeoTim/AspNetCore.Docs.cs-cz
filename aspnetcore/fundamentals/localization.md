@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: 254cae2b66773d7bb71aa6313fd08b6f739b7682
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d5be01c67f455a2706a654574ef9f5e273551e70
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634641"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865445"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -250,7 +250,7 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
+Některé aplikace budou k nastavení použít řetězec dotazu <https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo?view=netcore-3.1> . Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
    `http://localhost:5000/?culture=es-MX&ui-culture=es-MX`
 
@@ -349,7 +349,7 @@ Proces lokalizace vaší aplikace také vyžaduje základní znalosti relevantn�
 
 [Lokalizace](/dotnet/standard/globalization-localization/localizability-review) je přechodný proces pro ověření, že globální aplikace je připravená na lokalizaci.
 
-Formát [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) pro název jazykové verze je `<languagecode2>-<country/regioncode2>` , kde `<languagecode2>` je kód jazyka a `<country/regioncode2>` je kód subkultury. Například `es-CL` pro španělštinu (Chile), `en-US` pro angličtinu (USA) a `en-AU` pro angličtinu (Austrálie). [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) je kombinací kódu kultury ISO 639 2 s malým písmenem, který je přidružený k jazyku, a kódu subkultury na velká písmena ISO 3166 2, který je přidružený k zemi nebo oblasti. Viz [název jazykové verze](https://msdn.microsoft.com/library/ee825488(v=cs.20).aspx).
+Formát [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) pro název jazykové verze je `<languagecode2>-<country/regioncode2>` , kde `<languagecode2>` je kód jazyka a `<country/regioncode2>` je kód subkultury. Například `es-CL` pro španělštinu (Chile), `en-US` pro angličtinu (USA) a `en-AU` pro angličtinu (Austrálie). [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) je kombinací kódu kultury ISO 639 2 s malým písmenem, který je přidružený k jazyku, a kódu subkultury na velká písmena ISO 3166 2, který je přidružený k zemi nebo oblasti. Viz třída <https://docs.microsoft.com/previous-versions/commerce-server/ee825488(v=cs.20)>.
 
 Mezinárodní využití se často zkracuje na "I18N". Zkratka používá první a poslední písmena a počet písmen mezi nimi, takže 18 představuje počet písmen mezi první I a poslední znak "N". Totéž platí pro globalizaci (G11N) a lokalizaci (L10N).
 
@@ -368,7 +368,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.
@@ -604,7 +604,7 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
+Některé aplikace budou k nastavení použít řetězec dotazu <https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo?view=netcore-3.1> . Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -705,7 +705,7 @@ Proces lokalizace vaší aplikace také vyžaduje základní znalosti relevantn�
 
 [Lokalizace](/dotnet/standard/globalization-localization/localizability-review) je přechodný proces pro ověření, že globální aplikace je připravená na lokalizaci.
 
-Formát [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) pro název jazykové verze je `<languagecode2>-<country/regioncode2>` , kde `<languagecode2>` je kód jazyka a `<country/regioncode2>` je kód subkultury. Například `es-CL` pro španělštinu (Chile), `en-US` pro angličtinu (USA) a `en-AU` pro angličtinu (Austrálie). [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) je kombinací kódu kultury ISO 639 2 s malým písmenem, který je přidružený k jazyku, a kódu subkultury na velká písmena ISO 3166 2, který je přidružený k zemi nebo oblasti. Viz [název jazykové verze](https://msdn.microsoft.com/library/ee825488(v=cs.20).aspx).
+Formát [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) pro název jazykové verze je `<languagecode2>-<country/regioncode2>` , kde `<languagecode2>` je kód jazyka a `<country/regioncode2>` je kód subkultury. Například `es-CL` pro španělštinu (Chile), `en-US` pro angličtinu (USA) a `en-AU` pro angličtinu (Austrálie). [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) je kombinací kódu kultury ISO 639 2 s malým písmenem, který je přidružený k jazyku, a kódu subkultury na velká písmena ISO 3166 2, který je přidružený k zemi nebo oblasti. Viz třída <https://docs.microsoft.com/previous-versions/commerce-server/ee825488(v=cs.20)>.
 
 Mezinárodní využití se často zkracuje na "I18N". Zkratka používá první a poslední písmena a počet písmen mezi nimi, takže 18 představuje počet písmen mezi první I a poslední znak "N". Totéž platí pro globalizaci (G11N) a lokalizaci (L10N).
 
@@ -722,7 +722,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/currency.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.
@@ -959,7 +959,7 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
+Některé aplikace budou k nastavení použít řetězec dotazu <https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo?view=netcore-3.1> . Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -1007,7 +1007,7 @@ Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživ
 
 ### <a name="the-content-language-http-header"></a>Hlavička protokolu HTTP v jazykovém obsahu
 
-Hlavička entity [jazyka obsahu](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) :
+Hlavička entity [jazyka obsahu](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Language) :
 
 * Slouží k popisu jazyků, které jsou určené pro cílovou skupinu.
 * Umožňuje uživateli rozlišovat podle vlastního preferovaného jazyka uživatelů.
@@ -1083,7 +1083,7 @@ Proces lokalizace vaší aplikace také vyžaduje základní znalosti relevantn�
 
 [Lokalizace](/dotnet/standard/globalization-localization/localizability-review) je přechodný proces pro ověření, že globální aplikace je připravená na lokalizaci.
 
-Formát [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) pro název jazykové verze je `<languagecode2>-<country/regioncode2>` , kde `<languagecode2>` je kód jazyka a `<country/regioncode2>` je kód subkultury. Například `es-CL` pro španělštinu (Chile), `en-US` pro angličtinu (USA) a `en-AU` pro angličtinu (Austrálie). [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) je kombinací kódu kultury ISO 639 2 s malým písmenem, který je přidružený k jazyku, a kódu subkultury na velká písmena ISO 3166 2, který je přidružený k zemi nebo oblasti. Viz [název jazykové verze](https://msdn.microsoft.com/library/ee825488(v=cs.20).aspx).
+Formát [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) pro název jazykové verze je `<languagecode2>-<country/regioncode2>` , kde `<languagecode2>` je kód jazyka a `<country/regioncode2>` je kód subkultury. Například `es-CL` pro španělštinu (Chile), `en-US` pro angličtinu (USA) a `en-AU` pro angličtinu (Austrálie). [RFC 4646](https://www.ietf.org/rfc/rfc4646.txt) je kombinací kódu kultury ISO 639 2 s malým písmenem, který je přidružený k jazyku, a kódu subkultury na velká písmena ISO 3166 2, který je přidružený k zemi nebo oblasti. Viz třída <https://docs.microsoft.com/previous-versions/commerce-server/ee825488(v=cs.20)>.
 
 Mezinárodní využití se často zkracuje na "I18N". Zkratka používá první a poslední písmena a počet písmen mezi nimi, takže 18 představuje počet písmen mezi první I a poslední znak "N". Totéž platí pro globalizaci (G11N) a lokalizaci (L10N).
 
@@ -1102,7 +1102,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.

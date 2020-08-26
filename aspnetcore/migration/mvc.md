@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/mvc
-ms.openlocfilehash: cd1a7ff57d911f96f0adfe4b548fa80ec844886d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d615f67fc5cb23499ee7e14b747390a7a1b5a693
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632236"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865134"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>Migrace z ASP.NET MVC na ASP.NET Core MVC
 
@@ -97,7 +97,7 @@ V projektu ASP.NET Core by byla přidána nová prázdná třída kontroleru a t
 
 Projekt ASP.NET Core *WebApp1* již obsahuje minimální ukázkový kontroler a zobrazení se stejným názvem jako projekt ASP.NET MVC. Ty budou sloužit jako zástupné symboly pro kontroler MVC ASP.NET a zobrazení, která se mají migrovat z projektu ASP.NET MVC *WebApp1* .
 
-1. Zkopírujte metody z ASP.NET MVC, `HomeController` abyste nahradili nové metody ASP.NET Core `HomeController` . Není nutné měnit návratový typ metod akce. Zabudovaná metoda akčního typu metody kontroleru ASP.NET MVC je [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult` implementuje `IActionResult` .
+1. Zkopírujte metody z ASP.NET MVC, `HomeController` abyste nahradili nové metody ASP.NET Core `HomeController` . Není nutné měnit návratový typ metod akce. Zabudovaná metoda akce kontroleru ASP.NET sady MVC v rámci této šablony je návratový typ <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> . ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult` implementuje `IActionResult` .
 1. V projektu ASP.NET Core klikněte pravým tlačítkem myši na *zobrazení/domovský* adresář, vyberte možnost **Přidat** > **existující položku**.
 1. V dialogovém okně **Přidat existující položku** přejděte do *zobrazení/domovského* adresáře projektu ASP.NET MVC *WebApp1* .
 1. Vyberte soubory *About. cshtml*, *Contact. cshtml*a *index. cshtml* Razor zobrazení a pak vyberte **Přidat**a nahraďte stávající soubory.
@@ -186,7 +186,7 @@ ASP.NET Core převede neošetřené výjimky na chybové odpovědi HTTP 500. V t
 
 * <xref:migration/identity>
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/index>
 * <xref:mvc/views/tag-helpers/intro>
@@ -291,7 +291,7 @@ Následující funkce vyžadují migraci z ukázkového projektu ASP.NET MVC do 
 
 ## <a name="controllers-and-views"></a>Řadiče a zobrazení
 
-* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové `HomeController` . V ASP.NET MVC je jako návratový typ metody typu "předdefinovaná šablona" [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult` implementuje `IActionResult` , takže není nutné měnit návratový typ metod akce.
+* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové `HomeController` . V ASP.NET MVC je jako návratový typ metody, která je předdefinovaná, metoda akce kontroleru, která je v <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> ASP.NET Core MVC, návratové metody `IActionResult` . `ActionResult` implementuje `IActionResult` , takže není nutné měnit návratový typ metod akce.
 
 * Zkopírujte soubory *About. cshtml*, *Contact. cshtml*a *index. cshtml* Razor zobrazení z projektu ASP.NET MVC do projektu ASP.NET Core.
 
@@ -372,7 +372,7 @@ Existuje mnoho problémů, které mohou způsobit chybové zprávy HTTP 500, kte
 
 ASP.NET Core převede neošetřené výjimky na chybové odpovědi HTTP 500. V těchto odpovědích obvykle nejsou podrobnosti o chybě zahrnuty, aby nedocházelo k odhalení potenciálně citlivých informací o serveru. Další informace najdete na [stránce s výjimkou vývojáře](xref:fundamentals/error-handling#developer-exception-page).
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/index>
 * <xref:mvc/views/tag-helpers/intro>
@@ -477,7 +477,7 @@ Následující funkce vyžadují migraci z ukázkového projektu ASP.NET MVC do 
 
 ## <a name="controllers-and-views"></a>Řadiče a zobrazení
 
-* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové `HomeController` . V ASP.NET MVC je jako návratový typ metody typu "předdefinovaná šablona" [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací metody akcí `IActionResult` . `ActionResult` implementuje `IActionResult` , takže není nutné měnit návratový typ metod akce.
+* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové `HomeController` . V ASP.NET MVC je jako návratový typ metody, která je předdefinovaná, metoda akce kontroleru, která je v <https://docs.microsoft.com/dotnet/api/system.web.mvc.actionresult?view=aspnet-mvc-5.2> ASP.NET Core MVC, návratové metody `IActionResult` . `ActionResult` implementuje `IActionResult` , takže není nutné měnit návratový typ metod akce.
 
 * Zkopírujte soubory *About. cshtml*, *Contact. cshtml*a *index. cshtml* Razor zobrazení z projektu ASP.NET MVC do projektu ASP.NET Core.
 

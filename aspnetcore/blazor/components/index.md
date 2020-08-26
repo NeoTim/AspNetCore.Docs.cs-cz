@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 6ee767ee76b622e15a1dc5a7fe2f3e05f03dabd0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 26e8239634c3edb99c7606ab2e250c69af4e746f
+ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628492"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88865288"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
@@ -249,7 +249,7 @@ Komponenty mohou přijímat parametry směrování z šablony směrování uvede
 
 Volitelné parametry nejsou podporovány, takže [`@page`][9] v předchozím příkladu jsou aplikovány dvě direktivy. První umožňuje navigaci na součást bez parametru. Druhá [`@page`][9] direktiva přijme `{text}` parametr Route a přiřadí hodnotu `Text` Vlastnosti.
 
-*Catch-All* Parameter Syntax ( `*` / `**` ), která zachycuje cestu mezi více hranicemi složek, není **not** v Razor součástech ( `.razor` ) podporováno.
+Informace o zachycování všech parametrů tras ( `{*pageRoute}` ), které zachycují cesty mezi více hranicemi složek, naleznete v tématu <xref:blazor/fundamentals/routing#catch-all-route-parameters> .
 
 ### <a name="component-parameters"></a>Parametry součásti
 
@@ -853,7 +853,7 @@ Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů
 
 Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg>` značku umístíte přímo do souboru komponenty ( `.razor` ), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů ještě není podporováno. Například `<use>` značky nejsou aktuálně dodržovány a [`@bind`][10] nelze je použít s některými značkami SVG. Další informace naleznete v tématu [Podpora SVG in Blazor (dotnet/aspnetcore #18271)](https://github.com/dotnet/aspnetcore/issues/18271).
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/security/server/threat-mitigation>: Obsahuje pokyny pro vytváření Blazor Server aplikací, které se musí soupeří s vyčerpáním prostředků.
 
