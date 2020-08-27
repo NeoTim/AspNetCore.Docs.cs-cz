@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/versioning
-ms.openlocfilehash: 079cca8a7d47897827c314b82136e9eb10b7a516
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 0d8c5d953c9d703788a1686bbc800248c46efa48
+ms.sourcegitcommit: 47c9a59ff8a359baa6bca2637d3af87ddca1245b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633952"
+ms.lasthandoff: 08/27/2020
+ms.locfileid: "88945399"
 ---
 # <a name="versioning-grpc-services"></a>Správa verzí služeb gRPC
 
@@ -117,3 +117,7 @@ Publikování více verzí služby je duplicitní. Pokud chcete omezit duplicity
 [!code-csharp[](versioning/sample/GreeterServiceV1.cs?highlight=10,19)]
 
 Služby a zprávy vygenerované s různými názvy balíčků jsou **různé typy rozhraní .NET**. Přesun obchodní logiky do centralizovaného umístění vyžaduje mapování zpráv na společné typy.
+
+## <a name="additional-resources"></a>Další materiály
+
+* <xref:grpc/protobuf>

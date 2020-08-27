@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/basics
-ms.openlocfilehash: 61ac7b84ec6a5eeb344cbf6f9a6712366be7d3c9
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: aacaf9cca131d3fba1c3ae96cf42d51d3fdc17b6
+ms.sourcegitcommit: 47c9a59ff8a359baa6bca2637d3af87ddca1245b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627075"
+ms.lasthandoff: 08/27/2020
+ms.locfileid: "88945425"
 ---
 # <a name="grpc-services-with-c"></a>gRPC Services s využitím C\#
 
@@ -32,12 +32,12 @@ Tento dokument popisuje koncepty potřebné k psaní aplikací [gRPC](https://gr
 
 ## <a name="proto-file"></a>Proto soubor
 
-gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem. Vyrovnávací paměti protokolu (protobuf) se ve výchozím nastavení používají jako jazyk IDL (Interface design Language). Soubor * \* ... proto* obsahuje:
+gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem. Vyrovnávací paměti protokolu (protobuf) se ve výchozím nastavení používají jako jazyk IDL (Interface Definition Language). Soubor * \* ... proto* obsahuje:
 
 * Definice služby gRPC
 * Zprávy odesílané mezi klienty a servery.
 
-Další informace o syntaxi souborů protobuf naleznete v [oficiální dokumentaci (protobuf)](https://developers.google.com/protocol-buffers/docs/proto3).
+Další informace o syntaxi souborů protobuf naleznete v tématu <xref:grpc/protobuf> .
 
 Předpokládejme například, že soubor *....* je použit v části Začínáme [se službou gRPC](xref:tutorials/grpc/grpc-start):
 
