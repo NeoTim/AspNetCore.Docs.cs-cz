@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 57607390e7d5e58df9f27437faecd57504ad64df
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d6ea37ceb83ffbaa94187e0c541c79428594e4b4
+ms.sourcegitcommit: 2039e60eb7b482da8298f82dcd5eda27cf747f32
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635369"
+ms.lasthandoff: 08/26/2020
+ms.locfileid: "88906446"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -106,7 +106,7 @@ V konzole správce balíčků zadejte následující příkaz:
 Install-Package SendGrid
 ```
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Z konzoly zadejte následující příkaz:
 
@@ -160,7 +160,13 @@ Spusťte webovou aplikaci a otestujte postup potvrzení a obnovení hesla účtu
 * Zadejte e-mail, který jste použili k registraci účtu.
 * Pošle se e-mail s odkazem na resetování hesla. Podívejte se na e-mail a kliknutím na odkaz resetujte heslo. Po úspěšném resetování hesla se můžete přihlásit pomocí e-mailu a nového hesla.
 
-## <a name="change-email-and-activity-timeout"></a>Časový limit změny e-mailu a aktivity
+<a name="resend"></a>
+
+## <a name="resend-email-confirmation"></a>Odeslat potvrzení znovu e-mailem
+
+V ASP.NET Core 5,0 a novějším vyberte odkaz znovu **Odeslat e-mail s potvrzením** na **přihlašovací** stránce.
+
+### <a name="change-email-and-activity-timeout"></a>Časový limit změny e-mailu a aktivity
 
 Výchozí časový limit nečinnosti je 14 dní. Následující kód nastaví časový limit nečinnosti na 5 dní:
 
@@ -185,10 +191,6 @@ Přidejte vlastní [DataProtectorTokenProvider \<TUser> ](/dotnet/api/microsoft.
 Přidejte vlastního zprostředkovatele do kontejneru služby:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupEmail.cs?name=snippet1&highlight=10-16)]
-
-### <a name="resend-email-confirmation"></a>Odeslat potvrzení znovu e-mailem
-
-Podívejte se na [Tento problém GitHubu](https://github.com/dotnet/AspNetCore/issues/5410).
 
 <a name="debug"></a>
 
@@ -324,7 +326,7 @@ V konzole správce balíčků zadejte následující příkaz:
 Install-Package SendGrid
 ```
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Z konzoly zadejte následující příkaz:
 
