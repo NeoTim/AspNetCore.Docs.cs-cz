@@ -1,5 +1,5 @@
 ---
-title: Osvědčené postupy pro výkon v gRPC pro ASP.NET Core
+title: Osvědčené postupy pro výkon s gRPC
 author: jamesnk
 description: Seznamte se s osvědčenými postupy pro vytváření vysoce výkonných služeb gRPC Services.
 monikerRange: '>= aspnetcore-3.0'
@@ -17,24 +17,24 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/performance
-ms.openlocfilehash: f9cefa89ec6e533920b33223b34333f6ebe38428
-ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
+ms.openlocfilehash: 7d4d5732e6edb0d0a156fdcec5f59cc09a69d7de
+ms.sourcegitcommit: 111b4e451da2e275fb074cde5d8a84b26a81937d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88876721"
+ms.lasthandoff: 08/27/2020
+ms.locfileid: "89040876"
 ---
-# <a name="performance-best-practices-in-grpc-for-aspnet-core"></a>Osvědčené postupy pro výkon v gRPC pro ASP.NET Core
+# <a name="performance-best-practices-with-grpc"></a>Osvědčené postupy pro výkon s gRPC
 
 Od [James Newton – král](https://twitter.com/jamesnk)
 
 gRPC je navržená pro vysoce výkonné služby. Tento dokument vysvětluje, jak získat nejlepší možný výkon z gRPC.
 
-## <a name="reuse-channel"></a>Znovu použít kanál
+## <a name="reuse-grpc-channels"></a>Opakované použití kanálů gRPC
 
 Kanál gRPC by měl být znovu použit při provádění volání gRPC. Opětovné použití kanálu umožňuje, aby volání byla multiplexovaná prostřednictvím stávajícího připojení HTTP/2.
 
-Pokud je pro každý gRPC hovor vytvořen nový kanál, může se výrazně zvýšit množství času, který je potřeba dokončit. Každé volání bude vyžadovat vícenásobné síťové odezvy mezi klientem a serverem, aby bylo možné vytvořit připojení HTTP/2:
+Pokud je pro každý gRPC hovor vytvořen nový kanál, může se výrazně zvýšit množství času, který je potřeba dokončit. Každé volání bude vyžadovat vícenásobné síťové odezvy mezi klientem a serverem, aby bylo možné vytvořit nové připojení HTTP/2:
 
 1. Otevření soketu
 2. Navazování připojení TCP
@@ -86,7 +86,45 @@ Pro aplikace .NET Core 3,1 je k dispozici několik alternativních řešení:
 > * Kolize vláken mezi datovými proudy, které se pokouší o zápis do připojení.
 > * Ztráta paketů připojení způsobí, že všechna volání budou zablokována ve vrstvě TCP.
 
+## <a name="load-balancing"></a>Vyrovnávání zatížení
+
+Některé nástroje pro vyrovnávání zatížení s gRPC nefungují efektivně. Nástroje pro vyrovnávání zatížení L4 (Transport) fungují na úrovni připojení, a to distribucí připojení TCP mezi koncovými body. Tento přístup funguje dobře pro vyrovnávání volání rozhraní API vytvořeného pomocí protokolu HTTP/1.1. Souběžná volání s HTTP/1.1 se odesílají v různých připojeních, což umožňuje vyrovnávat zatížení mezi koncovými body.
+
+Vzhledem k tomu, že nástroje pro vyrovnávání zatížení L4 provozují na úrovni připojení, nefungují dobře s gRPC. gRPC používá protokol HTTP/2, který multiplexuje více volání v jednom připojení TCP. Všechna volání gRPC přes toto připojení přecházejí do jednoho koncového bodu.
+
+Existují dvě možnosti efektivního vyrovnávání zatížení gRPC:
+
+1. Vyrovnávání zatížení na straně klienta
+2. Vyrovnávání zatížení serveru L7 (aplikace)
+
+> [!NOTE]
+> Mezi koncovými body lze vyrovnávat zatížení pouze volání gRPC. Po navázání volání streamování gRPC budou všechny zprávy odesílané přes Stream přejít do jednoho koncového bodu.
+
+### <a name="client-side-load-balancing"></a>Vyrovnávání zatížení na straně klienta
+
+Při vyrovnávání zatížení na straně klienta ví klient o koncových bodech. Pro každé volání gRPC vybere jiný koncový bod pro odeslání volání. Vyrovnávání zatížení na straně klienta je vhodnou volbou, pokud je latence důležitá. Mezi klientem a službou není žádný proxy server, aby bylo volání služby odesíláno přímo. Nevýhodou pro vyrovnávání zatížení na straně klienta je, že každý klient musí sledovat dostupné koncové body, které by měl použít.
+
+TLB vyrovnávání zatížení klienta je postup, ve kterém je stav vyrovnávání zatížení uložený v centrálním umístění. Klienti pravidelně dotazují centrální umístění na informace, které se mají použít při rozhodování o vyrovnávání zatížení.
+
+`Grpc.Net.Client` v současné době nepodporuje vyrovnávání zatížení na straně klienta. [Grpc. Core](https://www.nuget.org/packages/Grpc.Core) je dobrá volba, pokud je v rozhraní .NET vyžadováno vyrovnávání zatížení na straně klienta.
+
+### <a name="proxy-load-balancing"></a>Vyrovnávání zatížení proxy
+
+Server proxy pro L7 (aplikace) funguje na vyšší úrovni než proxy L4 (Transport). Proxy servery L7 rozumí HTTP/2 a jsou schopné distribuovat volání gRPC do proxy serveru na jednom připojení HTTP/2 přes více koncových bodů. Použití proxy serveru je jednodušší než vyrovnávání zatížení na straně klienta, ale může do gRPC volání přidat další latenci.
+
+K dispozici je mnoho serverů proxy L7. Mezi tyto možnosti patří:
+
+1. Proxy [zástupné](https://www.envoyproxy.io/) – oblíbený Open Source proxy
+2. [Linkerová](https://linkerd.io/) mřížka-služby pro Kubernetes.
+2. [YARP: reverzní proxy](https://microsoft.github.io/reverse-proxy/) – náhled Open Source proxy serveru napsaný v .NET
+
 ::: moniker range=">= aspnetcore-5.0"
+
+## <a name="inter-process-communication"></a>Komunikace mezi procesy
+
+gRPC volání mezi klientem a službou se obvykle odesílají přes sokety TCP. Protokol TCP je ideální pro komunikaci přes síť, ale [komunikace mezi procesy (IPC)](https://wikipedia.org/wiki/Inter-process_communication) je efektivnější, pokud je klient a služba ve stejném počítači.
+
+Pro volání gRPC mezi procesy ve stejném počítači zvažte použití přenosu, jako jsou například doménové sokety systému UNIX nebo pojmenované kanály. Další informace naleznete v tématu <xref:grpc/interprocess>.
 
 ## <a name="keep-alive-pings"></a>Příkazy pro udržování otevřených připojení
 
