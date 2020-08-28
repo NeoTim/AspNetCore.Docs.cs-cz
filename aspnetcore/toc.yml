@@ -94,6 +94,9 @@
         - name: Back-end pro mobilní zařízení
           displayName: tutorial
           uid: mobile/native-mobile-backend
+        - name: Publikování do služby Azure API Management
+          displayName: tutorial
+          uid: tutorials/publish-to-azure-api-management-using-vs
     - name: Webové aplikace v reálném čase
       items:
         - name: SignalR s JavaScriptem
@@ -702,7 +705,11 @@
         - name: Začínáme se službou gRPC
           uid: tutorials/grpc/grpc-start
     - name: Služby gRPC s jazykem C#
-      uid: grpc/basics
+      items:
+        - name: Přehled
+          uid: grpc/basics
+        - name: Vytváření služeb gRPC
+          uid: grpc/services
     - name: Služby gRPC s ASP.NET Core
       uid: grpc/aspnetcore
     - name: Volání služeb gRPC pomocí klienta .NET
@@ -711,6 +718,8 @@
       uid: grpc/clientfactory
     - name: Použití gRPC v prohlížečových aplikacích
       uid: grpc/browser
+    - name: Komunikace mezi procesy pomocí služby gRPC
+      uid: grpc/interprocess
     - name: Konfigurace
       uid: grpc/configuration
     - name: Ověřování a autorizace
@@ -719,6 +728,8 @@
       uid: grpc/diagnostics
     - name: Důležité informace o zabezpečení
       uid: grpc/security
+    - name: Vytváření zpráv Protobuf
+      uid: grpc/protobuf
     - name: Osvědčené postupy z hlediska výkonu
       uid: grpc/performance
     - name: Správa verzí služeb gRPC
@@ -955,7 +966,7 @@
   items:
     - name: Přehled
       uid: security/index
-    - name: Ověřování
+    - name: Authentication
       items:
         - name: Přehled
           uid: security/authentication/index
