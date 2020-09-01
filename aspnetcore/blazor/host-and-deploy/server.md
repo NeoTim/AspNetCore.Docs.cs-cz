@@ -5,7 +5,7 @@ description: Naučte se hostovat a nasazovat Blazor Server aplikaci pomocí ASP.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2020
+ms.date: 08/26/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/server
-ms.openlocfilehash: 72a22fc2dd50bbcda230bb1824bb4fe176bf2189
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: afbaad2f27359a4a1cac5c5fe1da16d3e80d038f
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628050"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102650"
 ---
 # <a name="host-and-deploy-no-locblazor-server"></a>Hostitel a nasazení Blazor Server
 
@@ -65,7 +65,19 @@ Blazor funguje nejlépe při použití WebSockets jako SignalR přenosu z důvod
 
 #### <a name="azure-no-locsignalr-service"></a>SignalRSlužba Azure
 
-Pro aplikace doporučujeme používat [ SignalR službu Azure](/azure/azure-signalr) Blazor Server . Služba umožňuje horizontální navýšení kapacity Blazor Server aplikace na velký počet souběžných SignalR připojení. Kromě toho SignalR globální dostupnost a vysoce výkonná datová centra služby významně pomáhají při snižování latence z důvodu geografické oblasti. Konfigurace aplikace (a volitelně zřízení) pro SignalR službu Azure:
+Pro aplikace doporučujeme používat [ SignalR službu Azure](xref:signalr/scale#azure-signalr-service) Blazor Server . Služba umožňuje horizontální navýšení kapacity Blazor Server aplikace na velký počet souběžných SignalR připojení. Kromě toho SignalR globální dostupnost a vysoce výkonná datová centra služby významně pomáhají při snižování latence z důvodu geografické oblasti.
+
+> [!IMPORTANT]
+> Když jsou [objekty WebSocket](https://wikipedia.org/wiki/WebSocket) zakázané, Azure App Service simuluje připojení v reálném čase pomocí dlouhého cyklického dotazování http. Dlouhé cyklické dotazování HTTP je výrazně pomalejší než spuštění s povolenými objekty WebSockets, které nepoužívá cyklické dotazování na simulaci připojení typu klient-server.
+>
+> Pro aplikace nasazené do Azure App Service doporučujeme používat objekty WebSockets Blazor Server . [ SignalR Služba Azure](xref:signalr/scale#azure-signalr-service) ve výchozím nastavení používá objekty WebSocket. Pokud aplikace nepoužívá SignalR službu Azure, přečtěte si téma <xref:signalr/publish-to-azure-web-app#configure-the-app-in-azure-app-service> .
+>
+> Další informace naleznete v tématu:
+>
+> * [Co je SignalR Služba Azure?](/azure/azure-signalr/signalr-overview)
+> * [Průvodce výkonem pro SignalR službu Azure](/azure-signalr/signalr-concept-performance#performance-factors)
+
+Konfigurace aplikace (a volitelně zřízení) pro SignalR službu Azure:
 
 1. Povolte službě podporovat *rychlé relace*, kde se klienti [při předvykreslování přesměrují zpátky na stejný server](xref:blazor/hosting-models#connection-to-the-server). Nastavte `ServerStickyMode` možnost nebo hodnotu konfigurace na `Required` . Aplikace obvykle vytváří konfiguraci pomocí **jednoho** z následujících přístupů:
 

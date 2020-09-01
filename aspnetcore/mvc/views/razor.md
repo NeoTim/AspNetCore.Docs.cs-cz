@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: e42ee7a80475e784ea4791395d9b0665aca94a03
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: 9c2bbd2d463af8a2ea7db716d01bf1436338ea77
+ms.sourcegitcommit: cd861463faf44956855e3c4b3669483bbc4a7463
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865174"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89101358"
 ---
 # <a name="no-locrazor-syntax-reference-for-aspnet-core"></a>Razor Referenční informace k syntaxi pro ASP.NET Core
 
@@ -131,17 +131,15 @@ Výrazy jazyka C#, které jsou vyhodnoceny jako řetězec, jsou kódovány HTML.
 @("<span>Hello World</span>")
 ```
 
-Kód vykresluje následující kód HTML:
+Předchozí kód vykresluje následující kód HTML:
 
 ```html
 &lt;span&gt;Hello World&lt;/span&gt;
 ```
 
-HTML se zobrazí v prohlížeči jako:
+HTML se zobrazí v prohlížeči jako prostý text:
 
-```html
-<span>Hello World</span>
-```
+&lt;rozpětí &gt; Hello World &lt; /span&gt;
 
 `HtmlHelper.Raw` výstup není kódovaný, ale vykresluje se jako kód HTML.
 
@@ -1006,6 +1004,6 @@ Vývojářům doporučujeme, aby se shodovaly s velkými písmeny názvů soubor
 
 V případě, že se rozlišuje velká a malá písmena, zajistíte jejich zobrazení bez ohledu na základní systém souborů.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 [Seznámení s ASP.NET webovým programováním pomocí Razor Syntaxe](/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c) poskytuje mnoho ukázek programování s Razor syntaxí.

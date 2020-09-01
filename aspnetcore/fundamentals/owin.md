@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/owin
-ms.openlocfilehash: d766ba3387edbfb9298b6f3cf8a485738b7d7139
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 817eb652f4feedf19dd60873b480917c320272a3
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628596"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102754"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřete web interface for .NET (OWIN) s ASP.NET Core
 
@@ -104,80 +104,6 @@ app.UseOwin(pipeline =>
 
 <a name="hosting-on-owin"></a>
 
-## <a name="using-aspnet-core-hosting-on-an-owin-based-server"></a>Použití ASP.NET Core hostování na serveru založeném na OWIN
-
-Servery založené na OWIN můžou hostovat aplikace ASP.NET Core. Jeden takový server je [Nowin](https://github.com/Bobris/Nowin), webový server .NET Owin. V ukázce tohoto článku jsme zahrnuli projekt, který odkazuje na Nowin a používá ho k vytvoření `IServer` ASP.NET Core schopného samoobslužného hostování.
-
-[!code-csharp[](owin/sample/src/NowinSample/Program.cs?highlight=15)]
-
-`IServer` je rozhraní, které vyžaduje `Features` vlastnost a `Start` metodu.
-
-`Start` zodpovídá za konfiguraci a spuštění serveru, který v tomto případě provádí řada volání rozhraní Fluent API, která nastavila adresy přeložené z IServerAddressesFeature. Všimněte si, že konfigurace Fluent `_builder` proměnné určuje, že požadavky budou zpracovávány `appFunc` definované dříve v metodě. Tato `Func` metoda se volá u každé žádosti o zpracování příchozích požadavků.
-
-Přidáme také `IWebHostBuilder` rozšíření, které usnadňuje přidání a konfiguraci serveru Nowin.
-
-```csharp
-using System;
-using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.Extensions.DependencyInjection;
-using Nowin;
-using NowinSample;
-
-namespace Microsoft.AspNetCore.Hosting
-{
-    public static class NowinWebHostBuilderExtensions
-    {
-        public static IWebHostBuilder UseNowin(this IWebHostBuilder builder)
-        {
-            return builder.ConfigureServices(services =>
-            {
-                services.AddSingleton<IServer, NowinServer>();
-            });
-        }
-
-        public static IWebHostBuilder UseNowin(this IWebHostBuilder builder, Action<ServerBuilder> configure)
-        {
-            builder.ConfigureServices(services =>
-            {
-                services.Configure(configure);
-            });
-            return builder.UseNowin();
-        }
-    }
-}
-```
-
-Když to zavoláte, vyvolejte rozšíření v *program.cs* a spusťte aplikaci ASP.NET Core s použitím tohoto vlastního serveru:
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-
-namespace NowinSample
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var host = new WebHostBuilder()
-                .UseNowin()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
-        }
-    }
-}
-```
-
-Přečtěte si další informace o [ASP.NET Corech serverech](xref:fundamentals/servers/index).
-
 ## <a name="run-aspnet-core-on-an-owin-based-server-and-use-its-websockets-support"></a>Spusťte ASP.NET Core na serveru založeném na OWIN a využijte podporu WebSockets.
 
 Dalším příkladem použití ASP.NET Core funkcí serverů založených na OWIN je přístup k funkcím, jako jsou WebSockets. Webový server .NET OWIN použitý v předchozím příkladu obsahuje podporu pro integrované webové sokety, které může využívat ASP.NET Core aplikace. Níže uvedený příklad ukazuje jednoduchou webovou aplikaci, která podporuje webové sokety, a vrátí zpátky vše odeslané na server prostřednictvím objektů WebSockets.
@@ -227,10 +153,6 @@ public class Startup
     }
 }
 ```
-
-Tato [Ukázka](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) je nakonfigurována pomocí stejné `NowinServer` jako předchozí, jediný rozdíl je v tom, jak je aplikace konfigurována v příslušné `Configure` metodě. Test použití [jednoduchého klienta protokolu WebSocket](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en) ukazuje aplikaci:
-
-![Testovací klient webového soketu](owin/_static/websocket-test.png)
 
 ## <a name="owin-environment"></a>Prostředí OWIN
 

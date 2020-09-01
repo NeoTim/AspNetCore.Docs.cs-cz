@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/memory
-ms.openlocfilehash: c409eaaf07109d363581ee7d61dc76521d6818d0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 9bb055670b73c9a1ae04083bc326200a42151708
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630663"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102793"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>Správa paměti a uvolňování paměti (GC) v ASP.NET Core
 
@@ -235,7 +235,7 @@ Stejná netěsnost by mohla být provedena v uživatelském kódu, a to jedním 
 
 ### <a name="large-objects-heap"></a>Halda velkých objektů
 
-Časté přiřazování paměti/bezplatné cykly můžou rozdělit paměť, zejména při přidělování velkých bloků paměti. Objekty jsou přidělovány v souvislém bloku paměti. Aby se zmírnila fragmentace, když GC uvolní paměť, trys ji defragmentovat. Tento proces se nazývá **komprimace**. Komprimace zahrnuje přesun objektů. Přesunutí velkých objektů ukládá snížení výkonu. Z tohoto důvodu GC vytvoří speciální zónu paměti pro _velké_ objekty označované jako [halda velkých objektů](/dotnet/standard/garbage-collection/large-object-heap) (LOH). Objekty, které jsou větší než 85 000 bajtů (přibližně 83 KB), jsou:
+Časté přiřazování paměti/bezplatné cykly můžou rozdělit paměť, zejména při přidělování velkých bloků paměti. Objekty jsou přidělovány v souvislém bloku paměti. Chcete-li zmírnit fragmentaci, když GC uvolní paměť, pokusí se ji defragmentovat. Tento proces se nazývá **komprimace**. Komprimace zahrnuje přesun objektů. Přesunutí velkých objektů ukládá snížení výkonu. Z tohoto důvodu GC vytvoří speciální zónu paměti pro _velké_ objekty označované jako [halda velkých objektů](/dotnet/standard/garbage-collection/large-object-heap) (LOH). Objekty, které jsou větší než 85 000 bajtů (přibližně 83 KB), jsou:
 
 * Umístit do LOH.
 * Není zkomprimováno.
@@ -292,7 +292,7 @@ Následující odkazy znázorňují ASP.NET Core přístup k udržení objektů 
 * [ResponseCaching/Streams/StreamUtilities. cs](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
 * [ResponseCaching/MemoryResponseCache. cs](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-Další informace:
+Další informace naleznete v tématu:
 
 * [Nekrytá halda Large Object](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [Halda velkých objektů](/dotnet/standard/garbage-collection/large-object-heap)

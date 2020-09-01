@@ -1,5 +1,5 @@
 ---
-title: Injektáž závislostí v ASP.NET Core
+title: Vkládání závislostí v ASP.NET Core
 author: rick-anderson
 description: Přečtěte si, jak ASP.NET Core implementuje vkládání závislostí a jak ho používat.
 monikerRange: '>= aspnetcore-2.1'
@@ -16,14 +16,14 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 0a51647463362d6cfac335688d42d4be013f8b9c
-ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
+ms.openlocfilehash: 98c43eda002abc96fe3c2f031c429ccaa70cee3e
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88712507"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102780"
 ---
-# <a name="dependency-injection-in-aspnet-core"></a>Injektáž závislostí v ASP.NET Core
+# <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -345,7 +345,6 @@ Když je aplikace spuštěná ve [vývojovém prostředí](xref:fundamentals/env
 
 * Oborové služby se nevyřešily od poskytovatele kořenové služby.
 * Oborové služby se nevkládají do singleton.
-* Přechodné služby nejsou vloženy do ojedinělých nebo vymezených služeb.
 
 Poskytovatel kořenové služby se vytvoří, když <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider%2A> se zavolá. Doba života poskytovatele kořenové služby odpovídá době životnosti aplikace, když poskytovatel spustí aplikaci a je uvolněna při ukončení aplikace.
 
@@ -553,7 +552,7 @@ V následující tabulce je uveden malý vzorek těchto služeb registrovaných 
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName>                             | Singleton |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName>                           | Singleton |
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:mvc/views/dependency-injection>
 * <xref:mvc/controllers/dependency-injection>
@@ -1129,7 +1128,7 @@ Podobně jako u všech sad doporučení se může stát, že se vyžaduje ignoro
 
 DI je *alternativou* ke vzorům statických nebo globálních přístupů k objektům. Je možné, že nebudete moci využít výhody DI, pokud je kombinujete se statickým přístupem k objektům.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:mvc/views/dependency-injection>
 * <xref:mvc/controllers/dependency-injection>

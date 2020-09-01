@@ -722,6 +722,8 @@
       uid: grpc/browser
     - name: Komunikace mezi procesy pomocí služby gRPC
       uid: grpc/interprocess
+    - name: Vytváření webových rozhraní API JSON z gRPC
+      uid: grpc/httpapi
     - name: Konfigurace
       uid: grpc/configuration
     - name: Ověřování a autorizace

@@ -17,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/protobuf
-ms.openlocfilehash: f898907e5bae7c67cfca72c70dc8497f36de2622
-ms.sourcegitcommit: 111b4e451da2e275fb074cde5d8a84b26a81937d
+ms.openlocfilehash: 60af1add9ae2f8b2b94bc19b65667d7af91fb122
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2020
-ms.locfileid: "89040850"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102663"
 ---
 # <a name="create-protobuf-messages-for-net-apps"></a>Vytváření zpráv Protobuf pro aplikace .NET
 
 Autor [: James Newton – král](https://twitter.com/jamesnk) a [označení Rendle](https://twitter.com/markrendle)
 
-gRPC používá [Protobuf](https://developers.google.com/protocol-buffers) jako svůj jazyk IDL (Interface Definition Language). Protobuf IDL je jazykově neutrální formát pro určení zpráv odesílaných a přijímaných službou gRPC Services. Zprávy Protobuf jsou definovány v souborech *.* Tento dokument vysvětluje, jak se Protobuf koncepty mapují na rozhraní .NET.
+gRPC používá [Protobuf](https://developers.google.com/protocol-buffers) jako svůj jazyk IDL (Interface Definition Language). Protobuf IDL je jazykově neutrální formát pro určení zpráv odesílaných a přijímaných službou gRPC Services. Zprávy Protobuf jsou definovány v `.proto` souborech. Tento dokument vysvětluje, jak se Protobuf koncepty mapují na rozhraní .NET.
 
 ## <a name="protobuf-messages"></a>Zprávy ve formátu protobuf
 
@@ -50,7 +50,7 @@ Předchozí definice zprávy určuje tři pole jako páry název-hodnota. Podobn
 
 Kromě názvu má každé pole v definici zprávy jedinečné číslo. Čísla polí slouží k identifikaci polí při serializaci zprávy do Protobuf. Serializace malého čísla je rychlejší než serializace celého názvu pole. Vzhledem k tomu, že čísla polí identifikují pole, je důležité při jejich změně provádět pozornost. Další informace o změně zpráv Protobuf naleznete v tématu <xref:grpc/versioning> .
 
-Když je aplikace vytvořená, Protobuf nástroje generují typy .NET ze souborů *.* .. `Person`Zpráva generuje třídu .NET:
+Když je aplikace sestavená pomocí nástroje Protobuf, generuje typy .NET ze `.proto` souborů. `Person`Zpráva generuje třídu .NET:
 
 ```csharp
 public class Person
@@ -87,15 +87,15 @@ Protobuf podporuje rozsah nativních typů skalárních hodnot. V následující
 
 ### <a name="dates-and-times"></a>Data a časy
 
-Nativní skalární typy neposkytují hodnoty data a času, které jsou ekvivalentní. NET ' <xref:System.DateTimeOffset> , <xref:System.DateTime> a <xref:System.TimeSpan> . Tyto typy lze zadat pomocí některých rozšíření "dobře známých typů" Protobuf. Tato rozšíření poskytují podporu generování kódu a běhové prostředí pro komplexní typy polí napříč podporovanými platformami.
+Nativní skalární typy neposkytují hodnoty data a času, které jsou ekvivalentní. NET ' <xref:System.DateTimeOffset> , <xref:System.DateTime> a <xref:System.TimeSpan> . Tyto typy lze zadat pomocí některých z rozšíření *známých typů* Protobuf. Tato rozšíření poskytují podporu generování kódu a běhové prostředí pro komplexní typy polí napříč podporovanými platformami.
 
 V následující tabulce jsou uvedeny typy data a času:
 
-| Typ .NET | Protobuf dobře známý typ |
-| ------- | ------------------------ |
+| Typ .NET        | Protobuf dobře známý typ    |
+| ---------------- | --------------------------- |
 | `DateTimeOffset` | `google.protobuf.Timestamp` |
-| `DateTime` | `google.protobuf.Timestamp` |
-| `TimeSpan` | `google.protobuf.Duration` |
+| `DateTime`       | `google.protobuf.Timestamp` |
+| `TimeSpan`       | `google.protobuf.Duration`  |
 
 ```protobuf  
 syntax = "proto3"
@@ -132,7 +132,7 @@ var duration = meeting.Duration?.ToTimeSpan();
 
 Generování kódu Protobuf pro jazyk C# používá nativní typy, jako například `int` pro `int32` . Takže hodnoty jsou vždycky zahrnuté a nemůžou být `null` .
 
-Pro hodnoty, které vyžadují explicitní `null` , jako je například použití `int?` v kódu jazyka C#, jsou "dobře známé typy" Protobuf zahrnuty obálky, které jsou kompilovány na typy s možnou hodnotou null C#. Pokud je chcete použít, importujte je `wrappers.proto` do `.proto` souboru, jako je například následující kód:
+Pro hodnoty, které vyžadují explicitní `null` , jako je například použití `int?` v kódu jazyka C#, jsou známé typy Protobuf zahrnuty do typů, které jsou kompilovány na typy s možnou hodnotou null C#. Pokud je chcete použít, importujte je `wrappers.proto` do `.proto` souboru, jako je například následující kód:
 
 ```protobuf  
 syntax = "proto3"
@@ -284,11 +284,17 @@ person.Attributes.Add(attributes);
 
 ## <a name="unstructured-and-conditional-messages"></a>Nestrukturované a podmíněné zprávy
 
-Protobuf je formát zasílání zpráv prvního kontraktu a zprávy aplikací je potřeba zadat v souboru *. proto* soubory, které jsou sestavené v aplikaci. V případě pokročilých scénářů nabízí Protobuf jazykové funkce a známé typy pro podporu podmíněných a neznámých zpráv.
+Protobuf je formát zasílání zpráv prvního kontraktu. Zprávy aplikace, včetně polí a typů, musí být `.proto` při sestavení aplikace zadány v souborech. Návrh na první smlouvu Protobuf je skvělý při vynucování obsahu zpráv, ale může omezit scénáře, u kterých není nutná striktní smlouva:
+
+* Zprávy s neznámými datovými částmi. Například zpráva s polem, které může obsahovat libovolnou zprávu.
+* Podmíněné zprávy. Například zpráva vrácená ze služby gRPC může být výsledkem úspěchu nebo výsledkem chyby.
+* Dynamické hodnoty. Například zpráva s polem, které obsahuje nestrukturované kolekce hodnot, podobně jako JSON.
+
+Protobuf nabízí jazykové funkce a typy pro podporu těchto scénářů.
 
 ### <a name="any"></a>Všechny
 
-`Any`Typ umožňuje používat zprávy jako vložené typy bez definice *.* Chcete-li použít `Any` typ, importujte `any.proto` .
+`Any`Typ umožňuje používat zprávy jako vložené typy bez nutnosti jejich `.proto` definice. Chcete-li použít `Any` typ, importujte `any.proto` .
 
 ```protobuf
 import "google/protobuf/any.proto";
@@ -355,7 +361,7 @@ switch (response.ResultCase)
 
 ### <a name="value"></a>Hodnota
 
-`Value`Typ představuje dynamicky typované hodnoty. Může to být buď `null` číslo, řetězec, logická hodnota, slovník hodnot ( `Struct` ) nebo seznam hodnot ( `ValueList` ). `Value` je dobře známý typ, který používá dříve popisovanou `oneof` funkci. Chcete-li použít `Value` typ, importujte `struct.proto` .
+`Value`Typ představuje dynamicky typované hodnoty. Může to být buď `null` číslo, řetězec, logická hodnota, slovník hodnot ( `Struct` ) nebo seznam hodnot ( `ValueList` ). `Value` je Protobuf dobře známý typ, který používá dříve popisovanou `oneof` funkci. Chcete-li použít `Value` typ, importujte `struct.proto` .
 
 ```protobuf
 import "google/protobuf/struct.proto";
@@ -411,7 +417,7 @@ var json = JsonFormatter.Default.Format(status.Metadata);
 var document = JsonDocument.Parse(json);
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Průvodce jazyky Protobuf](https://developers.google.com/protocol-buffers/docs/proto3#simple)
 * <xref:grpc/versioning>
