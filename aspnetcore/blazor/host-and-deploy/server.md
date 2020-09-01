@@ -5,7 +5,7 @@ description: Naučte se hostovat a nasazovat Blazor Server aplikaci pomocí ASP.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2020
+ms.date: 08/26/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,58 +18,70 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/server
-ms.openlocfilehash: 72a22fc2dd50bbcda230bb1824bb4fe176bf2189
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: afbaad2f27359a4a1cac5c5fe1da16d3e80d038f
+ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628050"
+ms.lasthandoff: 08/29/2020
+ms.locfileid: "89102650"
 ---
-# <a name="host-and-deploy-no-locblazor-server"></a><span data-ttu-id="c42bb-103">Hostitel a nasazení Blazor Server</span><span class="sxs-lookup"><span data-stu-id="c42bb-103">Host and deploy Blazor Server</span></span>
+# <a name="host-and-deploy-no-locblazor-server"></a><span data-ttu-id="917d3-103">Hostitel a nasazení Blazor Server</span><span class="sxs-lookup"><span data-stu-id="917d3-103">Host and deploy Blazor Server</span></span>
 
-<span data-ttu-id="c42bb-104">Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="c42bb-104">By [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), and [Daniel Roth](https://github.com/danroth27)</span></span>
+<span data-ttu-id="917d3-104">Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="917d3-104">By [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), and [Daniel Roth](https://github.com/danroth27)</span></span>
 
-## <a name="host-configuration-values"></a><span data-ttu-id="c42bb-105">Hodnoty konfigurace hostitele</span><span class="sxs-lookup"><span data-stu-id="c42bb-105">Host configuration values</span></span>
+## <a name="host-configuration-values"></a><span data-ttu-id="917d3-105">Hodnoty konfigurace hostitele</span><span class="sxs-lookup"><span data-stu-id="917d3-105">Host configuration values</span></span>
 
-<span data-ttu-id="c42bb-106">[ Blazor Server aplikace](xref:blazor/hosting-models#blazor-server) můžou přijímat [hodnoty konfigurace obecného hostitele](xref:fundamentals/host/generic-host#host-configuration).</span><span class="sxs-lookup"><span data-stu-id="c42bb-106">[Blazor Server apps](xref:blazor/hosting-models#blazor-server) can accept [Generic Host configuration values](xref:fundamentals/host/generic-host#host-configuration).</span></span>
+<span data-ttu-id="917d3-106">[ Blazor Server aplikace](xref:blazor/hosting-models#blazor-server) můžou přijímat [hodnoty konfigurace obecného hostitele](xref:fundamentals/host/generic-host#host-configuration).</span><span class="sxs-lookup"><span data-stu-id="917d3-106">[Blazor Server apps](xref:blazor/hosting-models#blazor-server) can accept [Generic Host configuration values](xref:fundamentals/host/generic-host#host-configuration).</span></span>
 
-## <a name="deployment"></a><span data-ttu-id="c42bb-107">Nasazení</span><span class="sxs-lookup"><span data-stu-id="c42bb-107">Deployment</span></span>
+## <a name="deployment"></a><span data-ttu-id="917d3-107">Nasazení</span><span class="sxs-lookup"><span data-stu-id="917d3-107">Deployment</span></span>
 
-<span data-ttu-id="c42bb-108">Použití [ Blazor Server modelu hostování](xref:blazor/hosting-models#blazor-server) Blazor je spuštěno na serveru aplikace z ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="c42bb-108">Using the [Blazor Server hosting model](xref:blazor/hosting-models#blazor-server), Blazor is executed on the server from within an ASP.NET Core app.</span></span> <span data-ttu-id="c42bb-109">Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes [SignalR](xref:signalr/introduction) připojení.</span><span class="sxs-lookup"><span data-stu-id="c42bb-109">UI updates, event handling, and JavaScript calls are handled over a [SignalR](xref:signalr/introduction) connection.</span></span>
+<span data-ttu-id="917d3-108">Použití [ Blazor Server modelu hostování](xref:blazor/hosting-models#blazor-server) Blazor je spuštěno na serveru aplikace z ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="917d3-108">Using the [Blazor Server hosting model](xref:blazor/hosting-models#blazor-server), Blazor is executed on the server from within an ASP.NET Core app.</span></span> <span data-ttu-id="917d3-109">Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes [SignalR](xref:signalr/introduction) připojení.</span><span class="sxs-lookup"><span data-stu-id="917d3-109">UI updates, event handling, and JavaScript calls are handled over a [SignalR](xref:signalr/introduction) connection.</span></span>
 
-<span data-ttu-id="c42bb-110">Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="c42bb-110">A web server capable of hosting an ASP.NET Core app is required.</span></span> <span data-ttu-id="c42bb-111">Visual Studio zahrnuje šablonu projektu \*\* Blazor Server aplikace\*\* ( `blazorserverside` Šablona při použití [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu).</span><span class="sxs-lookup"><span data-stu-id="c42bb-111">Visual Studio includes the **Blazor Server App** project template (`blazorserverside` template when using the [`dotnet new`](/dotnet/core/tools/dotnet-new) command).</span></span>
+<span data-ttu-id="917d3-110">Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="917d3-110">A web server capable of hosting an ASP.NET Core app is required.</span></span> <span data-ttu-id="917d3-111">Visual Studio zahrnuje šablonu projektu \*\* Blazor Server aplikace\*\* ( `blazorserverside` Šablona při použití [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu).</span><span class="sxs-lookup"><span data-stu-id="917d3-111">Visual Studio includes the **Blazor Server App** project template (`blazorserverside` template when using the [`dotnet new`](/dotnet/core/tools/dotnet-new) command).</span></span>
 
-## <a name="scalability"></a><span data-ttu-id="c42bb-112">Škálovatelnost</span><span class="sxs-lookup"><span data-stu-id="c42bb-112">Scalability</span></span>
+## <a name="scalability"></a><span data-ttu-id="917d3-112">Škálovatelnost</span><span class="sxs-lookup"><span data-stu-id="917d3-112">Scalability</span></span>
 
-<span data-ttu-id="c42bb-113">Naplánujte nasazení, aby se zajistilo co nejlepší využití dostupné infrastruktury pro Blazor Server aplikaci.</span><span class="sxs-lookup"><span data-stu-id="c42bb-113">Plan a deployment to make the best use of the available infrastructure for a Blazor Server app.</span></span> <span data-ttu-id="c42bb-114">Podívejte se na následující zdroje informací pro řešení Blazor Server škálovatelnosti aplikace:</span><span class="sxs-lookup"><span data-stu-id="c42bb-114">See the following resources to address Blazor Server app scalability:</span></span>
+<span data-ttu-id="917d3-113">Naplánujte nasazení, aby se zajistilo co nejlepší využití dostupné infrastruktury pro Blazor Server aplikaci.</span><span class="sxs-lookup"><span data-stu-id="917d3-113">Plan a deployment to make the best use of the available infrastructure for a Blazor Server app.</span></span> <span data-ttu-id="917d3-114">Podívejte se na následující zdroje informací pro řešení Blazor Server škálovatelnosti aplikace:</span><span class="sxs-lookup"><span data-stu-id="917d3-114">See the following resources to address Blazor Server app scalability:</span></span>
 
-* [<span data-ttu-id="c42bb-115">Základy Blazor Server aplikací</span><span class="sxs-lookup"><span data-stu-id="c42bb-115">Fundamentals of Blazor Server apps</span></span>](xref:blazor/hosting-models#blazor-server)
+* [<span data-ttu-id="917d3-115">Základy Blazor Server aplikací</span><span class="sxs-lookup"><span data-stu-id="917d3-115">Fundamentals of Blazor Server apps</span></span>](xref:blazor/hosting-models#blazor-server)
 * <xref:blazor/security/server/threat-mitigation>
 
-### <a name="deployment-server"></a><span data-ttu-id="c42bb-116">Server nasazení</span><span class="sxs-lookup"><span data-stu-id="c42bb-116">Deployment server</span></span>
+### <a name="deployment-server"></a><span data-ttu-id="917d3-116">Server nasazení</span><span class="sxs-lookup"><span data-stu-id="917d3-116">Deployment server</span></span>
 
-<span data-ttu-id="c42bb-117">Při zvažování škálovatelnosti jednoho serveru (horizontální navýšení kapacity) je pravděpodobným zdrojem dostupným pro aplikaci první prostředek, který bude aplikace vyčerpat při zvýšení požadavků uživatelů.</span><span class="sxs-lookup"><span data-stu-id="c42bb-117">When considering the scalability of a single server (scale up), the memory available to an app is likely the first resource that the app will exhaust as user demands increase.</span></span> <span data-ttu-id="c42bb-118">Dostupná paměť na serveru má vliv na:</span><span class="sxs-lookup"><span data-stu-id="c42bb-118">The available memory on the server affects the:</span></span>
+<span data-ttu-id="917d3-117">Při zvažování škálovatelnosti jednoho serveru (horizontální navýšení kapacity) je pravděpodobným zdrojem dostupným pro aplikaci první prostředek, který bude aplikace vyčerpat při zvýšení požadavků uživatelů.</span><span class="sxs-lookup"><span data-stu-id="917d3-117">When considering the scalability of a single server (scale up), the memory available to an app is likely the first resource that the app will exhaust as user demands increase.</span></span> <span data-ttu-id="917d3-118">Dostupná paměť na serveru má vliv na:</span><span class="sxs-lookup"><span data-stu-id="917d3-118">The available memory on the server affects the:</span></span>
 
-* <span data-ttu-id="c42bb-119">Počet aktivních okruhů, které může server podporovat.</span><span class="sxs-lookup"><span data-stu-id="c42bb-119">Number of active circuits that a server can support.</span></span>
-* <span data-ttu-id="c42bb-120">Latence uživatelského rozhraní u klienta.</span><span class="sxs-lookup"><span data-stu-id="c42bb-120">UI latency on the client.</span></span>
+* <span data-ttu-id="917d3-119">Počet aktivních okruhů, které může server podporovat.</span><span class="sxs-lookup"><span data-stu-id="917d3-119">Number of active circuits that a server can support.</span></span>
+* <span data-ttu-id="917d3-120">Latence uživatelského rozhraní u klienta.</span><span class="sxs-lookup"><span data-stu-id="917d3-120">UI latency on the client.</span></span>
 
-<span data-ttu-id="c42bb-121">Pokyny k vytváření zabezpečených a škálovatelných Blazor serverových aplikací najdete v tématu <xref:blazor/security/server/threat-mitigation> .</span><span class="sxs-lookup"><span data-stu-id="c42bb-121">For guidance on building secure and scalable Blazor server apps, see <xref:blazor/security/server/threat-mitigation>.</span></span>
+<span data-ttu-id="917d3-121">Pokyny k vytváření zabezpečených a škálovatelných Blazor serverových aplikací najdete v tématu <xref:blazor/security/server/threat-mitigation> .</span><span class="sxs-lookup"><span data-stu-id="917d3-121">For guidance on building secure and scalable Blazor server apps, see <xref:blazor/security/server/threat-mitigation>.</span></span>
 
-<span data-ttu-id="c42bb-122">Každý okruh používá pro minimální aplikaci *Hello World*ve stylu přibližně 250 kB paměti.</span><span class="sxs-lookup"><span data-stu-id="c42bb-122">Each circuit uses approximately 250 KB of memory for a minimal *Hello World*-style app.</span></span> <span data-ttu-id="c42bb-123">Velikost okruhu závisí na kódu aplikace a požadavcích na údržbu stavu přidružených k jednotlivým součástem.</span><span class="sxs-lookup"><span data-stu-id="c42bb-123">The size of a circuit depends on the app's code and the state maintenance requirements associated with each component.</span></span> <span data-ttu-id="c42bb-124">Doporučujeme změřit požadavky na prostředky během vývoje vaší aplikace a infrastruktury, ale následující směrný plán může být výchozím bodem plánování cíle nasazení: Pokud očekáváte, že vaše aplikace bude podporovat 5 000 souběžných uživatelů, zvažte rozpočtování aspoň 1,3 GB paměti serveru do aplikace (nebo ~ 273 KB na uživatele).</span><span class="sxs-lookup"><span data-stu-id="c42bb-124">We recommend that you measure resource demands during development for your app and infrastructure, but the following baseline can be a starting point in planning your deployment target: If you expect your app to support 5,000 concurrent users, consider budgeting at least 1.3 GB of server memory to the app (or ~273 KB per user).</span></span>
+<span data-ttu-id="917d3-122">Každý okruh používá pro minimální aplikaci *Hello World*ve stylu přibližně 250 kB paměti.</span><span class="sxs-lookup"><span data-stu-id="917d3-122">Each circuit uses approximately 250 KB of memory for a minimal *Hello World*-style app.</span></span> <span data-ttu-id="917d3-123">Velikost okruhu závisí na kódu aplikace a požadavcích na údržbu stavu přidružených k jednotlivým součástem.</span><span class="sxs-lookup"><span data-stu-id="917d3-123">The size of a circuit depends on the app's code and the state maintenance requirements associated with each component.</span></span> <span data-ttu-id="917d3-124">Doporučujeme změřit požadavky na prostředky během vývoje vaší aplikace a infrastruktury, ale následující směrný plán může být výchozím bodem plánování cíle nasazení: Pokud očekáváte, že vaše aplikace bude podporovat 5 000 souběžných uživatelů, zvažte rozpočtování aspoň 1,3 GB paměti serveru do aplikace (nebo ~ 273 KB na uživatele).</span><span class="sxs-lookup"><span data-stu-id="917d3-124">We recommend that you measure resource demands during development for your app and infrastructure, but the following baseline can be a starting point in planning your deployment target: If you expect your app to support 5,000 concurrent users, consider budgeting at least 1.3 GB of server memory to the app (or ~273 KB per user).</span></span>
 
-### <a name="no-locsignalr-configuration"></a><span data-ttu-id="c42bb-125">SignalR rozšířeného</span><span class="sxs-lookup"><span data-stu-id="c42bb-125">SignalR configuration</span></span>
+### <a name="no-locsignalr-configuration"></a><span data-ttu-id="917d3-125">SignalR rozšířeného</span><span class="sxs-lookup"><span data-stu-id="917d3-125">SignalR configuration</span></span>
 
-<span data-ttu-id="c42bb-126">Blazor Server aplikace používají ASP.NET Core SignalR ke komunikaci s prohlížečem.</span><span class="sxs-lookup"><span data-stu-id="c42bb-126">Blazor Server apps use ASP.NET Core SignalR to communicate with the browser.</span></span> <span data-ttu-id="c42bb-127">[ SignalR podmínky hostování a škálování](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor Server aplikace.</span><span class="sxs-lookup"><span data-stu-id="c42bb-127">[SignalR's hosting and scaling conditions](xref:signalr/publish-to-azure-web-app) apply to Blazor Server apps.</span></span>
+<span data-ttu-id="917d3-126">Blazor Server aplikace používají ASP.NET Core SignalR ke komunikaci s prohlížečem.</span><span class="sxs-lookup"><span data-stu-id="917d3-126">Blazor Server apps use ASP.NET Core SignalR to communicate with the browser.</span></span> <span data-ttu-id="917d3-127">[ SignalR podmínky hostování a škálování](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor Server aplikace.</span><span class="sxs-lookup"><span data-stu-id="917d3-127">[SignalR's hosting and scaling conditions](xref:signalr/publish-to-azure-web-app) apply to Blazor Server apps.</span></span>
 
-<span data-ttu-id="c42bb-128">Blazor funguje nejlépe při použití WebSockets jako SignalR přenosu z důvodu nižší latence, spolehlivosti a [zabezpečení](xref:signalr/security).</span><span class="sxs-lookup"><span data-stu-id="c42bb-128">Blazor works best when using WebSockets as the SignalR transport due to lower latency, reliability, and [security](xref:signalr/security).</span></span> <span data-ttu-id="c42bb-129">Dlouhé cyklické dotazování se používá, SignalR když nejsou objekty WebSocket k dispozici nebo když je aplikace explicitně nakonfigurovaná tak, aby používala dlouhé cyklické dotazování.</span><span class="sxs-lookup"><span data-stu-id="c42bb-129">Long Polling is used by SignalR when WebSockets isn't available or when the app is explicitly configured to use Long Polling.</span></span> <span data-ttu-id="c42bb-130">Při nasazování do Azure App Service nakonfigurujte aplikaci tak, aby používala objekty WebSocket v nastaveních Azure Portal služby.</span><span class="sxs-lookup"><span data-stu-id="c42bb-130">When deploying to Azure App Service, configure the app to use WebSockets in the Azure portal settings for the service.</span></span> <span data-ttu-id="c42bb-131">Podrobnosti o konfiguraci aplikace pro Azure App Service najdete v [ SignalR pokynech k publikování](xref:signalr/publish-to-azure-web-app).</span><span class="sxs-lookup"><span data-stu-id="c42bb-131">For details on configuring the app for Azure App Service, see the [SignalR publishing guidelines](xref:signalr/publish-to-azure-web-app).</span></span>
+<span data-ttu-id="917d3-128">Blazor funguje nejlépe při použití WebSockets jako SignalR přenosu z důvodu nižší latence, spolehlivosti a [zabezpečení](xref:signalr/security).</span><span class="sxs-lookup"><span data-stu-id="917d3-128">Blazor works best when using WebSockets as the SignalR transport due to lower latency, reliability, and [security](xref:signalr/security).</span></span> <span data-ttu-id="917d3-129">Dlouhé cyklické dotazování se používá, SignalR když nejsou objekty WebSocket k dispozici nebo když je aplikace explicitně nakonfigurovaná tak, aby používala dlouhé cyklické dotazování.</span><span class="sxs-lookup"><span data-stu-id="917d3-129">Long Polling is used by SignalR when WebSockets isn't available or when the app is explicitly configured to use Long Polling.</span></span> <span data-ttu-id="917d3-130">Při nasazování do Azure App Service nakonfigurujte aplikaci tak, aby používala objekty WebSocket v nastaveních Azure Portal služby.</span><span class="sxs-lookup"><span data-stu-id="917d3-130">When deploying to Azure App Service, configure the app to use WebSockets in the Azure portal settings for the service.</span></span> <span data-ttu-id="917d3-131">Podrobnosti o konfiguraci aplikace pro Azure App Service najdete v [ SignalR pokynech k publikování](xref:signalr/publish-to-azure-web-app).</span><span class="sxs-lookup"><span data-stu-id="917d3-131">For details on configuring the app for Azure App Service, see the [SignalR publishing guidelines](xref:signalr/publish-to-azure-web-app).</span></span>
 
-#### <a name="azure-no-locsignalr-service"></a><span data-ttu-id="c42bb-132">SignalRSlužba Azure</span><span class="sxs-lookup"><span data-stu-id="c42bb-132">Azure SignalR Service</span></span>
+#### <a name="azure-no-locsignalr-service"></a><span data-ttu-id="917d3-132">SignalRSlužba Azure</span><span class="sxs-lookup"><span data-stu-id="917d3-132">Azure SignalR Service</span></span>
 
-<span data-ttu-id="c42bb-133">Pro aplikace doporučujeme používat [ SignalR službu Azure](/azure/azure-signalr) Blazor Server .</span><span class="sxs-lookup"><span data-stu-id="c42bb-133">We recommend using the [Azure SignalR Service](/azure/azure-signalr) for Blazor Server apps.</span></span> <span data-ttu-id="c42bb-134">Služba umožňuje horizontální navýšení kapacity Blazor Server aplikace na velký počet souběžných SignalR připojení.</span><span class="sxs-lookup"><span data-stu-id="c42bb-134">The service allows for scaling up a Blazor Server app to a large number of concurrent SignalR connections.</span></span> <span data-ttu-id="c42bb-135">Kromě toho SignalR globální dostupnost a vysoce výkonná datová centra služby významně pomáhají při snižování latence z důvodu geografické oblasti.</span><span class="sxs-lookup"><span data-stu-id="c42bb-135">In addition, the SignalR service's global reach and high-performance data centers significantly aid in reducing latency due to geography.</span></span> <span data-ttu-id="c42bb-136">Konfigurace aplikace (a volitelně zřízení) pro SignalR službu Azure:</span><span class="sxs-lookup"><span data-stu-id="c42bb-136">To configure an app (and optionally provision) the Azure SignalR Service:</span></span>
+<span data-ttu-id="917d3-133">Pro aplikace doporučujeme používat [ SignalR službu Azure](xref:signalr/scale#azure-signalr-service) Blazor Server .</span><span class="sxs-lookup"><span data-stu-id="917d3-133">We recommend using the [Azure SignalR Service](xref:signalr/scale#azure-signalr-service) for Blazor Server apps.</span></span> <span data-ttu-id="917d3-134">Služba umožňuje horizontální navýšení kapacity Blazor Server aplikace na velký počet souběžných SignalR připojení.</span><span class="sxs-lookup"><span data-stu-id="917d3-134">The service allows for scaling up a Blazor Server app to a large number of concurrent SignalR connections.</span></span> <span data-ttu-id="917d3-135">Kromě toho SignalR globální dostupnost a vysoce výkonná datová centra služby významně pomáhají při snižování latence z důvodu geografické oblasti.</span><span class="sxs-lookup"><span data-stu-id="917d3-135">In addition, the SignalR service's global reach and high-performance data centers significantly aid in reducing latency due to geography.</span></span>
 
-1. <span data-ttu-id="c42bb-137">Povolte službě podporovat *rychlé relace*, kde se klienti [při předvykreslování přesměrují zpátky na stejný server](xref:blazor/hosting-models#connection-to-the-server).</span><span class="sxs-lookup"><span data-stu-id="c42bb-137">Enable the service to support *sticky sessions*, where clients are [redirected back to the same server when prerendering](xref:blazor/hosting-models#connection-to-the-server).</span></span> <span data-ttu-id="c42bb-138">Nastavte `ServerStickyMode` možnost nebo hodnotu konfigurace na `Required` .</span><span class="sxs-lookup"><span data-stu-id="c42bb-138">Set the `ServerStickyMode` option or configuration value to `Required`.</span></span> <span data-ttu-id="c42bb-139">Aplikace obvykle vytváří konfiguraci pomocí **jednoho** z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="c42bb-139">Typically, an app creates the configuration using **one** of the following approaches:</span></span>
+> [!IMPORTANT]
+> <span data-ttu-id="917d3-136">Když jsou [objekty WebSocket](https://wikipedia.org/wiki/WebSocket) zakázané, Azure App Service simuluje připojení v reálném čase pomocí dlouhého cyklického dotazování http.</span><span class="sxs-lookup"><span data-stu-id="917d3-136">When [WebSockets](https://wikipedia.org/wiki/WebSocket) are disabled, Azure App Service simulates a real-time connection using HTTP long-polling.</span></span> <span data-ttu-id="917d3-137">Dlouhé cyklické dotazování HTTP je výrazně pomalejší než spuštění s povolenými objekty WebSockets, které nepoužívá cyklické dotazování na simulaci připojení typu klient-server.</span><span class="sxs-lookup"><span data-stu-id="917d3-137">HTTP long-polling is noticeably slower than running with WebSockets enabled, which doesn't use polling to simulate a client-server connection.</span></span>
+>
+> <span data-ttu-id="917d3-138">Pro aplikace nasazené do Azure App Service doporučujeme používat objekty WebSockets Blazor Server .</span><span class="sxs-lookup"><span data-stu-id="917d3-138">We recommend using WebSockets for Blazor Server apps deployed to Azure App Service.</span></span> <span data-ttu-id="917d3-139">[ SignalR Služba Azure](xref:signalr/scale#azure-signalr-service) ve výchozím nastavení používá objekty WebSocket.</span><span class="sxs-lookup"><span data-stu-id="917d3-139">The [Azure SignalR Service](xref:signalr/scale#azure-signalr-service) uses WebSockets by default.</span></span> <span data-ttu-id="917d3-140">Pokud aplikace nepoužívá SignalR službu Azure, přečtěte si téma <xref:signalr/publish-to-azure-web-app#configure-the-app-in-azure-app-service> .</span><span class="sxs-lookup"><span data-stu-id="917d3-140">If the app doesn't use the Azure SignalR Service, see <xref:signalr/publish-to-azure-web-app#configure-the-app-in-azure-app-service>.</span></span>
+>
+> <span data-ttu-id="917d3-141">Další informace naleznete v tématu:</span><span class="sxs-lookup"><span data-stu-id="917d3-141">For more information, see:</span></span>
+>
+> * [<span data-ttu-id="917d3-142">Co je SignalR Služba Azure?</span><span class="sxs-lookup"><span data-stu-id="917d3-142">What is Azure SignalR Service?</span></span>](/azure/azure-signalr/signalr-overview)
+> * [<span data-ttu-id="917d3-143">Průvodce výkonem pro SignalR službu Azure</span><span class="sxs-lookup"><span data-stu-id="917d3-143">Performance guide for Azure SignalR Service</span></span>](/azure-signalr/signalr-concept-performance#performance-factors)
 
-   * <span data-ttu-id="c42bb-140">`Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="c42bb-140">`Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="917d3-144">Konfigurace aplikace (a volitelně zřízení) pro SignalR službu Azure:</span><span class="sxs-lookup"><span data-stu-id="917d3-144">To configure an app (and optionally provision) the Azure SignalR Service:</span></span>
+
+1. <span data-ttu-id="917d3-145">Povolte službě podporovat *rychlé relace*, kde se klienti [při předvykreslování přesměrují zpátky na stejný server](xref:blazor/hosting-models#connection-to-the-server).</span><span class="sxs-lookup"><span data-stu-id="917d3-145">Enable the service to support *sticky sessions*, where clients are [redirected back to the same server when prerendering](xref:blazor/hosting-models#connection-to-the-server).</span></span> <span data-ttu-id="917d3-146">Nastavte `ServerStickyMode` možnost nebo hodnotu konfigurace na `Required` .</span><span class="sxs-lookup"><span data-stu-id="917d3-146">Set the `ServerStickyMode` option or configuration value to `Required`.</span></span> <span data-ttu-id="917d3-147">Aplikace obvykle vytváří konfiguraci pomocí **jednoho** z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="917d3-147">Typically, an app creates the configuration using **one** of the following approaches:</span></span>
+
+   * <span data-ttu-id="917d3-148">`Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="917d3-148">`Startup.ConfigureServices`:</span></span>
   
      ```csharp
      services.AddSignalR().AddAzureSignalR(options =>
@@ -79,30 +91,30 @@ ms.locfileid: "88628050"
      });
      ```
 
-   * <span data-ttu-id="c42bb-141">Konfigurace (použijte **jeden** z následujících přístupů):</span><span class="sxs-lookup"><span data-stu-id="c42bb-141">Configuration (use **one** of the following approaches):</span></span>
+   * <span data-ttu-id="917d3-149">Konfigurace (použijte **jeden** z následujících přístupů):</span><span class="sxs-lookup"><span data-stu-id="917d3-149">Configuration (use **one** of the following approaches):</span></span>
   
-     * <span data-ttu-id="c42bb-142">`appsettings.json`:</span><span class="sxs-lookup"><span data-stu-id="c42bb-142">`appsettings.json`:</span></span>
+     * <span data-ttu-id="917d3-150">`appsettings.json`:</span><span class="sxs-lookup"><span data-stu-id="917d3-150">`appsettings.json`:</span></span>
 
        ```json
        "Azure:SignalR:ServerStickyMode": "Required"
        ```
 
-     * <span data-ttu-id="c42bb-143">Nastavení **konfigurační**  >  **aplikace** služby App Service v Azure Portal (**název**: `Azure:SignalR:ServerStickyMode` , **hodnota**: `Required` ).</span><span class="sxs-lookup"><span data-stu-id="c42bb-143">The app service's **Configuration** > **Application settings** in the Azure portal (**Name**: `Azure:SignalR:ServerStickyMode`, **Value**: `Required`).</span></span>
+     * <span data-ttu-id="917d3-151">Nastavení **konfigurační**  >  **aplikace** služby App Service v Azure Portal (**název**: `Azure:SignalR:ServerStickyMode` , **hodnota**: `Required` ).</span><span class="sxs-lookup"><span data-stu-id="917d3-151">The app service's **Configuration** > **Application settings** in the Azure portal (**Name**: `Azure:SignalR:ServerStickyMode`, **Value**: `Required`).</span></span>
 
-1. <span data-ttu-id="c42bb-144">Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro Blazor Server aplikaci.</span><span class="sxs-lookup"><span data-stu-id="c42bb-144">Create an Azure Apps publish profile in Visual Studio for the Blazor Server app.</span></span>
-1. <span data-ttu-id="c42bb-145">Přidejte do profilu závislost \*\* SignalR služby Azure\*\* .</span><span class="sxs-lookup"><span data-stu-id="c42bb-145">Add the **Azure SignalR Service** dependency to the profile.</span></span> <span data-ttu-id="c42bb-146">Pokud předplatné Azure nemá stávající SignalR instanci služby Azure, která se má přiřadit k aplikaci, vyberte **vytvořit novou SignalR instanci služby Azure** a zřídit novou instanci služby.</span><span class="sxs-lookup"><span data-stu-id="c42bb-146">If the Azure subscription doesn't have a pre-existing Azure SignalR Service instance to assign to the app, select **Create a new Azure SignalR Service instance** to provision a new service instance.</span></span>
-1. <span data-ttu-id="c42bb-147">Publikovat aplikaci do Azure</span><span class="sxs-lookup"><span data-stu-id="c42bb-147">Publish the app to Azure.</span></span>
+1. <span data-ttu-id="917d3-152">Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro Blazor Server aplikaci.</span><span class="sxs-lookup"><span data-stu-id="917d3-152">Create an Azure Apps publish profile in Visual Studio for the Blazor Server app.</span></span>
+1. <span data-ttu-id="917d3-153">Přidejte do profilu závislost \*\* SignalR služby Azure\*\* .</span><span class="sxs-lookup"><span data-stu-id="917d3-153">Add the **Azure SignalR Service** dependency to the profile.</span></span> <span data-ttu-id="917d3-154">Pokud předplatné Azure nemá stávající SignalR instanci služby Azure, která se má přiřadit k aplikaci, vyberte **vytvořit novou SignalR instanci služby Azure** a zřídit novou instanci služby.</span><span class="sxs-lookup"><span data-stu-id="917d3-154">If the Azure subscription doesn't have a pre-existing Azure SignalR Service instance to assign to the app, select **Create a new Azure SignalR Service instance** to provision a new service instance.</span></span>
+1. <span data-ttu-id="917d3-155">Publikovat aplikaci do Azure</span><span class="sxs-lookup"><span data-stu-id="917d3-155">Publish the app to Azure.</span></span>
 
-#### <a name="iis"></a><span data-ttu-id="c42bb-148">IIS</span><span class="sxs-lookup"><span data-stu-id="c42bb-148">IIS</span></span>
+#### <a name="iis"></a><span data-ttu-id="917d3-156">IIS</span><span class="sxs-lookup"><span data-stu-id="917d3-156">IIS</span></span>
 
-<span data-ttu-id="c42bb-149">Při použití služby IIS povolte:</span><span class="sxs-lookup"><span data-stu-id="c42bb-149">When using IIS, enable:</span></span>
+<span data-ttu-id="917d3-157">Při použití služby IIS povolte:</span><span class="sxs-lookup"><span data-stu-id="917d3-157">When using IIS, enable:</span></span>
 
-* <span data-ttu-id="c42bb-150">[WebSockets ve službě IIS](xref:fundamentals/websockets#enabling-websockets-on-iis).</span><span class="sxs-lookup"><span data-stu-id="c42bb-150">[WebSockets on IIS](xref:fundamentals/websockets#enabling-websockets-on-iis).</span></span>
-* <span data-ttu-id="c42bb-151">[Rychlé relace s směrováním žádostí o aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)</span><span class="sxs-lookup"><span data-stu-id="c42bb-151">[Sticky sessions with Application Request Routing](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).</span></span>
+* <span data-ttu-id="917d3-158">[WebSockets ve službě IIS](xref:fundamentals/websockets#enabling-websockets-on-iis).</span><span class="sxs-lookup"><span data-stu-id="917d3-158">[WebSockets on IIS](xref:fundamentals/websockets#enabling-websockets-on-iis).</span></span>
+* <span data-ttu-id="917d3-159">[Rychlé relace s směrováním žádostí o aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)</span><span class="sxs-lookup"><span data-stu-id="917d3-159">[Sticky sessions with Application Request Routing](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).</span></span>
 
-#### <a name="kubernetes"></a><span data-ttu-id="c42bb-152">Kubernetes</span><span class="sxs-lookup"><span data-stu-id="c42bb-152">Kubernetes</span></span>
+#### <a name="kubernetes"></a><span data-ttu-id="917d3-160">Kubernetes</span><span class="sxs-lookup"><span data-stu-id="917d3-160">Kubernetes</span></span>
 
-<span data-ttu-id="c42bb-153">Vytvořte definici příchozího přenosu dat s následujícími [Kubernetes poznámkami pro rychlé relace](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/):</span><span class="sxs-lookup"><span data-stu-id="c42bb-153">Create an ingress definition with the following [Kubernetes annotations for sticky sessions](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/):</span></span>
+<span data-ttu-id="917d3-161">Vytvořte definici příchozího přenosu dat s následujícími [Kubernetes poznámkami pro rychlé relace](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/):</span><span class="sxs-lookup"><span data-stu-id="917d3-161">Create an ingress definition with the following [Kubernetes annotations for sticky sessions](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/):</span></span>
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -116,12 +128,12 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-max-age: "14400"
 ```
 
-#### <a name="linux-with-nginx"></a><span data-ttu-id="c42bb-154">Linux na serveru Nginx</span><span class="sxs-lookup"><span data-stu-id="c42bb-154">Linux with Nginx</span></span>
+#### <a name="linux-with-nginx"></a><span data-ttu-id="917d3-162">Linux na serveru Nginx</span><span class="sxs-lookup"><span data-stu-id="917d3-162">Linux with Nginx</span></span>
 
-<span data-ttu-id="c42bb-155">SignalRAby objekty WebSocket fungovaly správně, zkontrolujte, že je proxy `Upgrade` a `Connection` hlavičkový Server nastavené na následující hodnoty a zda jsou `$connection_upgrade` namapovány na jednu z těchto možností:</span><span class="sxs-lookup"><span data-stu-id="c42bb-155">For SignalR WebSockets to function properly, confirm that the proxy's `Upgrade` and `Connection` headers are set to the following values and that `$connection_upgrade` is mapped to either:</span></span>
+<span data-ttu-id="917d3-163">SignalRAby objekty WebSocket fungovaly správně, zkontrolujte, že je proxy `Upgrade` a `Connection` hlavičkový Server nastavené na následující hodnoty a zda jsou `$connection_upgrade` namapovány na jednu z těchto možností:</span><span class="sxs-lookup"><span data-stu-id="917d3-163">For SignalR WebSockets to function properly, confirm that the proxy's `Upgrade` and `Connection` headers are set to the following values and that `$connection_upgrade` is mapped to either:</span></span>
 
-* <span data-ttu-id="c42bb-156">Hodnota hlavičky upgradu je standardně nastavená.</span><span class="sxs-lookup"><span data-stu-id="c42bb-156">The Upgrade header value by default.</span></span>
-* <span data-ttu-id="c42bb-157">`close` Pokud záhlaví upgradu chybí nebo je prázdné.</span><span class="sxs-lookup"><span data-stu-id="c42bb-157">`close` when the Upgrade header is missing or empty.</span></span>
+* <span data-ttu-id="917d3-164">Hodnota hlavičky upgradu je standardně nastavená.</span><span class="sxs-lookup"><span data-stu-id="917d3-164">The Upgrade header value by default.</span></span>
+* <span data-ttu-id="917d3-165">`close` Pokud záhlaví upgradu chybí nebo je prázdné.</span><span class="sxs-lookup"><span data-stu-id="917d3-165">`close` when the Upgrade header is missing or empty.</span></span>
 
 ```
 http {
@@ -147,20 +159,20 @@ http {
 }
 ```
 
-<span data-ttu-id="c42bb-158">Další informace najdete v následujících článcích:</span><span class="sxs-lookup"><span data-stu-id="c42bb-158">For more information, see the following articles:</span></span>
+<span data-ttu-id="917d3-166">Další informace najdete v následujících článcích:</span><span class="sxs-lookup"><span data-stu-id="917d3-166">For more information, see the following articles:</span></span>
 
-* [<span data-ttu-id="c42bb-159">NGINX jako proxy server WebSocket</span><span class="sxs-lookup"><span data-stu-id="c42bb-159">NGINX as a WebSocket Proxy</span></span>](https://www.nginx.com/blog/websocket-nginx/)
-* [<span data-ttu-id="c42bb-160">Proxy server WebSocket</span><span class="sxs-lookup"><span data-stu-id="c42bb-160">WebSocket proxying</span></span>](http://nginx.org/docs/http/websocket.html)
+* [<span data-ttu-id="917d3-167">NGINX jako proxy server WebSocket</span><span class="sxs-lookup"><span data-stu-id="917d3-167">NGINX as a WebSocket Proxy</span></span>](https://www.nginx.com/blog/websocket-nginx/)
+* [<span data-ttu-id="917d3-168">Proxy server WebSocket</span><span class="sxs-lookup"><span data-stu-id="917d3-168">WebSocket proxying</span></span>](http://nginx.org/docs/http/websocket.html)
 * <xref:host-and-deploy/linux-nginx>
 
-## <a name="linux-with-apache"></a><span data-ttu-id="c42bb-161">Linux na serveru Apache</span><span class="sxs-lookup"><span data-stu-id="c42bb-161">Linux with Apache</span></span>
+## <a name="linux-with-apache"></a><span data-ttu-id="917d3-169">Linux na serveru Apache</span><span class="sxs-lookup"><span data-stu-id="917d3-169">Linux with Apache</span></span>
 
-<span data-ttu-id="c42bb-162">Pro hostování Blazor aplikace za Apache v systému Linux nakonfigurujte `ProxyPass` provoz http a WebSockets.</span><span class="sxs-lookup"><span data-stu-id="c42bb-162">To host a Blazor app behind Apache on Linux, configure `ProxyPass` for HTTP and WebSockets traffic.</span></span>
+<span data-ttu-id="917d3-170">Pro hostování Blazor aplikace za Apache v systému Linux nakonfigurujte `ProxyPass` provoz http a WebSockets.</span><span class="sxs-lookup"><span data-stu-id="917d3-170">To host a Blazor app behind Apache on Linux, configure `ProxyPass` for HTTP and WebSockets traffic.</span></span>
 
-<span data-ttu-id="c42bb-163">V následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="c42bb-163">In the following example:</span></span>
+<span data-ttu-id="917d3-171">V následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="917d3-171">In the following example:</span></span>
 
-* <span data-ttu-id="c42bb-164">Na hostitelském počítači je spuštěný Server Kestrel.</span><span class="sxs-lookup"><span data-stu-id="c42bb-164">Kestrel server is running on the host machine.</span></span>
-* <span data-ttu-id="c42bb-165">Aplikace naslouchá provozu na portu 5000.</span><span class="sxs-lookup"><span data-stu-id="c42bb-165">The app listens for traffic on port 5000.</span></span>
+* <span data-ttu-id="917d3-172">Na hostitelském počítači je spuštěný Server Kestrel.</span><span class="sxs-lookup"><span data-stu-id="917d3-172">Kestrel server is running on the host machine.</span></span>
+* <span data-ttu-id="917d3-173">Aplikace naslouchá provozu na portu 5000.</span><span class="sxs-lookup"><span data-stu-id="917d3-173">The app listens for traffic on port 5000.</span></span>
 
 ```
 ProxyRequests       On
@@ -171,26 +183,26 @@ ProxyPass           / http://localhost:5000/
 ProxyPassReverse    / http://localhost:5000/
 ```
 
-<span data-ttu-id="c42bb-166">Povolte následující moduly:</span><span class="sxs-lookup"><span data-stu-id="c42bb-166">Enable the following modules:</span></span>
+<span data-ttu-id="917d3-174">Povolte následující moduly:</span><span class="sxs-lookup"><span data-stu-id="917d3-174">Enable the following modules:</span></span>
 
 ```
 a2enmod   proxy
 a2enmod   proxy_wstunnel
 ```
 
-<span data-ttu-id="c42bb-167">Podívejte se na chyby protokolu WebSocket v konzole prohlížeče.</span><span class="sxs-lookup"><span data-stu-id="c42bb-167">Check the browser console for WebSockets errors.</span></span> <span data-ttu-id="c42bb-168">Příklady chyb:</span><span class="sxs-lookup"><span data-stu-id="c42bb-168">Example errors:</span></span>
+<span data-ttu-id="917d3-175">Podívejte se na chyby protokolu WebSocket v konzole prohlížeče.</span><span class="sxs-lookup"><span data-stu-id="917d3-175">Check the browser console for WebSockets errors.</span></span> <span data-ttu-id="917d3-176">Příklady chyb:</span><span class="sxs-lookup"><span data-stu-id="917d3-176">Example errors:</span></span>
 
-* <span data-ttu-id="c42bb-169">Firefox nemůže navázat připojení k serveru na adrese ws://the-domain-name.tld/_blazor?id=XXX.</span><span class="sxs-lookup"><span data-stu-id="c42bb-169">Firefox can't establish a connection to the server at ws://the-domain-name.tld/_blazor?id=XXX.</span></span>
-* <span data-ttu-id="c42bb-170">Chyba: Nepodařilo se spustit objekty WebSockets transportu: Chyba: došlo k chybě přenosu.</span><span class="sxs-lookup"><span data-stu-id="c42bb-170">Error: Failed to start the transport 'WebSockets': Error: There was an error with the transport.</span></span>
-* <span data-ttu-id="c42bb-171">Chyba: nepovedlo se spustit přenos ' LongPolling ': TypeError: this. Transport není definovaný.</span><span class="sxs-lookup"><span data-stu-id="c42bb-171">Error: Failed to start the transport 'LongPolling': TypeError: this.transport is undefined</span></span>
-* <span data-ttu-id="c42bb-172">Chyba: Nelze se připojit k serveru pomocí žádné z dostupných přenosů.</span><span class="sxs-lookup"><span data-stu-id="c42bb-172">Error: Unable to connect to the server with any of the available transports.</span></span> <span data-ttu-id="c42bb-173">Selhání objektu WebSockets</span><span class="sxs-lookup"><span data-stu-id="c42bb-173">WebSockets failed</span></span>
-* <span data-ttu-id="c42bb-174">Chyba: nelze odeslat data, pokud připojení není ve stavu připojeno.</span><span class="sxs-lookup"><span data-stu-id="c42bb-174">Error: Cannot send data if the connection is not in the 'Connected' State.</span></span>
+* <span data-ttu-id="917d3-177">Firefox nemůže navázat připojení k serveru na adrese ws://the-domain-name.tld/_blazor?id=XXX.</span><span class="sxs-lookup"><span data-stu-id="917d3-177">Firefox can't establish a connection to the server at ws://the-domain-name.tld/_blazor?id=XXX.</span></span>
+* <span data-ttu-id="917d3-178">Chyba: Nepodařilo se spustit objekty WebSockets transportu: Chyba: došlo k chybě přenosu.</span><span class="sxs-lookup"><span data-stu-id="917d3-178">Error: Failed to start the transport 'WebSockets': Error: There was an error with the transport.</span></span>
+* <span data-ttu-id="917d3-179">Chyba: nepovedlo se spustit přenos ' LongPolling ': TypeError: this. Transport není definovaný.</span><span class="sxs-lookup"><span data-stu-id="917d3-179">Error: Failed to start the transport 'LongPolling': TypeError: this.transport is undefined</span></span>
+* <span data-ttu-id="917d3-180">Chyba: Nelze se připojit k serveru pomocí žádné z dostupných přenosů.</span><span class="sxs-lookup"><span data-stu-id="917d3-180">Error: Unable to connect to the server with any of the available transports.</span></span> <span data-ttu-id="917d3-181">Selhání objektu WebSockets</span><span class="sxs-lookup"><span data-stu-id="917d3-181">WebSockets failed</span></span>
+* <span data-ttu-id="917d3-182">Chyba: nelze odeslat data, pokud připojení není ve stavu připojeno.</span><span class="sxs-lookup"><span data-stu-id="917d3-182">Error: Cannot send data if the connection is not in the 'Connected' State.</span></span>
 
-<span data-ttu-id="c42bb-175">Další informace najdete v [dokumentaci k Apache](https://httpd.apache.org/docs/current/mod/mod_proxy.html).</span><span class="sxs-lookup"><span data-stu-id="c42bb-175">For more information, see the [Apache documentation](https://httpd.apache.org/docs/current/mod/mod_proxy.html).</span></span>
+<span data-ttu-id="917d3-183">Další informace najdete v [dokumentaci k Apache](https://httpd.apache.org/docs/current/mod/mod_proxy.html).</span><span class="sxs-lookup"><span data-stu-id="917d3-183">For more information, see the [Apache documentation](https://httpd.apache.org/docs/current/mod/mod_proxy.html).</span></span>
 
-### <a name="measure-network-latency"></a><span data-ttu-id="c42bb-176">Měření latence sítě</span><span class="sxs-lookup"><span data-stu-id="c42bb-176">Measure network latency</span></span>
+### <a name="measure-network-latency"></a><span data-ttu-id="917d3-184">Měření latence sítě</span><span class="sxs-lookup"><span data-stu-id="917d3-184">Measure network latency</span></span>
 
-<span data-ttu-id="c42bb-177">[Zprostředkovatel komunikace js](xref:blazor/call-javascript-from-dotnet) lze použít k měření latence sítě, jak ukazuje následující příklad:</span><span class="sxs-lookup"><span data-stu-id="c42bb-177">[JS interop](xref:blazor/call-javascript-from-dotnet) can be used to measure network latency, as the following example demonstrates:</span></span>
+<span data-ttu-id="917d3-185">[Zprostředkovatel komunikace js](xref:blazor/call-javascript-from-dotnet) lze použít k měření latence sítě, jak ukazuje následující příklad:</span><span class="sxs-lookup"><span data-stu-id="917d3-185">[JS interop](xref:blazor/call-javascript-from-dotnet) can be used to measure network latency, as the following example demonstrates:</span></span>
 
 ```razor
 @inject IJSRuntime JS
@@ -221,4 +233,4 @@ else
 }
 ```
 
-<span data-ttu-id="c42bb-178">Pro přiměřené prostředí uživatelského rozhraní doporučujeme, abyste trvalou latenci uživatelského rozhraní 250ms nebo méně.</span><span class="sxs-lookup"><span data-stu-id="c42bb-178">For a reasonable UI experience, we recommend a sustained UI latency of 250ms or less.</span></span>
+<span data-ttu-id="917d3-186">Pro přiměřené prostředí uživatelského rozhraní doporučujeme, abyste trvalou latenci uživatelského rozhraní 250ms nebo méně.</span><span class="sxs-lookup"><span data-stu-id="917d3-186">For a reasonable UI experience, we recommend a sustained UI latency of 250ms or less.</span></span>
