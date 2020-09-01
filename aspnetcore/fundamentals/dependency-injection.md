@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 98c43eda002abc96fe3c2f031c429ccaa70cee3e
-ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
+ms.openlocfilehash: 2d002e075f9d57654589b540e522307c363d9660
+ms.sourcegitcommit: 4cce99cbd44372fd4575e8da8c0f4345949f4d9a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2020
-ms.locfileid: "89102780"
+ms.lasthandoff: 08/31/2020
+ms.locfileid: "89153542"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -517,7 +517,7 @@ Výrobní metoda samostatné služby, jako je například druhý argument pro [A
   [!code-csharp[](dependency-injection/samples/3.x/AntiPattern3/Startup.cs?name=snippet)]
 
 * Přechodné služby za použití jsou zachyceny kontejnerem k vyřazení. To může způsobit nevracení paměti, pokud je vyřešeno z kontejneru nejvyšší úrovně.
-* Povolte ověřování oboru a ujistěte se, že aplikace nemá oborové služby, které zachycují singleton. Další informace najdete v tématu [ověřování oboru](#scope-validation).
+* Povolte ověřování oboru, abyste se ujistili, že aplikace nemá k dispozici jednoznačné služby, které zachytí obor služeb. Další informace najdete v tématu [ověřování oboru](#scope-validation).
 
 Podobně jako u všech sad doporučení se může stát, že se vyžaduje ignorování doporučení. Výjimky jsou zřídka, většinou zvláštní případy v rámci samotného rozhraní.
 
