@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: 3b41aedcbd0d2c22b20d8fa3a21b8af97d1fbb2c
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d88cad10314872271250cd43212a64698f485381
+ms.sourcegitcommit: 8ed9a413bdc2d665ad11add8828898d726ccb106
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628557"
+ms.lasthandoff: 09/01/2020
+ms.locfileid: "89280397"
 ---
 # <a name="aspnet-core-no-locblazor-data-binding"></a>ASP.NET Core Blazor datové vazby
 
@@ -79,27 +79,7 @@ Navázání vlastnosti nebo pole na jiné události také zahrnutím `@bind:even
 
 Na rozdíl od `onchange` , která je aktivována, když prvek ztratí fokus, `oninput` je aktivována při změně hodnoty textového pole.
 
-Použijte `@bind-{ATTRIBUTE}` s `@bind-{ATTRIBUTE}:event` syntaxí pro svázání atributů elementu jiné než `value` . V následujícím příkladu:
-
-* Styl odstavce je při načtení součásti () **červený** `style="color:red"` .
-* Uživatel změní hodnotu textového pole tak, aby odrážel jiný styl barvy CSS a změnil fokus prvku stránky. Uživatel například změní hodnotu textového pole na a stiskne klávesu `color:blue` <kbd>TAB</kbd> na klávesnici.
-* Když se změní fokus prvku:
-  * Hodnota `paragraphStyle` je přiřazena z `<input>` hodnoty elementu.
-  * Styl odstavce je aktualizován tak, aby odrážel nový styl v `paragraphStyle` . Pokud je styl aktualizován na `color:blue` , změní se barva textu na **modrou**.
-
-```razor
-<p>
-    <input type="text" @bind="paragraphStyle" />
-</p>
-
-<p @bind-style="paragraphStyle" @bind-style:event="onchange">
-    Blazorify the app!
-</p>
-
-@code {
-    private string paragraphStyle = "color:red";
-}
-```
+<!-- Hold location for resolution of https://github.com/dotnet/AspNetCore.Docs/issues/19721 -->
 
 Vazba atributů rozlišuje velká a malá písmena:
 

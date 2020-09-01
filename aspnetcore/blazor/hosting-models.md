@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 53293ae9780129530ce5a41639e19284f47aa245
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a8d2ceaffb670723d7662234f3dc964c864e6763
+ms.sourcegitcommit: 8ed9a413bdc2d665ad11add8828898d726ccb106
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628076"
+ms.lasthandoff: 09/01/2020
+ms.locfileid: "89280423"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 
@@ -84,6 +84,9 @@ Blazor ServerModel hostování nabízí několik výhod:
 * Rozhraní .NET Core na serveru se používá ke spuštění aplikace, takže stávající nástroje .NET, jako je ladění, fungují podle očekávání.
 * Podporují se tenké klienty. Například Blazor Server aplikace pracují s prohlížeči, které nepodporují WebAssembly a na zařízeních s omezením prostředků.
 * Základ kódu pro .NET/C# aplikace, včetně kódu komponenty aplikace, není obsluhován klientům.
+
+> [!IMPORTANT]
+> Blazor ServerAplikace se předem vykreslí jako odpověď na první požadavek klienta, který nastaví stav uživatelského rozhraní na serveru. Když se klient pokusí vytvořit SignalR připojení, klient se **musí znovu připojit ke stejnému serveru**. Blazor Server aplikace, které používají více než jeden back-end Server, by měly implementovat *rychlé relace* pro SignalR připojení. Další informace najdete v části [připojení k serveru](#connection-to-the-server) .
 
 Existuje downsides k Blazor Server hostování:
 
