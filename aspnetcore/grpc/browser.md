@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/browser
-ms.openlocfilehash: fd4cae386b8c9654192cd0c66e095500290c4aa0
-ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
+ms.openlocfilehash: 5c9501b3e7cbdcbb02e3d78d67185a0a75ccba7c
+ms.sourcegitcommit: c9b03d8a6a4dcc59e4aacb30a691f349235a74c8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2020
-ms.locfileid: "89102689"
+ms.lasthandoff: 09/02/2020
+ms.locfileid: "89379403"
 ---
 # <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
@@ -132,7 +132,31 @@ Předcházející kód:
 > [!IMPORTANT]
 > Vygenerované klienty gRPC mají synchronizační a asynchronní metody pro volání unárních metod. Například `SayHello` je synchronizován a `SayHelloAsync` je asynchronní. Volání metody synchronizace v Blazor WebAssembly aplikaci způsobí, že aplikace přestane reagovat. Asynchronní metody musí být vždy použity v Blazor WebAssembly .
 
-## <a name="additional-resources"></a>Další zdroje informací
+### <a name="use-grpc-client-factory-with-grpc-web"></a>Použití klienta gRPC Client Factory s gRPC-Web
+
+.NET Client kompatibilní s gRPC se dají vytvořit pomocí integrace gRPC s [HttpClientFactory](xref:System.Net.Http.IHttpClientFactory).
+
+Použití gRPC-web s klientskou továrnou:
+
+* Přidejte do souboru projektu odkazy balíčků pro následující balíčky:
+  * [Grpc .NET. Client. Web](https://www.nuget.org/packages/Grpc.Net.Client.Web)
+  * [Grpc .NET. ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory)
+* Zaregistrujte klienta gRPC se vkládáním závislostí (DI) pomocí obecné `AddGrpcClient` metody rozšíření. V Blazor WebAssembly aplikaci jsou služby zaregistrované v di v `Program.cs` .
+* Nakonfigurujte `GrpcWebHandler` pomocí <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler%2A> metody rozšíření.
+
+```csharp
+builder.Services
+    .AddGrpcClient<Greet.GreeterClient>((services, options) =>
+    {
+        options.Address = new Uri("https://localhost:5001");
+    })
+    .ConfigurePrimaryHttpMessageHandler(
+        () => new GrpcWebHandler(GrpcWebMode.GrpcWebText, new HttpClientHandler()));
+```
+
+Další informace naleznete v tématu <xref:grpc/clientfactory>.
+
+## <a name="additional-resources"></a>Další zdroje
 
 * [gRPC pro webového klienta GitHub Project](https://github.com/grpc/grpc-web)
 * <xref:security/cors>

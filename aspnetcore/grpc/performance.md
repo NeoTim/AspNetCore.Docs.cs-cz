@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/performance
-ms.openlocfilehash: 7d4d5732e6edb0d0a156fdcec5f59cc09a69d7de
-ms.sourcegitcommit: 111b4e451da2e275fb074cde5d8a84b26a81937d
+ms.openlocfilehash: a0a1a6901e07fb0074ca403870378f267d3d4403
+ms.sourcegitcommit: c9b03d8a6a4dcc59e4aacb30a691f349235a74c8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2020
-ms.locfileid: "89040876"
+ms.lasthandoff: 09/02/2020
+ms.locfileid: "89379442"
 ---
 # <a name="performance-best-practices-with-grpc"></a>Osvědčené postupy pro výkon s gRPC
 
@@ -48,6 +48,8 @@ Kanály jsou bezpečné pro sdílení a opakované použití mezi gRPC voláním
 * Z kanálu, včetně různých typů klientů, lze vytvořit více klientů gRPC.
 * Kanál a klienti vytvořené z kanálu můžou být bezpečně využívány více vlákny.
 * Klienti vytvoření z kanálu můžou provádět víc souběžných volání.
+
+gRPC Client Factory nabízí centralizovaný způsob konfigurace kanálů. Automaticky znovu použije základní kanály. Další informace naleznete v tématu <xref:grpc/clientfactory>.
 
 ## <a name="connection-concurrency"></a>Souběžnost připojení
 
@@ -94,8 +96,8 @@ Vzhledem k tomu, že nástroje pro vyrovnávání zatížení L4 provozují na �
 
 Existují dvě možnosti efektivního vyrovnávání zatížení gRPC:
 
-1. Vyrovnávání zatížení na straně klienta
-2. Vyrovnávání zatížení serveru L7 (aplikace)
+* Vyrovnávání zatížení na straně klienta
+* Vyrovnávání zatížení serveru L7 (aplikace)
 
 > [!NOTE]
 > Mezi koncovými body lze vyrovnávat zatížení pouze volání gRPC. Po navázání volání streamování gRPC budou všechny zprávy odesílané přes Stream přejít do jednoho koncového bodu.
@@ -114,17 +116,11 @@ Server proxy pro L7 (aplikace) funguje na vyšší úrovni než proxy L4 (Transp
 
 K dispozici je mnoho serverů proxy L7. Mezi tyto možnosti patří:
 
-1. Proxy [zástupné](https://www.envoyproxy.io/) – oblíbený Open Source proxy
-2. [Linkerová](https://linkerd.io/) mřížka-služby pro Kubernetes.
-2. [YARP: reverzní proxy](https://microsoft.github.io/reverse-proxy/) – náhled Open Source proxy serveru napsaný v .NET
+* [Zástupné](https://www.envoyproxy.io/) – oblíbený Open Source proxy.
+* [Linkerová](https://linkerd.io/) mřížka-služby pro Kubernetes.
+* [YARP: reverzní proxy](https://microsoft.github.io/reverse-proxy/) – náhled Open Source proxy serveru napsaný v .NET
 
 ::: moniker range=">= aspnetcore-5.0"
-
-## <a name="inter-process-communication"></a>Komunikace mezi procesy
-
-gRPC volání mezi klientem a službou se obvykle odesílají přes sokety TCP. Protokol TCP je ideální pro komunikaci přes síť, ale [komunikace mezi procesy (IPC)](https://wikipedia.org/wiki/Inter-process_communication) je efektivnější, pokud je klient a služba ve stejném počítači.
-
-Pro volání gRPC mezi procesy ve stejném počítači zvažte použití přenosu, jako jsou například doménové sokety systému UNIX nebo pojmenované kanály. Další informace naleznete v tématu <xref:grpc/interprocess>.
 
 ## <a name="keep-alive-pings"></a>Příkazy pro udržování otevřených připojení
 

@@ -4,7 +4,7 @@ author: scottaddie
 description: Naučte se optimalizovat statické prostředky ve ASP.NET Core webové aplikaci, a to pomocí metod sdružování a minifikace.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/23/2020
+ms.date: 09/02/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 84123464e8f01f8a3caa65035b3174cc04aea7cf
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: f696df0b421e5aab6f50cfaec3ca8edac894cea9
+ms.sourcegitcommit: c9b03d8a6a4dcc59e4aacb30a691f349235a74c8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625853"
+ms.lasthandoff: 09/02/2020
+ms.locfileid: "89379390"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Statické prostředky sady prostředků a minimalizuje v ASP.NET Core
 
@@ -77,6 +77,9 @@ Prohlížeče jsou poměrně podrobné, s ohledem na hlavičky požadavků HTTP.
 RazorŠablony projektů MVC a stránky poskytují řešení pro sdružování a minifikace, které se skládají z konfiguračního souboru JSON. Nástroje třetích stran, jako je třeba Spouštěč úloh [grunt](xref:client-side/using-grunt) , provádějí stejné úlohy s větší složitou složitostí. Nástroj třetí strany je skvěle vhodný, když váš vývojový pracovní postup vyžaduje zpracování mimo sdružování a minifikace, jako &mdash; je linting a optimalizace obrázků. Když použijete sdružování a minifikace v době návrhu, vytvoří se soubory minifikovaného před nasazením aplikace. Sdružování a minifikace před nasazením přináší výhodu omezeného zatížení serveru. Je ale důležité pochopit, že sdružování v době návrhu a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.
 
 ## <a name="configure-bundling-and-minification"></a>Konfigurace sdružování a minifikace
+
+> [!NOTE]
+> Aby to fungovalo, musí se do projektu přidat balíček NuGet [BuildBundlerMinifier](https://www.nuget.org/packages/BuildBundlerMinifier) .
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -214,7 +217,7 @@ V tomto příkladu všechny úlohy, které jsou definovány v rámci cílového 
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Použití nástroje Grunt](xref:client-side/using-grunt)
 * [Používání více prostředí](xref:fundamentals/environments)

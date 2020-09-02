@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: b25113f8e2132c06e06d53a25e71ed2a42deb00f
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 4683f106b3372a2f14f289b39c8a0b8b6c8b5aa1
+ms.sourcegitcommit: c9b03d8a6a4dcc59e4aacb30a691f349235a74c8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88629701"
+ms.lasthandoff: 09/02/2020
+ms.locfileid: "89379364"
 ---
 # <a name="part-10-examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>Část 10, Projděte si metody Details a DELETE aplikace ASP.NET Core.
 
@@ -64,7 +64,7 @@ public async Task<IActionResult> Delete(int id, bool notUsed)
 
 ### <a name="publish-to-azure"></a>Publikování do Azure
 
-Informace o nasazení do Azure najdete v tématu [kurz: sestavení webové aplikace .NET Core a SQL Database v Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb).
+Informace o nasazení do Azure najdete v tématu [kurz: sestavení aplikace ASP.NET Core a SQL Database v Azure App Service](/azure/app-service/tutorial-dotnetcore-sqldb-app).
 
 > [!div class="step-by-step"]
 > [Předchozí](validation.md)
