@@ -720,8 +720,6 @@
       uid: grpc/clientfactory
     - name: Použití gRPC v prohlížečových aplikacích
       uid: grpc/browser
-    - name: Komunikace mezi procesy pomocí služby gRPC
-      uid: grpc/interprocess
     - name: Vytváření webových rozhraní API JSON z gRPC
       uid: grpc/httpapi
     - name: Konfigurace
@@ -968,7 +966,7 @@
   items:
     - name: Přehled
       uid: security/index
-    - name: Ověřování
+    - name: Authentication
       items:
         - name: Přehled
           uid: security/authentication/index
