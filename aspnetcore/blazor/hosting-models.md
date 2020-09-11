@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: a8d2ceaffb670723d7662234f3dc964c864e6763
-ms.sourcegitcommit: 8ed9a413bdc2d665ad11add8828898d726ccb106
+ms.openlocfilehash: 0830214029d59d0820ed3c5806267c766314c74f
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/01/2020
-ms.locfileid: "89280423"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009671"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 
@@ -41,7 +41,7 @@ K vytvoření Blazor aplikace pomocí modelu hostování na straně klienta pou�
 
 Po výběru šablony ** Blazor WebAssembly aplikace** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core Hosted** ( [`dotnet new blazorwasm --hosted`](/dotnet/core/tools/dotnet-new) ). Aplikace ASP.NET Core zachovává Blazor aplikaci klientům. Aplikace s ASP.NET Core back-end se nazývá *hostovaná Blazor WebAssembly aplikace*. Blazor WebAssemblyAplikace může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo [SignalR](xref:signalr/introduction) ( <xref:tutorials/signalr-blazor-webassembly> ).
 
-Šablony obsahují `blazor.webassembly.js` skript, který zpracovává:
+`blazor.webassembly.js`Skript je poskytován architekturou a popisovači:
 
 * Stažení modulu runtime .NET, aplikace a závislostí aplikace.
 * Inicializace modulu runtime pro spuštění aplikace.
@@ -75,7 +75,7 @@ Aplikace ASP.NET Core odkazuje na `Startup` třídu aplikace, která se má při
 * Služby na straně serveru.
 * Aplikace do kanálu pro zpracování požadavků.
 
-`blazor.server.js`Skript vytvoří připojení klienta. Je zodpovědností aplikace zachovat a obnovit stav aplikace podle potřeby (například v případě ztraceného síťového připojení). `blazor.server.js`Skript se obsluhuje z vloženého prostředku ve ASP.NET Core sdíleném rozhraní.
+V klientovi `blazor.server.js` skript naváže SignalR spojení se serverem. Skript se obsluhuje do aplikace na straně klienta z vloženého prostředku ve ASP.NET Core sdíleném rozhraní. Aplikace na straně klienta zodpovídá za zachování a obnovení stavu aplikace podle potřeby. 
 
 Blazor ServerModel hostování nabízí několik výhod:
 

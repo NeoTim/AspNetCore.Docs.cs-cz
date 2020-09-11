@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: 6f092f3f9a18883c31b217b59d0b0abe802aff01
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 870509a3cbbcbea9b1c4804185c49a831af22630
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628297"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009632"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
 
@@ -128,20 +128,62 @@ Blazor Server aplikace se ve výchozím nastavení nastavují tak, aby se před 
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-## <a name="configure-the-no-locsignalr-client-for-no-locblazor-server-apps"></a>Konfigurace SignalR klienta pro Blazor Server aplikace
+## <a name="initialize-the-no-locblazor-circuit"></a>Inicializovat Blazor okruh
 
 *Tato část se týká Blazor Server .*
 
-Nakonfigurujte SignalR klienta používaného Blazor Server aplikacemi v `Pages/_Host.cshtml` souboru. Umístěte skript, který volá `Blazor.start` za `_framework/blazor.server.js` skript a dovnitř `</body>` značky.
-
-### <a name="logging"></a>Protokolování
-
-Konfigurace SignalR protokolování klienta:
+Konfigurace ručního spuštění Blazor Server [ SignalR okruhu](xref:blazor/hosting-models#circuits) aplikace v `Pages/_Host.cshtml` souboru:
 
 * Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
-* Předejte objekt konfigurace ( `configureSignalR` ), který se zavolá na `configureLogging` úrovni protokolu v Tvůrci klienta.
+* Umístěte skript, který volá `Blazor.start` za `blazor.server.js` značku skriptu a uvnitř uzavírací `</body>` značky.
+
+Pokud `autostart` je zakázaný, všechny aspekty aplikace, které nezávisí na okruhu, fungují normálně. Například směrování na straně klienta je funkční. Nicméně jakýkoliv aspekt, který závisí na okruhu, není funkční, dokud `Blazor.start` se nevolá. Chování aplikace je nepředvídatelné bez vytvořeného okruhu. Například metody komponenty se nedaří spustit, pokud je okruh odpojen.
+
+### <a name="initialize-no-locblazor-when-the-document-is-ready"></a>Inicializovat Blazor při přípravě dokumentu
+
+Inicializace aplikace, Blazor když je dokument připravený:
 
 ```cshtml
+<body>
+
+    ...
+
+    <script autostart="false" src="_framework/blazor.server.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        Blazor.start();
+      });
+    </script>
+</body>
+```
+
+### <a name="chain-to-the-promise-that-results-from-a-manual-start"></a>Řetězení k `Promise` , které je výsledkem ručního spuštění
+
+Chcete-li provést další úkoly, jako je například Inicializace zprostředkovatele spolupráce v JS, použijte příkaz `then` k zřetězení s `Promise` výsledkem ručního Blazor spuštění aplikace:
+
+```cshtml
+<body>
+
+    ...
+
+    <script autostart="false" src="_framework/blazor.server.js"></script>
+    <script>
+      Blazor.start().then(function () {
+        ...
+      });
+    </script>
+</body>
+```
+
+### <a name="configure-the-no-locsignalr-client"></a>Konfigurace SignalR klienta
+
+#### <a name="logging"></a>Protokolování
+
+Pokud chcete nakonfigurovat SignalR protokolování klienta, předejte do konfiguračního objektu ( `configureSignalR` ), který se zavolá na `configureLogging` úrovni protokolu na tvůrci klienta:
+
+```cshtml
+<body>
+
     ...
 
     <script autostart="false" src="_framework/blazor.server.js"></script>
@@ -164,12 +206,16 @@ Události připojení okruhu obslužné rutiny opětovného připojení lze upra
 * Upozorní uživatele, pokud bylo připojení vyřazeno.
 * K provedení protokolování (z klienta) při připojení okruhu.
 
-Postup úpravy událostí připojení:
+Chcete-li upravit události připojení, zaregistrujte zpětná volání pro následující změny připojení:
 
-* Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
-* Zaregistrujte zpětná volání pro změny připojení pro Vyřazená připojení ( `onConnectionDown` ) a zavedená nebo znovu vytvořená připojení ( `onConnectionUp` ). **Oba směry** `onConnectionDown` `onConnectionUp` musí být zadáno.
+* Byla přerušena použití připojení `onConnectionDown` .
+* Navázalo se opakované použití připojení `onConnectionUp` .
+
+**Oba směry** `onConnectionDown` `onConnectionUp` musí být zadány:
 
 ```cshtml
+<body>
+
     ...
 
     <script autostart="false" src="_framework/blazor.server.js"></script>
@@ -186,12 +232,11 @@ Postup úpravy událostí připojení:
 
 ### <a name="adjust-the-reconnection-retry-count-and-interval"></a>Upravit počet a interval opakování připojení
 
-Postup úpravy počtu opakování připojení a intervalu:
-
-* Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
-* Nastavte počet opakování ( `maxRetries` ) a dobu v milisekundách povolenou pro každý pokus o opakování ( `retryIntervalMilliseconds` ).
+Pokud chcete upravit počet a interval opakování připojení, nastavte počet opakování ( `maxRetries` ) a dobu v milisekundách povolenou pro každý pokus o opakování ( `retryIntervalMilliseconds` ):
 
 ```cshtml
+<body>
+
     ...
 
     <script autostart="false" src="_framework/blazor.server.js"></script>
@@ -206,14 +251,13 @@ Postup úpravy počtu opakování připojení a intervalu:
 </body>
 ```
 
-### <a name="hide-or-replace-the-reconnection-display"></a>Skrýt nebo nahradit zobrazení opětovného připojení
+## <a name="hide-or-replace-the-reconnection-display"></a>Skrýt nebo nahradit zobrazení opětovného připojení
 
-Skrytí zobrazení opětovného připojení:
-
-* Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
-* Nastavte popisovač opětovného připojení `_reconnectionDisplay` na prázdný objekt ( `{}` nebo `new Object()` ).
+Chcete-li skrýt zobrazení opětovného připojení, nastavte popisovač opětovného připojení `_reconnectionDisplay` na prázdný objekt ( `{}` nebo `new Object()` ):
 
 ```cshtml
+<body>
+
     ...
 
     <script autostart="false" src="_framework/blazor.server.js"></script>
@@ -221,6 +265,8 @@ Skrytí zobrazení opětovného připojení:
       window.addEventListener('beforeunload', function () {
         Blazor.defaultReconnectionHandler._reconnectionDisplay = {};
       });
+
+      Blazor.start();
     </script>
 </body>
 ```
@@ -233,6 +279,18 @@ Blazor.defaultReconnectionHandler._reconnectionDisplay =
 ```
 
 Zástupný symbol `{ELEMENT ID}` je ID prvku HTML, který se má zobrazit.
+
+::: moniker range=">= aspnetcore-5.0"
+
+Přizpůsobte zpoždění před tím, než se zobrazí zobrazení opětovného připojení nastavením `transition-delay` vlastnosti v CSS ( `wwwroot/css/site.css` ) aplikace pro modální prvek. Následující příklad nastaví zpoždění přechodu z 500 ms (výchozí) na 1 000 ms (1 sekunda):
+
+```css
+#components-reconnect-modal {
+    transition: visibility 0s linear 1000ms;
+}
+```
+
+::: moniker-end
 
 ## <a name="influence-html-head-tag-elements"></a>Ovlivnění `<head>` elementů značek HTML
 

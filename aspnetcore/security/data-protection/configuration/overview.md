@@ -4,7 +4,7 @@ author: rick-anderson
 description: Přečtěte si, jak nakonfigurovat ochranu dat v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 09/04/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: aa7f6f3c1ff8042bd11bba485a2d7b8aaa6ef88a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 72aa7c210bdff2729be3dabe7a630e578334aef9
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626711"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009710"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany ASP.NET Core dat
 
@@ -42,8 +42,8 @@ V těchto scénářích nabízí systém ochrany dat bohatá rozhraní API pro k
 
 Pro rozšíření ochrany dat používané v tomto článku jsou vyžadovány následující balíčky NuGet:
 
-* [Microsoft. AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/)
-* [Microsoft. AspNetCore. DataProtection. AzureKeyVault](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureKeyVault/)
+* [Azure. Extensions. AspNetCore. DataProtection. BLOBs](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Blobs)
+* [Azure. Extensions. AspNetCore. DataProtection. Keys](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Keys)
 
 ::: moniker-end
 
@@ -51,7 +51,7 @@ Pro rozšíření ochrany dat používané v tomto článku jsou vyžadovány n�
 
 ## <a name="protectkeyswithazurekeyvault"></a>ProtectKeysWithAzureKeyVault
 
-Pokud chcete ukládat klíče v [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), nakonfigurujte systém pomocí [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) ve `Startup` třídě:
+Chcete-li ukládat klíče v [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), nakonfigurujte systém pomocí [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) ve `Startup` třídě. `blobUriWithSasToken` je úplný identifikátor URI, kde by měl být soubor klíče uložen. Identifikátor URI musí obsahovat token SAS jako parametr řetězce dotazu:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -72,7 +72,14 @@ Nastavte umístění úložiště Key Ring (například [PersistKeysToAzureBlobS
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, String, String, X509Certificate2)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_Security_Cryptography_X509Certificates_X509Certificate2_) umožňuje použití `ClientId` a [certifikátu x509](/dotnet/api/system.security.cryptography.x509certificates.x509certificate2) k tomu, aby systém ochrany dat mohl používat Trezor klíčů.
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, String, String, String)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_String_) povolí použití `ClientId` a `ClientSecret` k povolení systému ochrany dat pro použití trezoru klíčů.
 
-Pokud k ukládání a ochraně klíčů používáte kombinaci trezoru klíčů a úložiště Azure, `System.UriFormatException` bude vyvolána výjimka, pokud objekt blob, ve kterém klíče uložíte, ještě neexistuje. To lze ručně vytvořit před spuštěním aplikace nebo je `.ProtectKeysWithAzureKeyVault()` lze odebrat pro první spuštění pro vytvoření objektu BLOB a následně při jeho přidání do následujících spuštění. Doporučujeme `.ProtectKeysWithAzureKeyVault()` , abyste se ujistili, že je soubor vytvořený pomocí správného schématu a hodnot na místě.
+Pokud aplikace používá předchozí balíčky Azure ( [`Microsoft.AspNetCore.DataProtection.AzureStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage) a [`Microsoft.AspNetCore.DataProtection.AzureKeyVault`](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureKeyVault) ) a kombinaci Azure Key Vault a Azure Storage k ukládání a ochraně klíčů, <xref:System.UriFormatException?displayProperty=nameWithType> je vyvolána, pokud objekt BLOB pro úložiště klíčů neexistuje. Objekt BLOB se dá ručně vytvořit před spuštěním aplikace ve Azure Portal, nebo použijte následující postup:
+
+1. Odeberte volání `ProtectKeysWithAzureKeyVault` pro, aby se vytvořil objekt blob na místě pro první spuštění.
+1. Přidejte volání do `ProtectKeysWithAzureKeyVault` pro následné spuštění.
+
+Odebrání `ProtectKeysWithAzureKeyVault` pro první spuštění je doporučeno, protože zajišťuje, že se soubor vytvoří se správným schématem a hodnotami, které jsou na místě. 
+
+Doporučujeme upgradovat na balíčky [Azure. Extensions. AspNetCore. DataProtection. BLOBs](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Blobs) a [Azure. Extensions. AspNetCore. DataProtection. Keys](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Keys) , protože rozhraní API, které poskytuje, automaticky vytvoří objekt blob, pokud neexistuje.
 
 ```csharp
 var storageAccount = CloudStorageAccount.Parse("<storage account connection string">);

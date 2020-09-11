@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 117c777dc9ae1b8c6448f097132454b714a1b5dc
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: bc968489a35405c1be0a4ac2e52e6dff4c3af050
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632158"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009736"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Řešení potíží s ASP.NET Core v Azure App Service a IIS
 
@@ -167,7 +167,7 @@ Chcete-li tuto chybu opravit, opravte instalaci [hostující sady .NET Core](xre
 
 ### <a name="50037-ancm-failed-to-start-within-startup-time-limit"></a>500,37 ANCM se nepodařilo spustit v časovém limitu spuštění.
 
-ANCM se nepovedlo spustit v rámci časového limitu spuštění nechte. Ve výchozím nastavení je časový limit 120 sekund.
+ANCM se nepovedlo spustit v zadaném časovém limitu spuštění. Ve výchozím nastavení je časový limit 120 sekund.
 
 K této chybě může dojít, když ve stejném počítači spustíte velký počet aplikací. Kontrolovat špičky využití procesoru a paměti na serveru při spuštění. Možná budete muset rozložit proces spouštění více aplikací.
 

@@ -5,7 +5,7 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/14/2020
+ms.date: 09/02/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: eb9e3cbddd2eaca8fef9a6782c28bbce4c029f58
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: fe67ebfefb463ab698e5ff1bb7d9b527a28a596e
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865322"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009580"
 ---
 # <a name="aspnet-core-no-locblazor-routing"></a>BlazorSměrování ASP.NET Core
 
@@ -161,16 +161,35 @@ K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení t
 
 ### <a name="routing-with-urls-that-contain-dots"></a>Směrování s adresami URL, které obsahují tečky
 
-V Blazor Server části aplikace je výchozí trasa v `_Host.cshtml` `/` : ( `@page "/"` ). Adresa URL požadavku, která obsahuje tečku ( `.` ), není shodná s výchozí cestou, protože adresa URL se zobrazí pro vyžádání souboru. BlazorAplikace vrátí odpověď na *404, která nebyla nalezena* pro statický soubor, který neexistuje. Pokud chcete použít trasy, které obsahují tečku, nakonfigurujte `_Host.cshtml` ji pomocí následující šablony trasy:
+U hostovaných Blazor WebAssembly a Blazor Server aplikací předpokládá šablona výchozí trasy na straně serveru, že pokud poslední segment adresy URL požadavku obsahuje tečku ( `.` ), kterou soubor požaduje (například `https://localhost.com:5001/example/some.thing` ). Bez další konfigurace aplikace vrátí odpověď na 404, která *nebyla nalezena* , pokud by to bylo určeno pro směrování do komponenty. Aby bylo možné použít trasu s jedním nebo více parametry, které obsahují tečku, musí aplikace nakonfigurovat trasu s vlastní šablonou.
 
-```cshtml
-@page "/{**path}"
+Vezměte v úvahu následující `Example` součást, která může přijmout parametr trasy z posledního segmentu adresy URL:
+
+```razor
+@page "/example"
+@page "/example/{param}"
+
+<p>
+    Param: @Param
+</p>
+
+@code {
+    [Parameter]
+    public string Param { get; set; }
+}
 ```
 
-`"/{**path}"`Šablona obsahuje:
+Chcete-li aplikaci *serveru* hostovaného Blazor WebAssembly řešení povolit směrování požadavku s tečkou v `param` parametru, přidejte šablonu trasy záložního souboru s volitelným parametrem v `Startup.Configure` ( `Startup.cs` ):
 
-* Dvojitá hvězdička *– veškerá* syntaxe ( `**` ) pro zachycení cesty mezi více hranicemi složek bez dekódování lomítka ( `/` ).
-* `path` název parametru trasy.
+```csharp
+endpoints.MapFallbackToFile("/example/{param?}", "index.html");
+```
+
+Pokud chcete Blazor Server aplikaci nakonfigurovat tak, aby směrovala požadavek s tečkou v `param` parametru, přidejte šablonu trasy záložní stránky s volitelným parametrem v `Startup.Configure` ( `Startup.cs` ):
+
+```csharp
+endpoints.MapFallbackToPage("/example/{param?}", "/_Host");
+```
 
 Další informace naleznete v tématu <xref:fundamentals/routing>.
 

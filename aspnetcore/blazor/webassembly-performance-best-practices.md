@@ -5,7 +5,7 @@ description: Tipy pro zvýšení výkonu v Blazor WebAssembly aplikacích ASP.NE
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/25/2020
+ms.date: 09/09/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 819947be90e7f09c7ba853df1af1f3c7066c0219
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 91d0eb7b4910d1cf19b179372546afa63cd3f9c1
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625814"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009593"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a>Blazor WebAssemblyOsvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -171,6 +171,19 @@ Blazor WebAssemblymodul runtime obsahuje následující funkce .NET, které je m
   </PropertyGroup>
   ```
 
+::: moniker range=">= aspnetcore-5.0"
+
+* Ve výchozím nastavení obsahuje Blazor WebAssembly prostředky globalizace vyžadované k zobrazení hodnot, jako jsou například data a měna, v jazykové verzi uživatele. Pokud aplikace nevyžaduje lokalizaci, můžete aplikaci nakonfigurovat tak, aby podporovala invariantní jazykovou verzi, která je založena na `en-US` jazykové verzi:
+
+  ```xml
+  <PropertyGroup>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  ```
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 * K zajištění správného fungování rozhraní API, jako je například práce, jsou zahrnuty informace o kolaci <xref:System.StringComparison.InvariantCultureIgnoreCase?displayProperty=nameWithType> . Pokud jste si jisti, že aplikace nevyžaduje data kolace, zvažte její zakázání nastavením `BlazorWebAssemblyPreserveCollationData` vlastnosti MSBuild v souboru projektu aplikace na `false` :
 
   ```xml
@@ -178,3 +191,5 @@ Blazor WebAssemblymodul runtime obsahuje následující funkce .NET, které je m
     <BlazorWebAssemblyPreserveCollationData>false</BlazorWebAssemblyPreserveCollationData>
   </PropertyGroup>
   ```
+
+::: moniker-end

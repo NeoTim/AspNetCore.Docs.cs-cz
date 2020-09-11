@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 26e8239634c3edb99c7606ab2e250c69af4e746f
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: be1584e72fc1504ac9f8ca10a6b084c95a579b5b
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865288"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009619"
 ---
 # <a name="create-and-use-aspnet-core-no-locrazor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
@@ -84,7 +84,7 @@ Po prvním vykreslení komponenty vygeneruje komponenta znovu svůj strom vykres
 
 Komponenty jsou běžné třídy jazyka C# a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, se obvykle nacházejí ve `Pages` složce. Komponenty mimo stránku jsou často umístěny do `Shared` složky nebo vlastní složky přidané do projektu.
 
-### <a name="namespaces"></a>Obory názvů
+### <a name="namespaces"></a>Jmenné prostory
 
 Obor názvů komponenty obvykle je odvozen z kořenového oboru názvů aplikace a umístění komponenty (složka) v rámci aplikace. Pokud je kořenový obor názvů aplikace `BlazorSample` a součást se nachází `Counter` ve `Pages` složce:
 
@@ -266,7 +266,7 @@ V následujícím příkladu z ukázkové aplikace `ParentComponent` nastaví ho
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=5-6)]
 
 > [!WARNING]
-> Nevytvářejte komponenty, které zapisují do vlastních *parametrů komponenty* , když je obsah komponenty vykreslen pomocí <xref:Microsoft.AspNetCore.Components.RenderFragment> , použijte místo toho soukromé pole. Další informace najdete v části [přepsané parametry `RenderFragment` ](#overwritten-parameters-with-renderfragment) v oddílu.
+> Nevytvářejte komponenty, které zapisují do vlastních *parametrů komponenty*, místo toho použijte soukromé pole. Další informace najdete v části [přepsané parametry](#overwritten-parameters) .
 
 ## <a name="child-content"></a>Podřízený obsah
 
@@ -625,14 +625,9 @@ Obecně dává smysl pro zadání jednoho z následujících typů hodnot pro [`
 
 Zajistěte, aby hodnoty použité pro [`@key`][5] nekolidovat. Pokud jsou v rámci stejného nadřazeného prvku zjištěny hodnoty konfliktu, Blazor vyvolá výjimku, protože nemůže deterministické namapovat staré prvky nebo součásti na nové prvky nebo komponenty. Používejte pouze jedinečné hodnoty, například instance objektů nebo hodnoty primárního klíče.
 
-## <a name="overwritten-parameters-with-renderfragment"></a>Přepsání parametrů s `RenderFragment`
+## <a name="overwritten-parameters"></a>Přepsatelné parametry
 
-Parametry jsou přepsány za následující podmínky:
-
-* Obsah podřízené komponenty je vykreslen pomocí <xref:Microsoft.AspNetCore.Components.RenderFragment> .
-* <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> je volána v nadřazené komponentě.
-
-Parametry jsou resetovány, protože nadřazená komponenta je znovu vygenerována <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> , když je volána, a podřízené součásti jsou zadány nové hodnoty parametrů.
+Jsou zadány nové hodnoty parametrů, obvykle přepíší existující, když se nadřazená komponenta znovu vykreslí.
 
 Vezměte v úvahu následující `Expander` komponentu:
 
@@ -853,7 +848,7 @@ Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů
 
 Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg>` značku umístíte přímo do souboru komponenty ( `.razor` ), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů ještě není podporováno. Například `<use>` značky nejsou aktuálně dodržovány a [`@bind`][10] nelze je použít s některými značkami SVG. Další informace naleznete v tématu [Podpora SVG in Blazor (dotnet/aspnetcore #18271)](https://github.com/dotnet/aspnetcore/issues/18271).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:blazor/security/server/threat-mitigation>: Obsahuje pokyny pro vytváření Blazor Server aplikací, které se musí soupeří s vyčerpáním prostředků.
 

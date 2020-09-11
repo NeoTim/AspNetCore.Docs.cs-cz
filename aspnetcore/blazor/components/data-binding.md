@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: d88cad10314872271250cd43212a64698f485381
-ms.sourcegitcommit: 8ed9a413bdc2d665ad11add8828898d726ccb106
+ms.openlocfilehash: eef08d8236241d2930a1a1a45ca0181669f2432c
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/01/2020
-ms.locfileid: "89280397"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009645"
 ---
 # <a name="aspnet-core-no-locblazor-data-binding"></a>ASP.NET Core Blazor datové vazby
 
@@ -145,37 +145,22 @@ Zadání formátu pro `date` Typ pole se nedoporučuje, protože Blazor má vest
 
 Parametry součásti umožňují svázat vlastnosti a pole nadřazené komponenty se `@bind-{PROPERTY OR FIELD}` syntaxí.
 
-Následující `Child` součást ( `Child.razor` ) má `Year` parametr komponenty a `YearChanged` zpětné volání:
+Následující `Child` součást ( `Shared/Child.razor` ) má `Year` parametr komponenty a `YearChanged` zpětné volání:
 
 ```razor
 <div class="card bg-light mt-3" style="width:18rem ">
     <div class="card-body">
         <h3 class="card-title">Child Component</h3>
         <p class="card-text">Child <code>Year</code>: @Year</p>
-        <p>
-            <button @onclick="UpdateYear">
-                Update Child <code>Year</code> and call 
-                <code>YearChanged.InvokeAsync(Year)</code>
-            </button>
-        </p>
     </div>
 </div>
 
 @code {
-    private Random r = new Random();
-
     [Parameter]
     public int Year { get; set; }
 
     [Parameter]
     public EventCallback<int> YearChanged { get; set; }
-
-    private Task UpdateYear()
-    {
-        Year = r.Next(10050, 12021);
-
-        return YearChanged.InvokeAsync(Year);
-    }
 }
 ```
 
@@ -196,7 +181,7 @@ V následující `Parent` součásti ( `Parent.razor` ) `year` je pole svázáno
 
 @code {
     private Random r = new Random();
-    private int year = 1978;
+    private int year = 1979;
 
     private void UpdateYear()
     {
@@ -221,19 +206,19 @@ Zřetězenou BIND nelze implementovat s [`@bind`](xref:mvc/views/razor#bind) syn
 
 Následující `PasswordField` součást ( `PasswordField.razor` ):
 
-* Nastaví `<input>` hodnotu elementu na `Password` vlastnost.
-* Zpřístupňuje změny `Password` vlastnosti nadřazené komponentě pomocí [`EventCallback`](xref:blazor/components/event-handling#eventcallback) .
+* Nastaví `<input>` hodnotu prvku na `password` pole.
+* Zpřístupňuje změny `Password` vlastnosti nadřazené komponentě [`EventCallback`](xref:blazor/components/event-handling#eventcallback) , která se předává do aktuální hodnoty `password` pole dítěte jako argument.
 * Používá `onclick` událost k aktivaci `ToggleShowPassword` metody. Další informace naleznete v tématu <xref:blazor/components/event-handling>.
 
 ```razor
-<h1>Child Component</h1>
+<h1>Provide your password</h1>
 
 Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
        type="@(showPassword ? "text" : "password")" 
-       value="@Password" />
+       value="@password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
     Show password
@@ -241,6 +226,7 @@ Password:
 
 @code {
     private bool showPassword;
+    private string password;
 
     [Parameter]
     public string Password { get; set; }
@@ -250,9 +236,9 @@ Password:
 
     private Task OnPasswordChanged(ChangeEventArgs e)
     {
-        Password = e.Value.ToString();
+        password = e.Value.ToString();
 
-        return PasswordChanged.InvokeAsync(Password);
+        return PasswordChanged.InvokeAsync(password);
     }
 
     private void ToggleShowPassword()
@@ -276,12 +262,7 @@ Password:
 }
 ```
 
-Chcete-li provést kontrolu nebo chyby depeše v předchozím příkladu:
-
-* Vytvořte pole zálohování pro `Password` ( `password` v následujícím ukázkovém kódu).
-* Proveďte kontroly nebo chyby depeší v metodě `Password` setter.
-
-Následující příklad poskytuje okamžitou zpětnou vazbu uživateli, pokud se v hodnotě hesla používá mezera:
+Provede kontroly nebo chyby depeší v metodě, která vyvolá delegáta vazby. Následující příklad poskytuje okamžitou zpětnou vazbu uživateli, pokud se v hodnotě hesla používá mezera:
 
 ```razor
 <h1>Child Component</h1>
@@ -291,7 +272,7 @@ Password:
 <input @oninput="OnPasswordChanged" 
        required 
        type="@(showPassword ? "text" : "password")" 
-       value="@Password" />
+       value="@password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
     Show password
@@ -305,34 +286,25 @@ Password:
     private string validationMessage;
 
     [Parameter]
-    public string Password
-    {
-        get { return password ?? string.Empty; }
-        set
-        {
-            if (password != value)
-            {
-                if (value.Contains(' '))
-                {
-                    validationMessage = "Spaces not allowed!";
-                }
-                else
-                {
-                    password = value;
-                    validationMessage = string.Empty;
-                }
-            }
-        }
-    }
+    public string Password { get; set; }
 
     [Parameter]
     public EventCallback<string> PasswordChanged { get; set; }
 
     private Task OnPasswordChanged(ChangeEventArgs e)
     {
-        Password = e.Value.ToString();
+        if (password.Contains(' '))
+        {
+            validationMessage = "Spaces not allowed!";
 
-        return PasswordChanged.InvokeAsync(Password);
+            return Task.CompletedTask;
+        }
+        else
+        {
+            validationMessage = string.Empty;
+
+            return PasswordChanged.InvokeAsync(password);
+        }
     }
 
     private void ToggleShowPassword()

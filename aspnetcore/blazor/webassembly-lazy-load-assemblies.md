@@ -5,7 +5,7 @@ description: Zjistěte, jak se v aplikacích ASP.NET Core opožděně načítat 
 monikerRange: '>= aspnetcore-5.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/25/2020
+ms.date: 09/09/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-lazy-load-assemblies
-ms.openlocfilehash: 46f98080ad40f614f9cb1af2190f263d205c1016
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: f9b6766c2f46274e06cab18fd35b5e417e9bfa97
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865161"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009606"
 ---
 # <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>Opožděné načtení sestavení v ASP.NET Core Blazor WebAssembly
 
@@ -114,8 +114,11 @@ Uvnitř `OnNavigateAsync` , implementujte logiku pro určení sestavení, která
 * Používá zprostředkovatele komunikace JS pro načítání sestavení prostřednictvím síťového volání.
 * Načte sestavení do modulu runtime spuštěného na webovém sestavení v prohlížeči.
 
-> [!NOTE]
-> Implementace opožděného načítání rozhraní podporuje předvykreslování na serveru. Při předvykreslování se předpokládá, že budou načtena všechna sestavení, včetně těch, která jsou označena pro opožděné načítání.
+Implementace opožděného načítání rozhraní podporuje opožděné načítání s předvykreslováním v hostovaném Blazor řešení. Při předvykreslování se předpokládá, že budou načtena všechna sestavení, včetně těch, která jsou označena pro opožděné načítání. Ruční registrace `LazyAssemblyLoader` v metodě *serverového* projektu `Startup.ConfigureServices` ( `Startup.cs` ):
+
+```csharp
+services.AddSingleton<LazyAssemblyLoader>();
+```
 
 ### <a name="user-interaction-with-navigating-content"></a>Interakce uživatele s `<Navigating>` obsahem
 

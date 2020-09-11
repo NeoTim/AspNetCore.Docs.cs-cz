@@ -18,16 +18,16 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: fc257015a9ee972da90b0f206a60b07bd6cc1f97
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: bba965e14058663c3ed9c0f15afc6a8d78997aea
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631105"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009749"
 ---
 # <a name="aspnet-core-no-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR hostování a škálování
 
-Autor [: Andrew Stanton – sestry](https://twitter.com/anurse), [Brady gastera](https://twitter.com/bradygaster)a [Dykstra](https://github.com/tdykstra);
+[Andrew Stanton-sestry](https://twitter.com/anurse), [Brady gastera](https://twitter.com/bradygaster)a [Dykstra](https://github.com/tdykstra)
 
 Tento článek vysvětluje, jaké jsou informace o hostování a škálování pro aplikace s vysokým provozem, které používají ASP.NET Core SignalR .
 
@@ -51,7 +51,7 @@ Trvalá připojení také využívají určitou další paměť, aby bylo možn�
 
 Těžké využívání prostředků souvisejících s připojením SignalR může ovlivnit jiné webové aplikace, které jsou hostovány na stejném serveru. Když SignalR se otevře a zobrazí poslední dostupná připojení TCP, další webové aplikace na stejném serveru také nemají k dispozici žádná další připojení.
 
-Pokud server nemá připojení, zobrazí se chyby náhodného soketu a chyby resetování připojení. Příklad:
+Pokud server nemá připojení, zobrazí se chyby náhodného soketu a chyby resetování připojení. Například:
 
 ```
 An attempt was made to access a socket in a way forbidden by its access permissions...
@@ -82,7 +82,7 @@ Výsledkem je, že služba spravuje všechna připojení klientů, zatímco kaž
 Tento přístup k horizontálnímu navýšení kapacity má oproti alternativním Redismu plánu několik výhod:
 
 * Relace typu Sticky, označované také jako [Spřažení klienta](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity), nejsou vyžadovány, protože klienti jsou při připojení okamžitě přesměrováni na SignalR službu Azure.
-* SignalRAplikace se může škálovat na základě počtu odeslaných zpráv, zatímco služba Azure se SignalR automaticky škáluje tak, aby zpracovávala libovolný počet připojení. Může se například jednat o tisíce klientů, ale pokud se pošle jenom pár zpráv za sekundu, SignalR aplikace nebude muset škálovat na víc serverů, aby bylo možné připojení sami zpracovat.
+* SignalRAplikace se může škálovat na základě počtu odeslaných zpráv, zatímco služba Azure se SignalR škáluje tak, aby zpracovávala libovolný počet připojení. Může se například jednat o tisíce klientů, ale pokud se pošle jenom pár zpráv za sekundu, SignalR aplikace nebude muset škálovat na víc serverů, aby bylo možné připojení sami zpracovat.
 * SignalRAplikace nepoužívá podstatně víc prostředků připojení, než je webová aplikace SignalR .
 
 Z těchto důvodů doporučujeme SignalR službu Azure pro všechny SignalR aplikace ASP.NET Core hostované v Azure, včetně App Service, virtuálních počítačů a kontejnerů.

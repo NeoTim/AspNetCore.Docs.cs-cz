@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 83ddb49f60058ecc744163faa2f5c454abc7b42d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 08cd6396cca78488827dfa7c2cca62a35c500dbd
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630308"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009697"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování na akce kontroleru v ASP.NET Core
 
@@ -152,7 +152,7 @@ Většina aplikací by měla zvolit základní a popisné schéma směrování, 
 
 * Podporuje základní a popisné schéma směrování.
 * Je užitečným výchozím bodem pro aplikace založené na uživatelském rozhraní.
-* Je jedinou šablonou směrování, která je nutná pro mnoho webových aplikací uživatelského rozhraní. U větších webových aplikací uživatelského rozhraní je další trasa s použitím [oblastí](#areas) , pokud je to potřeba.
+* Je jedinou šablonou směrování, která je nutná pro mnoho webových aplikací uživatelského rozhraní. Pro větší webové uživatelské rozhraní jsou jiné trasy, které používají [oblasti](#areas) , často všechny potřebné.
 
 <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute%2A> a <xref:Microsoft.AspNetCore.Builder.MvcAreaRouteBuilderExtensions.MapAreaRoute%2A> :
 
@@ -219,7 +219,7 @@ Pokud se dva koncové body shodují přes směrování, musí směrování prov�
 * Vyberte nejlepší kandidáta.
 * Vyvolejte výjimku.
 
-Příklad:
+Například:
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet9)]
 
@@ -431,10 +431,10 @@ Následující tabulka popisuje `[Route]` atributy v předchozím kódu:
 
 | Atribut               | Kombinuje s `[Route("Home")]` | Definuje šablonu směrování. |
 | ----------------- | ------------ | --------- |
-| `[Route("")]` | Yes | `"Home"` |
-| `[Route("Index")]` | Yes | `"Home/Index"` |
+| `[Route("")]` | Ano | `"Home"` |
+| `[Route("Index")]` | Ano | `"Home/Index"` |
 | `[Route("/")]` | **Ne** | `""` |
-| `[Route("About")]` | Yes | `"Home/About"` |
+| `[Route("About")]` | Ano | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
 <a name="oar"></a>
@@ -1012,7 +1012,7 @@ V rámci zpracování žádosti MVC ověří, že hodnoty trasy lze použít k v
 
 ### <a name="disambiguating-actions"></a>Nejednoznačnost akcí
 
-Pokud se dvě akce shodují přes směrování, MVC musí nejednoznačně vybrat kandidáta na nejlepší nebo jinak vyvolat výjimku. Příklad:
+Pokud se dvě akce shodují přes směrování, MVC musí nejednoznačně vybrat kandidáta na nejlepší nebo jinak vyvolat výjimku. Například:
 
 ```csharp
 public class ProductsController : Controller

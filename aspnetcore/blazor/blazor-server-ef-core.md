@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/blazor-server-ef-core
-ms.openlocfilehash: 7627d6981fbee66ba19a7065cefb197e50a5fd25
-ms.sourcegitcommit: 4cce99cbd44372fd4575e8da8c0f4345949f4d9a
+ms.openlocfilehash: a1b295b2ce42bc5ee06b8b9579ea2c70d480580a
+ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/31/2020
-ms.locfileid: "89153516"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90009658"
 ---
 # <a name="aspnet-core-no-locblazor-server-with-entity-framework-core-efcore"></a>ASP.NET Core Blazor Server s Entity Framework Core (EFCore)
 
@@ -120,7 +120,7 @@ Pomocí továrny můžete vytvořit kontext a sledovat ho po dobu života souč�
 @inject IDbContextFactory<ContactContext> DbFactory
 ```
 
-Ukázková aplikace zajistí, že se kontakt odstraní při vyřazení součásti:
+Ukázková aplikace zajišťuje, že je kontext vyřazený, když je součást Vyřazená:
 
 [!code-csharp[](./common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/EditContact.razor?name=snippet1)]
 
@@ -227,7 +227,7 @@ Pomocí továrny můžete vytvořit kontext a sledovat ho po dobu života souč�
 @inject IDbContextFactory<ContactContext> DbFactory
 ```
 
-Ukázková aplikace zajistí, že se kontakt odstraní při vyřazení součásti:
+Ukázková aplikace zajišťuje, že je kontext vyřazený, když je součást Vyřazená:
 
 [!code-csharp[](./common/samples/3.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/EditContact.razor?name=snippet1)]
 
