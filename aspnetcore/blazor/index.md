@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: abebd5fde514975b1dcb642a3d378e33c3836fa9
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: ace2285e3265e7bb2ec50c8afce2eb9c296fd524
+ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628063"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90080339"
 ---
 # <a name="introduction-to-aspnet-core-no-locblazor"></a>Úvod do ASP.NET Core Blazor
 
@@ -131,9 +131,21 @@ Když Blazor WebAssembly je aplikace sestavená a spuštěná v prohlížeči:
 
 Velikost publikované aplikace, její *Velikost datové části*, je důležitým faktorem výkonu pro useability aplikace. Stažení velké aplikace může trvat poměrně dlouhou dobu, než se stáhne do prohlížeče, což snižuje činnost koncového uživatele. Blazor WebAssembly optimalizuje velikost datové části, aby se snížila doba stahování:
 
+::: moniker range=">= aspnetcore-5.0"
+
+* Nepoužitý kód se z aplikace vyčerpá, když se publikuje pomocí [oříznutí prostředního jazyka (IL)](xref:blazor/host-and-deploy/configure-trimmer).
+* Odpovědi HTTP jsou komprimovány.
+* Modul runtime .NET a sestavení jsou ukládány do mezipaměti v prohlížeči.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 * Nepoužitý kód se z aplikace vyčerpá, když se publikuje pomocí [linkeru pro převodní jazyk (IL)](xref:blazor/host-and-deploy/configure-linker).
 * Odpovědi HTTP jsou komprimovány.
 * Modul runtime .NET a sestavení jsou ukládány do mezipaměti v prohlížeči.
+
+::: moniker-end
 
 ## Blazor Server
 
@@ -158,12 +170,12 @@ Blazor implementuje [.NET Standard 2,1](/dotnet/standard/net-standard), což umo
 
 Rozhraní API, která nejsou platná v rámci webového prohlížeče (například přístup k systému souborů, otevření soketu a vlákna) vyvolávají výjimku <xref:System.PlatformNotSupportedException> .
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [WebAssembly](https://webassembly.org/)
 * <xref:blazor/hosting-models>
 * <xref:tutorials/signalr-blazor-webassembly>
-* [Průvodce C#](/dotnet/csharp/)
+* [C# Guide](/dotnet/csharp/)
 * <xref:mvc/views/razor>
 * [HTML](https://www.w3.org/html/)
 * [Super Blazor ](https://github.com/AdrienTorris/awesome-blazor) komunitní odkazy

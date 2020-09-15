@@ -738,6 +738,8 @@
       uid: grpc/dotnet-grpc
     - name: Migrace služeb gRPC z C-core
       uid: grpc/migration
+    - name: Proč migrovat WCF na ASP.NET Core gRPC
+      uid: grpc/wcf
     - name: Porovnání služeb gRPC pomocí rozhraní HTTP API
       uid: grpc/comparison
     - name: Ukázky

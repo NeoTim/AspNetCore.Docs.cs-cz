@@ -16,13 +16,14 @@ no-loc:
 - Let's Encrypt
 - Razor
 - SignalR
+- Models
 uid: tutorials/first-web-api
-ms.openlocfilehash: 3d83141b8b638a369b08b0fadafccd96c0b48214
-ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
+ms.openlocfilehash: ebce9f2f4992d83c6b28edb5c771cdfc8a7a0b6a
+ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88876786"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90080378"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -117,7 +118,7 @@ V následujícím diagramu vidíte návrh aplikace.
 
   ![Výběr šablony rozhraní API macOS](first-web-api-mac/_static/api_template.png)
 
-* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** vyberte nejnovější **verzi rozhraní .NET**Core 3. x. Vyberte **Další**.
+* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** vyberte nejnovější **verzi rozhraní .NET**Core 3. x. Vyberte **Next** (Další).
 
 * Jako **název projektu** zadejte *TodoApi* a pak vyberte **vytvořit**.
 
@@ -197,25 +198,25 @@ Vrátí se JSON podobný následujícímu:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt. Vyberte **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
+* V **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt. Vyberte **Přidat**  >  **novou složku**. Pojmenujte složku *Models* .
 
-* Klikněte pravým tlačítkem na složku *modely* a vyberte **Přidat**  >  **třídu**. Pojmenujte třídu *TodoItem* a vyberte **Přidat**.
+* Klikněte pravým tlačítkem na *Models* složku a vyberte **Přidat**  >  **třídu**. Pojmenujte třídu *TodoItem* a vyberte **Přidat**.
 
 * Kód šablony nahraďte následujícím kódem:
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* Přidejte složku s názvem *modely*.
+* Přidejte složku s názvem *Models* .
 
-* `TodoItem`Do složky *modely* přidejte třídu s následujícím kódem:
+* Přidejte `TodoItem` třídu do *Models* složky s následujícím kódem:
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* Klikněte pravým tlačítkem na projekt. Vyberte **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
+* Klikněte pravým tlačítkem na projekt. Vyberte **Přidat**  >  **novou složku**. Pojmenujte složku *Models* .
 
   ![Nová složka](first-web-api-mac/_static/folder.png)
 
-* Klikněte pravým tlačítkem na složku *modely* a vyberte **Přidat** > **nový soubor** > **Obecná** > **prázdná třída**.
+* Klikněte pravým tlačítkem na *Models* složku a vyberte **Přidat** > **nový soubor** > **Obecná** > **prázdná třída**.
 
 * Pojmenujte třídu *TodoItem*a potom klikněte na **Nový**.
 
@@ -227,7 +228,7 @@ Vrátí se JSON podobný následujícímu:
 
 `Id`Vlastnost funguje jako jedinečný klíč v relační databázi.
 
-Třídy modelu mohou jít kdekoli v projektu, ale složka *modely* je používána konvencí.
+Třídy modelu mohou jít kdekoli v projektu, ale *Models* Složka je používána konvencí.
 
 ## <a name="add-a-database-context"></a>Přidání kontextu databáze
 
@@ -247,11 +248,11 @@ Třídy modelu mohou jít kdekoli v projektu, ale složka *modely* je používá
 
 ## <a name="add-the-todocontext-database-context"></a>Přidání kontextu databáze TodoContext
 
-* Klikněte pravým tlačítkem na složku *modely* a vyberte **Přidat**  >  **třídu**. Pojmenujte třídu *TodoContext* a klikněte na **Přidat**.
+* Klikněte pravým tlačítkem na *Models* složku a vyberte **Přidat**  >  **třídu**. Pojmenujte třídu *TodoContext* a klikněte na **Přidat**.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* Přidejte `TodoContext` třídu do složky *modely* .
+* Přidejte `TodoContext` do *Models* složky třídu.
 
 ---
 
@@ -282,8 +283,8 @@ Předcházející kód:
 * Vyberte možnost **kontroler API s akcemi, pomocí Entity Framework**a pak vyberte **Přidat**.
 * V dialogovém okně **Přidání kontroleru rozhraní API pomocí akcí Entity Framework** :
 
-  * V **třídě modelu**vyberte **TodoItem (TodoApi. Models)** .
-  * Ve **třídě Context data**vyberte **TodoContext (TodoApi. Models)** .
+  * V **třídě modelu**vyberte **TodoItem (TodoApi. Models )** .
+  * Ve **třídě Context data**vyberte **TodoContext (TodoApi. Models )** .
   * Vyberte **Přidat**.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
@@ -599,7 +600,7 @@ V následujícím diagramu vidíte návrh aplikace.
 
 * V Visual Studio pro Mac starší než verze 8,6 Vyberte rozhraní **.NET Core**  >  **App**  >  **API**  >  **Next**. V části verze 8,6 nebo novější vyberte **webové a konzolové**  >  **App**  >  **rozhraní API**aplikace  >  **Next**.
   
-* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** vyberte nejnovější **verzi rozhraní .NET**Core 2. x. Vyberte **Další**.
+* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** vyberte nejnovější **verzi rozhraní .NET**Core 2. x. Vyberte **Next** (Další).
 
 * Jako **název projektu** zadejte *TodoApi* a pak vyberte **vytvořit**.
 
@@ -639,25 +640,25 @@ Vrátí se následující JSON:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt. Vyberte **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
+* V **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt. Vyberte **Přidat**  >  **novou složku**. Pojmenujte složku *Models* .
 
-* Klikněte pravým tlačítkem na složku *modely* a vyberte **Přidat**  >  **třídu**. Pojmenujte třídu *TodoItem* a vyberte **Přidat**.
+* Klikněte pravým tlačítkem na *Models* složku a vyberte **Přidat**  >  **třídu**. Pojmenujte třídu *TodoItem* a vyberte **Přidat**.
 
 * Kód šablony nahraďte následujícím kódem:
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* Přidejte složku s názvem *modely*.
+* Přidejte složku s názvem *Models* .
 
-* `TodoItem`Do složky *modely* přidejte třídu s následujícím kódem:
+* Přidejte `TodoItem` třídu do *Models* složky s následujícím kódem:
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* Klikněte pravým tlačítkem na projekt. Vyberte **Přidat**  >  **novou složku**. Pojmenujte *modely*složek.
+* Klikněte pravým tlačítkem na projekt. Vyberte **Přidat**  >  **novou složku**. Pojmenujte složku *Models* .
 
   ![Nová složka](first-web-api-mac/_static/folder.png)
 
-* Klikněte pravým tlačítkem na složku *modely* a vyberte **Přidat** > **nový soubor** > **Obecná** > **prázdná třída**.
+* Klikněte pravým tlačítkem na *Models* složku a vyberte **Přidat** > **nový soubor** > **Obecná** > **prázdná třída**.
 
 * Pojmenujte třídu *TodoItem*a potom klikněte na **Nový**.
 
@@ -669,7 +670,7 @@ Vrátí se následující JSON:
 
 `Id`Vlastnost funguje jako jedinečný klíč v relační databázi.
 
-Třídy modelu mohou jít kdekoli v projektu, ale složka *modely* je používána konvencí.
+Třídy modelu mohou jít kdekoli v projektu, ale *Models* Složka je používána konvencí.
 
 ## <a name="add-a-database-context"></a>Přidání kontextu databáze
 
@@ -677,11 +678,11 @@ Třídy modelu mohou jít kdekoli v projektu, ale složka *modely* je používá
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Klikněte pravým tlačítkem na složku *modely* a vyberte **Přidat**  >  **třídu**. Pojmenujte třídu *TodoContext* a klikněte na **Přidat**.
+* Klikněte pravým tlačítkem na *Models* složku a vyberte **Přidat**  >  **třídu**. Pojmenujte třídu *TodoContext* a klikněte na **Přidat**.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* Přidejte `TodoContext` třídu do složky *modely* .
+* Přidejte `TodoContext` do *Models* složky třídu.
 
 ---
 

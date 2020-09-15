@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/blazor-server-ef-core
-ms.openlocfilehash: a1b295b2ce42bc5ee06b8b9579ea2c70d480580a
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: e548465b3d79279802fbfacd66c69724d864d14d
+ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009658"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90080326"
 ---
 # <a name="aspnet-core-no-locblazor-server-with-entity-framework-core-efcore"></a>ASP.NET Core Blazor Server s Entity Framework Core (EFCore)
 
@@ -36,7 +36,7 @@ Blazor Server je stavová architektura aplikace. Aplikace udržuje průběžné 
 > [!NOTE]
 > Tento článek se zabývá EF Core v Blazor Server aplikacích. Blazor WebAssembly aplikace běží v izolovaném prostoru (sandbox) websestavení, které brání většině přímých připojení k databázi. Spuštění EF Core v systému Blazor WebAssembly je nad rámec tohoto článku.
 
-## <a name="sample-app"></a>Ukázková aplikace
+<h2 id="sample-app-5x">Ukázková aplikace</h2>
 
 Ukázková aplikace byla sestavena jako referenční dokumentace pro Blazor Server aplikace, které používají EF Core. Ukázková aplikace obsahuje mřížku s operacemi řazení a filtrování, odstraňování, přidávání a aktualizace. Ukázka ukazuje použití EF Core ke zpracování optimistické souběžnosti.
 
@@ -51,7 +51,7 @@ Komponenty mřížka, přidání a zobrazení používají vzor "kontext pro ope
 > [!NOTE]
 > Některé příklady kódu v tomto tématu vyžadují obory názvů a služby, které se nezobrazují. Pokud si chcete prohlédnout plně funkční kód, včetně požadavků [`@using`](xref:mvc/views/razor#using) a [`@inject`](xref:mvc/views/razor#inject) direktiv pro Razor Příklady, přečtěte si [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/5.x/BlazorServerEFCoreSample).
 
-## <a name="database-access"></a>Přístup k databázi
+<h2 id="database-access-5x">Přístup k databázi</h2>
 
 EF Core spoléhá na a <xref:Microsoft.EntityFrameworkCore.DbContext> jako způsob [Konfigurace přístupu k databázi](/ef/core/miscellaneous/configuring-dbcontext) a fungování jako [*pracovní jednotky*](https://martinfowler.com/eaaCatalog/unitOfWork.html). EF Core poskytuje <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> rozšíření pro ASP.NET Core aplikace, které ve výchozím nastavení registrují kontext jako službu s *vymezeným oborem* . V Blazor Server aplikacích můžou být vymezené registrace služeb problematické, protože instance je sdílená napříč součástmi v rámci okruhu uživatele. <xref:Microsoft.EntityFrameworkCore.DbContext> není bezpečné pro přístup z více vláken a není navržené pro souběžné použití. Stávající životnosti jsou z těchto důvodů nevhodná:
 
@@ -91,9 +91,9 @@ Následující doporučení jsou navržená tak, aby poskytovala konzistentní p
 
   Umístěte operace za `Loading = true;` řádek v `try` bloku.
 
-* U delších operací, které využijí [sledování změn](/ef/core/querying/tracking) nebo [řízení souběžnosti](/ef/core/saving/concurrency)EF Core, nastavte kontext na životní [dobu součásti](#scope-to-the-component-lifetime).
+* U delších operací, které využijí [sledování změn](/ef/core/querying/tracking) nebo [řízení souběžnosti](/ef/core/saving/concurrency)EF Core, nastavte kontext na životní [dobu součásti](#scope-to-the-component-lifetime-5x).
 
-### <a name="new-dbcontext-instances"></a>Nové instance DbContext
+<h3 id="new-dbcontext-instances-5x">Nové instance DbContext</h3>
 
 Nejrychlejší způsob, jak vytvořit novou <xref:Microsoft.EntityFrameworkCore.DbContext> instanci, je použít `new` k vytvoření nové instance. Existuje však několik scénářů, které mohou vyžadovat řešení dalších závislostí. Například lze chtít použít [`DbContextOptions`](/ef/core/miscellaneous/configuring-dbcontext#configuring-dbcontextoptions) ke konfiguraci kontextu.
 
@@ -110,7 +110,7 @@ Továrna je vložena do komponent a slouží k vytváření nových instancí. N
 > [!NOTE]
 > `Wrapper` je [odkaz na komponentu](xref:blazor/components/index#capture-references-to-components) `GridWrapper` komponenty. Viz `Index` součást ( `Pages/Index.razor` ) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor).
 
-### <a name="scope-to-the-component-lifetime"></a>Rozsah pro životní dobu součásti
+<h3 id="scope-to-the-component-lifetime-5x">Rozsah pro životní dobu součásti</h3>
 
 Možná budete chtít vytvořit <xref:Microsoft.EntityFrameworkCore.DbContext> , který existuje pro celou dobu platnosti komponenty. To vám umožní použít ho jako [pracovní jednotku](https://martinfowler.com/eaaCatalog/unitOfWork.html) a využít vestavěné funkce, jako je sledování změn a řešení souběžnosti.
 Pomocí továrny můžete vytvořit kontext a sledovat ho po dobu života součásti. Nejprve implementujte <xref:System.IDisposable> a založit objekt pro vytváření, jak je znázorněno v `Pages/EditContact.razor` následujícím příkladu:
@@ -137,7 +137,7 @@ Blazor Server je stavová architektura aplikace. Aplikace udržuje průběžné 
 > [!NOTE]
 > Tento článek se zabývá EF Core v Blazor Server aplikacích. Blazor WebAssembly aplikace běží v izolovaném prostoru (sandbox) websestavení, které brání většině přímých připojení k databázi. Spuštění EF Core v systému Blazor WebAssembly je nad rámec tohoto článku.
 
-## <a name="sample-app"></a>Ukázková aplikace
+<h2 id="sample-app-3x">Ukázková aplikace</h2>
 
 Ukázková aplikace byla sestavena jako referenční dokumentace pro Blazor Server aplikace, které používají EF Core. Ukázková aplikace obsahuje mřížku s operacemi řazení a filtrování, odstraňování, přidávání a aktualizace. Ukázka ukazuje použití EF Core ke zpracování optimistické souběžnosti.
 
@@ -152,15 +152,13 @@ Komponenty mřížka, přidání a zobrazení používají vzor "kontext pro ope
 > [!NOTE]
 > Některé příklady kódu v tomto tématu vyžadují obory názvů a služby, které se nezobrazují. Pokud si chcete prohlédnout plně funkční kód, včetně požadavků [`@using`](xref:mvc/views/razor#using) a [`@inject`](xref:mvc/views/razor#inject) direktiv pro Razor Příklady, přečtěte si [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/3.x/BlazorServerEFCoreSample).
 
-## <a name="database-access"></a>Přístup k databázi
+<h2 id="database-access-3x">Přístup k databázi</h2>
 
 EF Core spoléhá na a <xref:Microsoft.EntityFrameworkCore.DbContext> jako způsob [Konfigurace přístupu k databázi](/ef/core/miscellaneous/configuring-dbcontext) a fungování jako [*pracovní jednotky*](https://martinfowler.com/eaaCatalog/unitOfWork.html). EF Core poskytuje <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> rozšíření pro ASP.NET Core aplikace, které ve výchozím nastavení registrují kontext jako službu s *vymezeným oborem* . V Blazor Server aplikacích může to být problematické, protože instance je sdílená napříč součástmi v rámci okruhu uživatele. <xref:Microsoft.EntityFrameworkCore.DbContext> není bezpečné pro přístup z více vláken a není navržené pro souběžné použití. Stávající životnosti jsou z těchto důvodů nevhodná:
 
 * **Singleton** sdílí stav napříč všemi uživateli aplikace a vede k nevhodnému souběžnému použití.
 * **Obor** (výchozí) představuje podobný problém mezi komponentami stejného uživatele.
 * **Přechodný** výsledek nové instance na žádost; avšak protože komponenty mohou být dlouhodobě dlouhodobé, výsledkem je delší kontext, než může být určena.
-
-## <a name="database-access"></a>Přístup k databázi
 
 Následující doporučení jsou navržená tak, aby poskytovala konzistentní přístup k používání EF Core v Blazor Server aplikacích.
 
@@ -194,9 +192,9 @@ Následující doporučení jsou navržená tak, aby poskytovala konzistentní p
 
   Umístěte operace za `Loading = true;` řádek v `try` bloku.
 
-* U delších operací, které využijí [sledování změn](/ef/core/querying/tracking) nebo [řízení souběžnosti](/ef/core/saving/concurrency)EF Core, nastavte kontext na životní [dobu součásti](#scope-to-the-component-lifetime).
+* U delších operací, které využijí [sledování změn](/ef/core/querying/tracking) nebo [řízení souběžnosti](/ef/core/saving/concurrency)EF Core, nastavte kontext na životní [dobu součásti](#scope-to-the-component-lifetime-3x).
 
-### <a name="create-new-dbcontext-instances"></a>Vytvoření nových instancí DbContext
+<h3 id="new-dbcontext-instances-3x">Nové instance DbContext</h3>
 
 Nejrychlejší způsob, jak vytvořit novou <xref:Microsoft.EntityFrameworkCore.DbContext> instanci, je použít `new` k vytvoření nové instance. Existuje však několik scénářů, které mohou vyžadovat řešení dalších závislostí. Například lze chtít použít [`DbContextOptions`](/ef/core/miscellaneous/configuring-dbcontext#configuring-dbcontextoptions) ke konfiguraci kontextu.
 
@@ -217,7 +215,7 @@ Továrna je vložena do komponent a slouží k vytváření nových instancí. N
 > [!NOTE]
 > `Wrapper` je [odkaz na komponentu](xref:blazor/components/index#capture-references-to-components) `GridWrapper` komponenty. Viz `Index` součást ( `Pages/Index.razor` ) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/3.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Pages/Index.razor).
 
-### <a name="scope-to-the-component-lifetime"></a>Rozsah pro životní dobu součásti
+<h3 id="scope-to-the-component-lifetime-3x">Rozsah pro životní dobu součásti</h3>
 
 Možná budete chtít vytvořit <xref:Microsoft.EntityFrameworkCore.DbContext> , který existuje pro celou dobu platnosti komponenty. To vám umožní použít ho jako [pracovní jednotku](https://martinfowler.com/eaaCatalog/unitOfWork.html) a využít vestavěné funkce, jako je sledování změn a řešení souběžnosti.
 Pomocí továrny můžete vytvořit kontext a sledovat ho po dobu života součásti. Nejprve implementujte <xref:System.IDisposable> a založit objekt pro vytváření, jak je znázorněno v `Pages/EditContact.razor` následujícím příkladu:
@@ -242,6 +240,6 @@ V předchozím příkladu:
 
 :::moniker-end
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Dokumentace k EF Core](/ef/)

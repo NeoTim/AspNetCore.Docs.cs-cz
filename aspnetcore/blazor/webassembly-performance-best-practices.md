@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 91d0eb7b4910d1cf19b179372546afa63cd3f9c1
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: 5d3cd1480dd37f437b2d6d5a89af0a842286be95
+ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009593"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90080261"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a>Blazor WebAssemblyOsvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -141,9 +141,21 @@ Blazor WebAssembly nabízí dvě další verze nástroje <xref:Microsoft.JSInter
 
 ## <a name="reduce-app-size"></a>Zmenšit velikost aplikace
 
+::: moniker range=">= aspnetcore-5.0"
+
+### <a name="intermediate-language-il-trimming"></a>Oříznutí mezilehlého jazyka (IL)
+
+[Oříznutí nepoužívaných sestavení z Blazor WebAssembly aplikace](xref:blazor/host-and-deploy/configure-trimmer) zmenší velikost aplikace odebráním nepoužívaného kódu v binárních souborech aplikace. Ve výchozím nastavení je oříznutí provedeno při publikování aplikace. Pokud chcete využít oříznutí, publikujte aplikaci pro nasazení pomocí [`dotnet publish`](/dotnet/core/tools/dotnet-publish) příkazu s možností [-c |--konfigurace](/dotnet/core/tools/dotnet-publish#options) nastavenou na `Release` :
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 ### <a name="intermediate-language-il-linking"></a>Propojování IL (Intermediate Language)
 
-[Propojení Blazor WebAssembly aplikace](xref:blazor/host-and-deploy/configure-linker) zmenšuje velikost Aplikace oříznutím nepoužívaného kódu v binárních souborech aplikace. Ve výchozím nastavení je linker povolen pouze při sestavování v `Release` konfiguraci. Pokud to chcete využít, publikujte aplikaci pro nasazení pomocí [`dotnet publish`](/dotnet/core/tools/dotnet-publish) příkazu s možností [-c |--konfigurace](/dotnet/core/tools/dotnet-publish#options) nastavenou na `Release` :
+[Propojení Blazor WebAssembly aplikace](xref:blazor/host-and-deploy/configure-linker) zmenšuje velikost Aplikace oříznutím nepoužívaného kódu v binárních souborech aplikace. Ve výchozím nastavení je linker zprostředkujícího jazyka (IL) povolen pouze při sestavování v `Release` konfiguraci. Pokud to chcete využít, publikujte aplikaci pro nasazení pomocí [`dotnet publish`](/dotnet/core/tools/dotnet-publish) příkazu s možností [-c |--konfigurace](/dotnet/core/tools/dotnet-publish#options) nastavenou na `Release` :
+
+::: moniker-end
 
 ```dotnetcli
 dotnet publish -c Release
@@ -173,13 +185,14 @@ Blazor WebAssemblymodul runtime obsahuje následující funkce .NET, které je m
 
 ::: moniker range=">= aspnetcore-5.0"
 
-* Ve výchozím nastavení obsahuje Blazor WebAssembly prostředky globalizace vyžadované k zobrazení hodnot, jako jsou například data a měna, v jazykové verzi uživatele. Pokud aplikace nevyžaduje lokalizaci, můžete aplikaci nakonfigurovat tak, aby podporovala invariantní jazykovou verzi, která je založena na `en-US` jazykové verzi:
+* Ve výchozím nastavení obsahuje Blazor WebAssembly prostředky globalizace vyžadované k zobrazení hodnot, jako jsou například data a měna, v jazykové verzi uživatele. Pokud aplikace nevyžaduje lokalizaci, můžete [aplikaci nakonfigurovat tak, aby podporovala invariantní jazykovou verzi](xref:blazor/globalization-localization), která je založena na `en-US` jazykové verzi:
 
   ```xml
   <PropertyGroup>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
   ```
+
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-5.0"

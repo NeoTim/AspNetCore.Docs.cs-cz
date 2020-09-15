@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/class-libraries
-ms.openlocfilehash: d933a677a063d50fbe708264106e3ce19400a270
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 82969bf92965bfdeb1d1474ab47ca74ecbe6dd97
+ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628570"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90080300"
 ---
 # <a name="aspnet-core-no-locrazor-components-class-libraries"></a>RazorKnihovny tříd ASP.NET Core komponenty
 
@@ -42,7 +42,7 @@ Stejně jako komponenty jsou běžné typy .NET, komponenty poskytované RCL jso
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. Vytvoření nového projektu
-1. Vyberte možnost ** Razor Knihovna tříd**. Vyberte **Další**.
+1. Vyberte možnost ** Razor Knihovna tříd**. Vyberte **Next** (Další).
 1. V dialogovém okně **vytvořit novou Razor knihovnu tříd** vyberte **vytvořit**.
 1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. V příkladech v tomto tématu se používá název projektu `ComponentLibrary` . Vyberte **Vytvořit**.
 1. Přidat RCL do řešení:
@@ -62,7 +62,7 @@ Stejně jako komponenty jsou běžné typy .NET, komponenty poskytované RCL jso
 >
 > Ručně přidejte soubor do kořenového adresáře vygenerovaného projektu.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 1. Použijte šablonu ** Razor knihovny tříd** ( `razorclasslib` ) s [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazem v příkazovém prostředí. V následujícím příkladu je vytvořen RCL s názvem `ComponentLibrary` . Složka, která je uložena, `ComponentLibrary` je vytvořena automaticky při spuštění příkazu:
 
@@ -181,7 +181,18 @@ dotnet pack
 
 Nahrajte balíček do NuGet pomocí [`dotnet nuget push`](/dotnet/core/tools/dotnet-nuget-push) příkazu v příkazovém prostředí.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
+
+::: moniker range=">= aspnetcore-5.0"
 
 * <xref:razor-pages/ui-class>
-* [Přidání konfiguračního souboru linkeru XML do knihovny](xref:blazor/host-and-deploy/configure-linker#add-an-xml-linker-configuration-file-to-a-library)
+* [Přidat konfigurační soubor trávníku pro převodní jazyk (IL) XML do knihovny](xref:blazor/host-and-deploy/configure-trimmer)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+* <xref:razor-pages/ui-class>
+* [Přidat konfigurační soubor linkeru jazyka XML Intermediate Language (IL) do knihovny](xref:blazor/host-and-deploy/configure-linker#add-an-xml-linker-configuration-file-to-a-library)
+
+::: moniker-end
