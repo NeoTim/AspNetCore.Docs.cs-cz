@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: cc152c2ca553b00619ddbf829f6044867c53bb98
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 3569e9440b8e431ec0e5357e548af2e3783481ac
+ms.sourcegitcommit: 422e02bad384775bfe19a90910737340ad106c5b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635135"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90083450"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>Vývoj aplikací ASP.NET Core pomocí sledovacího procesu souborů
 
@@ -85,11 +85,25 @@ Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit
 | Příkaz | Příkaz se sledováním |
 | ---- | ----- |
 | dotnet run | dotnet – běh kukátka |
-| příkaz dotnet Run-f netcoreapp 2.0 | dotnet Watch Run-f netcoreapp 2.0 |
-| dotnet Run-f netcoreapp 2.0----arg1 | dotnet Watch Run-f netcoreapp 2.0----arg1 |
+| spuštění dotnet – f netcoreapp 3.1 | dotnet – běh kukátka – f netcoreapp 3.1 |
+| příkaz dotnet Run-f netcoreapp 3.1----arg1 | dotnet Watch Run-f netcoreapp 3.1----arg1 |
 | dotnet test | test výrazu dotnet |
 
 Spusťte `dotnet watch run` ve složce *WebApp* . Výstup konzoly indikuje, že `watch` byl spuštěn.
+
+::: moniker range=">= aspnetcore-5.0"
+`dotnet watch run`Po spuštění na webové aplikaci se spustí prohlížeč, který po dokončení přejde na adresu URL aplikace. `dotnet watch` Přečtěte si výstup z konzoly aplikace a počkejte, než se zobrazí zpráva připravena <xref:Microsoft.AspNetCore.WebHost> .
+
+`dotnet watch` aktualizuje prohlížeč, když detekuje změny sledovaných souborů. Pokud to chcete provést, příkaz Watch vloží do aplikace middleware, který upraví odpovědi HTML vytvořené aplikací. Middleware přidá do stránky blok skriptu JavaScriptu, který umožňuje `dotnet watch` dát pokyn prohlížeči k aktualizaci. V současné době změny všech sledovaných souborů, včetně statického obsahu, jako jsou soubory *. html* a *. CSS* , způsobí, že se aplikace znovu sestaví.
+
+`dotnet watch`:
+
+* Sleduje pouze soubory, které mají vliv na sestavení ve výchozím nastavení.
+* U všech sledovaných souborů (prostřednictvím konfigurace) stále dochází k sestavení.
+
+Další informace o konfiguraci najdete v tématu [dotnet – sledování konfigurace](#dotnet-watch-configuration) v tomto dokumentu.
+
+::: moniker-end
 
 > [!NOTE]
 > Můžete použít `dotnet watch --project <PROJECT>` k určení projektu, který se má sledovat. Například spuštění `dotnet watch --project WebApp run` z kořenového adresáře ukázkové aplikace bude také spuštěno a sledovat projekt *WebApp* .
@@ -193,6 +207,17 @@ dotnet watch msbuild /t:Test
 ```
 
 VSTest se spustí při každé změně souboru v jednom testovacím projektu.
+
+## <a name="dotnet-watch-configuration"></a>dotnet – sledování konfigurace
+
+Některé možnosti konfigurace lze předat do `dotnet watch` proměnných prostředí. Dostupné proměnné jsou:
+
+| Nastavení  | Popis |
+| ------------- | ------------- |
+| `DOTNET_USE_POLLING_FILE_WATCHER`                | Pokud je nastavená na "1" nebo "true", `dotnet watch` používá sledovací proces pro cyklické soubory místo CoreFx `FileSystemWatcher` . Používá se při sledování souborů v síťových sdílených složkách nebo připojených svazcích Docker.                       |
+| `DOTNET_WATCH_SUPPRESS_MSBUILD_INCREMENTALISM`   | Ve výchozím nastavení `dotnet watch` optimalizuje sestavení tím, že vyloučí určité operace, jako je spuštění obnovení nebo opětovné vyhodnocení sady sledovaných souborů při každé změně souboru. Je-li nastaveno na hodnotu "1" nebo "true", jsou tyto optimalizace zakázány. |
+| `DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER`   | `dotnet watch run` pokusí se spustit prohlížeče pro webové aplikace, které jsou `launchBrowser` nakonfigurované v *launchSettings.js*. Pokud je nastaveno na hodnotu "1" nebo "true", toto chování je potlačeno. |
+| `DOTNET_WATCH_SUPPRESS_BROWSER_REFRESH`   | `dotnet watch run` pokusí se aktualizovat prohlížeče, když detekuje změny souborů. Pokud je nastaveno na hodnotu "1" nebo "true", toto chování je potlačeno. Toto chování je také potlačeno `DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER` , pokud je nastaveno. |
 
 ## <a name="dotnet-watch-in-github"></a>`dotnet-watch` v GitHubu
 
