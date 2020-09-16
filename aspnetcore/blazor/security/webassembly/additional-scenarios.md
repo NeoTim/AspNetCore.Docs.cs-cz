@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 889e7b4736157b1bb563bd3e606c0d5d855c2226
-ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
+ms.openlocfilehash: 2881b5d01f3b2e41659e3166a4e77b64a450f017
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88876708"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90592915"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly Další scénáře zabezpečení
 
@@ -139,8 +139,6 @@ Nakonfigurovaná <xref:System.Net.Http.HttpClient> se používá k provádění 
 
             examples = 
                 await client.GetFromJsonAsync<ExampleType[]>("ExampleAPIMethod");
-
-            ...
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -176,6 +174,128 @@ Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného proj
 
 * Rozhraní <xref:System.Net.Http.HttpClient.BaseAddress?displayProperty=nameWithType> ( `new Uri(builder.HostEnvironment.BaseAddress)` ).
 * Adresa URL `authorizedUrls` pole
+
+### <a name="graph-api-example"></a>Příklad Graph API
+
+V následujícím příkladu se k <xref:System.Net.Http.HttpClient> získání čísla mobilního telefonu uživatele pro zpracování volání používá pojmenovaná pro Graph API. Po přidání oprávnění rozhraní API Microsoft Graph `User.Read` v oblasti AAD v Azure Portal je obor nakonfigurovaný pro pojmenovaného klienta v samostatné aplikaci nebo klientské aplikaci hostovaného Blazor řešení.
+
+> [!NOTE]
+> Příklad v této části získá Graph API data pro uživatele v *kódu součásti*. Chcete-li vytvořit deklarace identity uživatelů z Graph API, přečtěte si následující zdroje informací:
+>
+> * [Přizpůsobení oddílu uživatele](#customize-the-user)
+> * <xref:blazor/security/webassembly/aad-groups-roles>
+
+`GraphAuthorizationMessageHandler.cs`:
+
+```csharp
+public class GraphAPIAuthorizationMessageHandler : AuthorizationMessageHandler
+{
+    public GraphAPIAuthorizationMessageHandler(IAccessTokenProvider provider,
+        NavigationManager navigationManager)
+        : base(provider, navigationManager)
+    {
+        ConfigureHandler(
+            authorizedUrls: new[] { "https://graph.microsoft.com" },
+            scopes: new[] { "https://graph.microsoft.com/User.Read" });
+    }
+}
+```
+
+V `Program.Main` ( `Program.cs` ):
+
+```csharp
+builder.Services.AddScoped<GraphAPIAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("GraphAPI",
+        client => client.BaseAddress = new Uri("https://graph.microsoft.com"))
+    .AddHttpMessageHandler<GraphAPIAuthorizationMessageHandler>();
+```
+
+V Razor součásti ( `Pages/CallUser.razor` ):
+
+```razor
+@page "/CallUser"
+@using System.ComponentModel.DataAnnotations
+@using System.Text.Json.Serialization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+@inject IAccessTokenProvider TokenProvider
+@inject IHttpClientFactory ClientFactory
+@inject ILogger<CallUser> Logger
+@inject ICallProcessor CallProcessor
+
+<h3>Call User</h3>
+
+<EditForm Model="@callInfo" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <p>
+        <label>
+            Message:
+            <InputTextArea @bind-Value="callInfo.Message" />
+        </label>
+    </p>
+
+    <button type="submit">Place call</button>
+
+    <p>
+        @formStatus
+    </p>
+</EditForm>
+
+@code {
+    private string formStatus;
+    private CallInfo callInfo = new CallInfo();
+
+    private async Task HandleValidSubmit()
+    {
+        var tokenResult = await TokenProvider.RequestAccessToken(
+            new AccessTokenRequestOptions
+            {
+                Scopes = new[] { "https://graph.microsoft.com/User.Read" }
+            });
+
+        if (tokenResult.TryGetToken(out var token))
+        {
+            var client = ClientFactory.CreateClient("GraphAPI");
+
+            var userInfo = await client.GetFromJsonAsync<UserInfo>("v1.0/me");
+
+            if (userInfo != null)
+            {
+                CallProcessor.Send(userInfo.MobilePhone, callInfo.Message);
+
+                formStatus = "Form successfully processed.";
+                Logger.LogInformation(
+                    $"Form successfully processed at {DateTime.UtcNow}. " +
+                    $"Mobile Phone: {userInfo.MobilePhone}");
+            }
+        }
+        else
+        {
+            formStatus = "There was a problem processing the form.";
+            Logger.LogError("Token failure");
+        }
+    }
+
+    private class CallInfo
+    {
+        [Required]
+        [StringLength(1000, ErrorMessage = "Message too long (1,000 char limit)")]
+        public string Message { get; set; }
+    }
+
+    private class UserInfo
+    {
+        [JsonPropertyName("mobilePhone")]
+        public string MobilePhone { get; set; }
+    }
+}
+```
+
+> [!NOTE]
+> V předchozím příkladu vývojář implementuje vlastní `ICallProcessor` ( `CallProcessor` ) do fronty a pak vloží automatizované volání.
 
 ## <a name="typed-httpclient"></a>Zadal `HttpClient`
 
@@ -312,9 +432,7 @@ Alternativním přístupem k použití <xref:System.Net.Http.IHttpClientFactory>
 
 ## <a name="request-additional-access-tokens"></a>Vyžádání dalších přístupových tokenů
 
-Přístupové tokeny lze získat ručně voláním `IAccessTokenProvider.RequestAccessToken` .
-
-V následujícím příkladu jsou vyžadovány další Azure Active Directory (AAD) Microsoft Graph obory rozhraní API pro čtení uživatelských dat a odesílání e-mailů. Po přidání oprávnění rozhraní API Microsoft Graph na portálu Azure AAD jsou další obory nakonfigurované v klientské aplikaci.
+Přístupové tokeny lze získat ručně voláním `IAccessTokenProvider.RequestAccessToken` . V následujícím příkladu je aplikace pro výchozí nastavení vyžadována dalším oborem <xref:System.Net.Http.HttpClient> . Příklad konfigurace Microsoft Authentication Library (MSAL) oboru `MsalProviderOptions` :
 
 `Program.Main` (`Program.cs`):
 
@@ -323,12 +441,12 @@ builder.Services.AddMsalAuthentication(options =>
 {
     ...
 
-    options.ProviderOptions.AdditionalScopesToConsent.Add(
-        "https://graph.microsoft.com/Mail.Send");
-    options.ProviderOptions.AdditionalScopesToConsent.Add(
-        "https://graph.microsoft.com/User.Read");
+    options.ProviderOptions.AdditionalScopesToConsent.Add("{CUSTOM SCOPE 1}");
+    options.ProviderOptions.AdditionalScopesToConsent.Add("{CUSTOM SCOPE 2}");
 }
 ```
+
+`{CUSTOM SCOPE 1}` `{CUSTOM SCOPE 2}` Zástupné symboly a v předchozím příkladu jsou vlastní obory.
 
 `IAccessTokenProvider.RequestToken`Metoda poskytuje přetížení, které umožňuje aplikaci zřídit přístupový token s danou sadou oborů.
 
@@ -343,8 +461,7 @@ V Razor součásti:
 var tokenResult = await TokenProvider.RequestAccessToken(
     new AccessTokenRequestOptions
     {
-        Scopes = new[] { "https://graph.microsoft.com/Mail.Send", 
-            "https://graph.microsoft.com/User.Read" }
+        Scopes = new[] { "{CUSTOM SCOPE 1}", "{CUSTOM SCOPE 2}" }
     });
 
 if (tokenResult.TryGetToken(out var token))
@@ -352,6 +469,8 @@ if (tokenResult.TryGetToken(out var token))
     ...
 }
 ```
+
+`{CUSTOM SCOPE 1}` `{CUSTOM SCOPE 2}` Zástupné symboly a v předchozím příkladu jsou vlastní obory.
 
 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.TryGetToken%2A?displayProperty=nameWithType> Vrátí
 
@@ -707,9 +826,13 @@ Pokud se rozhodnete tak učinit, můžete uživatelské rozhraní přerušit na 
 
 ## <a name="customize-the-user"></a>Přizpůsobení uživatele
 
-Uživatele navázané na aplikaci je možné přizpůsobit. V následujícím příkladu obdrží všichni ověření uživatelé `amr` deklaraci identity pro každou metodu ověřování uživatele.
+Uživatele navázané na aplikaci je možné přizpůsobit.
 
-Vytvořte třídu, která rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> třídu:
+### <a name="customize-the-user-with-a-payload-claim"></a>Přizpůsobení uživatele s deklarací datové části
+
+V následujícím příkladu obdrží ověřený uživatel aplikace `amr` deklaraci identity pro každou metodu ověřování uživatele. `amr`Deklarace identity identifikuje, jak byl předmět tokenu ověřený v Identity [deklaracích datové části](/azure/active-directory/develop/access-tokens#the-amr-claim)platformy Microsoft Platform v 1.0. Tento příklad používá vlastní třídu uživatelských účtů založenou na <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> .
+
+Vytvořte třídu, která rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> třídu. Následující příklad nastaví `AuthenticationMethod` vlastnost na pole uživatele `amr` hodnot vlastností JSON. `AuthenticationMethod` je automaticky vyplněno rozhraním, když je uživatel ověřený.
 
 ```csharp
 using System.Text.Json.Serialization;
@@ -722,7 +845,7 @@ public class CustomUserAccount : RemoteUserAccount
 }
 ```
 
-Vytvořte objekt pro vytváření, který rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory%601> :
+Vytvořte objekt pro vytváření, který rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory%601> a vytvoří deklarace identity z metod ověřování uživatele uložených v `CustomUserAccount.AuthenticationMethod` :
 
 ```csharp
 using System.Security.Claims;
@@ -743,7 +866,7 @@ public class CustomAccountFactory
         CustomUserAccount account, RemoteAuthenticationUserOptions options)
     {
         var initialUser = await base.CreateUserAsync(account, options);
-        
+
         if (initialUser.Identity.IsAuthenticated)
         {
             foreach (var value in account.AuthenticationMethod)
@@ -752,13 +875,13 @@ public class CustomAccountFactory
                     .AddClaim(new Claim("amr", value));
             }
         }
-           
+
         return initialUser;
     }
 }
 ```
 
-Zaregistrujte zprostředkovatele ověřování, který se `CustomAccountFactory` používá. Platná jsou následující registrace: 
+Zaregistrujte zprostředkovatele ověřování, který se `CustomAccountFactory` používá. Platná jsou následující registrace:
 
 * <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication%2A>:
 
@@ -769,11 +892,11 @@ Zaregistrujte zprostředkovatele ověřování, který se `CustomAccountFactory`
 
   builder.Services.AddOidcAuthentication<RemoteAuthenticationState, 
       CustomUserAccount>(options =>
-  {
-      ...
-  })
-  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
-      CustomUserAccount, CustomAccountFactory>();
+      {
+          ...
+      })
+      .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+          CustomUserAccount, CustomAccountFactory>();
   ```
 
 * <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>:
@@ -785,11 +908,11 @@ Zaregistrujte zprostředkovatele ověřování, který se `CustomAccountFactory`
 
   builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
       CustomUserAccount>(options =>
-  {
-      ...
-  })
-  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
-      CustomUserAccount, CustomAccountFactory>();
+      {
+          ...
+      })
+      .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+          CustomUserAccount, CustomAccountFactory>();
   ```
   
 * <xref:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization%2A>:
@@ -801,12 +924,144 @@ Zaregistrujte zprostředkovatele ověřování, který se `CustomAccountFactory`
 
   builder.Services.AddApiAuthorization<RemoteAuthenticationState, 
       CustomUserAccount>(options =>
-  {
-      ...
-  })
-  .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
-      CustomUserAccount, CustomAccountFactory>();
+      {
+          ...
+      })
+      .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, 
+          CustomUserAccount, CustomAccountFactory>();
   ```
+
+### <a name="customize-the-user-with-graph-api-claims"></a>Přizpůsobení uživatele pomocí Graph APIch deklarací identity
+
+V následujícím příkladu aplikace vytvoří deklaraci identity mobilního telefonu pro uživatele z Graph API pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> . Aplikace musí mít `User.Read` v AAD nakonfigurovanou oprávnění Graph API (obor).
+
+`GraphAuthorizationMessageHandler.cs`:
+
+```csharp
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+public class GraphAPIAuthorizationMessageHandler : AuthorizationMessageHandler
+{
+    public GraphAPIAuthorizationMessageHandler(IAccessTokenProvider provider,
+        NavigationManager navigationManager)
+        : base(provider, navigationManager)
+    {
+        ConfigureHandler(
+            authorizedUrls: new[] { "https://graph.microsoft.com" },
+            scopes: new[] { "https://graph.microsoft.com/User.Read" });
+    }
+}
+```
+
+Název <xref:System.Net.Http.HttpClient> pro Graph API je vytvořen v `Program.Main` ( `Program.cs` ) pomocí `GraphAPIAuthorizationMessageHandler` :
+
+```csharp
+using System;
+
+...
+
+builder.Services.AddScoped<GraphAPIAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("GraphAPI",
+        client => client.BaseAddress = new Uri("https://graph.microsoft.com"))
+    .AddHttpMessageHandler<GraphAPIAuthorizationMessageHandler>();
+```
+
+`Models/UserInfo.cs`:
+
+```csharp
+using System.Text.Json.Serialization;
+
+public class UserInfo
+{
+    [JsonPropertyName("mobilePhone")]
+    public string MobilePhone { get; set; }
+}
+```
+
+V následujícím `CustomAccountFactory` ( `CustomAccountFactory.cs` ) rozhraní <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> představuje uživatelský účet. Pokud aplikace vyžaduje vlastní třídu uživatelského účtu, která rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> , zaměňte vlastní třídu uživatelského účtu pro <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> v následujícím kódu:
+
+```csharp
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
+using Microsoft.Extensions.Logging;
+
+public class CustomAccountFactory
+    : AccountClaimsPrincipalFactory<RemoteUserAccount>
+{
+    private readonly ILogger<CustomAccountFactory> logger;
+    private readonly IHttpClientFactory clientFactory;
+
+    public CustomAccountFactory(IAccessTokenProviderAccessor accessor, 
+        IHttpClientFactory clientFactory, 
+        ILogger<CustomAccountFactory> logger)
+        : base(accessor)
+    {
+        this.clientFactory = clientFactory;
+        this.logger = logger;
+    }
+
+    public async override ValueTask<ClaimsPrincipal> CreateUserAsync(
+        RemoteUserAccount account,
+        RemoteAuthenticationUserOptions options)
+    {
+        var initialUser = await base.CreateUserAsync(account, options);
+
+        if (initialUser.Identity.IsAuthenticated)
+        {
+            var userIdentity = (ClaimsIdentity)initialUser.Identity;
+
+            try
+            {
+                var client = clientFactory.CreateClient("GraphAPI");
+
+                var userInfo = await client.GetFromJsonAsync<UserInfo>("v1.0/me");
+
+                if (userInfo != null)
+                {
+                    userIdentity.AddClaim(new Claim("mobilephone", userInfo.MobilePhone));
+                }
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                logger.LogError("Graph API access token failure: {MESSAGE}",
+                    exception.Message);
+            }
+        }
+
+        return initialUser;
+    }
+}
+```
+
+V `Program.Main` ( `Program.cs` ) nakonfigurujte aplikaci tak, aby používala vlastní továrnu. Pokud aplikace používá vlastní třídu uživatelského účtu, která rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> , zaměňte vlastní třídu uživatelského účtu pro <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> v následujícím kódu:
+
+```csharp
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
+builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
+    RemoteUserAccount>(options =>
+    {
+        builder.Configuration.Bind("AzureAd", 
+            options.ProviderOptions.Authentication);
+    })
+    .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, RemoteUserAccount, 
+        CustomAccountFactory>();
+```
+
+Předchozí příklad je pro aplikaci, která používá ověřování AAD s MSAL. Pro OIDC a ověřování rozhraní API existují podobné vzory. Další informace najdete v příkladech na konci oddílu [přizpůsobení uživatele s deklarací datové části](#customize-the-user-with-a-payload-claim) .
+
+### <a name="aad-security-groups-and-roles-with-a-custom-user-account-class"></a>Skupiny zabezpečení AAD a role s vlastní třídou uživatelského účtu
+
+Další příklad, který funguje se skupinami zabezpečení AAD a rolemi správce AAD a vlastní třídou uživatelského účtu, najdete v tématu <xref:blazor/security/webassembly/aad-groups-roles> .
 
 ## <a name="support-prerendering-with-authentication"></a>Podpora předběžného vykreslování s ověřováním
 

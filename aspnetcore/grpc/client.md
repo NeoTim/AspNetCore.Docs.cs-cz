@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 28e4f372e301a673644bfa97763ebc930f2d0ad5
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 9406c2a34126f3e5cd1406a55c3585e7a28f3dd9
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634329"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90593044"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>Volání služeb gRPC pomocí klienta .NET
 
@@ -260,7 +260,18 @@ catch (RpcException ex)
 }
 ```
 
+## <a name="configure-deadline"></a>Konfigurovat konečný termín
+
+Doporučuje se nakonfigurovat konečný termín volání gRPC, protože poskytuje horní limit toho, jak dlouho může volání běžet. Zastaví se tak nesprávnému chování služeb, které neběží trvale a vyčerpání prostředků serveru. Termíny jsou užitečným nástrojem pro vytváření spolehlivých aplikací.
+
+Nakonfigurujte `CallOptions.Deadline` , aby se nastavil konečný termín pro gRPC volání:
+
+[!code-csharp[](~/grpc/deadlines-cancellation/deadline-client.cs?highlight=7,12)]
+
+Další informace naleznete v tématu <xref:grpc/deadlines-cancellation#deadlines>.
+
 ## <a name="additional-resources"></a>Další materiály
 
 * <xref:grpc/clientfactory>
+* <xref:grpc/deadlines-cancellation>
 * <xref:grpc/basics>

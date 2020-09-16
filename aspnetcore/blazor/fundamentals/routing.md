@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: fe67ebfefb463ab698e5ff1bb7d9b527a28a596e
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: 09e7ca9c03103de116c566352496174e97fbc3ce
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009580"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90593005"
 ---
 # <a name="aspnet-core-no-locblazor-routing"></a>BlazorSměrování ASP.NET Core
 
@@ -147,14 +147,14 @@ K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení t
 
 | Jedinečn | Příklad           | Příklady shody                                                                  | Invariantní<br>jazyková verze<br>shoda |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Ne                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano                              |
-| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Ano                              |
-| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Ano                              |
-| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Ano                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ne                               |
-| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Ano                              |
-| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Ano                              |
+| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | No                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Yes                              |
+| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Yes                              |
+| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Yes                              |
+| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Yes                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | No                               |
+| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Yes                              |
+| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Yes                              |
 
 > [!WARNING]
 > Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo <xref:System.DateTime> ), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
@@ -197,7 +197,7 @@ Další informace naleznete v tématu <xref:fundamentals/routing>.
 
 ::: moniker range=">= aspnetcore-5.0"
 
-*Tato část se vztahuje na rozhraní .NET 5 Release Candidate 1 (RC1) nebo novější, které bude vydáno v polovině září.*
+*Tato část se týká ASP.NET Core v rozhraní .NET 5 Release Candidate 1 (RC1) nebo novějším.*
 
 Catch – všechny parametry tras, které zachycují cesty mezi více hranicemi složek, jsou podporovány v součástech. Parametr trasy catch-all musí být:
 
@@ -222,7 +222,7 @@ Lomítka a segmenty zachycené cesty jsou Dekódovatelné. Pro šablonu trasy je
 
 ::: moniker range="< aspnetcore-5.0"
 
-Catch – všechny parametry tras budou podporované v rozhraní .NET 5 Release Candidate 1 (RC1) nebo novějším, které se uvolní v polovině září. *
+Catch – všechny parametry tras jsou podporované v ASP.NET Core v rozhraní .NET 5 Release Candidate 1 (RC1) nebo novějším. *
 
 ::: moniker-end
 
@@ -287,7 +287,7 @@ Vykresluje se následující kód HTML:
 
 Použijte <xref:Microsoft.AspNetCore.Components.NavigationManager> pro práci s identifikátory URI a navigací v kódu jazyka C#. <xref:Microsoft.AspNetCore.Components.NavigationManager> poskytuje událost a metody uvedené v následující tabulce.
 
-| Člen | Popis |
+| Člen | Description |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.Uri> | Získá aktuální absolutní identifikátor URI. |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> odpovídá `href` atributu v `<base>` prvku dokumentu v `wwwroot/index.html` ( Blazor WebAssembly ) nebo `Pages/_Host.cshtml` ( Blazor Server ). |

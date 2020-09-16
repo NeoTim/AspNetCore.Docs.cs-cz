@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: 391a38e9af42b162fc74bac803e6aa3cf687e7d5
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: e1af8f1de61edd934505a44e75ea07e0f09a67b5
+ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626061"
+ms.lasthandoff: 09/15/2020
+ms.locfileid: "90592953"
 ---
 # <a name="secure-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core zabezpečení Blazor WebAssembly
 
@@ -98,6 +98,13 @@ Použijte pro každou komponentu aplikace [ `[Authorize]` atribut](xref:blazor/s
 Aktualizace tokenů nemůže být zabezpečená na straně klienta v Blazor WebAssembly aplikacích. Proto se tokeny aktualizace neodesílají do aplikace pro přímé použití.
 
 Aktualizační tokeny může spravovat a používat aplikace na straně serveru v hostovaném Blazor WebAssembly řešení pro přístup k rozhraním API třetích stran. Další informace naleznete v tématu <xref:blazor/security/webassembly/additional-scenarios#authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party>.
+
+## <a name="establish-claims-for-users"></a>Vytváření deklarací identity pro uživatele
+
+Aplikace často vyžadují deklarace identity pro uživatele na základě volání webového rozhraní API serveru. Například deklarace identity se často používají k [navázání autorizace](xref:blazor/security/index#authorization) v aplikaci. V těchto scénářích aplikace požaduje přístupový token pro přístup ke službě a používá token k získání uživatelských dat pro deklarace identity. Příklady najdete v následujících zdrojích informací:
+
+* [Další scénáře: přizpůsobení uživatele](xref:blazor/security/webassembly/additional-scenarios#customize-the-user)
+* <xref:blazor/security/webassembly/aad-groups-roles>
 
 ## <a name="implementation-guidance"></a>Pokyny k implementaci
 
