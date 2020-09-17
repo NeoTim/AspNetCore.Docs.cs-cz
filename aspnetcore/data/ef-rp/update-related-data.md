@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: 603c5e7c9f095c380461f8c6e4ead783ad35abe2
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 17b200f0ba90035c417c96689798263af16551de
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630858"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722816"
 ---
 # <a name="part-7-no-locrazor-pages-with-ef-core-in-aspnet-core---update-related-data"></a>Část 7, Razor stránky s EF Core v ASP.NET Core aktualizace dat souvisejících s aktualizací
 
@@ -46,7 +46,7 @@ Vytvořte soubor *Pages/kurzys/DepartmentNamePageModel. cs* s následujícím k�
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/DepartmentNamePageModel.cs)]
 
-Předchozí kód vytvoří [SelectList](/dotnet/api/microsoft.aspnetcore.mvc.rendering.selectlist?view=aspnetcore-2.0) , který bude obsahovat seznam názvů oddělení. Je `selectedDepartment` -li parametr zadán, je toto oddělení vybráno v `SelectList` .
+Předchozí kód vytvoří [SelectList](/dotnet/api/microsoft.aspnetcore.mvc.rendering.selectlist) , který bude obsahovat seznam názvů oddělení. Je `selectedDepartment` -li parametr zadán, je toto oddělení vybráno v `SelectList` .
 
 Třídy modelu stránky pro vytváření a úpravy budou odvozeny z `DepartmentNamePageModel` .
 
@@ -111,7 +111,7 @@ Stránka obsahuje skryté pole ( `<input type="hidden">` ) pro číslo kurzu. P�
 
 ## <a name="update-the-course-details-and-delete-pages"></a>Aktualizujte podrobnosti kurzu a odstraňte stránky.
 
-[AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking?view=efcore-2.0#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) může zvýšit výkon, když sledování není vyžadováno.
+[AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) může zvýšit výkon, když sledování není vyžadováno.
 
 ### <a name="update-the-course-page-models"></a>Aktualizace modelů stránek kurzu
 
@@ -263,7 +263,7 @@ Každý z nich potřebuje seznam názvů oddělení, kurzy a vytváření a kurz
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/DepartmentNamePageModel.cshtml.cs?highlight=9,11,20-21)]
 
-Předchozí kód vytvoří [SelectList](/dotnet/api/microsoft.aspnetcore.mvc.rendering.selectlist?view=aspnetcore-2.0) , který bude obsahovat seznam názvů oddělení. Je `selectedDepartment` -li parametr zadán, je toto oddělení vybráno v `SelectList` .
+Předchozí kód vytvoří [SelectList](/dotnet/api/microsoft.aspnetcore.mvc.rendering.selectlist) , který bude obsahovat seznam názvů oddělení. Je `selectedDepartment` -li parametr zadán, je toto oddělení vybráno v `SelectList` .
 
 Třídy modelu stránky pro vytváření a úpravy budou odvozeny z `DepartmentNamePageModel` .
 
@@ -328,7 +328,7 @@ Otestujte aktualizovaný kód. Vytvořit, upravit a odstranit kurz.
 
 ## <a name="add-asnotracking-to-the-details-and-delete-page-models"></a>Přidání AsNoTracking k podrobnostem a odstranění modelů stránek
 
-[AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking?view=efcore-2.0#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) může zvýšit výkon, když sledování není vyžadováno. Přidejte `AsNoTracking` do modelu stránky odstranění a podrobnosti. Následující kód ukazuje aktualizovaný model stránky pro odstranění:
+[AsNoTracking](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.asnotracking#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_AsNoTracking__1_System_Linq_IQueryable___0__) může zvýšit výkon, když sledování není vyžadováno. Přidejte `AsNoTracking` do modelu stránky odstranění a podrobnosti. Následující kód ukazuje aktualizovaný model stránky pro odstranění:
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Delete.cshtml.cs?name=snippet&highlight=21,23,40,41)]
 
@@ -455,7 +455,7 @@ Předchozí kód provede následující změny:
 
 * Pokud je instruktor, který má být odstraněn, přiřazen jako správce jakékoli oddělení, odebere z těchto oddělení přiřazení instruktora.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze tohoto kurzu pro YouTube (část 1)](https://www.youtube.com/watch?v=Csh6gkmwc9E)
 * [Verze tohoto kurzu pro YouTube (část 2)](https://www.youtube.com/watch?v=mOAankB_Zgc)

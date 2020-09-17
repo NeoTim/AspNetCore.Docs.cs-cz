@@ -18,18 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-https
-ms.openlocfilehash: 5e29882414d49c0971bc11c688067878714d3b2d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d9f0b88a5e23b64e151ae1a622914dcae3129af6
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634186"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722745"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>Hostování ASP.NET Core imagí pomocí Docker přes HTTPS
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core [ve výchozím nastavení používá protokol HTTPS](/aspnet/core/security/enforcing-ssl). [Protokol HTTPS](https://en.wikipedia.org/wiki/HTTPS) spoléhá na [certifikáty](https://en.wikipedia.org/wiki/Public_key_certificate) pro důvěryhodnost, identitu a šifrování.
+ASP.NET Core [ve výchozím nastavení používá protokol HTTPS](./enforcing-ssl.md). [Protokol HTTPS](https://en.wikipedia.org/wiki/HTTPS) spoléhá na [certifikáty](https://en.wikipedia.org/wiki/Public_key_certificate) pro důvěryhodnost, identitu a šifrování.
 
 Tento dokument vysvětluje, jak spustit předem připravené image kontejnerů pomocí protokolu HTTPS.
 
@@ -37,7 +37,7 @@ Další informace najdete v tématu [vývoj aplikací ASP.NET Core s využitím 
 
 Tato ukázka vyžaduje [docker 17,06](https://docs.docker.com/release-notes/docker-ce) nebo novější z [klienta Docker](https://www.docker.com/products/docker).
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Některé pokyny v tomto dokumentu vyžadují [sadu SDK .NET Core 2,2](https://dotnet.microsoft.com/download) nebo novější.
 

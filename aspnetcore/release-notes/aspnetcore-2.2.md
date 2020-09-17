@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: 1a8599e6d06724ec289ddd4bee94f89d3c78ef91
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 085a26d508af5bdce506ab923a3256046b3894ab
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632379"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722485"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2,2
 
@@ -94,7 +94,7 @@ Další informace najdete v tématu [vnitroprocesové hostování pro službu II
 
 ASP.NET Core 2,2 zavádí klienta Java pro SignalR . Tento klient podporuje připojení k serveru ASP.NET Core SignalR z kódu Java, včetně aplikací pro Android.
 
-Další informace najdete v tématu [ASP.NET Core SignalR klient Java](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2).
+Další informace najdete v tématu [ASP.NET Core SignalR klient Java](../signalr/java-client.md?view=aspnetcore-2.2).
 
 ## <a name="cors-improvements"></a>Vylepšení CORS
 

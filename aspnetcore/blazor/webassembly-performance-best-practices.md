@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 5d3cd1480dd37f437b2d6d5a89af0a842286be95
-ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
+ms.openlocfilehash: d1ad646f82e5c9ba611a60fc9be8378bedef8dee
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90080261"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90721720"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-performance-best-practices"></a>Blazor WebAssemblyOsvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -81,10 +81,7 @@ Další informace naleznete v tématu <xref:blazor/components/lifecycle#after-co
 
 Komponenty nabízejí pohodlný přístup k vytvoření opakovaně použitelných fragmentů kódu a značek. Obecně doporučujeme vytváření individuálních komponent, které nejlépe odpovídají požadavkům aplikace. Jedna výstraha znamená, že každá další podřízená komponenta přispívá k celkovému času potřebnýmu k vykreslení nadřazené komponenty. U většiny aplikací je další režie zanedbatelná. Aplikace, které vytváří velký počet komponent, by měly zvážit použití strategií ke snížení režijních nákladů na zpracování, jako je omezení počtu vykreslených komponent.
 
-Například mřížka nebo seznam, který vykresluje stovky řádků obsahujících komponenty, je náročné na vykreslování procesoru. Zvažte možnost Virtualizovat rozložení mřížky nebo seznamu tak, aby se v určitou dobu vykreslila pouze podmnožina komponent. Příklad vykreslování podmnožiny komponent naleznete v následujících součástech v [ `Virtualization` ukázkové aplikaci (ASPNET/Samples úložiště GitHub)](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Virtualization):
-
-* `Virtualize` Component ( [`Shared/Virtualize.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs) ): komponenta napsaná v jazyce C#, která implementuje <xref:Microsoft.AspNetCore.Components.ComponentBase> pro vykreslení sady datových řádků počasí na základě posouvání uživatele.
-* `FetchData` Component ( [`Pages/FetchData.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Pages/FetchData.razor) ): používá `Virtualize` komponentu k zobrazení 25 řádků dat počasí současně.
+Další informace naleznete v tématu <xref:blazor/components/virtualization>.
 
 ## <a name="avoid-javascript-interop-to-marshal-data"></a>Vyhněte se interoperabilitě JavaScriptu při zařazování dat
 

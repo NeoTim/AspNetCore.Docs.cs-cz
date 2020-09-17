@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/class-libraries
-ms.openlocfilehash: 82969bf92965bfdeb1d1474ab47ca74ecbe6dd97
-ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
+ms.openlocfilehash: afd1bfffae11520a5d9abccc1d2ee4cf3a46a4bf
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90080300"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722459"
 ---
 # <a name="aspnet-core-no-locrazor-components-class-libraries"></a>RazorKnihovny tříd ASP.NET Core komponenty
 
@@ -42,7 +42,7 @@ Stejně jako komponenty jsou běžné typy .NET, komponenty poskytované RCL jso
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. Vytvoření nového projektu
-1. Vyberte možnost ** Razor Knihovna tříd**. Vyberte **Next** (Další).
+1. Vyberte možnost ** Razor Knihovna tříd**. Vyberte **Další**.
 1. V dialogovém okně **vytvořit novou Razor knihovnu tříd** vyberte **vytvořit**.
 1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. V příkladech v tomto tématu se používá název projektu `ComponentLibrary` . Vyberte **Vytvořit**.
 1. Přidat RCL do řešení:
@@ -170,6 +170,43 @@ RCL může zahrnovat statické prostředky. Statické prostředky jsou k dispozi
 ## <a name="supply-components-and-static-assets-to-multiple-hosted-no-locblazor-apps"></a>Dodávání komponent a statických prostředků do více hostovaných Blazor aplikací
 
 Další informace naleznete v tématu <xref:blazor/host-and-deploy/webassembly#static-assets-and-class-libraries>.
+
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="browser-compatibility-analyzer-for-no-locblazor-webassembly"></a>Analyzátor kompatibility prohlížeče pro Blazor WebAssembly
+
+Blazor WebAssembly aplikace cílí na úplnou oblast rozhraní .NET API, ale ne všechna rozhraní API .NET jsou podporovaná ve webovém sestavení vzhledem k omezením izolovaného prostoru (sandbox) prohlížeče. Nepodporovaná rozhraní API se vyvolávají <xref:System.PlatformNotSupportedException> při spuštění na WebAssembly. Analyzátor kompatibility platforem upozorní vývojáře, když aplikace používá rozhraní API, která nejsou podporovaná cílovými platformami aplikace. U Blazor WebAssembly aplikací to znamená, že se v prohlížečích podporují rozhraní API. Přidání poznámek k rozhraním API .NET Framework pro analyzátor kompatibility je probíhající proces, takže ne všechna rozhraní .NET Framework API jsou momentálně Poznáma.
+
+Blazor WebAssemblyRazorprojekty knihovny tříd a *automaticky* umožňují compatibilty kontroly prohlížeče přidáním `browser` jako podporované platformy s `SupportedPlatform` položkou MSBuild. Vývojáři knihovny mohou ručně přidat `SupportedPlatform` položku do souboru projektu knihovny a povolit tak funkci:
+
+```xml
+<ItemGroup>
+  <SupportedPlatform Include="browser" />
+</ItemGroup>
+```
+
+Při vytváření knihovny je nutné určit, že konkrétní rozhraní API není v prohlížečích podporováno zadáním `browser` <xref:System.Runtime.Versioning.UnsupportedOSPlatformAttribute> :
+
+```csharp
+[UnsupportedOSPlatform("browser")]
+private static string GetLoggingDirectory()
+{
+    ...
+}
+```
+
+Další informace najdete v tématu věnovaném vytváření [poznámek na rozhraních API na konkrétních platformách (dotnet/Designs v úložišti GitHubu)](https://github.com/dotnet/designs/blob/main/accepted/2020/platform-exclusion/platform-exclusion.md#build-configuration-for-platforms).
+
+## <a name="no-locblazor-javascript-isolation-and-object-references"></a>Blazor JavaScript – izolace a odkazy na objekty
+
+Blazor povoluje izolaci JavaScriptu ve standardních [modulech JavaScript](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules). Izolace JavaScriptu nabízí následující výhody:
+
+* Importovaný JavaScript již neznečišťující globální obor názvů.
+* Příjemci knihovny a součásti nejsou vyžadováni k ručnímu importování souvisejícího JavaScriptu.
+
+Další informace naleznete v tématu <xref:blazor/call-javascript-from-dotnet#blazor-javascript-isolation-and-object-references>.
+
+::: moniker-end
 
 ## <a name="build-pack-and-ship-to-nuget"></a>Sestavení, balení a odeslání do NuGet
 

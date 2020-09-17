@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/protobuf
-ms.openlocfilehash: 60af1add9ae2f8b2b94bc19b65667d7af91fb122
-ms.sourcegitcommit: 7258e94cf60c16e5b6883138e5e68516751ead0f
+ms.openlocfilehash: ea46e04bc4aa6269efbf8917d5f32194402a66ef
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2020
-ms.locfileid: "89102663"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722693"
 ---
 # <a name="create-protobuf-messages-for-net-apps"></a>Vytváření zpráv Protobuf pro aplikace .NET
 
@@ -85,6 +85,10 @@ Protobuf podporuje rozsah nativních typů skalárních hodnot. V následující
 | `string`      | `string`     |
 | `bytes`       | `ByteString` |
 
+Skalární hodnoty mají vždy výchozí hodnotu a nelze je nastavit na `null` . Toto omezení zahrnuje `string` a, `ByteString` což jsou třídy jazyka C#. `string` ve výchozím nastavení je prázdná hodnota řetězce a `ByteString` Výchozí hodnota je prázdná hodnota v bajtech. Při pokusu o nastavení `null` vyvolá chybu.
+
+K podpoře hodnot null lze použít [typy obálky s možnou hodnotou](#nullable-types) null.
+
 ### <a name="dates-and-times"></a>Data a časy
 
 Nativní skalární typy neposkytují hodnoty data a času, které jsou ekvivalentní. NET ' <xref:System.DateTimeOffset> , <xref:System.DateTime> a <xref:System.TimeSpan> . Tyto typy lze zadat pomocí některých z rozšíření *známých typů* Protobuf. Tato rozšíření poskytují podporu generování kódu a běhové prostředí pro komplexní typy polí napříč podporovanými platformami.
@@ -145,19 +149,42 @@ message Person {
 }
 ```
 
-Protobuf používá typy s možnou hodnotou null .NET, například `int?` , pro vlastnost Generated Message.
+`wrappers.proto` typy nejsou vystavené v generovaných vlastnostech. Protobuf je automaticky mapuje na odpovídající typy s možnou hodnotou null v C# zprávy. Například `google.protobuf.Int32Value` pole vygeneruje `int?` vlastnost. Vlastnosti referenčního typu `string` , jako jsou a, `ByteString` se nemění, s výjimkou toho, že je `null` lze přiřadit bez chyby
 
 V následující tabulce je uveden úplný seznam typů obálek s ekvivalentním typem jazyka C#:
 
-| Typ C#   | Obálka dobře známého typu       |
-| --------- | ----------------------------- |
-| `bool?`   | `google.protobuf.BoolValue`   |
-| `double?` | `google.protobuf.DoubleValue` |
-| `float?`  | `google.protobuf.FloatValue`  |
-| `int?`    | `google.protobuf.Int32Value`  |
-| `long?`   | `google.protobuf.Int64Value`  |
-| `uint?`   | `google.protobuf.UInt32Value` |
-| `ulong?`  | `google.protobuf.UInt64Value` |
+| Typ C#      | Obálka dobře známého typu       |
+| ------------ | ----------------------------- |
+| `bool?`      | `google.protobuf.BoolValue`   |
+| `double?`    | `google.protobuf.DoubleValue` |
+| `float?`     | `google.protobuf.FloatValue`  |
+| `int?`       | `google.protobuf.Int32Value`  |
+| `long?`      | `google.protobuf.Int64Value`  |
+| `uint?`      | `google.protobuf.UInt32Value` |
+| `ulong?`     | `google.protobuf.UInt64Value` |
+| `string`     | `google.protobuf.StringValue` |
+| `ByteString` | `google.protobuf.BytesValue`  |
+
+### <a name="bytes"></a>Bajty
+
+Binární datové části jsou podporovány v Protobuf s `bytes` typem skalární hodnoty. Vygenerovaná vlastnost v jazyce C# používá `ByteString` jako typ vlastnosti.
+
+Použijte `ByteString.CopyFrom(byte[] data)` k vytvoření nové instance z bajtového pole:
+
+```csharp
+var data = await File.ReadAllBytesAsync(path);
+
+var payload = new PayloadResponse();
+payload.Data = ByteString.CopyFrom(data);
+```
+
+`ByteString` k datům se dostanete přímo pomocí `ByteString.Span` nebo `ByteString.Memory` . Nebo zavolejte `ByteString.ToByteArray()` na převést instanci zpátky do pole bajtů:
+
+```csharp
+var payload = await client.GetPayload(new PayloadRequest());
+
+await File.WriteAllBytesAsync(path, payload.Data.ToByteArray());
+```
 
 ### <a name="decimals"></a>Desetinná místa
 
@@ -417,7 +444,7 @@ var json = JsonFormatter.Default.Format(status.Metadata);
 var document = JsonDocument.Parse(json);
 ```
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Průvodce jazyky Protobuf](https://developers.google.com/protocol-buffers/docs/proto3#simple)
 * <xref:grpc/versioning>

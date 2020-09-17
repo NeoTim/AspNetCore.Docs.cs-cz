@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: bba965e14058663c3ed9c0f15afc6a8d78997aea
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: 2bfe05748e6740043be7f1ccc6dbe22ad4b0ca44
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009749"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722563"
 ---
 # <a name="aspnet-core-no-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR hostování a škálování
 
@@ -33,7 +33,7 @@ Tento článek vysvětluje, jaké jsou informace o hostování a škálování p
 
 ## <a name="sticky-sessions"></a>Rychlé relace
 
-SignalR vyžaduje, aby všechny požadavky HTTP pro konkrétní připojení byly zpracovávány stejným procesem serveru. Když SignalR je spuštěná na serverové farmě (víc serverů), musí se použít "rychlé relace". U některých nástrojů pro vyrovnávání zatížení se také nazývají spřažení relací. Azure App Service pro směrování požadavků používá [Směrování žádostí na aplikace](https://docs.microsoft.com/iis/extensions/planning-for-arr/application-request-routing-version-2-overview) (ARR). Povolením nastavení spřažení ARR v Azure App Service umožníte "rychlé relace". Jediné okolnosti, kdy nejsou vyžadovány rychlé relace, jsou:
+SignalR vyžaduje, aby všechny požadavky HTTP pro konkrétní připojení byly zpracovávány stejným procesem serveru. Když SignalR je spuštěná na serverové farmě (víc serverů), musí se použít "rychlé relace". U některých nástrojů pro vyrovnávání zatížení se také nazývají spřažení relací. Azure App Service pro směrování požadavků používá [Směrování žádostí na aplikace](/iis/extensions/planning-for-arr/application-request-routing-version-2-overview) (ARR). Povolením nastavení spřažení ARR v Azure App Service umožníte "rychlé relace". Jediné okolnosti, kdy nejsou vyžadovány rychlé relace, jsou:
 
 1. Při hostování na jednom serveru v jednom procesu.
 1. Při použití služby Azure SignalR .

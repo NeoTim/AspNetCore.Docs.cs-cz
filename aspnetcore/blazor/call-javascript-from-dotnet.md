@@ -5,7 +5,7 @@ description: Naučte se vyvolat funkce JavaScriptu z metod .NET v Blazor aplikac
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/07/2020
+ms.date: 09/17/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: e7f23a4b44a0adb1d0b97c88e1d17f96aa2d28bd
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a62462e3a0a2366a8662573ada5d2e7589c14c0d
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625385"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722472"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>Volání funkcí jazyka JavaScript z metod .NET v ASP.NET Core Blazor
 
@@ -109,6 +109,13 @@ Neumísťujte `<script>` značku do souboru komponenty, protože `<script>` zna�
 Metody .NET spolupracuje s funkcemi JavaScriptu v `exampleJsInterop.js` souboru voláním <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> .
 
 <xref:Microsoft.JSInterop.IJSRuntime>Abstrakce je asynchronní k povolení pro Blazor Server scénáře. Pokud aplikace je Blazor WebAssembly aplikace a chcete funkci JavaScriptu vyvolat synchronně, přetypování směrem dolů <xref:Microsoft.JSInterop.IJSInProcessRuntime> a volání <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A> místo toho. Doporučujeme, aby většina knihoven spolupráce v JS používala asynchronní rozhraní API, aby bylo zajištěno, že jsou knihovny dostupné ve všech scénářích.
+
+::: moniker range=">= aspnetcore-5.0"
+
+> [!NOTE]
+> Pokud chcete povolit izolaci JavaScriptu ve standardních [modulech JavaScript](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules), přečtěte si část [ Blazor JavaScript – izolace a objekty reference](#blazor-javascript-isolation-and-object-references) .
+
+::: moniker-end
 
 Ukázková aplikace obsahuje komponentu, která předvádí interoperabilitu JS. Součást:
 
@@ -486,7 +493,44 @@ Další informace najdete v následujících problémech:
 * [Cyklické odkazy nejsou podporované, musí být dva (dotnet/aspnetcore #20525).](https://github.com/dotnet/aspnetcore/issues/20525)
 * [Návrh: Přidání mechanismu pro zpracování cyklických odkazů při serializaci (dotnet/runtime #30820)](https://github.com/dotnet/runtime/issues/30820)
 
-## <a name="additional-resources"></a>Další zdroje informací
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="no-locblazor-javascript-isolation-and-object-references"></a>Blazor JavaScript – izolace a odkazy na objekty
+
+Blazor povoluje izolaci JavaScriptu ve standardních [modulech JavaScript](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules). Izolace JavaScriptu nabízí následující výhody:
+
+* Importovaný JavaScript již neznečišťující globální obor názvů.
+* Uživatelé knihovny a komponent nejsou pro import souvisejícího JavaScriptu vyžadováni.
+
+Například následující modul JavaScriptu exportuje funkci JavaScriptu pro zobrazení výzvy prohlížeče:
+
+```javascript
+export function showPrompt(message) {
+  return prompt(message, 'Type anything here');
+}
+```
+
+Přidejte předchozí modul JavaScriptu do knihovny .NET jako statický webový prostředek ( `wwwroot/exampleJsInterop.js` ) a pak Importujte modul do kódu .NET pomocí <xref:Microsoft.JSInterop.IJSRuntime> služby. Služba je vložená jako `jsRuntime` (není zobrazená) pro následující příklad:
+
+```csharp
+var module = await jsRuntime.InvokeAsync<JSObjectReference>(
+    "import", "./_content/MyComponents/exampleJsInterop.js");
+```
+
+`import`Identifikátor v předchozím příkladu je speciální identifikátor používaný speciálně pro import modulu JavaScriptu. Zadejte modul využívající cestu ke stabilnímu statickému webovému prostředku: `_content/{LIBRARY NAME}/{PATH UNDER WWWROOT}` . Zástupný symbol `{LIBRARY NAME}` je název knihovny. Zástupný symbol `{PATH UNDER WWWROOT}` je cesta ke skriptu v rámci `wwwroot` .
+
+<xref:Microsoft.JSInterop.IJSRuntime> Importuje modul jako `JSObjectReference` , který představuje odkaz na objekt jazyka JavaScript z kódu .NET. Použijte `JSObjectReference` k vyvolání exportovaných funkcí jazyka JavaScript z modulu:
+
+```csharp
+public async ValueTask<string> Prompt(string message)
+{
+    return await module.InvokeAsync<string>("showPrompt", message);
+}
+```
+
+::: moniker-end
+
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/call-dotnet-from-javascript>
 * [Příklad InteropComponent. Razor (dotnet/AspNetCore, úložiště GitHub, větev vydání 3,1)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)

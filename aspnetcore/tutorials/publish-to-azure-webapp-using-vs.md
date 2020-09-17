@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: 380e18d1826159fa0780909aba58fe8334ede8bb
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: ebfe89d68725d597d6975015bbf84414ff818829
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631937"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722907"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
 
@@ -34,7 +34,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 ::: moniker-end
 
 
-Pokud pracujete na macOS, přečtěte si téma [publikování webové aplikace pro Azure App Service používání Visual Studio pro Mac](https://docs.microsoft.com/visualstudio/mac/publish-app-svc?view=vsmac-2019) .
+Pokud pracujete na macOS, přečtěte si téma [publikování webové aplikace pro Azure App Service používání Visual Studio pro Mac](/visualstudio/mac/publish-app-svc?view=vsmac-2019) .
 
 Problémy s nasazením App Service najdete v tématu <xref:test/troubleshoot-azure-iis> .
 
@@ -215,7 +215,7 @@ Po dokončení testování aplikace přejdete na [Azure Portal](https://portal.a
 
 * <xref:host-and-deploy/azure-apps/azure-continuous-deployment>
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * Visual Studio Code najdete v tématu [publikování profilů](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles).
 * [Azure App Service](/azure/app-service/app-service-web-overview)

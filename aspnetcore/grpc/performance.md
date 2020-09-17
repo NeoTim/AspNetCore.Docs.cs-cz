@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/performance
-ms.openlocfilehash: a0a1a6901e07fb0074ca403870378f267d3d4403
-ms.sourcegitcommit: c9b03d8a6a4dcc59e4aacb30a691f349235a74c8
+ms.openlocfilehash: 4d50698b8c55f7fb3ef9a2c3102e73e046a22a9c
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/02/2020
-ms.locfileid: "89379442"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722842"
 ---
 # <a name="performance-best-practices-with-grpc"></a>Osvědčené postupy pro výkon s gRPC
 
@@ -121,6 +121,12 @@ K dispozici je mnoho serverů proxy L7. Mezi tyto možnosti patří:
 * [YARP: reverzní proxy](https://microsoft.github.io/reverse-proxy/) – náhled Open Source proxy serveru napsaný v .NET
 
 ::: moniker range=">= aspnetcore-5.0"
+
+## <a name="inter-process-communication"></a>Komunikace mezi procesy
+
+gRPC volání mezi klientem a službou se obvykle odesílají přes sokety TCP. Protokol TCP je ideální pro komunikaci přes síť, ale [komunikace mezi procesy (IPC)](https://wikipedia.org/wiki/Inter-process_communication) je efektivnější, pokud je klient a služba ve stejném počítači.
+
+Pro volání gRPC mezi procesy ve stejném počítači zvažte použití přenosu, jako jsou například doménové sokety systému UNIX nebo pojmenované kanály. Další informace naleznete v tématu <xref:grpc/interprocess>.
 
 ## <a name="keep-alive-pings"></a>Příkazy pro udržování otevřených připojení
 

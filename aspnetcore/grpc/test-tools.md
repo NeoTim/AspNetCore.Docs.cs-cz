@@ -1,8 +1,8 @@
 ---
-title: Testování služeb pomocí nástrojů gRPC
+title: Testování gRPC služeb pomocí gRPCurl v ASP.NET Core
 author: jamesnk
 description: Naučte se testovat služby pomocí nástrojů gRPC. gRPCurl nástroj příkazového řádku pro interakci s gRPC službami. gRPCui je interaktivní webové uživatelské rozhraní.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: jamesnk
 ms.date: 08/09/2020
 no-loc:
@@ -17,23 +17,26 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/test-tools
-ms.openlocfilehash: ba51d9b5db2e9fbc7583856d79ab8658eff9b586
-ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
+ms.openlocfilehash: 15652431ea4bebc879af4c57667cbf854c49330c
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90594416"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90721814"
 ---
-# <a name="test-services-with-grpc-tools"></a>Testování služeb pomocí nástrojů gRPC
+# <a name="test-grpc-services-with-grpcurl-in-aspnet-core"></a>Testování gRPC služeb pomocí gRPCurl v ASP.NET Core
 
 Od [James Newton – král](https://twitter.com/jamesnk)
 
-K dispozici jsou nástroje pro gRPC, které vývojářům umožňují testovat služby bez vytváření klientských aplikací. [gRPCurl](https://github.com/fullstorydev/grpcurl) je nástroj příkazového řádku, který poskytuje interakce se službami gRPC. [gRPCui](https://github.com/fullstorydev/grpcui) přidá interaktivní webové uživatelské rozhraní pro gRPC.
+K dispozici jsou nástroje pro gRPC, které vývojářům umožňují testovat služby bez vytváření klientských aplikací:
+
+* [gRPCurl](https://github.com/fullstorydev/grpcurl) je nástroj příkazového řádku, který poskytuje interakce se službami gRPC.
+* [gRPCui](https://github.com/fullstorydev/grpcui) sestaví gRPCurl a přidá interaktivní webové uživatelské rozhraní pro gRPC, podobně jako pro nástroj post a Swagger.
 
 Tento článek popisuje, jak:
 
 * Stáhněte a nainstalujte gRPCurl a gRPCui.
-* Nastavení reflexe gRPC pomocí aplikace v gRPC ASP.NET Core.
+* Nastavte reflexi gRPC pomocí aplikace gRPC ASP.NET Core.
 * Zjišťování a testování gRPC služeb pomocí `grpcurl` .
 * Interakce s gRPC službami přes prohlížeč pomocí `grpcui` .
 
@@ -48,21 +51,31 @@ gRPCurl je nástroj příkazového řádku vytvořený komunitou gRPC. Mezi tyto
 
 Informace o stažení a instalaci `grpcurl` najdete na [domovské stránce GitHubu gRPCurl](https://github.com/fullstorydev/grpcurl#installation).
 
-## <a name="setup-grpc-reflection"></a>Nastavit reflexi gRPC
+![příkazový řádek gRPCurl](~/grpc/test-tools/static/grpcurl.png)
 
-`grpcurl` aby je bylo možné volat, musí znát Protobuf kontrakt služeb. Toto lze provést dvěma způsoby:
+## <a name="set-up-grpc-reflection"></a>Nastavení reflexe gRPC
 
-* Použijte reflexi gRPC k zjišťování kontraktů služeb.
-* Zadejte soubory *.* a v argumentech příkazového řádku.
+`grpcurl` před voláním služby musíte znát Protobuf kontrakt služeb. Toto lze provést dvěma způsoby:
 
-Použití gRPCurl s gRPC reflexe a Service Discovery je jednodušší. gRPC ASP.NET Core obsahuje integrovanou podporu gRPC reflexe s balíčkem [gRPC. AspNetCore. Server. reflexe](https://www.nuget.org/packages/Grpc.AspNetCore.Server.Reflection) . Konfigurace reflexe v aplikaci:
+* Nastavte [reflexi gRPC](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) na serveru. gRPCurl automaticky zjišťuje kontrakty služby.
+* Zadejte `.proto` soubory v argumentech příkazového řádku pro gRPCurl.
 
-* Přidat `Grpc.AspNetCore.Server.Reflection` odkaz na balíček
-* Zaregistrujte reflexi v *Startup.cs*:
+Použití gRPCurl s reflexí gRPC je jednodušší. reflexe gRPC přidá do aplikace novou službu gRPC, kterou klienti můžou volat pro zjišťování služeb.
+
+gRPC ASP.NET Core obsahuje integrovanou podporu pro reflexi gRPC s [`Grpc.AspNetCore.Server.Reflection`](https://www.nuget.org/packages/Grpc.AspNetCore.Server.Reflection) balíčkem. Konfigurace reflexe v aplikaci:
+
+* Přidejte `Grpc.AspNetCore.Server.Reflection` odkaz na balíček.
+* Registrovat reflexi v `Startup.cs` :
   * `AddGrpcReflection` k registraci služeb, které povolují reflexi.
-  * `MapGrpcReflectionService` pro přidání koncového bodu služby reflexe.
+  * `MapGrpcReflectionService` pro přidání koncového bodu služby Reflection.
 
-[!code-csharp[](~/grpc/test-tools/Startup.cs?name=snippet_1&highlight=4,14)]
+[!code-csharp[](~/grpc/test-tools/Startup.cs?name=snippet_1&highlight=4,15-18)]
+
+Když je nastavená reflexe gRPC:
+
+* Do serverové aplikace se přidá služba reflexe gRPC.
+* Klientské aplikace, které podporují reflexi gRPC, mohou volat službu reflexe za účelem zjišťování služeb hostovaných serverem.
+* služby gRPC Services se pořád volají z klienta. Reflexe umožňuje jenom zjišťování služby a obchází zabezpečení na straně serveru. Koncové body chráněné [ověřováním a autorizací](xref:grpc/authn-and-authz) vyžadují volajícímu předání přihlašovacích údajů pro koncový bod, který se má úspěšně volat.
 
 ## <a name="use-grpcurl"></a>Použití `grpcurl`
 
@@ -96,7 +109,7 @@ Předchozí příklad:
   * `Greeter` je služba implementovaná aplikací.
   * `ServerReflection` je služba přidaná `Grpc.AspNetCore.Server.Reflection` balíčkem.
 
-Kombinovat `describe` s názvem služby, metody nebo zprávy pro zobrazení jejich podrobností:
+`describe`V kombinaci s názvem služby, metody nebo zprávy zobrazíte její podrobnosti:
 
 ```powershell
 > grpcurl.exe localhost:5001 describe greet.HelloRequest
@@ -117,21 +130,21 @@ Zavolejte službu gRPC zadáním názvu služby a metody společně s argumentem
 }
 ```
 
-Předchozí příklad:
+V předchozím příkladu:
 
-* `-d` argument určuje zprávu požadavku s JSON. Tento argument musí být před názvem adresy serveru a metody.
+* `-d`Argument určuje zprávu požadavku s JSON. Tento argument musí být před názvem adresy serveru a metody.
 * Volá `SayHello` metodu `greeter.Greeter` služby.
 * Vytiskne zprávu odpovědi jako JSON.
 
 ## <a name="about-grpcui"></a>O gRPCui
 
-gRPCui je interaktivní webové uživatelské rozhraní pro gRPC. Sestavuje se na gRPCurl a nabízí grafické rozhraní pro zjišťování a testování gRPCch služeb, podobně jako prostřednictvím nástrojů HTTP, jako je post.
+gRPCui je interaktivní webové uživatelské rozhraní pro gRPC. Sestavuje se na gRPCurl a nabízí grafické rozhraní pro zjišťování a testování gRPCch služeb, podobně jako prostřednictvím nástroje HTTP, jako je například post nebo Swagger UI.
 
 Informace o stažení a instalaci `grpcui` najdete na [domovské stránce GitHubu gRPCui](https://github.com/fullstorydev/grpcui#installation).
 
 ## <a name="using-grpcui"></a>Používání akce `grpcui`
 
-Spusťte `grpcui` s adresou serveru pro interakci s jako argument.
+Spusťte `grpcui` s adresou serveru pro interakci s jako argument:
 
 ```powershell
 > grpcui.exe localhost:5001
@@ -146,4 +159,4 @@ Nástroj spustí okno prohlížeče s interaktivním webovým uživatelským roz
 
 * [Domovská stránka GitHubu gRPCurl](https://github.com/fullstorydev/grpcurl)
 * [Domovská stránka GitHubu gRPCui](https://github.com/fullstorydev/grpcui)
-* [Grpc. AspNetCore. Server. Reflection](https://www.nuget.org/packages/Grpc.AspNetCore.Server.Reflection)
+* [`Grpc.AspNetCore.Server.Reflection`](https://www.nuget.org/packages/Grpc.AspNetCore.Server.Reflection)

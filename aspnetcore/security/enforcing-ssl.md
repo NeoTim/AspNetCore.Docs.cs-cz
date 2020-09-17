@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: 1cb2c2d18b717dc99c6ef4dac9954fef149c6deb
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: b5260084c2fdd296168e918f06d8b54faf1865d5
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631560"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722654"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
@@ -109,7 +109,7 @@ Port HTTPS určete pomocí některého z následujících přístupů:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-* Nastavte `https_port` [Nastavení hostitele](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#https_port):
+* Nastavte `https_port` [Nastavení hostitele](../fundamentals/host/generic-host.md?view=aspnetcore-3.0#https_port):
 
   * V konfiguraci hostitele.
   * Nastavením `ASPNETCORE_HTTPS_PORT` proměnné prostředí.
@@ -117,7 +117,7 @@ Port HTTPS určete pomocí některého z následujících přístupů:
 
     [!code-json[](enforcing-ssl/sample-snapshot/3.x/appsettings.json?highlight=2)]
 
-* Označení portu pomocí zabezpečeného schématu pomocí [proměnné prostředí ASPNETCORE_URLS](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#urls). Proměnná prostředí nakonfiguruje server. Middleware nepřímo vyhledá port HTTPS prostřednictvím <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> . Tento přístup nefunguje v nasazeních reverzních proxy serverů.
+* Označení portu pomocí zabezpečeného schématu pomocí [proměnné prostředí ASPNETCORE_URLS](../fundamentals/host/generic-host.md?view=aspnetcore-3.0#urls). Proměnná prostředí nakonfiguruje server. Middleware nepřímo vyhledá port HTTPS prostřednictvím <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> . Tento přístup nefunguje v nasazeních reverzních proxy serverů.
 
 ::: moniker-end
 
@@ -322,7 +322,7 @@ Zrušte zaškrtnuté políčko **Konfigurovat pro protokol HTTPS** .
 ::: moniker-end
 
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli) 
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli) 
 
 Použijte `--no-https` možnost. Například
 

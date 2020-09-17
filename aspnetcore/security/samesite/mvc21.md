@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/samesite/mvc21
-ms.openlocfilehash: 0a719ae48199f7854ded534446045eb304d4d9f0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 38e5f0d1a2ecf5b46f73bf8574f73934a070880f
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88632353"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722602"
 ---
 # <a name="aspnet-core-21-mvc-samesite-no-loccookie-sample"></a>Ukázka SameSite 2,1 MVC pro ASP.NET Core cookie
 
@@ -57,7 +57,7 @@ Response.Cookies.Append(CookieName, "cookieValue", cookieOptions);
 
 ## <a name="setting-no-loccookie-authentication-and-session-state-no-loccookies"></a>Nastavení Cookie ověřování a stavu relace cookie s
 
-Cookie ověřování, stav relace a [různé další komponenty](https://docs.microsoft.com/aspnet/core/security/samesite?view=aspnetcore-2.1) nastavují své možnosti sameSite prostřednictvím Cookie možností, například
+Cookie ověřování, stav relace a [různé další komponenty](../samesite.md?view=aspnetcore-2.1) nastavují své možnosti sameSite prostřednictvím Cookie možností, například
 
 ```c#
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -90,7 +90,7 @@ Pokud kliknete na tlačítko vytvořit SameSite, zobrazí se z obrázku nad ním
 
 Aby bylo možné zachytit cookie hodnotu None podle podpory v agentovi prohlížeče uživatele, je nutné použít `CookiePolicy` middleware. Toto musí být umístěno do kanálu požadavků HTTP **před** všemi komponentami, které zapisuje cookie a nakonfigurují v rámci `ConfigureServices()` .
 
-Pro vložení do kanálu použití `app.UseCookiePolicy()` v `Configure(IApplicationBuilder, IHostingEnvironment)` metodě v [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs). Příklad:
+Pro vložení do kanálu použití `app.UseCookiePolicy()` v `Configure(IApplicationBuilder, IHostingEnvironment)` metodě v [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs). Například:
 
 ```c#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -120,7 +120,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Pak v `ConfigureServices(IServiceCollection services)` konfiguraci cookie zásady, která se má volat na pomocnou třídu při cookie připojení nebo odstranění s. Příklad:
+Pak v `ConfigureServices(IServiceCollection services)` konfiguraci cookie zásady, která se má volat na pomocnou třídu při cookie připojení nebo odstranění s. Například:
 
 ```c#
 public void ConfigureServices(IServiceCollection services)
@@ -172,5 +172,5 @@ Chcete-li získat ASP.NET Core změny .NET Framework Ujistěte se, že máte př
 ### <a name="more-information"></a>Další informace
  
 [Aktualizace](https://www.chromium.org/updates/same-site) 
- pro Chrome [Dokumentace k](https://docs.microsoft.com/aspnet/core/security/samesite?view=aspnetcore-2.1) 
+ pro Chrome [Dokumentace k](../samesite.md?view=aspnetcore-2.1) 
  ASP.NET Core SameSite [Oznámení o změně ASP.NET Core 2,1 SameSite](https://github.com/dotnet/aspnetcore/issues/8212)

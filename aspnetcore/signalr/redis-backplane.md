@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/redis-backplane
-ms.openlocfilehash: bc28eb3096e88455347f68ca381c9a280d5a153e
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a57176409c5f9bcc620db7e070f6616951eb9a54
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633653"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722771"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-no-locsignalr-scale-out"></a>Nastavení Redisho plánu pro horizontální navýšení SignalR kapacity ASP.NET Core
 
@@ -42,7 +42,7 @@ Tento článek vysvětluje SignalR konkrétní aspekty nastavení serveru [Redis
 
   * <xref:signalr/scale>
   * [Dokumentace k Redis](https://redis.io/)
-  * [Dokumentace k Azure Redis Cache](https://docs.microsoft.com/azure/redis-cache/)
+  * [Dokumentace k Azure Redis Cache](/azure/redis-cache/)
 
 ::: moniker range="= aspnetcore-2.1"
 
@@ -240,4 +240,4 @@ Další informace naleznete v následujících zdrojích:
 * <xref:signalr/scale>
 * [Dokumentace k Redis](https://redis.io/documentation)
 * [Dokumentace k Redis pro StackExchange](https://stackexchange.github.io/StackExchange.Redis/)
-* [Dokumentace k Azure Redis Cache](https://docs.microsoft.com/azure/redis-cache/)
+* [Dokumentace k Azure Redis Cache](/azure/redis-cache/)

@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 587872b269d897d7c86eb77c110a4b6432218ed3
-ms.sourcegitcommit: dd0e87abf2bb50ee992d9185bb256ed79d48f545
+ms.openlocfilehash: 01575ec87d2d346da7367523ca5e257d53de4983
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88746556"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722615"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -42,7 +42,7 @@ V tomto dokumentu je *horká cesta kódu* definována jako cesta kódu, která j
 
 ASP.NET Core aplikace by měly být navržené tak, aby souběžně zpracovaly hodně požadavků. Asynchronní rozhraní API umožňují malému fondu vláken zpracovávat tisíce souběžných požadavků a nečekají na blokující volání. Místo čekání na dokončení dlouhotrvající synchronní úlohy může vlákno pracovat na jiné žádosti.
 
-Běžný problém s výkonem v ASP.NET Core aplikace blokuje volání, která by mohla být asynchronní. Mnoho synchronních blokujících volání vede k [vyčerpání fondu vláken](https://blogs.msdn.microsoft.com/vancem/2018/10/16/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall/) a snížení doby odezvy.
+Běžný problém s výkonem v ASP.NET Core aplikace blokuje volání, která by mohla být asynchronní. Mnoho synchronních blokujících volání vede k [vyčerpání fondu vláken](/archive/blogs/vancem/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall) a snížení doby odezvy.
 
 **Nepoužívejte**:
 

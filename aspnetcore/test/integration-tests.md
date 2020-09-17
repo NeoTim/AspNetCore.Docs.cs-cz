@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/integration-tests
-ms.openlocfilehash: b06c06fb5e525a0bdc3df1de50236fa8f76daca9
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 9b36a77730a43c7515fcd2c56621412453784c9d
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635109"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722537"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -388,13 +388,13 @@ SUT je Razor systém zpráv s následujícími charakteristikami:
 
 &#8224;tématu EF, [test s pamětí](/ef/core/miscellaneous/testing/in-memory), vysvětluje, jak používat databázi v paměti pro testy pomocí MSTest. Toto téma používá testovací rozhraní [xUnit](https://xunit.github.io/) . Koncepty testů a testovací implementace v různých testovacích architekturách jsou podobné, ale nejsou totožné.
 
-I když aplikace nepoužívá vzor úložiště a není efektivním příkladem [vzoru jednotky práce (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor stránky tyto vzory vývoje podporují. Další informace najdete v tématu [navrhování vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovacího kontroleru testů](/aspnet/core/mvc/controllers/testing) (ukázka implementuje vzor úložiště).
+I když aplikace nepoužívá vzor úložiště a není efektivním příkladem [vzoru jednotky práce (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor stránky tyto vzory vývoje podporují. Další informace najdete v tématu [navrhování vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovacího kontroleru testů](../mvc/controllers/testing.md) (ukázka implementuje vzor úložiště).
 
 ### <a name="test-app-organization"></a>Organizace testovací aplikace
 
 Testovací aplikace je Konzolová aplikace v adresáři *Tests/ Razor PagesProject. Tests* .
 
-| Testovací adresář aplikace | Popis |
+| Testovací adresář aplikace | Description |
 | ------------------ | ----------- |
 | *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
 | *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |
@@ -779,13 +779,13 @@ SUT je Razor systém zpráv s následujícími charakteristikami:
 
 &#8224;tématu EF, [test s pamětí](/ef/core/miscellaneous/testing/in-memory), vysvětluje, jak používat databázi v paměti pro testy pomocí MSTest. Toto téma používá testovací rozhraní [xUnit](https://xunit.github.io/) . Koncepty testů a testovací implementace v různých testovacích architekturách jsou podobné, ale nejsou totožné.
 
-I když aplikace nepoužívá vzor úložiště a není efektivním příkladem [vzoru jednotky práce (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor stránky tyto vzory vývoje podporují. Další informace najdete v tématu [navrhování vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovacího kontroleru testů](/aspnet/core/mvc/controllers/testing) (ukázka implementuje vzor úložiště).
+I když aplikace nepoužívá vzor úložiště a není efektivním příkladem [vzoru jednotky práce (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor stránky tyto vzory vývoje podporují. Další informace najdete v tématu [navrhování vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovacího kontroleru testů](../mvc/controllers/testing.md) (ukázka implementuje vzor úložiště).
 
 ### <a name="test-app-organization"></a>Organizace testovací aplikace
 
 Testovací aplikace je Konzolová aplikace v adresáři *Tests/ Razor PagesProject. Tests* .
 
-| Testovací adresář aplikace | Popis |
+| Testovací adresář aplikace | Description |
 | ------------------ | ----------- |
 | *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
 | *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |
@@ -804,7 +804,7 @@ Ukázková aplikace se dosazuje do databáze se třemi zprávami v *Utilities.cs
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Testování částí](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
 * <xref:test/razor-pages-tests>

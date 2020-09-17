@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/migrations
-ms.openlocfilehash: d922e3a4ad3660bdd1c70dc262acc2f87bdd4214
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 78eb466fcfeb130e411df490f033114b3fdebeef
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626997"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722628"
 ---
 # <a name="part-4-no-locrazor-pages-with-ef-core-migrations-in-aspnet-core"></a>4. část Razor stránky s migracemi EF Core v ASP.NET Core
 
@@ -132,7 +132,7 @@ Spusťte aplikaci a ověřte, že je databáze osazená.
 
 ## <a name="applying-migrations-in-production"></a>Použití migrace v produkčním prostředí
 
-Doporučujeme, aby **provozní aplikace** nevolaly funkci [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace. `Migrate` by se neměl volat z aplikace, která je nasazená na serverovou farmu. Pokud je aplikace škálovaná na více instancí serveru, je obtížné zajistit, aby aktualizace schématu databáze neprobíhaly na více serverech nebo byly v konfliktu s přístupem pro čtení a zápis.
+Doporučujeme, aby **provozní aplikace** nevolaly funkci [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace. `Migrate` by se neměl volat z aplikace, která je nasazená na serverovou farmu. Pokud je aplikace škálovaná na více instancí serveru, je obtížné zajistit, aby aktualizace schématu databáze neprobíhaly na více serverech nebo byly v konfliktu s přístupem pro čtení a zápis.
 
 Migrace databáze by se měla provádět v rámci nasazení a řízeným způsobem. Přístupy k migraci do produkční databáze zahrnují:
 
@@ -151,7 +151,7 @@ Login failed for user 'user name'.
 
 Řešení může být spuštěno `dotnet ef database update` na příkazovém řádku.
 
-### <a name="additional-resources"></a>Další zdroje informací
+### <a name="additional-resources"></a>Další zdroje
 
 * [EF Core CLI](/ef/core/miscellaneous/cli/dotnet).
 * [Konzola Správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
@@ -295,7 +295,7 @@ Spusťte aplikaci a ověřte, že vše funguje.
 
 ## <a name="applying-migrations-in-production"></a>Použití migrace v produkčním prostředí
 
-Doporučujeme **, aby produkční** aplikace nevolaly metodu [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace. `Migrate` by se neměl volat z aplikace v serverové farmě. Například pokud je aplikace nasazená v cloudu s možností škálování na více instancí (spouští se víc instancí aplikace).
+Doporučujeme **, aby produkční** aplikace nevolaly metodu [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace. `Migrate` by se neměl volat z aplikace v serverové farmě. Například pokud je aplikace nasazená v cloudu s možností škálování na více instancí (spouští se víc instancí aplikace).
 
 Migrace databáze by se měla provádět v rámci nasazení a řízeným způsobem. Přístupy k migraci do produkční databáze zahrnují:
 
@@ -319,7 +319,7 @@ Login failed for user 'user name'.
 
 Řešení: Spusťte `dotnet ef database update`
 
-### <a name="additional-resources"></a>Další zdroje informací
+### <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=OWSUuMLKTJo)
 * [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).

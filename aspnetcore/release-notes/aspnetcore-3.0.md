@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: a53ba22c301b04aafa1eeb53d91f82f90dab0bad
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a1cbd8f434214ce488fc3febe63d8aaf54db71a3
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631547"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722784"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -397,7 +397,7 @@ Požadavky na hostitele:
 * Hostitelé systému Windows musí mít k uživatelskému účtu, který je hostitelem aplikace, přidány [hlavní názvy služby](/windows/win32/ad/service-principal-names) (SPN).
 * Počítače se systémem Linux a macOS musí být připojeny k doméně.
   * Pro webový proces musí být vytvořeny hlavní názvy služby (SPN).
-  * Na hostitelském počítači musí být vygenerovány a nakonfigurovány [soubory keytab](https://blogs.technet.microsoft.com/pie/2018/01/03/all-you-need-to-know-about-keytab-files/) .
+  * Na hostitelském počítači musí být vygenerovány a nakonfigurovány [soubory keytab](/archive/blogs/pie/all-you-need-to-know-about-keytab-files) .
 
 Další informace naleznete v tématu <xref:security/authentication/windowsauth>.
 
@@ -500,7 +500,7 @@ Chyby při spuštění při hostování ASP.NET Corech aplikací ve službě IIS
 
 .NET Core 3,0 zavádí novou šablonu aplikace služby pracovního procesu. Tato šablona poskytuje výchozí bod pro psaní dlouhých služeb, které běží v .NET Core.
 
-Další informace:
+Další informace naleznete v tématu:
 
 * [Pracovní procesy .NET Core jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>
@@ -550,4 +550,3 @@ Nejvýznamnější sestavení odebraný ze sdílené architektury ASP.NET Core 3
 ## Additional information
 For the complete list of changes, see the [ASP.NET Core 3.0 Release Notes](WHERE IS THIS????).
 -->
- 

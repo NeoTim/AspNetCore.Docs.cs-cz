@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: ed40800f3e363cc3fd6f57492d76a42095e5b97b
-ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
+ms.openlocfilehash: c6b77f20792c32a697fff8d1d78ef3c2536c5f8f
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88712555"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722894"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -732,7 +732,7 @@ Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spu�
 
 ## <a name="default-host-configuration"></a>Výchozí konfigurace hostitele
 
-Podrobnosti o výchozí konfiguraci při použití [webového hostitele](xref:fundamentals/host/web-host)naleznete v [ASP.NET Core 2,2 verzi tohoto tématu](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2).
+Podrobnosti o výchozí konfiguraci při použití [webového hostitele](xref:fundamentals/host/web-host)naleznete v [ASP.NET Core 2,2 verzi tohoto tématu](?view=aspnetcore-2.2).
 
 * Konfigurace hostitele se poskytuje:
   * Proměnné prostředí s předponou `DOTNET_` (například `DOTNET_ENVIRONMENT` ) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables). Předpona ( `DOTNET_` ) je odstraněna, když jsou načteny páry klíč-hodnota konfigurace.

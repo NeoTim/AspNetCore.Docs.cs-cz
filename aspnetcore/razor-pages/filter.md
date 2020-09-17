@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/filter
-ms.openlocfilehash: b6d6585c0cbd52715c4192d4ab3bee756dbb41b3
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 436d640130b378e2c770322186020c6e252872ef
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635044"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722511"
 ---
 # <a name="filter-methods-for-no-locrazor-pages-in-aspnet-core"></a>Filtrovat metody pro Razor stránky v ASP.NET Core
 
@@ -39,7 +39,7 @@ Razor Filtry stránky:
 * Spusťte kód poté, co se spustí metoda obslužné rutiny.
 * Může být implementováno na stránce nebo globálně.
 * Nelze použít na konkrétní metody obslužné rutiny stránky.
-* Může mít závislosti konstruktoru vyplněné [vstřikem závislosti](xref:fundamentals/dependency-injection) (di). Další informace najdete v tématu [ServiceFilterAttribute](/aspnet/core/mvc/controllers/filters#servicefilterattribute) a [TypeFilterAttribute](/aspnet/core/mvc/controllers/filters#typefilterattribute).
+* Může mít závislosti konstruktoru vyplněné [vstřikem závislosti](xref:fundamentals/dependency-injection) (di). Další informace najdete v tématu [ServiceFilterAttribute](../mvc/controllers/filters.md#servicefilterattribute) a [TypeFilterAttribute](../mvc/controllers/filters.md#typefilterattribute).
 
 I když konstruktory stránky a middleware umožňují spouštění vlastního kódu před spuštěním metody obslužné rutiny, pouze Razor filtry stránky umožňují přístup <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> a stránku. Middleware má přístup k `HttpContext` , ale ne k "kontextu stránky". Filtry mají <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> odvozený parametr, který poskytuje přístup k `HttpContext` . Zde je ukázka pro filtr stránky: [implementujte atribut filtru](#ifa) , který do odpovědi přidá hlavičku, něco, co nelze provést s konstruktory nebo middleware. Přístup k kontextu stránky, který zahrnuje přístup k instancím stránky a jejímu modelu, je k dispozici pouze při provádění filtrů, obslužných rutin nebo textu Razor stránky.
 

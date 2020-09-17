@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/version-differences
-ms.openlocfilehash: a8336a6c13c502f5a0fad150785cd9d484064618
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 965fbb3d8007cb64aaf51d82d87ed7a3a5298e9b
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633003"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90721785"
 ---
 # <a name="differences-between-aspnet-no-locsignalr-and-aspnet-core-no-locsignalr"></a>Rozdíly mezi ASP.NET SignalR a ASP.NET Core SignalR
 
@@ -150,13 +150,13 @@ V ASP.NET Core byl SignalR Model připojení zjednodušený. Připojení se vytv
 
 ASP.NET Core SignalR teď podporuje [streamování dat](xref:signalr/streaming) z rozbočovače na klienta.
 
-### <a name="state"></a>Stav
+### <a name="state"></a>State
 
 Byla odebrána možnost předat libovolný stav mezi klienty a centrem (často označovaným jako `HubState` ) a také podporovat zprávy o průběhu. V tuto chvíli není k dispozici žádný protějšek serverů proxy hub.
 
 ### <a name="persistentconnection-removal"></a>Odebrání PersistentConnection
 
-V ASP.NET Core byla SignalR odebrána třída [PersistentConnection](https://docs.microsoft.com/previous-versions/aspnet/jj919047(v%3dvs.118)) .
+V ASP.NET Core byla SignalR odebrána třída [PersistentConnection](/previous-versions/aspnet/jj919047(v=vs.118)) .
 
 ### <a name="globalhost"></a>GlobalHost
 
@@ -289,9 +289,9 @@ ASP.NET SignalR podporuje SQL Server a Redis. ASP.NET Core SignalR podporuje Azu
 * [SignalRSlužba Azure](/azure/azure-signalr/)
 * [Redis](xref:signalr/redis-backplane)
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
-* [Rozbočovače](xref:signalr/hubs)
+* [Centra](xref:signalr/hubs)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Podporované platformy](xref:signalr/supported-platforms)

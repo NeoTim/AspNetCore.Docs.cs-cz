@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/middleware
-ms.openlocfilehash: 43b0ef1dcbf6d0137b14be9e58eb056f06ae093d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 7fe9629e1c60a6156c69e546736049653a4229b7
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633445"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722641"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>Ukládání do mezipaměti middlewaru v ASP.NET Core
 
@@ -59,7 +59,7 @@ Ukázková aplikace přidá hlavičky pro řízení ukládání do mezipaměti p
 
 Předchozí hlavičky nejsou zapsány do odpovědi a jsou přepsány, když je kontroler, akce nebo Razor stránka:
 
-* Má atribut [[ResponseCache]](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute) . To platí i v případě, že vlastnost není nastavena. Například vynecháním vlastnosti [VaryByHeader](/aspnet/core/performance/caching/response#vary) dojde k odebrání odpovídajícího záhlaví z odpovědi.
+* Má atribut [[ResponseCache]](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute) . To platí i v případě, že vlastnost není nastavena. Například vynecháním vlastnosti [VaryByHeader](./response.md#vary) dojde k odebrání odpovídajícího záhlaví z odpovědi.
 
 Middleware pro ukládání odpovědí do mezipaměti ukládá pouze odpovědi serveru, jejichž výsledkem je stavový kód 200 (OK). Všechny ostatní odpovědi, včetně [chybových stránek](xref:fundamentals/error-handling), se middleware ignorují.
 
@@ -163,7 +163,7 @@ Při testování a odstraňování potíží s chováním při ukládání do me
 > [!NOTE]
 > Systém ochrany proti padělání pro generování zabezpečených tokenů, který brání útokům přes CSRF (mezi lokalitami) `Cache-Control` , nastaví záhlaví a, aby se `Pragma` `no-cache` odpovědi neukládaly do mezipaměti. Informace o tom, jak zakázat tokeny antipadělání pro prvky formuláře HTML, naleznete v tématu <xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration> .
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>
@@ -203,7 +203,7 @@ Ukázková aplikace přidá hlavičky pro řízení ukládání do mezipaměti p
 
 Předchozí hlavičky nejsou zapsány do odpovědi a jsou přepsány, když je kontroler, akce nebo Razor stránka:
 
-* Má atribut [[ResponseCache]](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute) . To platí i v případě, že vlastnost není nastavena. Například vynecháním vlastnosti [VaryByHeader](/aspnet/core/performance/caching/response#vary) dojde k odebrání odpovídajícího záhlaví z odpovědi.
+* Má atribut [[ResponseCache]](xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute) . To platí i v případě, že vlastnost není nastavena. Například vynecháním vlastnosti [VaryByHeader](./response.md#vary) dojde k odebrání odpovídajícího záhlaví z odpovědi.
 
 Middleware pro ukládání odpovědí do mezipaměti ukládá pouze odpovědi serveru, jejichž výsledkem je stavový kód 200 (OK). Všechny ostatní odpovědi, včetně [chybových stránek](xref:fundamentals/error-handling), se middleware ignorují.
 

@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/client
-ms.openlocfilehash: 9406c2a34126f3e5cd1406a55c3585e7a28f3dd9
-ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
+ms.openlocfilehash: 6515e87845cc5aa101532c18711d175a73581bee
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90593044"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722706"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>Volání služeb gRPC pomocí klienta .NET
 
@@ -33,7 +33,7 @@ Klientská knihovna .NET gRPC je k dispozici v balíčku NuGet pro [gRPC .NET. C
 
 ## <a name="configure-grpc-client"></a>Konfigurace klienta gRPC
 
-gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze souborů * \* . proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v souboru * \* ..* .
+gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze souborů * \* . proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v souboru * \* ..* . Například služba `Greeter` s názvem generuje `GreeterClient` typ s metodami pro volání služby.
 
 Klient gRPC se vytvoří z kanálu. Začněte tím, že použijete `GrpcChannel.ForAddress` k vytvoření kanálu a pak pomocí kanálu vytvoříte klienta gRPC:
 
@@ -57,7 +57,7 @@ var counterClient = new Count.CounterClient(channel);
 
 Klient gRPC musí používat stejné zabezpečení na úrovni připojení jako volaná služba. protokol TLS (gRPC Client Transport Layer Security) je nakonfigurován při vytvoření kanálu gRPC. Klient gRPC vyvolá chybu při volání služby a zabezpečení kanálu a služby na úrovni připojení se neshoduje.
 
-Pokud chcete gRPC kanál nakonfigurovat tak, aby používal protokol TLS, ujistěte se, že adresa serveru začíná `https` . Například `GrpcChannel.ForAddress("https://localhost:5001")` používá protokol HTTPS. Kanál gRPC automaticky negotates připojení zabezpečené protokolem TLS a používá zabezpečené připojení k zajištění gRPC volání.
+Pokud chcete gRPC kanál nakonfigurovat tak, aby používal protokol TLS, ujistěte se, že adresa serveru začíná `https` . Například `GrpcChannel.ForAddress("https://localhost:5001")` používá protokol HTTPS. Kanál gRPC automaticky vyjedná připojení zabezpečené protokolem TLS a používá zabezpečené připojení k volání gRPC.
 
 > [!TIP]
 > gRPC podporuje ověřování certifikátu klienta přes protokol TLS. Informace o konfiguraci klientských certifikátů pomocí gRPC kanálu najdete v tématu <xref:grpc/authn-and-authz#client-certificate-authentication> .

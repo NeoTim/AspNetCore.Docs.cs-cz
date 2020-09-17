@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: dfb807d5e8d8b949feb0ea87f7f6bcecd04817e8
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 791cc14feac30ad8a571d155624ab821dfd77981
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627322"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722855"
 ---
 # <a name="docker-images-for-aspnet-core"></a>Image Docker pro ASP.NET Core
 
@@ -51,7 +51,7 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
 
    Ukázka používá tuto image ke spuštění aplikace. Image obsahuje modul runtime a knihovny ASP.NET Core a je optimalizovaný pro spuštěné aplikace v produkčním prostředí. Bitová kopie je navržena pro rychlost nasazení a spouštění aplikací, takže je optimalizován výkon sítě z registru Docker na hostitele Docker. Do kontejneru se zkopírují jenom binární soubory a obsah potřebný ke spuštění aplikace. Obsah je připravený ke spuštění, což umožňuje nejrychlejší čas od `Docker run` spuštění aplikace. Dynamická kompilace kódu není v modelu Docker nutná.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 ::: moniker range="< aspnetcore-3.0"
 
 * [Sada .NET Core 2,2 SDK](https://dotnet.microsoft.com/download/dotnet-core)
@@ -259,13 +259,13 @@ Jak je uvedeno v předchozím souboru Dockerfile, `*.csproj` soubory se zkopíru
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Docker – příkaz buildu](https://docs.docker.com/engine/reference/commandline/build)
 * [Příkaz Spustit jako Docker](https://docs.docker.com/engine/reference/commandline/run)
 * [Ukázka docker ASP.NET Core](https://github.com/dotnet/dotnet-docker) (ten, který jste použili v tomto kurzu.)
-* [Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](/aspnet/core/host-and-deploy/proxy-load-balancer)
-* [Práce s nástroji Docker sady Visual Studio](https://docs.microsoft.com/aspnet/core/publishing/visual-studio-tools-for-docker)
+* [Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](../proxy-load-balancer.md)
+* [Práce s nástroji Docker sady Visual Studio](./visual-studio-tools-for-docker.md)
 * [Ladění pomocí Visual Studio Code](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers)
 * [GC s použitím Docker a malých kontejnerů](xref:performance/memory#sc)
 

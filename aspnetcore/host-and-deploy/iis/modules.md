@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: 7ddc1b0f80625fbc39ac49f305f745b005cbce46
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 6936071339786262fa8eeb669a59225a695d7488
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634667"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722803"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>Moduly IIS s ASP.NET Core
 
@@ -174,9 +174,9 @@ Modul ukládání identifikátorů URI ( `UriCacheModule` ) umožňuje službě 
 
 Modul HTTP cache ( `HttpCacheModule` ) implementuje výstupní mezipaměť služby IIS a také logiku pro ukládání položek do mezipaměti HTTP.sys mezipaměti. Bez tohoto modulu už není obsah uložený v mezipaměti v režimu jádra a profily mezipaměti se ignorují. Odebrání modulu mezipaměti HTTP má obvykle negativní vliv na výkon a využití prostředků. *I když modul mezipaměti HTTP není nezbytně nutný pro spuštění hostované aplikace ASP.NET Core, doporučujeme, aby byl modul mezipaměti protokolu HTTP povolen pro všechna nasazení ASP.NET Core.*
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Seznámení s architekturami služby IIS: moduly ve službě IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#modules-in-iis)
 * [Přehled modulů služby IIS](/iis/get-started/introduction-to-iis/iis-modules-overview)
-* [Přizpůsobení rolí a modulů služby IIS 7,0](https://technet.microsoft.com/library/cc627313.aspx)
+* [Přizpůsobení rolí a modulů služby IIS 7,0](/previous-versions/tn-archive/cc627313(v=technet.10))
 * [SLUŽBU \<system.webServer>](/iis/configuration/system.webServer/)

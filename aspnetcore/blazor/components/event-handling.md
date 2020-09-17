@@ -5,7 +5,7 @@ description: Přečtěte si o Blazor funkcích zpracování událostí, včetně
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2020
+ms.date: 09/17/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/event-handling
-ms.openlocfilehash: c15a4e3407cfca6a78c8c9ea90034795ddf4645e
-ms.sourcegitcommit: 4cce99cbd44372fd4575e8da8c0f4345949f4d9a
+ms.openlocfilehash: cb7009946f56b3c8f1e5eeabb09b81075749c720
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/31/2020
-ms.locfileid: "89153503"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722446"
 ---
 # <a name="aspnet-core-no-locblazor-event-handling"></a>BlazorZpracování událostí ASP.NET Core
 
@@ -89,8 +89,29 @@ private void ShowMessage(MouseEventArgs e)
 
 Podporované <xref:System.EventArgs> jsou uvedené v následující tabulce.
 
-| Událost            | Třída                | Události a poznámky modelu DOM |
-| ---------------- | -------------------- | -------------------- |
+::: moniker range=">= aspnetcore-5.0"
+
+| Událost            | Třída  | Události a poznámky modelu DOM |
+| ---------------- | ------ | -------------------- |
+| Schránka        | <xref:Microsoft.AspNetCore.Components.Web.ClipboardEventArgs> | `oncut`, `oncopy`, `onpaste` |
+| Myší             | <xref:Microsoft.AspNetCore.Components.Web.DragEventArgs> | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br><xref:Microsoft.AspNetCore.Components.Web.DataTransfer> a <xref:Microsoft.AspNetCore.Components.Web.DataTransferItem> uchovávají přetažená data položky. |
+| Chyba            | <xref:Microsoft.AspNetCore.Components.Web.ErrorEventArgs> | `onerror` |
+| Událost            | <xref:System.EventArgs> | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Vstup*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onended`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `ontoggle`, `onvolumechange`, `onwaiting`<br><br><xref:Microsoft.AspNetCore.Components.Web.EventHandlers> obsahuje atributy pro konfiguraci mapování mezi názvy událostí a typy argumentů události. |
+| Zaměření            | <xref:Microsoft.AspNetCore.Components.Web.FocusEventArgs> | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>Nezahrnuje podporu pro `relatedTarget` . |
+| Vstup            | <xref:Microsoft.AspNetCore.Components.ChangeEventArgs> | `onchange`, `oninput` |
+| Klávesnice         | <xref:Microsoft.AspNetCore.Components.Web.KeyboardEventArgs> | `onkeydown`, `onkeypress`, `onkeyup` |
+| Myš            | <xref:Microsoft.AspNetCore.Components.Web.MouseEventArgs> | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
+| Ukazatel myši    | <xref:Microsoft.AspNetCore.Components.Web.PointerEventArgs> | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
+| Kolečko myši      | <xref:Microsoft.AspNetCore.Components.Web.WheelEventArgs> | `onwheel`, `onmousewheel` |
+| Průběh         | <xref:Microsoft.AspNetCore.Components.Web.ProgressEventArgs> | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
+| Dotykové ovládání            | <xref:Microsoft.AspNetCore.Components.Web.TouchEventArgs> | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br><xref:Microsoft.AspNetCore.Components.Web.TouchPoint> představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+| Událost            | Třída | Události a poznámky modelu DOM |
+| ---------------- | ----- | -------------------- |
 | Schránka        | <xref:Microsoft.AspNetCore.Components.Web.ClipboardEventArgs> | `oncut`, `oncopy`, `onpaste` |
 | Myší             | <xref:Microsoft.AspNetCore.Components.Web.DragEventArgs> | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br><xref:Microsoft.AspNetCore.Components.Web.DataTransfer> a <xref:Microsoft.AspNetCore.Components.Web.DataTransferItem> uchovávají přetažená data položky. |
 | Chyba            | <xref:Microsoft.AspNetCore.Components.Web.ErrorEventArgs> | `onerror` |
@@ -104,9 +125,11 @@ Podporované <xref:System.EventArgs> jsou uvedené v následující tabulce.
 | Průběh         | <xref:Microsoft.AspNetCore.Components.Web.ProgressEventArgs> | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
 | Dotykové ovládání            | <xref:Microsoft.AspNetCore.Components.Web.TouchEventArgs> | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br><xref:Microsoft.AspNetCore.Components.Web.TouchPoint> představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
 
+::: moniker-end
+
 Další informace naleznete v následujících zdrojích:
 
-* [ `EventArgs` třídy ve zdrojovém odkazu ASP.NET Core (větev dotnet/aspnetcore Release/3.1)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web).
+* [ `EventArgs` třídy v referenčním zdroji ASP.NET Core (dotnet/aspnetcore `master` větev)](https://github.com/dotnet/aspnetcore/tree/master/src/Components/Web/src/Web). `master`Větev představuje rozhraní API ve vývoji pro *Další* ASP.NET Core vydání. Pro aktuální vydání vyberte příslušnou větev úložiště GitHub (například `release/3.1` ).
 * [Webové dokumenty MDN: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers): obsahuje informace o tom, které prvky HTML podporují jednotlivé události modelu DOM.
 
 ## <a name="lambda-expressions"></a>Výrazy lambda

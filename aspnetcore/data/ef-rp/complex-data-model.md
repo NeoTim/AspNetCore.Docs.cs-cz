@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 3fab57df84e6902a8041940939c067da41f1674c
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 55269c6985534b49cc2567b2d197e46d9b7b1fd7
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88629727"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722524"
 ---
 # <a name="part-5-no-locrazor-pages-with-ef-core-in-aspnet-core---data-model"></a>5. část Razor stránky s EF Core v modelu ASP.NET Core-data
 
@@ -70,7 +70,7 @@ Předchozí kód přidá `FullName` vlastnost a přidá následující atributy 
 
 Pro data o registraci studenta aktuálně zobrazují všechny stránky denní dobu a datum, i když se jedná o relevantní datum. Pomocí atributů datových poznámek můžete vytvořit jednu změnu kódu, která bude opravovat formát zobrazení na každé stránce, která zobrazuje data. 
 
-Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) Určuje datový typ, který je konkrétnější než vnitřní typ databáze. V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas. [Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. `DataType`Atribut také může aplikaci povolit automatické poskytování funkcí specifických pro typ. Příklad:
+Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute) Určuje datový typ, který je konkrétnější než vnitřní typ databáze. V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas. [Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. `DataType`Atribut také může aplikaci povolit automatické poskytování funkcí specifických pro typ. Například:
 
 * `mailto:`Automaticky se vytvoří odkaz pro `DataType.EmailAddress` .
 * Selektor data je k dispozici `DataType.Date` ve většině prohlížečů.
@@ -100,11 +100,11 @@ Další informace najdete v [ \<input> dokumentaci pomocníka značek](xref:mvc/
 [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
 ```
 
-Pravidla ověřování dat a chybové zprávy ověřování lze zadat pomocí atributů. Atribut [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute?view=netframework-4.7.1) určuje minimální a maximální délku znaků, které jsou povoleny v datovém poli. Zobrazený kód omezuje názvy na více než 50 znaků. Příklad, který nastaví minimální délku řetězce, se zobrazí [později](#the-required-attribute).
+Pravidla ověřování dat a chybové zprávy ověřování lze zadat pomocí atributů. Atribut [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute) určuje minimální a maximální délku znaků, které jsou povoleny v datovém poli. Zobrazený kód omezuje názvy na více než 50 znaků. Příklad, který nastaví minimální délku řetězce, se zobrazí [později](#the-required-attribute).
 
 `StringLength`Atribut také poskytuje ověřování na straně klienta a serveru. Minimální hodnota nemá žádný vliv na schéma databáze.
 
-`StringLength`Atribut nebrání uživateli v zadání prázdného místa pro název. Atribut [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) lze použít k uplatnění omezení na vstup. Například následující kód vyžaduje, aby první znak byl velkými písmeny a aby zbývající znaky byly abecedně:
+`StringLength`Atribut nebrání uživateli v zadání prázdného místa pro název. Atribut [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute) lze použít k uplatnění omezení na vstup. Například následující kód vyžaduje, aby první znak byl velkými písmeny a aby zbývající znaky byly abecedně:
 
 ```csharp
 [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
@@ -760,7 +760,7 @@ Aktualizujte *modely/student. cs* následujícím zvýrazněným kódem:
 
 [!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_DataType&highlight=3,12-13)]
 
-Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) Určuje datový typ, který je konkrétnější než vnitřní typ databáze. V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas. [Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. `DataType`Atribut také může aplikaci povolit automatické poskytování funkcí specifických pro typ. Příklad:
+Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute) Určuje datový typ, který je konkrétnější než vnitřní typ databáze. V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas. [Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. `DataType`Atribut také může aplikaci povolit automatické poskytování funkcí specifických pro typ. Například:
 
 * `mailto:`Automaticky se vytvoří odkaz pro `DataType.EmailAddress` .
 * Selektor data je k dispozici `DataType.Date` ve většině prohlížečů.
@@ -790,13 +790,13 @@ Spusťte aplikaci. Přejděte na stránku indexu studentů. Časy se už nezobra
 
 ### <a name="the-stringlength-attribute"></a>Atribut StringLength
 
-Pravidla ověřování dat a chybové zprávy ověřování lze zadat pomocí atributů. Atribut [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute?view=netframework-4.7.1) určuje minimální a maximální délku znaků, které jsou povoleny v datovém poli. `StringLength`Atribut také poskytuje ověřování na straně klienta a serveru. Minimální hodnota nemá žádný vliv na schéma databáze.
+Pravidla ověřování dat a chybové zprávy ověřování lze zadat pomocí atributů. Atribut [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute) určuje minimální a maximální délku znaků, které jsou povoleny v datovém poli. `StringLength`Atribut také poskytuje ověřování na straně klienta a serveru. Minimální hodnota nemá žádný vliv na schéma databáze.
 
 Aktualizujte `Student` model pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_StringLength&highlight=10,12)]
 
-Předchozí kód omezuje názvy na více než 50 znaků. `StringLength`Atribut nebrání uživateli v zadání prázdného místa pro název. Atribut [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) se používá k aplikování omezení na vstup. Například následující kód vyžaduje, aby první znak byl velkými písmeny a aby zbývající znaky byly abecedně:
+Předchozí kód omezuje názvy na více než 50 znaků. `StringLength`Atribut nebrání uživateli v zadání prázdného místa pro název. Atribut [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute) se používá k aplikování omezení na vstup. Například následující kód vyžaduje, aby první znak byl velkými písmeny a aby zbývající znaky byly abecedně:
 
 ```csharp
 [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
@@ -1378,7 +1378,7 @@ Produkční aplikace by:
 
 Další kurz se zabývá souvisejícími daty.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze tohoto kurzu pro YouTube (část 1)](https://www.youtube.com/watch?v=0n2f0ObgCoA)
 * [Verze tohoto kurzu pro YouTube (část 2)](https://www.youtube.com/watch?v=Je0Z5K1TNmY)

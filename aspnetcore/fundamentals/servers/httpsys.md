@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 29af28f512764b9efec682b44c8de1d2ae03ee04
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: e5346c1e58127747d777b5040fe7bc7d99b9a489
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631131"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90722868"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru HTTP.sys v ASP.NET Core
 
@@ -255,7 +255,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
    Referenční dokumentace pro *netsh.exe*:
 
-   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc725882(v=ws.10))
    * [UrlPrefix řetězce](/windows/win32/http/urlprefix-strings)
 
 1. Spusťte aplikaci.
@@ -272,7 +272,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -506,7 +506,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
    Referenční dokumentace pro *netsh.exe*:
 
-   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc725882(v=ws.10))
    * [UrlPrefix řetězce](/windows/win32/http/urlprefix-strings)
 
 1. Spusťte aplikaci.
@@ -523,7 +523,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -759,7 +759,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
    Referenční dokumentace pro *netsh.exe*:
 
-   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc725882(v=ws.10))
    * [UrlPrefix řetězce](/windows/win32/http/urlprefix-strings)
 
 1. Spusťte aplikaci.
@@ -776,7 +776,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -1012,7 +1012,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
    Referenční dokumentace pro *netsh.exe*:
 
-   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc725882(v=ws.10))
    * [UrlPrefix řetězce](/windows/win32/http/urlprefix-strings)
 
 1. Spusťte aplikaci.
@@ -1029,7 +1029,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)

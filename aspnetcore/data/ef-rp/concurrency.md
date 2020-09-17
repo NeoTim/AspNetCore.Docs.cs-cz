@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: e03711d970c83c2b7d6cc76039cb0d556a751018
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 0f0f1a9c70a2d6725cbb68ac62850cf6aa332d36
+ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88628908"
+ms.lasthandoff: 09/17/2020
+ms.locfileid: "90721837"
 ---
 # <a name="part-8-no-locrazor-pages-with-ef-core-in-aspnet-core---concurrency"></a>Část 8, Razor stránky s EF Core v ASP.NET Core-concurrency
 
@@ -370,7 +370,7 @@ Prohlížeč zobrazí stránku index se změněnou hodnotou a aktualizovaným in
 
 Odstraňte testovací oddělení z druhé karty. Chyba souběžnosti se zobrazuje s aktuálními hodnotami z databáze. Kliknutím na **Odstranit** odstraníte entitu, pokud `RowVersion` se neaktualizovala.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Tokeny souběžnosti v EF Core](/ef/core/modeling/concurrency)
 * [Zpracování souběžnosti v EF Core](/ef/core/saving/concurrency)
@@ -443,14 +443,14 @@ Optimistická souběžnost zahrnuje následující možnosti:
 
 Když je vlastnost konfigurovaná jako [Token souběžnosti](/ef/core/modeling/concurrency):
 
-* EF Core ověří, že se vlastnost po načtení nezměnila. K ověření dochází při volání [metody SaveChanges](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechanges?view=efcore-2.0#Microsoft_EntityFrameworkCore_DbContext_SaveChanges) nebo [SaveChangesAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechangesasync?view=efcore-2.0#Microsoft_EntityFrameworkCore_DbContext_SaveChangesAsync_System_Threading_CancellationToken_) .
-* Pokud byla vlastnost po načtení změněna, je vyvolána výjimka [DbUpdateConcurrencyException](/dotnet/api/microsoft.entityframeworkcore.dbupdateconcurrencyexception?view=efcore-2.0) . 
+* EF Core ověří, že se vlastnost po načtení nezměnila. K ověření dochází při volání [metody SaveChanges](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechanges#Microsoft_EntityFrameworkCore_DbContext_SaveChanges) nebo [SaveChangesAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechangesasync#Microsoft_EntityFrameworkCore_DbContext_SaveChangesAsync_System_Threading_CancellationToken_) .
+* Pokud byla vlastnost po načtení změněna, je vyvolána výjimka [DbUpdateConcurrencyException](/dotnet/api/microsoft.entityframeworkcore.dbupdateconcurrencyexception) . 
 
 DATABÁZE a datový model musí být nakonfigurovány tak, aby podporovaly vyvolání `DbUpdateConcurrencyException` .
 
 ### <a name="detecting-concurrency-conflicts-on-a-property"></a>Zjištění konfliktů souběžnosti u vlastnosti
 
-Konflikty souběžnosti lze zjistit na úrovni vlastnosti pomocí atributu [ConcurrencyCheck](/dotnet/api/system.componentmodel.dataannotations.concurrencycheckattribute?view=netcore-2.0) . Atribut lze použít na více vlastností modelu. Další informace najdete v tématu [data anotaces – ConcurrencyCheck](/ef/core/modeling/concurrency#data-annotations).
+Konflikty souběžnosti lze zjistit na úrovni vlastnosti pomocí atributu [ConcurrencyCheck](/dotnet/api/system.componentmodel.dataannotations.concurrencycheckattribute) . Atribut lze použít na více vlastností modelu. Další informace najdete v tématu [data anotaces – ConcurrencyCheck](/ef/core/modeling/concurrency#data-annotations).
 
 `[ConcurrencyCheck]`Atribut se v tomto kurzu nepoužívá.
 
@@ -561,7 +561,7 @@ Následující kód ukazuje aktualizovanou stránku:
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet)]
 
-Aby se zjistil problém souběžnosti, aktualizuje se [původní](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyentry.originalvalue?view=efcore-2.0#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyEntry_OriginalValue) `rowVersion` hodnotou z entity, kterou načetla. EF Core generuje příkaz SQL UPDATE s klauzulí WHERE obsahující původní `RowVersion` hodnotu. Pokud nejsou žádné řádky ovlivněny příkazem UPDATE (žádné řádky nemají původní `RowVersion` hodnotu), `DbUpdateConcurrencyException` je vyvolána výjimka.
+Aby se zjistil problém souběžnosti, aktualizuje se [původní](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyentry.originalvalue#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyEntry_OriginalValue) `rowVersion` hodnotou z entity, kterou načetla. EF Core generuje příkaz SQL UPDATE s klauzulí WHERE obsahující původní `RowVersion` hodnotu. Pokud nejsou žádné řádky ovlivněny příkazem UPDATE (žádné řádky nemají původní `RowVersion` hodnotu), `DbUpdateConcurrencyException` je vyvolána výjimka.
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_rv&highlight=24-999)]
 
@@ -670,7 +670,7 @@ Odstraňte testovací oddělení z druhé karty. Chyba souběžnosti se zobrazuj
 
 Přečtěte si téma [dědičnosti](xref:data/ef-mvc/inheritance) způsobu dědění datového modelu.
 
-### <a name="additional-resources"></a>Další zdroje informací
+### <a name="additional-resources"></a>Další zdroje
 
 * [Tokeny souběžnosti v EF Core](/ef/core/modeling/concurrency)
 * [Zpracování souběžnosti v EF Core](/ef/core/saving/concurrency)
