@@ -722,8 +722,8 @@
       uid: grpc/clientfactory
     - name: Použití gRPC v prohlížečových aplikacích
       uid: grpc/browser
-    - name: Vytváření webových rozhraní API JSON z gRPC
-      uid: grpc/httpapi
+    - name: Konečné termíny a zrušení
+      uid: grpc/deadlines-cancellation
     - name: Konfigurace
       uid: grpc/configuration
     - name: Ověřování a autorizace
@@ -738,12 +738,16 @@
       uid: grpc/versioning
     - name: Správa odkazů Protobuf pomocí dotnet-grpc
       uid: grpc/dotnet-grpc
+    - name: Testování služeb pomocí nástrojů gRPC
+      uid: grpc/test-tools
     - name: Migrace služeb gRPC z C-core
       uid: grpc/migration
     - name: Proč migrovat WCF na ASP.NET Core gRPC
       uid: grpc/wcf
     - name: Porovnání služeb gRPC pomocí rozhraní HTTP API
       uid: grpc/comparison
+    - name: Vytváření webových rozhraní API JSON z gRPC
+      uid: grpc/httpapi
     - name: Ukázky
       href: 'https://github.com/grpc/grpc-dotnet/tree/master/examples'
     - name: Řešení potíží
