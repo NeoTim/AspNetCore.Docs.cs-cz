@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: d20740950f7ac56a3a3b2951b474151aaf9c6f5a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 3f0e44bb374214328f589c6ca3952c6d7aab88d8
+ms.sourcegitcommit: 9c031530d2e652fe422e786bd43392bc500d622f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631222"
+ms.lasthandoff: 09/18/2020
+ms.locfileid: "90770126"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
@@ -34,7 +34,7 @@ Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) por
 
 Následující tabulka nabízí vysoké srovnání funkcí mezi gRPC a rozhraními API protokolu HTTP s JSON.
 
-| Funkce          | gRPC                                               | HTTP API s JSON           |
+| Příznak          | gRPC                                               | HTTP API s JSON           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | Kontrakt         | Požadováno (*.*)                                | Volitelné (OpenAPI)            |
 | Protokol         | HTTP/2                                             | HTTP                          |
@@ -95,6 +95,7 @@ gRPC je vhodný pro následující scénáře:
 * **Komunikace Point-to-Point v reálném čase**: gRPC má skvělou podporu pro obousměrné streamování. služby gRPC mohou nabízet zprávy v reálném čase bez cyklického dotazování.
 * **Prostředí Polyglot**: nástroje gRPC podporují všechny oblíbené vývojové jazyky, což gRPC vhodnou volbou pro prostředí s více jazyky.
 * **Omezená prostředí sítě**: zprávy gRPC jsou serializovány pomocí Protobuf, což je odlehčený formát zprávy. Zpráva gRPC je vždy menší než ekvivalentní zpráva JSON.
+* **Meziprocesová komunikace (IPC)**: k komunikaci mezi aplikacemi ve stejném počítači můžete použít s gRPC přenosů IPC (jako jsou třeba sokety domény UNIX a pojmenované kanály). Další informace naleznete v tématu <xref:grpc/interprocess>.
 
 ## <a name="grpc-weaknesses"></a>gRPC slabé stránky
 
@@ -102,12 +103,15 @@ gRPC je vhodný pro následující scénáře:
 
 V dnešní době není možné přímo volat službu gRPC z prohlížeče. gRPC intenzivně používá funkce HTTP/2 a bez prohlížeče poskytuje úroveň řízení požadovaná pro webové požadavky na podporu klienta gRPC. Například prohlížeče neumožňují volajícímu vyžadovat, aby byl použit HTTP/2 nebo poskytoval přístup k podkladovým rámcům HTTP/2.
 
-[gRPC-web](https://grpc.io/docs/tutorials/basic/web.html) je doplňková technologie od týmu gRPC, která poskytuje omezené podpory gRPC v prohlížeči. gRPC-web se skládá ze dvou částí: JavaScriptový klient, který podporuje všechny moderní prohlížeče, a webový proxy server gRPC na serveru. GRPC – webový klient volá proxy server a proxy server přepošle žádosti gRPC na server gRPC.
+Existují dva běžné přístupy k převedení gRPC do aplikací prohlížeče:
 
-GRPC-web nepodporuje všechny funkce gRPC. Klient a obousměrné streamování se nepodporuje a je omezená podpora pro streamování serveru.
+* [gRPC-web](https://grpc.io/docs/tutorials/basic/web.html) je doplňková technologie od týmu gRPC, která poskytuje podporu gRPC v prohlížeči. gRPC-web umožňuje aplikacím v prohlížeči těžit z vysoce výkonného a nízkého využití sítě v gRPC. GRPC-web nepodporuje všechny funkce gRPC. Klient a obousměrné streamování se nepodporuje a je omezená podpora pro streamování serveru.
 
-> [!TIP]
-> .NET Core podporuje gRPC-Web. Další informace najdete na webu <xref:grpc/browser> .
+  .NET Core podporuje gRPC-Web. Další informace naleznete v tématu <xref:grpc/browser>.
+
+* Webová rozhraní API RESTful JSON se dají automaticky vytvořit z gRPC služeb tím, že se pokládá na soubor *.* Dementi pomocí [metadat http](https://cloud.google.com/service-infrastructure/docs/service-management/reference/rpc/google.api#google.api.HttpRule). To umožňuje aplikaci podporovat webová rozhraní API gRPC i JSON, aniž by došlo k duplikaci úsilí o vytváření samostatných služeb pro obě.
+
+  .NET Core má experimentální podporu pro vytváření webových rozhraní API JSON z gRPC Services. Další informace naleznete v tématu <xref:grpc/httpapi>.
 
 ### <a name="not-human-readable"></a>Nečitelný člověk
 
@@ -123,7 +127,6 @@ Další architektury se doporučují přes gRPC v následujících scénářích
 
 * **Rozhraní API pro přístup přes prohlížeč**: v prohlížeči se nepodporuje plně gRPC. gRPC-web může nabízet podporu prohlížeče, ale má omezení a zavádí proxy serveru.
 * **Komunikace v reálném čase**: gRPC podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy do registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [SignalR](xref:signalr/introduction) je užitečnou architekturou pro tento scénář. SignalR má koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
-* **Komunikace mezi procesy**: proces musí HOSTOVAT Server HTTP/2, aby přijímal příchozí volání gRPC. Pro systém Windows je mezi procesy komunikačních [kanálů](/dotnet/standard/io/pipe-operations) rychlá a odlehčená metoda komunikace.
 
 ## <a name="additional-resources"></a>Další materiály
 

@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: e98cfc5e95233ce4d1001ab1225fc15e5fd23733
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: b69d60e7d0e24f6d3c8032b391c98a6cd1589305
+ms.sourcegitcommit: 9c031530d2e652fe422e786bd43392bc500d622f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634498"
+ms.lasthandoff: 09/18/2020
+ms.locfileid: "90770178"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-no-locsignalr"></a>Kurz: Začínáme s ASP.NET Core SignalR
 
@@ -41,19 +41,19 @@ Na konci budete mít funkční chatovací aplikaci:
 
 ![::: No-Loc (Signaler)::: Ukázková aplikace](signalr/_static/3.x/signalr-get-started-finished.png)
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-[!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
 ---
 
@@ -67,7 +67,7 @@ Na konci budete mít funkční chatovací aplikaci:
 
 * V dialogovém okně **Konfigurovat nový projekt** pojmenujte * SignalR chat*do projektu a pak vyberte **vytvořit**.
 
-* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte **.net Core** a **ASP.NET Core 3,0**. 
+* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte **.net Core** a **ASP.NET Core 3,1**. 
 
 * Vyberte **Webová aplikace** , chcete-li vytvořit projekt, který používá Razor stránky, a pak vyberte **vytvořit**.
 
@@ -90,7 +90,7 @@ Na konci budete mít funkční chatovací aplikaci:
 
 * Vyberte **.NET Core > App > Web Application** (nevybírejte možnost **Webová aplikace (Model-View-Controller)**) a pak vyberte **Další**.
 
-* Ujistěte se, že je **Cílová architektura** nastavená na **.NET Core 3,0**, a pak vyberte **Další**.
+* Ujistěte se, že je **Cílová architektura** nastavená na **.NET Core 3,1**, a pak vyberte **Další**.
 
 * Pojmenujte * SignalR chat*do projektu a pak vyberte **vytvořit**.
 
@@ -98,7 +98,7 @@ Na konci budete mít funkční chatovací aplikaci:
 
 ## <a name="add-the-no-locsignalr-client-library"></a>Přidat SignalR klientskou knihovnu
 
-SignalRKnihovna serveru je součástí sdílené architektury ASP.NET Core 3,0. Klientská knihovna pro JavaScript není automaticky obsažena v projektu. Pro tento kurz použijte Správce knihovny (LibMan) k získání klientské knihovny z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může doručovat cokoli, co najdete v NPM, správce balíčků Node.js.
+SignalRKnihovna serveru je součástí sdílené architektury ASP.NET Core 3,1. Klientská knihovna pro JavaScript není automaticky obsažena v projektu. Pro tento kurz použijte Správce knihovny (LibMan) k získání klientské knihovny z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může doručovat cokoli, co najdete v NPM, správce balíčků Node.js.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
@@ -272,7 +272,7 @@ V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pom
 > * Přidejte kód, který odesílá zprávy od libovolného klienta ke všem připojeným klientům.  
 Na konci budete mít funkční chatovací aplikaci: ![ ::: No-Loc (Signal)::: Ukázková aplikace](signalr/_static/2.x/signalr-get-started-finished.png)   
 
-## <a name="prerequisites"></a>Předpoklady    
+## <a name="prerequisites"></a>Požadavky    
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)   
 
@@ -484,7 +484,7 @@ SignalRServer musí být nakonfigurován na předávání SignalR požadavků Si
 > [!TIP]    
 > Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že jste umístili *signalr.js* do jiné složky, než je směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.   
 > ![ Chyba přisignalr.js nenalezena](signalr/_static/2.x/f12-console.png)    
-## <a name="additional-resources"></a>Další zdroje informací 
+## <a name="additional-resources"></a>Další zdroje 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=iKlVmu-r0JQ)   
 
 ::: moniker-end

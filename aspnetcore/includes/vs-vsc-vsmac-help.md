@@ -2,8 +2,8 @@
 
 ## <a name="visual-studio-help"></a>Visual Studio – Help
 
-* [Naučte se ladit kód C# pomocí sady Visual Studio.](https://docs.microsoft.com/visualstudio/debugger/getting-started-with-the-debugger?view=vs-2017)
-* [Úvod do integrovaného vývojového prostředí sady Visual Studio](https://docs.microsoft.com/visualstudio/ide/visual-studio-ide?view=vs-2017)
+* [Naučte se ladit kód C# pomocí sady Visual Studio.](/visualstudio/debugger/getting-started-with-the-debugger?view=vs-2017)
+* [Úvod do integrovaného vývojového prostředí sady Visual Studio](/visualstudio/ide/visual-studio-ide?view=vs-2017)
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -22,7 +22,7 @@
 
 ## <a name="visual-studio-for-mac-help"></a>Visual Studio pro Mac Help
 
-* [Ukázka Visual Studio pro Mac](https://docs.microsoft.com/visualstudio/mac/ide-tour)
-* [Představení sady Visual Studio pro Mac](https://docs.microsoft.com/visualstudio/mac/)
+* [Ukázka Visual Studio pro Mac](/visualstudio/mac/ide-tour)
+* [Představení Visual Studia pro Mac](/visualstudio/mac/)
 
 ---
