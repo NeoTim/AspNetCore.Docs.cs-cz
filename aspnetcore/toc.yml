@@ -337,6 +337,8 @@
                   href: blazor/forms-validation.md#built-in-forms-components
                 - name: InputDate
                   href: blazor/forms-validation.md#built-in-forms-components
+                - name: InputFile
+                  href: blazor/file-uploads.md
                 - name: InputNumber
                   href: blazor/forms-validation.md#built-in-forms-components
                 - name: InputRadio
@@ -363,6 +365,8 @@
                   href: blazor/fundamentals/routing.md#route-templates
                 - name: Nadpis
                   href: blazor/fundamentals/additional-scenarios.md#influence-html-head-tag-elements
+                - name: Virtualize
+                  href: blazor/components/virtualization.md
             - name: Kaskádové hodnoty a parametry
               uid: blazor/components/cascading-values-and-parameters
             - name: Datová vazba
@@ -371,6 +375,8 @@
               uid: blazor/components/event-handling
             - name: Životní cyklus
               uid: blazor/components/lifecycle
+            - name: Virtualizace komponent
+              uid: blazor/components/virtualization
             - name: Komponenty bez vizuálního vzhledu
               uid: blazor/components/templated-components
             - name: Integrace komponent
@@ -383,6 +389,8 @@
           uid: blazor/layouts
         - name: Formuláře a ověřování
           uid: blazor/forms-validation
+        - name: Nahrání souborů
+          uid: blazor/file-uploads
         - name: Volání JavaScriptu z .NET
           uid: blazor/call-javascript-from-dotnet
         - name: Volání .NET z JavaScriptu
@@ -714,16 +722,20 @@
           uid: grpc/services
         - name: Vytváření zpráv Protobuf
           uid: grpc/protobuf
+        - name: Správa verzí služeb gRPC
+          uid: grpc/versioning
+    - name: Volání služeb gRPC pomocí jazyka C#
+      items:
+        - name: Přehled
+          uid: grpc/client
+        - name: Integrace objektu pro vytváření klienta gRPC
+          uid: grpc/clientfactory
+        - name: Konečné termíny a zrušení
+          uid: grpc/deadlines-cancellation
     - name: Služby gRPC s ASP.NET Core
       uid: grpc/aspnetcore
-    - name: Volání služeb gRPC pomocí klienta .NET
-      uid: grpc/client
-    - name: Integrace objektu pro vytváření klienta gRPC
-      uid: grpc/clientfactory
     - name: Použití gRPC v prohlížečových aplikacích
       uid: grpc/browser
-    - name: Konečné termíny a zrušení
-      uid: grpc/deadlines-cancellation
     - name: Konfigurace
       uid: grpc/configuration
     - name: Ověřování a autorizace
@@ -734,11 +746,13 @@
       uid: grpc/security
     - name: Osvědčené postupy z hlediska výkonu
       uid: grpc/performance
-    - name: Správa verzí služeb gRPC
-      uid: grpc/versioning
+    - name: Komunikace mezi procesy
+      uid: grpc/interprocess
+    - name: Vytváření webových rozhraní API JSON z gRPC
+      uid: grpc/httpapi
     - name: Správa odkazů Protobuf pomocí dotnet-grpc
       uid: grpc/dotnet-grpc
-    - name: Testování služeb pomocí nástrojů gRPC
+    - name: Testování služeb gRPC pomocí gRPCurl
       uid: grpc/test-tools
     - name: Migrace služeb gRPC z C-core
       uid: grpc/migration
@@ -746,8 +760,6 @@
       uid: grpc/wcf
     - name: Porovnání služeb gRPC pomocí rozhraní HTTP API
       uid: grpc/comparison
-    - name: Vytváření webových rozhraní API JSON z gRPC
-      uid: grpc/httpapi
     - name: Ukázky
       href: 'https://github.com/grpc/grpc-dotnet/tree/master/examples'
     - name: Řešení potíží
