@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 3430d842b6a4f7da30370977f72e6f132e28bb7f
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 36341a0e439be57d7da4f787aa6103b92c624e96
+ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634251"
+ms.lasthandoff: 09/22/2020
+ms.locfileid: "90847582"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Nastavení externího přihlášení k účtu Microsoft pomocí ASP.NET Core
 
@@ -41,6 +41,8 @@ Pokud nemáte účet Microsoft, vyberte **vytvořit**. Po přihlášení budete 
 * Vybrat **novou registraci**
 * Zadejte **název**.
 * Vyberte možnost pro **podporované typy účtů**.  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts. It took 24 hours after setting this up for the keys to work -->
+  * `MicrosoftAccount`Balíček podporuje registrace aplikací, které jsou ve výchozím nastavení vytvořeny pomocí "účty ve všech organizačních adresářích" nebo "účty ve všech organizačních adresářích a účtech Microsoft".
+  * Chcete-li použít jiné možnosti, nastavte `AuthorizationEndpoint` a členy, které se mají `TokenEndpoint` `MicrosoftAccountOptions` použít k inicializaci ověřování účtu Microsoft na stránce s **koncovými body** v registraci aplikace po jejím vytvoření (k dispozici kliknutím na koncové body na stránce **Přehled** ).
 * V části **identifikátor URI přesměrování**zadejte adresu URL pro vývoj s `/signin-microsoft` připojením. Například, `https://localhost:5001/signin-microsoft`. Schéma ověřování společnosti Microsoft nakonfigurované později v této ukázce bude automaticky zpracovávat požadavky na `/signin-microsoft` trase za účelem implementace toku OAuth.
 * Vybrat **registraci**
 

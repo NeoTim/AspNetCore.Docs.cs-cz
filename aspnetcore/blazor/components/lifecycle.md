@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: e3abfd0535bc10867c9b5f980bb5439cc918dfab
-ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
+ms.openlocfilehash: 00573f87b65e53a7bfd9cc2aed1d2ed7772b9a4a
+ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88712321"
+ms.lasthandoff: 09/22/2020
+ms.locfileid: "90847608"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
 
@@ -151,7 +151,10 @@ protected override void OnAfterRender(bool firstRender)
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> *nejsou volány při předvykreslování na serveru.*
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> *nejsou volány během procesu předběžného vykreslování na serveru*. Metody jsou volány při interaktivním vykreslení komponenty po dokončení předzpracování. Když se aplikace předem vykreslí:
+
+1. Komponenta se spustí na serveru, aby vytvořila nějaký statický kód HTML v odpovědi HTTP. V průběhu této fáze <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> nejsou volány.
+1. Když `blazor.server.js` nebo `blazor.webassembly.js` spustíte v prohlížeči, komponenta se restartuje v režimu interaktivního vykreslování. Po restartování komponenty se <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> **are** zavolá, protože aplikace už není uvnitř fáze předvykreslování.
 
 Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vyřazení. Další informace najdete v části věnované [odstraňování `IDisposable` komponent](#component-disposal-with-idisposable) .
 

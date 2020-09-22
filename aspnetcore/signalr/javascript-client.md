@@ -18,20 +18,22 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: 7b11172df902f0d6a26f357755f33c78e7f8d1ff
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 359aa2b9e6b7f826d75f10645b7f2b565ab48b7a
+ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88631417"
+ms.lasthandoff: 09/22/2020
+ms.locfileid: "90847686"
 ---
 # <a name="aspnet-core-no-locsignalr-javascript-client"></a>SignalRKlient ASP.NET Core JavaScript
+
+::: moniker range=">= aspnetcore-3.0"
 
 Od [Rachel Appel](https://twitter.com/rachelappel)
 
 SignalRKlientská knihovna ASP.NET Core JavaScript umožňuje vývojářům volat kód centra na straně serveru.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/javascript-client/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/javascript-client/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="install-the-no-locsignalr-client-package"></a>Instalace SignalR balíčku klienta
 
@@ -39,9 +41,7 @@ SignalRKlientská knihovna JavaScriptu je dodávána jako balíček [npm](https:
 
 ### <a name="install-with-npm"></a>Instalace pomocí npm
 
-Pokud používáte Visual Studio, spusťte následující příkazy z **konzoly Správce balíčků** v kořenové složce. Pro Visual Studio Code spusťte následující příkazy z **integrovaného terminálu**.
-
-::: moniker range=">= aspnetcore-3.0"
+V případě sady Visual Studio spusťte následující příkazy z **konzoly Správce balíčků** v kořenové složce. Pro Visual Studio Code spusťte následující příkazy z **integrovaného terminálu**.
 
 ```bash
 npm init -y
@@ -49,19 +49,6 @@ npm install @microsoft/signalr
 ```
 
 NPM nainstaluje obsah balíčku do složky *node_modules \\ @microsoft\signalr\dist\browser * . Vytvořte novou složku s názvem *Signal* ve složce *wwwroot \\ lib* . Zkopírujte soubor *signalr.js* do složky *wwwroot\lib\signalr* .
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-```bash
-npm init -y
-npm install @aspnet/signalr
-```
-
-NPM nainstaluje obsah balíčku do složky *node_modules \\ @aspnet\signalr\dist\browser * . Vytvořte novou složku s názvem *Signal* ve složce *wwwroot \\ lib* . Zkopírujte soubor *signalr.js* do složky *wwwroot\lib\signalr* .
-
-::: moniker-end
 
 Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
 
@@ -73,27 +60,13 @@ Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
 
 Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Příklad:
 
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>
-```
+[!code-html[](javascript-client/samples/3.x/SignalRChat/Pages/Index.cshtml?name=snippet_CDN)]
 
 Klientská knihovna je k dispozici na následujících sítě CDN:
-
-::: moniker range=">= aspnetcore-3.0"
 
 * [cdnjs](https://cdnjs.com/libraries/microsoft-signalr)
 * [jsDelivr](https://www.jsdelivr.com/package/npm/@microsoft/signalr)
 * [unpkg](https://unpkg.com/@microsoft/signalr@next/dist/browser/signalr.min.js)
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-* [cdnjs](https://cdnjs.com/libraries/aspnet-signalr)
-* [jsDelivr](https://www.jsdelivr.com/package/npm/@aspnet/signalr)
-* [unpkg](https://unpkg.com/@aspnet/signalr@next/dist/browser/signalr.min.js)
-
-::: moniker-end
 
 ### <a name="install-with-libman"></a>Instalace pomocí LibMan
 
@@ -101,49 +74,53 @@ Klientská knihovna je k dispozici na následujících sítě CDN:
 
 ## <a name="connect-to-a-hub"></a>Připojení k centru
 
-Následující kód vytvoří a spustí připojení. V názvu centra se nerozlišují malá a velká písmena.
+Následující kód vytvoří a spustí připojení. V názvu centra se nerozlišují malá a velká písmena:
 
-[!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=9-13,28-51)]
+[!code-javascript[](javascript-client/samples/3.x/SignalRChat/wwwroot/chat.js?range=3-6,29-43)]
 
 ### <a name="cross-origin-connections"></a>Připojení mezi zdroji
 
 Prohlížeče obvykle načítají připojení ze stejné domény jako požadovanou stránku. Existují však situace, kdy je vyžadováno připojení k jiné doméně.
 
-Chcete-li zabránit škodlivému webu v čtení citlivých dat z jiné lokality, [připojení mezi zdroji](xref:security/cors) jsou ve výchozím nastavení zakázána. Pokud chcete povolit žádost o více zdrojů, povolte ji ve `Startup` třídě.
+Chcete-li zabránit škodlivému webu v čtení citlivých dat z jiné lokality, [připojení mezi zdroji](xref:security/cors) jsou ve výchozím nastavení zakázána. Pokud chcete povolit žádost o více zdrojů, povolte ji ve `Startup` třídě:
 
-[!code-csharp[Cross-origin connections](javascript-client/sample/Startup.cs?highlight=29-35,56)]
+[!code-csharp[](javascript-client/samples/3.x/SignalRChat/Startup.cs?highlight=16-23,40)]
 
-## <a name="call-hub-methods-from-client"></a>Volání metod centra z klienta
+## <a name="call-hub-methods-from-the-client"></a>Volání metod centra z klienta
 
-Klienti JavaScriptu volají veřejné metody na rozbočovačích prostřednictvím metody [Invoke](/javascript/api/%40aspnet/signalr/hubconnection#invoke) [HubConnection](/javascript/api/%40aspnet/signalr/hubconnection). `invoke`Metoda přijímá dva argumenty:
+Klienti JavaScriptu volají veřejné metody na rozbočovačích prostřednictvím metody [Invoke](/javascript/api/%40microsoft/signalr/hubconnection#invoke-string--any---) [HubConnection](/javascript/api/%40microsoft/signalr/hubconnection). `invoke`Metoda akceptuje:
 
-* Název metody centra V následujícím příkladu je název metody v centru `SendMessage` .
-* Jakékoli argumenty definované v metodě hub. V následujícím příkladu je název argumentu `message` . Vzorový kód používá syntaxi funkce šipky, která je podporována v aktuálních verzích všech hlavních prohlížečů s výjimkou aplikace Internet Explorer.
+* Název metody centra
+* Jakékoli argumenty definované v metodě hub.
 
-  [!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=24)]
+V následujícím příkladu je název metody v centru `SendMessage` . Druhý a třetí argument předaný k `invoke` mapování na metody `user` a `message` argumenty centra:
+
+[!code-javascript[](javascript-client/samples/3.x/SignalRChat/wwwroot/chat.js?name=snippet_Invoke&highlight=2)]
 
 > [!NOTE]
 > Volání metod rozbočovače z klienta je podporováno, pouze pokud používáte SignalR službu Azure ve *výchozím* režimu. Další informace najdete v tématu [Nejčastější dotazy (úložiště GitHub Azure-Signal)](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose).
 
-`invoke`Metoda vrací [příslib](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)JavaScriptu. `Promise`Je vyřešen s návratovou hodnotou (pokud existuje), když metoda na serveru vrátí. Pokud metoda na serveru vyvolá chybu, bude `Promise` zpráva odmítnuta s chybovou zprávou. Použijte `then` metody a `catch` na `Promise` sebe samé ke zpracování těchto případů (nebo `await` syntaxe).
+`invoke`Metoda vrací [příslib](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)JavaScriptu. `Promise`Je vyřešen s návratovou hodnotou (pokud existuje), když metoda na serveru vrátí. Pokud metoda na serveru vyvolá chybu, bude `Promise` zpráva odmítnuta s chybovou zprávou. Použijte `async` `await` metody a nebo `Promise` `then` a `catch` ke zpracování těchto případů.
 
-`send`Metoda vrátí JavaScript `Promise` . `Promise`Je vyřešena při odeslání zprávy na server. Pokud při odesílání zprávy dojde k chybě, bude `Promise` zpráva odmítnuta s chybovou zprávou. Použijte `then` metody a `catch` na `Promise` sebe samé ke zpracování těchto případů (nebo `await` syntaxe).
+Klienti JavaScriptu můžou také volat veřejné metody na rozbočovače prostřednictvím metody [Send](/javascript/api/%40microsoft/signalr/hubconnection#send-string--any---) objektu `HubConnection` . Na rozdíl od `invoke` metody `send` Metoda nečeká na odpověď ze serveru. `send`Metoda vrátí JavaScript `Promise` . `Promise`Je vyřešena při odeslání zprávy na server. Pokud při odesílání zprávy dojde k chybě, bude `Promise` zpráva odmítnuta s chybovou zprávou. Použijte `async` `await` metody a nebo `Promise` `then` a `catch` ke zpracování těchto případů.
 
 > [!NOTE]
 > Použití nástroje `send` nečeká na přijetí zprávy serverem. V důsledku toho není možné vracet data nebo chyby ze serveru.
 
-## <a name="call-client-methods-from-hub"></a>Volání metod klienta z centra
+## <a name="call-client-methods-from-the-hub"></a>Volání metod klienta z centra
 
-Chcete-li přijímat zprávy z centra, definujte metodu pomocí metody [on](/javascript/api/%40aspnet/signalr/hubconnection#on) `HubConnection` .
+Chcete-li přijímat zprávy z centra, definujte metodu pomocí metody [on](/javascript/api/%40microsoft/signalr/hubconnection#on-string---args--any-------void-) `HubConnection` .
 
-* Název metody klienta jazyka JavaScript. V následujícím příkladu je název metody `ReceiveMessage` .
-* Argumenty, které rozbočovač předává metodě. V následujícím příkladu je hodnota argumentu `message` .
+* Název metody klienta jazyka JavaScript.
+* Argumenty, které rozbočovač předává metodě.
 
-[!code-javascript[Receive calls from hub](javascript-client/sample/wwwroot/js/chat.js?range=14-19)]
+V následujícím příkladu je název metody `ReceiveMessage` . Názvy argumentů jsou `user` a `message` :
 
-Předchozí kód v aplikaci se `connection.on` spustí, když kód na straně serveru ho volá pomocí metody [SendAsync](/dotnet/api/microsoft.aspnetcore.signalr.clientproxyextensions.sendasync) .
+[!code-javascript[](javascript-client/samples/3.x/SignalRChat/wwwroot/chat.js?name=snippet_ReceiveMessage)]
 
-[!code-csharp[Call client-side](javascript-client/sample/hubs/chathub.cs?range=8-11)]
+Předchozí kód v aplikaci se `connection.on` spustí, když kód na straně serveru volá <xref:Microsoft.AspNetCore.SignalR.ClientProxyExtensions.SendAsync%2A> metodu:
+
+[!code-csharp[Call client-side](javascript-client/samples/3.x/SignalRChat/Hubs/ChatHub.cs?name=snippet_SendMessage)]
 
 SignalR Určuje, která metoda klienta má být volána, a to tak, že odpovídá názvu metody a argumentům definovaným v `SendAsync` a `connection.on` .
 
@@ -152,9 +129,9 @@ SignalR Určuje, která metoda klienta má být volána, a to tak, že odpovíd�
 
 ## <a name="error-handling-and-logging"></a>Zpracování chyb a protokolování
 
-Řetězení `catch` metody ke konci `start` metody za účelem zpracování chyb na straně klienta. Slouží `console.error` k výstupu chyb do konzoly prohlížeče.
+`try` `catch` `async` `await` `Promise` `catch` Pro zpracování chyb na straně klienta použijte metody a a nebo. Slouží `console.error` k výstupu chyb do konzoly prohlížeče:
 
-[!code-javascript[Error handling](javascript-client/sample/wwwroot/js/chat.js?range=50)]
+[!code-javascript[](javascript-client/samples/3.x/SignalRChat/wwwroot/chat.js?name=snippet_Invoke&highlight=1,3-5)]
 
 Nastavte trasování protokolu na straně klienta předáním protokolovacího nástroje a typu události, které se mají protokolovat při navázání spojení. Zprávy jsou protokolovány se zadanou úrovní protokolu a vyšší. K dispozici jsou následující úrovně protokolu:
 
@@ -163,13 +140,11 @@ Nastavte trasování protokolu na straně klienta předáním protokolovacího n
 * `signalR.LogLevel.Information`: Stavové zprávy bez chyb. Protokoly `Information` , `Warning` a `Error` zprávy.
 * `signalR.LogLevel.Trace`: Trace Messages. Zaznamená vše, včetně dat přepravovaných mezi centrem a klientem.
 
-K nakonfigurování úrovně protokolu použijte metodu [configureLogging](/javascript/api/%40aspnet/signalr/hubconnectionbuilder#configurelogging) pro [HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder) . Zprávy jsou protokolovány do konzoly prohlížeče.
+K nakonfigurování úrovně protokolu použijte metodu [configureLogging](/javascript/api/%40aspnet/signalr/hubconnectionbuilder#configurelogging) pro [HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder) . Zprávy jsou protokolovány do konzoly prohlížeče:
 
-[!code-javascript[Logging levels](javascript-client/sample/wwwroot/js/chat.js?range=9-12)]
+[!code-javascript[](javascript-client/samples/3.x/SignalRChat/wwwroot/chat.js?name=snippet_Connection&highlight=3)]
 
 ## <a name="reconnect-clients"></a>Znovu připojit klienty
-
-::: moniker range=">= aspnetcore-3.0"
 
 ### <a name="automatically-reconnect"></a>Automaticky znovu připojit
 
@@ -224,7 +199,7 @@ async function start() {
     try {
         await connection.start();
         console.assert(connection.state === signalR.HubConnectionState.Connected);
-        console.log("connected");
+        console.log("SignalR Connected.");
     } catch (err) {
         console.assert(connection.state === signalR.HubConnectionState.Disconnected);
         console.log(err);
@@ -292,23 +267,158 @@ const connection = new signalR.HubConnectionBuilder()
 
 Případně můžete napsat kód, který znovu připojí klienta ručně, jak je znázorněno v [ručním opětovném připojení](#manually-reconnect).
 
-::: moniker-end
-
 ### <a name="manually-reconnect"></a>Ručně znovu připojit
-
-::: moniker range="< aspnetcore-3.0"
-
-> [!WARNING]
-> Před 3,0 se klient JavaScriptu pro SignalR neautomaticky znovu nepřipojí. Musíte napsat kód, který bude znovu připojit klienta ručně.
-
-::: moniker-end
 
 Následující kód ukazuje typický postup ručního opětovného připojení:
 
 1. `start`Pro spuštění připojení je vytvořena funkce (v tomto případě funkce).
 1. Zavolejte `start` funkci v `onclose` popisovači události připojení.
 
-[!code-javascript[Reconnect the JavaScript client](javascript-client/sample/wwwroot/js/chat.js?range=28-40)]
+[!code-javascript[](javascript-client/samples/3.x/SignalRChat/wwwroot/chat.js?range=30-40)]
+
+Implementace reálného světa využije exponenciální přerušení nebo opakuje zadaný počet opakování.
+
+## <a name="additional-resources"></a>Další zdroje informací
+
+* [Referenční dokumentace k rozhraní API v JavaScriptu](/javascript/api/?view=signalr-js-latest&preserve-view=true )
+* [Kurz JavaScriptu](xref:tutorials/signalr)
+* [Kurz pro Webpack a TypeScript](xref:tutorials/signalr-typescript-webpack)
+* [Centra](xref:signalr/hubs)
+* [Klient .NET](xref:signalr/dotnet-client)
+* [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
+* [Žádosti mezi zdroji (CORS)](xref:security/cors)
+* [SignalRDokumentace k serveru se službou Azure](/azure/azure-signalr/signalr-concept-serverless-development-config)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Od [Rachel Appel](https://twitter.com/rachelappel)
+
+SignalRKlientská knihovna ASP.NET Core JavaScript umožňuje vývojářům volat kód centra na straně serveru.
+
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/javascript-client/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+
+## <a name="install-the-no-locsignalr-client-package"></a>Instalace SignalR balíčku klienta
+
+SignalRKlientská knihovna JavaScriptu je dodávána jako balíček [npm](https://www.npmjs.com/) . Následující oddíly popisují různé způsoby instalace klientské knihovny.
+
+### <a name="install-with-npm"></a>Instalace pomocí npm
+
+Pokud používáte Visual Studio, spusťte následující příkazy z **konzoly Správce balíčků** v kořenové složce. Pro Visual Studio Code spusťte následující příkazy z **integrovaného terminálu**.
+
+```bash
+npm init -y
+npm install @aspnet/signalr
+```
+
+NPM nainstaluje obsah balíčku do složky *node_modules \\ @aspnet\signalr\dist\browser * . Vytvořte novou složku s názvem *Signal* ve složce *wwwroot \\ lib* . Zkopírujte soubor *signalr.js* do složky *wwwroot\lib\signalr* .
+
+Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
+
+```html
+<script src="~/lib/signalr/signalr.js"></script>
+```
+
+### <a name="use-a-content-delivery-network-cdn"></a>Použít Content Delivery Network (CDN)
+
+Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Příklad:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>
+```
+
+Klientská knihovna je k dispozici na následujících sítě CDN:
+
+* [cdnjs](https://cdnjs.com/libraries/aspnet-signalr)
+* [jsDelivr](https://www.jsdelivr.com/package/npm/@aspnet/signalr)
+* [unpkg](https://unpkg.com/@aspnet/signalr@next/dist/browser/signalr.min.js)
+
+### <a name="install-with-libman"></a>Instalace pomocí LibMan
+
+[LibMan](xref:client-side/libman/index) se dá použít k instalaci určitých souborů knihovny klienta z klientské knihovny hostované v CDN. Například do projektu přidejte pouze soubor JavaScriptu minifikovaného. Podrobnosti o tomto přístupu najdete v tématu [Přidání SignalR klientské knihovny](xref:tutorials/signalr#add-the-signalr-client-library).
+
+## <a name="connect-to-a-hub"></a>Připojení k centru
+
+Následující kód vytvoří a spustí připojení. V názvu centra se nerozlišují malá a velká písmena.
+
+[!code-javascript[Call hub methods](javascript-client/samples/2.x/SignalRChat/wwwroot/js/chat.js?range=9-13,28-51)]
+
+### <a name="cross-origin-connections"></a>Připojení mezi zdroji
+
+Prohlížeče obvykle načítají připojení ze stejné domény jako požadovanou stránku. Existují však situace, kdy je vyžadováno připojení k jiné doméně.
+
+Chcete-li zabránit škodlivému webu v čtení citlivých dat z jiné lokality, [připojení mezi zdroji](xref:security/cors) jsou ve výchozím nastavení zakázána. Pokud chcete povolit žádost o více zdrojů, povolte ji ve `Startup` třídě.
+
+[!code-csharp[Cross-origin connections](javascript-client/samples/2.x/SignalRChat/Startup.cs?highlight=29-35,56)]
+
+## <a name="call-hub-methods-from-client"></a>Volání metod centra z klienta
+
+Klienti JavaScriptu volají veřejné metody na rozbočovačích prostřednictvím metody [Invoke](/javascript/api/%40aspnet/signalr/hubconnection#invoke) [HubConnection](/javascript/api/%40aspnet/signalr/hubconnection). `invoke`Metoda přijímá dva argumenty:
+
+* Název metody centra V následujícím příkladu je název metody v centru `SendMessage` .
+* Jakékoli argumenty definované v metodě hub. V následujícím příkladu je název argumentu `message` . Vzorový kód používá syntaxi funkce šipky, která je podporována v aktuálních verzích všech hlavních prohlížečů s výjimkou aplikace Internet Explorer.
+
+  [!code-javascript[Call hub methods](javascript-client/samples/2.x/SignalRChat/wwwroot/js/chat.js?range=24)]
+
+> [!NOTE]
+> Volání metod rozbočovače z klienta je podporováno, pouze pokud používáte SignalR službu Azure ve *výchozím* režimu. Další informace najdete v tématu [Nejčastější dotazy (úložiště GitHub Azure-Signal)](https://github.com/Azure/azure-signalr/blob/dev/docs/faq.md#what-is-the-meaning-of-service-mode-defaultserverlessclassic-how-can-i-choose).
+
+`invoke`Metoda vrací [příslib](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)JavaScriptu. `Promise`Je vyřešen s návratovou hodnotou (pokud existuje), když metoda na serveru vrátí. Pokud metoda na serveru vyvolá chybu, bude `Promise` zpráva odmítnuta s chybovou zprávou. Použijte `then` metody a `catch` na `Promise` sebe samé ke zpracování těchto případů (nebo `await` syntaxe).
+
+`send`Metoda vrátí JavaScript `Promise` . `Promise`Je vyřešena při odeslání zprávy na server. Pokud při odesílání zprávy dojde k chybě, bude `Promise` zpráva odmítnuta s chybovou zprávou. Použijte `then` metody a `catch` na `Promise` sebe samé ke zpracování těchto případů (nebo `await` syntaxe).
+
+> [!NOTE]
+> Použití nástroje `send` nečeká na přijetí zprávy serverem. V důsledku toho není možné vracet data nebo chyby ze serveru.
+
+## <a name="call-client-methods-from-hub"></a>Volání metod klienta z centra
+
+Chcete-li přijímat zprávy z centra, definujte metodu pomocí metody [on](/javascript/api/%40aspnet/signalr/hubconnection#on) `HubConnection` .
+
+* Název metody klienta jazyka JavaScript. V následujícím příkladu je název metody `ReceiveMessage` .
+* Argumenty, které rozbočovač předává metodě. V následujícím příkladu je hodnota argumentu `message` .
+
+[!code-javascript[Receive calls from hub](javascript-client/samples/2.x/SignalRChat/wwwroot/js/chat.js?range=14-19)]
+
+Předchozí kód v aplikaci se `connection.on` spustí, když kód na straně serveru volá <xref:Microsoft.AspNetCore.SignalR.ClientProxyExtensions.SendAsync%2A> metodu.
+
+[!code-csharp[Call client-side](javascript-client/samples/2.x/SignalRChat/hubs/chathub.cs?range=8-11)]
+
+SignalR Určuje, která metoda klienta má být volána, a to tak, že odpovídá názvu metody a argumentům definovaným v `SendAsync` a `connection.on` .
+
+> [!NOTE]
+> Osvědčeným postupem je zavolat metodu [Start](/javascript/api/%40aspnet/signalr/hubconnection#start) na `HubConnection` za `on` . Tím zajistíte, aby byly obslužné rutiny registrovány před přijetím jakýchkoli zpráv.
+
+## <a name="error-handling-and-logging"></a>Zpracování chyb a protokolování
+
+Řetězení `catch` metody ke konci `start` metody za účelem zpracování chyb na straně klienta. Slouží `console.error` k výstupu chyb do konzoly prohlížeče.
+
+[!code-javascript[Error handling](javascript-client/samples/2.x/SignalRChat/wwwroot/js/chat.js?range=50)]
+
+Nastavte trasování protokolu na straně klienta předáním protokolovacího nástroje a typu události, které se mají protokolovat při navázání spojení. Zprávy jsou protokolovány se zadanou úrovní protokolu a vyšší. K dispozici jsou následující úrovně protokolu:
+
+* `signalR.LogLevel.Error`: Chybové zprávy. Protokoluje `Error` pouze zprávy.
+* `signalR.LogLevel.Warning`: Varovné zprávy o potenciálních chybách. Protokoly `Warning` a `Error` zprávy.
+* `signalR.LogLevel.Information`: Stavové zprávy bez chyb. Protokoly `Information` , `Warning` a `Error` zprávy.
+* `signalR.LogLevel.Trace`: Trace Messages. Zaznamená vše, včetně dat přepravovaných mezi centrem a klientem.
+
+K nakonfigurování úrovně protokolu použijte metodu [configureLogging](/javascript/api/%40aspnet/signalr/hubconnectionbuilder#configurelogging) pro [HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder) . Zprávy jsou protokolovány do konzoly prohlížeče.
+
+[!code-javascript[Logging levels](javascript-client/samples/2.x/SignalRChat/wwwroot/js/chat.js?range=9-12)]
+
+## <a name="reconnect-clients"></a>Znovu připojit klienty
+
+### <a name="manually-reconnect"></a>Ručně znovu připojit
+
+> [!WARNING]
+> Před 3,0 se klient JavaScriptu pro SignalR neautomaticky znovu nepřipojí. Musíte napsat kód, který bude znovu připojit klienta ručně.
+
+Následující kód ukazuje typický postup ručního opětovného připojení:
+
+1. `start`Pro spuštění připojení je vytvořena funkce (v tomto případě funkce).
+1. Zavolejte `start` funkci v `onclose` popisovači události připojení.
+
+[!code-javascript[Reconnect the JavaScript client](javascript-client/samples/2.x/SignalRChat/wwwroot/js/chat.js?range=28-40)]
 
 Implementace reálného světa využije exponenciální přerušení nebo opakuje zadaný počet opakování.
 
@@ -317,8 +427,10 @@ Implementace reálného světa využije exponenciální přerušení nebo opakuj
 * [Referenční dokumentace k rozhraní API v JavaScriptu](/javascript/api/?view=signalr-js-latest)
 * [Kurz JavaScriptu](xref:tutorials/signalr)
 * [Kurz pro Webpack a TypeScript](xref:tutorials/signalr-typescript-webpack)
-* [Rozbočovače](xref:signalr/hubs)
+* [Centra](xref:signalr/hubs)
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
 * [Žádosti mezi zdroji (CORS)](xref:security/cors)
 * [SignalRDokumentace k serveru se službou Azure](/azure/azure-signalr/signalr-concept-serverless-development-config)
+
+::: moniker-end
