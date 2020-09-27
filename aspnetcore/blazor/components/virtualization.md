@@ -5,7 +5,7 @@ description: Naučte se používat virtualizaci komponent v Blazor aplikacích A
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/21/2020
+ms.date: 09/22/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,34 +18,31 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/virtualization
-ms.openlocfilehash: 911eeeb445741aa1519e1464dd4a75e26f6f12ab
-ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
+ms.openlocfilehash: 9c3e53bee7535b36bba3474ff50a881568bbd690
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/22/2020
-ms.locfileid: "90847569"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393805"
 ---
 # <a name="aspnet-core-no-locblazor-component-virtualization"></a>BlazorVirtualizace ASP.NET Core komponent
 
 Od [Daniel Skořepa](https://github.com/danroth27)
 
-Vylepšete vnímaný výkon vykreslování komponent pomocí Blazor integrované podpory virtualizace architektury. Virtualizace je technika, jak omezit vykreslování uživatelského rozhraní pouze na části, které jsou aktuálně viditelné. Například virtualizace je užitečná v případě, že aplikace musí vykreslovat dlouhý seznam nebo tabulku s mnoha řádky a v daném okamžiku je nutné zobrazit pouze podmnožinu položek. Blazor poskytuje `Virtualize` komponentu, která se dá použít k přidání virtualizace do komponent aplikace.
+Vylepšete vnímaný výkon vykreslování komponent pomocí Blazor integrované podpory virtualizace architektury. Virtualizace je technika, jak omezit vykreslování uživatelského rozhraní pouze na části, které jsou aktuálně viditelné. Například virtualizace je užitečná v případě, že aplikace musí vykreslovat dlouhý seznam položek a v libovolnou dobu je nutné zobrazit pouze podmnožinu položek. Blazor poskytuje `Virtualize` komponentu, která se dá použít k přidání virtualizace do komponent aplikace.
 
 ::: moniker range=">= aspnetcore-5.0"
 
-Bez virtualizace může [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) k vykreslení každé položky v seznamu nebo v jednotlivých řádcích v tabulce použít smyčku v jazyce C#.
+Bez virtualizace může běžný seznam použít [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) smyčku jazyka C# k vykreslení každé položky v seznamu:
 
 ```razor
-<table>
-    @foreach (var employee in employees)
-    {
-        <tr>
-            <td>@employee.FirstName</td>
-            <td>@employee.LastName</td>
-            <td>@employee.JobTitle</td>
-        </tr>
-    }
-</table>
+@foreach (var employee in employees)
+{
+    <p>
+        @employee.FirstName @employee.LastName has the 
+        job title of @employee.JobTitle.
+    </p>
+}
 ```
 
 Pokud seznam obsahuje tisíce položek, pak vykreslování seznamu může trvat dlouhou dobu. Uživatel může vyskytnout znatelné prodlevy uživatelského rozhraní.
@@ -53,47 +50,44 @@ Pokud seznam obsahuje tisíce položek, pak vykreslování seznamu může trvat 
 Místo vykreslování každé položky v seznamu najednou, nahraďte [`foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) smyčku `Virtualize` součástí a určete zdroj pevné položky `Items` . Vykresleny jsou pouze položky, které jsou aktuálně viditelné:
 
 ```razor
-<table>
-    <Virtualize Context="employee" Items="@employees">
-        <tr>
-            <td>@employee.FirstName</td>
-            <td>@employee.LastName</td>
-            <td>@employee.JobTitle</td>
-        </tr>
-    </Virtualize>
-</table>
+<Virtualize Context="employee" Items="@employees">
+    <p>
+        @employee.FirstName @employee.LastName has the 
+        job title of @employee.JobTitle.
+    </p>
+</Virtualize>
 ```
 
 Pokud není zadán kontext pro komponentu s `Context` , použijte `context` hodnotu ( `@context.{PROPERTY}` ) v šabloně obsahu položky:
 
 ```razor
-<table>
-    <Virtualize Items="@employees">
-        <tr>
-            <td>@context.FirstName</td>
-            <td>@context.LastName</td>
-            <td>@context.JobTitle</td>
-        </tr>
-    </Virtualize>
-</table>
+<Virtualize Items="@employees">
+    <p>
+        @context.FirstName @context.LastName has the 
+        job title of @context.JobTitle.
+    </p>
+</Virtualize>
 ```
 
 `Virtualize`Komponenta vypočítá počet položek, které se mají vykreslit, na základě výšky kontejneru a velikosti vykreslených položek.
+
+Obsah položky pro `Virtualize` součást může zahrnovat:
+
+* Prostý kód HTML a Razor kód, jak ukazuje předchozí příklad.
+* Jedna nebo více Razor součástí.
+* Kombinace HTML/ Razor a Razor komponent.
 
 ## <a name="item-provider-delegate"></a>Delegát poskytovatele položek
 
 Pokud nechcete načíst všechny položky do paměti, můžete určit metodu delegáta poskytovatele položek pro `ItemsProvider` parametr komponenty, který asynchronně načte požadované položky na vyžádání:
 
 ```razor
-<table>
-    <Virtualize Context="employee" ItemsProvider="@LoadEmployees">
-         <tr>
-            <td>@employee.FirstName</td>
-            <td>@employee.LastName</td>
-            <td>@employee.JobTitle</td>
-        </tr>
-    </Virtualize>
-</table>
+<Virtualize Context="employee" ItemsProvider="@LoadEmployees">
+    <p>
+        @employee.FirstName @employee.LastName has the 
+        job title of @employee.JobTitle.
+    </p>
+</Virtualize>
 ```
 
 Poskytovatel položek obdrží `ItemsProviderRequest` , který určuje požadovaný počet položek od určitého počátečního indexu. Poskytovatel položek následně načte požadované položky z databáze nebo jiné služby a vrátí je jako výsledek `ItemsProviderResult<TItem>` s počtem položek celkem. Poskytovatel položek se může rozhodnout načíst položky s každou žádostí nebo je Uložit do mezipaměti, aby byly snadno dostupné. Nepokoušejte se použít poskytovatele položek a přiřadit kolekci ke `Items` stejné `Virtualize` komponentě.
@@ -117,22 +111,19 @@ private async ValueTask<ItemsProviderResult<Employee>> LoadEmployees(
 Vzhledem k tomu, že požadavek na položky ze vzdáleného zdroje dat může nějakou dobu trvat, máte možnost vykreslit zástupný symbol ( `<Placeholder>...</Placeholder>` ), dokud nebudou k dispozici data položky:
 
 ```razor
-<table>
-    <Virtualize Context="employee" ItemsProvider="@LoadEmployees">
-        <ItemContent>
-            <tr>
-                <td>@employee.FirstName</td>
-                <td>@employee.LastName</td>
-                <td>@employee.JobTitle</td>
-            </tr>
-        </ItemContent>
-        <Placeholder>
-            <tr>
-                <td>Loading...</td>
-            </tr>
-        </Placeholder>
-    </Virtualize>
-</table>
+<Virtualize Context="employee" ItemsProvider="@LoadEmployees">
+    <ItemContent>
+        <p>
+            @employee.FirstName @employee.LastName has the 
+            job title of @employee.JobTitle.
+        </p>
+    </ItemContent>
+    <Placeholder>
+        <p>
+            Loading&hellip;
+        </p>
+    </Placeholder>
+</Virtualize>
 ```
 
 ## <a name="item-size"></a>Velikost položky
@@ -140,11 +131,9 @@ Vzhledem k tomu, že požadavek na položky ze vzdáleného zdroje dat může n�
 Velikost každé položky v pixelech lze nastavit s hodnotou `ItemSize` (výchozí: 50px):
 
 ```razor
-<table>
-    <Virtualize Context="employee" Items="@employees" ItemSize="25">
-        ...
-    </Virtualize>
-</table>
+<Virtualize Context="employee" Items="@employees" ItemSize="25">
+    ...
+</Virtualize>
 ```
 
 ## <a name="overscan-count"></a>Počet překontrol
@@ -152,11 +141,9 @@ Velikost každé položky v pixelech lze nastavit s hodnotou `ItemSize` (výchoz
 `OverscanCount` Určuje, kolik dalších položek je vykresleno před a po viditelné oblasti. Toto nastavení pomáhá snižovat četnost vykreslování během posouvání. Výsledkem ale vyšších hodnot je více prvků vykreslených na stránce (výchozí: 3):
 
 ```razor
-<table>
-    <Virtualize Context="employee" Items="@employees" OverscanCount="4">
-        ...
-    </Virtualize>
-</table>
+<Virtualize Context="employee" Items="@employees" OverscanCount="4">
+    ...
+</Virtualize>
 ```
 
 ::: moniker-end

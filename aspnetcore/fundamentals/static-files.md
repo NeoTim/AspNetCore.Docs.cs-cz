@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/static-files
-ms.openlocfilehash: 24fda96dbe48945d172eb36e8a91af31f168ff7f
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 36eeb3532ed5ea6f5f75c20cbe14331ed840a788
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627660"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393935"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -127,7 +127,7 @@ Alternativní přístup k obsluze souborů na základě autorizace:
 
 Procházení adresářů umožňuje výpis adresáře v rámci určených adresářů.
 
-Procházení adresářů je ve výchozím nastavení zakázáno z bezpečnostních důvodů. Další informace najdete v tématu věnovaném [důležitým](#sc)informacím.
+Procházení adresářů je ve výchozím nastavení zakázáno z bezpečnostních důvodů. Další informace najdete v tématu věnovaném [důležitým](#considerations)informacím.
 
 Povolit procházení adresářů pomocí:
 
@@ -267,7 +267,7 @@ V předchozím kódu se jako obrázek vrátí požadavek na soubor s neznámým 
 
 * Umístěte soubory kódu, včetně *přípon cs* a *. cshtml*, mimo [webový kořenový adresář](xref:fundamentals/index#web-root)projektu aplikace. Vytvoří se logické oddělení mezi obsahem aplikace na straně klienta a kódem serveru. Tím zabráníte úniku kódu na straně serveru.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Middleware](xref:fundamentals/middleware/index)
 * [Úvod do ASP.NET Core](xref:index)
@@ -363,7 +363,7 @@ Middleware statických souborů neposkytuje kontroly autorizace. Všechny soubor
 
 ## <a name="enable-directory-browsing"></a>Povolit procházení adresářů
 
-Procházení adresářů umožňuje uživatelům vaší webové aplikace zobrazit v zadaném adresáři výpis adresářů a soubory. Procházení adresářů je ve výchozím nastavení zakázáno z důvodů zabezpečení (viz téma [informace](#sc)). Povolit procházení adresářů vyvoláním <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser%2A> metody v `Startup.Configure` :
+Procházení adresářů umožňuje uživatelům vaší webové aplikace zobrazit v zadaném adresáři výpis adresářů a soubory. Procházení adresářů je ve výchozím nastavení zakázáno z důvodů zabezpečení (viz téma [informace](#considerations)). Povolit procházení adresářů vyvoláním <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser%2A> metody v `Startup.Configure` :
 
 [!code-csharp[](static-files/samples/1.x/StaticFilesSample/StartupBrowse.cs?name=snippet_ConfigureMethod&highlight=12-17)]
 
@@ -498,7 +498,7 @@ V předchozím kódu se jako obrázek vrátí požadavek na soubor s neznámým 
 
 * Umístěte soubory kódu (včetně *. cs* a *. cshtml*) mimo [kořenový adresář webu](xref:fundamentals/index#web-root)projektu aplikace. Vytvoří se logické oddělení mezi obsahem aplikace na straně klienta a kódem serveru. Tím zabráníte úniku kódu na straně serveru.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Middleware](xref:fundamentals/middleware/index)
 * [Úvod do ASP.NET Core](xref:index)

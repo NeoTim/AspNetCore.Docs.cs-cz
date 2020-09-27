@@ -17,18 +17,18 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/partial
-ms.openlocfilehash: 7a370042520adfe5b06784b76acf41a81eb2c72d
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: bb75d8b7d78c82c9c32605ac645b8895fdfb78e3
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630624"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393649"
 ---
 # <a name="partial-views-in-aspnet-core"></a>Částečná zobrazení v ASP.NET Core
 
 [Steve Smith](https://ardalis.com/), [Maher JENDOUBI](https://twitter.com/maherjend), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Scott Sauber](https://twitter.com/scottsauber)
 
-Částečné zobrazení je [Razor](xref:mvc/views/razor) soubor označení (*. cshtml*), který vykresluje výstup HTML *v rámci* dalšího vykresleného výstupu souboru s označením.
+Částečné zobrazení je [Razor](xref:mvc/views/razor) soubor označení (*. cshtml*) bez [`@page`](xref:mvc/views/razor#page) direktivy, která vykresluje výstup HTML *v rámci* jiného vykresleného výstupu souboru s označením.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -57,7 +57,7 @@ Nepoužívejte částečné zobrazení, kde je pro vykreslení značky nutná sl
 
 ::: moniker range=">= aspnetcore-2.0"
 
-Částečné zobrazení je soubor s označením *. cshtml* udržovaný ve složce *zobrazení* (MVC) nebo ve složce *stránek* ( Razor stránky).
+Částečné zobrazení je soubor označení *. cshtml* bez [`@page`](xref:mvc/views/razor#page) direktivy udržované ve složce *zobrazení* (MVC) nebo ve složce *stránek* ( Razor stránky).
 
 V ASP.NET Core MVC může řadič <xref:Microsoft.AspNetCore.Mvc.ViewResult> vracet buď zobrazení, nebo částečné zobrazení. Na Razor stránkách <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> může vracet částečné zobrazení reprezentované jako <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> objekt. Odkazování na částečné zobrazení a jejich vykreslování je popsané v části [Reference k částečnému zobrazení](#reference-a-partial-view) .
 

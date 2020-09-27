@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 08cd6396cca78488827dfa7c2cca62a35c500dbd
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: e451d511ab7791a05024d88635d8005132ad4edd
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009697"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393922"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování na akce kontroleru v ASP.NET Core
 
@@ -219,7 +219,7 @@ Pokud se dva koncové body shodují přes směrování, musí směrování prov�
 * Vyberte nejlepší kandidáta.
 * Vyvolejte výjimku.
 
-Například:
+Příklad:
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet9)]
 
@@ -353,7 +353,7 @@ Vezměte v úvahu následující kontroler:
 V předchozím kódu:
 
 * Každá akce obsahuje `[HttpGet]` atribut, který omezuje porovnání pouze s požadavky HTTP GET.
-* Tato `GetProduct` akce zahrnuje `"{id}"` šablonu, proto `id` je připojená k `"api/[controller]"` šabloně na řadiči. Šablona metod je `"api/[controller]/"{id}""` . Proto tato akce odpovídá pouze požadavkům get pro formulář `/api/test2/xyz` , `/api/test2/123` , `/api/test2/{any string}` atd.
+* Tato `GetProduct` akce zahrnuje `"{id}"` šablonu, proto `id` je připojená k `"api/[controller]"` šabloně na řadiči. Šablona metod je `"api/[controller]/"{id}""` . Proto tato akce odpovídá pouze požadavkům get pro formulář `/api/test2/xyz` , `/api/test2/123` , atd `/api/test2/{any string}` .
   [!code-csharp[](routing/samples/3.x/main/Controllers/Test2Controller.cs?name=snippet2)]
 * `GetIntProduct`Akce obsahuje `"int/{id:int}")` šablonu. `:int`Část šablony omezuje `id` hodnoty směrování na řetězce, které lze převést na celé číslo. Požadavek GET na `/api/test2/int/abc` :
   * Neodpovídá této akci.
@@ -431,10 +431,10 @@ Následující tabulka popisuje `[Route]` atributy v předchozím kódu:
 
 | Atribut               | Kombinuje s `[Route("Home")]` | Definuje šablonu směrování. |
 | ----------------- | ------------ | --------- |
-| `[Route("")]` | Ano | `"Home"` |
-| `[Route("Index")]` | Ano | `"Home/Index"` |
+| `[Route("")]` | Yes | `"Home"` |
+| `[Route("Index")]` | Yes | `"Home/Index"` |
 | `[Route("/")]` | **Ne** | `""` |
-| `[Route("About")]` | Ano | `"Home/About"` |
+| `[Route("About")]` | Yes | `"Home/About"` |
 
 <a name="routing-ordering-ref-label"></a>
 <a name="oar"></a>
@@ -1012,7 +1012,7 @@ V rámci zpracování žádosti MVC ověří, že hodnoty trasy lze použít k v
 
 ### <a name="disambiguating-actions"></a>Nejednoznačnost akcí
 
-Pokud se dvě akce shodují přes směrování, MVC musí nejednoznačně vybrat kandidáta na nejlepší nebo jinak vyvolat výjimku. Například:
+Pokud se dvě akce shodují přes směrování, MVC musí nejednoznačně vybrat kandidáta na nejlepší nebo jinak vyvolat výjimku. Příklad:
 
 ```csharp
 public class ProductsController : Controller

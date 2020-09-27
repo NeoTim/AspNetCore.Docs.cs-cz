@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/model-binding
-ms.openlocfilehash: ec36ff6d646e0554550a4372389aed89aa267b1f
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: ca2f071ccb84fdb2eb06f533fc4d088ad1b1c785
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633978"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393883"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
@@ -208,12 +208,12 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Char](xref:System.ComponentModel.CharConverter)
 * [Datum a čas](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
-* [Decimal](xref:System.ComponentModel.DecimalConverter)
-* [dvojité](xref:System.ComponentModel.DoubleConverter)
+* [Notaci](xref:System.ComponentModel.DecimalConverter)
+* [Klepat](xref:System.ComponentModel.DoubleConverter)
 * [Výčet](xref:System.ComponentModel.EnumConverter)
 * [Hlavních](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter), [Int32](xref:System.ComponentModel.Int32Converter), [Int64](xref:System.ComponentModel.Int64Converter)
-* [Jeden](xref:System.ComponentModel.SingleConverter)
+* [Jednoduché](xref:System.ComponentModel.SingleConverter)
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter), [UInt32](xref:System.ComponentModel.UInt32Converter), [UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Identifikátor URI](xref:System.UriTypeConverter)
@@ -393,6 +393,47 @@ V případě `Dictionary` cílů vyhledá vazba modelu shody pro *parameter_name
 
   * selectedCourses ["1050"] = "chemie"
   * selectedCourses ["2000"] = "ekonomické"
+  
+::: moniker-end
+
+::: moniker range=">= aspnetcore-5.0"
+
+## <a name="constructor-binding-and-record-types"></a>Vazba konstruktoru a typy záznamů
+
+Vazba modelu vyžaduje, aby komplexní typy měly konstruktor bez parametrů. `System.Text.Json`Formátovací moduly `Newtonsoft.Json` vstupu na bázi i podporují deserializaci tříd, které nemají konstruktor bez parametrů. 
+
+C# 9 zavádí typy záznamů, což je skvělý způsob, jak stručně reprezentovat data v síti. ASP.NET Core přidává podporu pro vazbu modelu a ověřování typů záznamů s jedním konstruktorem:
+
+```csharp
+public record Person([Required] string Name, [Range(0, 150)] int Age);
+
+public class PersonController
+{
+   public IActionResult Index() => View();
+
+   [HttpPost]
+   public IActionResult Index(Person person)
+   {
+       ...
+   }
+}
+```
+
+`Person/Index.cshtml`:
+
+```cshtml
+@model Person
+
+Name: <input asp-for="Name" />
+...
+Age: <input asp-for="Age" />
+```
+
+Při ověřování typů záznamů modul runtime vyhledává metadata ověření konkrétně u parametrů, nikoli u vlastností.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
 
 <a name="glob"></a>
 
@@ -506,12 +547,13 @@ Další informace najdete v tématu [TryUpdateModelAsync](xref:data/ef-rp/crud#T
 
 Název tohoto atributu se řídí vzorem atributů vazby modelu, které určují zdroj dat. Nejedná se ale o vazbu dat od poskytovatele hodnot. Získává instanci typu z kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Jeho účelem je poskytnout alternativu k injektáže konstruktoru, pokud potřebujete službu pouze v případě, že je volána konkrétní metoda.
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/models/validation>
 * <xref:mvc/advanced/custom-model-binding>
 
 ::: moniker-end
+
 ::: moniker range="< aspnetcore-3.0"
 
 Tento článek vysvětluje, co je vazba modelů, jak funguje a jak přizpůsobit její chování.
@@ -694,12 +736,12 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Char](xref:System.ComponentModel.CharConverter)
 * [Datum a čas](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
-* [Decimal](xref:System.ComponentModel.DecimalConverter)
-* [dvojité](xref:System.ComponentModel.DoubleConverter)
+* [Notaci](xref:System.ComponentModel.DecimalConverter)
+* [Klepat](xref:System.ComponentModel.DoubleConverter)
 * [Výčet](xref:System.ComponentModel.EnumConverter)
 * [Hlavních](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter), [Int32](xref:System.ComponentModel.Int32Converter), [Int64](xref:System.ComponentModel.Int64Converter)
-* [Jeden](xref:System.ComponentModel.SingleConverter)
+* [Jednoduché](xref:System.ComponentModel.SingleConverter)
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter), [UInt32](xref:System.ComponentModel.UInt32Converter), [UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Identifikátor URI](xref:System.UriTypeConverter)

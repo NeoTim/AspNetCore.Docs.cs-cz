@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/additional-scenarios
-ms.openlocfilehash: c8bce9572f0c21fdbd7ed585772c2b7965f40598
-ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
+ms.openlocfilehash: 9b3698489300e45cf77c3d51611ff44e2f4e16a5
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90592940"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393662"
 ---
 # <a name="aspnet-core-no-locblazor-server-additional-security-scenarios"></a>ASP.NET Core Blazor Server Další scénáře zabezpečení
 
@@ -208,15 +208,15 @@ Pokud se označení segmentu pro autoritu nehodí pro poskytovatele OIDC aplikac
           options.Resource = "...";    // REMOVE THIS LINE
           ...
       }
-      ```
+  ```
 
-  For more information, see [Scopes, not resources](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison#scopes-not-resources) in the Azure documentation.
+  Další informace najdete v tématu [obory, nikoli prostředky](/azure/active-directory/azuread-dev/azure-ad-endpoint-comparison#scopes-not-resources) v dokumentaci k Azure.
 
-### App ID URI
+### <a name="app-id-uri"></a>Identifikátor URI ID aplikace
 
-* When using v2.0 endpoints, APIs define an *`App ID URI`*, which is meant to represent a unique identifier for the API.
-* All scopes include the App ID URI as a prefix, and v2.0 endpoints emit access tokens with the App ID URI as the audience.
-* When using V2.0 endpoints, the client ID configured in the Server API changes from the API Application ID (Client ID) to the App ID URI.
+* Při použití koncových bodů v 2.0 definuje rozhraní API *`App ID URI`* , což představuje jedinečný identifikátor rozhraní API.
+* Všechny obory obsahují identifikátor URI ID aplikace jako předponu a koncové body v 2.0 generují přístupové tokeny s identifikátorem URI ID aplikace jako cílovou skupinu.
+* Při použití koncových bodů V 2.0 se ID klienta nakonfigurované v rozhraní API serveru změní z ID aplikace API (ID klienta) na identifikátor URI ID aplikace.
 
 `appsettings.json`:
 

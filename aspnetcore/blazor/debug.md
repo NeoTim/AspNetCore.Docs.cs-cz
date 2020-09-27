@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 7681deb70610a8fbc27ccda7317b73921646794a
-ms.sourcegitcommit: 4df148cbbfae9ec8d377283ee71394944a284051
+ms.openlocfilehash: e12b0e6d1bf9eab751f6605b9a156f637f2b0c0f
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88876773"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393831"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core ladění Blazor WebAssembly
 
@@ -49,7 +49,7 @@ Teď *nemůžete*:
 * Přerušit při neošetřených výjimkách.
 * Zarážky volání během spouštění aplikace před spuštěním ladicího proxy serveru. To zahrnuje zarážky v `Program.Main` ( `Program.cs` ) a zarážky v [ `OnInitialized{Async}` metodách](xref:blazor/components/lifecycle#component-initialization-methods) komponent, které jsou načteny první stránkou požadovanou z aplikace.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Ladění vyžaduje některý z následujících prohlížečů:
 
@@ -109,11 +109,55 @@ Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
 > [!NOTE]
 > Zarážky se během spouštění aplikace **neprojeví** před spuštěním ladicího proxy serveru. To zahrnuje zarážky v `Program.Main` ( `Program.cs` ) a zarážky v [ `OnInitialized{Async}` metodách](xref:blazor/components/lifecycle#component-initialization-methods) komponent, které jsou načteny první stránkou požadovanou z aplikace.
 
+Pokud je aplikace hostovaná v jiné [základní cestě aplikace](xref:blazor/host-and-deploy/index#app-base-path) než `/` , aktualizujte následující vlastnosti v nástroji `Properties/launchSettings.json` tak, aby odrážely základní cestu aplikace:
+
+* `applicationUrl`:
+
+  ```json
+  "iisSettings": {
+    ...
+    "iisExpress": {
+      "applicationUrl": "http://localhost:{INSECURE PORT}/{APP BASE PATH}/",
+      "sslPort": {SECURE PORT}
+    }
+  },
+  ```
+
+* `inspectUri` každý profil:
+
+  ```json
+  "profiles": {
+    ...
+    "{PROFILE 1, 2, ... N}": {
+      ...
+      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/{APP BASE PATH}/_framework/debug/ws-proxy?browser={browserInspectUri}",
+      ...
+    }
+  }
+  ```
+
+Zástupné symboly v předchozích nastaveních:
+
+* `{INSECURE PORT}`: Nezabezpečený port. Ve výchozím nastavení je k dispozici náhodná hodnota, ale je povolený vlastní port.
+* `{APP BASE PATH}`: Základní cesta aplikace.
+* `{SECURE PORT}`: Zabezpečený port. Ve výchozím nastavení je k dispozici náhodná hodnota, ale je povolený vlastní port.
+* `{PROFILE 1, 2, ... N}`: Profily nastavení spuštění. Aplikace obvykle ve výchozím nastavení určuje více než jeden profil (například profil pro IIS Express a profil projektu, který je používán serverem Kestrel).
+
+V následujících příkladech je aplikace hostovaná na základě `/OAT` základní cesty aplikace nakonfigurované v `wwwroot/index.html` podobě `<base href="/OAT/">` :
+
+```json
+"applicationUrl": "http://localhost:{INSECURE PORT}/OAT/",
+```
+
+```json
+"inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/OAT/_framework/debug/ws-proxy?browser={browserInspectUri}",
+```
+
+Informace o tom, jak používat vlastní základní cestu aplikace pro Blazor WebAssembly aplikace, najdete v tématu <xref:blazor/host-and-deploy/index#app-base-path> .
+
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-<a id="vscode"></a>
-
-## <a name="debug-standalone-no-locblazor-webassembly"></a>Samostatně ladit Blazor WebAssembly
+<h2 id="vscode">Samostatně ladit Blazor WebAssembly</h2>
 
 1. Otevřete samostatnou Blazor WebAssembly aplikaci v vs Code.
 
@@ -257,7 +301,7 @@ Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
 > [!NOTE]
 > Zarážky se během spouštění aplikace **neprojeví** před spuštěním ladicího proxy serveru. To zahrnuje zarážky v `Program.Main` ( `Program.cs` ) a zarážky v [ `OnInitialized{Async}` metodách](xref:blazor/components/lifecycle#component-initialization-methods) komponent, které jsou načteny první stránkou požadovanou z aplikace.
 
-Další informace naleznete v tématu [ladění pomocí Visual Studio pro Mac](/visualstudio/mac/debugging?view=vsmac-2019).
+Další informace naleznete v tématu [ladění pomocí Visual Studio pro Mac](/visualstudio/mac/debugging).
 
 ---
 

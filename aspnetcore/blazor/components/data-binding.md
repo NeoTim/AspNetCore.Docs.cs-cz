@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: eef08d8236241d2930a1a1a45ca0181669f2432c
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: 493aa7f9cfbf2b47ffcb7d6f8e40de7b62ecfce3
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009645"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393818"
 ---
 # <a name="aspnet-core-no-locblazor-data-binding"></a>ASP.NET Core Blazor datové vazby
 
@@ -314,7 +314,7 @@ Password:
 }
 ```
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Vazba na přepínače ve formuláři](xref:blazor/forms-validation#radio-buttons)
 * [Vazba `<select>` možností elementu na hodnoty objektu C# `null` ve formuláři](xref:blazor/forms-validation#binding-select-element-options-to-c-object-null-values)

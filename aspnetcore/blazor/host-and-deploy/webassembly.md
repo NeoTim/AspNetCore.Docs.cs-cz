@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: dadf6076e7f07c07381856aa225667a6eb38046a
-ms.sourcegitcommit: 600666440398788db5db25dc0496b9ca8fe50915
+ms.openlocfilehash: 3436620123618ab32daa44c4a37057aaadb89563
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90080313"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393688"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core hostitele a nasazení Blazor WebAssembly
 
@@ -51,11 +51,15 @@ Blazor spoléhá na hostitele, který obsluhuje příslušné komprimované soub
 * `web.config`Konfiguraci komprese služby IIS najdete v části [IIS: Brotli a komprese GZip](#brotli-and-gzip-compression) . 
 * Při hostování řešení statického hostování, které nepodporují vyjednávání se staticky komprimovaným souborem, jako jsou stránky GitHubu, zvažte konfiguraci aplikace pro načtení a dekódování Brotli komprimovaných souborů:
 
-  * Získejte dekodér JavaScript Brotli z [úložiště GitHub Google/Brotli](https://github.com/google/brotli). Od července 2020 se soubor dekodéru pojmenuje `decode.min.js` a nalezne se ve [ `js` složce](https://github.com/google/brotli/tree/master/js)úložiště.
+  * Získejte dekodér JavaScript Brotli z [úložiště GitHub Google/Brotli](https://github.com/google/brotli). Od září 2020 se soubor dekodéru pojmenuje `decode.js` a nalezne se ve [ `js` složce](https://github.com/google/brotli/tree/master/js)úložiště.
+  
+    > [!NOTE]
+    > Regrese je k dispozici ve verzi minifikovaného `decode.js` skriptu ( `decode.min.js` ) v [úložišti GitHub Google/brotli](https://github.com/google/brotli). Buď minimalizuje skript sami, nebo použijte [balíček npm](https://www.npmjs.com/package/brotli) , dokud není [okno problému. BrotliDecode není nastaveno v decode.min.js (google/brotli #844)](https://github.com/google/brotli/issues/844) vyřešeno. Vzorový kód v této části používá verzi **unminified** skriptu.
+
   * Aktualizujte aplikaci tak, aby používala dekodér. Změňte značku uvnitř uzavírací `<body>` značky v následujícím formátu `wwwroot/index.html` :
   
     ```html
-    <script src="decode.min.js"></script>
+    <script src="decode.js"></script>
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script>
       Blazor.start({
@@ -498,7 +502,7 @@ Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [
 
 Službu IIS je možné nakonfigurovat prostřednictvím služby `web.config` za účelem poskytování komprimovaných prostředků Brotli nebo gzip Blazor . Příklad konfigurace najdete v tématu [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true) .
 
-#### <a name="troubleshooting"></a>Poradce při potížích
+#### <a name="troubleshooting"></a>Řešení potíží
 
 Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, `web.config` soubor nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web ze Blazor statických souborů obsluhy.
 
@@ -710,7 +714,7 @@ Při použití webu projektu namísto webu organizace aktualizujte `<base>` zna�
 
 ::: moniker range=">= aspnetcore-5.0"
 
-## <a name="configure-the-trimmer"></a>Konfigurace oříznutí
+## <a name="configure-the-trimmer"></a>Konfigurace ořezávání
 
 Blazor provede oříznutí mezilehlého jazyka (IL) pro každé sestavení vydané verze, aby se odebralo zbytečné IL z výstupních sestavení. Další informace naleznete v tématu <xref:blazor/host-and-deploy/configure-trimmer>.
 
@@ -863,5 +867,3 @@ V souboru projektu se skript spustí po publikování aplikace:
 
 > [!NOTE]
 > Při přejmenovávání a opožděném načítání stejných sestavení, přečtěte si pokyny v tématu <xref:blazor/webassembly-lazy-load-assemblies#onnavigateasync-events-and-renamed-assembly-files> .
-
-Pokud chcete poskytnout zpětnou vazbu, navštivte [aspnetcore/problémy #5477](https://github.com/dotnet/aspnetcore/issues/5477).

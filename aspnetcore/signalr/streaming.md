@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: 29748ebe24fea03415b5a01b21300433e3fbc0f0
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 5a172818f8910a637b731dc1b1315965f448b2ba
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634212"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393571"
 ---
 # <a name="use-streaming-in-aspnet-core-no-locsignalr"></a>Použití streamování v ASP.NET Core SignalR
 
@@ -74,7 +74,7 @@ Následující příklad znázorňuje základy streamování dat klientovi pomoc
 > [!NOTE]
 > Zapište do `ChannelWriter<T>` vlákna na pozadí a vraťte co nejrychleji `ChannelReader` . Další volání centra jsou blokovaná `ChannelReader` , dokud se nevrátí.
 >
-> Zabalte logiku do `try ... catch` . Dokončete `Channel` v a mimo a ujistěte se, že `catch` `catch` je volání metody rozbočovače správně dokončeno.
+> Zabalit logiku do [ `try ... catch` příkazu](/dotnet/csharp/language-reference/keywords/try-catch) Dokončete `Channel` blok v [ `finally` bloku](/dotnet/csharp/language-reference/keywords/try-catch-finally). Pokud chcete zaznamenat chybu, Zachyťte ji uvnitř `catch` bloku a zapište ji do `finally` bloku.
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -322,9 +322,9 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
-* [Rozbočovače](xref:signalr/hubs)
+* [Centra](xref:signalr/hubs)
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

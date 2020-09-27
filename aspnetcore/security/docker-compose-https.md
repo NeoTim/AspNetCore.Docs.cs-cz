@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-compose-https
-ms.openlocfilehash: 71ead7dcce32dab090a9b0b3573aa855d00fa7f1
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: cd46fdcbe10dc0b7829fbe7eaef821889f395df4
+ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722758"
+ms.lasthandoff: 09/27/2020
+ms.locfileid: "91393701"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-compose-over-https"></a>Hostování ASP.NET Core imagí pomocí Docker Compose přes HTTPS
 
@@ -74,7 +74,7 @@ V předchozích příkazech nahraďte `{ password here }` heslo.
 
 Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:
 
-```json
+```yaml
 version: '3.4'
 
 services:
@@ -114,7 +114,7 @@ V předchozích příkazech nahraďte `{ password here }` heslo.
 
 Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:
 
-```json
+```yaml
 version: '3.4'
 
 services:
@@ -152,7 +152,7 @@ V předchozích příkazech nahraďte `{ password here }` heslo.
 
 Vytvořte soubor _Docker-Compose. Debug. yml_ s následujícím obsahem:
 
-```json
+```yaml
 version: '3.4'
 
 services:
