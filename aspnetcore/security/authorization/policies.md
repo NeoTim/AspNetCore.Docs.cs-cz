@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/policies
-ms.openlocfilehash: 82ed4cc2ce47d3bd85ca9c2ba2bbeb075eaefcef
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: af282ec1f82b2ac31fd0b46b2406110e24e9211b
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635330"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424240"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>Ověřování na základě zásad v ASP.NET Core
 
@@ -193,7 +193,7 @@ Všimněte si, že `Handle` metoda v [příkladu obslužné rutiny](#security-au
 
 * Chcete-li zaručit selhání i v případě úspěchu dalších obslužných rutin požadavků, zavolejte `context.Fail` .
 
-Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail` , všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena na `false` , vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) (k dispozici v ASP.NET Core 1,1 a novější) krátkodobé okruhy, kdy je volána spuštění obslužných rutin `context.Fail` . `InvokeHandlersAfterFailure` Výchozí hodnota – v takovém `true` případě jsou volány všechny obslužné rutiny.
+Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail` , všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena na `false` , vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) krátkodobé okruhy vykonávání při volání obslužných rutin `context.Fail` . `InvokeHandlersAfterFailure` Výchozí hodnota – v takovém `true` případě jsou volány všechny obslužné rutiny.
 
 > [!NOTE]
 > Obslužné rutiny autorizace jsou volány i v případě, že ověřování selhává.
@@ -427,7 +427,7 @@ Všimněte si, že `Handle` metoda v [příkladu obslužné rutiny](#security-au
 
 * Chcete-li zaručit selhání i v případě úspěchu dalších obslužných rutin požadavků, zavolejte `context.Fail` .
 
-Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail` , všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena na `false` , vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) (k dispozici v ASP.NET Core 1,1 a novější) krátkodobé okruhy, kdy je volána spuštění obslužných rutin `context.Fail` . `InvokeHandlersAfterFailure` Výchozí hodnota – v takovém `true` případě jsou volány všechny obslužné rutiny.
+Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail` , všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena na `false` , vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) krátkodobé okruhy vykonávání při volání obslužných rutin `context.Fail` . `InvokeHandlersAfterFailure` Výchozí hodnota – v takovém `true` případě jsou volány všechny obslužné rutiny.
 
 > [!NOTE]
 > Obslužné rutiny autorizace jsou volány i v případě, že ověřování selhává.

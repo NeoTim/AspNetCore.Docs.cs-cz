@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 54780e2d67c70d945fd875c41c8d6483aa358bbf
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 57d46e34993148943b1e9680a372405be9c80605
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627192"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424201"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
@@ -198,7 +198,7 @@ services.AddAuthentication(
             {
                 var validationService =
                     context.HttpContext.RequestServices
-                        .GetService<ICertificateValidationService>();
+                        .GetRequiredService<ICertificateValidationService>();
                 
                 if (validationService.ValidateCertificate(
                     context.ClientCertificate))
@@ -639,11 +639,11 @@ Následující přístup podporuje volitelné klientské certifikáty:
 
 * Nastavte vazbu pro doménu a subdoménu:
   * Například nastavte vazby v `contoso.com` a `myClient.contoso.com` . `contoso.com`Hostitel nevyžaduje klientský certifikát `myClient.contoso.com` , ale má.
-  * Další informace:
+  * Další informace naleznete v tématech:
     * [Kestrel](/fundamentals/servers/kestrel):
       * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
       * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
-      * Poznámka Kestrel v současné době nepodporuje u jedné vazby více konfigurací TLS, budete potřebovat dvě vazby s jedinečnými IP adresami nebo porty. Si https://github.com/dotnet/runtime/issues/31097
+      * Poznámka Kestrel v současné době nepodporuje u jedné vazby více konfigurací TLS, budete potřebovat dvě vazby s jedinečnými IP adresami nebo porty. Viz https://github.com/dotnet/runtime/issues/31097.
     * IIS
       * [Hostování služby IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
       * [Konfigurace zabezpečení služby IIS](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)

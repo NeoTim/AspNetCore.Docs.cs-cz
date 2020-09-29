@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: 870509a3cbbcbea9b1c4804185c49a831af22630
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: 236d95e54b772ea522911421084ec0d9022c45ff
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009632"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424136"
 ---
 # <a name="aspnet-core-no-locblazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
 
@@ -177,7 +177,7 @@ Chcete-li provést další úkoly, jako je například Inicializace zprostředko
 
 ### <a name="configure-the-no-locsignalr-client"></a>Konfigurace SignalR klienta
 
-#### <a name="logging"></a>Protokolování
+#### <a name="logging"></a>protokolování
 
 Pokud chcete nakonfigurovat SignalR protokolování klienta, předejte do konfiguračního objektu ( `configureSignalR` ), který se zavolá na `configureLogging` úrovni protokolu na tvůrci klienta:
 
@@ -290,7 +290,15 @@ Přizpůsobte zpoždění před tím, než se zobrazí zobrazení opětovného p
 }
 ```
 
-::: moniker-end
+## <a name="disconnect-the-no-locblazor-circuit-from-the-client"></a>Odpojit Blazor okruh od klienta
+
+Ve výchozím nastavení Blazor je okruh odpojen při aktivaci [ `unload` události stránky](https://developer.mozilla.org/docs/Web/API/Window/unload_event) . Chcete-li odpojit okruh pro jiné scénáře v klientovi, vyvolejte `Blazor.disconnect` v příslušné obslužné rutině události. V následujícím příkladu je okruh odpojený, když je stránka skrytá ([ `pagehide` událost](https://developer.mozilla.org/docs/Web/API/Window/pagehide_event)):
+
+```javascript
+window.addEventListener('pagehide', () => {
+  Blazor.disconnect();
+});
+```
 
 ## <a name="influence-html-head-tag-elements"></a>Ovlivnění `<head>` elementů značek HTML
 
@@ -322,6 +330,8 @@ Pokud se jedna z komponent rozhraní používá v podřízené komponentě, vykr
 
 * Může být upraveno stavem aplikace. Pevně kódovaná značka HTML nemůže být upravena stavem aplikace.
 * Je odebrán z kódu HTML, `<head>` Pokud již není vykreslena nadřazená komponenta.
+
+::: moniker-end
 
 ## <a name="static-files"></a>Statické soubory
 

@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: 9dd8d293e189eebe6b61f6f0b35aee71977d2f77
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 35a5758500ae2bc691c8d08eccb22340f9998c39
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722550"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424274"
 ---
 # <a name="no-locrazor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Razor Stránky s Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -40,11 +40,11 @@ Toto je první v sérii kurzů, které ukazují, jak používat Entity Framework
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[VS prereqs](~/includes/net-core-prereqs-vs-3.0.md)]
+[!INCLUDE[VS prereqs](~/includes/net-core-prereqs-vs-5.0.md)]
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-[!INCLUDE[VS Code prereqs](~/includes/net-core-prereqs-vsc-3.0.md)]
+[!INCLUDE[VS Code prereqs](~/includes/net-core-prereqs-vsc-5.0.md)]
 
 ---
 
@@ -68,49 +68,51 @@ Aplikace sestavená v těchto kurzech je základním webem na univerzitě. Uživ
 
 ![Stránka pro úpravy studentů](intro/_static/student-edit30.png)
 
-Styl uživatelského rozhraní tohoto webu je založen na předdefinovaných šablonách projektů. V tomto kurzu se naučíte, jak používat EF Core, nikoli způsob přizpůsobení uživatelského rozhraní.
+Styl uživatelského rozhraní tohoto webu je založen na předdefinovaných šablonách projektů. V tomto kurzu se naučíte používat EF Core s ASP.NET Core, nikoli jak přizpůsobit uživatelské rozhraní.
 
-Pomocí odkazu v horní části stránky Získejte zdrojový kód dokončeného projektu. Složka *cu30* obsahuje kód pro verzi kurzu ASP.NET Core 3,0. Soubory, které reflektují stav kódu pro kurzy 1-7, najdete ve složce *cu30snapshots* .
+<!-- 
+Follow the link at the top of the page to get the source code for the completed project. The *cu50* folder has the code for the ASP.NET Core 5.0 version of the tutorial. Files that reflect the state of the code for tutorials 1-7 can be found in the *cu50snapshots* folder.
 
-# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [Visual Studio](#tab/visual-studio)
 
-Spuštění aplikace po stažení dokončeného projektu:
+To run the app after downloading the completed project:
 
-* Sestavte projekt.
-* V konzole správce balíčků (PMC) spusťte následující příkaz:
+* Build the project.
+* In Package Manager Console (PMC) run the following command:
 
   ```powershell
   Update-Database
   ```
 
-* Spusťte projekt k osazení databáze.
+* Run the project to seed the database.
 
-# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# [Visual Studio Code](#tab/visual-studio-code)
 
-Spuštění aplikace po stažení dokončeného projektu:
+To run the app after downloading the completed project:
 
-* Odstraňte *ContosoUniversity. csproj*a přejmenujte *ContosoUniversitySQLite. csproj* na *ContosoUniversity. csproj*.
-* V *program.cs*se Odkomentujte `#define Startup` tak, aby `StartupSQLite` se použil.
-* Odstraňte *appSettings.jsna*a přejmenujte *appSettingsSQLite.jsna* na *appSettings.jszapnuto*.
-* Odstraňte složku *migrace* a přejmenujte *MigrationsSQL* na *migrace*.
-* Proveďte globální hledání `#if SQLiteVersion` a odeberte `#if SQLiteVersion` příkaz a přidružený `#endif` příkaz.
-* Sestavte projekt.
-* Na příkazovém řádku ve složce projektu spusťte následující příkazy:
+* In *Program.cs*, remove the comments from `// webBuilder.UseStartup<StartupSQLite>();`  so `StartupSQLite` is used.
+* Copy the contents of *appSettingsSQLite.json* into *appSettings.json*.
+* Delete the *Migrations* folder, and rename *MigrationsSQL* to *Migrations*.
+* Do a global search for `#if SQLiteVersion` and remove `#if SQLiteVersion` and the associated `#endif` statement.
+* Build the project.
+* At a command prompt in the project folder, run the following commands:
 
   ```dotnetcli
-  dotnet tool install --global dotnet-ef
+  dotnet tool install --global dotnet-ef -v 5.0.0-*
   dotnet ef database update
   ```
 
-* V nástroji SQLite spusťte následující příkaz SQL:
+* In your SQLite tool, run the following SQL statement:
 
   ```sql
   UPDATE Department SET RowVersion = randomblob(8)
   ```
 
-* Spusťte projekt k osazení databáze.
+* Run the project to seed the database.
 
 ---
+
+-->
 
 ## <a name="create-the-web-app-project"></a>Vytvoření projektu webové aplikace
 
@@ -119,36 +121,35 @@ Spuštění aplikace po stažení dokončeného projektu:
 * V nabídce **soubor** sady Visual Studio vyberte **Nový** > **projekt**.
 * Vyberte **ASP.NET Core webové aplikace**.
 * Pojmenujte projekt *ContosoUniversity*. Je důležité použít tento přesný název, včetně velkých a malých písmen, aby se obory názvů shodovaly při zkopírování a vložení kódu.
-* V rozevíracích seznamech vyberte **.NET Core** a **ASP.NET Core 3,0** a potom vyberte **Webová aplikace**.
+* V rozevíracích seznamech vyberte **.NET Core** a **ASP.NET Core 5,0** a potom vyberte **Webová aplikace**.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * V terminálu přejděte do složky, ve které by měla být vytvořena složka projektu.
-
 * Spuštěním následujících příkazů vytvořte Razor projekt stránky a `cd` do nové složky projektu:
 
   ```dotnetcli
   dotnet new webapp -o ContosoUniversity
-  cd ContosoUniversity
+  cd ContosoUniversity  
   ```
 
 ---
 
 ## <a name="set-up-the-site-style"></a>Nastavení stylu webu
 
-Pomocí aktualizace *stránek/Shared/_Layout. cshtml*nastavte záhlaví webu, zápatí a nabídku. cshtml:
+Zkopírujte a vložte následující kód do souboru *Pages/Shared/_Layout. cshtml* : [!code-cshtml[Main](intro/samples/cu50/Pages/Shared/_Layout.cshtml?highlight=6,14,21-35,49)]
 
-* Změňte všechny výskyty "ContosoUniversity" na "contoso University". Existují tři výskyty.
+Soubor rozložení nastaví záhlaví, zápatí a nabídku webu. Předchozí kód provede následující změny:
 
-* Odstraňte položky nabídky **Domů** a **Ochrana osobních údajů** a přidejte záznamy **o o** **studentech**, **kurzech**, **instruktorech**a **odděleních**.
+* Každý výskyt "ContosoUniversity" na "contoso University". Existují tři výskyty.
+* Položky nabídky **Domů** a **Ochrana osobních údajů** jsou odstraněny.
+* Přidávají se položky pro **informace o** **studentech**, **kurzech**, **instruktorech**a **odděleních**.
 
-Změny jsou zvýrazněny.
+Na *stránce pages/index. cshtml*nahraďte obsah souboru následujícím kódem:
 
-[!code-cshtml[Main](intro/samples/cu30/Pages/Shared/_Layout.cshtml?highlight=6,14,21-35,49)]
+[!code-cshtml[Main](intro/samples/cu50/Pages/Index.cshtml)]
 
-Na *stránce pages/index. cshtml*nahraďte obsah souboru následujícím kódem, který nahradí text o ASP.NET Core textem této aplikace:
-
-[!code-cshtml[Main](intro/samples/cu30/Pages/Index.cshtml)]
+Předchozí kód nahrazuje text o ASP.NET Core textem o této aplikaci.
 
 Spusťte aplikaci, abyste ověřili, že se zobrazí domovská stránka.
 
@@ -214,51 +215,50 @@ Sestavte projekt, aby se ověřilo, že nejsou k dispozici žádné chyby kompil
 
 V této části použijete nástroj ASP.NET Core pro generování uživatelského rozhraní k vygenerování:
 
-* Třída *kontextu* EF Core. Kontext je hlavní třída, která koordinuje funkce Entity Framework pro daný datový model. Je odvozen z `Microsoft.EntityFrameworkCore.DbContext` třídy.
+* Třída EF Core `DbContext` . Kontext je hlavní třída, která koordinuje funkce Entity Framework pro daný datový model. Je odvozen z <xref:Microsoft.EntityFrameworkCore.DbContext?displayProperty=fullName> třídy.
 * Razor stránky, které zpracovávají operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro danou `Student` entitu.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Vytvořte složku *Students* ve složce *stránky* .
+* Vytvořte složku *stránky/studenty* .
 * V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku *Pages/Students* a vyberte **Přidat** > **novou vygenerované položky**.
-* V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte ** Razor stránky pomocí Entity Framework (CRUD)** > **Přidat**.
+* V dialogovém okně **Přidat novou položku uživatelského rozhraní** :
+  * Na levé kartě vyberte **nainstalované > společné > Razor stránky** .
+  * Vyberte ** Razor stránky pomocí Entity Framework (CRUD)** > **Přidat**.
 * V dialogovém okně **Přidat Razor stránky pomocí Entity Framework (CRUD)** :
   * V rozevíracím seznamu **třída modelu** vyberte **student (ContosoUniversity. Models)**.
   * V řádku **třídy kontextu dat** vyberte **+** znaménko (plus).
-  * Změňte název kontextu dat z *ContosoUniversity. Models. ContosoUniversityContext* na *ContosoUniversity. data. SchoolContext*.
-  * Vyberte **Přidat**.
+    * Změňte název kontextu dat na End `SchoolContext` místo `ContosoUniversityContext` . Aktualizovaný název kontextu: `ContosoUniversity.Data.SchoolContext`
+   * Vyberte **Přidat**.
 
 Automaticky se nainstalují tyto balíčky:
 
-* `Microsoft.VisualStudio.Web.CodeGeneration.Design`
 * `Microsoft.EntityFrameworkCore.SqlServer`
-* `Microsoft.Extensions.Logging.Debug`
 * `Microsoft.EntityFrameworkCore.Tools`
+* `Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Spuštěním následujících příkazů .NET Core CLI nainstalujte požadované balíčky NuGet:
-<!-- TO DO  After testing, Replace with
-[!INCLUDE[](~/includes/includes/add-EF-NuGet-SQLite-CLI.md)]
-remove dotnet tool install --global  below
- -->
+
   ```dotnetcli
-  dotnet add package Microsoft.EntityFrameworkCore.SQLite
-  dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-  dotnet add package Microsoft.EntityFrameworkCore.Design
-  dotnet add package Microsoft.EntityFrameworkCore.Tools
-  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
-  dotnet add package Microsoft.Extensions.Logging.Debug
+  dotnet add package Microsoft.EntityFrameworkCore.SQLite -v 5.0.0-*
+  dotnet add package Microsoft.EntityFrameworkCore.SqlServer -v 5.0.0-*
+  dotnet add package Microsoft.EntityFrameworkCore.Design -v 5.0.0-*
+  dotnet add package Microsoft.EntityFrameworkCore.Tools -v 5.0.0-*
+  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design -v 5.0.0-*
+  dotnet add package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore -v 5.0.0-*  
   ```
 
-  Pro generování uživatelského rozhraní je vyžadován balíček Microsoft. VisualStudio. Web. strategii. Design. I když aplikace nebude používat SQL Server, nástroj pro generování uživatelského rozhraní potřebuje balíček SQL Server.
+   Pro generování uživatelského rozhraní je vyžadován balíček Microsoft. VisualStudio. Web. strategii. Design. I když aplikace nebude používat SQL Server, nástroj pro generování uživatelského rozhraní potřebuje balíček SQL Server.
 
 * Vytvořte složku *stránky/studenty* .
 
 * Spusťte následující příkaz pro instalaci nástroje pro [generování uživatelského rozhraní ASPNET-CodeGenerator](xref:fundamentals/tools/dotnet-aspnet-codegenerator).
 
   ```dotnetcli
-  dotnet tool install --global dotnet-aspnet-codegenerator
+  dotnet tool uninstall --global dotnet-aspnet-codegenerator
+  dotnet tool install --global dotnet-aspnet-codegenerator --version 5.0.0-*  
   ```
 
 * Spusťte následující příkaz pro generování uživatelského rozhraní stránek studenta.
@@ -266,18 +266,18 @@ remove dotnet tool install --global  below
   **V systému Windows**
 
   ```dotnetcli
-  dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Data.SchoolContext -udl -outDir Pages\Students --referenceScriptLibraries
+  dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Data.SchoolContext -udl -outDir Pages\Students --referenceScriptLibraries -sqlite  
   ```
 
   **V systému macOS nebo Linux**
 
   ```dotnetcli
-  dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Data.SchoolContext -udl -outDir Pages/Students --referenceScriptLibraries
+  dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Data.SchoolContext -udl -outDir Pages/Students --referenceScriptLibraries -sqlite  
   ```
 
 ---
 
-Pokud máte problém s předchozím krokem, sestavte projekt a opakujte krok generování uživatelského rozhraní.
+Pokud předchozí krok neproběhne úspěšně, sestavte projekt a opakujte krok generování uživatelského rozhraní.
 
 Proces generování uživatelského rozhraní:
 
@@ -293,19 +293,21 @@ Proces generování uživatelského rozhraní:
 
 ## <a name="database-connection-string"></a>Připojovací řetězec databáze
 
+Nástroj pro generování uživatelského rozhraní generuje připojovací řetězec v souboru *appsettings.js* .
+
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Připojovací řetězec Určuje [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb). 
+Připojovací řetězec Určuje [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb):
 
-[!code-json[Main](intro/samples/cu30/appsettings.json?highlight=11)]
+[!code-json[Main](intro/samples/cu50/appsettings.json?highlight=11)]
 
 LocalDB je zjednodušená verze databázového stroje SQL Server Express a je určena pro vývoj aplikací, nikoli za použití v produkčním prostředí. Ve výchozím nastavení LocalDB vytvoří soubory *. mdf* v `C:/Users/<user>` adresáři.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Změňte připojovací řetězec tak, aby odkazoval na soubor databáze SQLite s názvem *cu. DB*:
+Zkraťte připojovací řetězec SQLite na *cu. DB*:
 
-[!code-json[Main](intro/samples/cu30/appsettingsSQLite.json?highlight=11)]
+[!code-json[Main](intro/samples/cu50/appsettingsSQLite.json?highlight=11)]
 
 ---
 
@@ -313,42 +315,76 @@ Změňte připojovací řetězec tak, aby odkazoval na soubor databáze SQLite s
 
 Hlavní třída, která koordinuje funkce EF Core pro daný datový model, je třída kontextu databáze. Kontext je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext určuje, které entity jsou zahrnuty v datovém modelu. V tomto projektu je třída pojmenována `SchoolContext` .
 
-*SchoolContext.cs* aktualizujte pomocí následujícího kódu:
+Aktualizujte *data/SchoolContext. cs* pomocí následujícího kódu:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/1-intro/Data/SchoolContext.cs?highlight=13-22)]
 
-Zvýrazněný kód vytvoří vlastnost [negenerickými \<TEntity> ](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro každou sadu entit. V terminologii EF Core:
+Předchozí kód se změní z čísla v čísle na číslo v `DbSet<Student> Student` množném čísle `DbSet<Student> Students` . Chcete-li Razor , aby kód stránky odpovídal novému `DBSet` názvu, proveďte globální změnu z: `_context.Student.`
+schopn `_context.Students.`
 
-* Sada entit obvykle odpovídá databázové tabulce.
-* Entita odpovídá řádku v tabulce.
+K dispozici je 8 výskytů.
 
-Vzhledem k tomu, že sada entit obsahuje více entit, musí mít vlastnosti Negenerickými plurální názvy. Vzhledem k tomu, že nástroj pro generování uživatelského rozhraní vytvořil `Student` negenerickými, tento krok změny změní na plural `Students` . 
+Vzhledem k tomu, že sada entit obsahuje více entit, mnoho vývojářů `DBSet` dává přednost názvům vlastností plural.
 
-Chcete-li Razor , aby kód stránky odpovídal novému negenerickými názvu, proveďte globální změnu v celém projektu `_context.Student` na `_context.Students` .  K dispozici je 8 výskytů.
+Zvýrazněný kód:
+
+* Vytvoří vlastnost [negenerickými \<TEntity> ](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro každou sadu entit. V terminologii EF Core:
+  * Sada entit obvykle odpovídá databázové tabulce.
+  * Entita odpovídá řádku v tabulce.
+* Volání <xref:Microsoft.EntityFrameworkCore.DbContext.OnModelCreating%2A> . `OnModelCreating`:
+  * Se volá, když se `SchoolContext` inicializuje, ale předtím, než se model zamkne a použije se k inicializaci kontextu.
+  * Je vyžadováno, protože v tomto kurzu `Student` bude entita obsahovat odkazy na jiné entity.
+  <!-- Review, OnModelCreating needs review -->
 
 Sestavte projekt, aby se ověřilo, že nedošlo k chybám kompilátoru.
 
 ## <a name="startupcs"></a>Startup.cs
 
-ASP.NET Core je sestaven s [vkládáním závislostí](xref:fundamentals/dependency-injection). Služby (například kontext databáze EF Core) jsou registrovány pomocí injektáže závislosti při spuštění aplikace. Komponenty, které vyžadují tyto služby (například Razor stránky), poskytují tyto služby prostřednictvím parametrů konstruktoru. Kód konstruktoru, který získá instanci kontextu databáze, je uveden dále v tomto kurzu.
+ASP.NET Core je sestaven s [vkládáním závislostí](xref:fundamentals/dependency-injection). Služby, jako `SchoolContext` jsou zaregistrované u injektáže závislosti při spuštění aplikace. Komponenty, které vyžadují tyto služby, jako Razor jsou stránky, poskytují tyto služby prostřednictvím parametrů konstruktoru. Kód konstruktoru, který získá instanci kontextu databáze, je uveden dále v tomto kurzu.
 
 Nástroj pro generování uživatelského rozhraní automaticky zaregistroval třídu kontextu pomocí kontejneru vkládání závislostí.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V `ConfigureServices` byly zvýrazněné řádky přidány pomocí generátoru:
+Do generátoru byly přidány následující zvýrazněné řádky:
 
-  [!code-csharp[Main](intro/samples/cu30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
+[!code-csharp[Main](intro/samples/cu30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* V nástroji se ujistěte, `ConfigureServices` že kód přidaný voláním uživatelského rozhraní `UseSqlite` .
+Ověřte kód přidaný voláním generování uživatelského rozhraní `UseSqlite` .
 
-  [!code-csharp[Main](intro/samples/cu30/StartupSQLite.cs?name=snippet_ConfigureServices&highlight=5-6)]
+[!code-csharp[Main](intro/samples/cu30/StartupSQLite.cs?name=snippet_ConfigureServices&highlight=5-6)]
+
+Informace o použití provozní databáze najdete v tématu [použití SQLite pro vývoj, SQL Server pro produkční](xref:tutorials/razor-pages/model#use-sqlite-for-development-sql-server-for-production) prostředí.
 
 ---
 
 Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) přečte připojovací řetězec z *appsettings.jsv* souboru.
+
+### <a name="add-the-database-exception-filter"></a>Přidat filtr výjimky databáze
+
+Přidejte `AddDatabaseDeveloperPageExceptionFilter` do `ConfigureServices` , jak je znázorněno v následujícím kódu:
+
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!code-csharp[Main](intro/samples/cu50/Startup.cs?name=snippet_ConfigureServices&highlight=8)]
+
+Přidejte balíček NuGet [Microsoft. AspNetCore. Diagnostics. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore) .
+
+Do PMC zadejte následující příkaz pro přidání balíčku NuGet:
+
+```powershell
+Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore -Version 5.0.0-rc.1.20451.17
+```
+
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!code-csharp[Main](intro/samples/cu50/StartupSQLite.cs?name=snippet_ConfigureServices&highlight=8)]
+
+---
+
+`Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore`Balíček NuGet poskytuje ASP.NET Core middlewaru pro Entity Framework Core chybové stránky. Tento middleware pomáhá detekovat a diagnostikovat chyby pomocí Entity Framework Core migrace.
 
 ## <a name="create-the-database"></a>Vytvoření databáze
 
@@ -383,7 +419,7 @@ Vytvořte *data/DbInitializer. cs* pomocí následujícího kódu:
 
   Kód kontroluje, zda v databázi existují studenti. Pokud neexistují studenti, přidá testovací data do databáze. Vytvoří testovací data v polích, nikoli `List<T>` kolekce pro optimalizaci výkonu.
 
-* V *program.cs*nahraďte `EnsureCreated` volání `DbInitializer.Initialize` voláním:
+V *program.cs*nahraďte `EnsureCreated` volání `DbInitializer.Initialize` voláním:
 
   ```csharp
   // context.Database.EnsureCreated();
@@ -395,8 +431,10 @@ Vytvořte *data/DbInitializer. cs* pomocí následujícího kódu:
 Zastavte aplikaci, pokud je spuštěná, a spusťte následující příkaz v **konzole správce balíčků** (PMC):
 
 ```powershell
-Drop-Database
+Drop-Database -Confirm
 ```
+
+Pokud `Y` chcete databázi odstranit, odpovězte na.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -405,7 +443,6 @@ Drop-Database
 ---
 
 * Restartujte aplikaci.
-
 * Vyberte stránku Students a zobrazte si dosazený údaj.
 
 ## <a name="view-the-database"></a>Zobrazení databáze
@@ -428,7 +465,7 @@ Použijte nástroj SQLite k zobrazení schématu databáze a dat osazených daty
 
 Asynchronní programování je výchozí režim pro ASP.NET Core a EF Core.
 
-Na webovém serveru je k dispozici omezený počet vláken a v situacích vysokého zatížení se mohou používat všechna dostupná vlákna. Pokud k tomu dojde, server nemůže zpracovat nové požadavky, dokud nebudou vlákna uvolněna. Pomocí synchronního kódu může být mnoho vláken svázáno s tím, že ve skutečnosti neprovádí žádnou práci, protože čeká na dokončení vstupně-výstupních operací. V případě asynchronního kódu, když proces čeká na dokončení vstupně-výstupních operací, je jeho vlákno uvolněno na server, který bude použit pro zpracování jiných požadavků. Výsledkem je, že asynchronní kód umožňuje efektivnější použití prostředků serveru a server může zpracovávat více provozu bez prodlev.
+Na webovém serveru je k dispozici omezený počet vláken a v situacích vysokého zatížení se mohou používat všechna dostupná vlákna. Pokud k tomu dojde, server nemůže zpracovat nové požadavky, dokud nebudou vlákna uvolněna. Pomocí synchronního kódu může být mnoho vláken vázáno nahoru, i když nefunguje, protože čekají na dokončení vstupně-výstupních operací. V případě asynchronního kódu, když proces čeká na dokončení vstupně-výstupních operací, je jeho vlákno uvolněno na server, který bude použit pro zpracování jiných požadavků. Výsledkem je, že asynchronní kód umožňuje efektivnější použití prostředků serveru a server může zpracovávat více provozu bez prodlev.
 
 Asynchronní kód zavádí v době běhu malé množství režie. V situacích s nízkým provozem je dosaženo zanedbatelného výkonu, zatímco v situacích vysokého provozu je potenciální zlepšení výkonu značné.
 
@@ -455,6 +492,21 @@ Některé věci, které je potřeba znát při psaní asynchronního kódu, kter
 * Chcete-li využít výhody z hlediska výkonu asynchronního kódu, ověřte, že balíčky knihoven (například pro stránkování) používají async, pokud volají EF Core metody, které odesílají dotazy do databáze.
 
 Další informace o asynchronním programování v rozhraní .NET naleznete v tématu [Async Overview](/dotnet/standard/async) a [Asynchronous Programming with Async a await](/dotnet/csharp/programming-guide/concepts/async/).
+
+<!-- Review: See https://github.com/dotnet/AspNetCore.Docs/issues/14528 -->
+## <a name="performance-considerations"></a>Otázky výkonu
+
+Obecně platí, že webová stránka by neměla načítat libovolný počet řádků. Dotaz by měl používat stránkování nebo omezující přístup. Například předchozí dotaz může použít `Take` k omezení vrácených řádků:
+
+[!code-csharp[Main](intro/samples/cu50snapshots/Index.cshtml.cs?name=snippet)]
+
+Vytvoření výčtu velké tabulky v zobrazení může vrátit částečně vytvořenou odpověď HTTP 200, pokud dojde k výjimce databáze prostřednictvím výčtu.
+
+<xref:Microsoft.AspNetCore.Mvc.MvcOptions.MaxModelBindingCollectionSize> Výchozí hodnota je 1024. Následující sady kódů `MaxModelBindingCollectionSize` :
+
+[!code-csharp[Main](intro/samples/cu50/StartupMaxMBsize.cs?name=snippet_ConfigureServices)]
+
+Stránkování se zabývá později v tomto kurzu.
 
 ## <a name="next-steps"></a>Další kroky
 
@@ -533,7 +585,8 @@ Spuštění aplikace po stažení dokončeného projektu:
 * Na příkazovém řádku ve složce projektu spusťte následující příkazy:
 
   ```dotnetcli
-  dotnet tool install --global dotnet-ef
+  dotnet tool uninstall --global dotnet-ef
+  dotnet tool install --global dotnet-ef --version 5.0.0-*
   dotnet ef database update
   ```
 
@@ -542,7 +595,7 @@ Spuštění aplikace po stažení dokončeného projektu:
   ```sql
   UPDATE Department SET RowVersion = randomblob(8)
   ```
-
+  
 * Spusťte projekt k osazení databáze.
 
 ---
@@ -599,8 +652,7 @@ Student se může zaregistrovat v jakémkoli počtu kurzů a kurz může mít za
 
 ![Diagram entity studenta](intro/_static/student-entity.png)
 
-* Vytvořte složku *modely* ve složce projektu. 
-
+* Vytvořte složku *modely* ve složce projektu.
 * Vytvořte *modely/studenta. cs* pomocí následujícího kódu:
 
   [!code-csharp[Main](intro/samples/cu30snapshots/1-intro/Models/Student.cs)]
@@ -730,7 +782,7 @@ Proces generování uživatelského rozhraní:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Připojovací řetězec Určuje [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb). 
+*appsettings.jsv* souboru Určuje připojovací řetězec [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb).
 
 [!code-json[Main](intro/samples/cu30/appsettings.json?highlight=11)]
 
@@ -748,7 +800,7 @@ Změňte připojovací řetězec tak, aby odkazoval na soubor databáze SQLite s
 
 Hlavní třída, která koordinuje funkce EF Core pro daný datový model, je třída kontextu databáze. Kontext je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext určuje, které entity jsou zahrnuty v datovém modelu. V tomto projektu je třída pojmenována `SchoolContext` .
 
-*SchoolContext.cs* aktualizujte pomocí následujícího kódu:
+Aktualizujte *data/SchoolContext. cs* pomocí následujícího kódu:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/1-intro/Data/SchoolContext.cs?highlight=13-22)]
 

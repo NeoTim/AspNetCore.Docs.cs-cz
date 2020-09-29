@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 5f4d9a105ad6d0ab53b23d8c1e9f645d69d25888
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 13eb57bbe671dcc70a1678222a98590f4edc6e6f
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630273"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424253"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření klienta a serveru gRPC v ASP.NET Core
 
@@ -40,7 +40,7 @@ V tomto kurzu jste:
 > * Vytvořte klienta gRPC.
 > * Otestujte službu gRPC Client pomocí služby gRPC Greeter.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -215,6 +215,12 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
 * V klientském projektu gRPC *vytvořte složku.*
 * Zkopírujte soubor *Protos\greet.proto* ze služby gRPC Greeter do projektu klienta gRPC.
+* Aktualizujte obor názvů uvnitř `greet.proto` souboru na obor názvů projektu:
+
+  ```
+  option csharp_namespace = "GrpcGreeterClient";
+  ```
+
 * Upravte soubor projektu *GrpcGreeterClient. csproj* :
 
   # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)

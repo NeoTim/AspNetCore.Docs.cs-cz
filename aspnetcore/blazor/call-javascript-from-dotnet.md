@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: a62462e3a0a2366a8662573ada5d2e7589c14c0d
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: da4ce8a2610fc07d22153f66831d693ae66e0fe5
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722472"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424149"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>Volání funkcí jazyka JavaScript z metod .NET v ASP.NET Core Blazor
 
@@ -36,6 +36,8 @@ Tento článek popisuje vyvolání funkcí jazyka JavaScript z rozhraní .NET. I
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Chcete-li volat do JavaScriptu z rozhraní .NET, použijte <xref:Microsoft.JSInterop.IJSRuntime> abstrakci. Chcete-li vydat volání interoperability JS, zapište <xref:Microsoft.JSInterop.IJSRuntime> abstrakci do komponenty. <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> přebírá identifikátor funkce JavaScriptu, kterou chcete vyvolat, spolu s libovolným počtem argumentů serializovatelných pomocí JSON. Identifikátor funkce je relativní vzhledem k globálnímu oboru ( `window` ). Pokud chcete volat `window.someScope.someFunction` , je identifikátor `someScope.someFunction` . Před voláním funkce není nutné ji registrovat. Návratový typ `T` musí být také serializovatelný jako JSON. `T` by měl odpovídat typu .NET, který se nejlépe mapuje na vrácený typ JSON.
+
+Funkce jazyka JavaScript, které vracejí [příslib](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) , jsou volány pomocí <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> . `InvokeAsync` rozbalí příslib a vrátí hodnotu, kterou očekává příslib.
 
 Pro Blazor Server aplikace s povoleným předvykreslováním není možné volat do JavaScriptu během prvotního předgenerování. Volání interoperability JavaScriptu musí být odložena až po navázání spojení s prohlížečem. Další informace najdete v části [zjištění, kdy Blazor Server se aplikace](#detect-when-a-blazor-server-app-is-prerendering) vykreslovat.
 
