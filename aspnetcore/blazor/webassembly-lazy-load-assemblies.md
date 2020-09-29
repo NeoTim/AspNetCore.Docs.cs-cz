@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-lazy-load-assemblies
-ms.openlocfilehash: 92287c7205e67d7f2000b53506ec18475517325b
-ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
+ms.openlocfilehash: e874ec6f24d8b03fc6c7133013147498cbbc293a
+ms.sourcegitcommit: 4febe4efaf6e1a7be65d772b500c00fca0af216a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 09/29/2020
-ms.locfileid: "91424084"
+ms.locfileid: "91451165"
 ---
 # <a name="lazy-load-assemblies-in-aspnet-core-no-locblazor-webassembly"></a>Opožděné načtení sestavení v ASP.NET Core Blazor WebAssembly
 
@@ -38,7 +38,7 @@ Blazorfunkce opožděného načítání umožňuje označit sestavení aplikace 
 
 ## <a name="project-file"></a>Soubor projektu
 
-Označte sestavení pro opožděné načítání v souboru projektu aplikace ( `.csproj` ) pomocí `BlazorWebAssemblyLazyLoad` položky. Použijte název sestavení bez `.dll` přípony. BlazorRozhraní brání sestavení určenému touto skupinou položek v načtení při spuštění aplikace. Následující příklad označuje velké vlastní sestavení ( `GrantImaharaRobotControls.dll` ) pro opožděné načtení. Pokud sestavení, které je označeno pro opožděné načítání, má závislosti, musí být také označeno pro opožděné načítání v souboru projektu.
+Označte sestavení pro opožděné načítání v souboru projektu aplikace ( `.csproj` ) pomocí `BlazorWebAssemblyLazyLoad` položky. Použijte název sestavení s `.dll` příponou. BlazorRozhraní brání sestavení určenému touto skupinou položek v načtení při spuštění aplikace. Následující příklad označuje velké vlastní sestavení ( `GrantImaharaRobotControls.dll` ) pro opožděné načtení. Pokud sestavení, které je označeno pro opožděné načítání, má závislosti, musí být také označeno pro opožděné načítání v souboru projektu.
 
 ```xml
 <ItemGroup>
