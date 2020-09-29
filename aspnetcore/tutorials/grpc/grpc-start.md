@@ -16,100 +16,100 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 5f4d9a105ad6d0ab53b23d8c1e9f645d69d25888
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 13eb57bbe671dcc70a1678222a98590f4edc6e6f
+ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88630273"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91424253"
 ---
-# <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a><span data-ttu-id="e8f87-104">Kurz: Vytvoření klienta a serveru gRPC v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="e8f87-104">Tutorial: Create a gRPC client and server in ASP.NET Core</span></span>
+# <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a><span data-ttu-id="dd05f-104">Kurz: Vytvoření klienta a serveru gRPC v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="dd05f-104">Tutorial: Create a gRPC client and server in ASP.NET Core</span></span>
 
-<span data-ttu-id="e8f87-105">Od [Jan Luo](https://github.com/juntaoluo)</span><span class="sxs-lookup"><span data-stu-id="e8f87-105">By [John Luo](https://github.com/juntaoluo)</span></span>
+<span data-ttu-id="dd05f-105">Od [Jan Luo](https://github.com/juntaoluo)</span><span class="sxs-lookup"><span data-stu-id="dd05f-105">By [John Luo](https://github.com/juntaoluo)</span></span>
 
-<span data-ttu-id="e8f87-106">V tomto kurzu se dozvíte, jak vytvořit klienta .NET Core [gRPC](https://grpc.io/docs/guides/) a Server služby ASP.NET Core gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-106">This tutorial shows how to create a .NET Core [gRPC](https://grpc.io/docs/guides/) client and an ASP.NET Core gRPC Server.</span></span>
+<span data-ttu-id="dd05f-106">V tomto kurzu se dozvíte, jak vytvořit klienta .NET Core [gRPC](https://grpc.io/docs/guides/) a Server služby ASP.NET Core gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-106">This tutorial shows how to create a .NET Core [gRPC](https://grpc.io/docs/guides/) client and an ASP.NET Core gRPC Server.</span></span>
 
-<span data-ttu-id="e8f87-107">Na konci budete mít klienta gRPC, který komunikuje se službou Greeter gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-107">At the end, you'll have a gRPC client that communicates with the gRPC Greeter service.</span></span>
+<span data-ttu-id="dd05f-107">Na konci budete mít klienta gRPC, který komunikuje se službou Greeter gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-107">At the end, you'll have a gRPC client that communicates with the gRPC Greeter service.</span></span>
 
-<span data-ttu-id="e8f87-108">[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).</span><span class="sxs-lookup"><span data-stu-id="e8f87-108">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="dd05f-108">[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).</span><span class="sxs-lookup"><span data-stu-id="dd05f-108">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample) ([how to download](xref:index#how-to-download-a-sample)).</span></span>
 
-<span data-ttu-id="e8f87-109">V tomto kurzu jste:</span><span class="sxs-lookup"><span data-stu-id="e8f87-109">In this tutorial, you:</span></span>
+<span data-ttu-id="dd05f-109">V tomto kurzu jste:</span><span class="sxs-lookup"><span data-stu-id="dd05f-109">In this tutorial, you:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="e8f87-110">Vytvořte server gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-110">Create a gRPC Server.</span></span>
-> * <span data-ttu-id="e8f87-111">Vytvořte klienta gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-111">Create a gRPC client.</span></span>
-> * <span data-ttu-id="e8f87-112">Otestujte službu gRPC Client pomocí služby gRPC Greeter.</span><span class="sxs-lookup"><span data-stu-id="e8f87-112">Test the gRPC client service with the gRPC Greeter service.</span></span>
+> * <span data-ttu-id="dd05f-110">Vytvořte server gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-110">Create a gRPC Server.</span></span>
+> * <span data-ttu-id="dd05f-111">Vytvořte klienta gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-111">Create a gRPC client.</span></span>
+> * <span data-ttu-id="dd05f-112">Otestujte službu gRPC Client pomocí služby gRPC Greeter.</span><span class="sxs-lookup"><span data-stu-id="dd05f-112">Test the gRPC client service with the gRPC Greeter service.</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="e8f87-113">Předpoklady</span><span class="sxs-lookup"><span data-stu-id="e8f87-113">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="dd05f-113">Požadavky</span><span class="sxs-lookup"><span data-stu-id="dd05f-113">Prerequisites</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="e8f87-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e8f87-114">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="dd05f-114">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dd05f-114">Visual Studio</span></span>](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="e8f87-115">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="e8f87-115">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="dd05f-115">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="dd05f-115">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="e8f87-116">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="e8f87-116">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="dd05f-116">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="dd05f-116">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
 ---
 
-## <a name="create-a-grpc-service"></a><span data-ttu-id="e8f87-117">Vytvoření služby gRPC</span><span class="sxs-lookup"><span data-stu-id="e8f87-117">Create a gRPC service</span></span>
+## <a name="create-a-grpc-service"></a><span data-ttu-id="dd05f-117">Vytvoření služby gRPC</span><span class="sxs-lookup"><span data-stu-id="dd05f-117">Create a gRPC service</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="e8f87-118">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e8f87-118">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="dd05f-118">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dd05f-118">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="e8f87-119">Spusťte aplikaci Visual Studio a vyberte možnost **vytvořit nový projekt**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-119">Start Visual Studio and select **Create a new project**.</span></span> <span data-ttu-id="e8f87-120">Případně můžete v nabídce **soubor** sady Visual Studio vybrat možnost **Nový**  >  **projekt**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-120">Alternatively, from the Visual Studio **File** menu, select **New** > **Project**.</span></span>
-* <span data-ttu-id="e8f87-121">V dialogovém okně **vytvořit nový projekt** vyberte **Služba GRPC** a vyberte **Další**:</span><span class="sxs-lookup"><span data-stu-id="e8f87-121">In the **Create a new project** dialog, select **gRPC Service** and select **Next**:</span></span>
+* <span data-ttu-id="dd05f-119">Spusťte aplikaci Visual Studio a vyberte možnost **vytvořit nový projekt**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-119">Start Visual Studio and select **Create a new project**.</span></span> <span data-ttu-id="dd05f-120">Případně můžete v nabídce **soubor** sady Visual Studio vybrat možnost **Nový**  >  **projekt**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-120">Alternatively, from the Visual Studio **File** menu, select **New** > **Project**.</span></span>
+* <span data-ttu-id="dd05f-121">V dialogovém okně **vytvořit nový projekt** vyberte **Služba GRPC** a vyberte **Další**:</span><span class="sxs-lookup"><span data-stu-id="dd05f-121">In the **Create a new project** dialog, select **gRPC Service** and select **Next**:</span></span>
 
   ![Vytvořit nový projekt – dialogové okno](~/tutorials/grpc/grpc-start/static/cnp.png)
 
-* <span data-ttu-id="e8f87-123">Pojmenujte projekt **GrpcGreeter**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-123">Name the project **GrpcGreeter**.</span></span> <span data-ttu-id="e8f87-124">Je důležité pojmenovat projekt *GrpcGreeter* , aby se obory názvů shodovaly při kopírování a vkládání kódu.</span><span class="sxs-lookup"><span data-stu-id="e8f87-124">It's important to name the project *GrpcGreeter* so the namespaces will match when you copy and paste code.</span></span>
-* <span data-ttu-id="e8f87-125">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-125">Select **Create**.</span></span>
-* <span data-ttu-id="e8f87-126">V dialogovém okně **vytvořit novou službu gRPC** :</span><span class="sxs-lookup"><span data-stu-id="e8f87-126">In the **Create a new gRPC service** dialog:</span></span>
-  * <span data-ttu-id="e8f87-127">Je vybraná Šablona **služby gRPC** .</span><span class="sxs-lookup"><span data-stu-id="e8f87-127">The **gRPC Service** template is selected.</span></span>
-  * <span data-ttu-id="e8f87-128">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-128">Select **Create**.</span></span>
+* <span data-ttu-id="dd05f-123">Pojmenujte projekt **GrpcGreeter**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-123">Name the project **GrpcGreeter**.</span></span> <span data-ttu-id="dd05f-124">Je důležité pojmenovat projekt *GrpcGreeter* , aby se obory názvů shodovaly při kopírování a vkládání kódu.</span><span class="sxs-lookup"><span data-stu-id="dd05f-124">It's important to name the project *GrpcGreeter* so the namespaces will match when you copy and paste code.</span></span>
+* <span data-ttu-id="dd05f-125">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-125">Select **Create**.</span></span>
+* <span data-ttu-id="dd05f-126">V dialogovém okně **vytvořit novou službu gRPC** :</span><span class="sxs-lookup"><span data-stu-id="dd05f-126">In the **Create a new gRPC service** dialog:</span></span>
+  * <span data-ttu-id="dd05f-127">Je vybraná Šablona **služby gRPC** .</span><span class="sxs-lookup"><span data-stu-id="dd05f-127">The **gRPC Service** template is selected.</span></span>
+  * <span data-ttu-id="dd05f-128">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-128">Select **Create**.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="e8f87-129">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="e8f87-129">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="dd05f-129">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="dd05f-129">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="e8f87-130">Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).</span><span class="sxs-lookup"><span data-stu-id="e8f87-130">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
-* <span data-ttu-id="e8f87-131">Změňte adresáře ( `cd` ) na složku, která bude obsahovat projekt.</span><span class="sxs-lookup"><span data-stu-id="e8f87-131">Change directories (`cd`) to a folder which will contain the project.</span></span>
-* <span data-ttu-id="e8f87-132">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="e8f87-132">Run the following commands:</span></span>
+* <span data-ttu-id="dd05f-130">Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).</span><span class="sxs-lookup"><span data-stu-id="dd05f-130">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
+* <span data-ttu-id="dd05f-131">Změňte adresáře ( `cd` ) na složku, která bude obsahovat projekt.</span><span class="sxs-lookup"><span data-stu-id="dd05f-131">Change directories (`cd`) to a folder which will contain the project.</span></span>
+* <span data-ttu-id="dd05f-132">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="dd05f-132">Run the following commands:</span></span>
 
   ```dotnetcli
   dotnet new grpc -o GrpcGreeter
   code -r GrpcGreeter
   ```
 
-  * <span data-ttu-id="e8f87-133">`dotnet new`Příkaz vytvoří ve složce *GrpcGreeter* novou službu gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-133">The `dotnet new` command creates a new gRPC service in the *GrpcGreeter* folder.</span></span>
-  * <span data-ttu-id="e8f87-134">`code`Příkaz otevře složku *GrpcGreeter* v nové instanci Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="e8f87-134">The `code` command opens the *GrpcGreeter* folder in a new instance of Visual Studio Code.</span></span>
+  * <span data-ttu-id="dd05f-133">`dotnet new`Příkaz vytvoří ve složce *GrpcGreeter* novou službu gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-133">The `dotnet new` command creates a new gRPC service in the *GrpcGreeter* folder.</span></span>
+  * <span data-ttu-id="dd05f-134">`code`Příkaz otevře složku *GrpcGreeter* v nové instanci Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="dd05f-134">The `code` command opens the *GrpcGreeter* folder in a new instance of Visual Studio Code.</span></span>
 
-  <span data-ttu-id="e8f87-135">Zobrazí se dialogové okno s **požadovanými prostředky pro sestavení a ladění chybí v ' GrpcGreeter '. Přidat je?**</span><span class="sxs-lookup"><span data-stu-id="e8f87-135">A dialog box appears with **Required assets to build and debug are missing from 'GrpcGreeter'. Add them?**</span></span>
-* <span data-ttu-id="e8f87-136">Vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-136">Select **Yes**.</span></span>
+  <span data-ttu-id="dd05f-135">Zobrazí se dialogové okno s **požadovanými prostředky pro sestavení a ladění chybí v ' GrpcGreeter '. Přidat je?**</span><span class="sxs-lookup"><span data-stu-id="dd05f-135">A dialog box appears with **Required assets to build and debug are missing from 'GrpcGreeter'. Add them?**</span></span>
+* <span data-ttu-id="dd05f-136">Vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-136">Select **Yes**.</span></span>
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="e8f87-137">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="e8f87-137">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="dd05f-137">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="dd05f-137">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="e8f87-138">Z terminálu spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="e8f87-138">From a terminal, run the following commands:</span></span>
+<span data-ttu-id="dd05f-138">Z terminálu spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="dd05f-138">From a terminal, run the following commands:</span></span>
 
 ```dotnetcli
 dotnet new grpc -o GrpcGreeter
 cd GrpcGreeter
 ```
 
-<span data-ttu-id="e8f87-139">Předchozí příkazy používají [.NET Core CLI](/dotnet/core/tools/dotnet) k vytvoření služby gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-139">The preceding commands use the [.NET Core CLI](/dotnet/core/tools/dotnet) to create a gRPC service.</span></span>
+<span data-ttu-id="dd05f-139">Předchozí příkazy používají [.NET Core CLI](/dotnet/core/tools/dotnet) k vytvoření služby gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-139">The preceding commands use the [.NET Core CLI](/dotnet/core/tools/dotnet) to create a gRPC service.</span></span>
 
-### <a name="open-the-project"></a><span data-ttu-id="e8f87-140">Otevřít projekt</span><span class="sxs-lookup"><span data-stu-id="e8f87-140">Open the project</span></span>
+### <a name="open-the-project"></a><span data-ttu-id="dd05f-140">Otevřít projekt</span><span class="sxs-lookup"><span data-stu-id="dd05f-140">Open the project</span></span>
 
-<span data-ttu-id="e8f87-141">V aplikaci Visual Studio vyberte **soubor**  >  **otevřít**a potom vyberte soubor *GrpcGreeter. csproj* .</span><span class="sxs-lookup"><span data-stu-id="e8f87-141">From Visual Studio, select **File** > **Open**, and then select the *GrpcGreeter.csproj* file.</span></span>
+<span data-ttu-id="dd05f-141">V aplikaci Visual Studio vyberte **soubor**  >  **otevřít**a potom vyberte soubor *GrpcGreeter. csproj* .</span><span class="sxs-lookup"><span data-stu-id="dd05f-141">From Visual Studio, select **File** > **Open**, and then select the *GrpcGreeter.csproj* file.</span></span>
 
 ---
 
-### <a name="run-the-service"></a><span data-ttu-id="e8f87-142">Spuštění služby</span><span class="sxs-lookup"><span data-stu-id="e8f87-142">Run the service</span></span>
+### <a name="run-the-service"></a><span data-ttu-id="dd05f-142">Spuštění služby</span><span class="sxs-lookup"><span data-stu-id="dd05f-142">Run the service</span></span>
 
   [!INCLUDE[](~/includes/run-the-app.md)]
 
-<span data-ttu-id="e8f87-143">V protokolech se zobrazuje služba, na které naslouchá `https://localhost:5001` .</span><span class="sxs-lookup"><span data-stu-id="e8f87-143">The logs show the service listening on `https://localhost:5001`.</span></span>
+<span data-ttu-id="dd05f-143">V protokolech se zobrazuje služba, na které naslouchá `https://localhost:5001` .</span><span class="sxs-lookup"><span data-stu-id="dd05f-143">The logs show the service listening on `https://localhost:5001`.</span></span>
 
 ```console
 info: Microsoft.Hosting.Lifetime[0]
@@ -121,62 +121,62 @@ info: Microsoft.Hosting.Lifetime[0]
 ```
 
 > [!NOTE]
-> <span data-ttu-id="e8f87-144">Šablona gRPC je nakonfigurovaná tak, aby používala [protokol TLS (Transport Layer Security)](https://tools.ietf.org/html/rfc5246).</span><span class="sxs-lookup"><span data-stu-id="e8f87-144">The gRPC template is configured to use [Transport Layer Security (TLS)](https://tools.ietf.org/html/rfc5246).</span></span> <span data-ttu-id="e8f87-145">gRPC klienti potřebují pro volání serveru použít protokol HTTPS.</span><span class="sxs-lookup"><span data-stu-id="e8f87-145">gRPC clients need to use HTTPS to call the server.</span></span>
+> <span data-ttu-id="dd05f-144">Šablona gRPC je nakonfigurovaná tak, aby používala [protokol TLS (Transport Layer Security)](https://tools.ietf.org/html/rfc5246).</span><span class="sxs-lookup"><span data-stu-id="dd05f-144">The gRPC template is configured to use [Transport Layer Security (TLS)](https://tools.ietf.org/html/rfc5246).</span></span> <span data-ttu-id="dd05f-145">gRPC klienti potřebují pro volání serveru použít protokol HTTPS.</span><span class="sxs-lookup"><span data-stu-id="dd05f-145">gRPC clients need to use HTTPS to call the server.</span></span>
 >
-> <span data-ttu-id="e8f87-146">macOS nepodporuje ASP.NET Core gRPC s protokolem TLS.</span><span class="sxs-lookup"><span data-stu-id="e8f87-146">macOS doesn't support ASP.NET Core gRPC with TLS.</span></span> <span data-ttu-id="e8f87-147">K úspěšnému spuštění gRPC služeb na macOS se vyžaduje další konfigurace.</span><span class="sxs-lookup"><span data-stu-id="e8f87-147">Additional configuration is required to successfully run gRPC services on macOS.</span></span> <span data-ttu-id="e8f87-148">Další informace najdete v tématu [nepovedlo se spustit aplikaci ASP.NET Core gRPC v MacOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).</span><span class="sxs-lookup"><span data-stu-id="e8f87-148">For more information, see [Unable to start ASP.NET Core gRPC app on macOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).</span></span>
+> <span data-ttu-id="dd05f-146">macOS nepodporuje ASP.NET Core gRPC s protokolem TLS.</span><span class="sxs-lookup"><span data-stu-id="dd05f-146">macOS doesn't support ASP.NET Core gRPC with TLS.</span></span> <span data-ttu-id="dd05f-147">K úspěšnému spuštění gRPC služeb na macOS se vyžaduje další konfigurace.</span><span class="sxs-lookup"><span data-stu-id="dd05f-147">Additional configuration is required to successfully run gRPC services on macOS.</span></span> <span data-ttu-id="dd05f-148">Další informace najdete v tématu [nepovedlo se spustit aplikaci ASP.NET Core gRPC v MacOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).</span><span class="sxs-lookup"><span data-stu-id="dd05f-148">For more information, see [Unable to start ASP.NET Core gRPC app on macOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).</span></span>
 
-### <a name="examine-the-project-files"></a><span data-ttu-id="e8f87-149">Prověřte soubory projektu</span><span class="sxs-lookup"><span data-stu-id="e8f87-149">Examine the project files</span></span>
+### <a name="examine-the-project-files"></a><span data-ttu-id="dd05f-149">Prověřte soubory projektu</span><span class="sxs-lookup"><span data-stu-id="dd05f-149">Examine the project files</span></span>
 
-<span data-ttu-id="e8f87-150">Soubory projektu *GrpcGreeter* :</span><span class="sxs-lookup"><span data-stu-id="e8f87-150">*GrpcGreeter* project files:</span></span>
+<span data-ttu-id="dd05f-150">Soubory projektu *GrpcGreeter* :</span><span class="sxs-lookup"><span data-stu-id="dd05f-150">*GrpcGreeter* project files:</span></span>
 
-* <span data-ttu-id="e8f87-151">*Greeting.* v tomto případě: soubor *...* dedefinuje `Greeter` gRPC a slouží k vygenerování prostředků serveru gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-151">*greet.proto*: The *Protos/greet.proto* file defines the `Greeter` gRPC and is used to generate the gRPC server assets.</span></span> <span data-ttu-id="e8f87-152">Další informace najdete v tématu [Úvod do gRPC](xref:grpc/index).</span><span class="sxs-lookup"><span data-stu-id="e8f87-152">For more information, see [Introduction to gRPC](xref:grpc/index).</span></span>
-* <span data-ttu-id="e8f87-153">Složka *služby* : obsahuje implementaci `Greeter` služby.</span><span class="sxs-lookup"><span data-stu-id="e8f87-153">*Services* folder: Contains the implementation of the `Greeter` service.</span></span>
-* <span data-ttu-id="e8f87-154">*appSettings.js*: obsahuje konfigurační data, jako je například protokol používaný v Kestrel.</span><span class="sxs-lookup"><span data-stu-id="e8f87-154">*appSettings.json*: Contains configuration data, such as protocol used by Kestrel.</span></span> <span data-ttu-id="e8f87-155">Další informace naleznete v tématu <xref:fundamentals/configuration/index>.</span><span class="sxs-lookup"><span data-stu-id="e8f87-155">For more information, see <xref:fundamentals/configuration/index>.</span></span>
-* <span data-ttu-id="e8f87-156">*Program.cs*: obsahuje vstupní bod pro službu gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-156">*Program.cs*: Contains the entry point for the gRPC service.</span></span> <span data-ttu-id="e8f87-157">Další informace naleznete v tématu <xref:fundamentals/host/generic-host>.</span><span class="sxs-lookup"><span data-stu-id="e8f87-157">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
-* <span data-ttu-id="e8f87-158">*Startup.cs*: obsahuje kód, který konfiguruje chování aplikace.</span><span class="sxs-lookup"><span data-stu-id="e8f87-158">*Startup.cs*: Contains code that configures app behavior.</span></span> <span data-ttu-id="e8f87-159">Další informace najdete v tématu [spuštění aplikace](xref:fundamentals/startup).</span><span class="sxs-lookup"><span data-stu-id="e8f87-159">For more information, see [App startup](xref:fundamentals/startup).</span></span>
+* <span data-ttu-id="dd05f-151">*Greeting.* v tomto případě: soubor *...* dedefinuje `Greeter` gRPC a slouží k vygenerování prostředků serveru gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-151">*greet.proto*: The *Protos/greet.proto* file defines the `Greeter` gRPC and is used to generate the gRPC server assets.</span></span> <span data-ttu-id="dd05f-152">Další informace najdete v tématu [Úvod do gRPC](xref:grpc/index).</span><span class="sxs-lookup"><span data-stu-id="dd05f-152">For more information, see [Introduction to gRPC](xref:grpc/index).</span></span>
+* <span data-ttu-id="dd05f-153">Složka *služby* : obsahuje implementaci `Greeter` služby.</span><span class="sxs-lookup"><span data-stu-id="dd05f-153">*Services* folder: Contains the implementation of the `Greeter` service.</span></span>
+* <span data-ttu-id="dd05f-154">*appSettings.js*: obsahuje konfigurační data, jako je například protokol používaný v Kestrel.</span><span class="sxs-lookup"><span data-stu-id="dd05f-154">*appSettings.json*: Contains configuration data, such as protocol used by Kestrel.</span></span> <span data-ttu-id="dd05f-155">Další informace naleznete v tématu <xref:fundamentals/configuration/index>.</span><span class="sxs-lookup"><span data-stu-id="dd05f-155">For more information, see <xref:fundamentals/configuration/index>.</span></span>
+* <span data-ttu-id="dd05f-156">*Program.cs*: obsahuje vstupní bod pro službu gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-156">*Program.cs*: Contains the entry point for the gRPC service.</span></span> <span data-ttu-id="dd05f-157">Další informace naleznete v tématu <xref:fundamentals/host/generic-host>.</span><span class="sxs-lookup"><span data-stu-id="dd05f-157">For more information, see <xref:fundamentals/host/generic-host>.</span></span>
+* <span data-ttu-id="dd05f-158">*Startup.cs*: obsahuje kód, který konfiguruje chování aplikace.</span><span class="sxs-lookup"><span data-stu-id="dd05f-158">*Startup.cs*: Contains code that configures app behavior.</span></span> <span data-ttu-id="dd05f-159">Další informace najdete v tématu [spuštění aplikace](xref:fundamentals/startup).</span><span class="sxs-lookup"><span data-stu-id="dd05f-159">For more information, see [App startup](xref:fundamentals/startup).</span></span>
 
-## <a name="create-the-grpc-client-in-a-net-console-app"></a><span data-ttu-id="e8f87-160">Vytvoření klienta gRPC v konzolové aplikaci .NET</span><span class="sxs-lookup"><span data-stu-id="e8f87-160">Create the gRPC client in a .NET console app</span></span>
+## <a name="create-the-grpc-client-in-a-net-console-app"></a><span data-ttu-id="dd05f-160">Vytvoření klienta gRPC v konzolové aplikaci .NET</span><span class="sxs-lookup"><span data-stu-id="dd05f-160">Create the gRPC client in a .NET console app</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="e8f87-161">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e8f87-161">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="dd05f-161">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dd05f-161">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="e8f87-162">Otevřete druhou instanci aplikace Visual Studio a vyberte možnost **vytvořit nový projekt**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-162">Open a second instance of Visual Studio and select **Create a new project**.</span></span>
-* <span data-ttu-id="e8f87-163">V dialogovém okně **vytvořit nový projekt** vyberte **Konzolová aplikace (.NET Core)** a pak vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-163">In the **Create a new project** dialog, select **Console App (.NET Core)** and select **Next**.</span></span>
-* <span data-ttu-id="e8f87-164">Do textového pole **název projektu** zadejte **GrpcGreeterClient** a vyberte **vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-164">In the **Project name** text box, enter **GrpcGreeterClient** and select **Create**.</span></span>
+* <span data-ttu-id="dd05f-162">Otevřete druhou instanci aplikace Visual Studio a vyberte možnost **vytvořit nový projekt**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-162">Open a second instance of Visual Studio and select **Create a new project**.</span></span>
+* <span data-ttu-id="dd05f-163">V dialogovém okně **vytvořit nový projekt** vyberte **Konzolová aplikace (.NET Core)** a pak vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-163">In the **Create a new project** dialog, select **Console App (.NET Core)** and select **Next**.</span></span>
+* <span data-ttu-id="dd05f-164">Do textového pole **název projektu** zadejte **GrpcGreeterClient** a vyberte **vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-164">In the **Project name** text box, enter **GrpcGreeterClient** and select **Create**.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="e8f87-165">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="e8f87-165">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="dd05f-165">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="dd05f-165">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="e8f87-166">Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).</span><span class="sxs-lookup"><span data-stu-id="e8f87-166">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
-* <span data-ttu-id="e8f87-167">Změňte adresáře ( `cd` ) na složku, která bude obsahovat projekt.</span><span class="sxs-lookup"><span data-stu-id="e8f87-167">Change directories (`cd`) to a folder which will contain the project.</span></span>
-* <span data-ttu-id="e8f87-168">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="e8f87-168">Run the following commands:</span></span>
+* <span data-ttu-id="dd05f-166">Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).</span><span class="sxs-lookup"><span data-stu-id="dd05f-166">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
+* <span data-ttu-id="dd05f-167">Změňte adresáře ( `cd` ) na složku, která bude obsahovat projekt.</span><span class="sxs-lookup"><span data-stu-id="dd05f-167">Change directories (`cd`) to a folder which will contain the project.</span></span>
+* <span data-ttu-id="dd05f-168">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="dd05f-168">Run the following commands:</span></span>
 
   ```dotnetcli
   dotnet new console -o GrpcGreeterClient
   code -r GrpcGreeterClient
   ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="e8f87-169">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="e8f87-169">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="dd05f-169">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="dd05f-169">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="e8f87-170">Postupujte podle pokynů v tématu vytvoření [kompletního řešení .NET Core na MacOS pomocí Visual Studio pro Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution) k vytvoření konzolové aplikace s názvem *GrpcGreeterClient*.</span><span class="sxs-lookup"><span data-stu-id="e8f87-170">Follow the instructions in [Building a complete .NET Core solution on macOS using Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution) to create a console app with the name *GrpcGreeterClient*.</span></span>
+<span data-ttu-id="dd05f-170">Postupujte podle pokynů v tématu vytvoření [kompletního řešení .NET Core na MacOS pomocí Visual Studio pro Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution) k vytvoření konzolové aplikace s názvem *GrpcGreeterClient*.</span><span class="sxs-lookup"><span data-stu-id="dd05f-170">Follow the instructions in [Building a complete .NET Core solution on macOS using Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution) to create a console app with the name *GrpcGreeterClient*.</span></span>
 
 ---
 
-### <a name="add-required-packages"></a><span data-ttu-id="e8f87-171">Přidat požadované balíčky</span><span class="sxs-lookup"><span data-stu-id="e8f87-171">Add required packages</span></span>
+### <a name="add-required-packages"></a><span data-ttu-id="dd05f-171">Přidat požadované balíčky</span><span class="sxs-lookup"><span data-stu-id="dd05f-171">Add required packages</span></span>
 
-<span data-ttu-id="e8f87-172">Projekt klienta gRPC vyžaduje následující balíčky:</span><span class="sxs-lookup"><span data-stu-id="e8f87-172">The gRPC client project requires the following packages:</span></span>
+<span data-ttu-id="dd05f-172">Projekt klienta gRPC vyžaduje následující balíčky:</span><span class="sxs-lookup"><span data-stu-id="dd05f-172">The gRPC client project requires the following packages:</span></span>
 
-* <span data-ttu-id="e8f87-173">[Grpc .NET. Client](https://www.nuget.org/packages/Grpc.Net.Client), který obsahuje klienta .NET Core.</span><span class="sxs-lookup"><span data-stu-id="e8f87-173">[Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client), which contains the .NET Core client.</span></span>
-* <span data-ttu-id="e8f87-174">[Google. Protobuf](https://www.nuget.org/packages/Google.Protobuf/), která obsahuje rozhraní API pro zprávy Protobuf pro C#.</span><span class="sxs-lookup"><span data-stu-id="e8f87-174">[Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/), which contains protobuf message APIs for C#.</span></span>
-* <span data-ttu-id="e8f87-175">[Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/), které obsahují podporu nástrojů C# pro soubory protobuf.</span><span class="sxs-lookup"><span data-stu-id="e8f87-175">[Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/), which contains C# tooling support for protobuf files.</span></span> <span data-ttu-id="e8f87-176">Balíček nástrojů se za běhu nevyžaduje, takže závislost je označená jako `PrivateAssets="All"` .</span><span class="sxs-lookup"><span data-stu-id="e8f87-176">The tooling package isn't required at runtime, so the dependency is marked with `PrivateAssets="All"`.</span></span>
+* <span data-ttu-id="dd05f-173">[Grpc .NET. Client](https://www.nuget.org/packages/Grpc.Net.Client), který obsahuje klienta .NET Core.</span><span class="sxs-lookup"><span data-stu-id="dd05f-173">[Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client), which contains the .NET Core client.</span></span>
+* <span data-ttu-id="dd05f-174">[Google. Protobuf](https://www.nuget.org/packages/Google.Protobuf/), která obsahuje rozhraní API pro zprávy Protobuf pro C#.</span><span class="sxs-lookup"><span data-stu-id="dd05f-174">[Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/), which contains protobuf message APIs for C#.</span></span>
+* <span data-ttu-id="dd05f-175">[Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/), které obsahují podporu nástrojů C# pro soubory protobuf.</span><span class="sxs-lookup"><span data-stu-id="dd05f-175">[Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/), which contains C# tooling support for protobuf files.</span></span> <span data-ttu-id="dd05f-176">Balíček nástrojů se za běhu nevyžaduje, takže závislost je označená jako `PrivateAssets="All"` .</span><span class="sxs-lookup"><span data-stu-id="dd05f-176">The tooling package isn't required at runtime, so the dependency is marked with `PrivateAssets="All"`.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="e8f87-177">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e8f87-177">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="dd05f-177">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dd05f-177">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="e8f87-178">Nainstalujte balíčky buď pomocí konzoly Správce balíčků (PMC), nebo spravujte balíčky NuGet.</span><span class="sxs-lookup"><span data-stu-id="e8f87-178">Install the packages using either the Package Manager Console (PMC) or Manage NuGet Packages.</span></span>
+<span data-ttu-id="dd05f-178">Nainstalujte balíčky buď pomocí konzoly Správce balíčků (PMC), nebo spravujte balíčky NuGet.</span><span class="sxs-lookup"><span data-stu-id="dd05f-178">Install the packages using either the Package Manager Console (PMC) or Manage NuGet Packages.</span></span>
 
-#### <a name="pmc-option-to-install-packages"></a><span data-ttu-id="e8f87-179">Možnost PMC pro instalaci balíčků</span><span class="sxs-lookup"><span data-stu-id="e8f87-179">PMC option to install packages</span></span>
+#### <a name="pmc-option-to-install-packages"></a><span data-ttu-id="dd05f-179">Možnost PMC pro instalaci balíčků</span><span class="sxs-lookup"><span data-stu-id="dd05f-179">PMC option to install packages</span></span>
 
-* <span data-ttu-id="e8f87-180">V aplikaci Visual Studio vyberte **nástroje**  >  **Správce balíčků NuGet**  >  **Konzola správce balíčků** .</span><span class="sxs-lookup"><span data-stu-id="e8f87-180">From Visual Studio, select **Tools** > **NuGet Package Manager** > **Package Manager Console**</span></span>
-* <span data-ttu-id="e8f87-181">V okně **konzoly Správce balíčků** spusťte příkaz, `cd GrpcGreeterClient` aby se změnily adresáře do složky obsahující soubory *GrpcGreeterClient. csproj* .</span><span class="sxs-lookup"><span data-stu-id="e8f87-181">From the **Package Manager Console** window, run `cd GrpcGreeterClient` to change directories to the folder containing the *GrpcGreeterClient.csproj* files.</span></span>
-* <span data-ttu-id="e8f87-182">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="e8f87-182">Run the following commands:</span></span>
+* <span data-ttu-id="dd05f-180">V aplikaci Visual Studio vyberte **nástroje**  >  **Správce balíčků NuGet**  >  **Konzola správce balíčků** .</span><span class="sxs-lookup"><span data-stu-id="dd05f-180">From Visual Studio, select **Tools** > **NuGet Package Manager** > **Package Manager Console**</span></span>
+* <span data-ttu-id="dd05f-181">V okně **konzoly Správce balíčků** spusťte příkaz, `cd GrpcGreeterClient` aby se změnily adresáře do složky obsahující soubory *GrpcGreeterClient. csproj* .</span><span class="sxs-lookup"><span data-stu-id="dd05f-181">From the **Package Manager Console** window, run `cd GrpcGreeterClient` to change directories to the folder containing the *GrpcGreeterClient.csproj* files.</span></span>
+* <span data-ttu-id="dd05f-182">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="dd05f-182">Run the following commands:</span></span>
 
   ```powershell
   Install-Package Grpc.Net.Client
@@ -184,17 +184,17 @@ info: Microsoft.Hosting.Lifetime[0]
   Install-Package Grpc.Tools
   ```
 
-#### <a name="manage-nuget-packages-option-to-install-packages"></a><span data-ttu-id="e8f87-183">Správa možností balíčků NuGet pro instalaci balíčků</span><span class="sxs-lookup"><span data-stu-id="e8f87-183">Manage NuGet Packages option to install packages</span></span>
+#### <a name="manage-nuget-packages-option-to-install-packages"></a><span data-ttu-id="dd05f-183">Správa možností balíčků NuGet pro instalaci balíčků</span><span class="sxs-lookup"><span data-stu-id="dd05f-183">Manage NuGet Packages option to install packages</span></span>
 
-* <span data-ttu-id="e8f87-184">Klikněte pravým tlačítkem na projekt v **Průzkumník řešení**  >  **Spravovat balíčky NuGet** .</span><span class="sxs-lookup"><span data-stu-id="e8f87-184">Right-click the project in **Solution Explorer** > **Manage NuGet Packages**</span></span>
-* <span data-ttu-id="e8f87-185">Vyberte kartu **Procházet**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-185">Select the **Browse** tab.</span></span>
-* <span data-ttu-id="e8f87-186">Do vyhledávacího pole zadejte **Grpc .NET. Client** .</span><span class="sxs-lookup"><span data-stu-id="e8f87-186">Enter **Grpc.Net.Client** in the search box.</span></span>
-* <span data-ttu-id="e8f87-187">Na kartě **Procházet** vyberte balíček **Grpc .NET. Client** a vyberte **nainstalovat**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-187">Select the **Grpc.Net.Client** package from the **Browse** tab and select **Install**.</span></span>
-* <span data-ttu-id="e8f87-188">Opakujte pro `Google.Protobuf` a `Grpc.Tools` .</span><span class="sxs-lookup"><span data-stu-id="e8f87-188">Repeat for `Google.Protobuf` and `Grpc.Tools`.</span></span>
+* <span data-ttu-id="dd05f-184">Klikněte pravým tlačítkem na projekt v **Průzkumník řešení**  >  **Spravovat balíčky NuGet** .</span><span class="sxs-lookup"><span data-stu-id="dd05f-184">Right-click the project in **Solution Explorer** > **Manage NuGet Packages**</span></span>
+* <span data-ttu-id="dd05f-185">Vyberte kartu **Procházet**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-185">Select the **Browse** tab.</span></span>
+* <span data-ttu-id="dd05f-186">Do vyhledávacího pole zadejte **Grpc .NET. Client** .</span><span class="sxs-lookup"><span data-stu-id="dd05f-186">Enter **Grpc.Net.Client** in the search box.</span></span>
+* <span data-ttu-id="dd05f-187">Na kartě **Procházet** vyberte balíček **Grpc .NET. Client** a vyberte **nainstalovat**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-187">Select the **Grpc.Net.Client** package from the **Browse** tab and select **Install**.</span></span>
+* <span data-ttu-id="dd05f-188">Opakujte pro `Google.Protobuf` a `Grpc.Tools` .</span><span class="sxs-lookup"><span data-stu-id="dd05f-188">Repeat for `Google.Protobuf` and `Grpc.Tools`.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="e8f87-189">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="e8f87-189">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="dd05f-189">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="dd05f-189">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="e8f87-190">Z **integrovaného terminálu**spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="e8f87-190">Run the following commands from the **Integrated Terminal**:</span></span>
+<span data-ttu-id="dd05f-190">Z **integrovaného terminálu**spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="dd05f-190">Run the following commands from the **Integrated Terminal**:</span></span>
 
 ```dotnetcli
 dotnet add GrpcGreeterClient.csproj package Grpc.Net.Client
@@ -202,36 +202,42 @@ dotnet add GrpcGreeterClient.csproj package Google.Protobuf
 dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="e8f87-191">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="e8f87-191">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="dd05f-191">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="dd05f-191">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="e8f87-192">Klikněte pravým tlačítkem na složku **balíčky** v **oblast řešení**  >  **Přidat balíčky** .</span><span class="sxs-lookup"><span data-stu-id="e8f87-192">Right-click the **Packages** folder in **Solution Pad** > **Add Packages**</span></span>
-* <span data-ttu-id="e8f87-193">Do vyhledávacího pole zadejte **Grpc .NET. Client** .</span><span class="sxs-lookup"><span data-stu-id="e8f87-193">Enter **Grpc.Net.Client** in the search box.</span></span>
-* <span data-ttu-id="e8f87-194">V podokně výsledků vyberte balíček **Grpc .NET. Client** a vyberte **Přidat balíček** .</span><span class="sxs-lookup"><span data-stu-id="e8f87-194">Select the **Grpc.Net.Client** package from the results pane and select **Add Package**</span></span>
-* <span data-ttu-id="e8f87-195">Opakujte pro `Google.Protobuf` a `Grpc.Tools` .</span><span class="sxs-lookup"><span data-stu-id="e8f87-195">Repeat for `Google.Protobuf` and `Grpc.Tools`.</span></span>
+* <span data-ttu-id="dd05f-192">Klikněte pravým tlačítkem na složku **balíčky** v **oblast řešení**  >  **Přidat balíčky** .</span><span class="sxs-lookup"><span data-stu-id="dd05f-192">Right-click the **Packages** folder in **Solution Pad** > **Add Packages**</span></span>
+* <span data-ttu-id="dd05f-193">Do vyhledávacího pole zadejte **Grpc .NET. Client** .</span><span class="sxs-lookup"><span data-stu-id="dd05f-193">Enter **Grpc.Net.Client** in the search box.</span></span>
+* <span data-ttu-id="dd05f-194">V podokně výsledků vyberte balíček **Grpc .NET. Client** a vyberte **Přidat balíček** .</span><span class="sxs-lookup"><span data-stu-id="dd05f-194">Select the **Grpc.Net.Client** package from the results pane and select **Add Package**</span></span>
+* <span data-ttu-id="dd05f-195">Opakujte pro `Google.Protobuf` a `Grpc.Tools` .</span><span class="sxs-lookup"><span data-stu-id="dd05f-195">Repeat for `Google.Protobuf` and `Grpc.Tools`.</span></span>
 
 ---
 
-### <a name="add-greetproto"></a><span data-ttu-id="e8f87-196">Přidat pozdrav. proto</span><span class="sxs-lookup"><span data-stu-id="e8f87-196">Add greet.proto</span></span>
+### <a name="add-greetproto"></a><span data-ttu-id="dd05f-196">Přidat pozdrav. proto</span><span class="sxs-lookup"><span data-stu-id="dd05f-196">Add greet.proto</span></span>
 
-* <span data-ttu-id="e8f87-197">V klientském projektu gRPC *vytvořte složku.*</span><span class="sxs-lookup"><span data-stu-id="e8f87-197">Create a *Protos* folder in the gRPC client project.</span></span>
-* <span data-ttu-id="e8f87-198">Zkopírujte soubor *Protos\greet.proto* ze služby gRPC Greeter do projektu klienta gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-198">Copy the *Protos\greet.proto* file from the gRPC Greeter service to the gRPC client project.</span></span>
-* <span data-ttu-id="e8f87-199">Upravte soubor projektu *GrpcGreeterClient. csproj* :</span><span class="sxs-lookup"><span data-stu-id="e8f87-199">Edit the *GrpcGreeterClient.csproj* project file:</span></span>
+* <span data-ttu-id="dd05f-197">V klientském projektu gRPC *vytvořte složku.*</span><span class="sxs-lookup"><span data-stu-id="dd05f-197">Create a *Protos* folder in the gRPC client project.</span></span>
+* <span data-ttu-id="dd05f-198">Zkopírujte soubor *Protos\greet.proto* ze služby gRPC Greeter do projektu klienta gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-198">Copy the *Protos\greet.proto* file from the gRPC Greeter service to the gRPC client project.</span></span>
+* <span data-ttu-id="dd05f-199">Aktualizujte obor názvů uvnitř `greet.proto` souboru na obor názvů projektu:</span><span class="sxs-lookup"><span data-stu-id="dd05f-199">Update the namespace inside the `greet.proto` file to the project's namespace:</span></span>
 
-  # <a name="visual-studio"></a>[<span data-ttu-id="e8f87-200">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e8f87-200">Visual Studio</span></span>](#tab/visual-studio)
+  ```
+  option csharp_namespace = "GrpcGreeterClient";
+  ```
 
-  <span data-ttu-id="e8f87-201">Klikněte pravým tlačítkem na projekt a vyberte **Upravit soubor projektu**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-201">Right-click the project and select **Edit Project File**.</span></span>
+* <span data-ttu-id="dd05f-200">Upravte soubor projektu *GrpcGreeterClient. csproj* :</span><span class="sxs-lookup"><span data-stu-id="dd05f-200">Edit the *GrpcGreeterClient.csproj* project file:</span></span>
 
-  # <a name="visual-studio-code"></a>[<span data-ttu-id="e8f87-202">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="e8f87-202">Visual Studio Code</span></span>](#tab/visual-studio-code)
+  # <a name="visual-studio"></a>[<span data-ttu-id="dd05f-201">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dd05f-201">Visual Studio</span></span>](#tab/visual-studio)
 
-  <span data-ttu-id="e8f87-203">Vyberte soubor *GrpcGreeterClient. csproj* .</span><span class="sxs-lookup"><span data-stu-id="e8f87-203">Select the *GrpcGreeterClient.csproj* file.</span></span>
+  <span data-ttu-id="dd05f-202">Klikněte pravým tlačítkem na projekt a vyberte **Upravit soubor projektu**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-202">Right-click the project and select **Edit Project File**.</span></span>
 
-  # <a name="visual-studio-for-mac"></a>[<span data-ttu-id="e8f87-204">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="e8f87-204">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+  # <a name="visual-studio-code"></a>[<span data-ttu-id="dd05f-203">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="dd05f-203">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-  <span data-ttu-id="e8f87-205">Klikněte pravým tlačítkem na projekt a vyberte **nástroje**  >  **Upravit soubor**.</span><span class="sxs-lookup"><span data-stu-id="e8f87-205">Right-click the project and select **Tools** > **Edit File**.</span></span>
+  <span data-ttu-id="dd05f-204">Vyberte soubor *GrpcGreeterClient. csproj* .</span><span class="sxs-lookup"><span data-stu-id="dd05f-204">Select the *GrpcGreeterClient.csproj* file.</span></span>
+
+  # <a name="visual-studio-for-mac"></a>[<span data-ttu-id="dd05f-205">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="dd05f-205">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+
+  <span data-ttu-id="dd05f-206">Klikněte pravým tlačítkem na projekt a vyberte **nástroje**  >  **Upravit soubor**.</span><span class="sxs-lookup"><span data-stu-id="dd05f-206">Right-click the project and select **Tools** > **Edit File**.</span></span>
 
   ---
 
-* <span data-ttu-id="e8f87-206">Přidejte skupinu položek s `<Protobuf>` prvkem, který odkazuje na soubor *Greeting.* dekáže:</span><span class="sxs-lookup"><span data-stu-id="e8f87-206">Add an item group with a `<Protobuf>` element that refers to the *greet.proto* file:</span></span>
+* <span data-ttu-id="dd05f-207">Přidejte skupinu položek s `<Protobuf>` prvkem, který odkazuje na soubor *Greeting.* dekáže:</span><span class="sxs-lookup"><span data-stu-id="dd05f-207">Add an item group with a `<Protobuf>` element that refers to the *greet.proto* file:</span></span>
 
   ```xml
   <ItemGroup>
@@ -239,55 +245,55 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
   </ItemGroup>
   ```
 
-### <a name="create-the-greeter-client"></a><span data-ttu-id="e8f87-207">Vytvoření klienta Greeter</span><span class="sxs-lookup"><span data-stu-id="e8f87-207">Create the Greeter client</span></span>
+### <a name="create-the-greeter-client"></a><span data-ttu-id="dd05f-208">Vytvoření klienta Greeter</span><span class="sxs-lookup"><span data-stu-id="dd05f-208">Create the Greeter client</span></span>
 
-<span data-ttu-id="e8f87-208">Sestavte projekt pro vytvoření typů v `GrpcGreeter` oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="e8f87-208">Build the project to create the types in the `GrpcGreeter` namespace.</span></span> <span data-ttu-id="e8f87-209">`GrpcGreeter`Typy jsou generovány automaticky procesem sestavení.</span><span class="sxs-lookup"><span data-stu-id="e8f87-209">The `GrpcGreeter` types are generated automatically by the build process.</span></span>
+<span data-ttu-id="dd05f-209">Sestavte projekt pro vytvoření typů v `GrpcGreeter` oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="dd05f-209">Build the project to create the types in the `GrpcGreeter` namespace.</span></span> <span data-ttu-id="dd05f-210">`GrpcGreeter`Typy jsou generovány automaticky procesem sestavení.</span><span class="sxs-lookup"><span data-stu-id="dd05f-210">The `GrpcGreeter` types are generated automatically by the build process.</span></span>
 
-<span data-ttu-id="e8f87-210">Aktualizujte soubor *program.cs* klienta gRPC pomocí následujícího kódu:</span><span class="sxs-lookup"><span data-stu-id="e8f87-210">Update the gRPC client *Program.cs* file with the following code:</span></span>
+<span data-ttu-id="dd05f-211">Aktualizujte soubor *program.cs* klienta gRPC pomocí následujícího kódu:</span><span class="sxs-lookup"><span data-stu-id="dd05f-211">Update the gRPC client *Program.cs* file with the following code:</span></span>
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet2)]
 
-<span data-ttu-id="e8f87-211">*Program.cs* obsahuje vstupní bod a logiku pro klienta gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-211">*Program.cs* contains the entry point and logic for the gRPC client.</span></span>
+<span data-ttu-id="dd05f-212">*Program.cs* obsahuje vstupní bod a logiku pro klienta gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-212">*Program.cs* contains the entry point and logic for the gRPC client.</span></span>
 
-<span data-ttu-id="e8f87-212">Klient s pozdravem vytvořil:</span><span class="sxs-lookup"><span data-stu-id="e8f87-212">The Greeter client is created by:</span></span>
+<span data-ttu-id="dd05f-213">Klient s pozdravem vytvořil:</span><span class="sxs-lookup"><span data-stu-id="dd05f-213">The Greeter client is created by:</span></span>
 
-* <span data-ttu-id="e8f87-213">Vytvoří se instance `GrpcChannel` obsahující informace pro vytvoření připojení ke službě gRPC.</span><span class="sxs-lookup"><span data-stu-id="e8f87-213">Instantiating a `GrpcChannel` containing the information for creating the connection to the gRPC service.</span></span>
-* <span data-ttu-id="e8f87-214">Použití `GrpcChannel` ke konstrukci klienta Greeter:</span><span class="sxs-lookup"><span data-stu-id="e8f87-214">Using the `GrpcChannel` to construct the Greeter client:</span></span>
+* <span data-ttu-id="dd05f-214">Vytvoří se instance `GrpcChannel` obsahující informace pro vytvoření připojení ke službě gRPC.</span><span class="sxs-lookup"><span data-stu-id="dd05f-214">Instantiating a `GrpcChannel` containing the information for creating the connection to the gRPC service.</span></span>
+* <span data-ttu-id="dd05f-215">Použití `GrpcChannel` ke konstrukci klienta Greeter:</span><span class="sxs-lookup"><span data-stu-id="dd05f-215">Using the `GrpcChannel` to construct the Greeter client:</span></span>
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=3-5)]
 
-<span data-ttu-id="e8f87-215">Klient Greeter volá asynchronní `SayHello` metodu.</span><span class="sxs-lookup"><span data-stu-id="e8f87-215">The Greeter client calls the asynchronous `SayHello` method.</span></span> <span data-ttu-id="e8f87-216">Zobrazí se výsledek `SayHello` volání:</span><span class="sxs-lookup"><span data-stu-id="e8f87-216">The result of the `SayHello` call is displayed:</span></span>
+<span data-ttu-id="dd05f-216">Klient Greeter volá asynchronní `SayHello` metodu.</span><span class="sxs-lookup"><span data-stu-id="dd05f-216">The Greeter client calls the asynchronous `SayHello` method.</span></span> <span data-ttu-id="dd05f-217">Zobrazí se výsledek `SayHello` volání:</span><span class="sxs-lookup"><span data-stu-id="dd05f-217">The result of the `SayHello` call is displayed:</span></span>
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=6-8)]
 
-## <a name="test-the-grpc-client-with-the-grpc-greeter-service"></a><span data-ttu-id="e8f87-217">Test klienta gRPC pomocí služby gRPC Greeter</span><span class="sxs-lookup"><span data-stu-id="e8f87-217">Test the gRPC client with the gRPC Greeter service</span></span>
+## <a name="test-the-grpc-client-with-the-grpc-greeter-service"></a><span data-ttu-id="dd05f-218">Test klienta gRPC pomocí služby gRPC Greeter</span><span class="sxs-lookup"><span data-stu-id="dd05f-218">Test the gRPC client with the gRPC Greeter service</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="e8f87-218">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e8f87-218">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="dd05f-219">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dd05f-219">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="e8f87-219">Ve službě Greeter stiskněte klávesu `Ctrl+F5` a spusťte server bez ladicího programu.</span><span class="sxs-lookup"><span data-stu-id="e8f87-219">In the Greeter service, press `Ctrl+F5` to start the server without the debugger.</span></span>
-* <span data-ttu-id="e8f87-220">V `GrpcGreeterClient` projektu stisknutím klávesy `Ctrl+F5` Spusťte klienta bez ladicího programu.</span><span class="sxs-lookup"><span data-stu-id="e8f87-220">In the `GrpcGreeterClient` project, press `Ctrl+F5` to start the client without the debugger.</span></span>
+* <span data-ttu-id="dd05f-220">Ve službě Greeter stiskněte klávesu `Ctrl+F5` a spusťte server bez ladicího programu.</span><span class="sxs-lookup"><span data-stu-id="dd05f-220">In the Greeter service, press `Ctrl+F5` to start the server without the debugger.</span></span>
+* <span data-ttu-id="dd05f-221">V `GrpcGreeterClient` projektu stisknutím klávesy `Ctrl+F5` Spusťte klienta bez ladicího programu.</span><span class="sxs-lookup"><span data-stu-id="dd05f-221">In the `GrpcGreeterClient` project, press `Ctrl+F5` to start the client without the debugger.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="e8f87-221">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="e8f87-221">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="dd05f-222">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="dd05f-222">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="e8f87-222">Spusťte službu Greeter.</span><span class="sxs-lookup"><span data-stu-id="e8f87-222">Start the Greeter service.</span></span>
-* <span data-ttu-id="e8f87-223">Spusťte klienta.</span><span class="sxs-lookup"><span data-stu-id="e8f87-223">Start the client.</span></span>
+* <span data-ttu-id="dd05f-223">Spusťte službu Greeter.</span><span class="sxs-lookup"><span data-stu-id="dd05f-223">Start the Greeter service.</span></span>
+* <span data-ttu-id="dd05f-224">Spusťte klienta.</span><span class="sxs-lookup"><span data-stu-id="dd05f-224">Start the client.</span></span>
 
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="e8f87-224">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="e8f87-224">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="dd05f-225">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="dd05f-225">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="e8f87-225">Spusťte službu Greeter.</span><span class="sxs-lookup"><span data-stu-id="e8f87-225">Start the Greeter service.</span></span>
-* <span data-ttu-id="e8f87-226">Spusťte klienta.</span><span class="sxs-lookup"><span data-stu-id="e8f87-226">Start the client.</span></span>
+* <span data-ttu-id="dd05f-226">Spusťte službu Greeter.</span><span class="sxs-lookup"><span data-stu-id="dd05f-226">Start the Greeter service.</span></span>
+* <span data-ttu-id="dd05f-227">Spusťte klienta.</span><span class="sxs-lookup"><span data-stu-id="dd05f-227">Start the client.</span></span>
 
 ---
 
-<span data-ttu-id="e8f87-227">Klient pošle službě pozdrav zprávy s názvem, který obsahuje, *GreeterClient*.</span><span class="sxs-lookup"><span data-stu-id="e8f87-227">The client sends a greeting to the service with a message containing its name, *GreeterClient*.</span></span> <span data-ttu-id="e8f87-228">Služba odešle jako odpověď zprávu "Hello GreeterClient".</span><span class="sxs-lookup"><span data-stu-id="e8f87-228">The service sends the message "Hello GreeterClient" as a response.</span></span> <span data-ttu-id="e8f87-229">Odpověď "Hello GreeterClient" se zobrazí na příkazovém řádku:</span><span class="sxs-lookup"><span data-stu-id="e8f87-229">The "Hello GreeterClient" response is displayed in the command prompt:</span></span>
+<span data-ttu-id="dd05f-228">Klient pošle službě pozdrav zprávy s názvem, který obsahuje, *GreeterClient*.</span><span class="sxs-lookup"><span data-stu-id="dd05f-228">The client sends a greeting to the service with a message containing its name, *GreeterClient*.</span></span> <span data-ttu-id="dd05f-229">Služba odešle jako odpověď zprávu "Hello GreeterClient".</span><span class="sxs-lookup"><span data-stu-id="dd05f-229">The service sends the message "Hello GreeterClient" as a response.</span></span> <span data-ttu-id="dd05f-230">Odpověď "Hello GreeterClient" se zobrazí na příkazovém řádku:</span><span class="sxs-lookup"><span data-stu-id="dd05f-230">The "Hello GreeterClient" response is displayed in the command prompt:</span></span>
 
 ```console
 Greeting: Hello GreeterClient
 Press any key to exit...
 ```
 
-<span data-ttu-id="e8f87-230">Služba gRPC zaznamenává podrobnosti o úspěšném volání do protokolů zapsaných do příkazového řádku:</span><span class="sxs-lookup"><span data-stu-id="e8f87-230">The gRPC service records the details of the successful call in the logs written to the command prompt:</span></span>
+<span data-ttu-id="dd05f-231">Služba gRPC zaznamenává podrobnosti o úspěšném volání do protokolů zapsaných do příkazového řádku:</span><span class="sxs-lookup"><span data-stu-id="dd05f-231">The gRPC service records the details of the successful call in the logs written to the command prompt:</span></span>
 
 ```console
 info: Microsoft.Hosting.Lifetime[0]
@@ -309,11 +315,11 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 ```
 
 > [!NOTE]
-> <span data-ttu-id="e8f87-231">Kód v tomto článku vyžaduje k zabezpečení služby gRPC ASP.NET Core certifikát pro vývoj HTTPS.</span><span class="sxs-lookup"><span data-stu-id="e8f87-231">The code in this article requires the ASP.NET Core HTTPS development certificate to secure the gRPC service.</span></span> <span data-ttu-id="e8f87-232">Pokud klient .NET gRPC selhal se zprávou `The remote certificate is invalid according to the validation procedure.` nebo `The SSL connection could not be established.` , vývojový certifikát není důvěryhodný.</span><span class="sxs-lookup"><span data-stu-id="e8f87-232">If the .NET gRPC client fails with the message `The remote certificate is invalid according to the validation procedure.` or `The SSL connection could not be established.`, the development certificate isn't trusted.</span></span> <span data-ttu-id="e8f87-233">Chcete-li tento problém vyřešit, přečtěte si téma [volání služby gRPC s nedůvěryhodným/neplatným certifikátem](xref:grpc/troubleshoot#call-a-grpc-service-with-an-untrustedinvalid-certificate).</span><span class="sxs-lookup"><span data-stu-id="e8f87-233">To fix this issue, see [Call a gRPC service with an untrusted/invalid certificate](xref:grpc/troubleshoot#call-a-grpc-service-with-an-untrustedinvalid-certificate).</span></span>
+> <span data-ttu-id="dd05f-232">Kód v tomto článku vyžaduje k zabezpečení služby gRPC ASP.NET Core certifikát pro vývoj HTTPS.</span><span class="sxs-lookup"><span data-stu-id="dd05f-232">The code in this article requires the ASP.NET Core HTTPS development certificate to secure the gRPC service.</span></span> <span data-ttu-id="dd05f-233">Pokud klient .NET gRPC selhal se zprávou `The remote certificate is invalid according to the validation procedure.` nebo `The SSL connection could not be established.` , vývojový certifikát není důvěryhodný.</span><span class="sxs-lookup"><span data-stu-id="dd05f-233">If the .NET gRPC client fails with the message `The remote certificate is invalid according to the validation procedure.` or `The SSL connection could not be established.`, the development certificate isn't trusted.</span></span> <span data-ttu-id="dd05f-234">Chcete-li tento problém vyřešit, přečtěte si téma [volání služby gRPC s nedůvěryhodným/neplatným certifikátem](xref:grpc/troubleshoot#call-a-grpc-service-with-an-untrustedinvalid-certificate).</span><span class="sxs-lookup"><span data-stu-id="dd05f-234">To fix this issue, see [Call a gRPC service with an untrusted/invalid certificate](xref:grpc/troubleshoot#call-a-grpc-service-with-an-untrustedinvalid-certificate).</span></span>
 
 [!INCLUDE[](~/includes/gRPCazure.md)]
 
-### <a name="next-steps"></a><span data-ttu-id="e8f87-234">Další kroky</span><span class="sxs-lookup"><span data-stu-id="e8f87-234">Next steps</span></span>
+### <a name="next-steps"></a><span data-ttu-id="dd05f-235">Další kroky</span><span class="sxs-lookup"><span data-stu-id="dd05f-235">Next steps</span></span>
 
 * <xref:grpc/index>
 * <xref:grpc/basics>
