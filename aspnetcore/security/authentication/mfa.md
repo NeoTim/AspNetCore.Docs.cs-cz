@@ -18,16 +18,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/mfa
-ms.openlocfilehash: e224f947335ea8ea6ed8887dfadb52202bfd7866
-ms.sourcegitcommit: 8fcb08312a59c37e3542e7a67dad25faf5bb8e76
+ms.openlocfilehash: 76a11aa7b89b3ce60ed11bd7553a7e5898f661f4
+ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90009502"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91606804"
 ---
 # <a name="multi-factor-authentication-in-aspnet-core"></a>Multi-Factor Authentication v ASP.NET Core
 
 Od [Damien Bowden](https://github.com/damienbod)
+
+[Zobrazit nebo stáhnout vzorový kód (úložiště GitHub damienbod/AspNetCoreHybridFlowWithApi)](https://github.com/damienbod/AspNetCoreHybridFlowWithApi)
 
 Multi-Factor Authentication (MFA) je proces, při kterém se uživatel během přihlašovací události požaduje pro další formy identifikace. Tato výzva by mohla být zadání kódu z cellphone, použití FIDO2 klíče nebo poskytnutí kontroly otiskem prstu. Pokud požadujete druhou formu ověřování, zabezpečení se zlepší. Tento přídavný faktor nemůže útočník snadno získat ani duplikovat.
 

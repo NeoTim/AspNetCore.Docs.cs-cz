@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 618bb60ea382437b2787adb814f319b1f0cea4ca
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: b89be93fc33d1eba5c2ad9508adf93fa54014ff8
+ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88626529"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91606790"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -146,7 +146,7 @@ services.AddControllers().AddJsonOptions(options =>
 });
 ```
 
-Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Příklad:
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Například:
 
 ```csharp
 public IActionResult Get()
@@ -163,6 +163,14 @@ public IActionResult Get()
 Před ASP.NET Core 3,0 byly použity výchozí formátovací moduly JSON implementované pomocí `Newtonsoft.Json` balíčku. V ASP.NET Core 3,0 nebo novějších jsou výchozí formátovací moduly JSON založené na `System.Text.Json` . Podpora `Newtonsoft.Json` formátování a funkcí založených na základech je k dispozici po instalaci [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) balíčku NuGet a jeho konfiguraci v nástroji `Startup.ConfigureServices` .
 
 [!code-csharp[](./formatting/3.0sample/StartupNewtonsoftJson.cs?name=snippet)]
+
+V předchozím kódu volání provede `AddNewtonsoftJson` konfiguraci následujících funkcí webového rozhraní API, MVC a Razor stránek, které chcete použít `Newtonsoft.Json` :
+
+* Vstupní a výstupní formátovací moduly, které čtou a zapisují JSON
+* <xref:Microsoft.AspNetCore.Mvc.JsonResult>
+* [Oprava JSON](xref:web-api/jsonpatch)
+* <xref:Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper>
+* [TempData](xref:fundamentals/app-state#tempdata)
 
 Některé funkce nemusí fungovat správně s `System.Text.Json` formátovacími moduly a vyžadují odkaz na `Newtonsoft.Json` formátování na základě. I nadále používat formátovací moduly založené na tom, `Newtonsoft.Json` Pokud aplikace:
 
@@ -185,7 +193,7 @@ services.AddControllers().AddNewtonsoftJson(options =>
 });
 ```
 
-Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Příklad:
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Například:
 
 ```csharp
 public IActionResult Get()
@@ -241,7 +249,7 @@ Některé speciální případy jsou implementovány pomocí integrovaných form
 
 Bez rozhraní `StringOutputFormatter` , předdefinované formáty formátování JSON `string` vrátí typy. Pokud je vestavěný formátovací modul JSON odebraný a je k dispozici formátovací modul XML, vrátí typy formátování formátovací kód XML `string` . V opačném případě `string` návratové typy vrátí `406 Not Acceptable` .
 
-Bez `HttpNoContentOutputFormatter` objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Příklad:
+Bez `HttpNoContentOutputFormatter` objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Například:
 
 * Formátovací modul JSON vrátí odpověď s tělem `null` .
 * Formátovací modul XML vrátí prázdný element XML s `xsi:nil="true"` nastaveným atributem.
@@ -253,7 +261,7 @@ Klienti mohou požádat o konkrétní formát v rámci adresy URL, například:
 * V řetězci dotazu nebo v části cesty.
 * Pomocí přípony souboru specifické pro formát, jako je například. XML nebo. JSON.
 
-Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Příklad:
+Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Například:
 
 [!code-csharp[](./formatting/sample/Controllers/ProductsController.cs?name=snippet)]
 

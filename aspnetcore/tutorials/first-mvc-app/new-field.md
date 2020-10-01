@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 40e615d0698a0ed1d3ef40a222e064d72184f0c8
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a0c53755bd56b6c169437ca9f0ea915e46ad79ec
+ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88635291"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91606742"
 ---
 # <a name="part-8-add-a-new-field-to-an-aspnet-core-mvc-app"></a>Část 8 – Přidání nového pole do aplikace ASP.NET Core MVC
 
@@ -62,7 +62,7 @@ Příkaz ⌘ + B
 
 ------
 
-Vzhledem k tomu, že jste do třídy přidali nové pole `Movie` , je nutné aktualizovat seznam vazeb, aby byla tato nová vlastnost zahrnutá. V *MoviesController.cs*aktualizujte `[Bind]` atribut pro `Create` `Edit` metody a akce tak, aby zahrnovaly `Rating` vlastnost:
+Vzhledem k tomu, že jste do třídy přidali nové pole `Movie` , musíte aktualizovat seznam vazeb vlastností, aby byla tato nová vlastnost zahrnutá. V *MoviesController.cs*aktualizujte `[Bind]` atribut pro `Create` `Edit` metody a akce tak, aby zahrnovaly `Rating` vlastnost:
 
 ```csharp
 [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")]
@@ -133,7 +133,7 @@ Pokud jsou všechny záznamy v databázi odstraněny, metoda Initialize vytvoř�
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-Odstraňte databázi a pomocí migrace znovu vytvořte databázi. Chcete-li odstranit databázi, odstraňte soubor databáze (*MvcMovie. DB*). Pak spusťte `ef database update` příkaz:
+Odstraňte databázi a pomocí migrace znovu vytvořte databázi. Chcete-li odstranit databázi, odstraňte soubor databáze *MvcMovie. DB* . Pak spusťte `ef database update` příkaz:
 
 ```dotnetcli
 dotnet ef database update

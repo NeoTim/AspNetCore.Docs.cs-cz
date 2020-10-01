@@ -19,12 +19,12 @@ no-loc:
 - SignalR
 uid: blazor/state-management
 zone_pivot_groups: blazor-hosting-models
-ms.openlocfilehash: 43794fad36efe44cad6fbb2f1a1cae293a2ddad1
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a74f056447839c4cf057948f26a9ece9b5799656
+ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625957"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91606711"
 ---
 # <a name="aspnet-core-no-locblazor-state-management"></a>BlazorSpráva stavu ASP.NET Core
 
@@ -58,20 +58,21 @@ Aplikace může zachovat jenom *stav aplikace*. Uživatelská rozhraní nelze za
 
 ## <a name="where-to-persist-state"></a>Kam zachovat stav
 
-Existují tři společná umístění pro trvalý stav:
+Pro trvalý stav existují společná umístění:
 
 * [Úložiště na straně serveru](#server-side-storage)
 * [Adresa URL](#url)
 * [Úložiště prohlížeče](#browser-storage)
+* [Služba kontejneru stavu v paměti](#in-memory-state-container-service)
 
 ### <a name="server-side-storage"></a>Úložiště na straně serveru
 
-V případě trvalé trvalosti dat, která zahrnuje více uživatelů a zařízení, může aplikace používat nezávislé serverové úložiště, ke kterému se přistupoval prostřednictvím webového rozhraní API. Vaše možnosti jsou:
+V případě trvalé trvalosti dat, která zahrnuje více uživatelů a zařízení, může aplikace používat nezávislé serverové úložiště, ke kterému se přistupoval prostřednictvím webového rozhraní API. Mezi možnosti patří:
 
 * Blob Storage
 * Úložiště hodnot klíčů
 * Relační databáze
-* Table Storage
+* Úložiště Table
 
 Po uložení dat se stav uživatele zachová a bude dostupný v jakékoli nové relaci prohlížeče.
 
@@ -119,6 +120,10 @@ Obecně `sessionStorage` je bezpečnější použít. `sessionStorage` Vyhněte 
 > [!WARNING]
 > Uživatelé mohou zobrazit nebo manipulovat s daty uloženými v `localStorage` a `sessionStorage` .
 
+## <a name="in-memory-state-container-service"></a>Služba kontejneru stavu v paměti
+
+[!INCLUDE[](~/includes/blazor-state-management/state-container.md)]
+
 ## <a name="additional-resources"></a>Další zdroje informací
 
 * [Uložení stavu aplikace před operací ověřování](xref:blazor/security/webassembly/additional-scenarios#save-app-state-before-an-authentication-operation)
@@ -162,20 +167,21 @@ Aplikace může zachovat jenom *stav aplikace*. Uživatelská rozhraní nelze za
 
 ## <a name="where-to-persist-state"></a>Kam zachovat stav
 
-Existují tři společná umístění pro trvalý stav:
+Pro trvalý stav existují společná umístění:
 
 * [Úložiště na straně serveru](#server-side-storage)
 * [Adresa URL](#url)
 * [Úložiště prohlížeče](#browser-storage)
+* [Služba kontejneru stavu v paměti](#in-memory-state-container-service)
 
 ### <a name="server-side-storage"></a>Úložiště na straně serveru
 
-V případě trvalé trvalosti dat, která zahrnuje více uživatelů a zařízení, může aplikace používat úložiště na straně serveru. Vaše možnosti jsou:
+V případě trvalé trvalosti dat, která zahrnuje více uživatelů a zařízení, může aplikace používat úložiště na straně serveru. Mezi možnosti patří:
 
 * Blob Storage
 * Úložiště hodnot klíčů
 * Relační databáze
-* Table Storage
+* Úložiště Table
 
 Po uložení dat se stav uživatele zachová a bude dostupný v jakémkoli novém okruhu.
 
@@ -701,5 +707,9 @@ Obecně se doporučuje model *nadřazené komponenty zprostředkovatele stavu* :
 Chcete-li zachovat mnoho různých stavových objektů a využívat různé podmnožiny objektů na různých místech, je lepší vyhnout se zachování stavu globálně.
 
 ::: moniker-end
+
+## <a name="in-memory-state-container-service"></a>Služba kontejneru stavu v paměti
+
+[!INCLUDE[](~/includes/blazor-state-management/state-container.md)]
 
 ::: zone-end

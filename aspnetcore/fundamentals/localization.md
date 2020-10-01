@@ -16,12 +16,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: 478e9e58f265a8c372dd048f9ba8593424050e01
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: fcf69bdaaed5cf0283ae27440c28061857d2cbcb
+ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722667"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91606772"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -368,7 +368,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.
@@ -722,7 +722,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/currency.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.
@@ -959,7 +959,7 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 ### <a name="querystringrequestcultureprovider"></a>QueryStringRequestCultureProvider
 
-Některé aplikace budou k nastavení použít řetězec dotazu <https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo?view=netcore-3.1> . Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
+Některé aplikace budou k nastavení použít řetězec dotazu <xref:System.Globalization.CultureInfo> . Pro aplikace, které používají cookie přístup k hlavičkám nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
 ```
 http://localhost:5000/?culture=es-MX&ui-culture=es-MX
@@ -1102,7 +1102,7 @@ Uvedenými
 
 [!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.

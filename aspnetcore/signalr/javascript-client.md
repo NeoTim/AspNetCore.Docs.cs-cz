@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: 359aa2b9e6b7f826d75f10645b7f2b565ab48b7a
-ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
+ms.openlocfilehash: 6fc586d144547585ef75d653bf54193def5c8b7f
+ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/22/2020
-ms.locfileid: "90847686"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91606686"
 ---
 # <a name="aspnet-core-no-locsignalr-javascript-client"></a>SignalRKlient ASP.NET Core JavaScript
 
@@ -50,7 +50,7 @@ npm install @microsoft/signalr
 
 NPM nainstaluje obsah balíčku do složky *node_modules \\ @microsoft\signalr\dist\browser * . Vytvořte novou složku s názvem *Signal* ve složce *wwwroot \\ lib* . Zkopírujte soubor *signalr.js* do složky *wwwroot\lib\signalr* .
 
-Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
+Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Například:
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -58,7 +58,7 @@ Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
 
 ### <a name="use-a-content-delivery-network-cdn"></a>Použít Content Delivery Network (CDN)
 
-Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Příklad:
+Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Například:
 
 [!code-html[](javascript-client/samples/3.x/SignalRChat/Pages/Index.cshtml?name=snippet_CDN)]
 
@@ -278,6 +278,46 @@ Následující kód ukazuje typický postup ručního opětovného připojení:
 
 Implementace reálného světa využije exponenciální přerušení nebo opakuje zadaný počet opakování.
 
+## <a name="troubleshoot-websocket-handshake-errors"></a>Řešení chyb handshake s protokolem WebSocket
+
+Tato část poskytuje při pokusu o navázání připojení k rozbočovači ASP.NET Core k chybě při výjimce *metody handshake typu WebSocket handshake* SignalR .
+
+### <a name="response-code-400-or-503"></a>Kód odpovědi 400 nebo 503
+
+Pro následující chybu:
+
+```log
+WebSocket connection to 'wss://xxx/HubName' failed: Error during WebSocket handshake: Unexpected response code: 400
+
+Error: Failed to start the connection: Error: There was an error with the transport.
+```
+
+K této chybě obvykle dochází pouze v případě, že klient používá přenos pomocí protokolu WebSockets, ale protokol WebSockets není na serveru povolen.
+
+### <a name="response-code-307"></a>Kód odpovědi 307
+
+```log
+WebSocket connection to 'ws://xxx/HubName' failed: Error during WebSocket handshake: Unexpected response code: 307
+```
+
+K tomu často dochází, když SignalR hub Server:
+
+* Naslouchá a reaguje na protokol HTTP i HTTPS.
+* Je nakonfigurován tak, aby vynutil protokol HTTPS voláním `UseHttpsRedirection` v `Startup` nebo vynutila https prostřednictvím pravidla přepsání adresy URL.
+
+Tato chyba se může vypříčinit zadáním adresy URL HTTP na straně klienta pomocí `.withUrl("http://xxx/HubName")` . Oprava pro tento případ upravuje kód tak, aby používal adresu URL protokolu HTTPS.
+
+### <a name="response-code-404"></a>Kód odpovědi 404
+
+```log
+WebSocket connection to 'wss://xxx/HubName' failed: Error during WebSocket handshake: Unexpected response code: 404
+```
+
+Pokud aplikace funguje na místním hostiteli, ale po publikování na server služby IIS vrátí tuto chybu:
+
+* Ověřte, že SignalR je aplikace ASP.NET Core hostovaná jako dílčí aplikace služby IIS.
+* Nenastavujte adresu URL s pathbase dílčí aplikace na SignalR straně klienta JavaScript `.withUrl("/SubAppName/HubName")` .
+
 ## <a name="additional-resources"></a>Další zdroje informací
 
 * [Referenční dokumentace k rozhraní API v JavaScriptu](/javascript/api/?view=signalr-js-latest&preserve-view=true )
@@ -314,7 +354,7 @@ npm install @aspnet/signalr
 
 NPM nainstaluje obsah balíčku do složky *node_modules \\ @aspnet\signalr\dist\browser * . Vytvořte novou složku s názvem *Signal* ve složce *wwwroot \\ lib* . Zkopírujte soubor *signalr.js* do složky *wwwroot\lib\signalr* .
 
-Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
+Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Například:
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -322,7 +362,7 @@ Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
 
 ### <a name="use-a-content-delivery-network-cdn"></a>Použít Content Delivery Network (CDN)
 
-Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Příklad:
+Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Například:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>

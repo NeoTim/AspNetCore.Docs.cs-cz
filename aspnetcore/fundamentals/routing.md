@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: 1b8ccb510927fbc8a40f7424ae1ca4a131799095
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 46a9fc7776022a29bedf1c88e8230e1fd52d1607
+ms.sourcegitcommit: d1a897ebd89daa05170ac448e4831d327f6b21a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722881"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91606763"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -394,7 +394,7 @@ Přetížení těchto metod přijímají argumenty, které obsahují `HttpContex
 
 Metody poskytované <xref:Microsoft.AspNetCore.Routing.LinkGenerator> funkcí support standard pro vytváření odkazů pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkazů je prostřednictvím metod rozšíření, které provádějí operace pro konkrétní typ adresy:
 
-| Metoda rozšíření | Description |
+| Metoda rozšíření | Popis |
 | ---------------- | ----------- |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | Vygeneruje identifikátor URI s absolutní cestou na základě zadaných hodnot. |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | Vygeneruje absolutní identifikátor URI na základě zadaných hodnot.             |
@@ -570,12 +570,12 @@ Regulární výrazy používané ve směrování často začínají `^` znakem a
 
 | Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Yes   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Yes   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
+| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
@@ -1113,7 +1113,7 @@ Přetížení těchto metod akceptuje argumenty, které zahrnují `HttpContext` 
 
 Metody poskytované <xref:Microsoft.AspNetCore.Routing.LinkGenerator> funkcí support standard pro vytváření odkazů pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkazů je prostřednictvím metod rozšíření, které provádějí operace pro konkrétní typ adresy.
 
-| Metoda rozšíření   | Description                                                         |
+| Metoda rozšíření   | Popis                                                         |
 | ------------------ | ------------------------------------------------------------------- |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | Vygeneruje identifikátor URI s absolutní cestou na základě zadaných hodnot. |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | Vygeneruje absolutní identifikátor URI na základě zadaných hodnot.             |
@@ -1491,12 +1491,12 @@ Regulární výrazy používané ve směrování často začínají `^` znakem s
 
 | Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Yes   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Yes   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
+| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
@@ -1592,7 +1592,7 @@ Generace odkazů generuje odkaz pro tuto trasu v případě, že jsou k `control
 
 ## <a name="complex-segments"></a>Komplexní segmenty
 
-Komplexní segmenty (například `[Route("/x{token}y")]` ) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Podrobné vysvětlení, jak se shodují komplexní segmenty, najdete v [tomto kódu](https://github.com/dotnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) . [Ukázka kódu](https://github.com/dotnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) není používána ASP.NET Core, ale poskytuje dobré vysvětlení složitých segmentů.
+Komplexní segmenty (například `[Route("/x{token}y")]` ) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Podrobné vysvětlení, jak se shodují komplexní segmenty, najdete v [tomto kódu](https://github.com/dotnet/aspnetcore/blob/v2.2.13/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) . [Ukázka kódu](https://github.com/dotnet/aspnetcore/blob/v2.2.13/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) není používána ASP.NET Core, ale poskytuje dobré vysvětlení složitých segmentů.
 <!-- While that code is no longer used by ASP.NET Core for complex segment matching, it provides a good match to the current algorithm. The [current code](https://github.com/dotnet/AspNetCore/blob/91514c9af7e0f4c44029b51f05a01c6fe4c96e4c/src/Http/Routing/src/Matching/DfaMatcherBuilder.cs#L227-L244) is too abstracted from matching to be useful for understanding complex segment matching.
 -->
 
@@ -1935,12 +1935,12 @@ Regulární výrazy používané v směrování často začínají znakem stří
 
 | Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Yes   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Yes   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
+| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
@@ -1998,6 +1998,6 @@ Generace odkazů generuje odkaz pro tuto trasu v případě, že jsou k `control
 
 ## <a name="complex-segments"></a>Komplexní segmenty
 
-Komplexní segmenty (například `[Route("/x{token}y")]` ) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Podrobné vysvětlení, jak se shodují komplexní segmenty, najdete v [tomto kódu](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) . [Ukázka kódu](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) není používána ASP.NET Core, ale poskytuje dobré vysvětlení složitých segmentů.
+Komplexní segmenty (například `[Route("/x{token}y")]` ) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Podrobné vysvětlení, jak se shodují komplexní segmenty, najdete v [tomto kódu](https://github.com/dotnet/aspnetcore/blob/v2.2.13/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) . [Ukázka kódu](https://github.com/dotnet/aspnetcore/blob/v2.2.13/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) není používána ASP.NET Core, ale poskytuje dobré vysvětlení složitých segmentů.
 
 ::: moniker-end
