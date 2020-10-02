@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 1338ecd6205a351b54a58522b1713a6d70e2d22a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: f648837ce42bef4a828d7eda1a6abdfdd8ac07a2
+ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634745"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91654033"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostování ASP.NET Core ve Windows se službou IIS
 
@@ -548,24 +548,6 @@ ICACLS C:\sites\MyWebApp /grant "IIS AppPool\DefaultAppPool":F
 ```
 
 Další informace najdete v tématu [Icacls](/windows-server/administration/windows-commands/icacls) .
-
-## <a name="http2-support"></a>Podpora HTTP/2
-
-[Http/2](https://httpwg.org/specs/rfc7540.html) se podporuje s ASP.NET Core v následujících scénářích nasazení služby IIS:
-
-* V procesu
-  * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
-  * Připojení TLS 1,2 nebo novější
-* Mimo proces
-  * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
-  * Veřejná připojení hraničních serverů používají protokol HTTP/2, ale připojení reverzního proxy [serveru Kestrel](xref:fundamentals/servers/kestrel) používá protokol HTTP/1.1.
-  * Připojení TLS 1,2 nebo novější
-
-Pro nasazení v rámci procesu, když je vytvořeno připojení HTTP/2, sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) `HTTP/2` . Pro nasazení mimo proces, když je vytvořeno připojení HTTP/2, sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) `HTTP/1.1` .
-
-Další informace o modelech hostování v procesu a mimoprocesové procesy naleznete v tématu <xref:host-and-deploy/aspnet-core-module> .
-
-HTTP/2 je ve výchozím nastavení povolené. Pokud není navázáno připojení HTTP/2, připojení se vrátí k HTTP/1.1. Další informace o konfiguraci HTTP/2 v nasazeních služby IIS najdete v tématu [http/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis).
 
 ## <a name="cors-preflight-requests"></a>Požadavky na kontrolu před výstupem CORS
 

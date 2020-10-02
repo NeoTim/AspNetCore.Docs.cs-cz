@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 5e073845acbecdf0db4c30c4725f12033cfc42ac
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: e01704cb10c88f3e9442e74034f5e5d39787f300
+ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634680"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91653890"
 ---
 # <a name="part-3-no-locrazor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a>Část 3 Razor : stránky s EF Core v ASP.NET Core řazení, filtrování, stránkování
 
@@ -42,25 +42,26 @@ Na následujícím obrázku je znázorněna Dokončená stránka. Záhlaví slou
 
 Nahraďte kód na *stránkách/Students/index. cshtml. cs* následujícím kódem pro přidání řazení.
 
-[!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_All&highlight=21-24,26,28-52)]
+[!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_All)]
 
 Předcházející kód:
 
+* Vyžaduje přidání `using System;` .
 * Přidá vlastnosti, které obsahují parametry řazení.
 * Změní název `Student` vlastnosti na `Students` .
 * Nahradí kód v `OnGetAsync` metodě.
 
-`OnGetAsync`Metoda přijímá `sortOrder` parametr z řetězce dotazu v adrese URL. Adresa URL (včetně řetězce dotazu) je vygenerována [pomocníkem značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper).
+`OnGetAsync`Metoda přijímá `sortOrder` parametr z řetězce dotazu v adrese URL. Adresa URL a řetězec dotazu jsou vygenerovány [pomocníkem značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper).
 
-`sortOrder`Parametr je buď "Name" nebo "date". `sortOrder`Parametr je volitelně následován "_desc" pro určení sestupného pořadí. Výchozí pořadí řazení je vzestupné.
+`sortOrder`Parametr je buď `Name` nebo `Date` . `sortOrder`Parametr je volitelně následován `_desc` k určení sestupného pořadí. Výchozí pořadí řazení je vzestupné.
 
-Když se na stránku indexu požaduje odkaz na **studenty** , neexistuje žádný řetězec dotazu. Studenti se zobrazí ve vzestupném pořadí podle příjmení. V příkazu je výchozí hodnota vzestupného pořadí podle příjmení (případ-až) `switch` . Když uživatel klikne na odkaz záhlaví sloupce, `sortOrder` je v hodnotě řetězce dotazu uvedena příslušná hodnota.
+Když se na stránku indexu požaduje odkaz na **studenty** , neexistuje žádný řetězec dotazu. Studenti se zobrazí ve vzestupném pořadí podle příjmení. Vzestupné pořadí podle příjmení je `default` v `switch` příkazu. Když uživatel klikne na odkaz záhlaví sloupce, `sortOrder` je v hodnotě řetězce dotazu uvedena příslušná hodnota.
 
 `NameSort` a `DateSort` jsou používány Razor stránkou ke konfiguraci hypertextových odkazů záhlaví sloupce s příslušnými hodnotami řetězce dotazu:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_Ternary)]
 
-Kód používá podmíněný operátor jazyka C# [?:](/dotnet/csharp/language-reference/operators/conditional-operator). `?:`Operátor je Ternární operátor (používá tři operandy). První řádek určuje, že pokud `sortOrder` je hodnota null nebo prázdná, `NameSort` je nastavena na "name_desc." Pokud `sortOrder` hodnota **není** null nebo prázdná, `NameSort` je nastavena na prázdný řetězec.
+Kód používá [podmíněný operátor jazyka C#?:](/dotnet/csharp/language-reference/operators/conditional-operator). `?:`Operátor je Ternární operátor, používá tři operandy. První řádek určuje, že pokud `sortOrder` je hodnota null nebo prázdná, `NameSort` je nastavena na `name_desc` . Pokud `sortOrder` hodnota ***není*** null nebo prázdná, `NameSort` je nastavena na prázdný řetězec.
 
 Tyto dva příkazy umožňují, aby stránka nastavila hypertextové odkazy záhlaví sloupce následujícím způsobem:
 
@@ -110,7 +111,7 @@ Postup přidání filtrování na stránku indexu studentů:
 
 Nahraďte kód v *Students/index. cshtml. cs* následujícím kódem pro přidání filtrování:
 
-[!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml.cs?name=snippet_All&highlight=28,33,37-41)]
+[!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml.cs?name=snippet_All&highlight=17,22,26-30)]
 
 Předcházející kód:
 
@@ -119,7 +120,7 @@ Předcházející kód:
 
 ### <a name="iqueryable-vs-ienumerable"></a>IQueryable vs. IEnumerable
 
-Kód volá `Where` metodu na `IQueryable` objekt a filtr je zpracován na serveru. V některých scénářích může aplikace zavolat `Where` metodu jako metodu rozšíření v kolekci v paměti. Předpokládejme například, že se `_context.Students` změní z EF Core `DbSet` na metodu úložiště, která vrací `IEnumerable` kolekci. Výsledek by byl normálně stejný, ale v některých případech se může lišit.
+Kód volá <xref:System.Linq.Queryable.Where%2A> metodu na `IQueryable` objekt a filtr je zpracován na serveru. V některých scénářích může aplikace zavolat `Where` metodu jako metodu rozšíření v kolekci v paměti. Předpokládejme například, že se `_context.Students` změní z EF Core `DbSet` na metodu úložiště, která vrací `IEnumerable` kolekci. Výsledek by byl normálně stejný, ale v některých případech se může lišit.
 
 Například implementace .NET Framework ve `Contains` výchozím nastavení provádí porovnání rozlišující malá a velká písmena. V SQL Server `Contains` je rozlišování velkých a malých písmen určeno nastavením kolace instance SQL Server. Výchozí hodnota SQL Server nerozlišuje malá a velká písmena. Výchozí hodnota SQLite rozlišuje velká a malá písmena. `ToUpper` může být volána, aby test explicitně nerozlišuje velikost písmen:
 
@@ -139,7 +140,7 @@ Další informace najdete v tématu [jak použít dotaz nerozlišující malá a
 
 ### <a name="update-the-no-locrazor-page"></a>Aktualizovat Razor stránku
 
-Nahraďte kód na *stránkách/Students/index. cshtml* a vytvořte tak tlačítko **hledání** a roztříděte Chrome.
+Chcete-li přidat tlačítko **hledání** , nahraďte kód na *stránkách/Students/index. cshtml* .
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml?highlight=14-23)]
 
@@ -151,10 +152,10 @@ Otestujte aplikaci:
 
 * Vyberte **Hledat**.
 
-Všimněte si, že adresa URL obsahuje hledaný řetězec. Příklad:
+Všimněte si, že adresa URL obsahuje hledaný řetězec. Například:
 
-```
-https://localhost:<port>/Students?SearchString=an
+```browser-address-bar
+https://localhost:5001/Students?SearchString=an
 ```
 
 Pokud je stránka záložkou, obsahuje záložka adresu URL stránky a `SearchString` řetězec dotazu. `method="get"`Ve `form` značce je to, co způsobilo vygenerování řetězce dotazu.
@@ -181,15 +182,16 @@ Ve složce projektu vytvořte `PaginatedList.cs` pomocí následujícího kódu:
 
 Nahraďte kód v *Students/index. cshtml. cs* a přidejte stránkování.
 
-[!code-csharp[Main](intro/samples/cu30/Pages/Students/Index.cshtml.cs?name=snippet_All&highlight=26,28-29,31,34-41,68-70)]
+[!code-csharp[Main](intro/samples/cu30/Pages/Students/Index.cshtml.cs?name=snippet_All&highlight=15-20,23-30,57-59)]
 
 Předcházející kód:
 
 * Změní typ `Students` vlastnosti z `IList<Student>` na `PaginatedList<Student>` .
 * Přidá index stránky, aktuální `sortOrder` a `currentFilter` do `OnGetAsync` podpisu metody.
-* Uloží pořadí řazení do vlastnosti CurrentSort.
+* Uloží pořadí řazení ve `CurrentSort` Vlastnosti.
 * Obnoví index stránky na hodnotu 1, pokud je k dispozici nový hledaný řetězec.
 * Používá `PaginatedList` třídu pro získání entit studenta.
+* Nastaví `pageSize` na 3. Skutečná aplikace by používala [konfiguraci](xref:fundamentals/configuration/index) k nastavení hodnoty velikosti stránky.
 
 Všechny parametry, které `OnGetAsync` obdrží, jsou null v těchto případech:
 
@@ -212,7 +214,7 @@ Pokud se hledaný řetězec změní během stránkování, stránka je resetová
 
   `PaginatedList.CreateAsync`Metoda převede dotaz studenta na jednu stránku studentů v typu kolekce, který podporuje stránkování. Tato jediná stránka studentů se předává na Razor stránku.
 
-  Dvě otazníky po `pageIndex` v `PaginatedList.CreateAsync` volání reprezentují [operátor slučování null](/dotnet/csharp/language-reference/operators/null-conditional-operator). Operátor slučování null definuje výchozí hodnotu pro typ s možnou hodnotou null. Výraz `(pageIndex ?? 1)` znamená, že vrátí hodnotu, `pageIndex` Pokud má hodnotu. Pokud `pageIndex` hodnota nemá, vrátí hodnotu 1.
+  Dvě otazníky po `pageIndex` v `PaginatedList.CreateAsync` volání reprezentují [operátor slučování null](/dotnet/csharp/language-reference/operators/null-conditional-operator). Operátor slučování null definuje výchozí hodnotu pro typ s možnou hodnotou null. Výraz `pageIndex ?? 1` vrátí hodnotu `pageIndex` , pokud má hodnotu, jinak vrátí hodnotu 1.
 
 ### <a name="add-paging-links-to-the-no-locrazor-page"></a>Přidat odkazy na stránkování na Razor stránku
 
@@ -258,7 +260,7 @@ Vytvořte *stránky/o souboru. cshtml* pomocí následujícího kódu:
 
 ### <a name="create-the-page-model"></a>Vytvoření modelu stránky
 
-Vytvořte *stránky/o soubor. cshtml. cs* s následujícím kódem:
+Aktualizujte soubor *stránky/o. cshtml. cs* následujícím kódem:
 
 [!code-csharp[Main](intro/samples/cu30/Pages/About.cshtml.cs)]
 

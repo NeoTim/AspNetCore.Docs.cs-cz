@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: e5346c1e58127747d777b5040fe7bc7d99b9a489
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 8ed9ec3447205107194ffa5c329c0e5ae0fc5553
+ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722868"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91653968"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru HTTP.sys v ASP.NET Core
 
@@ -272,7 +272,24 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="advanced-http2-features-to-support-grpc"></a>Rozšířené funkce protokolu HTTP/2 pro podporu gRPC
+
+Další funkce HTTP/2 v HTTP.sys podporují gRPC, včetně podpory pro přívěsy odpovědí a odesílání snímků pro resetování.
+
+Požadavky na spuštění gRPC s HTTP.SYS:
+
+* Windows 10, Build operačního systému 19041,508 nebo novější
+* Připojení TLS 1,2 nebo novější
+
+### <a name="trailers"></a>Karoseri
+
+[!INCLUDE[](~/includes/trailers.md)]
+
+### <a name="reset"></a>Resetovat
+
+[!INCLUDE[](~/includes/reset.md)]
+
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -523,7 +540,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -776,7 +793,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)
@@ -1029,7 +1046,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 Pro aplikace hostované HTTP.sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Povolit ověřování systému Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](/windows/win32/http/http-api-start-page)

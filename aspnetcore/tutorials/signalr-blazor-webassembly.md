@@ -5,7 +5,7 @@ description: Vytvořte aplikaci Chat, která používá ASP.NET Core SignalR s B
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/10/2020
+ms.date: 10/01/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 4d33e99ceb8273487144447eae324469df67c9ff
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: a8b1e7cd94836e89c438045df4bb8dd049da7f72
+ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88633380"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91653981"
 ---
 # <a name="use-aspnet-core-no-locsignalr-with-no-locblazor-webassembly"></a>Použít ASP.NET Core SignalR s Blazor WebAssembly
 
@@ -42,7 +42,35 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-blazor-webassembly/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadované součásti
+
+::: moniker range=">= aspnetcore-5.0"
+
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+<!-- * [Visual Studio 2019 16.8 or later](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload -->
+* [Visual Studio 2019 16,8 nebo novější (ve verzi Preview)](https://visualstudio.microsoft.com/vs/preview/) s úlohou **vývoje ASP.NET a webu**
+* [!INCLUDE [.NET Core 5.0 SDK](~/includes/5.0-SDK.md)]
+
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-5.0.md)]
+
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+<!-- * [Visual Studio for Mac version 8.8 or later (in preview)](https://visualstudio.microsoft.com/vs/mac/) -->
+* [Visual Studio pro Mac verze 8,8 nebo novější (ve verzi Preview)](https://docs.microsoft.com/visualstudio/releasenotes/vs2019-mac-preview-relnotes)
+* [!INCLUDE [.NET Core 5.0 SDK](~/includes/5.0-SDK.md)]
+
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+
+[!INCLUDE[](~/includes/5.0-SDK.md)]
+
+---
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -58,11 +86,13 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 * [Visual Studio pro Mac verze 8,6 nebo novější](https://visualstudio.microsoft.com/vs/mac/)
 * [!INCLUDE [.NET Core 3.1 SDK](~/includes/3.1-SDK.md)]
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
 [!INCLUDE[](~/includes/3.1-SDK.md)]
 
 ---
+
+::: moniker-end
 
 ## <a name="create-a-hosted-no-locblazor-webassembly-app-project"></a>Vytvoření projektu hostované Blazor WebAssembly aplikace
 
@@ -70,8 +100,19 @@ Postupujte podle pokynů pro výběr nástrojů:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
+::: moniker range=">= aspnetcore-5.0"
+
+> [!NOTE]
+> Vyžaduje se Visual Studio 16,8 nebo novější a .NET Core SDK 5.0.0 nebo novější.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 > [!NOTE]
 > Vyžaduje se Visual Studio 16,6 nebo novější a .NET Core SDK 3.1.300 nebo novější.
+
+::: moniker-end
 
 1. Vytvoření nového projektu
 
@@ -115,7 +156,7 @@ Postupujte podle pokynů pro výběr nástrojů:
 
 1. Otevřete projekt tak, že přejdete do složky projektu a otevřete soubor řešení projektu ( `.sln` ).
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
 V příkazovém prostředí spusťte následující příkaz:
 
@@ -161,7 +202,7 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 1. Pokud se zobrazí dialogové okno pro **přijetí licence** , vyberte **přijmout** , pokud souhlasíte s licenčními podmínkami.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
 V příkazovém prostředí spusťte následující příkazy:
 
@@ -176,7 +217,17 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidejte následující `ChatHub` třídu ( `Hubs/ChatHub.cs` ):
 
+::: moniker range=">= aspnetcore-5.0"
+
+[!code-csharp[](signalr-blazor-webassembly/samples/5.x/BlazorSignalRApp/Server/Hubs/ChatHub.cs)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
 [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Hubs/ChatHub.cs)]
+
+::: moniker-end
 
 ## <a name="add-services-and-an-endpoint-for-the-no-locsignalr-hub"></a>Přidání služeb a koncového bodu pro SignalR centrum
 
@@ -190,14 +241,34 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Přidejte SignalR služby middlewaru pro komprimaci a odezvu do `Startup.ConfigureServices` :
 
+::: moniker range=">= aspnetcore-5.0"
+
+   [!code-csharp[](signalr-blazor-webassembly/samples/5.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_ConfigureServices&highlight=3,5-9)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
    [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_ConfigureServices&highlight=3,5-9)]
+
+::: moniker-end
 
 1. V `Startup.Configure`:
 
    * V horní části Konfigurace kanálu zpracování použijte middleware pro kompresi odpovědí.
    * Mezi koncovými body řadičů a Fallback na straně klienta přidejte koncový bod pro centrum.
 
+::: moniker range=">= aspnetcore-5.0"
+
+   [!code-csharp[](signalr-blazor-webassembly/samples/5.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_Configure&highlight=3,25)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
    [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_Configure&highlight=3,25)]
+
+::: moniker-end
 
 ## <a name="add-no-locrazor-component-code-for-chat"></a>Přidat Razor kód komponenty pro chat
 
@@ -205,7 +276,17 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Nahraďte kód následujícím kódem:
 
-[!code-razor[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Client/Pages/Index.razor)]
+::: moniker range=">= aspnetcore-5.0"
+
+   [!code-razor[](signalr-blazor-webassembly/samples/5.x/BlazorSignalRApp/Client/Pages/Index.razor)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+   [!code-razor[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Client/Pages/Index.razor)]
+
+::: moniker-end
 
 ## <a name="run-the-app"></a>Spuštění aplikace
 
@@ -227,9 +308,21 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Když VS Code nabídky pro vytvoření profilu spuštění pro serverovou aplikaci ( `.vscode/launch.json` ), `program` zobrazí se položka podobná následujícímu, aby odkazovala na sestavení aplikace ( `{APPLICATION NAME}.Server.dll` ):
 
+::: moniker range=">= aspnetcore-5.0"
+
+   ```json
+   "program": "${workspaceFolder}/Server/bin/Debug/net5.0/{APPLICATION NAME}.Server.dll"
+   ```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
    ```json
    "program": "${workspaceFolder}/Server/bin/Debug/netcoreapp3.1/{APPLICATION NAME}.Server.dll"
    ```
+
+::: moniker-end
 
 1. Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd> + <kbd>F5</kbd> pro spuštění aplikace bez ladění.
 
@@ -253,7 +346,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
 1. V příkazovém prostředí spusťte následující příkazy:
 
