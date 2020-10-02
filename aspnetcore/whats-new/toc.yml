@@ -5,6 +5,8 @@
     - name: 2020
       expanded: true
       items:
+        - name: Září
+          href: 2020-09.md
         - name: Srpen
           href: 2020-08.md
         - name: Červenec
@@ -15,5 +17,3 @@
           href: 2020-05.md
         - name: Duben
           href: 2020-04.md
-        - name: Březen
-          href: 2020-03.md
