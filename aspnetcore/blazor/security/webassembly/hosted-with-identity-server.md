@@ -5,7 +5,7 @@ description: Seznamte se s postupem zabezpečení hostované Blazor WebAssembly 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/09/2020
+ms.date: 09/02/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 58c21f4dbe831e99570ca8b0d7bc78616c1e5bfb
-ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
+ms.openlocfilehash: 0d63ddbc730d3feef0682f6e49dd1b1b4d5e0301
+ms.sourcegitcommit: c026bf76a0e14a5ee68983519a63574c674e9ff7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88712373"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91636813"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-no-locidentity-server"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 
@@ -467,9 +467,108 @@ V klientské aplikaci jsou v tuto chvíli funkční přístupy k komponentám au
 
 [!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]
 
+## <a name="host-in-azure-app-service-with-a-custom-domain"></a>Hostování v Azure App Service s vlastní doménou
+
+Následující pokyny popisují, jak nasadit hostovanou Blazor WebAssembly aplikaci se Identity serverem pro [Azure App Service](https://azure.microsoft.com/services/app-service/) s vlastní doménou.
+
+Pro tento scénář hostování **nepoužívejte stejný** certifikát pro [ Identity podpisový klíč tokenu serveru](https://docs.identityserver.io/en/latest/topics/crypto.html#token-signing-and-validation) a zabezpečenou komunikaci protokolu HTTPS s prohlížeči:
+
+* Používání různých certifikátů pro tyto dvě požadavky je dobrým zvykem zabezpečení, protože pro každý účel izoluje privátní klíče.
+* Certifikáty TLS pro komunikaci s prohlížeči se spravují nezávisle, aniž by to ovlivnilo Identity podepisování tokenů serveru.
+* Když [Azure Key Vault](https://azure.microsoft.com/services/key-vault/) poskytne certifikát do App Service aplikace pro vlastní doménovou vazbu, Identity Server nemůže získat stejný certifikát od Azure Key Vault pro podepisování tokenů. I když Identity je možné nakonfigurovat server tak, aby používal stejný certifikát TLS z fyzické cesty, je vkládání certifikátů zabezpečení do správy zdrojového kódu **špatným postupem a mělo by se ve většině případů vyhnout**.
+
+V následujících pokynech se certifikát podepsaný svým držitelem vytvoří v Azure Key Vault výhradně pro Identity Podepisování tokenu serveru. IdentityKonfigurace serveru používá certifikát trezoru klíčů prostřednictvím `My`  >  `CurrentUser` úložiště certifikátů aplikace. Další certifikáty, které se používají pro přenosy HTTPS s vlastními doménami, se vytvářejí a konfigurují odděleně od Identity podpisového certifikátu serveru.
+
+Konfigurace aplikace, Azure App Service a Azure Key Vault pro hostování s vlastní doménou a HTTPS:
+
+1. Vytvořte [plán App Service](/azure/app-service/overview-hosting-plans) s úrovní plánu `Basic B1` nebo vyšší. App Service vyžaduje, `Basic B1` aby úroveň služby nebo vyšší používala vlastní domény.
+1. Vytvořte certifikát PFX pro komunikaci zabezpečeného prohlížeče (protokol HTTPS) lokality s běžným názvem plně kvalifikovaného názvu domény (FQDN) webu, který vaše organizace řídí (například `www.contoso.com` ). Vytvořte certifikát pomocí:
+   * Použití klíče
+     * Ověření digitálního podpisu ( `digitalSignature` )
+     * Šifrování klíče ( `keyEncipherment` )
+   * Rozšířené/rozšířené použití klíče
+     * Ověřování klientů (1.3.6.1.5.5.7.3.2)
+     * Ověřování serveru (1.3.6.1.5.5.7.3.1)
+
+   Chcete-li vytvořit certifikát, použijte jeden z následujících přístupů nebo jakýkoli jiný vhodný nástroj nebo online službu:
+
+   * [Azure Key Vault](/azure/key-vault/certificates/quick-create-portal#add-a-certificate-to-key-vault)
+   * [MakeCert ve Windows](/windows/desktop/seccrypto/makecert)
+   * [OpenSSL](https://www.openssl.org)
+
+   Poznamenejte si heslo, které se použije později k importu certifikátu do Azure Key Vault.
+
+   Další informace o Azure Key Vaultch certifikátech najdete v článku [Azure Key Vault: certifikáty](/azure/key-vault/certificates/).
+1. Vytvořte novou Azure Key Vault nebo použijte existující Trezor klíčů v předplatném Azure.
+1. V oblasti **certifikáty** trezoru klíčů importujte certifikát webu PFX. Poznamenejte si kryptografický otisk certifikátu, který se v konfiguraci aplikace používá později.
+1. V Azure Key Vault Vygenerujte nový certifikát podepsaný svým držitelem pro Identity Podepisování tokenu serveru. Zadejte **název** certifikátu a **Předmět**. **Předmět** je určen jako `CN={COMMON NAME}` , kde `{COMMON NAME}` zástupný symbol je běžný název certifikátu. Běžným názvem může být libovolný alfanumerický řetězec. Například `CN=IdentityServerSigning` je platný **Předmět**certifikátu. Použijte výchozí **Rozšířená nastavení konfigurace zásad** . Poznamenejte si kryptografický otisk certifikátu, který se v konfiguraci aplikace používá později.
+1. V Azure Portal přejděte na Azure App Service a vytvořte novou App Service s následující konfigurací:
+   * **Publikování** je nastaveno na `Code` .
+   * **Zásobník modulu runtime** nastavený na modul runtime aplikace
+   * V poli **SKU a velikost**potvrďte, že je úroveň App Service `Basic B1` nebo vyšší.  App Service vyžaduje, `Basic B1` aby úroveň služby nebo vyšší používala vlastní domény.
+1. Jakmile Azure vytvoří App Service, otevřete **konfiguraci** aplikace a přidejte nové nastavení aplikace s určením kryptografických otisků certifikátů, které jste si poznamenali dříve. Klíč nastavení aplikace je `WEBSITE_LOAD_CERTIFICATES` . Kryptografické otisky certifikátů v hodnotě nastavení aplikace oddělte čárkou, jak ukazuje následující příklad:
+   * Klíč: `WEBSITE_LOAD_CERTIFICATES`
+   * Hodnota: `57443A552A46DB...D55E28D412B943565,29F43A772CB6AF...1D04F0C67F85FB0B1`
+
+   V Azure Portal je ukládání nastavení aplikace dvoustupňový proces: uložte `WEBSITE_LOAD_CERTIFICATES` nastavení klíč-hodnota a potom v horní části okna vyberte tlačítko **Uložit** .
+1. Vyberte **Nastavení TLS/SSL**aplikace. Vyberte **certifikáty privátních klíčů (. pfx)**. Dvakrát pomocí procesu **import Key Vault certifikátů** importujte certifikát webu pro komunikaci pomocí protokolu HTTPS a Identity podpisový certifikát tokenu serveru podepsaného svým držitelem.
+1. Přejděte do okna **vlastní domény** . Na webu vašeho doménového registrátora nakonfigurujte doménu pomocí **IP adresy** a **ID ověření vlastní domény** . Typická konfigurace domény zahrnuje:
+   * **Záznam** a s **hostitelem** `@` a hodnotou IP adresy z Azure Portal.
+   * **Záznam TXT** s **hostitelem** `asuid` a hodnotou identifikátoru ověřování vygenerovaných Azure a poskytovaný Azure Portal.
+
+   Ujistěte se, že jste změny uložili na webu vašeho registrátora domény správně. Některé weby registrátora vyžadují dvoustupňový proces ukládání záznamů v doméně: jeden nebo více záznamů se ukládá jednotlivě a pomocí samostatného tlačítka aktualizují registraci domény.
+1. Vraťte se do okna **vlastní domény** v Azure Portal. Vyberte **Přidat vlastní doménu**. Vyberte možnost **záznam A** . Zadejte doménu a vyberte **ověřit**. Pokud jsou záznamy v doméně správné a šířené přes Internet, portál vám umožní vybrat tlačítko **Přidat vlastní doménu** .
+
+   Může trvat několik dní, než se změny v registraci domény šíří v rámci služby DNS (Internet Domain Name Server) po jejich zpracování doménovým registrátorem. Pokud se záznamy v doméně během tří pracovních dnů neaktualizují, potvrďte, že záznamy jsou správně nastavené s doménovým registrátorem, a obraťte se na zákaznickou podporu.
+1. V okně **vlastní domény** je **stav protokolu SSL** pro danou doménu označený `Not Secure` . Vyberte odkaz **Přidat vazbu** . Vyberte certifikát HTTPS lokality z trezoru klíčů pro vlastní doménovou vazbu.
+1. V aplikaci Visual Studio otevřete soubor nastavení aplikace v projektu *serveru* ( `appsettings.json` nebo `appsettings.Production.json` ). V Identity konfiguraci serveru přidejte následující `Key` část. Zadejte **Předmět** certifikátu podepsaného svým držitelem pro `Name` klíč. V následujícím příkladu je běžný název certifikátu přiřazený v trezoru klíčů `IdentityServerSigning` , což má **za** následek `CN=IdentityServerSigning` :
+
+   ```json
+   "IdentityServer": {
+
+     ...
+
+     "Key": {
+       "Type": "Store",
+       "StoreName": "My",
+       "StoreLocation": "CurrentUser",
+       "Name": "CN=IdentityServerSigning"
+     }
+   },
+   ```
+
+1. V aplikaci Visual Studio vytvořte Azure App Service [profil publikování](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) pro *serverový* projekt. V řádku nabídek vyberte: **sestavit**  >  **publikovat**  >  **novou**službu  >  **Azure**  >  **Azure App Service** (Windows nebo Linux). Když je sada Visual Studio připojená k předplatnému Azure, můžete si nastavit **zobrazení** prostředků Azure podle **typu prostředku**. Přejděte v seznamu **webové aplikace** , vyhledejte App Service pro aplikaci a vyberte ji. Vyberte **Dokončit**.
+1. Když se Visual Studio vrátí do okna **publikovat** , automaticky se zjistí závislosti trezoru klíčů a SQL serverch databázových služeb.
+
+   Pro službu trezoru klíčů se nevyžadují žádné změny konfigurace výchozích nastavení.
+
+   Pro účely testování je možné nasadit místní databázi [SQLite](https://www.sqlite.org/index.html) aplikace, která je nakonfigurovaná ve výchozím nastavení Blazor šablonou, a to bez další konfigurace. Konfigurace jiné databáze pro Identity Server v produkčním prostředí je mimo rámec tohoto článku. Další informace najdete v tématu prostředky databáze v následujících sadách dokumentace:
+   * [App Service](/azure/app-service/)
+   * [Identity WebServer](https://identityserver4.readthedocs.io/en/latest/)
+
+1. V části název profilu nasazení v horní části okna vyberte odkaz **Upravit** . Změňte cílovou adresu URL na adresu URL vlastní domény webu (například `https://www.contoso.com` ). Uložte nastavení.
+1. Publikujte aplikaci. Visual Studio otevře okno prohlížeče a požádá ho o web ve své vlastní doméně.
+
+Dokumentace k Azure obsahuje další podrobnosti o používání služeb Azure a vlastních domén s vazbou TLS v App Service, včetně informací o použití záznamů CNAME namísto záznamů. Další informace naleznete v následujících zdrojích:
+
+* [Dokumentace k App Service](/azure/app-service/)
+* [Kurz: mapování stávajícího vlastního názvu DNS na Azure App Service](/azure/app-service/app-service-web-tutorial-custom-domain)
+* [Zabezpečení vlastního názvu DNS s vazbou TLS/SSL v Azure App Service](/azure/app-service/configure-ssl-bindings)
+* [Azure Key Vault](/azure/key-vault/)
+
+Pro každý testovací běh aplikace po změně aplikace, konfigurace aplikace nebo služeb Azure v Azure Portal doporučujeme použít nové soukromé nebo anonymním okno prohlížeče. cookiePři záchodu s z předchozího testovacího běhu může dojít k selhání ověřování nebo autorizaci při testování lokality i v případě, že je Konfigurace lokality správná. Další informace o tom, jak nakonfigurovat aplikaci Visual Studio tak, aby otevřela nové v soukromém nebo anonymním okně prohlížeče pro každý testovací běh, najdete v části [ Cookie s a daty o webu](#cookies-and-site-data) .
+
+Když se v Azure Portal změní konfigurace App Service, obecně se tyto aktualizace projeví rychleji, ale ne okamžitě. V některých případech je třeba počkat krátce App Service restartováním, aby se změna konfigurace projevila.
+
+Pokud řešíte problém s načtením certifikátu, spusťte v prostředí příkazového řádku PowerShellu Azure Portal [Kudu](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service) následující příkaz. Příkaz zobrazí seznam certifikátů, ke kterým může aplikace přistupovat z `My`  >  `CurrentUser` úložiště certifikátů. Výstup zahrnuje předměty certifikátů a kryptografické otisky užitečné při ladění aplikace:
+
+```powershell
+Get-ChildItem -path Cert:\CurrentUser\My -Recurse | Format-List DnsNameList, Subject, Thumbprint, EnhancedKeyUsageList
+```
+
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Nasazení do Azure App Service](xref:security/authentication/identity/spa#deploy-to-production)
 * [Import certifikátu z Key Vault (dokumentace k Azure)](/azure/app-service/configure-ssl-certificate#import-a-certificate-from-key-vault)
