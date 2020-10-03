@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/controllers/filters
-ms.openlocfilehash: c97e3afbbf94a4cb721c5d814a377eec3e26a03b
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: eeae167286e793ecd5a547cea0142cf7d8014ece
+ms.sourcegitcommit: c0a15ab8549cb729731a0fdf1d7da0b7feaa11ff
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865408"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91671779"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -221,7 +221,7 @@ Pomocná rutina `TestController`:
 
 <!-- test via  webBuilder.UseStartup<Startup>(); -->
 
-Navigace pro `https://localhost:5001/Test2/FilterTest2` spustí následující kód:
+Navigace pro `https://localhost:5001/Test/FilterTest2` spustí následující kód:
 
 * `TestController.OnActionExecuting`
   * `MySampleActionFilter.OnActionExecuting`
@@ -260,8 +260,8 @@ Tři filtry jsou spouštěny v následujícím pořadí:
   * `MySampleActionFilter.OnActionExecuting`
     * `MyAction2FilterAttribute.OnActionExecuting`
       * `Test2Controller.FilterTest2`
-    * `MySampleActionFilter.OnActionExecuted`
-  * `MyAction2FilterAttribute.OnResultExecuting`
+    * `MyAction2FilterAttribute.OnResultExecuting`
+  * `MySampleActionFilter.OnActionExecuted`
 * `Test2Controller.OnActionExecuted`
 
 `Order`Vlastnost Přepisuje obor při určování pořadí, ve kterém jsou filtry spouštěny. Filtry jsou seřazené podle pořadí, pak se k přerušení vztahů používá obor. Všechny předdefinované filtry implementují `IOrderedFilter` a nastaví výchozí `Order` hodnotu na 0. Jak už bylo uvedeno výše, filtry na úrovni řadiče nastaví vlastnost [Order](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/Filters/ControllerActionFilter.cs#L15-L17) na `int.MinValue` pro předdefinované filtry. Scope určí pořadí, pokud `Order` není nastavená na nenulovou hodnotu.

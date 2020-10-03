@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 209f75edc2901422b94c619a505e0b8316aec699
-ms.sourcegitcommit: f09407d128634d200c893bfb1c163e87fa47a161
+ms.openlocfilehash: 2babfb33921412f5da20d2b5060766b7ee483392
+ms.sourcegitcommit: c0a15ab8549cb729731a0fdf1d7da0b7feaa11ff
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2020
-ms.locfileid: "88865396"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91671753"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení
 
@@ -42,13 +42,13 @@ Tyto informace můžou být důležité ve zpracování žádostí, například 
 
 Podle konvence proxy předávají informace v hlavičkách protokolu HTTP.
 
-| Záhlaví | Popis |
+| Záhlaví | Description |
 | ------ | ----------- |
 | X-předané – pro | Uchovává informace o klientovi, který inicioval požadavek a následné proxy servery v řetězci proxy serverů. Tento parametr může obsahovat IP adresy (a volitelně také čísla portů). V řetězci proxy serverů označuje první parametr klienta, ve kterém se žádost poprvé nastavila. Následující identifikátory proxy následují. Poslední proxy server v řetězci není uveden v seznamu parametrů. Poslední IP adresa proxy serveru a volitelně je číslo portu, které je k dispozici jako Vzdálená IP adresa v transportní vrstvě. |
 | X-předáno – proto | Hodnota původního schématu (HTTP/HTTPS). Hodnota může být také seznamem schémat, pokud je požadavek procházen více proxy. |
 | X-předávaný-Host | Původní hodnota pole hlavičky hostitele Servery proxy většinou nemění hlavičku hostitele. Viz informační [zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787](https://github.com/aspnet/Announcements/issues/295) pro informace o chybě zabezpečení zvýšení oprávnění, která má vliv na systémy, ve kterých server proxy neověřuje nebo omezuje hlavičky hostitele na známé správné hodnoty. |
 
-Middleware předávaných hlaviček z balíčku [Microsoft. AspNetCore. HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) přečte tato záhlaví a vyplní související pole v <xref:Microsoft.AspNetCore.Http.HttpContext> .
+Middleware předávaných hlaviček ( <xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersMiddleware> ) přečte tato záhlaví a vyplní v přidružených polích <xref:Microsoft.AspNetCore.Http.HttpContext> .
 
 Aktualizace middlewaru:
 
@@ -295,7 +295,7 @@ services.AddCertificateForwarding(options =>
 });
 ```
 
-## <a name="troubleshoot"></a>Řešení potíží
+## <a name="troubleshoot"></a>Odstraňování potíží
 
 Když hlavičky nejsou předávány podle očekávání, povolte [protokolování](xref:fundamentals/logging/index). Pokud protokoly neposkytují dostatek informací pro řešení tohoto problému, vytvořte výčet hlaviček požadavků přijatých serverem. K zápisu hlaviček požadavků do odpovědi aplikace nebo k protokolování hlaviček použijte vložený middlewarový middleware. 
 
@@ -380,7 +380,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 > [!IMPORTANT]
 > Povoluje pouze důvěryhodné proxy servery a sítě pro přeposílání hlaviček. V opačném případě jsou možné útoky s [falešnou IP adresou](https://www.iplocation.net/ip-spoofing) .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:host-and-deploy/web-farm>
 * [Informační zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787: ASP.NET Core zvýšení zabezpečení oprávnění](https://github.com/aspnet/Announcements/issues/295)
@@ -400,7 +400,7 @@ Tyto informace můžou být důležité ve zpracování žádostí, například 
 
 Podle konvence proxy předávají informace v hlavičkách protokolu HTTP.
 
-| Záhlaví | Popis |
+| Záhlaví | Description |
 | ------ | ----------- |
 | X-předané – pro | Uchovává informace o klientovi, který inicioval požadavek a následné proxy servery v řetězci proxy serverů. Tento parametr může obsahovat IP adresy (a volitelně také čísla portů). V řetězci proxy serverů označuje první parametr klienta, ve kterém se žádost poprvé nastavila. Následující identifikátory proxy následují. Poslední proxy server v řetězci není uveden v seznamu parametrů. Poslední IP adresa proxy serveru a volitelně je číslo portu, které je k dispozici jako Vzdálená IP adresa v transportní vrstvě. |
 | X-předáno – proto | Hodnota původního schématu (HTTP/HTTPS). Hodnota může být také seznamem schémat, pokud je požadavek procházen více proxy. |
@@ -623,7 +623,7 @@ if (string.Equals(
 }
 ```
 
-## <a name="troubleshoot"></a>Řešení potíží
+## <a name="troubleshoot"></a>Odstraňování potíží
 
 Když hlavičky nejsou předávány podle očekávání, povolte [protokolování](xref:fundamentals/logging/index). Pokud protokoly neposkytují dostatek informací pro řešení tohoto problému, vytvořte výčet hlaviček požadavků přijatých serverem. K zápisu hlaviček požadavků do odpovědi aplikace nebo k protokolování hlaviček použijte vložený middlewarový middleware. 
 
@@ -708,7 +708,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 > [!IMPORTANT]
 > Povoluje pouze důvěryhodné proxy servery a sítě pro přeposílání hlaviček. V opačném případě jsou možné útoky s [falešnou IP adresou](https://www.iplocation.net/ip-spoofing) .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:host-and-deploy/web-farm>
 * [Informační zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787: ASP.NET Core zvýšení zabezpečení oprávnění](https://github.com/aspnet/Announcements/issues/295)

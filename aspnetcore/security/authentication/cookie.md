@@ -17,12 +17,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/cookie
-ms.openlocfilehash: 24ba49828db08fdd67723c81ac0c8d9981ab3404
-ms.sourcegitcommit: 47c9a59ff8a359baa6bca2637d3af87ddca1245b
+ms.openlocfilehash: 211b6c7ec0bc7a48671e614427961cb332d06aa3
+ms.sourcegitcommit: c0a15ab8549cb729731a0fdf1d7da0b7feaa11ff
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2020
-ms.locfileid: "88945412"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91671766"
 ---
 # <a name="use-no-loccookie-authentication-without-no-locaspnet-core-identity"></a>Použít cookie ověřování bez ASP.NET Core Identity
 
@@ -37,8 +37,6 @@ ASP.NET Core Identity je úplný, plnohodnotný zprostředkovatel ověřování 
 Pro demonstrační účely v ukázkové aplikaci je uživatelský účet pro hypotetického uživatele Marie Rodriguez pevně zakódované do aplikace. K přihlášení uživatele použijte **e-mailovou** adresu `maria.rodriguez@contoso.com` a jakékoli heslo. Uživatel je ověřený v `AuthenticateUser` metodě v souboru *Pages/Account/Login. cshtml. cs* . V reálném příkladu by byl uživatel ověřený proti databázi.
 
 ## <a name="configuration"></a>Konfigurace
-
-Pokud aplikace nepoužívá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), vytvořte odkaz na balíček v souboru projektu pro [Microsoft. AspNetCore. Authentication. Cookie balíček s](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) .
 
 V `Startup.ConfigureServices` metodě vytvořte služby ověřování middlewaru pomocí <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> metod a:
 
@@ -468,7 +466,7 @@ await HttpContext.SignInAsync(
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:security/authorization/limitingidentitybyscheme>
 * <xref:security/authorization/claims>

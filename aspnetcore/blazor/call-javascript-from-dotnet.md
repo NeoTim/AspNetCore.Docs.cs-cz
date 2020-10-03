@@ -5,7 +5,7 @@ description: Naučte se vyvolat funkce JavaScriptu z metod .NET v Blazor aplikac
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/17/2020
+ms.date: 10/02/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: da4ce8a2610fc07d22153f66831d693ae66e0fe5
-ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
+ms.openlocfilehash: 89ffdfe2b714941440d7560b0ff1331a5c5523f6
+ms.sourcegitcommit: c0a15ab8549cb729731a0fdf1d7da0b7feaa11ff
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/29/2020
-ms.locfileid: "91424149"
+ms.lasthandoff: 10/02/2020
+ms.locfileid: "91671740"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>Volání funkcí jazyka JavaScript z metod .NET v ASP.NET Core Blazor
 
@@ -530,9 +530,120 @@ public async ValueTask<string> Prompt(string message)
 }
 ```
 
+## <a name="use-of-javascript-libraries-that-render-ui-dom-elements"></a>Použití knihoven JavaScriptu, které vykreslují uživatelské rozhraní (prvky modelu DOM)
+
+Někdy můžete chtít použít knihovny JavaScriptu, které tvoří viditelné prvky uživatelského rozhraní v modelu DOM prohlížeče. Na první pohled se to může zdát obtížné, protože Blazor rozdílový systém se spoléhá na kontrolu nad stromovou strukturou prvků modelu DOM a spustí se v případě chyb, pokud nějaký externí kód povede strom DOM a zruší platnost svého mechanismu pro použití rozdílů. Nejedná se o Blazor omezení specifické pro. K stejné chybě dochází u všech rámců rozhraní založeného na rozdílech.
+
+Naštěstí je snadné vkládat externě generované uživatelské rozhraní v Blazor uživatelském rozhraní komponenty spolehlivě. Doporučeným postupem je, aby kód komponenty ( `.razor` soubor) vytvořil prázdný element. BlazorJe-li rozdílový systém rozdílů v systému, je prvek vždy prázdný, takže modul pro vykreslování neprovádí přerozdělování do prvku a místo toho zanechá samotný obsah. Díky tomu je bezpečné naplnit prvek libovolným externě spravovaným obsahem.
+
+Následující příklad demonstruje koncept. V rámci `if` příkazu `firstRender` , pokud je `true` , udělejte něco s `myElement` . Například zavolejte externí knihovnu JavaScript k naplnění. Blazor ponechá obsah elementu samotný, dokud se tato součást neodebere. Po odebrání součásti se odebere také celý podstrom modelu DOM součásti.
+
+```razor
+<h1>Hello! This is a Blazor component rendered at @DateTime.Now</h1>
+
+<div @ref="myElement"></div>
+
+@code {
+    HtmlElement myElement;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            ...
+        }
+    }
+}
+```
+
+Jako podrobnější příklad zvažte následující komponentu, která vykresluje interaktivní mapu pomocí [Open-Source rozhraní Mapbox API](https://www.mapbox.com/):
+
+```razor
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div @ref="mapElement" style='width: 400px; height: 300px;'></div>
+
+<button @onclick="() => ShowAsync(51.454514, -2.587910)">Show Bristol, UK</button>
+<button @onclick="() => ShowAsync(35.6762, 139.6503)">Show Tokyo, Japan</button>
+
+@code
+{
+    ElementReference mapElement;
+    IJSObjectReference mapModule;
+    IJSObjectReference mapInstance;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            mapModule = await JS.InvokeAsync<IJSObjectReference>(
+                "import", "./mapComponent.js");
+            mapInstance = await mapModule.InvokeAsync<IJSObjectReference>(
+                "addMapToElement", mapElement);
+        }
+    }
+
+    Task ShowAsync(double latitude, double longitude)
+        => mapModule.InvokeVoidAsync("setMapCenter", mapInstance, latitude, 
+            longitude).AsTask();
+
+    private async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        await mapInstance.DisposeAsync();
+        await mapModule.DisposeAsync();
+    }
+}
+```
+
+Odpovídající modul JavaScriptu, který by měl být umístěn na `wwwroot/mapComponent.js` , je následující:
+
+```javascript
+import 'https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js';
+
+// TO MAKE THE MAP APPEAR YOU MUST ADD YOUR ACCESS TOKEN FROM 
+// https://account.mapbox.com
+mapboxgl.accessToken = '{ACCESS TOKEN}';
+
+export function addMapToElement(element) {
+  return new mapboxgl.Map({
+    container: element,
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-74.5, 40],
+    zoom: 9
+  });
+}
+
+export function setMapCenter(map, latitude, longitude) {
+  map.setCenter([longitude, latitude]);
+}
+```
+
+V předchozím příkladu nahraďte řetězec `{ACCESS TOKEN}` platným přístupovým tokenem, ze kterého můžete získat https://account.mapbox.com .
+
+Chcete-li vytvořit správné styly, přidejte následující značku šablony stylů do stránky HTML hostitele ( `index.html` nebo `_Host.cshtml` ):
+
+```html
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" />
+```
+
+Předchozí příklad vytvoří interaktivní mapové uživatelské rozhraní, ve kterém uživatel:
+
+* Lze přetáhnout nebo zvětšit.
+* Kliknutím na tlačítka přejdete na předdefinovaná umístění.
+
+<img src="https://user-images.githubusercontent.com/1101362/94939821-92ef6700-04ca-11eb-858e-fff6df0053ae.png" width="600" />
+
+Klíčové body, které je potřeba pochopit:
+
+ * Rozhraní `<div>` with `@ref="mapElement"` je ponecháno prázdné, pokud je to v souladu s Blazor . Proto je bezpečné ho `mapbox-gl.js` naplnit a upravovat jeho obsah v průběhu času. Tuto techniku lze použít s libovolnou knihovnou JavaScriptu, která vykresluje uživatelské rozhraní. Do komponent můžete dokonce vkládat komponenty z rozhraní zabezpečeného ověřování pomocí JavaScriptu Blazor , a to za předpokladu, že se nepokusí spojit a upravit ostatní části stránky. *Není bezpečné pro* externí kód JavaScriptu pro úpravu prvků, které Blazor nepovažují za prázdné.
+ * Při použití tohoto přístupu je potřeba mít na paměti pravidla týkající se toho, jak Blazor zachovává nebo ničí prvky modelu DOM. V předchozím příkladu komponenta bezpečně zpracovává události kliknutí na tlačítko a aktualizuje existující instanci mapy, protože ve výchozím nastavení jsou zachovány prvky modelu DOM, pokud je to možné. Pokud jste vyhledali seznam prvků mapy ze `@foreach` smyčky, chcete použít `@key` k zajištění zachování instancí komponent. V opačném případě změny v datech seznamu by mohly způsobit nežádoucí chování instancí instancí. Další informace naleznete v tématu [použití @key pro zachování prvků a komponent](xref:blazor/components/index#use-key-to-control-the-preservation-of-elements-and-components).
+
+Kromě toho předchozí příklad ukazuje, jak je možné zapouzdřit logiku a závislosti JavaScriptu v rámci modulu ES6 a dynamicky ho načíst pomocí `import` identifikátoru. Další informace naleznete v tématu [izolace JavaScriptu a odkazy na objekty](#blazor-javascript-isolation-and-object-references).
+
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:blazor/call-dotnet-from-javascript>
 * [Příklad InteropComponent. Razor (dotnet/AspNetCore, úložiště GitHub, větev vydání 3,1)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
