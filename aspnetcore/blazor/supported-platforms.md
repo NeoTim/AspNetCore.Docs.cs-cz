@@ -5,7 +5,7 @@ description: Přečtěte si o podporovaných platformách pro ASP.NET Core Blazo
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 10/01/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,43 +18,63 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/supported-platforms
-ms.openlocfilehash: 692ab63bb48dbfa29021d59cdf035e9549d3039c
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 1ffe98636ed200adbf00e89c2c3499eb69792d3f
+ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625944"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91754538"
 ---
 # <a name="aspnet-core-no-locblazor-supported-platforms"></a>ASP.NET Core Blazor podporované platformy
 
 Od [Luke Latham](https://github.com/guardrex)
 
-## <a name="browser-requirements"></a>Požadavky na prohlížeč
+::: moniker range=">= aspnetcore-5.0"
 
-### Blazor WebAssembly
+Blazor WebAssembly a Blazor Server jsou podporovány v prohlížečích, které jsou uvedeny v následující tabulce.
+
+| Prohlížeč                          | Verze         |
+| -------------------------------- | --------------- |
+| Apple Safari, včetně iOS      | Aktivní&dagger; |
+| Google Chrome, včetně Androidu | Aktivní&dagger; |
+| Microsoft Edge                   | Aktivní&dagger; |
+| Mozilla Firefox                  | Aktivní&dagger; |  
+
+&dagger;*Aktuální* odkazuje na nejnovější verzi prohlížeče.  
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+## Blazor WebAssembly
 
 | Prohlížeč                          | Verze               |
-| -------------------------------- | :-------------------: |
-| Microsoft Edge                   | Current               |
-| Mozilla Firefox                  | Current               |
-| Google Chrome, včetně Androidu | Current               |
-| Safari, včetně iOS            | Current               |
-| Microsoft Internet Explorer      | Nepodporováno&dagger; |
+| -------------------------------- | --------------------- |
+| Apple Safari, včetně iOS      | Aktivní&dagger;       |
+| Google Chrome, včetně Androidu | Aktivní&dagger;       |
+| Microsoft Edge                   | Aktivní&dagger;       |
+| Microsoft Internet Explorer      | Nepodporováno&Dagger; |
+| Mozilla Firefox                  | Aktivní&dagger;       |  
 
-&dagger;Aplikace Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
+&dagger;*Aktuální* odkazuje na nejnovější verzi prohlížeče.  
+&Dagger;Aplikace Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
 
-### Blazor Server
+## Blazor Server
 
-| Prohlížeč                          | Verze    |
-| -------------------------------- | :--------: |
-| Microsoft Edge                   | Current    |
-| Mozilla Firefox                  | Current    |
-| Google Chrome, včetně Androidu | Current    |
-| Safari, včetně iOS            | Current    |
-| Microsoft Internet Explorer      | odst&dagger; |
+| Prohlížeč                          | Verze         |
+| -------------------------------- | --------------- |
+| Apple Safari, včetně iOS      | Aktivní&dagger; |
+| Google Chrome, včetně Androidu | Aktivní&dagger; |
+| Microsoft Edge                   | Aktivní&dagger; |
+| Microsoft Internet Explorer      | odst&Dagger;      |
+| Mozilla Firefox                  | Aktivní&dagger; |
 
-&dagger;Jsou vyžadovány další obslužné nabídky (například příslibů lze přidat prostřednictvím [`Polyfill.io`](https://polyfill.io/v3/) sady prostředků).
+&dagger;*Aktuální* odkazuje na nejnovější verzi prohlížeče.  
+&Dagger;Další obslužné výplně jsou povinné. Například příslibů lze přidat prostřednictvím [`Polyfill.io`](https://polyfill.io/v3/) sady prostředků.
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další materiály
 
 * <xref:blazor/hosting-models>
+* <xref:signalr/supported-platforms>

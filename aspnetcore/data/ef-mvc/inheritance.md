@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 34c4ea28103b9eb12601b383a46091084391f120
-ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
+ms.openlocfilehash: fabb0ed9c0f64a529b516d521d60a7d862e2654a
+ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/22/2020
-ms.locfileid: "90847595"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91754564"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>Kurz: Implementace dědičnosti – ASP.NET MVC pomocí EF Core
 
@@ -41,7 +41,7 @@ V tomto kurzu jste:
 > * Vytváření a aktualizace migrací
 > * Testování implementace
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Souběžnost popisovačů](concurrency.md)
 
@@ -64,7 +64,7 @@ Tento model generování struktury dědičnosti entit z jedné databázové tabu
 Alternativou je, že databáze vypadá podobně jako struktura dědičnosti. Například můžete mít pouze pole název v tabulce Person a mají samostatné tabulky instruktor a student s poli data.
 
 > [!WARNING]
-> Tabulka na typ (TPT) není podporována EF Core 3. x, ale je implementována v [EF Core 5,0](https://docs.microsoft.com/ef/core/what-is-new/ef-core-5.0/plan).
+> Tabulka na typ (TPT) není podporována EF Core 3. x, ale je implementována v [EF Core 5,0](/ef/core/what-is-new/ef-core-5.0/plan).
 
 ![Dědičnost tabulek podle typu](inheritance/_static/tpt.png)
 

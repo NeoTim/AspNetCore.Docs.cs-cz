@@ -18,16 +18,16 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 913f8f1e43586ce71353c080e72be3b80f4c0573
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 1e50fb2f2f5e3621b189f756c53e80a2dd64c8a6
+ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88634264"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91754525"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
-ASP.NET Core 3,0 nebo novější nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) pomocí podpory pro autorizaci rozhraní API. ASP.NET Core Identitypro ověřování a ukládání uživatelů se v kombinaci se [ Identity serverem](https://identityserver.io/) pro implementaci OpenID Connect.
+Šablony ASP.NET Core 3,1 a novější nabízí ověřování v aplikacích jednostránkové (Single Page Apps) pomocí podpory pro autorizaci rozhraní API. ASP.NET Core Identitypro ověřování a ukládání uživatelů se v kombinaci se [ Identity serverem](https://identityserver.io/) pro implementaci OpenID Connect.
 
 Parametr ověřování byl přidán do **úhlových** a **reagujících** šablon projektů, které se podobají parametru ověřování v šablonách projektů **webové aplikace (model-zobrazení-kontroler)** a **webové aplikace** ( Razor stránky). Povolené hodnoty parametrů jsou **none** a **jednotlivce**. Šablona projektu **React.js a Redux** v tuto chvíli nepodporuje parametr ověřování.
 
@@ -119,7 +119,7 @@ Chcete-li získat úplné řízení schématu databáze, zdědit jednu z dostupn
 
 V souboru *Controllers\OidcConfigurationController.cs* si všimněte koncového bodu, který se zřídí, aby sloužil parametrům OIDC, které musí klient použít.
 
-### <a name="appsettingsjson"></a>appsettings.jsna
+### <a name="appsettingsjson"></a>appsettings.json
 
 V *appsettings.jssouboru v* kořenovém adresáři projektu je k dispozici nová `IdentityServer` část, která popisuje seznam konfigurovaných klientů. V následujícím příkladu je jeden klient. Název klienta odpovídá názvu aplikace a je mapován podle konvence na `ClientId` parametr OAuth. Profil indikuje typ aplikace, která se konfiguruje. Interně se používá k zajištění konvencí, které zjednodušují proces konfigurace serveru. K dispozici je několik profilů, jak je vysvětleno v části [profily aplikací](#application-profiles) .
 

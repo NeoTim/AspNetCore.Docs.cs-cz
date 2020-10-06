@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: 34707def9728211b9c2aa36d255f2467d1e3d661
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: 40c47da472257862414ba33be582eb19d3f0b29c
+ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88627790"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91754551"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>Publikování aplikace ASP.NET Core ve službě IIS
 
@@ -60,15 +60,22 @@ Stáhněte instalační program pomocí následujícího odkazu:
 
 1. Spusťte instalační program na serveru IIS.
 
-1. Restartujte server nebo spusťte příkaz **net stop** s příponou " **net start w3svc** " v příkazovém prostředí.
+1. Restartujte server nebo spusťte `net stop was /y` příkaz a potom `net start w3svc` v příkazovém prostředí.
 
 ## <a name="create-the-iis-site"></a>Vytvoření webu služby IIS
 
-1. Na serveru služby IIS vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je jako fyzická cesta k aplikaci služba IIS poskytována jako cesta k této složce.
+1. Na serveru služby IIS vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je jako fyzická cesta k aplikaci služba IIS poskytována jako cesta k této složce. Další informace o složce nasazení aplikace a rozložení souborů naleznete v tématu <xref:host-and-deploy/directory-structure> .
 
 1. Ve Správci služby IIS otevřete uzel serveru na panelu **připojení** . Klikněte pravým tlačítkem na složku **weby** . V místní nabídce vyberte **Přidat web** .
 
 1. Zadejte **název lokality** a nastavte **fyzickou cestu** ke složce pro nasazení aplikace, kterou jste vytvořili. Zadejte konfiguraci **vazby** a vytvořte web výběrem **OK**.
+
+   > [!WARNING]
+   > Nelze použít vazby zástupných znaků na nejvyšší úrovni ( `http://*:80/` a `http://+:80` ). **not** Vazby zástupných znaků nejvyšší úrovně můžou aplikaci otevřít pro slabá místa zabezpečení. To platí pro silné i slabé zástupné znaky. Místo zástupných znaků použijte explicitní názvy hostitelů. Vazba zástupných znaků subdomény (například `*.mysub.com` ) nemá toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com` , která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
+
+1. Potvrďte, že identita modelu procesu má správná oprávnění.
+
+   Pokud se výchozí identita fondu aplikací (**modelu procesu**  >  **Identity** ) změní z `ApplicationPoolIdentity` na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
 
 ## <a name="create-an-aspnet-core-no-locrazor-pages-app"></a>Vytvoření aplikace ASP.NET Core Razor Pages
 
@@ -77,7 +84,7 @@ Pokud <xref:getting-started> chcete vytvořit aplikaci Pages, postupujte podle k
 ## <a name="publish-and-deploy-the-app"></a>Publikování a nasazení aplikace
 
 *Publikování aplikace* znamená, že se vytvoří kompilovaná aplikace, která může být hostována serverem. *Nasazení aplikace* znamená přesunutí publikované aplikace do hostitelského systému. Krok publikování je zpracováván [.NET Core SDK](/dotnet/core/sdk), zatímco krok nasazení může být zpracován řadou přístupů. Tento kurz přijme přístup k nasazení *složky* , kde:
-
+ 
 * Aplikace se publikuje do složky.
 * Obsah složky se přesune do složky webu IIS ( **fyzická cesta** k lokalitě ve Správci služby IIS).
 
@@ -87,9 +94,9 @@ Pokud <xref:getting-started> chcete vytvořit aplikaci Pages, postupujte podle k
 1. V dialogovém okně **vybrat cíl publikování** vyberte možnost publikování **složky** .
 1. Nastavte **složku nebo cestu sdílení souborů** .
    * Pokud jste vytvořili složku pro web IIS, která je k dispozici ve vývojovém počítači jako sdílená síťová složka, zadejte cestu ke sdílené složce. Aktuální uživatel musí mít oprávnění k zápisu pro publikování do sdílené složky.
-   * Pokud se nemůžete přímo nasadit do složky webu IIS na serveru služby IIS, proveďte publikování do složky na neodstranitelné médium a fyzicky přesuňte publikovanou aplikaci do složky webu IIS na serveru, což je **fyzická cesta** k webu ve Správci služby IIS. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
+   * Pokud se nemůžete přímo nasadit do složky webu IIS na serveru služby IIS, můžete publikovat do složky na vyměnitelném médiu a fyzicky přesunout publikovanou aplikaci do složky webu IIS na serveru, což je **fyzická cesta** lokality ve Správci služby IIS. Přesuňte obsah `bin/Release/{TARGET FRAMEWORK}/publish` složky do složky webu IIS na serveru, což je **fyzická cesta** lokality ve Správci služby IIS.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 1. V příkazovém prostředí publikujte aplikaci v konfiguraci vydaných verzí pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
 
@@ -97,14 +104,14 @@ Pokud <xref:getting-started> chcete vytvořit aplikaci Pages, postupujte podle k
    dotnet publish --configuration Release
    ```
 
-1. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
+1. Přesuňte obsah `bin/Release/{TARGET FRAMEWORK}/publish` složky do složky webu IIS na serveru, což je **fyzická cesta** lokality ve Správci služby IIS.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 1. Klikněte pravým tlačítkem na projekt v **řešení** a vyberte **publikovat**  >  **publikovat do složky**.
 1. Nastavte cestu ke **složce** .
    * Pokud jste vytvořili složku pro web IIS, která je k dispozici ve vývojovém počítači jako sdílená síťová složka, zadejte cestu ke sdílené složce. Aktuální uživatel musí mít oprávnění k zápisu pro publikování do sdílené složky.
-   * Pokud se nemůžete přímo nasadit do složky webu IIS na serveru služby IIS, proveďte publikování do složky na neodstranitelné médium a fyzicky přesuňte publikovanou aplikaci do složky webu IIS na serveru, což je **fyzická cesta** k webu ve Správci služby IIS. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
+   * Pokud se nemůžete přímo nasadit do složky webu IIS na serveru služby IIS, proveďte publikování do složky na neodstranitelné médium a fyzicky přesuňte publikovanou aplikaci do složky webu IIS na serveru, což je **fyzická cesta** k webu ve Správci služby IIS. Přesuňte obsah `bin/Release/{TARGET FRAMEWORK}/publish` složky do složky webu IIS na serveru, což je **fyzická cesta** lokality ve Správci služby IIS.
 
 ---
 
@@ -151,3 +158,15 @@ Další informace o hostování ASP.NET Corech aplikací ve službě IIS najdete
 
 * [Oficiální web Microsoft IIS](https://www.iis.net/)
 * [Knihovna technických obsahu pro Windows Server](/windows-server/windows-server)
+
+### <a name="deployment-resources-for-iis-administrators"></a>Prostředky nasazení pro správce služby IIS
+
+* [Dokumentace ke službě IIS](/iis)
+* [Začínáme ve službě IIS pomocí Správce služby IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
+* [Nasazení aplikace .NET Core](/dotnet/core/deploying/)
+* <xref:host-and-deploy/aspnet-core-module>
+* <xref:host-and-deploy/directory-structure>
+* <xref:host-and-deploy/iis/modules>
+* <xref:test/troubleshoot-azure-iis>
+* <xref:host-and-deploy/azure-iis-errors-reference>
+
