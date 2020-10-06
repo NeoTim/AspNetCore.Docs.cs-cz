@@ -18,51 +18,51 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: a8b1e7cd94836e89c438045df4bb8dd049da7f72
-ms.sourcegitcommit: e519d95d17443abafba8f712ac168347b15c8b57
+ms.openlocfilehash: e4c77bd5bf5a26a11cdd23664ac24ae50986969b
+ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2020
-ms.locfileid: "91653981"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91754707"
 ---
-# <a name="use-aspnet-core-no-locsignalr-with-no-locblazor-webassembly"></a><span data-ttu-id="08dec-103">Použít ASP.NET Core SignalR s Blazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="08dec-103">Use ASP.NET Core SignalR with Blazor WebAssembly</span></span>
+# <a name="use-aspnet-core-no-locsignalr-with-no-locblazor-webassembly"></a><span data-ttu-id="a25e6-103">Použít ASP.NET Core SignalR s Blazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="a25e6-103">Use ASP.NET Core SignalR with Blazor WebAssembly</span></span>
 
-<span data-ttu-id="08dec-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="08dec-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="a25e6-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="a25e6-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="08dec-105">V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí nástroje SignalR Blazor WebAssembly .</span><span class="sxs-lookup"><span data-stu-id="08dec-105">This tutorial teaches the basics of building a real-time app using SignalR with Blazor WebAssembly.</span></span> <span data-ttu-id="08dec-106">Získáte informace o těchto tématech:</span><span class="sxs-lookup"><span data-stu-id="08dec-106">You learn how to:</span></span>
+<span data-ttu-id="a25e6-105">V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí nástroje SignalR Blazor WebAssembly .</span><span class="sxs-lookup"><span data-stu-id="a25e6-105">This tutorial teaches the basics of building a real-time app using SignalR with Blazor WebAssembly.</span></span> <span data-ttu-id="a25e6-106">Získáte informace o těchto tématech:</span><span class="sxs-lookup"><span data-stu-id="a25e6-106">You learn how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="08dec-107">Vytvoření Blazor WebAssembly projektu hostované aplikace</span><span class="sxs-lookup"><span data-stu-id="08dec-107">Create a Blazor WebAssembly Hosted app project</span></span>
-> * <span data-ttu-id="08dec-108">Přidat SignalR klientskou knihovnu</span><span class="sxs-lookup"><span data-stu-id="08dec-108">Add the SignalR client library</span></span>
-> * <span data-ttu-id="08dec-109">Přidání SignalR centra</span><span class="sxs-lookup"><span data-stu-id="08dec-109">Add a SignalR hub</span></span>
-> * <span data-ttu-id="08dec-110">Přidání SignalR služeb a koncového bodu pro SignalR centrum</span><span class="sxs-lookup"><span data-stu-id="08dec-110">Add SignalR services and an endpoint for the SignalR hub</span></span>
-> * <span data-ttu-id="08dec-111">Přidat Razor kód komponenty pro chat</span><span class="sxs-lookup"><span data-stu-id="08dec-111">Add Razor component code for chat</span></span>
+> * <span data-ttu-id="a25e6-107">Vytvoření Blazor WebAssembly projektu hostované aplikace</span><span class="sxs-lookup"><span data-stu-id="a25e6-107">Create a Blazor WebAssembly Hosted app project</span></span>
+> * <span data-ttu-id="a25e6-108">Přidat SignalR klientskou knihovnu</span><span class="sxs-lookup"><span data-stu-id="a25e6-108">Add the SignalR client library</span></span>
+> * <span data-ttu-id="a25e6-109">Přidání SignalR centra</span><span class="sxs-lookup"><span data-stu-id="a25e6-109">Add a SignalR hub</span></span>
+> * <span data-ttu-id="a25e6-110">Přidání SignalR služeb a koncového bodu pro SignalR centrum</span><span class="sxs-lookup"><span data-stu-id="a25e6-110">Add SignalR services and an endpoint for the SignalR hub</span></span>
+> * <span data-ttu-id="a25e6-111">Přidat Razor kód komponenty pro chat</span><span class="sxs-lookup"><span data-stu-id="a25e6-111">Add Razor component code for chat</span></span>
 
-<span data-ttu-id="08dec-112">Na konci tohoto kurzu budete mít funkční chatovací aplikaci.</span><span class="sxs-lookup"><span data-stu-id="08dec-112">At the end of this tutorial, you'll have a working chat app.</span></span>
+<span data-ttu-id="a25e6-112">Na konci tohoto kurzu budete mít funkční chatovací aplikaci.</span><span class="sxs-lookup"><span data-stu-id="a25e6-112">At the end of this tutorial, you'll have a working chat app.</span></span>
 
-<span data-ttu-id="08dec-113">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-blazor-webassembly/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="08dec-113">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-blazor-webassembly/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="a25e6-113">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-blazor-webassembly/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="a25e6-113">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-blazor-webassembly/samples/) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="08dec-114">Požadované součásti</span><span class="sxs-lookup"><span data-stu-id="08dec-114">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="a25e6-114">Předpoklady</span><span class="sxs-lookup"><span data-stu-id="a25e6-114">Prerequisites</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
-# <a name="visual-studio"></a>[<span data-ttu-id="08dec-115">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="08dec-115">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="a25e6-115">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a25e6-115">Visual Studio</span></span>](#tab/visual-studio)
 
 <!-- * [Visual Studio 2019 16.8 or later](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload -->
-* <span data-ttu-id="08dec-116">[Visual Studio 2019 16,8 nebo novější (ve verzi Preview)](https://visualstudio.microsoft.com/vs/preview/) s úlohou **vývoje ASP.NET a webu**</span><span class="sxs-lookup"><span data-stu-id="08dec-116">[Visual Studio 2019 16.8 or later (in preview)](https://visualstudio.microsoft.com/vs/preview/) with the **ASP.NET and web development** workload</span></span>
+* <span data-ttu-id="a25e6-116">[Visual Studio 2019 16,8 nebo novější (ve verzi Preview)](https://visualstudio.microsoft.com/vs/preview/) s úlohou **vývoje ASP.NET a webu**</span><span class="sxs-lookup"><span data-stu-id="a25e6-116">[Visual Studio 2019 16.8 or later (in preview)](https://visualstudio.microsoft.com/vs/preview/) with the **ASP.NET and web development** workload</span></span>
 * [!INCLUDE [.NET Core 5.0 SDK](~/includes/5.0-SDK.md)]
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="08dec-117">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="08dec-117">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="a25e6-117">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a25e6-117">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-5.0.md)]
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="08dec-118">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="08dec-118">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a25e6-118">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="a25e6-118">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 <!-- * [Visual Studio for Mac version 8.8 or later (in preview)](https://visualstudio.microsoft.com/vs/mac/) -->
-* [<span data-ttu-id="08dec-119">Visual Studio pro Mac verze 8,8 nebo novější (ve verzi Preview)</span><span class="sxs-lookup"><span data-stu-id="08dec-119">Visual Studio for Mac version 8.8 or later (in preview)</span></span>](https://docs.microsoft.com/visualstudio/releasenotes/vs2019-mac-preview-relnotes)
+* [<span data-ttu-id="a25e6-119">Visual Studio pro Mac verze 8,8 nebo novější (ve verzi Preview)</span><span class="sxs-lookup"><span data-stu-id="a25e6-119">Visual Studio for Mac version 8.8 or later (in preview)</span></span>](/visualstudio/releasenotes/vs2019-mac-preview-relnotes)
 * [!INCLUDE [.NET Core 5.0 SDK](~/includes/5.0-SDK.md)]
 
-# <a name="net-core-cli"></a>[<span data-ttu-id="08dec-120">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="08dec-120">.NET Core CLI</span></span>](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[<span data-ttu-id="a25e6-120">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="a25e6-120">.NET Core CLI</span></span>](#tab/netcore-cli/)
 
 [!INCLUDE[](~/includes/5.0-SDK.md)]
 
@@ -72,21 +72,21 @@ ms.locfileid: "91653981"
 
 ::: moniker range="< aspnetcore-5.0"
 
-# <a name="visual-studio"></a>[<span data-ttu-id="08dec-121">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="08dec-121">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="a25e6-121">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a25e6-121">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="08dec-122">[Visual Studio 2019 16,6 nebo novější](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje ASP.NET a webu**</span><span class="sxs-lookup"><span data-stu-id="08dec-122">[Visual Studio 2019 16.6 or later](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload</span></span>
+* <span data-ttu-id="a25e6-122">[Visual Studio 2019 16,6 nebo novější](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje ASP.NET a webu**</span><span class="sxs-lookup"><span data-stu-id="a25e6-122">[Visual Studio 2019 16.6 or later](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) with the **ASP.NET and web development** workload</span></span>
 * [!INCLUDE [.NET Core 3.1 SDK](~/includes/3.1-SDK.md)]
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="08dec-123">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="08dec-123">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="a25e6-123">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a25e6-123">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="08dec-124">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="08dec-124">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a25e6-124">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="a25e6-124">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* [<span data-ttu-id="08dec-125">Visual Studio pro Mac verze 8,6 nebo novější</span><span class="sxs-lookup"><span data-stu-id="08dec-125">Visual Studio for Mac version 8.6 or later</span></span>](https://visualstudio.microsoft.com/vs/mac/)
+* [<span data-ttu-id="a25e6-125">Visual Studio pro Mac verze 8,6 nebo novější</span><span class="sxs-lookup"><span data-stu-id="a25e6-125">Visual Studio for Mac version 8.6 or later</span></span>](https://visualstudio.microsoft.com/vs/mac/)
 * [!INCLUDE [.NET Core 3.1 SDK](~/includes/3.1-SDK.md)]
 
-# <a name="net-core-cli"></a>[<span data-ttu-id="08dec-126">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="08dec-126">.NET Core CLI</span></span>](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[<span data-ttu-id="a25e6-126">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="a25e6-126">.NET Core CLI</span></span>](#tab/netcore-cli/)
 
 [!INCLUDE[](~/includes/3.1-SDK.md)]
 
@@ -94,71 +94,71 @@ ms.locfileid: "91653981"
 
 ::: moniker-end
 
-## <a name="create-a-hosted-no-locblazor-webassembly-app-project"></a><span data-ttu-id="08dec-127">Vytvoření projektu hostované Blazor WebAssembly aplikace</span><span class="sxs-lookup"><span data-stu-id="08dec-127">Create a hosted Blazor WebAssembly app project</span></span>
+## <a name="create-a-hosted-no-locblazor-webassembly-app-project"></a><span data-ttu-id="a25e6-127">Vytvoření projektu hostované Blazor WebAssembly aplikace</span><span class="sxs-lookup"><span data-stu-id="a25e6-127">Create a hosted Blazor WebAssembly app project</span></span>
 
-<span data-ttu-id="08dec-128">Postupujte podle pokynů pro výběr nástrojů:</span><span class="sxs-lookup"><span data-stu-id="08dec-128">Follow the guidance for your choice of tooling:</span></span>
+<span data-ttu-id="a25e6-128">Postupujte podle pokynů pro výběr nástrojů:</span><span class="sxs-lookup"><span data-stu-id="a25e6-128">Follow the guidance for your choice of tooling:</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="08dec-129">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="08dec-129">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="a25e6-129">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a25e6-129">Visual Studio</span></span>](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-5.0"
 
 > [!NOTE]
-> <span data-ttu-id="08dec-130">Vyžaduje se Visual Studio 16,8 nebo novější a .NET Core SDK 5.0.0 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="08dec-130">Visual Studio 16.8 or later and .NET Core SDK 5.0.0 or later are required.</span></span>
+> <span data-ttu-id="a25e6-130">Vyžaduje se Visual Studio 16,8 nebo novější a .NET Core SDK 5.0.0 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="a25e6-130">Visual Studio 16.8 or later and .NET Core SDK 5.0.0 or later are required.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-5.0"
 
 > [!NOTE]
-> <span data-ttu-id="08dec-131">Vyžaduje se Visual Studio 16,6 nebo novější a .NET Core SDK 3.1.300 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="08dec-131">Visual Studio 16.6 or later and .NET Core SDK 3.1.300 or later are required.</span></span>
+> <span data-ttu-id="a25e6-131">Vyžaduje se Visual Studio 16,6 nebo novější a .NET Core SDK 3.1.300 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="a25e6-131">Visual Studio 16.6 or later and .NET Core SDK 3.1.300 or later are required.</span></span>
 
 ::: moniker-end
 
-1. <span data-ttu-id="08dec-132">Vytvoření nového projektu</span><span class="sxs-lookup"><span data-stu-id="08dec-132">Create a new project.</span></span>
+1. <span data-ttu-id="a25e6-132">Vytvoření nového projektu</span><span class="sxs-lookup"><span data-stu-id="a25e6-132">Create a new project.</span></span>
 
-1. <span data-ttu-id="08dec-133">Vyberte \*\* Blazor aplikace\*\* a vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="08dec-133">Select **Blazor App** and select **Next**.</span></span>
+1. <span data-ttu-id="a25e6-133">Vyberte \*\* Blazor aplikace\*\* a vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-133">Select **Blazor App** and select **Next**.</span></span>
 
-1. <span data-ttu-id="08dec-134">`BlazorSignalRApp`Do pole **název projektu** zadejte.</span><span class="sxs-lookup"><span data-stu-id="08dec-134">Type `BlazorSignalRApp` in the **Project name** field.</span></span> <span data-ttu-id="08dec-135">Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu.</span><span class="sxs-lookup"><span data-stu-id="08dec-135">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="08dec-136">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="08dec-136">Select **Create**.</span></span>
+1. <span data-ttu-id="a25e6-134">`BlazorSignalRApp`Do pole **název projektu** zadejte.</span><span class="sxs-lookup"><span data-stu-id="a25e6-134">Type `BlazorSignalRApp` in the **Project name** field.</span></span> <span data-ttu-id="a25e6-135">Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu.</span><span class="sxs-lookup"><span data-stu-id="a25e6-135">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="a25e6-136">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-136">Select **Create**.</span></span>
 
-1. <span data-ttu-id="08dec-137">Vyberte šablonu \*\* Blazor WebAssembly aplikace\*\* .</span><span class="sxs-lookup"><span data-stu-id="08dec-137">Choose the **Blazor WebAssembly App** template.</span></span>
+1. <span data-ttu-id="a25e6-137">Vyberte šablonu \*\* Blazor WebAssembly aplikace\*\* .</span><span class="sxs-lookup"><span data-stu-id="a25e6-137">Choose the **Blazor WebAssembly App** template.</span></span>
 
-1. <span data-ttu-id="08dec-138">V části **Upřesnit**zaškrtněte políčko **ASP.NET Core hostované** .</span><span class="sxs-lookup"><span data-stu-id="08dec-138">Under **Advanced**, select the **ASP.NET Core hosted** check box.</span></span>
+1. <span data-ttu-id="a25e6-138">V části **Upřesnit**zaškrtněte políčko **ASP.NET Core hostované** .</span><span class="sxs-lookup"><span data-stu-id="a25e6-138">Under **Advanced**, select the **ASP.NET Core hosted** check box.</span></span>
 
-1. <span data-ttu-id="08dec-139">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="08dec-139">Select **Create**.</span></span>
+1. <span data-ttu-id="a25e6-139">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-139">Select **Create**.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="08dec-140">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="08dec-140">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="a25e6-140">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a25e6-140">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-1. <span data-ttu-id="08dec-141">V příkazovém prostředí spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="08dec-141">In a command shell, execute the following command:</span></span>
+1. <span data-ttu-id="a25e6-141">V příkazovém prostředí spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="a25e6-141">In a command shell, execute the following command:</span></span>
 
    ```dotnetcli
    dotnet new blazorwasm --hosted --output BlazorSignalRApp
    ```
 
-1. <span data-ttu-id="08dec-142">V Visual Studio Code otevřete složku projektu aplikace.</span><span class="sxs-lookup"><span data-stu-id="08dec-142">In Visual Studio Code, open the app's project folder.</span></span>
+1. <span data-ttu-id="a25e6-142">V Visual Studio Code otevřete složku projektu aplikace.</span><span class="sxs-lookup"><span data-stu-id="a25e6-142">In Visual Studio Code, open the app's project folder.</span></span>
 
-1. <span data-ttu-id="08dec-143">Když se zobrazí dialogové okno s přidáním assetů pro sestavení a ladění aplikace, vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="08dec-143">When the dialog appears to add assets to build and debug the app, select **Yes**.</span></span> <span data-ttu-id="08dec-144">Visual Studio Code automaticky přidá `.vscode` složku s generovanými `launch.json` `tasks.json` soubory a.</span><span class="sxs-lookup"><span data-stu-id="08dec-144">Visual Studio Code automatically adds the `.vscode` folder with generated `launch.json` and `tasks.json` files.</span></span>
+1. <span data-ttu-id="a25e6-143">Když se zobrazí dialogové okno s přidáním assetů pro sestavení a ladění aplikace, vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-143">When the dialog appears to add assets to build and debug the app, select **Yes**.</span></span> <span data-ttu-id="a25e6-144">Visual Studio Code automaticky přidá `.vscode` složku s generovanými `launch.json` `tasks.json` soubory a.</span><span class="sxs-lookup"><span data-stu-id="a25e6-144">Visual Studio Code automatically adds the `.vscode` folder with generated `launch.json` and `tasks.json` files.</span></span>
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="08dec-145">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="08dec-145">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a25e6-145">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="a25e6-145">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-1. <span data-ttu-id="08dec-146">Nainstalujte nejnovější verzi [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/) a proveďte následující kroky:</span><span class="sxs-lookup"><span data-stu-id="08dec-146">Install the latest version of [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/) and perform the following steps:</span></span>
+1. <span data-ttu-id="a25e6-146">Nainstalujte nejnovější verzi [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/) a proveďte následující kroky:</span><span class="sxs-lookup"><span data-stu-id="a25e6-146">Install the latest version of [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/) and perform the following steps:</span></span>
 
-1. <span data-ttu-id="08dec-147">Vyberte **soubor**  >  **nové řešení** nebo vytvořte **Nový** projekt z **okna Start**.</span><span class="sxs-lookup"><span data-stu-id="08dec-147">Select **File** > **New Solution** or create a **New** project from the **Start Window**.</span></span>
+1. <span data-ttu-id="a25e6-147">Vyberte **soubor**  >  **nové řešení** nebo vytvořte **Nový** projekt z **okna Start**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-147">Select **File** > **New Solution** or create a **New** project from the **Start Window**.</span></span>
 
-1. <span data-ttu-id="08dec-148">Na bočním panelu vyberte **Webová a konzolová**  >  **aplikace**.</span><span class="sxs-lookup"><span data-stu-id="08dec-148">In the sidebar, select **Web and Console** > **App**.</span></span>
+1. <span data-ttu-id="a25e6-148">Na bočním panelu vyberte **Webová a konzolová**  >  **aplikace**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-148">In the sidebar, select **Web and Console** > **App**.</span></span>
 
-1. <span data-ttu-id="08dec-149">Vyberte šablonu \*\* Blazor WebAssembly aplikace\*\* .</span><span class="sxs-lookup"><span data-stu-id="08dec-149">Choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="08dec-150">Vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="08dec-150">Select **Next**.</span></span>
+1. <span data-ttu-id="a25e6-149">Vyberte šablonu \*\* Blazor WebAssembly aplikace\*\* .</span><span class="sxs-lookup"><span data-stu-id="a25e6-149">Choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="a25e6-150">Vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-150">Select **Next**.</span></span>
 
-1. <span data-ttu-id="08dec-151">Potvrďte, že **ověřování** je nastaveno na **bez ověřování**.</span><span class="sxs-lookup"><span data-stu-id="08dec-151">Confirm that **Authentication** is set to **No Authentication**.</span></span> <span data-ttu-id="08dec-152">Zaškrtněte políčko **ASP.NET Core hostované** .</span><span class="sxs-lookup"><span data-stu-id="08dec-152">Select the **ASP.NET Core Hosted** check box.</span></span> <span data-ttu-id="08dec-153">Vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="08dec-153">Select **Next**.</span></span>
+1. <span data-ttu-id="a25e6-151">Potvrďte, že **ověřování** je nastaveno na **bez ověřování**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-151">Confirm that **Authentication** is set to **No Authentication**.</span></span> <span data-ttu-id="a25e6-152">Zaškrtněte políčko **ASP.NET Core hostované** .</span><span class="sxs-lookup"><span data-stu-id="a25e6-152">Select the **ASP.NET Core Hosted** check box.</span></span> <span data-ttu-id="a25e6-153">Vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-153">Select **Next**.</span></span>
 
-1. <span data-ttu-id="08dec-154">Do pole **název projektu** název aplikace `BlazorSignalRApp` .</span><span class="sxs-lookup"><span data-stu-id="08dec-154">In the **Project Name** field, name the app `BlazorSignalRApp`.</span></span> <span data-ttu-id="08dec-155">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="08dec-155">Select **Create**.</span></span>
+1. <span data-ttu-id="a25e6-154">Do pole **název projektu** název aplikace `BlazorSignalRApp` .</span><span class="sxs-lookup"><span data-stu-id="a25e6-154">In the **Project Name** field, name the app `BlazorSignalRApp`.</span></span> <span data-ttu-id="a25e6-155">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-155">Select **Create**.</span></span>
 
-   <span data-ttu-id="08dec-156">Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřujete certifikátu a pokračujte.</span><span class="sxs-lookup"><span data-stu-id="08dec-156">If a prompt appears to trust the development certificate, trust the certificate and continue.</span></span> <span data-ttu-id="08dec-157">Certifikát uživatele a řetězce klíčů je nutný k důvěřování certifikátu.</span><span class="sxs-lookup"><span data-stu-id="08dec-157">The user and keychain passwords are required to trust the certificate.</span></span>
+   <span data-ttu-id="a25e6-156">Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřujete certifikátu a pokračujte.</span><span class="sxs-lookup"><span data-stu-id="a25e6-156">If a prompt appears to trust the development certificate, trust the certificate and continue.</span></span> <span data-ttu-id="a25e6-157">Certifikát uživatele a řetězce klíčů je nutný k důvěřování certifikátu.</span><span class="sxs-lookup"><span data-stu-id="a25e6-157">The user and keychain passwords are required to trust the certificate.</span></span>
 
-1. <span data-ttu-id="08dec-158">Otevřete projekt tak, že přejdete do složky projektu a otevřete soubor řešení projektu ( `.sln` ).</span><span class="sxs-lookup"><span data-stu-id="08dec-158">Open the project by navigating to the project folder and opening the project's solution file (`.sln`).</span></span>
+1. <span data-ttu-id="a25e6-158">Otevřete projekt tak, že přejdete do složky projektu a otevřete soubor řešení projektu ( `.sln` ).</span><span class="sxs-lookup"><span data-stu-id="a25e6-158">Open the project by navigating to the project folder and opening the project's solution file (`.sln`).</span></span>
 
-# <a name="net-core-cli"></a>[<span data-ttu-id="08dec-159">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="08dec-159">.NET Core CLI</span></span>](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[<span data-ttu-id="a25e6-159">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="a25e6-159">.NET Core CLI</span></span>](#tab/netcore-cli/)
 
-<span data-ttu-id="08dec-160">V příkazovém prostředí spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="08dec-160">In a command shell, execute the following command:</span></span>
+<span data-ttu-id="a25e6-160">V příkazovém prostředí spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="a25e6-160">In a command shell, execute the following command:</span></span>
 
 ```dotnetcli
 dotnet new blazorwasm --hosted --output BlazorSignalRApp
@@ -166,45 +166,45 @@ dotnet new blazorwasm --hosted --output BlazorSignalRApp
 
 ---
 
-## <a name="add-the-no-locsignalr-client-library"></a><span data-ttu-id="08dec-161">Přidat SignalR klientskou knihovnu</span><span class="sxs-lookup"><span data-stu-id="08dec-161">Add the SignalR client library</span></span>
+## <a name="add-the-no-locsignalr-client-library"></a><span data-ttu-id="a25e6-161">Přidat SignalR klientskou knihovnu</span><span class="sxs-lookup"><span data-stu-id="a25e6-161">Add the SignalR client library</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="08dec-162">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="08dec-162">Visual Studio</span></span>](#tab/visual-studio/)
+# <a name="visual-studio"></a>[<span data-ttu-id="a25e6-162">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a25e6-162">Visual Studio</span></span>](#tab/visual-studio/)
 
-1. <span data-ttu-id="08dec-163">V **Průzkumník řešení**klikněte pravým tlačítkem na `BlazorSignalRApp.Client` projekt a vyberte **Spravovat balíčky NuGet**.</span><span class="sxs-lookup"><span data-stu-id="08dec-163">In **Solution Explorer**, right-click the `BlazorSignalRApp.Client` project and select **Manage NuGet Packages**.</span></span>
+1. <span data-ttu-id="a25e6-163">V **Průzkumník řešení**klikněte pravým tlačítkem na `BlazorSignalRApp.Client` projekt a vyberte **Spravovat balíčky NuGet**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-163">In **Solution Explorer**, right-click the `BlazorSignalRApp.Client` project and select **Manage NuGet Packages**.</span></span>
 
-1. <span data-ttu-id="08dec-164">V dialogovém okně **Spravovat balíčky NuGet** potvrďte, že je **zdroj balíčku** nastavený na `nuget.org` .</span><span class="sxs-lookup"><span data-stu-id="08dec-164">In the **Manage NuGet Packages** dialog, confirm that the **Package source** is set to `nuget.org`.</span></span>
+1. <span data-ttu-id="a25e6-164">V dialogovém okně **Spravovat balíčky NuGet** potvrďte, že je **zdroj balíčku** nastavený na `nuget.org` .</span><span class="sxs-lookup"><span data-stu-id="a25e6-164">In the **Manage NuGet Packages** dialog, confirm that the **Package source** is set to `nuget.org`.</span></span>
 
-1. <span data-ttu-id="08dec-165">Když je vybraná možnost **Procházet** , `Microsoft.AspNetCore.SignalR.Client` do vyhledávacího pole zadejte.</span><span class="sxs-lookup"><span data-stu-id="08dec-165">With **Browse** selected, type `Microsoft.AspNetCore.SignalR.Client` in the search box.</span></span>
+1. <span data-ttu-id="a25e6-165">Když je vybraná možnost **Procházet** , `Microsoft.AspNetCore.SignalR.Client` do vyhledávacího pole zadejte.</span><span class="sxs-lookup"><span data-stu-id="a25e6-165">With **Browse** selected, type `Microsoft.AspNetCore.SignalR.Client` in the search box.</span></span>
 
-1. <span data-ttu-id="08dec-166">Ve výsledcích hledání vyberte [`Microsoft.AspNetCore.SignalR.Client`](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) balíček a vyberte **nainstalovat**.</span><span class="sxs-lookup"><span data-stu-id="08dec-166">In the search results, select the [`Microsoft.AspNetCore.SignalR.Client`](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) package and select **Install**.</span></span>
+1. <span data-ttu-id="a25e6-166">Ve výsledcích hledání vyberte [`Microsoft.AspNetCore.SignalR.Client`](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) balíček a vyberte **nainstalovat**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-166">In the search results, select the [`Microsoft.AspNetCore.SignalR.Client`](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) package and select **Install**.</span></span>
 
-1. <span data-ttu-id="08dec-167">Pokud se zobrazí dialogové okno **Náhled změn** , vyberte **OK**.</span><span class="sxs-lookup"><span data-stu-id="08dec-167">If the **Preview Changes** dialog appears, select **OK**.</span></span>
+1. <span data-ttu-id="a25e6-167">Pokud se zobrazí dialogové okno **Náhled změn** , vyberte **OK**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-167">If the **Preview Changes** dialog appears, select **OK**.</span></span>
 
-1. <span data-ttu-id="08dec-168">Pokud se zobrazí dialogové okno pro **přijetí licence** , **Vyberte možnost Souhlasím** , pokud souhlasíte s licenčními podmínkami.</span><span class="sxs-lookup"><span data-stu-id="08dec-168">If the **License Acceptance** dialog appears, select **I Accept** if you agree with the license terms.</span></span>
+1. <span data-ttu-id="a25e6-168">Pokud se zobrazí dialogové okno pro **přijetí licence** , **Vyberte možnost Souhlasím** , pokud souhlasíte s licenčními podmínkami.</span><span class="sxs-lookup"><span data-stu-id="a25e6-168">If the **License Acceptance** dialog appears, select **I Accept** if you agree with the license terms.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="08dec-169">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="08dec-169">Visual Studio Code</span></span>](#tab/visual-studio-code/)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="a25e6-169">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a25e6-169">Visual Studio Code</span></span>](#tab/visual-studio-code/)
 
-<span data-ttu-id="08dec-170">V **integrovaném terminálu** (**zobrazení**  >  **terminálu** z panelu nástrojů) spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="08dec-170">In the **Integrated Terminal** (**View** > **Terminal** from the toolbar), execute the following commands:</span></span>
+<span data-ttu-id="a25e6-170">V **integrovaném terminálu** (**zobrazení**  >  **terminálu** z panelu nástrojů) spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="a25e6-170">In the **Integrated Terminal** (**View** > **Terminal** from the toolbar), execute the following commands:</span></span>
 
 ```dotnetcli
 dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 ```
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="08dec-171">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="08dec-171">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a25e6-171">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="a25e6-171">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-1. <span data-ttu-id="08dec-172">Na bočním panelu **řešení** klikněte pravým tlačítkem na `BlazorSignalRApp.Client` projekt a vyberte **Spravovat balíčky NuGet**.</span><span class="sxs-lookup"><span data-stu-id="08dec-172">In the **Solution** sidebar, right-click the `BlazorSignalRApp.Client` project and select **Manage NuGet Packages**.</span></span>
+1. <span data-ttu-id="a25e6-172">Na bočním panelu **řešení** klikněte pravým tlačítkem na `BlazorSignalRApp.Client` projekt a vyberte **Spravovat balíčky NuGet**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-172">In the **Solution** sidebar, right-click the `BlazorSignalRApp.Client` project and select **Manage NuGet Packages**.</span></span>
 
-1. <span data-ttu-id="08dec-173">V dialogovém okně **Spravovat balíčky NuGet** potvrďte, že rozevírací seznam zdroj je nastavený na `nuget.org` .</span><span class="sxs-lookup"><span data-stu-id="08dec-173">In the **Manage NuGet Packages** dialog, confirm that the source drop-down is set to `nuget.org`.</span></span>
+1. <span data-ttu-id="a25e6-173">V dialogovém okně **Spravovat balíčky NuGet** potvrďte, že rozevírací seznam zdroj je nastavený na `nuget.org` .</span><span class="sxs-lookup"><span data-stu-id="a25e6-173">In the **Manage NuGet Packages** dialog, confirm that the source drop-down is set to `nuget.org`.</span></span>
 
-1. <span data-ttu-id="08dec-174">Když je vybraná možnost **Procházet** , `Microsoft.AspNetCore.SignalR.Client` do vyhledávacího pole zadejte.</span><span class="sxs-lookup"><span data-stu-id="08dec-174">With **Browse** selected, type `Microsoft.AspNetCore.SignalR.Client` in the search box.</span></span>
+1. <span data-ttu-id="a25e6-174">Když je vybraná možnost **Procházet** , `Microsoft.AspNetCore.SignalR.Client` do vyhledávacího pole zadejte.</span><span class="sxs-lookup"><span data-stu-id="a25e6-174">With **Browse** selected, type `Microsoft.AspNetCore.SignalR.Client` in the search box.</span></span>
 
-1. <span data-ttu-id="08dec-175">Ve výsledcích hledání zaškrtněte políčko vedle [`Microsoft.AspNetCore.SignalR.Client`](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) balíčku a vyberte **Přidat balíček**.</span><span class="sxs-lookup"><span data-stu-id="08dec-175">In the search results, select the check box next to the [`Microsoft.AspNetCore.SignalR.Client`](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) package and select **Add Package**.</span></span>
+1. <span data-ttu-id="a25e6-175">Ve výsledcích hledání zaškrtněte políčko vedle [`Microsoft.AspNetCore.SignalR.Client`](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) balíčku a vyberte **Přidat balíček**.</span><span class="sxs-lookup"><span data-stu-id="a25e6-175">In the search results, select the check box next to the [`Microsoft.AspNetCore.SignalR.Client`](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) package and select **Add Package**.</span></span>
 
-1. <span data-ttu-id="08dec-176">Pokud se zobrazí dialogové okno pro **přijetí licence** , vyberte **přijmout** , pokud souhlasíte s licenčními podmínkami.</span><span class="sxs-lookup"><span data-stu-id="08dec-176">If the **License Acceptance** dialog appears, select **Accept** if you agree with the license terms.</span></span>
+1. <span data-ttu-id="a25e6-176">Pokud se zobrazí dialogové okno pro **přijetí licence** , vyberte **přijmout** , pokud souhlasíte s licenčními podmínkami.</span><span class="sxs-lookup"><span data-stu-id="a25e6-176">If the **License Acceptance** dialog appears, select **Accept** if you agree with the license terms.</span></span>
 
-# <a name="net-core-cli"></a>[<span data-ttu-id="08dec-177">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="08dec-177">.NET Core CLI</span></span>](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[<span data-ttu-id="a25e6-177">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="a25e6-177">.NET Core CLI</span></span>](#tab/netcore-cli/)
 
-<span data-ttu-id="08dec-178">V příkazovém prostředí spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="08dec-178">In a command shell, execute the following commands:</span></span>
+<span data-ttu-id="a25e6-178">V příkazovém prostředí spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="a25e6-178">In a command shell, execute the following commands:</span></span>
 
 ```dotnetcli
 cd BlazorSignalRApp
@@ -213,9 +213,9 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 ---
 
-## <a name="add-a-no-locsignalr-hub"></a><span data-ttu-id="08dec-179">Přidání SignalR centra</span><span class="sxs-lookup"><span data-stu-id="08dec-179">Add a SignalR hub</span></span>
+## <a name="add-a-no-locsignalr-hub"></a><span data-ttu-id="a25e6-179">Přidání SignalR centra</span><span class="sxs-lookup"><span data-stu-id="a25e6-179">Add a SignalR hub</span></span>
 
-<span data-ttu-id="08dec-180">V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidejte následující `ChatHub` třídu ( `Hubs/ChatHub.cs` ):</span><span class="sxs-lookup"><span data-stu-id="08dec-180">In the `BlazorSignalRApp.Server` project, create a `Hubs` (plural) folder and add the following `ChatHub` class (`Hubs/ChatHub.cs`):</span></span>
+<span data-ttu-id="a25e6-180">V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidejte následující `ChatHub` třídu ( `Hubs/ChatHub.cs` ):</span><span class="sxs-lookup"><span data-stu-id="a25e6-180">In the `BlazorSignalRApp.Server` project, create a `Hubs` (plural) folder and add the following `ChatHub` class (`Hubs/ChatHub.cs`):</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -229,17 +229,17 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 ::: moniker-end
 
-## <a name="add-services-and-an-endpoint-for-the-no-locsignalr-hub"></a><span data-ttu-id="08dec-181">Přidání služeb a koncového bodu pro SignalR centrum</span><span class="sxs-lookup"><span data-stu-id="08dec-181">Add services and an endpoint for the SignalR hub</span></span>
+## <a name="add-services-and-an-endpoint-for-the-no-locsignalr-hub"></a><span data-ttu-id="a25e6-181">Přidání služeb a koncového bodu pro SignalR centrum</span><span class="sxs-lookup"><span data-stu-id="a25e6-181">Add services and an endpoint for the SignalR hub</span></span>
 
-1. <span data-ttu-id="08dec-182">V `BlazorSignalRApp.Server` projektu otevřete `Startup.cs` soubor.</span><span class="sxs-lookup"><span data-stu-id="08dec-182">In the `BlazorSignalRApp.Server` project, open the `Startup.cs` file.</span></span>
+1. <span data-ttu-id="a25e6-182">V `BlazorSignalRApp.Server` projektu otevřete `Startup.cs` soubor.</span><span class="sxs-lookup"><span data-stu-id="a25e6-182">In the `BlazorSignalRApp.Server` project, open the `Startup.cs` file.</span></span>
 
-1. <span data-ttu-id="08dec-183">Přidejte do `ChatHub` horní části souboru obor názvů pro třídu:</span><span class="sxs-lookup"><span data-stu-id="08dec-183">Add the namespace for the `ChatHub` class to the top of the file:</span></span>
+1. <span data-ttu-id="a25e6-183">Přidejte do `ChatHub` horní části souboru obor názvů pro třídu:</span><span class="sxs-lookup"><span data-stu-id="a25e6-183">Add the namespace for the `ChatHub` class to the top of the file:</span></span>
 
    ```csharp
    using BlazorSignalRApp.Server.Hubs;
    ```
 
-1. <span data-ttu-id="08dec-184">Přidejte SignalR služby middlewaru pro komprimaci a odezvu do `Startup.ConfigureServices` :</span><span class="sxs-lookup"><span data-stu-id="08dec-184">Add SignalR and Response Compression Middleware services to `Startup.ConfigureServices`:</span></span>
+1. <span data-ttu-id="a25e6-184">Přidejte SignalR služby middlewaru pro komprimaci a odezvu do `Startup.ConfigureServices` :</span><span class="sxs-lookup"><span data-stu-id="a25e6-184">Add SignalR and Response Compression Middleware services to `Startup.ConfigureServices`:</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -253,10 +253,10 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 ::: moniker-end
 
-1. <span data-ttu-id="08dec-185">V `Startup.Configure`:</span><span class="sxs-lookup"><span data-stu-id="08dec-185">In `Startup.Configure`:</span></span>
+1. <span data-ttu-id="a25e6-185">V `Startup.Configure`:</span><span class="sxs-lookup"><span data-stu-id="a25e6-185">In `Startup.Configure`:</span></span>
 
-   * <span data-ttu-id="08dec-186">V horní části Konfigurace kanálu zpracování použijte middleware pro kompresi odpovědí.</span><span class="sxs-lookup"><span data-stu-id="08dec-186">Use Response Compression Middleware at the top of the processing pipeline's configuration.</span></span>
-   * <span data-ttu-id="08dec-187">Mezi koncovými body řadičů a Fallback na straně klienta přidejte koncový bod pro centrum.</span><span class="sxs-lookup"><span data-stu-id="08dec-187">Between the endpoints for controllers and the client-side fallback, add an endpoint for the hub.</span></span>
+   * <span data-ttu-id="a25e6-186">V horní části Konfigurace kanálu zpracování použijte middleware pro kompresi odpovědí.</span><span class="sxs-lookup"><span data-stu-id="a25e6-186">Use Response Compression Middleware at the top of the processing pipeline's configuration.</span></span>
+   * <span data-ttu-id="a25e6-187">Mezi koncovými body řadičů a Fallback na straně klienta přidejte koncový bod pro centrum.</span><span class="sxs-lookup"><span data-stu-id="a25e6-187">Between the endpoints for controllers and the client-side fallback, add an endpoint for the hub.</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -270,11 +270,11 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 ::: moniker-end
 
-## <a name="add-no-locrazor-component-code-for-chat"></a><span data-ttu-id="08dec-188">Přidat Razor kód komponenty pro chat</span><span class="sxs-lookup"><span data-stu-id="08dec-188">Add Razor component code for chat</span></span>
+## <a name="add-no-locrazor-component-code-for-chat"></a><span data-ttu-id="a25e6-188">Přidat Razor kód komponenty pro chat</span><span class="sxs-lookup"><span data-stu-id="a25e6-188">Add Razor component code for chat</span></span>
 
-1. <span data-ttu-id="08dec-189">V `BlazorSignalRApp.Client` projektu otevřete `Pages/Index.razor` soubor.</span><span class="sxs-lookup"><span data-stu-id="08dec-189">In the `BlazorSignalRApp.Client` project, open the `Pages/Index.razor` file.</span></span>
+1. <span data-ttu-id="a25e6-189">V `BlazorSignalRApp.Client` projektu otevřete `Pages/Index.razor` soubor.</span><span class="sxs-lookup"><span data-stu-id="a25e6-189">In the `BlazorSignalRApp.Client` project, open the `Pages/Index.razor` file.</span></span>
 
-1. <span data-ttu-id="08dec-190">Nahraďte kód následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="08dec-190">Replace the markup with the following code:</span></span>
+1. <span data-ttu-id="a25e6-190">Nahraďte kód následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="a25e6-190">Replace the markup with the following code:</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -288,25 +288,25 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 ::: moniker-end
 
-## <a name="run-the-app"></a><span data-ttu-id="08dec-191">Spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="08dec-191">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="a25e6-191">Spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="a25e6-191">Run the app</span></span>
 
-1. <span data-ttu-id="08dec-192">Postupujte podle pokynů pro vaše nástroje:</span><span class="sxs-lookup"><span data-stu-id="08dec-192">Follow the guidance for your tooling:</span></span>
+1. <span data-ttu-id="a25e6-192">Postupujte podle pokynů pro vaše nástroje:</span><span class="sxs-lookup"><span data-stu-id="a25e6-192">Follow the guidance for your tooling:</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="08dec-193">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="08dec-193">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="a25e6-193">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a25e6-193">Visual Studio</span></span>](#tab/visual-studio)
 
-1. <span data-ttu-id="08dec-194">V **Průzkumník řešení**vyberte `BlazorSignalRApp.Server` projekt.</span><span class="sxs-lookup"><span data-stu-id="08dec-194">In **Solution Explorer**, select the `BlazorSignalRApp.Server` project.</span></span> <span data-ttu-id="08dec-195">Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd> + <kbd>F5</kbd> pro spuštění aplikace bez ladění.</span><span class="sxs-lookup"><span data-stu-id="08dec-195">Press <kbd>F5</kbd> to run the app with debugging or <kbd>Ctrl</kbd>+<kbd>F5</kbd> to run the app without debugging.</span></span>
+1. <span data-ttu-id="a25e6-194">V **Průzkumník řešení**vyberte `BlazorSignalRApp.Server` projekt.</span><span class="sxs-lookup"><span data-stu-id="a25e6-194">In **Solution Explorer**, select the `BlazorSignalRApp.Server` project.</span></span> <span data-ttu-id="a25e6-195">Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd> + <kbd>F5</kbd> pro spuštění aplikace bez ladění.</span><span class="sxs-lookup"><span data-stu-id="a25e6-195">Press <kbd>F5</kbd> to run the app with debugging or <kbd>Ctrl</kbd>+<kbd>F5</kbd> to run the app without debugging.</span></span>
 
-1. <span data-ttu-id="08dec-196">Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.</span><span class="sxs-lookup"><span data-stu-id="08dec-196">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
+1. <span data-ttu-id="a25e6-196">Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.</span><span class="sxs-lookup"><span data-stu-id="a25e6-196">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
 
-1. <span data-ttu-id="08dec-197">Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy.</span><span class="sxs-lookup"><span data-stu-id="08dec-197">Choose either browser, enter a name and message, and select the button to send the message.</span></span> <span data-ttu-id="08dec-198">Název a zpráva se okamžitě zobrazí na obou stránkách:</span><span class="sxs-lookup"><span data-stu-id="08dec-198">The name and message are displayed on both pages instantly:</span></span>
+1. <span data-ttu-id="a25e6-197">Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy.</span><span class="sxs-lookup"><span data-stu-id="a25e6-197">Choose either browser, enter a name and message, and select the button to send the message.</span></span> <span data-ttu-id="a25e6-198">Název a zpráva se okamžitě zobrazí na obou stránkách:</span><span class="sxs-lookup"><span data-stu-id="a25e6-198">The name and message are displayed on both pages instantly:</span></span>
 
    ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   <span data-ttu-id="08dec-200">Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span><span class="sxs-lookup"><span data-stu-id="08dec-200">Quotes: *Star Trek VI: The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span></span>
+   <span data-ttu-id="a25e6-200">Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span><span class="sxs-lookup"><span data-stu-id="a25e6-200">Quotes: *Star Trek VI: The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="08dec-201">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="08dec-201">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="a25e6-201">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="a25e6-201">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-1. <span data-ttu-id="08dec-202">Když VS Code nabídky pro vytvoření profilu spuštění pro serverovou aplikaci ( `.vscode/launch.json` ), `program` zobrazí se položka podobná následujícímu, aby odkazovala na sestavení aplikace ( `{APPLICATION NAME}.Server.dll` ):</span><span class="sxs-lookup"><span data-stu-id="08dec-202">When VS Code offers to create a launch profile for the Server app (`.vscode/launch.json`), the `program` entry appears similar to the following to point to the app's assembly (`{APPLICATION NAME}.Server.dll`):</span></span>
+1. <span data-ttu-id="a25e6-202">Když VS Code nabídky pro vytvoření profilu spuštění pro serverovou aplikaci ( `.vscode/launch.json` ), `program` zobrazí se položka podobná následujícímu, aby odkazovala na sestavení aplikace ( `{APPLICATION NAME}.Server.dll` ):</span><span class="sxs-lookup"><span data-stu-id="a25e6-202">When VS Code offers to create a launch profile for the Server app (`.vscode/launch.json`), the `program` entry appears similar to the following to point to the app's assembly (`{APPLICATION NAME}.Server.dll`):</span></span>
 
 ::: moniker range=">= aspnetcore-5.0"
 
@@ -324,64 +324,64 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 ::: moniker-end
 
-1. <span data-ttu-id="08dec-203">Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd> + <kbd>F5</kbd> pro spuštění aplikace bez ladění.</span><span class="sxs-lookup"><span data-stu-id="08dec-203">Press <kbd>F5</kbd> to run the app with debugging or <kbd>Ctrl</kbd>+<kbd>F5</kbd> to run the app without debugging.</span></span>
+1. <span data-ttu-id="a25e6-203">Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd> + <kbd>F5</kbd> pro spuštění aplikace bez ladění.</span><span class="sxs-lookup"><span data-stu-id="a25e6-203">Press <kbd>F5</kbd> to run the app with debugging or <kbd>Ctrl</kbd>+<kbd>F5</kbd> to run the app without debugging.</span></span>
 
-1. <span data-ttu-id="08dec-204">Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.</span><span class="sxs-lookup"><span data-stu-id="08dec-204">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
+1. <span data-ttu-id="a25e6-204">Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.</span><span class="sxs-lookup"><span data-stu-id="a25e6-204">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
 
-1. <span data-ttu-id="08dec-205">Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy.</span><span class="sxs-lookup"><span data-stu-id="08dec-205">Choose either browser, enter a name and message, and select the button to send the message.</span></span> <span data-ttu-id="08dec-206">Název a zpráva se okamžitě zobrazí na obou stránkách:</span><span class="sxs-lookup"><span data-stu-id="08dec-206">The name and message are displayed on both pages instantly:</span></span>
-
-   ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
-
-   <span data-ttu-id="08dec-208">Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span><span class="sxs-lookup"><span data-stu-id="08dec-208">Quotes: *Star Trek VI: The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span></span>
-
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="08dec-209">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="08dec-209">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
-
-1. <span data-ttu-id="08dec-210">Na bočním panelu **řešení** vyberte `BlazorSignalRApp.Server` projekt.</span><span class="sxs-lookup"><span data-stu-id="08dec-210">In the **Solution** sidebar, select the `BlazorSignalRApp.Server` project.</span></span> <span data-ttu-id="08dec-211">Stiskněte <kbd>⌘</kbd> + <kbd>↩</kbd> ke spuštění aplikace s laděním nebo <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>↩</kbd> ke spuštění aplikace bez ladění.</span><span class="sxs-lookup"><span data-stu-id="08dec-211">Press <kbd>⌘</kbd>+<kbd>↩</kbd> to run the app with debugging or <kbd>⌥</kbd>+<kbd>⌘</kbd>+<kbd>↩</kbd> to run the app without debugging.</span></span>
-
-1. <span data-ttu-id="08dec-212">Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.</span><span class="sxs-lookup"><span data-stu-id="08dec-212">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
-
-1. <span data-ttu-id="08dec-213">Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy.</span><span class="sxs-lookup"><span data-stu-id="08dec-213">Choose either browser, enter a name and message, and select the button to send the message.</span></span> <span data-ttu-id="08dec-214">Název a zpráva se okamžitě zobrazí na obou stránkách:</span><span class="sxs-lookup"><span data-stu-id="08dec-214">The name and message are displayed on both pages instantly:</span></span>
+1. <span data-ttu-id="a25e6-205">Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy.</span><span class="sxs-lookup"><span data-stu-id="a25e6-205">Choose either browser, enter a name and message, and select the button to send the message.</span></span> <span data-ttu-id="a25e6-206">Název a zpráva se okamžitě zobrazí na obou stránkách:</span><span class="sxs-lookup"><span data-stu-id="a25e6-206">The name and message are displayed on both pages instantly:</span></span>
 
    ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   <span data-ttu-id="08dec-216">Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span><span class="sxs-lookup"><span data-stu-id="08dec-216">Quotes: *Star Trek VI: The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span></span>
+   <span data-ttu-id="a25e6-208">Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span><span class="sxs-lookup"><span data-stu-id="a25e6-208">Quotes: *Star Trek VI: The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span></span>
 
-# <a name="net-core-cli"></a>[<span data-ttu-id="08dec-217">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="08dec-217">.NET Core CLI</span></span>](#tab/netcore-cli/)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="a25e6-209">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="a25e6-209">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-1. <span data-ttu-id="08dec-218">V příkazovém prostředí spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="08dec-218">In a command shell, execute the following commands:</span></span>
+1. <span data-ttu-id="a25e6-210">Na bočním panelu **řešení** vyberte `BlazorSignalRApp.Server` projekt.</span><span class="sxs-lookup"><span data-stu-id="a25e6-210">In the **Solution** sidebar, select the `BlazorSignalRApp.Server` project.</span></span> <span data-ttu-id="a25e6-211">Stiskněte <kbd>⌘</kbd> + <kbd>↩</kbd> ke spuštění aplikace s laděním nebo <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>↩</kbd> ke spuštění aplikace bez ladění.</span><span class="sxs-lookup"><span data-stu-id="a25e6-211">Press <kbd>⌘</kbd>+<kbd>↩</kbd> to run the app with debugging or <kbd>⌥</kbd>+<kbd>⌘</kbd>+<kbd>↩</kbd> to run the app without debugging.</span></span>
+
+1. <span data-ttu-id="a25e6-212">Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.</span><span class="sxs-lookup"><span data-stu-id="a25e6-212">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
+
+1. <span data-ttu-id="a25e6-213">Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy.</span><span class="sxs-lookup"><span data-stu-id="a25e6-213">Choose either browser, enter a name and message, and select the button to send the message.</span></span> <span data-ttu-id="a25e6-214">Název a zpráva se okamžitě zobrazí na obou stránkách:</span><span class="sxs-lookup"><span data-stu-id="a25e6-214">The name and message are displayed on both pages instantly:</span></span>
+
+   ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+
+   <span data-ttu-id="a25e6-216">Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span><span class="sxs-lookup"><span data-stu-id="a25e6-216">Quotes: *Star Trek VI: The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span></span>
+
+# <a name="net-core-cli"></a>[<span data-ttu-id="a25e6-217">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="a25e6-217">.NET Core CLI</span></span>](#tab/netcore-cli/)
+
+1. <span data-ttu-id="a25e6-218">V příkazovém prostředí spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="a25e6-218">In a command shell, execute the following commands:</span></span>
 
    ```dotnetcli
    cd Server
    dotnet run
    ```
 
-1. <span data-ttu-id="08dec-219">Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.</span><span class="sxs-lookup"><span data-stu-id="08dec-219">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
+1. <span data-ttu-id="a25e6-219">Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.</span><span class="sxs-lookup"><span data-stu-id="a25e6-219">Copy the URL from the address bar, open another browser instance or tab, and paste the URL in the address bar.</span></span>
 
-1. <span data-ttu-id="08dec-220">Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy.</span><span class="sxs-lookup"><span data-stu-id="08dec-220">Choose either browser, enter a name and message, and select the button to send the message.</span></span> <span data-ttu-id="08dec-221">Název a zpráva se okamžitě zobrazí na obou stránkách:</span><span class="sxs-lookup"><span data-stu-id="08dec-221">The name and message are displayed on both pages instantly:</span></span>
+1. <span data-ttu-id="a25e6-220">Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy.</span><span class="sxs-lookup"><span data-stu-id="a25e6-220">Choose either browser, enter a name and message, and select the button to send the message.</span></span> <span data-ttu-id="a25e6-221">Název a zpráva se okamžitě zobrazí na obou stránkách:</span><span class="sxs-lookup"><span data-stu-id="a25e6-221">The name and message are displayed on both pages instantly:</span></span>
 
    ![::: No-Loc (Signal):::::: No-Loc (Blazor WebAssembly)::: Ukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   <span data-ttu-id="08dec-223">Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span><span class="sxs-lookup"><span data-stu-id="08dec-223">Quotes: *Star Trek VI: The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span></span>
+   <span data-ttu-id="a25e6-223">Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span><span class="sxs-lookup"><span data-stu-id="a25e6-223">Quotes: *Star Trek VI: The Undiscovered Country* &copy;1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)</span></span>
 
 ---
 
-## <a name="next-steps"></a><span data-ttu-id="08dec-224">Další kroky</span><span class="sxs-lookup"><span data-stu-id="08dec-224">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="a25e6-224">Další kroky</span><span class="sxs-lookup"><span data-stu-id="a25e6-224">Next steps</span></span>
 
-<span data-ttu-id="08dec-225">V tomto kurzu jste se naučili:</span><span class="sxs-lookup"><span data-stu-id="08dec-225">In this tutorial, you learned how to:</span></span>
+<span data-ttu-id="a25e6-225">V tomto kurzu jste se naučili:</span><span class="sxs-lookup"><span data-stu-id="a25e6-225">In this tutorial, you learned how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="08dec-226">Vytvoření Blazor WebAssembly projektu hostované aplikace</span><span class="sxs-lookup"><span data-stu-id="08dec-226">Create a Blazor WebAssembly Hosted app project</span></span>
-> * <span data-ttu-id="08dec-227">Přidat SignalR klientskou knihovnu</span><span class="sxs-lookup"><span data-stu-id="08dec-227">Add the SignalR client library</span></span>
-> * <span data-ttu-id="08dec-228">Přidání SignalR centra</span><span class="sxs-lookup"><span data-stu-id="08dec-228">Add a SignalR hub</span></span>
-> * <span data-ttu-id="08dec-229">Přidání SignalR služeb a koncového bodu pro SignalR centrum</span><span class="sxs-lookup"><span data-stu-id="08dec-229">Add SignalR services and an endpoint for the SignalR hub</span></span>
-> * <span data-ttu-id="08dec-230">Přidat Razor kód komponenty pro chat</span><span class="sxs-lookup"><span data-stu-id="08dec-230">Add Razor component code for chat</span></span>
+> * <span data-ttu-id="a25e6-226">Vytvoření Blazor WebAssembly projektu hostované aplikace</span><span class="sxs-lookup"><span data-stu-id="a25e6-226">Create a Blazor WebAssembly Hosted app project</span></span>
+> * <span data-ttu-id="a25e6-227">Přidat SignalR klientskou knihovnu</span><span class="sxs-lookup"><span data-stu-id="a25e6-227">Add the SignalR client library</span></span>
+> * <span data-ttu-id="a25e6-228">Přidání SignalR centra</span><span class="sxs-lookup"><span data-stu-id="a25e6-228">Add a SignalR hub</span></span>
+> * <span data-ttu-id="a25e6-229">Přidání SignalR služeb a koncového bodu pro SignalR centrum</span><span class="sxs-lookup"><span data-stu-id="a25e6-229">Add SignalR services and an endpoint for the SignalR hub</span></span>
+> * <span data-ttu-id="a25e6-230">Přidat Razor kód komponenty pro chat</span><span class="sxs-lookup"><span data-stu-id="a25e6-230">Add Razor component code for chat</span></span>
 
-<span data-ttu-id="08dec-231">Další informace o vytváření Blazor aplikací najdete v Blazor dokumentaci:</span><span class="sxs-lookup"><span data-stu-id="08dec-231">To learn more about building Blazor apps, see the Blazor documentation:</span></span>
+<span data-ttu-id="a25e6-231">Další informace o vytváření Blazor aplikací najdete v Blazor dokumentaci:</span><span class="sxs-lookup"><span data-stu-id="a25e6-231">To learn more about building Blazor apps, see the Blazor documentation:</span></span>
 
 > [!div class="nextstepaction"]
 > <xref:blazor/index>
 
-## <a name="additional-resources"></a><span data-ttu-id="08dec-232">Další zdroje informací</span><span class="sxs-lookup"><span data-stu-id="08dec-232">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="a25e6-232">Další zdroje informací</span><span class="sxs-lookup"><span data-stu-id="a25e6-232">Additional resources</span></span>
 
 * <xref:signalr/introduction>
-* [<span data-ttu-id="08dec-233">SignalR vyjednávání mezi zdroji pro ověřování</span><span class="sxs-lookup"><span data-stu-id="08dec-233">SignalR cross-origin negotiation for authentication</span></span>](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)
+* [<span data-ttu-id="a25e6-233">SignalR vyjednávání mezi zdroji pro ověřování</span><span class="sxs-lookup"><span data-stu-id="a25e6-233">SignalR cross-origin negotiation for authentication</span></span>](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)
