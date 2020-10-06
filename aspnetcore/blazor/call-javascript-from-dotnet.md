@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: fb74fef2f87f150a9c7db9746a359fbf0a9900ad
-ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
+ms.openlocfilehash: d36140067ba6e75f2d00cb86ea488e40d28bd86f
+ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/06/2020
-ms.locfileid: "91754486"
+ms.locfileid: "91762162"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-no-locblazor"></a>Volání funkcí jazyka JavaScript z metod .NET v ASP.NET Core Blazor
 
@@ -515,19 +515,41 @@ export function showPrompt(message) {
 Přidejte předchozí modul JavaScriptu do knihovny .NET jako statický webový prostředek ( `wwwroot/exampleJsInterop.js` ) a pak Importujte modul do kódu .NET pomocí <xref:Microsoft.JSInterop.IJSRuntime> služby. Služba je vložená jako `jsRuntime` (není zobrazená) pro následující příklad:
 
 ```csharp
-var module = await jsRuntime.InvokeAsync<JSObjectReference>(
+var module = await jsRuntime.InvokeAsync<IJSObjectReference>(
     "import", "./_content/MyComponents/exampleJsInterop.js");
 ```
 
 `import`Identifikátor v předchozím příkladu je speciální identifikátor používaný speciálně pro import modulu JavaScriptu. Zadejte modul využívající cestu ke stabilnímu statickému webovému prostředku: `_content/{LIBRARY NAME}/{PATH UNDER WWWROOT}` . Zástupný symbol `{LIBRARY NAME}` je název knihovny. Zástupný symbol `{PATH UNDER WWWROOT}` je cesta ke skriptu v rámci `wwwroot` .
 
-<xref:Microsoft.JSInterop.IJSRuntime> Importuje modul jako `JSObjectReference` , který představuje odkaz na objekt jazyka JavaScript z kódu .NET. Použijte `JSObjectReference` k vyvolání exportovaných funkcí jazyka JavaScript z modulu:
+<xref:Microsoft.JSInterop.IJSRuntime> Importuje modul jako `IJSObjectReference` , který představuje odkaz na objekt jazyka JavaScript z kódu .NET. Použijte `IJSObjectReference` k vyvolání exportovaných funkcí jazyka JavaScript z modulu:
 
 ```csharp
 public async ValueTask<string> Prompt(string message)
 {
     return await module.InvokeAsync<string>("showPrompt", message);
 }
+```
+
+`IJSInProcessObjectReference` představuje odkaz na objekt jazyka JavaScript, jehož funkce mohou být vyvolány synchronně.
+
+`IJSUnmarshalledObjectReference` představuje odkaz na objekt jazyka JavaScript, jehož funkce lze vyvolat bez režie serializace dat .NET. Tuto možnost lze použít v Blazor WebAssembly případě, kdy je rozhodující výkon:
+
+```javascript
+window.unmarshalledInstance = {
+  helloWorld: function (personNamePointer) {
+    const personName = Blazor.platform.readStringField(value, 0);
+    return `Hello ${personName}`;
+  }
+};
+```
+
+```csharp
+var unmarshalledRuntime = (IJSUnmarshalledRuntime)jsRuntime;
+var jsUnmarshalledReference = unmarshalledRuntime
+    .InvokeUnmarshalled<IJSUnmarshalledObjectReference>("unmarshalledInstance");
+
+string helloWorldString = jsUnmarshalledReference.InvokeUnmarshalled<string, string>(
+    "helloWorld");
 ```
 
 ## <a name="use-of-javascript-libraries-that-render-ui-dom-elements"></a>Použití knihoven JavaScriptu, které vykreslují uživatelské rozhraní (prvky modelu DOM)

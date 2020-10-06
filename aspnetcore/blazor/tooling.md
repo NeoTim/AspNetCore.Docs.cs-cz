@@ -5,7 +5,7 @@ description: Přečtěte si informace o nástrojích dostupných pro sestavován
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/07/2020
+ms.date: 09/28/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -19,12 +19,12 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
-ms.openlocfilehash: d7e3743d12c235c20cc27f6a3263e2994a9e160a
-ms.sourcegitcommit: 65add17f74a29a647d812b04517e46cbc78258f9
+ms.openlocfilehash: d1626fe753782d524bf75c398c11235c3110633a
+ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2020
-ms.locfileid: "88625827"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91762149"
 ---
 # <a name="tooling-for-aspnet-core-no-locblazor"></a>Nástroje pro ASP.NET Core Blazor
 
@@ -52,13 +52,13 @@ Další informace o důvěřování certifikátu pro vývoj ASP.NET Core HTTPS n
 
 ::: zone pivot="linux"
 
-1. Nainstalujte nejnovější verzi sady [.NET Core 3,1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1). Pokud jste dříve nainstalovali sadu SDK, můžete zjistit nainstalovanou verzi spuštěním následujícího příkazu v příkazovém prostředí:
+1. Nainstalujte nejnovější verzi [.NET Core SDK](https://dotnet.microsoft.com/download). Pokud jste dříve nainstalovali sadu SDK, můžete zjistit nainstalovanou verzi spuštěním následujícího příkazu v příkazovém prostředí:
 
    ```dotnetcli
    dotnet --version
    ```
 
-1. Nainstalujte nejnovější verzi [Visual Studio Code](https://code.visualstudio.com/).
+1. Nainstalujte nejnovější verzi [Visual Studio Code](https://code.visualstudio.com).
 
 1. Nainstalujte nejnovější [rozšíření C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp).
 
@@ -90,7 +90,7 @@ Neexistuje žádný centralizovaný způsob, jak důvěřovat certifikátu v sys
 * Důvěřovat všem certifikátům podepsaným svým držitelem pro `localhost` .
 * Přidejte certifikát do seznamu důvěryhodných certifikátů v prohlížeči.
 
-Další informace najdete v pokynech, které poskytuje váš prohlížeč a distribuce systému Linux.
+Další informace najdete v pokynech od výrobce prohlížeče a distribuce systému Linux.
 
 ::: zone-end
 

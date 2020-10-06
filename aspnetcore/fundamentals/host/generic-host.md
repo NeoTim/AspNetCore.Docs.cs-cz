@@ -1,7 +1,7 @@
 ---
-title: Obecný hostitel .NET
+title: Obecný hostitel .NET v ASP.NET Core
 author: rick-anderson
-description: Seznamte se s obecným hostitelem .NET Core, který je zodpovědný za spouštění a správu životního cyklu aplikace.
+description: Použijte obecného hostitele .NET Core v aplikacích ASP.NET Core.  Obecný hostitel zodpovídá za spuštění aplikace a správu životního cyklu.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
@@ -18,25 +18,27 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 59cfae9ff619f8de894686c4b773d66e5cbe10ad
-ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
+ms.openlocfilehash: d3de81ce7248372279b423da865513ee5db73c79
+ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/06/2020
-ms.locfileid: "91754733"
+ms.locfileid: "91762318"
 ---
-# <a name="net-generic-host"></a>Obecný hostitel .NET
+# <a name="net-generic-host-in-aspnet-core"></a>Obecný hostitel .NET v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-5.0"
 
 Šablony ASP.NET Core vytvoří obecného hostitele .NET Core ( <xref:Microsoft.Extensions.Hosting.HostBuilder> ).
+
+Toto téma poskytuje informace o použití obecného hostitele .NET v ASP.NET Core. Informace o použití obecného hostitele .NET v konzolových aplikacích najdete v tématu [obecný hostitel .NET](/dotnet/core/extensions/generic-host).
 
 ## <a name="host-definition"></a>Definice hostitele
 
 *Hostitel* je objekt, který zapouzdřuje prostředky aplikace, jako například:
 
 * Vkládání závislostí (DI)
-* protokolování
+* Protokolování
 * Konfigurace
 * `IHostedService` implementaci
 
@@ -530,12 +532,14 @@ public class Program
 
 Šablony ASP.NET Core vytvoří obecného hostitele .NET Core ( <xref:Microsoft.Extensions.Hosting.HostBuilder> ).
 
+Toto téma poskytuje informace o použití obecného hostitele .NET v ASP.NET Core. Informace o použití obecného hostitele .NET v konzolových aplikacích najdete v tématu [obecný hostitel .NET](/dotnet/core/extensions/generic-host).
+
 ## <a name="host-definition"></a>Definice hostitele
 
 *Hostitel* je objekt, který zapouzdřuje prostředky aplikace, jako například:
 
 * Vkládání závislostí (DI)
-* protokolování
+* Protokolování
 * Konfigurace
 * `IHostedService` implementaci
 

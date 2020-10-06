@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: c6b77f20792c32a697fff8d1d78ef3c2536c5f8f
-ms.sourcegitcommit: 24106b7ffffc9fff410a679863e28aeb2bbe5b7e
+ms.openlocfilehash: 7565ede55acd936072fc1930918d46808548f287
+ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/17/2020
-ms.locfileid: "90722894"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91762344"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -41,6 +41,8 @@ Konfigurace v ASP.NET Core provádí použití jednoho nebo více [poskytovatel�
 * Vlastní zprostředkovatelé, nainstalované nebo vytvořené
 * Soubory adresáře
 * Objekty .NET v paměti
+
+Toto téma poskytuje informace o konfiguraci v ASP.NET Core. Informace o použití konfigurace v konzolových aplikacích najdete v tématu [Konfigurace rozhraní .NET](/dotnet/core/extensions/configuration).
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
@@ -69,7 +71,7 @@ Následující kód zobrazuje povolené poskytovatele konfigurace v pořadí, v 
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Index2.cshtml.cs?name=snippet)]
 
-### <a name="appsettingsjson"></a>appsettings.jsna
+### <a name="appsettingsjson"></a>appsettings.json
 
 V souboru zvažte následující *appsettings.js* :
 
@@ -81,7 +83,7 @@ Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotn
 
 Výchozí <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načtení konfigurace v následujícím pořadí:
 
-1. *appsettings.jsna*
+1. *appsettings.json*
 1. *appSettings.* `Environment` *. JSON* : například *appSettings*. ***Provozní***prostředí. *JSON* a *appSettings*. ***Vývoj***. soubory *JSON* . Verze prostředí souboru se načte na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*). Další informace naleznete v tématu <xref:fundamentals/environments>.
 
 *appSettings*. `Environment` .. hodnoty *JSON* přepisují klíče v *appsettings.js*. Ve výchozím nastavení by například:
@@ -300,7 +302,7 @@ Konfigurační hodnoty:
 
 <a name="cp"></a>
 
-## <a name="configuration-providers"></a>Poskytovatelé konfigurace
+## <a name="configuration-providers"></a>Zprostředkovatelé konfigurace
 
 V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.
 
@@ -320,7 +322,7 @@ Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou zadáni poskytovatel�
 
 Typická posloupnost zprostředkovatelů konfigurace je:
 
-1. *appsettings.jsna*
+1. *appsettings.json*
 1. *appSettings*. `Environment` .. formát *JSON*
 1. [Správce tajných klíčů](xref:security/app-secrets)
 1. Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#evcp).
@@ -762,7 +764,7 @@ Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NE
 
 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>Implementace umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídu aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Zdrojový kód konfigurace](https://github.com/dotnet/extensions/tree/master/src/Configuration)
 * <xref:fundamentals/configuration/options>
@@ -1052,7 +1054,7 @@ Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuil
 1. Po spuštění aplikace otevřete v aplikaci prohlížeč `http://localhost:5000` .
 1. Všimněte si, že výstup obsahuje pár klíč-hodnota pro argument konfiguračního řádku konfigurace, který je k dispozici pro příkaz `dotnet run` .
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 Hodnota musí následovat po znaménku rovná se ( `=` ), nebo klíč musí obsahovat předponu ( `--` nebo `/` ), pokud se hodnota řídí mezerou. Hodnota není povinná, pokud se používá znaménko rovná se (například `CommandLineKey=` ).
 

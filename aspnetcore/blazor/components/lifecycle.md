@@ -5,7 +5,7 @@ description: Naučte se používat Razor metody životního cyklu komponent v Bl
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2020
+ms.date: 10/06/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,18 +18,48 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 00573f87b65e53a7bfd9cc2aed1d2ed7772b9a4a
-ms.sourcegitcommit: 62cc131969b2379f7a45c286a751e22d961dfbdb
+ms.openlocfilehash: a43268acdb53bf811148fe795ef0434662ddb32f
+ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/22/2020
-ms.locfileid: "90847608"
+ms.lasthandoff: 10/06/2020
+ms.locfileid: "91762197"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
 BlazorRozhraní zahrnuje synchronní a asynchronní metody životního cyklu. Přepište metody životního cyklu pro provádění dalších operací na součástech během inicializace a vykreslování komponenty.
+
+Následující diagramy znázorňují Blazor životní cyklus. Metody životního cyklu jsou definovány s příklady v následujících částech tohoto článku.
+
+Události životního cyklu komponenty:
+
+1. Pokud se komponenta poprvé vykresluje na žádost:
+   * Vytvořte instanci komponenty.
+   * Provede vkládání vlastností. Spusťte příkaz [`SetParametersAsync`](#before-parameters-are-set) .
+   * Volání [`OnInitialized{Async}`](#component-initialization-methods) . Pokud <xref:System.Threading.Tasks.Task> je vrácen, <xref:System.Threading.Tasks.Task> je očekáváno a pak je vykreslena komponenta. Pokud se <xref:System.Threading.Tasks.Task> nevrátí, vykreslete komponentu.
+1. Volání [`OnParametersSet{Async}`](#after-parameters-are-set) . Pokud <xref:System.Threading.Tasks.Task> je vrácen, <xref:System.Threading.Tasks.Task> je očekáváno a pak je vykreslena komponenta. Pokud se <xref:System.Threading.Tasks.Task> nevrátí, vykreslete komponentu.
+
+![Události životního cyklu součásti pro::: No-Loc (Razor)::: součást v::: No-Loc (Blazor):::](lifecycle/_static/lifecycle1.png)
+
+Zpracování událostí model DOM (Document Object Model) (DOM):
+
+1. Obslužná rutina události je spuštěna.
+1. Pokud <xref:System.Threading.Tasks.Task> je vrácen, <xref:System.Threading.Tasks.Task> je očekáváno a pak je vykreslena komponenta. Pokud se <xref:System.Threading.Tasks.Task> nevrátí, komponenta se vykreslí.
+
+![Zpracování událostí model DOM (Document Object Model) (DOM)](lifecycle/_static/lifecycle2.png)
+
+`Render`Životní cyklus:
+
+1. Pokud to není první vykreslení komponenty nebo [`ShouldRender`](#suppress-ui-refreshing) je vyhodnoceno jako `false` , neprovádějte pro komponentu další operace.
+1. Sestavte rozdílové stromu vykreslování (rozdíl) a vykreslete komponentu.
+1. Čeká se na aktualizaci DOM.
+1. Volání [`OnAfterRender{Async}`](#after-component-render) .
+
+![Životní cyklus vykreslování](lifecycle/_static/lifecycle3.png)
+
+Volání vývojáře pro [`StateHasChanged`](#state-changes) výsledek vykreslování.
 
 ## <a name="lifecycle-methods"></a>Metody životního cyklu
 
@@ -191,7 +221,7 @@ V `FetchData` komponentě Blazor šablony <xref:Microsoft.AspNetCore.Components.
 
 `Pages/FetchData.razor` v Blazor Server šabloně:
 
-[!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
+[!code-razor[](lifecycle/samples_snapshot/FetchData.razor?highlight=9,21,25)]
 
 ## <a name="handle-errors"></a>Ošetření chyb
 
@@ -286,11 +316,11 @@ Zruší odběr obslužných rutin událostí z událostí .NET. Následující p
 
 * Přístup k privátnímu poli a lambda
 
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
+  [!code-razor[](lifecycle/samples_snapshot/event-handler-disposal-1.razor?highlight=23,28)]
 
 * Přístup k privátní metodě
 
-  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
+  [!code-razor[](lifecycle/samples_snapshot/event-handler-disposal-2.razor?highlight=16,26)]
 
 ## <a name="cancelable-background-work"></a>Zrušit práci na pozadí
 
