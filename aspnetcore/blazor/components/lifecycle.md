@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 100007a5757c1a54333c57adf573bcb8cc4fdd85
-ms.sourcegitcommit: 652aefa1e0d570df42e8bca15ca43b2d250009f3
+ms.openlocfilehash: 0acf757c21d444136e7a6d81d5958be5bc72c2fc
+ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91764048"
+ms.lasthandoff: 10/07/2020
+ms.locfileid: "91805541"
 ---
 # <a name="aspnet-core-no-locblazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
 
@@ -41,14 +41,14 @@ Události životního cyklu komponenty:
    * Volání [`OnInitialized{Async}`](#component-initialization-methods) . Pokud <xref:System.Threading.Tasks.Task> je vrácen, <xref:System.Threading.Tasks.Task> je očekáváno a pak je vykreslena komponenta. Pokud se <xref:System.Threading.Tasks.Task> nevrátí, vykreslete komponentu.
 1. Volání [`OnParametersSet{Async}`](#after-parameters-are-set) . Pokud <xref:System.Threading.Tasks.Task> je vrácen, <xref:System.Threading.Tasks.Task> je očekáváno a pak je vykreslena komponenta. Pokud se <xref:System.Threading.Tasks.Task> nevrátí, vykreslete komponentu.
 
-<img src="lifecycle/_static/lifecycle1.png" alt="Component lifecycle events of a Razor component in Blazor" data-linktype="relative-path" style="max-width:50%;display:block;margin:0 auto">
+<img src="lifecycle/_static/lifecycle1.png" alt="Component lifecycle events of a Razor component in Blazor" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
 
 Zpracování událostí model DOM (Document Object Model) (DOM):
 
 1. Obslužná rutina události je spuštěna.
 1. Pokud <xref:System.Threading.Tasks.Task> je vrácen, <xref:System.Threading.Tasks.Task> je očekáváno a pak je vykreslena komponenta. Pokud se <xref:System.Threading.Tasks.Task> nevrátí, komponenta se vykreslí.
 
-<img src="lifecycle/_static/lifecycle2.png" alt="Document Object Model (DOM) event processing" data-linktype="relative-path" style="max-width:50%;display:block;margin:0 auto">
+<img src="lifecycle/_static/lifecycle2.png" alt="Document Object Model (DOM) event processing" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
 
 `Render`Životní cyklus:
 
@@ -57,7 +57,7 @@ Zpracování událostí model DOM (Document Object Model) (DOM):
 1. Čeká se na aktualizaci DOM.
 1. Volání [`OnAfterRender{Async}`](#after-component-render) .
 
-<img src="lifecycle/_static/lifecycle3.png" alt="Render lifecycle" data-linktype="relative-path" style="max-width:50%;display:block;margin:0 auto">
+<img src="lifecycle/_static/lifecycle3.png" alt="Render lifecycle" data-linktype="relative-path" style="max-width:350px;display:block;margin:0 auto">
 
 Volání vývojáře pro [`StateHasChanged`](#state-changes) výsledek vykreslování.
 

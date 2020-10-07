@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: e12b0e6d1bf9eab751f6605b9a156f637f2b0c0f
-ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
+ms.openlocfilehash: d4fd0d501ff14e37bb55b78bb6493ad43f9e5a87
+ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/27/2020
-ms.locfileid: "91393831"
+ms.lasthandoff: 10/07/2020
+ms.locfileid: "91805567"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core ladění Blazor WebAssembly
 
@@ -49,7 +49,7 @@ Teď *nemůžete*:
 * Přerušit při neošetřených výjimkách.
 * Zarážky volání během spouštění aplikace před spuštěním ladicího proxy serveru. To zahrnuje zarážky v `Program.Main` ( `Program.cs` ) a zarážky v [ `OnInitialized{Async}` metodách](xref:blazor/components/lifecycle#component-initialization-methods) komponent, které jsou načteny první stránkou požadovanou z aplikace.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Ladění vyžaduje některý z následujících prohlížečů:
 
@@ -345,6 +345,9 @@ Pokud dochází k chybám, může vám pomáhat následující tipy:
 * Na kartě **ladicí program** otevřete nástroje pro vývojáře v prohlížeči. V konzole nástroje spusťte příkaz `localStorage.clear()` k odebrání všech zarážek.
 * Potvrďte, že jste nainstalovali a důvěřujete ASP.NET Core certifikát pro vývoj HTTPS. Další informace naleznete v tématu <xref:security/enforcing-ssl#troubleshoot-certificate-problems>.
 * Visual Studio vyžaduje možnost **Povolit ladění JavaScriptu pro ASP.NET (Chrome, Edge a IE)** v možnostech **nástrojů**  >  **Options**  >  **Debugging**  >  **Obecné**ladění. Toto je výchozí nastavení pro Visual Studio. Pokud ladění nefunguje, potvrďte, že je vybraná možnost.
+* Pokud vaše prostředí používá proxy server HTTP, ujistěte se, že `localhost` je součástí nastavení pro obcházení proxy serveru. To lze provést nastavením `NO_PROXY` proměnné prostředí v jednom z těchto parametrů:
+  * `launchSettings.json`Soubor projektu.
+  * Na úrovni uživatelem nebo systémových proměnných prostředí, které se mají použít pro všechny aplikace. Pokud používáte proměnnou prostředí, restartujte Visual Studio, aby se změna projevila.
 
 ### <a name="breakpoints-in-oninitializedasync-not-hit"></a>Zarážky `OnInitialized{Async}` nejsou v neúspěšných.
 
