@@ -26,7 +26,7 @@
       uid: aspnetcore-2.0
     - name: Novinky ve verzi 1.1
       uid: aspnetcore-1.1
-- name: Výukové kurzy
+- name: Kurzy
   displayName: tutorial
   items:
     - name: Webové aplikace
@@ -918,18 +918,36 @@
         - name: Modul ASP.NET Core
           displayName: 'deploy, publish'
           uid: host-and-deploy/aspnet-core-module
+        - name: Hosting v procesu
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/in-process-hosting
+        - name: Hosting mimo proces
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/out-of-process-hosting
+        - name: Sada pro hosting
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/hosting-bundle
+        - name: Soubor web.config
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/web-config
         - name: Podpora služby IIS v sadě Visual Studio
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/development-time-iis-support
         - name: Moduly služby IIS
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/modules
+        - name: Protokolování a diagnostika
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/logging-and-diagnostics
         - name: Řešení potíží
           displayName: 'deploy, publish'
           uid: test/troubleshoot-azure-iis
         - name: Referenční informace o chybách
           displayName: 'deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
+        - name: Pokročilý
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/advanced
         - name: Transformace souboru web.config
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/transform-webconfig
