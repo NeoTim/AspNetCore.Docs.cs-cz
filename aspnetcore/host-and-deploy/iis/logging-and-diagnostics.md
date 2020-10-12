@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/logging-and-diagnostics
-ms.openlocfilehash: 9af2311dd1f42cce3547c8215af22d2613453510
-ms.sourcegitcommit: d60bfd52bfb559e805abd654b87a2a0c7eb69cf8
+ms.openlocfilehash: 523eec53d7d21723dcf136c4e5ce299533a78cc6
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91755281"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91901022"
 ---
 # <a name="log-creation-and-redirection"></a>Vytvoření a přesměrování protokolu
 
@@ -98,4 +98,4 @@ Nastavení obslužné rutiny lze také poskytnout pomocí proměnných prostřed
 > [!WARNING]
 > Nenechávejte **protokolování** ladění povolené v nasazení po delší dobu, než je potřeba k řešení problému. Velikost protokolu není omezená. Když necháte protokol ladění povolený, může dojít k vyčerpání dostupného místa na disku a selhání serveru nebo služby App Service.
 
-Viz [konfigurace s `web.config` ](xref:host-and-deploy/iis/web-config#configuration-with-webconfig) v pro příklad `aspNetCore` prvku v `web.config` souboru.
+Příklad prvku v souboru naleznete v tématu [Konfigurace modulu `web.config` ASP.NET Core](xref:host-and-deploy/iis/web-config#configuration-of-aspnet-core-module-with-webconfig) `aspNetCore` `web.config` .

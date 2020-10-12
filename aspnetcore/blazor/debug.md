@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: d4fd0d501ff14e37bb55b78bb6493ad43f9e5a87
-ms.sourcegitcommit: 139c998d37e9f3e3d0e3d72e10dbce8b75957d89
+ms.openlocfilehash: b8dd272d673e84b45a39272531385ebfd1d06175
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/07/2020
-ms.locfileid: "91805567"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900983"
 ---
 # <a name="debug-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core ladění Blazor WebAssembly
 
@@ -49,7 +49,7 @@ Teď *nemůžete*:
 * Přerušit při neošetřených výjimkách.
 * Zarážky volání během spouštění aplikace před spuštěním ladicího proxy serveru. To zahrnuje zarážky v `Program.Main` ( `Program.cs` ) a zarážky v [ `OnInitialized{Async}` metodách](xref:blazor/components/lifecycle#component-initialization-methods) komponent, které jsou načteny první stránkou požadovanou z aplikace.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Ladění vyžaduje některý z následujících prohlížečů:
 
@@ -93,7 +93,7 @@ Ladění Blazor WebAssembly aplikace v aplikaci Visual Studio:
    > [!NOTE]
    > **Spuštění bez ladění** (<kbd>CTRL</kbd> + <kbd>F5</kbd>) není podporováno. Když je aplikace spuštěna v konfiguraci ladění, režie ladění vždy vede k omezení malého výkonu.
 
-1. V *klientské* aplikaci nastavte zarážku na `currentCount++;` řádku v `Pages/Counter.razor` .
+1. V `*Client*` aplikaci nastavte zarážku na `currentCount++;` řádku v `Pages/Counter.razor` .
 1. V prohlížeči přejděte na `Counter` stránku a kliknutím na tlačítko **klikněte na tlačítko Zobrazit** zarážku.
 1. V aplikaci Visual Studio zkontrolujte hodnotu `currentCount` pole v okně **místní** hodnoty.
 1. Pokračujte v provádění stisknutím klávesy <kbd>F5</kbd> .
@@ -180,7 +180,7 @@ Informace o tom, jak používat vlastní základní cestu aplikace pro Blazor We
 
 1. Spustí se samostatná aplikace a otevře se prohlížeč ladění.
 
-1. V *klientské* aplikaci nastavte zarážku na `currentCount++;` řádku v `Pages/Counter.razor` .
+1. V `*Client*` aplikaci nastavte zarážku na `currentCount++;` řádku v `Pages/Counter.razor` .
 
 1. V prohlížeči přejděte na `Counter` stránku a kliknutím na tlačítko **klikněte na tlačítko Zobrazit** zarážku.
 
@@ -285,7 +285,7 @@ Ladění Blazor WebAssembly aplikace v Visual Studio pro Mac:
    > [!IMPORTANT]
    > Google Chrome nebo Microsoft Edge musí být vybraným prohlížečem pro relaci ladění.
 
-1. V *klientské* aplikaci nastavte zarážku na `currentCount++;` řádku v `Pages/Counter.razor` .
+1. V `*Client*` aplikaci nastavte zarážku na `currentCount++;` řádku v `Pages/Counter.razor` .
 1. V prohlížeči přejděte na `Counter` stránku a kliknutím na tlačítko **kliknutím na tlačítko** spustit zarážku stiskněte klávesu:
 1. V aplikaci Visual Studio zkontrolujte hodnotu `currentCount` pole v okně **místní** hodnoty.
 1. Pokračujte v provádění stisknutím <kbd>&#8984;</kbd> + <kbd>&#8617;</kbd> .

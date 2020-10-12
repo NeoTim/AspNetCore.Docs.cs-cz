@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 91cc7ffc46f5f1f68efd7e481479b19938476cb0
-ms.sourcegitcommit: d7991068bc6b04063f4bd836fc5b9591d614d448
+ms.openlocfilehash: 6ae8c55fcfc85dc725a7dd20a7dbecba063a13e9
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/06/2020
-ms.locfileid: "91762240"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900779"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-no-locidentity-server"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 
@@ -72,7 +72,7 @@ Vytvoření nového Blazor WebAssembly projektu s mechanismem ověřování:
 
 ---
 
-## <a name="server-app-configuration"></a>Konfigurace aplikace serveru
+## <a name="server-app-configuration"></a>*`Server`* Konfigurace aplikace
 
 Následující části popisují přidání do projektu, pokud je zahrnutá Podpora ověřování.
 
@@ -170,7 +170,7 @@ V souboru nastavení aplikace ( `appsettings.json` ) v kořenovém adresáři pr
 
 Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace (například `BlazorSample.Client` ).
 
-## <a name="client-app-configuration"></a>Konfigurace klientské aplikace
+## <a name="client-app-configuration"></a>*`Client`* Konfigurace aplikace
 
 ### <a name="authentication-package"></a>Ověřovací balíček
 
@@ -287,7 +287,7 @@ Spusťte aplikaci z projektu serveru. Při použití sady Visual Studio buď:
 
 ### <a name="custom-user-factory"></a>Vlastní továrna uživatelů
 
-V klientské aplikaci vytvořte vlastní objekt pro vytváření uživatelů. Identity Server odesílá v jedné deklaraci více rolí jako pole JSON `role` . Jedna role se pošle jako řetězcová hodnota v deklaraci identity. Továrna vytvoří jednotlivou `role` deklaraci identity pro každou roli uživatele.
+V *`Client`* aplikaci vytvořte vlastní objekt pro vytváření uživatelů. Identity Server odesílá v jedné deklaraci více rolí jako pole JSON `role` . Jedna role se pošle jako řetězcová hodnota v deklaraci identity. Továrna vytvoří jednotlivou `role` deklaraci identity pro každou roli uživatele.
 
 `CustomUserFactory.cs`:
 
@@ -349,14 +349,14 @@ public class CustomUserFactory
 }
 ```
 
-V klientské aplikaci Zaregistrujte továrnu v `Program.Main` ( `Program.cs` ):
+V *`Client`* aplikaci Zaregistrujte továrnu v `Program.Main` ( `Program.cs` ):
 
 ```csharp
 builder.Services.AddApiAuthorization()
     .AddAccountClaimsPrincipalFactory<CustomUserFactory>();
 ```
 
-V serverové aplikaci zavolejte <xref:Microsoft.AspNetCore.Identity.IdentityBuilder.AddRoles*> na Identity Tvůrce, který přidá služby související s rolemi:
+V *`Server`* aplikaci zavolejte <xref:Microsoft.AspNetCore.Identity.IdentityBuilder.AddRoles*> na Identity Tvůrce, který přidá služby související s rolemi:
 
 ```csharp
 using Microsoft.AspNetCore.Identity;
@@ -378,7 +378,7 @@ Použijte **jeden** z následujících přístupů:
 
 #### <a name="api-authorization-options"></a>Možnosti autorizace rozhraní API
 
-V serverové aplikaci:
+V *`Server`* aplikaci:
 
 * Nakonfigurujte Identity Server tak, aby `name` uvedl `role` deklarace identity a do tokenu ID a přístupového tokenu.
 * Zabrání výchozímu mapování rolí v obslužné rutině tokenu JWT.
@@ -402,7 +402,7 @@ JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 #### <a name="profile-service"></a>Profilová služba
 
-V serverové aplikaci vytvořte `ProfileService` implementaci.
+V *`Server`* aplikaci vytvořte `ProfileService` implementaci.
 
 `ProfileService.cs`:
 
@@ -436,7 +436,7 @@ public class ProfileService : IProfileService
 }
 ```
 
-V serverové aplikaci Zaregistrujte službu profilů v nástroji `Startup.ConfigureServices` :
+V *`Server`* aplikaci Zaregistrujte službu profilů v nástroji `Startup.ConfigureServices` :
 
 ```csharp
 using IdentityServer4.Services;
@@ -448,7 +448,7 @@ services.AddTransient<IProfileService, ProfileService>();
 
 ### <a name="use-authorization-mechanisms"></a>Použití autorizačních mechanismů
 
-V klientské aplikaci jsou v tuto chvíli funkční přístupy k komponentám autorizace. Kterýkoli z autorizačních mechanismů v součástech může použít roli k autorizaci uživatele:
+V *`Client`* této aplikaci jsou v tuto chvíli funkční přístupy k komponentám autorizace. Kterýkoli z autorizačních mechanismů v součástech může použít roli k autorizaci uživatele:
 
 * [ `AuthorizeView` součást](xref:blazor/security/index#authorizeview-component) (příklad: `<AuthorizeView Roles="admin">` )
 * [ `[Authorize]` direktiva atributu](xref:blazor/security/index#authorize-attribute) ( <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ) (příklad: `@attribute [Authorize(Roles = "admin")]` )
@@ -463,7 +463,7 @@ V klientské aplikaci jsou v tuto chvíli funkční přístupy k komponentám au
   }
   ```
 
-`User.Identity.Name` se naplní v klientské aplikaci pomocí uživatelského jména uživatele, což je obvykle jejich přihlašovací e-mailová adresa.
+`User.Identity.Name` aplikace se v aplikaci naplní *`Client`* uživatelským jménem uživatele, což je obvykle jejich přihlašovací e-mailová adresa.
 
 [!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]
 
@@ -568,7 +568,7 @@ Get-ChildItem -path Cert:\CurrentUser\My -Recurse | Format-List DnsNameList, Sub
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Nasazení do Azure App Service](xref:security/authentication/identity/spa#deploy-to-production)
 * [Import certifikátu z Key Vault (dokumentace k Azure)](/azure/app-service/configure-ssl-certificate#import-a-certificate-from-key-vault)

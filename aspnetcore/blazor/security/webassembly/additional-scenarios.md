@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/additional-scenarios
-ms.openlocfilehash: 2881b5d01f3b2e41659e3166a4e77b64a450f017
-ms.sourcegitcommit: a07f83b00db11f32313045b3492e5d1ff83c4437
+ms.openlocfilehash: 50d455b37c51fdd6d3b52b10b3e819eb45526de4
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/15/2020
-ms.locfileid: "90592915"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900957"
 ---
 # <a name="aspnet-core-no-locblazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly Další scénáře zabezpečení
 
@@ -177,7 +177,7 @@ Pro Blazor aplikaci založenou na Blazor WebAssembly šabloně hostovaného proj
 
 ### <a name="graph-api-example"></a>Příklad Graph API
 
-V následujícím příkladu se k <xref:System.Net.Http.HttpClient> získání čísla mobilního telefonu uživatele pro zpracování volání používá pojmenovaná pro Graph API. Po přidání oprávnění rozhraní API Microsoft Graph `User.Read` v oblasti AAD v Azure Portal je obor nakonfigurovaný pro pojmenovaného klienta v samostatné aplikaci nebo klientské aplikaci hostovaného Blazor řešení.
+V následujícím příkladu se k <xref:System.Net.Http.HttpClient> získání čísla mobilního telefonu uživatele pro zpracování volání používá pojmenovaná pro Graph API. Po přidání oprávnění rozhraní API Microsoft Graph `User.Read` v oblasti AAD v Azure Portal je obor nakonfigurovaný pro pojmenovaného klienta v samostatné aplikaci nebo *`Client`* aplikaci hostovaného Blazor řešení.
 
 > [!NOTE]
 > Příklad v této části získá Graph API data pro uživatele v *kódu součásti*. Chcete-li vytvořit deklarace identity uživatelů z Graph API, přečtěte si následující zdroje informací:
@@ -1070,7 +1070,7 @@ Po provedení pokynů v některém z témat hostovaných Blazor WebAssembly apli
 * Předem vykreslí cesty, pro které není nutná autorizace.
 * Nejedná se o cesty PreRender, pro které se vyžaduje autorizace.
 
-V části Třída klientské aplikace `Program` ( `Program.cs` ) se služba Factor Common registruje do samostatné metody (například `ConfigureCommonServices` ):
+V rámci *`Client`* třídy aplikace `Program` ( `Program.cs` ) se služba Factor Common registruje do samostatné metody (například `ConfigureCommonServices` ):
 
 ```csharp
 public class Program
@@ -1130,7 +1130,7 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-V serverové aplikaci vytvořte `Pages` složku, pokud neexistuje. Vytvořte `_Host.cshtml` stránku ve složce serverové aplikace `Pages` . Vložte obsah ze souboru klientské aplikace `wwwroot/index.html` do `Pages/_Host.cshtml` souboru. Aktualizujte obsah souboru:
+V serverové aplikaci vytvořte `Pages` složku, pokud neexistuje. Vytvořte `_Host.cshtml` stránku ve složce serverové aplikace `Pages` . Vložte obsah ze *`Client`* `wwwroot/index.html` souboru aplikace do `Pages/_Host.cshtml` souboru. Aktualizujte obsah souboru:
 
 * Přidejte `@page "_Host"` na začátek souboru.
 * Značku nahraďte `<app>Loading...</app>` následujícím:

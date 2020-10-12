@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/blazor-server-ef-core
-ms.openlocfilehash: 36c0915649d9a25cf1b6b2d9ec69c3919aa7bc2c
-ms.sourcegitcommit: 6c82d78662332cd40d614019b9ed17c46e25be28
+ms.openlocfilehash: fc902cb5a82fda9fdbed09c40d66a846d9360f6a
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/29/2020
-ms.locfileid: "91424162"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900736"
 ---
 # <a name="aspnet-core-no-locblazor-server-with-entity-framework-core-efcore"></a>ASP.NET Core Blazor Server s Entity Framework Core (EFCore)
 
@@ -99,7 +99,7 @@ Nejrychlejší způsob, jak vytvořit novou <xref:Microsoft.EntityFrameworkCore.
 
 Doporučeným řešením pro vytvoření nového <xref:Microsoft.EntityFrameworkCore.DbContext> se závislostmi je použití továrny. EF Core 5,0 nebo novější poskytuje integrovaný objekt pro vytváření nových kontextů.
 
-Následující příklad konfiguruje [SQLite](https://www.sqlite.org/index.html) a povoluje protokolování dat. Kód používá metodu rozšíření ke konfiguraci objektu pro vytváření databáze pro DI a poskytuje výchozí možnosti:
+Následující příklad konfiguruje [SQLite](https://www.sqlite.org/index.html) a povoluje protokolování dat. Kód používá [metodu rozšíření ( `AddDbContextFactory` )](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/common/samples/3.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Data/FactoryExtensions.cs) ke konfiguraci objektu pro vytváření databáze pro di a zadání výchozích možností:
 
 [!code-csharp[](./common/samples/5.x/BlazorServerEFCoreSample/BlazorServerDbContextExample/Startup.cs?name=snippet1)]
 

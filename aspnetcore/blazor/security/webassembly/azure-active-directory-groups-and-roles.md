@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: 7a0c606d82dd625c179ec89e22b9313dfa5d18b4
-ms.sourcegitcommit: c026bf76a0e14a5ee68983519a63574c674e9ff7
+ms.openlocfilehash: ac666a4c7493140d4ae93047e18202c3d8314c7b
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91636774"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900697"
 ---
 # <a name="azure-active-directory-aad-groups-administrator-roles-and-user-defined-roles"></a>Skupiny Azure Active Directory (AAD), role správců a uživatelsky definované role
 
@@ -49,7 +49,7 @@ Pokyny v tomto článku se týkají Blazor WebAssembly scénářů nasazení AAD
 
 Pro každého uživatele aplikace s více než pěti rolemi správce AAD a členstvím ve skupině zabezpečení je vyžadováno volání [rozhraní API Microsoft Graph](/graph/use-the-api) .
 
-Pokud chcete povolit Graph API volání, poskytněte samostatnou nebo klientskou aplikaci hostovaného Blazor řešení kterékoli z následujících [Graph API oprávnění](/graph/permissions-reference) v Azure Portal:
+Chcete-li povolit Graph API volání, poskytněte samostatnou nebo *`Client`* aplikaci hostovaného Blazor řešení kterékoli z následujících [Graph API oprávnění](/graph/permissions-reference) v Azure Portal:
 
 * `Directory.Read.All`
 * `Directory.ReadWrite.All`
@@ -88,7 +88,7 @@ public class CustomUserAccount : RemoteUserAccount
 }
 ```
 
-V samostatné aplikaci nebo klientské aplikaci hostovaného Blazor řešení vytvořte vlastní <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> třídu. Použijte správný obor (oprávnění) pro Graph API volání, která získávají informace o rolích a skupinách.
+V samostatné aplikaci nebo v *`Client`* aplikaci hostovaného Blazor řešení vytvořte vlastní <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> třídu. Použijte správný obor (oprávnění) pro Graph API volání, která získávají informace o rolích a skupinách.
 
 `GraphAPIAuthorizationMessageHandler.cs`:
 
@@ -250,7 +250,7 @@ Není nutné zadávat kód pro odebrání původní `groups` deklarace identity,
 >
 > Obecné pokrytí tohoto přístupu najdete v <xref:blazor/security/webassembly/additional-scenarios#custom-authorizationmessagehandler-class> článku.
 
-Zaregistrujte továrnu v `Program.Main` ( `Program.cs` ) samostatné aplikace nebo klientské aplikace hostovaného Blazor řešení. Souhlas s `Directory.Read.All` oborem oprávnění jako další obor pro aplikaci:
+Zaregistrujte továrnu v `Program.Main` ( `Program.cs` ) samostatné aplikace nebo *`Client`* aplikace hostovaného Blazor řešení. Souhlas s `Directory.Read.All` oborem oprávnění jako další obor pro aplikaci:
 
 ```csharp
 builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
@@ -651,9 +651,9 @@ Následující příklad předpokládá, že je aplikace nakonfigurovaná se dv�
 
 Jediná deklarace, kterou `roles` odesílá AAD, prezentuje uživatelsky definované role jako `appRoles` `value` s v poli JSON. Aplikace musí převést pole rolí JSON na jednotlivé `role` deklarace identity.
 
-V `CustomUserFactory` části [uživatelsky definované skupiny a role správce AAD](#user-defined-groups-and-administrator-roles) je nastavené tak, aby se jednalo o `roles` deklaraci identity s hodnotou pole JSON. Přidejte a zaregistrujte se `CustomUserFactory` do samostatné aplikace nebo klientské aplikace hostovaného Blazor řešení, jak je znázorněno v části [uživatelsky definované skupiny a role správců AAD](#user-defined-groups-and-administrator-roles) . Není nutné zadávat kód pro odebrání původní `roles` deklarace identity, protože je automaticky odebrána rozhraním Framework.
+V `CustomUserFactory` části [uživatelsky definované skupiny a role správce AAD](#user-defined-groups-and-administrator-roles) je nastavené tak, aby se jednalo o `roles` deklaraci identity s hodnotou pole JSON. Přidejte a zaregistrujte se `CustomUserFactory` do samostatné aplikace nebo *`Client`* aplikace hostovaného Blazor řešení, jak je znázorněno v části [uživatelsky definované skupiny a role správců AAD](#user-defined-groups-and-administrator-roles) . Není nutné zadávat kód pro odebrání původní `roles` deklarace identity, protože je automaticky odebrána rozhraním Framework.
 
-V `Program.Main` samostatné aplikaci nebo klientské aplikaci hostovaného Blazor řešení zadejte deklaraci identity s názvem `role` jako deklaraci identity role:
+V `Program.Main` samostatné aplikaci nebo *`Client`* aplikaci hostovaného Blazor řešení zadejte deklaraci identity s názvem `role` jako deklaraci identity role:
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>

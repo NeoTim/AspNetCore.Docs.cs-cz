@@ -5,7 +5,7 @@ description: Naučte se zabezpečit aplikaci ASP.NET Core Blazor WebAssembly Hos
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/08/2020
+ms.date: 10/08/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: adc45293a6dfd324c12482d2dfffdeaa25eee4a3
-ms.sourcegitcommit: 9a90b956af8d8584d597f1e5c1dbfb0ea9bb8454
+ms.openlocfilehash: aa6c865f5fd51d1634bde3ac96e1fddc7216a801
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88712438"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900944"
 ---
 # <a name="secure-an-aspnet-core-no-locblazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core s využitím Azure Active Directory B2C
 
@@ -47,7 +47,7 @@ Postupujte podle pokynů v [kurzu: Zaregistrujte aplikaci v Azure Active Directo
 1. Zadejte **název** aplikace (například ** Blazor Server AAD B2C**).
 1. U **podporovaných typů účtů**vyberte možnost více tenantů: **účty v libovolném organizačním adresáři nebo jakémkoli poskytovateli identity. Pro ověřování uživatelů pomocí Azure AD B2C.**
 1. *Aplikace API serveru* v tomto scénáři nevyžaduje **identifikátor URI přesměrování** , proto nechejte rozevírací seznam nastavený na **Web** a nezadávejte identifikátor URI přesměrování.
-1. Potvrďte, že **oprávnění**  >  **udělují správcům oprávnění k OpenID a offline_access** je povolené.
+1. Ověřte, že je vybraná **oprávnění**  >  **udělit souhlas správce k OpenID a oprávněním offline_access** .
 1. Vyberte **Zaregistrovat**.
 
 Zaznamenejte následující informace:
@@ -67,30 +67,52 @@ Ve **vystavení rozhraní API**:
 
 Zaznamenejte následující informace:
 
-* Identifikátor URI ID aplikace (například, `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd` , `api://41451fa7-82d9-4673-8fa5-69eff5a761fd` nebo vlastní hodnota, kterou jste zadali)
+* Identifikátor URI ID aplikace (například, `api://41451fa7-82d9-4673-8fa5-69eff5a761fd` , `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd` nebo vlastní hodnota, kterou jste zadali)
 * Název oboru (například `API.Access` )
-
-Identifikátor URI ID aplikace může vyžadovat zvláštní konfiguraci v klientské aplikaci, která je popsaná v části [obory přístupového tokenu](#access-token-scopes) dále v tomto tématu.
 
 ### <a name="register-a-client-app"></a>Registrace klientské aplikace
 
-Postupujte podle pokynů v [kurzu: znovu zaregistrujte aplikaci v Azure Active Directory B2C](/azure/active-directory-b2c/tutorial-register-applications) k registraci aplikace AAD pro *klientskou aplikaci* a pak postupujte takto:
+Postupujte podle pokynů v [kurzu: Zaregistrujte aplikaci v Azure Active Directory B2C](/azure/active-directory-b2c/tutorial-register-applications) znovu pro registraci aplikace AAD pro *`Client`* aplikaci a pak postupujte takto:
 
-1. V **Azure Active Directory**  >  **Registrace aplikací**vyberte možnost **Nová registrace**.
+::: moniker range=">= aspnetcore-5.0"
+
+1. V **Azure Active Directory** > **Registrace aplikací**vyberte možnost **Nová registrace**.
 1. Zadejte **název** aplikace (například ** Blazor AAD B2C klienta**).
 1. U **podporovaných typů účtů**vyberte možnost více tenantů: **účty v libovolném organizačním adresáři nebo jakémkoli poskytovateli identity. Pro ověřování uživatelů pomocí Azure AD B2C.**
-1. Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` . Výchozí port pro aplikaci běžící na Kestrel je 5001. Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace. Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve vlastnostech serverové aplikace na panelu **ladění** . Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování. V části [Vytvoření aplikace](#create-the-app) se zobrazí zpráva s upozorněním, že IIS Express uživatelé chtějí aktualizovat identifikátor URI přesměrování.
-1. Potvrďte, že **oprávnění**  >  **udělují správcům oprávnění k OpenID a offline_access** je povolené.
+1. Rozevírací seznam **identifikátor URI pro přesměrování** nastavte na **JEDNOSTRÁNKOVOU aplikaci (Spa)** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` . Výchozí port pro aplikaci běžící na Kestrel je 5001. Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace. Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve *`Server`* vlastnostech aplikace na panelu **ladění** . Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování. V části [Vytvoření aplikace](#create-the-app) se zobrazí zpráva s upozorněním, že IIS Express uživatelé chtějí aktualizovat identifikátor URI přesměrování.
+1. Ověřte, že je vybraná **oprávnění** > **udělit souhlas správce k OpenID a oprávněním offline_access** .
+1. Vyberte **Zaregistrovat**.
+
+1. Poznamenejte si ID aplikace (klienta) (například `4369008b-21fa-427c-abaa-9b53bf58e538` ).
+
+V **Authentication** > **Platform configurations** > **aplikaci Single-Page konfigurace platformy ověřování (Spa)**:
+
+1. Ověřte, zda je **identifikátor URI přesměrování** k `https://localhost:{PORT}/authentication/login-callback` dispozici.
+1. Pro **implicitní udělení**zajistěte, aby se u **přístupových tokenů** a **tokenů ID** **nevybrali zaškrtávací** políčka.
+1. Zbývající výchozí hodnoty pro aplikaci jsou pro toto prostředí přijatelné.
+1. Vyberte tlačítko **Uložit**.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+1. V **Azure Active Directory** > **Registrace aplikací**vyberte možnost **Nová registrace**.
+1. Zadejte **název** aplikace (například ** Blazor AAD B2C klienta**).
+1. U **podporovaných typů účtů**vyberte možnost více tenantů: **účty v libovolném organizačním adresáři nebo jakémkoli poskytovateli identity. Pro ověřování uživatelů pomocí Azure AD B2C.**
+1. Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` . Výchozí port pro aplikaci běžící na Kestrel je 5001. Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace. Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve *`Server`* vlastnostech aplikace na panelu **ladění** . Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování. V části [Vytvoření aplikace](#create-the-app) se zobrazí zpráva s upozorněním, že IIS Express uživatelé chtějí aktualizovat identifikátor URI přesměrování.
+1. Ověřte, že je vybraná **oprávnění** > **udělit souhlas správce k OpenID a oprávněním offline_access** .
 1. Vyberte **Zaregistrovat**.
 
 Poznamenejte si ID aplikace (klienta) (například `4369008b-21fa-427c-abaa-9b53bf58e538` ).
 
-Na webu konfigurace **ověřovacích**  >  **platforem**  >  **Web**:
+Na webu konfigurace **ověřovacích** > **platforem** > **Web**:
 
 1. Ověřte, zda je **identifikátor URI přesměrování** k `https://localhost:{PORT}/authentication/login-callback` dispozici.
 1. V případě **implicitního udělení**zaškrtněte políčka pro **přístupové tokeny** a **tokeny ID**.
 1. Zbývající výchozí hodnoty pro aplikaci jsou pro toto prostředí přijatelné.
 1. Vyberte tlačítko **Uložit**.
+
+::: moniker-end
 
 V **oprávněních rozhraní API**:
 
@@ -117,32 +139,30 @@ Zástupné symboly v následujícím příkazu nahraďte dříve zaznamenanými 
 dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{TENANT DOMAIN}" -ho -o {APP NAME} -ssp "{SIGN UP OR SIGN IN POLICY}"
 ```
 
-| Zástupný symbol                   | Název Azure Portal                                     | Příklad                                |
-| ----------------------------- | ----------------------------------------------------- | -------------------------------------- |
-| `{AAD B2C INSTANCE}`          | Instance                                              | `https://contoso.b2clogin.com/`        |
-| `{APP NAME}`                  | &mdash;                                               | `BlazorSample`                         |
-| `{CLIENT APP CLIENT ID}`      | ID aplikace (klienta) pro *klientskou aplikaci*          | `4369008b-21fa-427c-abaa-9b53bf58e538` |
-| `{DEFAULT SCOPE}`             | Název oboru                                            | `API.Access`                           |
-| `{SERVER API APP CLIENT ID}`  | ID aplikace (klienta) pro *aplikaci Server API*      | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
-| `{SERVER API APP ID URI}`     | Identifikátor URI ID aplikace ([Viz Poznámka](#access-token-scopes)) | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
-| `{SIGN UP OR SIGN IN POLICY}` | Tok uživatele pro registraci nebo přihlášení                             | `B2C_1_signupsignin1`                  |
-| `{TENANT DOMAIN}`             | Primární/Vydavatel/doména tenanta                       | `contoso.onmicrosoft.com`              |
+| Zástupný symbol                   | Název Azure Portal                                     | Příklad                                      |
+| ----------------------------- | ----------------------------------------------------- | -------------------------------------------- |
+| `{AAD B2C INSTANCE}`          | Instance                                              | `https://contoso.b2clogin.com/`              |
+| `{APP NAME}`                  | &mdash;                                               | `BlazorSample`                               |
+| `{CLIENT APP CLIENT ID}`      | ID aplikace (klienta) pro *`Client`* aplikaci        | `4369008b-21fa-427c-abaa-9b53bf58e538`       |
+| `{DEFAULT SCOPE}`             | Název oboru                                            | `API.Access`                                 |
+| `{SERVER API APP CLIENT ID}`  | ID aplikace (klienta) pro *aplikaci Server API*      | `41451fa7-82d9-4673-8fa5-69eff5a761fd`       |
+| `{SERVER API APP ID URI}`     | Identifikátor URI ID aplikace                                    | `api://41451fa7-82d9-4673-8fa5-69eff5a761fd` |
+| `{SIGN UP OR SIGN IN POLICY}` | Tok uživatele pro registraci nebo přihlášení                             | `B2C_1_signupsignin1`                        |
+| `{TENANT DOMAIN}`             | Primární/Vydavatel/doména tenanta                       | `contoso.onmicrosoft.com`                    |
 
 Umístění výstupu zadané s `-o|--output` možností vytvoří složku projektu, pokud neexistuje a bude součástí názvu aplikace.
 
 > [!NOTE]
-> Předejte tomuto parametru identifikátor URI ID aplikace `app-id-uri` , ale Všimněte si, že se v klientské aplikaci může vyžadovat Změna konfigurace, která je popsaná v části [obory přístupového tokenu](#access-token-scopes) .
->
-> Kromě toho obor nastavený podle hostované Blazor šablony může mít opakovaný hostitel identifikátoru URI ID aplikace. Ověřte, že je obor konfigurovaný pro `DefaultAccessTokenScopes` kolekci správný v `Program.Main` ( `Program.cs` ) *klientské aplikaci*.
+> Obor nastavený podle hostované Blazor šablony může mít opakovaný hostitel identifikátoru URI ID aplikace. Ověřte, že je obor konfigurovaný pro `DefaultAccessTokenScopes` kolekci v `Program.Main` ( `Program.cs` ) *`Client`* aplikace správný.
 
 > [!NOTE]
-> V Azure Portal **Authentication** *Client app's*  >  **Platform configurations**  >  **Web**  >  pro aplikace, které běží na serveru Kestrel s výchozími nastaveními, je 5001 nakonfigurován**identifikátor URI** webu klientské aplikace konfigurace platformy ověřování.
+> V Azure Portal *`Client`* je **identifikátor URI pro přesměrování** konfigurace platformy aplikace nakonfigurovaný pro port 5001 pro aplikace, které běží na serveru Kestrel s výchozími nastaveními.
 >
-> Pokud *klientská aplikace* běží na náhodném IIS Express portu, můžete port pro aplikaci najít ve vlastnostech *aplikace API serveru* na panelu **ladění** .
+> Pokud *`Client`* je aplikace spuštěná na náhodném IIS Express portu, můžete port pro aplikaci najít ve vlastnostech *aplikace API serveru* na panelu **ladění** .
 >
-> Pokud port nebyl dříve nakonfigurovaný se známým portem *klientské aplikace* , vraťte se k registraci *klientské aplikace* v Azure Portal a aktualizujte identifikátor URI přesměrování pomocí správného portu.
+> Pokud port nebyl dříve nakonfigurovaný se *`Client`* známým portem aplikace, vraťte se k *`Client`* registraci aplikace v Azure Portal a aktualizujte identifikátor URI přesměrování pomocí správného portu.
 
-## <a name="server-app-configuration"></a>Konfigurace aplikace serveru
+## <a name="server-app-configuration"></a>*`Server`* Konfigurace aplikace
 
 *Tato část se týká **`Server`** aplikace řešení.*
 
@@ -243,7 +263,7 @@ public class WeatherForecastController : ControllerBase
 }
 ```
 
-## <a name="client-app-configuration"></a>Konfigurace klientské aplikace
+## <a name="client-app-configuration"></a>*`Client`* Konfigurace aplikace
 
 *Tato část se týká **`Client`** aplikace řešení.*
 
@@ -334,7 +354,11 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-[!INCLUDE[](~/includes/blazor-security/azure-scope.md)]
+Určete další obory pomocí `AdditionalScopesToConsent` :
+
+```csharp
+options.ProviderOptions.AdditionalScopesToConsent.Add("{ADDITIONAL SCOPE URI}");
+```
 
 Další informace najdete v následujících částech článku o *dalších scénářích* :
 

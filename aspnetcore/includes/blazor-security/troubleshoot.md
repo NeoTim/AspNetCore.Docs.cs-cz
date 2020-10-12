@@ -12,22 +12,22 @@ Jedním z způsobů, jak zabránit kolizím souborů cookie a dat lokality při 
 
 * Konfigurace prohlížeče
   * Použijte prohlížeč pro testování, který můžete nakonfigurovat tak, aby při každém zavření prohlížeče odstranil všechna data cookie a data lokality.
-  * Ujistěte se, že je prohlížeč uzavřený ručně nebo pomocí integrovaného vývojového prostředí (IDE) mezi jakoukoli změnou aplikace, testovacího uživatele nebo zprostředkovatele.
+  * Ujistěte se, že je prohlížeč uzavřený ručně nebo IDE pro všechny změny aplikace, testovacího uživatele nebo konfigurace poskytovatele.
 * Použití vlastního příkazu k otevření prohlížeče v anonymním nebo privátním režimu v aplikaci Visual Studio:
   * Otevřete dialogové okno **Procházet s pomocí** tlačítka **Spustit** v aplikaci Visual Studio.
   * Vyberte tlačítko **Přidat** .
   * Zadejte cestu k prohlížeči do pole **program** . Následující cesty ke spustitelným složkám jsou typická umístění instalace pro Windows 10. Pokud je váš prohlížeč nainstalovaný v jiném umístění nebo nepoužíváte Windows 10, zadejte cestu ke spustitelnému souboru prohlížeče.
-    * Microsoft Edge:`C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
-    * Google Chrome:`C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`
-    * Mozilla Firefox:`C:\Program Files\Mozilla Firefox\firefox.exe`
+    * Microsoft Edge: `C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
+    * Google Chrome: `C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`
+    * Mozilla Firefox: `C:\Program Files\Mozilla Firefox\firefox.exe`
   * Do pole **argumenty** zadejte parametr příkazového řádku, který prohlížeč používá pro otevření v anonymním nebo privátním režimu. Některé prohlížeče vyžadují adresu URL aplikace.
-    * Microsoft Edge:`-inprivate`
-    * Google Chrome:`--incognito --new-window https://localhost:5001`
-    * Mozilla Firefox:`-private -url https://localhost:5001`
+    * Microsoft Edge: použijte `-inprivate` .
+    * Google Chrome: použijte `--incognito --new-window {URL}` , kde zástupný symbol `{URL}` je adresa URL, která se má otevřít (například `https://localhost:5001` ).
+    * Mozilla Firefox: použijte `-private -url {URL}` , kde zástupný symbol `{URL}` je adresa URL, která se má otevřít (například `https://localhost:5001` ).
   * Do pole **popisný název** zadejte název. Například, `Firefox Auth Testing`.
   * Vyberte tlačítko **OK**.
   * Chcete-li se vyhnout nutnosti vybrat profil prohlížeče pro každou iteraci testování s aplikací, nastavte profil jako výchozí pomocí tlačítka **nastavit jako výchozí** .
-  * Ujistěte se, že je prohlížeč uzavřený pomocí integrovaného vývojového prostředí (IDE) mezi každou změnou aplikace, testovacího uživatele nebo konfigurace poskytovatele.
+  * Ujistěte se, že je prohlížeč uzavřený rozhraním IDE, aby se změnila jakákoli změna aplikace, testovacího uživatele nebo konfigurace poskytovatele.
 
 ### <a name="run-the-server-app"></a>Spuštění serverové aplikace
 

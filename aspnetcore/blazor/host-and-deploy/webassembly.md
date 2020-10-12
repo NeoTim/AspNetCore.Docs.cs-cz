@@ -5,7 +5,7 @@ description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Cor
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/25/2020
+ms.date: 10/09/2020
 no-loc:
 - ASP.NET Core Identity
 - cookie
@@ -18,12 +18,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 3436620123618ab32daa44c4a37057aaadb89563
-ms.sourcegitcommit: 74f4a4ddbe3c2f11e2e09d05d2a979784d89d3f5
+ms.openlocfilehash: 63954bd2fbb8fdb2e347d552a10adc52263c3ad6
+ms.sourcegitcommit: daa9ccf580df531254da9dce8593441ac963c674
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/27/2020
-ms.locfileid: "91393688"
+ms.lasthandoff: 10/09/2020
+ms.locfileid: "91900710"
 ---
 # <a name="host-and-deploy-aspnet-core-no-locblazor-webassembly"></a>ASP.NET Core hostitele a nasazení Blazor WebAssembly
 
@@ -867,3 +867,76 @@ V souboru projektu se skript spustí po publikování aplikace:
 
 > [!NOTE]
 > Při přejmenovávání a opožděném načítání stejných sestavení, přečtěte si pokyny v tématu <xref:blazor/webassembly-lazy-load-assemblies#onnavigateasync-events-and-renamed-assembly-files> .
+
+## <a name="resolve-integrity-check-failures"></a>Vyřešit selhání kontroly integrity
+
+Při Blazor WebAssembly stažení spouštěcích souborů aplikace instruuje prohlížeč, aby prováděl kontroly integrity na odpovědích. Používá informace v `blazor.boot.json` souboru k určení očekávaných hodnot hash SHA-256 pro `.dll` , `.wasm` a dalších souborů. To je užitečné z následujících důvodů:
+
+* Zajišťuje neriziku načtení nekonzistentní sady souborů, například pokud se na váš webový server použije nové nasazení, zatímco uživatel právě stahuje soubory aplikace. Nekonzistentní soubory mohou vést k nedefinovanému chování.
+* To zajišťuje, že prohlížeč uživatele nikdy neukládá do mezipaměti nekonzistentní ani neplatné odpovědi, což by mohlo zabránit spuštění aplikace i v případě, že stránku ručně aktualizují.
+* Umožňuje bezpečné ukládání odpovědí do mezipaměti a dokonce i kontrolu nad změnami na straně serveru, dokud se nezmění očekávaná hodnota hash SHA-256, takže následné načtení stránky zahrnuje méně požadavků a dokončí mnohem rychleji.
+
+Pokud váš webový server vrátí odpovědi, které neodpovídají očekávaným hodnotám hash SHA-256, zobrazí se v konzole pro vývojáře v prohlížeči chybová zpráva podobná následující:
+
+```
+Failed to find a valid digest in the 'integrity' attribute for resource 'https://myapp.example.com/_framework/MyBlazorApp.dll' with computed SHA-256 integrity 'IIa70iwvmEg5WiDV17OpQ5eCztNYqL186J56852RpJY='. The resource has been blocked.
+```
+
+Ve většině případů to *není* problém s kontrolou integrity samotnou. Místo toho znamená, že došlo k nějakému problému a kontrola integrity vás upozorní na tento jiný problém.
+
+### <a name="diagnosing-integrity-problems"></a>Diagnostikování problémů s integritou
+
+Při sestavení aplikace vygenerovaný `blazor.boot.json` manifest popisuje hodnoty hash SHA-256 svých spouštěcích prostředků (například,, `.dll` `.wasm` a dalších souborů) v době, kdy je vytvořen výstup sestavení. Kontrola integrity projde, dokud hodnoty hash SHA-256 ve `blazor.boot.json` shodě se soubory doručenými do prohlížeče.
+
+Běžné důvody, proč se tato chyba nezdařila:
+
+ * Odpověď webového serveru je chyba (například Chyba *404-nenalezena* nebo *500-interní chyba serveru*) místo souboru, který prohlížeč požadoval. Prohlížeč tuto zprávu oznamuje jako selhání kontroly integrity a ne jako odpověď.
+ * Něco změnilo obsah souborů mezi sestavením a doručením souborů do prohlížeče. K tomu může dojít:
+   * Pokud vytváříte nebo vytváříte nástroje, můžete výstup sestavení ručně změnit.
+   * Pokud nějaký aspekt procesu nasazení změnil soubory. Například pokud používáte mechanizmus pro nasazení na základě Gitu, pamatujte, že Git transparentně převede konce řádků ve stylu Windows na konce řádků ve stylu systému UNIX, Pokud potvrdíte soubory ve Windows a zaregistrujte se na Linux. Změna konců řádků souboru mění hodnoty hash SHA-256. Chcete-li se tomuto problému vyhnout, zvažte [použití `.gitattributes` pro považovat artefakty sestavení jako `binary` soubory](https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes).
+   * Webový server upraví obsah souboru v rámci obsluhy. Například některé sítě pro distribuci obsahu (sítě CDN) se automaticky pokusí [minimalizuje](xref:client-side/bundling-and-minification#minification) HTML, takže se upraví. Tyto funkce možná budete muset zakázat.
+
+Postup diagnostiky, které z těchto případů platí:
+
+ 1. Všimněte si, že soubor spouští chybu načtením chybové zprávy.
+ 1. Otevřete vývojářské nástroje v prohlížeči a podívejte se na kartu *síť* . V případě potřeby stránku znovu načtěte, aby se zobrazil seznam požadavků a odpovědí. Vyhledejte soubor, který aktivuje chybu v tomto seznamu.
+ 1. V odpovědi ověřte stavový kód protokolu HTTP. Pokud server vrátí jinou hodnotu než *200-OK* (nebo jiný stavový kód 2xx), budete mít problém s diagnostikou na straně serveru. Například stavový kód 403 znamená problém s autorizací, zatímco stavový kód 500 znamená, že se server nedaří nespecifikovaným způsobem. Diagnostikujte a opravte aplikaci v protokolech na straně serveru.
+ 1. Pokud je stavový kód *200 – OK* pro prostředek, podívejte se na obsah odpovědi v vývojářských nástrojích prohlížeče a zkontrolujte, jestli se obsah shoduje s očekávanými daty. Běžným problémem je například nesprávně nakonfigurovaná směrování, takže požadavky vrátí vaše `index.html` data i pro jiné soubory. Ujistěte se, že odpovědi na `.wasm` požadavky jsou binární soubory WebAssembly a že odpovědi na `.dll` požadavky jsou binární soubory sestavení .NET. V takovém případě máte k diagnostice problém s směrováním na straně serveru.
+
+Pokud potvrdíte, že server vrací plausibly správná data, musí být něco jiného, než je třeba upravit obsah mezi sestavením a doručením souboru. Postup pro prošetření:
+
+ * Projděte si mechanismus sestavení sada nástrojů and Deployment v případě, že upravujete soubory po sestavení souborů. Příkladem je, že Git transformuje konce řádků souboru, jak je popsáno výše.
+ * V případě, že jsou nastavená tak, aby se odpovědi dynamicky měnily (například pokus o minimalizuje HTML), Projděte si konfiguraci webového serveru nebo CDN. Pro webový server je to pro implementaci komprese HTTP nutné `content-encoding: br` `content-encoding: gzip` , protože to neovlivní výsledek po dekompresi. U webového serveru ale *není* dobré upravovat nekomprimovaná data.
+
+### <a name="disable-integrity-checking-for-non-pwa-apps"></a>Zakázat kontrolu integrity pro aplikace, které nejsou PWA
+
+Ve většině případů nevypnete kontrolu integrity. Zakázáním kontroly integrity se nevyřeší základní problém, který způsobil neočekávané odpovědi, a vede ke ztrátě výše uvedených výhod.
+
+Můžou nastat případy, kdy se webový server nemůže spoléhat na to, že vrátí konzistentní odpovědi, a nemáte žádnou volbu, ale zakážete kontroly integrity. Chcete-li zakázat kontroly integrity, přidejte následující do skupiny vlastností v Blazor WebAssembly `.csproj` souboru projektu:
+
+```xml
+<BlazorCacheBootResources>false</BlazorCacheBootResources>
+```
+
+`BlazorCacheBootResources` také zakáže Blazor výchozí chování ukládání do mezipaměti `.dll` , `.wasm` a dalších souborů na základě jejich hash SHA-256, protože tato vlastnost označuje, že se na správnost nedají spoléhat hodnoty hash SHA-256. I s tímto nastavením může normální mezipaměť protokolu HTTP v prohlížeči pořád tyto soubory ukládat do mezipaměti, ale bez ohledu na to, jestli se k tomu dojde, závisí na konfiguraci webového serveru a na `cache-control` hlavičkách, které obsluhuje.
+
+> [!NOTE]
+> `BlazorCacheBootResources`Vlastnost nevypne kontroly integrity pro [progresivní webové aplikace (PWAs)](xref:blazor/progressive-web-app). Pokyny týkající se PWAs najdete v části [zakázání kontroly integrity pro PWAs](#disable-integrity-checking-for-pwas) .
+
+### <a name="disable-integrity-checking-for-pwas"></a>Zakázat kontrolu integrity pro PWAs
+
+BlazorŠablona progresivní webové aplikace (PWA) obsahuje navrhovaný `service-worker.published.js` soubor, který je zodpovědný za načítání a ukládání souborů aplikace pro použití v režimu offline. Jedná se o samostatný proces z normálního spouštěcího mechanismu aplikace a má svou vlastní samostatnou logiku kontroly integrity.
+
+Uvnitř `service-worker.published.js` souboru je k dispozici následující řádek:
+
+```javascript
+.map(asset => new Request(asset.url, { integrity: asset.hash }));
+```
+
+Chcete-li zakázat kontrolu integrity, odeberte `integrity` parametr změnou řádku na následující:
+
+```javascript
+.map(asset => new Request(asset.url));
+```
+
+Opět se zakazováním kontroly integrity znamená, že ztratíte bezpečnostní záruky, které nabízí kontrola integrity. Například existuje riziko, že pokud je v prohlížeči uživatele mezipaměť aplikace do mezipaměti přesně v okamžiku, kdy nasazujete novou verzi, mohli byste ukládat do mezipaměti některé soubory ze starého nasazení a některé z nového nasazení. Pokud k tomu dojde, aplikace se zablokuje v nefunkčním stavu, dokud nenainstalujete další aktualizaci.
